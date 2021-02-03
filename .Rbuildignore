@@ -1,0 +1,11 @@
+^.DS_Store$
+^LICENSE\.md$
+^funbiogeo.Rproj$
+^README\.Rmd$
+^README.html$
+^.*\.Rproj$
+^\.Rproj\.user$
+^\.github$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
