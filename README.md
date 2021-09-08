@@ -6,6 +6,7 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/FRBCesab/funbiogeo/workflows/R-CMD-check/badge.svg)](https://github.com/FRBCesab/funbiogeo/actions)
+[![codecov](https://codecov.io/gh/FRBCesab/funbiogeo/branch/main/graph/badge.svg?token=JPXXVNMAJ0)](https://codecov.io/gh/FRBCesab/funbiogeo)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/funbiogeo)](https://CRAN.R-project.org/package=funbiogeo)
 [![License: GPL
