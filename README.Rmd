@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# funbiogeo
+# `funbiogeo` - helping with functional biogeography
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/FRBCesab/funbiogeo/workflows/R-CMD-check/badge.svg)](https://github.com/FRBCesab/funbiogeo/actions)
@@ -24,22 +24,30 @@ knitr::opts_chunk$set(
 
 ## Overview
 
-Coming soon...
+`funbiogeo` aims to be a package to help with analyses in functional biogeography (Violle et al. 2014).
 
-## Prerequisites
+funbiogeo helps to load and combine data, computing trait coverage, as well as computing functional diversity indices, drawing maps, and upscaling assemblages.
 
-Coming soon...
 
 ## Installation
 
+For the moment `funbiogeo` is not on CRAN so you have to install it from GitHub.
+
 ```{r eval=FALSE}
-install.packages("remotes")
+# install.packages("remotes")  # Run this line if 'remotes' pkg is not installed
 remotes::install_github("FRBCesab/funbiogeo")
 ```
 
+
 ## Getting started
 
-Coming soon...
+Please refer to the ["Getting started" vignette](https://frbcesab.github.io/funbiogeo/).
+
+
+## References
+
+Violle, C., Reich, P. B., Pacala, S. W., Enquist, B. J., & Kattge, J. (2014). The emergence and promise of functional biogeography. Proceedings of the National Academy of Sciences, 111(38), 13690–13696. https://doi.org/10.1073/pnas.1415442111
+
 
 ## Code of Conduct
 
