@@ -27,7 +27,7 @@ knitr::opts_chunk$set(
 
 `funbiogeo` aims to be a package to help with analyses in functional biogeography (Violle et al. 2014).
 
-`funbiogeo` helps to load and combine data, computing trait coverage, as well as computing functional diversity indices, drawing maps, and upscaling assemblages. To know what features are planned in the future you can refer to our [Roadmap wiki page](https://github.com/FRBCesab/funbiogeo/wiki/Roadmap).
+`funbiogeo` helps to load and combine data, computing trait coverage, as well as computing functional diversity indices, drawing maps, correlate them with the environment, and upscaling assemblages. To know what features are planned in the future you can refer to our [Roadmap wiki page](https://github.com/FRBCesab/funbiogeo/wiki/Roadmap).
 
 
 ## Installation

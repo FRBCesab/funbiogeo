@@ -27,10 +27,12 @@ jobs:
         uses: r-lib/actions/setup-renv@v1
 
       - name: Render Rmarkdown files
+        shell: bash
         run: |
           Rscript -e 'rmarkdown::render("README.Rmd")'
 
       - name: Commit results
+        shell: bash
         run: |
           git config --local user.name "$GITHUB_ACTOR"
           git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
