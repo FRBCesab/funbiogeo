@@ -75,32 +75,48 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="funbiogeo" class="section level1">
+<div id="funbiogeo---helping-with-functional-biogeography" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#funbiogeo" class="anchor"></a>funbiogeo</h1></div>
+<a href="#funbiogeo---helping-with-functional-biogeography" class="anchor"></a><code>funbiogeo</code> - helping with functional biogeography</h1></div>
 <!-- badges: start -->
 
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
-<p>Coming soon…</p>
-</div>
-<div id="prerequisites" class="section level2">
-<h2 class="hasAnchor">
-<a href="#prerequisites" class="anchor"></a>Prerequisites</h2>
-<p>Coming soon…</p>
+<p><code>funbiogeo</code> aims to be a package to help with analyses in functional biogeography (Violle et al. 2014).</p>
+<p><code>funbiogeo</code> helps to load and combine data, computing trait coverage, as well as computing functional diversity indices, drawing maps, correlate them with the environment, and upscaling assemblages. To know what features are planned in the future you can refer to our <a href="https://github.com/FRBCesab/funbiogeo/wiki/Roadmap">Roadmap wiki page</a>.</p>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
+<p>For the moment <code>funbiogeo</code> is not on CRAN so you have to install it from GitHub.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="co"># install.packages("remotes")  # Run this line if 'remotes' pkg is not installed</span>
 <span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"FRBCesab/funbiogeo"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="getting-started" class="section level2">
 <h2 class="hasAnchor">
 <a href="#getting-started" class="anchor"></a>Getting started</h2>
-<p>Coming soon…</p>
+<p>Please refer to the <a href="https://frbcesab.github.io/funbiogeo/">“Getting started” vignette</a>.</p>
+</div>
+<div id="related-packages" class="section level2">
+<h2 class="hasAnchor">
+<a href="#related-packages" class="anchor"></a>Related packages</h2>
+<p>To understand better our working philosophy you can refer to our <a href="https://github.com/FRBCesab/funbiogeo/wiki/Design-Principles">Design principles wiki page</a>.</p>
+<p><code>funbiogeo</code> relies on other packages to provide critical features:</p>
+<ul>
+<li>
+<a href="https://github.com/Bisaloo/fundiversity"><code>fundiversity</code></a> computes functional diversity indices.</li>
+<li>
+<a href="https://github.com/Rekyt/funrar"><code>funrar</code></a> computes functional originality indices.</li>
+<li>
+<a href="https://github.com/CmlMagneville/mFD"><code>mFD</code></a> computes functional diversity indices.</li>
+</ul>
+</div>
+<div id="references" class="section level2">
+<h2 class="hasAnchor">
+<a href="#references" class="anchor"></a>References</h2>
+<p>Violle, C., Reich, P. B., Pacala, S. W., Enquist, B. J., &amp; Kattge, J. (2014). The emergence and promise of functional biogeography. Proceedings of the National Academy of Sciences, 111(38), 13690–13696. <a href="https://doi.org/10.1073/pnas.1415442111" class="uri">https://doi.org/10.1073/pnas.1415442111</a></p>
 </div>
 <div id="code-of-conduct" class="section level2">
 <h2 class="hasAnchor">
