@@ -1,0 +1,33 @@
+---
+title: "funbiogeo"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{funbiogeo}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(funbiogeo)
+```
+
+Example analyses we can do with funbiogeo.
+
+# Loading the data
+
+# Selecting sites based on trait coverage
+
+# Computing functional diversity metrics
+
+# Relate functional diversity to environment
+
+# Mapping functional diversity
+
+# Upscale data
