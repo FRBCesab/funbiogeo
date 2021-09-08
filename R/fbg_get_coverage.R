@@ -24,20 +24,23 @@ fbg_get_coverage = function(site_sp, traits) {
   species = list_common_species(colnames(site_sp), rownames(traits))
   
   # Subset data with common species
-  traits  = traits[species,]
+  traits  = traits[species,, drop = FALSE]
   
   # Count all species per site
   site_total_abundance = rowSums(site_sp, na.rm = TRUE)
   
   # Count species with traits per site
-  site_cover_abundance = rowSums(site_sp[, species], na.rm = TRUE)
+  site_cover_abundance = rowSums(site_sp[, species, drop = FALSE], na.rm = TRUE)
   
   # Compute trait coverage
   trait_coverage = site_cover_abundance/site_total_abundance
   
   # Transforming into tidy format
-  trait_coverage = stack(trait_coverage)
-  colnames(trait_coverage) = c("trait_coverage", "site")
+  trait_coverage = data.frame(
+    site = names(trait_coverage),
+    trait_coverage = trait_coverage,
+  stringsAsFactors = FALSE
+  )
   
-  return(trait_coverage[, c(2, 1)])
+  return(trait_coverage)
 }
