@@ -12,29 +12,20 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Setup pandoc
-        uses: r-lib/actions/setup-pandoc@v1
-
-      - name: Setup R
-        uses: r-lib/actions/setup-r@v1
-
-      - name: Setup Renv
-        uses: r-lib/actions/setup-renv@v1
-
-      - name: Render Rmarkdown files
-        shell: bash
+      - uses: actions/checkout@v2
+      - uses: r-lib/actions/setup-r@v1
+      - uses: r-lib/actions/setup-pandoc@v1
+      - name: Install rmarkdown, remotes, and the local package
         run: |
-          Rscript -e 'rmarkdown::render("README.Rmd")'
-
+          install.packages("remotes")
+          remotes::install_local(".")
+          remotes::install_cran("rmarkdown")
+        shell: Rscript {0}
+      - name: Render README
+        run: Rscript -e 'rmarkdown::render("README.Rmd")'
       - name: Commit results
-        shell: bash
         run: |
-          git config --local user.name "$GITHUB_ACTOR"
-          git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
-          git commit README.Rmd README.md -m 'Re-build README' || echo "No changes to commit"
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git commit README.md -m 'Re-build README.Rmd' || echo "No changes to commit"
           git push origin || echo "No changes to commit"

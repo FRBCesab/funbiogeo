@@ -49,6 +49,8 @@ Please refer to the ["Getting started" vignette](https://frbcesab.github.io/funb
 
 To understand better our working philosophy you can refer to our [Design principles wiki page](https://github.com/FRBCesab/funbiogeo/wiki/Design-Principles).
 
+`funbiogeo` relies on other packages to provide critical features:
+
 * [`fundiversity`](https://github.com/Bisaloo/fundiversity) computes functional diversity indices.
 * [`funrar`](https://github.com/Rekyt/funrar) computes functional originality indices.
 * [`mFD`](https://github.com/CmlMagneville/mFD) computes functional diversity indices.
