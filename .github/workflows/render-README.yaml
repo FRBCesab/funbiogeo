@@ -2,7 +2,7 @@
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
   push:
-    paths: ['README.Rmd']
+    paths: 'README.Rmd'
 
 name: render-README
 
@@ -17,20 +17,22 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: r-lib/actions/setup-pandoc@v1
+      - name: Setup pandoc
+        uses: r-lib/actions/setup-pandoc@v1
 
-      - uses: r-lib/actions/setup-r@v1
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v1
 
-      - uses: r-lib/actions/setup-renv@v1
+      - name: Setup Renv
+        uses: r-lib/actions/setup-renv@v1
 
       - name: Render Rmarkdown files
         run: |
-          RMD_PATH=($(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '[.]Rmd$'))
-          Rscript -e 'for (f in commandArgs(TRUE)) if (file.exists(f)) rmarkdown::render(f)' ${RMD_PATH[*]}
+          Rscript -e 'rmarkdown::render("README.Rmd")'
 
       - name: Commit results
         run: |
           git config --local user.name "$GITHUB_ACTOR"
           git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
-          git commit ${RMD_PATH[*]/.Rmd/.md} -m 'Re-build README' || echo "No changes to commit"
+          git commit README.Rmd README.md -m 'Re-build README' || echo "No changes to commit"
           git push origin || echo "No changes to commit"
