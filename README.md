@@ -48,11 +48,11 @@ page](https://github.com/FRBCesab/funbiogeo/wiki/Design-Principles).
 
 `funbiogeo` relies on other packages to provide critical features:
 
-  - [`fundiversity`](https://github.com/Bisaloo/fundiversity) computes
+-   [`fundiversity`](https://github.com/Bisaloo/fundiversity) computes
     functional diversity indices.
-  - [`funrar`](https://github.com/Rekyt/funrar) computes functional
+-   [`funrar`](https://github.com/Rekyt/funrar) computes functional
     originality indices.
-  - [`mFD`](https://github.com/CmlMagneville/mFD) computes functional
+-   [`mFD`](https://github.com/CmlMagneville/mFD) computes functional
     diversity indices.
 
 ## References
@@ -60,7 +60,7 @@ page](https://github.com/FRBCesab/funbiogeo/wiki/Design-Principles).
 Violle, C., Reich, P. B., Pacala, S. W., Enquist, B. J., & Kattge, J.
 (2014). The emergence and promise of functional biogeography.
 Proceedings of the National Academy of Sciences, 111(38), 13690–13696.
-<https://doi.org/10.1073/pnas.1415442111>
+<https://doi.org/10.1073/pnas.1415442111>.
 
 ## Code of Conduct
 
