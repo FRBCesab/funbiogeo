@@ -1,82 +1,235 @@
-test_that("check_site_sp() works", {
-  # Wrong input
-  expect_error(
-    check_site_sp("a"),
-    "Provided site-species object is not a numeric matrix or a data.frame",
-    fixed = TRUE
-  )
-  expect_error(
-    check_site_sp(data.frame("a")),
-    "Provided site-species object is not a numeric matrix or a data.frame",
-    fixed = TRUE
-  )
+test_that("check_sites_species() works", {
   
-  # Matrix has no rows and/or columns
+  # Wrong input type ----
+  
   expect_error(
-    check_site_sp(matrix(ncol = 0, nrow = 0)),
-    "Provided site-species object should have at least one row and one column",
-    fixed = TRUE
-  )
+    check_sites_species("a"),
+    "The sites x species object must be a matrix or a data.frame",
+    fixed = TRUE)
+  
   expect_error(
-    check_site_sp(matrix(ncol = 0, nrow = 1)),
-    "Provided site-species object should have at least one row and one column",
-    fixed = TRUE
-  )
+    check_sites_species(1:10),
+    "The sites x species object must be a matrix or a data.frame",
+    fixed = TRUE)
+  
   expect_error(
-    check_site_sp(matrix(ncol = 1, nrow = 0)),
-    "Provided site-species object should have at least one row and one column",
-    fixed = TRUE
-  )
+    check_sites_species(list()),
+    "The sites x species object must be a matrix or a data.frame",
+    fixed = TRUE)
   
   
-  # site-species should not contain negative values
-  expect_error(
-    check_site_sp(matrix(-1)),
-    "Provided site-species matrix contains negative values",
-    fixed = TRUE
-  )
-  expect_error(
-    check_site_sp(matrix(c(-1, NA_real_))),
-    "Provided site-species matrix contains negative values",
-    fixed = TRUE
-  )
+  # Matrix has no rows and/or columns ----
   
-  # Correct input
-  expect_silent(check_site_sp(matrix(1)))
-  expect_silent(check_site_sp(matrix(1L)))
-  expect_silent(check_site_sp(matrix(NA_real_)))
-  expect_silent(check_site_sp(matrix(c(1, NA_real_))))
+  expect_error(
+    check_sites_species(matrix(ncol = 0, nrow = 0)),
+    "The sites x species object should have at least one row and one column",
+    fixed = TRUE)
+  
+  expect_error(
+    check_sites_species(matrix(ncol = 0, nrow = 1)),
+    "The sites x species object should have at least one row and one column",
+    fixed = TRUE)
+  
+  expect_error(
+    check_sites_species(matrix(ncol = 1, nrow = 0)),
+    "The sites x species object should have at least one row and one column",
+    fixed = TRUE)
+  
+  
+  # Check for sites and species names ----
+  
+  mat <- matrix(1:10, ncol = 2)
+  dat <- as.data.frame(mat)
+  
+  expect_error(
+    check_sites_species(mat),
+    "The sites x species object must have row names (sites names)",
+    fixed = TRUE)
+  
+  expect_error(
+    check_sites_species(dat),
+    "The sites x species object must have row names (sites names)",
+    fixed = TRUE)
+  
+  mat <- matrix(1:10, ncol = 2)
+  rownames(mat) <- paste0("site_", 1:nrow(mat))
+  dat <- as.data.frame(mat)
+  
+  expect_error(
+    check_sites_species(mat),
+    "The sites x species object must have column names (species names)",
+    fixed = TRUE)
+  
+  expect_error(
+    check_sites_species(dat),
+    "The sites x species object must have column names (species names)",
+    fixed = TRUE)
+  
+  colnames(dat) <- NULL
+  
+  expect_error(
+    check_sites_species(dat),
+    "The sites x species object must have column names (species names)",
+    fixed = TRUE)
+  
+  
+  # Check for numeric ----
+  
+  mat <- as.data.frame(matrix(1:10, ncol = 2))
+  rownames(mat) <- paste0("site_", 1:nrow(mat))
+  colnames(mat) <- paste0("species_", LETTERS[1:ncol(mat)])
+  mat$"site" <- rownames(mat)
+  
+  expect_error(
+    check_sites_species(mat),
+    paste0("The sites x species object must contain only numeric values. ", 
+           "Sites names must be provided as row names"),
+    fixed = TRUE)
+  
+  
+  # Matrix should not contain negative values ----
+  
+  mat <- matrix(c(1:9, -1), ncol = 2)
+  rownames(mat) <- paste0("site_", 1:nrow(mat))
+  colnames(mat) <- paste0("species_", LETTERS[1:ncol(mat)])
+  
+  expect_error(
+    check_sites_species(mat),
+    "The sites x species object cannot contain negative values",
+    fixed = TRUE)
+  
+  mat[1, 1] <- NA
+  
+  expect_error(
+    check_sites_species(mat),
+    "The sites x species object cannot contain negative values",
+    fixed = TRUE)
+  
+  
+  # Correct input ----
+  
+  mat <- matrix(1:10, ncol = 2)
+  rownames(mat) <- paste0("site_", 1:nrow(mat))
+  colnames(mat) <- paste0("species_", LETTERS[1:ncol(mat)])
+  
+  expect_silent(check_sites_species(mat))
+  
+  mat[1, 1] <- NA
+  
+  expect_silent(check_sites_species(mat))
+  
+  mat <- matrix(c(1, rep(NA, 9)), ncol = 2)
+  rownames(mat) <- paste0("site_", 1:nrow(mat))
+  colnames(mat) <- paste0("species_", LETTERS[1:ncol(mat)])
+  
+  expect_silent(check_sites_species(mat))
+  
 })
 
-test_that("check_traits() works", {
-  # Matrix or data.frame has no rows and/or columns
-  expect_error(
-    check_traits(matrix(ncol = 0, nrow = 0)),
-    paste0("Provided species-traits object should have at least one row and ",
-           "one column"),
-    fixed = TRUE
-  )
-  expect_error(
-    check_traits(matrix(ncol = 0, nrow = 1)),
-    paste0("Provided species-traits object should have at least one row and ",
-           "one column"),
-    fixed = TRUE
-  )
-  expect_error(
-    check_traits(matrix(ncol = 1, nrow = 0)),
-    paste0("Provided species-traits object should have at least one row and ",
-           "one column"),
-    fixed = TRUE
-  )
-  expect_error(
-    check_traits(data.frame()),
-    paste0("Provided species-traits object should have at least one row and ",
-           "one column"),
-    fixed = TRUE
-  )
+
+
+test_that("check_species_traits() works", {
   
-  # Correct Input
-  expect_silent(matrix(1))
-  expect_silent(matrix(1L))
-  expect_silent(data.frame(1))
+  
+  # Wrong input type ----
+  
+  expect_error(
+    check_species_traits("a"),
+    "The species x traits object must be a matrix or a data.frame",
+    fixed = TRUE)
+  
+  expect_error(
+    check_species_traits(1:10),
+    "The species x traits object must be a matrix or a data.frame",
+    fixed = TRUE)
+  
+  expect_error(
+    check_species_traits(list()),
+    "The species x traits object must be a matrix or a data.frame",
+    fixed = TRUE)
+  
+  
+  # Matrix or data.frame has no rows and/or columns ----
+  
+  expect_error(
+    check_species_traits(matrix(ncol = 0, nrow = 0)),
+    paste0("The species x traits object should have at least one row and ",
+           "one column"),
+    fixed = TRUE)
+  
+  expect_error(
+    check_species_traits(matrix(ncol = 0, nrow = 1)),
+    paste0("The species x traits object should have at least one row and ",
+           "one column"),
+    fixed = TRUE)
+  
+  expect_error(
+    check_species_traits(matrix(ncol = 1, nrow = 0)),
+    paste0("The species x traits object should have at least one row and ",
+           "one column"),
+    fixed = TRUE)
+  
+  expect_error(
+    check_species_traits(data.frame()),
+    paste0("The species x traits object should have at least one row and ",
+           "one column"),
+    fixed = TRUE)
+  
+  
+  # Check for sites and species names ----
+  
+  mat <- matrix(1:10, ncol = 2)
+  dat <- as.data.frame(mat)
+  
+  expect_error(
+    check_species_traits(mat),
+    "The species x traits object must have row names (sites names)",
+    fixed = TRUE)
+  
+  expect_error(
+    check_species_traits(dat),
+    "The species x traits object must have row names (sites names)",
+    fixed = TRUE)
+  
+  mat <- matrix(1:10, ncol = 2)
+  rownames(mat) <- paste0("species_", 1:nrow(mat))
+  dat <- as.data.frame(mat)
+  
+  expect_error(
+    check_species_traits(mat),
+    "The species x traits object must have column names (species names)",
+    fixed = TRUE)
+  
+  expect_error(
+    check_species_traits(dat),
+    "The species x traits object must have column names (species names)",
+    fixed = TRUE)
+  
+  colnames(dat) <- NULL
+  
+  expect_error(
+    check_species_traits(dat),
+    "The species x traits object must have column names (species names)",
+    fixed = TRUE)
+  
+  
+  # Correct Input ----
+
+  mat <- matrix(1:10, ncol = 2)
+  rownames(mat) <- paste0("species_", 1:nrow(mat))
+  colnames(mat) <- paste0("trait_", LETTERS[1:ncol(mat)])
+  
+  expect_silent(check_species_traits(mat))
+  
+  dat <- as.data.frame(mat)
+  
+  expect_silent(check_species_traits(dat))
+  
+  dat$"trait_3" <- LETTERS[1:nrow(dat)]
+  
+  expect_silent(check_species_traits(dat))
+  
+  dat[1, 3] <- NA
+  
+  expect_silent(check_species_traits(dat))
 })
