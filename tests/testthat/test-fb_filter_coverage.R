@@ -8,6 +8,18 @@ test_that("fb_filter_coverage() works", {
   # Wrong inputs ----
   
   expect_error(
+    fb_filter_coverage(species_traits = species_traits),
+    "Argument 'sites_species' (sites x species matrix) is required",
+    fixed = TRUE
+  )
+  
+  expect_error(
+    fb_filter_coverage(sites_species = sites_species),
+    "Argument 'species_traits' (species x traits matrix) is required",
+    fixed = TRUE
+  )
+  
+  expect_error(
     fb_filter_coverage(sites_species, species_traits),
     "The sites x species object must have row names (sites names)",
     fixed = TRUE
