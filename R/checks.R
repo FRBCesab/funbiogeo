@@ -151,6 +151,7 @@ check_species_traits <- function(species_traits) {
 #' @return NULL
 #' 
 #' @examples
+#' @noRd
 check_site_locations <- function(site_locations) {
   
   if (!inherits(site_locations, "sf")) {

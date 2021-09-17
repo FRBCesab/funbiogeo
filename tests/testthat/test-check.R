@@ -126,7 +126,6 @@ test_that("check_sites_species() works", {
   colnames(mat) <- paste0("species_", LETTERS[1:ncol(mat)])
   
   expect_silent(check_sites_species(mat))
-  
 })
 
 
@@ -244,6 +243,8 @@ test_that("check_species_traits() works", {
 # Tests for check site x locations ---------------------------------------------
 
 test_that("check_site_locations() works", {
+  
+  skip_if_not_installed("sf")
   
   # Wrong input ----
   
