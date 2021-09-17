@@ -139,3 +139,23 @@ check_species_traits <- function(species_traits) {
   
   invisible(NULL)
 }
+
+
+
+#' Check site x locations object format
+#'
+#' Errors if the object is not an `sf` object and returns NULL otherwise.
+#' 
+#' @param site_locations an `sf` object with each sites defined as points
+#'
+#' @return NULL
+#' 
+#' @examples
+check_site_locations <- function(site_locations) {
+  
+  if (!inherits(site_locations, "sf")) {
+    stop("The site x locations object should be an 'sf' object", call. = FALSE)
+  }
+  
+  invisible(NULL)
+}
