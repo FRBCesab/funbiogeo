@@ -1,3 +1,4 @@
+# Tests for check site x species  ----------------------------------------------
 test_that("check_sites_species() works", {
   
   # Wrong input type ----
@@ -114,6 +115,8 @@ test_that("check_sites_species() works", {
   
   expect_silent(check_sites_species(mat))
   
+  expect_equal(check_sites_species(mat), NULL)
+  
   mat[1, 1] <- NA
   
   expect_silent(check_sites_species(mat))
@@ -127,6 +130,7 @@ test_that("check_sites_species() works", {
 })
 
 
+# Tests for check species x traits ---------------------------------------------
 
 test_that("check_species_traits() works", {
   
@@ -221,6 +225,8 @@ test_that("check_species_traits() works", {
   
   expect_silent(check_species_traits(mat))
   
+  expect_equal(check_species_traits(mat), NULL)
+  
   dat <- as.data.frame(mat)
   
   expect_silent(check_species_traits(dat))
@@ -232,4 +238,36 @@ test_that("check_species_traits() works", {
   dat[1, 3] <- NA
   
   expect_silent(check_species_traits(dat))
+})
+
+
+# Tests for check site x locations ---------------------------------------------
+
+test_that("check_site_locations() works", {
+  
+  # Wrong input ----
+  
+  expect_error(
+    check_site_locations("a"),
+    "The site x locations object should be an 'sf' object",
+    fixed = TRUE
+  )
+  
+  expect_error(
+    check_site_locations(NULL),
+    "The site x locations object should be an 'sf' object",
+    fixed = TRUE
+  )
+  
+  # Good input ---
+  
+  pt1 = sf::st_point(c(0,1))
+  pt2 = sf::st_point(c(1,1))
+  d = data.frame(a = 1:2)
+  d$geom = sf::st_sfc(pt1, pt2)
+  df = sf::st_as_sf(d)
+  
+  expect_silent(check_site_locations(df))
+  
+  expect_equal(check_site_locations(df), NULL)
 })
