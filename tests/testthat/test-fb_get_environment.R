@@ -1,14 +1,14 @@
 test_that("fb_get_environment() works", {
   
   skip_if_not_installed("sf")
-  skip_if_not_installed("raster")
+  skip_if_not_installed("terra")
   
   
   # Initial data ----
   
-  srtm = raster::raster("data_srtm.tif")
+  srtm = terra::rast("data_srtm.tif")
   zion = sf::read_sf("data_zion_points.gpkg")
-  zion = sf::st_transform(zion, raster::crs(srtm))
+  zion = sf::st_transform(zion, terra::crs(srtm))
   
   
   # Wrong input ----
