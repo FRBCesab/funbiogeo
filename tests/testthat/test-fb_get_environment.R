@@ -7,7 +7,7 @@ test_that("fb_get_environment() works", {
   # Initial data ----
   
   srtm = raster::raster("data_srtm.tif")
-  zion = sf::st_read("data_zion_points.gpkg")
+  zion = sf::read_sf("data_zion_points.gpkg")
   zion = sf::st_transform(zion, raster::crs(srtm))
   
   
