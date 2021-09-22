@@ -3,3 +3,4 @@
 export(fb_cwm)
 export(fb_filter_coverage)
 export(fb_get_coverage)
+export(fb_get_environment)
