@@ -29,15 +29,18 @@ BugReports: https://github.com/frbcesab/funbiogeo/issues
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
+Depends: 
+    R (>= 2.10)
+Imports:
+    sf,
+    terra,
+    tidyr,
+    tidyselect
 Suggests:
     knitr,
     rmarkdown,
-    sf,
-    terra,
     testthat (>= 3.0.0)
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 VignetteBuilder: knitr
 Config/testthat/edition: 3
-Depends: 
-    R (>= 2.10)
