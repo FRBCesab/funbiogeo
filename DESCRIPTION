@@ -32,6 +32,8 @@ LazyData: true
 Suggests:
     knitr,
     rmarkdown,
+    sf,
+    terra,
     testthat (>= 3.0.0)
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
