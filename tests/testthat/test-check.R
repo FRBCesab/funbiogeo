@@ -262,11 +262,11 @@ test_that("check_sites_locations() works", {
   
   # Good input ---
   
-  pt1 = sf::st_point(c(0,1))
-  pt2 = sf::st_point(c(1,1))
-  d = data.frame(a = 1:2)
-  d$geom = sf::st_sfc(pt1, pt2)
-  df = sf::st_as_sf(d)
+  pt1 <- sf::st_point(c(0,1))
+  pt2 <- sf::st_point(c(1,1))
+  d <- data.frame(a = 1:2)
+  d$geom <- sf::st_sfc(pt1, pt2)
+  df <- sf::st_as_sf(d)
   
   expect_silent(check_sites_locations(df))
   
