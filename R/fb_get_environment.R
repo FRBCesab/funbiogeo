@@ -1,19 +1,26 @@
 #' Extract average raster values at sites locations
 #'
-#' @param site_locations an `sf` object with each sites defined as points
+#' @param sites_locations an `sf` object with each sites defined as points
+#' 
 #' @param environment_raster a `raster` object of environmental values
 #'
-#' @return a `data.frame` with average environmental values per site
+#' @return A `data.frame` with average environmental values (columns) per site
+#' (rows).
+#' 
 #' @export
-fb_get_environment = function(site_locations, environment_raster) {
+#' 
+#' @examples
+#' ## Add an example ----
+
+fb_get_environment <- function(sites_locations, environment_raster) {
   
   if (!requireNamespace("sf") | !requireNamespace("terra")) {
     stop("Packages 'sf' and 'terra' should be installed to use this function",
          call. = FALSE)
   }
   
-  if (missing(site_locations)) {
-    stop("Argument 'site_locations' (sites x location object) is required",
+  if (missing(sites_locations)) {
+    stop("Argument 'sites_locations' (sites x locations object) is required",
          call. = FALSE)
   }
   
@@ -22,10 +29,10 @@ fb_get_environment = function(site_locations, environment_raster) {
          call. = FALSE)
   }
   
-  check_site_locations(site_locations)
+  check_sites_locations(sites_locations)
   
   terra::extract(
-    environment_raster, terra::vect(site_locations), fun = mean, na.rm = TRUE,
+    environment_raster, terra::vect(sites_locations), fun = mean, na.rm = TRUE,
     df = TRUE
   )
 }

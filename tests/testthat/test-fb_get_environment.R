@@ -6,9 +6,9 @@ test_that("fb_get_environment() works", {
   
   # Initial data ----
   
-  srtm = terra::rast("data_srtm.tif")
-  zion = sf::read_sf("data_zion_points.gpkg")
-  zion = sf::st_transform(zion, terra::crs(srtm))
+  srtm <- terra::rast("data_srtm.tif")
+  zion <- sf::read_sf("data_zion_points.gpkg")
+  zion <- sf::st_transform(zion, terra::crs(srtm))
   
   
   # Wrong input ----
@@ -16,11 +16,11 @@ test_that("fb_get_environment() works", {
   # Missing input
   expect_error(
     fb_get_environment(environment_raster = srtm),
-    "Argument 'site_locations' (sites x location object) is required",
+    "Argument 'sites_locations' (sites x locations object) is required",
     fixed = TRUE
   )
   expect_error(
-    fb_get_environment(site_locations = zion),
+    fb_get_environment(sites_locations = zion),
     "Argument 'environment_raster' (environmental raster) is required",
     fixed = TRUE
   )

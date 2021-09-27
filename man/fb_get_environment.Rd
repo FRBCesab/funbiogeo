@@ -4,16 +4,20 @@
 \alias{fb_get_environment}
 \title{Extract average raster values at sites locations}
 \usage{
-fb_get_environment(site_locations, environment_raster)
+fb_get_environment(sites_locations, environment_raster)
 }
 \arguments{
-\item{site_locations}{an \code{sf} object with each sites defined as points}
+\item{sites_locations}{an \code{sf} object with each sites defined as points}
 
 \item{environment_raster}{a \code{raster} object of environmental values}
 }
 \value{
-a \code{data.frame} with average environmental values per site
+A \code{data.frame} with average environmental values (columns) per site
+(rows).
 }
 \description{
 Extract average raster values at sites locations
+}
+\examples{
+## Add an example ----
 }
