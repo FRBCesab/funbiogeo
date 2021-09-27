@@ -70,11 +70,6 @@ fb_format_sites_species <- function(data, site, species, value,
     stop("Argument 'site' must be a character of length 1 (column name)", 
          call. = FALSE)
   }
-  
-  if (is.na(site)) {
-    stop("Argument 'site' must be a character of length 1 (column name)", 
-         call. = FALSE)
-  }
 
   if (!(site %in% colnames(data))) {
     stop(paste0("The column '", site, "' is absent from 'data'"), 
@@ -92,11 +87,6 @@ fb_format_sites_species <- function(data, site, species, value,
   }
   
   if (length(species) != 1) {
-    stop("Argument 'species' must be a character of length 1 (column name)", 
-         call. = FALSE)
-  }
-  
-  if (is.na(species)) {
     stop("Argument 'species' must be a character of length 1 (column name)", 
          call. = FALSE)
   }
@@ -121,11 +111,6 @@ fb_format_sites_species <- function(data, site, species, value,
          call. = FALSE)
   }
   
-  if (is.na(value)) {
-    stop("Argument 'value' must be a character of length 1 (column name)", 
-         call. = FALSE)
-  }
-  
   if (!(value %in% colnames(data))) {
     stop(paste0("The column '", value, "' is absent from 'data'"), 
          call. = FALSE)
@@ -138,10 +123,6 @@ fb_format_sites_species <- function(data, site, species, value,
   
   
   if (!is.logical(na_to_zero)) {
-    stop("Argument 'na_to_zero' must be TRUE or FALSE", call. = FALSE)
-  }
-  
-  if (length(na_to_zero) != 1) {
     stop("Argument 'na_to_zero' must be TRUE or FALSE", call. = FALSE)
   }
 
