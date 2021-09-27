@@ -26,5 +26,10 @@ abundance/coverage considering all provided traits.
 ...
 }
 \examples{
-## Add an example ----
+library("funbiogeo")
+
+data("species_occs")
+data("species_traits")
+
+cover <- fb_filter_coverage(species_occs, species_traits)
 }

@@ -19,5 +19,23 @@ A \code{data.frame} with average environmental values (columns) per site
 Extract average raster values at sites locations
 }
 \examples{
-## Add an example ----
+library("funbiogeo")
+
+data("sites_locs")
+
+## Convert data frame to sf object ----
+sites_locs_sf <- sf::st_as_sf(sites_locs, 
+                              coords = c("longitude", "latitude"))
+
+## Import climate rasters ----
+prec <- system.file("extdata", "annual_tot_prec.tif", package = "funbiogeo")
+tavg <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")
+
+layers <- terra::rast(c(tavg, prec))
+
+## Extract environment at sites ----
+sites_env <- fb_get_environment(sites_locs_sf, layers)
+
+## Add sites labels ----
+sites_env$"ID" <- rownames(sites_locs)
 }
