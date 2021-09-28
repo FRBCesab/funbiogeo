@@ -37,7 +37,7 @@ test_that("fb_filter_coverage() works", {
   
   expect_error(
     fb_filter_coverage(sites_species, species_traits),
-    "The species x traits object must have row names (sites names)",
+    "The species x traits object must have row names (species names)",
     fixed = TRUE
   )
   
@@ -46,7 +46,7 @@ test_that("fb_filter_coverage() works", {
   
   expect_error(
     fb_filter_coverage(sites_species, species_traits),
-    "The species x traits object must have column names (species names)",
+    "The species x traits object must have column names (traits names)",
     fixed = TRUE
   )
   

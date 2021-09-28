@@ -14,7 +14,12 @@
 #' @export
 #'
 #' @examples
-#' ## Add an example ----
+#' library("funbiogeo")
+#' 
+#' data("species_occs")
+#' data("species_traits")
+#' 
+#' cover <- fb_filter_coverage(species_occs, species_traits)
 
 fb_filter_coverage <- function(sites_species, species_traits, 
                                coverage_threshold = 1) {

@@ -22,7 +22,12 @@
 #' @export
 #'
 #' @examples
-#' ## Add an example ----
+#' library("funbiogeo")
+#' 
+#' data("species_occs")
+#' data("species_traits")
+#' 
+#' cover <- fb_get_coverage(species_occs, species_traits)
 
 fb_get_coverage <- function(sites_species, species_traits) {
   
@@ -72,5 +77,6 @@ fb_get_coverage <- function(sites_species, species_traits) {
   
   data.frame("site"           = names(trait_coverage), 
              "trait_coverage" = trait_coverage,
-             stringsAsFactors = FALSE)
+             stringsAsFactors = FALSE,
+             row.names = NULL)
 }

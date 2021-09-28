@@ -4,16 +4,42 @@
 \alias{fb_get_environment}
 \title{Extract average raster values at sites locations}
 \usage{
-fb_get_environment(site_locations, environment_raster)
+fb_get_environment(
+  sites_locations,
+  environment_raster,
+  crs = "+proj=longlat +datum=WGS84 +no_defs"
+)
 }
 \arguments{
-\item{site_locations}{an \code{sf} object with each sites defined as points}
+\item{sites_locations}{a \code{matrix} or \code{data.frame} with sites in rows and two
+columns: longitude and latitude. The first column must be the longitude.}
 
-\item{environment_raster}{a \code{raster} object of environmental values}
+\item{environment_raster}{a \code{SpatRaster} object (package \code{terra}). A raster
+of one or several environmental layers.}
+
+\item{crs}{a character of length 1 specifying the Coordinate Reference
+System in the PROJ4 standard.
+Default is: \code{'+proj=longlat +datum=WGS84 +no_defs'}.}
 }
 \value{
-a \code{data.frame} with average environmental values per site
+A \code{data.frame} with average environmental values (columns) per site
+(rows).
 }
 \description{
 Extract average raster values at sites locations
+}
+\examples{
+library("funbiogeo")
+
+data("sites_locs")
+
+## Import climate rasters ----
+prec <- system.file("extdata", "annual_tot_prec.tif", package = "funbiogeo")
+tavg <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")
+
+layers <- terra::rast(c(tavg, prec))
+
+## Extract environment at sites ----
+sites_env <- fb_get_environment(sites_locs, layers)
+head(sites_env)
 }

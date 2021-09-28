@@ -5,6 +5,18 @@ test_that("fb_cwm() works", {
   
   
   # Wrong inputs ----
+
+  expect_error(
+    fb_cwm(species_traits = species_traits),
+    "Argument 'sites_species' (sites x species matrix) is required",
+    fixed = TRUE
+  )
+  
+  expect_error(
+    fb_cwm(sites_species = sites_species),
+    "Argument 'species_traits' (species x traits matrix) is required",
+    fixed = TRUE
+  )
   
   expect_error(
     fb_cwm(species_traits = species_traits),
@@ -36,7 +48,7 @@ test_that("fb_cwm() works", {
   
   expect_error(
     fb_cwm(sites_species, species_traits),
-    "The species x traits object must have row names (sites names)",
+    "The species x traits object must have row names (species names)",
     fixed = TRUE
   )
   
@@ -45,7 +57,7 @@ test_that("fb_cwm() works", {
   
   expect_error(
     fb_cwm(sites_species, species_traits),
-    "The species x traits object must have column names (species names)",
+    "The species x traits object must have column names (traits names)",
     fixed = TRUE
   )
   

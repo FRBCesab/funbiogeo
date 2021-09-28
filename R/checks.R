@@ -107,12 +107,12 @@ check_species_traits <- function(species_traits) {
   if (is.matrix(species_traits)) {
     
     if (is.null(rownames(species_traits))) {
-      stop("The species x traits object must have row names (sites names)", 
+      stop("The species x traits object must have row names (species names)", 
            call. = FALSE)
     }
     
     if (is.null(colnames(species_traits))) {
-      stop("The species x traits object must have column names (species names)",
+      stop("The species x traits object must have column names (traits names)",
            call. = FALSE)
     }
   }
@@ -121,18 +121,18 @@ check_species_traits <- function(species_traits) {
   if (is.data.frame(species_traits)) {
     
     if (any(rownames(species_traits) %in% 1:nrow(species_traits))) {
-      stop("The species x traits object must have row names (sites names)", 
+      stop("The species x traits object must have row names (species names)", 
            call. = FALSE)
     }
     
     if (any(colnames(species_traits) %in% 
             paste0("V", 1:ncol(species_traits)))) {
-      stop("The species x traits object must have column names (species names)",
+      stop("The species x traits object must have column names (traits names)",
            call. = FALSE)
     }
     
     if (is.null(colnames(species_traits))) {
-      stop("The species x traits object must have column names (species names)",
+      stop("The species x traits object must have column names (traits names)",
            call. = FALSE)
     }
   }
@@ -142,19 +142,53 @@ check_species_traits <- function(species_traits) {
 
 
 
-#' Check site x locations object format
+#' Check sites x locations object format
 #'
 #' Errors if the object is not an `sf` object and returns NULL otherwise.
 #' 
-#' @param site_locations an `sf` object with each sites defined as points
+#' @param sites_locations an `sf` object with each sites defined as points
 #'
 #' @return NULL
 #' 
 #' @noRd
-check_site_locations <- function(site_locations) {
+
+check_sites_locations <- function(sites_locations) {
   
-  if (!inherits(site_locations, "sf")) {
-    stop("The site x locations object should be an 'sf' object", call. = FALSE)
+  # Check object type ----
+  
+  if (!is.data.frame(sites_locations) & !is.matrix(sites_locations)) {
+    stop("The sites x locations object must be a matrix or a data.frame", 
+         call. = FALSE)
+  }
+  
+  if (nrow(sites_locations) == 0) {
+    stop("The sites x locations object should have at least one row", 
+         call. = FALSE)
+  }
+  
+  if (ncol(sites_locations) != 2) {
+    stop("The sites x locations object should have two columns (longitude and ",
+         "latitude)", call. = FALSE)
+  }
+  
+  
+  # Check for labels (sites) ----
+  
+  if (is.matrix(sites_locations)) {
+    
+    if (is.null(rownames(sites_locations))) {
+      stop("The sites x locations object must have row names (sites names)", 
+           call. = FALSE)
+    }
+  }
+  
+  
+  if (is.data.frame(sites_locations)) {
+    
+    if (any(rownames(sites_locations) %in% 1:nrow(sites_locations))) {
+      stop("The sites x locations object must have row names (sites names)", 
+           call. = FALSE)
+    }
   }
   
   invisible(NULL)

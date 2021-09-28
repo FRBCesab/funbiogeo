@@ -1,33 +1,203 @@
 ---
-title: "funbiogeo"
+title: "Get started with funbiogeo"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{funbiogeo}
+  %\VignetteIndexEntry{Get started with funbiogeo}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
+  collapse   = TRUE,
+  comment    = "#>",
+  fig.width  = 7,
+  fig.height = 7,
+  out.width  = "100%",
+  dpi        = 300
 )
 ```
 
 ```{r setup}
-library(funbiogeo)
+library("funbiogeo")
 ```
 
-Example analyses we can do with funbiogeo.
 
-# Loading the data
 
-# Selecting sites based on trait coverage
+Introduction...
 
-# Computing functional diversity metrics
 
-# Relate functional diversity to environment
 
-# Mapping functional diversity
+## Data format
 
-# Upscale data
+
+
+...
+
+
+
+### Sites x Locations 
+
+
+
+```{r 'load-sites-locs'}
+## Load sites x locations example dataset ----
+data("sites_locs", package = "funbiogeo")
+
+## Preview ----
+head(sites_locs)
+
+## Sites identifiers are row names ----
+rownames(sites_locs)[1:10]
+```
+
+
+
+### Sites x Species 
+
+
+
+```{r 'load-sites-species'}
+## Load sites x species example dataset ----
+data("species_occs", package = "funbiogeo")
+
+## Preview ----
+head(species_occs)
+
+## Sites identifiers are row names ----
+rownames(species_occs)[1:10]
+
+## Species names are column names ----
+rownames(species_occs)[1:10]
+```
+
+
+
+### Species x Traits 
+
+
+
+```{r 'load-species-traits'}
+## Load species x traits example dataset ----
+data("species_traits", package = "funbiogeo")
+
+## Preview ----
+head(species_traits)
+
+## Species names are row names ----
+rownames(species_traits)[1:10]
+
+## Traits names are column names ----
+colnames(species_traits)
+```
+
+
+
+### Long format
+
+
+
+```{r 'load-raw-dataset'}
+## Path to example raw dataset ----
+filename <- system.file("extdata", "raw_trees_data.csv", package = "funbiogeo")
+
+## Read CSV file ----
+all_data <- read.csv2(filename)
+
+## Preview ----
+head(all_data)
+```
+
+
+
+- **Format sites x locations data**
+
+
+```{r 'format-sites-locs'}
+## Format sites x locations data ----
+sites_locations <- fb_format_sites_locations(data      = all_data, 
+                                             site      = "site", 
+                                             longitude = "longitude", 
+                                             latitude  = "latitude",
+                                             na_rm     = FALSE)
+
+## Object information ----
+class(sites_locations)
+dim(sites_locations)
+
+
+## Preview ----
+head(sites_locations)
+
+
+## Sites names ----
+rownames(sites_locations)[1:10]
+```
+
+
+
+- **Format sites x species data**
+
+
+```{r 'format-sites-species'}
+## Format sites x species data ----
+sites_species <- fb_format_sites_species(data       = all_data, 
+                                         site       = "site", 
+                                         species    = "species", 
+                                         value      = "count",
+                                         na_to_zero = TRUE)
+
+## Object information ----
+class(sites_species)
+dim(sites_species)
+
+
+## Preview ----
+head(sites_species)
+
+
+## Sites names (first ten) ----
+rownames(sites_species)[1:10]
+
+
+## Species names ----
+colnames(sites_species)
+```
+
+
+
+- **Format species x traits data**
+
+
+```{r 'format-species-traits'}
+## Format species x traits data ----
+species_traits <- fb_format_species_traits(data    = all_data, 
+                                           species = "species", 
+                                           traits  = c("sla", "n_mass", "wood_dens"))
+
+## Object information ----
+class(species_traits)
+dim(species_traits)
+
+
+## Preview ----
+species_traits
+
+
+## Species names ----
+rownames(species_traits)
+
+
+## Traits names ----
+colnames(species_traits)
+```
+
+
+
+## Table of contents...
+
+- Selecting sites based on trait coverage
+- Computing functional diversity metrics
+- Relating functional diversity to environment
+- Mapping functional diversity
+- Upscale data

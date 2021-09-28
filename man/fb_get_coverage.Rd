@@ -28,5 +28,10 @@ This function assumes that all species provided in the traits dataset have
 all their traits specified.
 }
 \examples{
-## Add an example ----
+library("funbiogeo")
+
+data("species_occs")
+data("species_traits")
+
+cover <- fb_get_coverage(species_occs, species_traits)
 }
