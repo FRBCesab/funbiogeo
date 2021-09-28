@@ -39,6 +39,7 @@ Imports:
 Suggests:
     knitr,
     raster,
+    rgdal,
     rmarkdown,
     testthat (>= 3.0.0)
 Roxygen: list(markdown = TRUE)
