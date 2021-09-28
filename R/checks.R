@@ -154,8 +154,41 @@ check_species_traits <- function(species_traits) {
 
 check_sites_locations <- function(sites_locations) {
   
-  if (!inherits(sites_locations, "sf")) {
-    stop("The sites x locations object should be an 'sf' object", call. = FALSE)
+  # Check object type ----
+  
+  if (!is.data.frame(sites_locations) & !is.matrix(sites_locations)) {
+    stop("The sites x locations object must be a matrix or a data.frame", 
+         call. = FALSE)
+  }
+  
+  if (nrow(sites_locations) == 0) {
+    stop("The sites x locations object should have at least one row", 
+         call. = FALSE)
+  }
+  
+  if (ncol(sites_locations) != 2) {
+    stop("The sites x locations object should have two columns (longitude and ",
+         "latitude)", call. = FALSE)
+  }
+  
+  
+  # Check for labels (sites) ----
+  
+  if (is.matrix(sites_locations)) {
+    
+    if (is.null(rownames(sites_locations))) {
+      stop("The sites x locations object must have row names (sites names)", 
+           call. = FALSE)
+    }
+  }
+  
+  
+  if (is.data.frame(sites_locations)) {
+    
+    if (any(rownames(sites_locations) %in% 1:nrow(sites_locations))) {
+      stop("The sites x locations object must have row names (sites names)", 
+           call. = FALSE)
+    }
   }
   
   invisible(NULL)

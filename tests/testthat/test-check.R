@@ -244,31 +244,53 @@ test_that("check_species_traits() works", {
 
 test_that("check_sites_locations() works", {
   
-  skip_if_not_installed("sf")
+  data("sites_locs")
   
   # Wrong input ----
   
   expect_error(
-    check_sites_locations("a"),
-    "The sites x locations object should be an 'sf' object",
+    check_sites_locations(sites_locs[ , 1]),
+    "The sites x locations object must be a matrix or a data.frame",
     fixed = TRUE
   )
   
   expect_error(
-    check_sites_locations(NULL),
-    "The sites x locations object should be an 'sf' object",
+    check_sites_locations(as.list(sites_locs)),
+    "The sites x locations object must be a matrix or a data.frame",
     fixed = TRUE
   )
   
-  # Good input ---
+  expect_error(
+    check_sites_locations(data.frame(sites_locs[ , 1])),
+    paste0("The sites x locations object should have two columns (longitude ", 
+           "and latitude)"),
+    fixed = TRUE
+  )
   
-  pt1 <- sf::st_point(c(0,1))
-  pt2 <- sf::st_point(c(1,1))
-  d <- data.frame(a = 1:2)
-  d$geom <- sf::st_sfc(pt1, pt2)
-  df <- sf::st_as_sf(d)
+  expect_error(
+    check_sites_locations(sites_locs[-c(1:nrow(sites_locs)), ]),
+    "The sites x locations object should have at least one row",
+    fixed = TRUE
+  )
   
-  expect_silent(check_sites_locations(df))
+  data_test <- sites_locs
+  rownames(data_test) <- NULL
   
-  expect_equal(check_sites_locations(df), NULL)
+  expect_error(
+    check_sites_locations(data_test),
+    "The sites x locations object must have row names (sites names)",
+    fixed = TRUE
+  )
+  
+  data_test <- data.matrix(data_test)
+  
+  expect_error(
+    check_sites_locations(data_test),
+    "The sites x locations object must have row names (sites names)",
+    fixed = TRUE
+  )
+  
+  expect_silent(check_sites_locations(sites_locs))
+  
+  expect_equal(check_sites_locations(sites_locs), NULL)
 })
