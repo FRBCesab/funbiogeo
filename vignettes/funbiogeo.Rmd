@@ -181,15 +181,15 @@ dim(species_traits)
 
 
 ## Preview ----
-sites_species
+species_traits
 
 
 ## Species names ----
-rownames(sites_species)
+rownames(species_traits)
 
 
 ## Traits names ----
-colnames(sites_species)
+colnames(species_traits)
 ```
 
 
