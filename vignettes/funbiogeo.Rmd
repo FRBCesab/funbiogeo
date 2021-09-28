@@ -59,16 +59,16 @@ rownames(sites_locs)[1:10]
 
 ```{r 'load-sites-species'}
 ## Load sites x species example dataset ----
-data("sites_species", package = "funbiogeo")
+data("species_occs", package = "funbiogeo")
 
 ## Preview ----
-head(sites_species)
+head(species_occs)
 
 ## Sites identifiers are row names ----
-rownames(sites_species)[1:10]
+rownames(species_occs)[1:10]
 
 ## Species names are column names ----
-rownames(sites_species)[1:10]
+rownames(species_occs)[1:10]
 ```
 
 
