@@ -85,124 +85,390 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/frbcesab/funbiogeo">"funbiogeo"</a></span><span class="op">)</span></code></pre></div>
-<p>Introduction…</p>
+<p>The aim of the package <code>funbiogeo</code> is to help users with analyses in FUNctional BIOGEOgeography (Violle <em>et al.</em> 2014). It helps to load and combine data, computing trait coverage, as well as computing functional diversity indices, drawing maps, correlate them with the environment, and upscaling assemblages.</p>
 <div id="data-format" class="section level2">
 <h2 class="hasAnchor">
 <a href="#data-format" class="anchor"></a>Data format</h2>
-<p>…</p>
+<p>The package <code>funbiogeo</code> requires that information be spread into three datasets:</p>
+<ul>
+<li>the <strong>sites x locations</strong> dataset (example dataset: <code>sites_locs</code>)</li>
+<li>the <strong>sites x species</strong> dataset (example dataset: <code>sites_occs</code>)</li>
+<li>the <strong>species x traits</strong> dataset (example dataset: <code>species_traits</code>)</li>
+</ul>
+<p>Let’s take a look at each of these datasets.</p>
 <div id="sites-x-locations" class="section level3">
 <h3 class="hasAnchor">
 <a href="#sites-x-locations" class="anchor"></a>Sites x Locations</h3>
+<p>This dataset contains spatial coordinates of sites (points) of the study area. It can be either a <code>matrix</code> or a <code>data.frame</code> and row names must contain sites names. It must contain at least two columns: the longitude and the latitude of sites. This dataset must contain unique sites. Additional columns are accepted must will be ignored by <code>funbiogeo</code>.</p>
+<p>The package <code>funbiogeo</code> comes with the example dataset <code>sites_locs</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Load sites x locations example dataset ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"sites_locs"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
-
-<span class="co">## Preview ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">sites_locs</span><span class="op">)</span>
-<span class="co">#&gt;                   longitude latitude</span>
-<span class="co">#&gt; MD_9557550010661  -76.77747 39.72233</span>
-<span class="co">#&gt; MD_9565278010661  -79.38865 39.72230</span>
-<span class="co">#&gt; NJ_9687057010661  -75.05517 40.36122</span>
-<span class="co">#&gt; OH_19104898010661 -80.41646 41.88894</span>
-<span class="co">#&gt; PA_10725597010661 -76.94414 40.58342</span>
-<span class="co">#&gt; PA_10725883010661 -76.69413 40.44453</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"sites_locs"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<caption>Format of sites x locations dataset</caption>
+<thead><tr class="header">
+<th align="left"></th>
+<th align="right">longitude</th>
+<th align="right">latitude</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">MD_9557550010661</td>
+<td align="right">-76.77747</td>
+<td align="right">39.72233</td>
+</tr>
+<tr class="even">
+<td align="left">MD_9565278010661</td>
+<td align="right">-79.38865</td>
+<td align="right">39.72230</td>
+</tr>
+<tr class="odd">
+<td align="left">NJ_9687057010661</td>
+<td align="right">-75.05517</td>
+<td align="right">40.36122</td>
+</tr>
+<tr class="even">
+<td align="left">OH_19104898010661</td>
+<td align="right">-80.41646</td>
+<td align="right">41.88894</td>
+</tr>
+<tr class="odd">
+<td align="left">PA_10725597010661</td>
+<td align="right">-76.94414</td>
+<td align="right">40.58342</td>
+</tr>
+<tr class="even">
+<td align="left">PA_10725883010661</td>
+<td align="right">-76.69413</td>
+<td align="right">40.44453</td>
+</tr>
+<tr class="odd">
+<td align="left">PA_10725971010661</td>
+<td align="right">-76.66636</td>
+<td align="right">40.22231</td>
+</tr>
+<tr class="even">
+<td align="left">PA_10726115010661</td>
+<td align="right">-76.69413</td>
+<td align="right">40.52786</td>
+</tr>
+<tr class="odd">
+<td align="left">PA_10726148010661</td>
+<td align="right">-76.63858</td>
+<td align="right">40.52787</td>
+</tr>
+<tr class="even">
+<td align="left">PA_10726179010661</td>
+<td align="right">-76.86081</td>
+<td align="right">40.33342</td>
+</tr>
+</tbody>
+</table>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Sites identifiers are row names ----</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">sites_locs</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>
-<span class="co">#&gt;  [1] "MD_9557550010661"  "MD_9565278010661"  "NJ_9687057010661" </span>
-<span class="co">#&gt;  [4] "OH_19104898010661" "PA_10725597010661" "PA_10725883010661"</span>
-<span class="co">#&gt;  [7] "PA_10725971010661" "PA_10726115010661" "PA_10726148010661"</span>
-<span class="co">#&gt; [10] "PA_10726179010661"</span></code></pre></div>
+<code class="sourceCode R"><span class="co">## Row names contain sites names ----</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">sites_locs</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>
+<span class="co">#&gt; [1] "MD_9557550010661"  "MD_9565278010661"  "NJ_9687057010661" </span>
+<span class="co">#&gt; [4] "OH_19104898010661"</span></code></pre></div>
+<p>To create your own sites x locations dataset you can use the function <code><a href="../reference/fb_format_sites_locations.html">fb_format_sites_locations()</a></code>. See below the section <strong><em>Long format</em></strong>.</p>
 </div>
 <div id="sites-x-species" class="section level3">
 <h3 class="hasAnchor">
 <a href="#sites-x-species" class="anchor"></a>Sites x Species</h3>
+<p>This dataset contains species occurrences/abundance/coverage at sites (points) of the study area. It can be either a <code>matrix</code> or a <code>data.frame</code> and row names must contain sites names. Columns must contain only species distribution information and sites must be unique. No additional columns are accepted.</p>
+<p>The package <code>funbiogeo</code> comes with the example dataset <code>species_occs</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Load sites x species example dataset ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"species_occs"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
-
-<span class="co">## Preview ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">species_occs</span><span class="op">[</span> , <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt;                   acer_negundo acer_nigrum acer_pensylvanicum acer_rubrum</span>
-<span class="co">#&gt; MD_9557550010661             0           0                  0          14</span>
-<span class="co">#&gt; MD_9565278010661             0           0                  0           7</span>
-<span class="co">#&gt; NJ_9687057010661             0           0                  0           6</span>
-<span class="co">#&gt; OH_19104898010661            0           0                  0           6</span>
-<span class="co">#&gt; PA_10725597010661            0           0                  0           4</span>
-<span class="co">#&gt; PA_10725883010661            0           0                  0          28</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"species_occs"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<caption>Format of sites x species dataset</caption>
+<thead><tr class="header">
+<th align="left"></th>
+<th align="right">acer_negundo</th>
+<th align="right">acer_nigrum</th>
+<th align="right">acer_pensylvanicum</th>
+<th align="right">acer_rubrum</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">MD_9557550010661</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">14</td>
+</tr>
+<tr class="even">
+<td align="left">MD_9565278010661</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">7</td>
+</tr>
+<tr class="odd">
+<td align="left">NJ_9687057010661</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
+<td align="left">OH_19104898010661</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">6</td>
+</tr>
+<tr class="odd">
+<td align="left">PA_10725597010661</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">PA_10725883010661</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">28</td>
+</tr>
+<tr class="odd">
+<td align="left">PA_10725971010661</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">PA_10726115010661</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left">PA_10726148010661</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">PA_10726179010661</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">8</td>
+</tr>
+</tbody>
+</table>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Sites identifiers are row names ----</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">species_occs</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>
-<span class="co">#&gt;  [1] "MD_9557550010661"  "MD_9565278010661"  "NJ_9687057010661" </span>
-<span class="co">#&gt;  [4] "OH_19104898010661" "PA_10725597010661" "PA_10725883010661"</span>
-<span class="co">#&gt;  [7] "PA_10725971010661" "PA_10726115010661" "PA_10726148010661"</span>
-<span class="co">#&gt; [10] "PA_10726179010661"</span></code></pre></div>
+<code class="sourceCode R"><span class="co">## Row names contain sites names ----</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">species_occs</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>
+<span class="co">#&gt; [1] "MD_9557550010661"  "MD_9565278010661"  "NJ_9687057010661" </span>
+<span class="co">#&gt; [4] "OH_19104898010661"</span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Species names are column names ----</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">species_occs</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>
-<span class="co">#&gt;  [1] "acer_negundo"        "acer_nigrum"         "acer_pensylvanicum" </span>
-<span class="co">#&gt;  [4] "acer_rubrum"         "acer_saccharinum"    "acer_saccharum"     </span>
-<span class="co">#&gt;  [7] "acer_spicatum"       "aesculus_flava"      "ailanthus_altissima"</span>
-<span class="co">#&gt; [10] "asimina_triloba"</span></code></pre></div>
+<code class="sourceCode R"><span class="co">## Column names contain species names ----</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">species_occs</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>
+<span class="co">#&gt; [1] "acer_negundo"       "acer_nigrum"        "acer_pensylvanicum"</span>
+<span class="co">#&gt; [4] "acer_rubrum"</span></code></pre></div>
+<p>To create your own sites x species dataset you can use the function <code><a href="../reference/fb_format_sites_species.html">fb_format_sites_species()</a></code>. See below the section <strong><em>Long format</em></strong>.</p>
 </div>
 <div id="species-x-traits" class="section level3">
 <h3 class="hasAnchor">
 <a href="#species-x-traits" class="anchor"></a>Species x Traits</h3>
+<p>This dataset contains traits values for studied species. It can be either a <code>matrix</code> or a <code>data.frame</code> and row names must contain species names. Columns must contain only traits variables and species must be unique. No additional columns are accepted.</p>
+<p>Note that traits values cannot vary across sites for a given species.</p>
+<p>The package <code>funbiogeo</code> comes with the example dataset <code>species_traits</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Load species x traits example dataset ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"species_traits"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
-
-<span class="co">## Preview ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span>
-<span class="co">#&gt;                            sla   n_mass wood_dens</span>
-<span class="co">#&gt; acer_negundo          26.91535 2.500345     0.416</span>
-<span class="co">#&gt; acer_pensylvanicum    25.26650 2.221025     0.440</span>
-<span class="co">#&gt; acer_rubrum           15.88968 1.657609     0.490</span>
-<span class="co">#&gt; acer_saccharum        14.21417 1.497401     0.560</span>
-<span class="co">#&gt; betula_alleghaniensis 15.62587 1.764643     0.550</span>
-<span class="co">#&gt; betula_nigra          11.77449 2.290171     0.490</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"species_traits"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<caption>Format of species x traits dataset</caption>
+<thead><tr class="header">
+<th align="left"></th>
+<th align="right">sla</th>
+<th align="right">n_mass</th>
+<th align="right">wood_dens</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">acer_negundo</td>
+<td align="right">26.91535</td>
+<td align="right">2.500345</td>
+<td align="right">0.416</td>
+</tr>
+<tr class="even">
+<td align="left">acer_pensylvanicum</td>
+<td align="right">25.26650</td>
+<td align="right">2.221026</td>
+<td align="right">0.440</td>
+</tr>
+<tr class="odd">
+<td align="left">acer_rubrum</td>
+<td align="right">15.88968</td>
+<td align="right">1.657609</td>
+<td align="right">0.490</td>
+</tr>
+<tr class="even">
+<td align="left">acer_saccharum</td>
+<td align="right">14.21417</td>
+<td align="right">1.497401</td>
+<td align="right">0.560</td>
+</tr>
+</tbody>
+</table>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Species names are row names ----</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>
-<span class="co">#&gt;  [1] "acer_negundo"          "acer_pensylvanicum"    "acer_rubrum"          </span>
-<span class="co">#&gt;  [4] "acer_saccharum"        "betula_alleghaniensis" "betula_nigra"         </span>
-<span class="co">#&gt;  [7] "betula_papyrifera"     "betula_populifolia"    "carpinus_caroliniana" </span>
-<span class="co">#&gt; [10] "carya_alba"</span></code></pre></div>
+<code class="sourceCode R"><span class="co">## Row names contain species names ----</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>
+<span class="co">#&gt; [1] "acer_negundo"       "acer_pensylvanicum" "acer_rubrum"       </span>
+<span class="co">#&gt; [4] "acer_saccharum"</span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Traits names are column names ----</span>
+<code class="sourceCode R"><span class="co">## Column names contain traits names ----</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span>
 <span class="co">#&gt; [1] "sla"       "n_mass"    "wood_dens"</span></code></pre></div>
+<p>To create your own species x traits dataset you can use the function <code><a href="../reference/fb_format_species_traits.html">fb_format_species_traits()</a></code>. See below the section <strong><em>Long format</em></strong>.</p>
 </div>
 <div id="long-format" class="section level3">
 <h3 class="hasAnchor">
 <a href="#long-format" class="anchor"></a>Long format</h3>
+<p>If your data are not spread into three datasets you can use the functions <code>fb_format_*()</code> to create these specific datasets. This implies that your data are structured into a long table, i.e. one row corresponds to the occurrence/abundance/coverage of one species at one site. This also implies that some variables are repeated across the table (e.g. sites coordinates, species traits).</p>
+<p>Let’s take an example</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Path to example raw dataset ----</span>
 <span class="va">filename</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"raw_trees_data.csv"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
 
 <span class="co">## Read CSV file ----</span>
-<span class="va">all_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv2</a></span><span class="op">(</span><span class="va">filename</span><span class="op">)</span>
-
-<span class="co">## Preview ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">all_data</span><span class="op">)</span>
-<span class="co">#&gt;                 site            species longitude latitude count     sla</span>
-<span class="co">#&gt; 1  PA_76856094010538 acer_pensylvanicum -78.60508 39.91707     7 25.2665</span>
-<span class="co">#&gt; 2  PA_68287127010538 acer_pensylvanicum -77.54087 40.35293     2 25.2665</span>
-<span class="co">#&gt; 3  PA_76855646010538 acer_pensylvanicum -78.30221 40.18796     4 25.2665</span>
-<span class="co">#&gt; 4  PA_58581106010538 acer_pensylvanicum -79.28570 40.04243     2 25.2665</span>
-<span class="co">#&gt; 5 PA_145019955010661 acer_pensylvanicum -77.05348 40.37183     3 25.2665</span>
-<span class="co">#&gt; 6  PA_10716167010661 acer_pensylvanicum -78.30529 41.02784     1 25.2665</span>
-<span class="co">#&gt;     n_mass wood_dens</span>
-<span class="co">#&gt; 1 2.221025      0.44</span>
-<span class="co">#&gt; 2 2.221025      0.44</span>
-<span class="co">#&gt; 3 2.221025      0.44</span>
-<span class="co">#&gt; 4 2.221025      0.44</span>
-<span class="co">#&gt; 5 2.221025      0.44</span>
-<span class="co">#&gt; 6 2.221025      0.44</span></code></pre></div>
+<span class="va">all_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv2</a></span><span class="op">(</span><span class="va">filename</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<caption>Long table example</caption>
+<colgroup>
+<col width="21%">
+<col width="21%">
+<col width="11%">
+<col width="10%">
+<col width="6%">
+<col width="8%">
+<col width="10%">
+<col width="11%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">site</th>
+<th align="left">species</th>
+<th align="right">longitude</th>
+<th align="right">latitude</th>
+<th align="right">count</th>
+<th align="right">sla</th>
+<th align="right">n_mass</th>
+<th align="right">wood_dens</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">PA_76856094010538</td>
+<td align="left">acer_pensylvanicum</td>
+<td align="right">-78.60508</td>
+<td align="right">39.91707</td>
+<td align="right">7</td>
+<td align="right">25.2665</td>
+<td align="right">2.221026</td>
+<td align="right">0.44</td>
+</tr>
+<tr class="even">
+<td align="left">PA_68287127010538</td>
+<td align="left">acer_pensylvanicum</td>
+<td align="right">-77.54087</td>
+<td align="right">40.35293</td>
+<td align="right">2</td>
+<td align="right">25.2665</td>
+<td align="right">2.221026</td>
+<td align="right">0.44</td>
+</tr>
+<tr class="odd">
+<td align="left">PA_76855646010538</td>
+<td align="left">acer_pensylvanicum</td>
+<td align="right">-78.30221</td>
+<td align="right">40.18796</td>
+<td align="right">4</td>
+<td align="right">25.2665</td>
+<td align="right">2.221026</td>
+<td align="right">0.44</td>
+</tr>
+<tr class="even">
+<td align="left">PA_58581106010538</td>
+<td align="left">acer_pensylvanicum</td>
+<td align="right">-79.28570</td>
+<td align="right">40.04243</td>
+<td align="right">2</td>
+<td align="right">25.2665</td>
+<td align="right">2.221026</td>
+<td align="right">0.44</td>
+</tr>
+<tr class="odd">
+<td align="left">PA_145019955010661</td>
+<td align="left">acer_pensylvanicum</td>
+<td align="right">-77.05348</td>
+<td align="right">40.37183</td>
+<td align="right">3</td>
+<td align="right">25.2665</td>
+<td align="right">2.221026</td>
+<td align="right">0.44</td>
+</tr>
+<tr class="even">
+<td align="left">PA_10716167010661</td>
+<td align="left">acer_pensylvanicum</td>
+<td align="right">-78.30529</td>
+<td align="right">41.02784</td>
+<td align="right">1</td>
+<td align="right">25.2665</td>
+<td align="right">2.221026</td>
+<td align="right">0.44</td>
+</tr>
+<tr class="odd">
+<td align="left">PA_58581599010538</td>
+<td align="left">acer_pensylvanicum</td>
+<td align="right">-76.53834</td>
+<td align="right">41.48055</td>
+<td align="right">7</td>
+<td align="right">25.2665</td>
+<td align="right">2.221026</td>
+<td align="right">0.44</td>
+</tr>
+<tr class="even">
+<td align="left">PA_10752222010661</td>
+<td align="left">acer_pensylvanicum</td>
+<td align="right">-78.86086</td>
+<td align="right">41.13895</td>
+<td align="right">2</td>
+<td align="right">25.2665</td>
+<td align="right">2.221026</td>
+<td align="right">0.44</td>
+</tr>
+<tr class="odd">
+<td align="left">PA_10789064010661</td>
+<td align="left">acer_pensylvanicum</td>
+<td align="right">-77.83305</td>
+<td align="right">41.66673</td>
+<td align="right">2</td>
+<td align="right">25.2665</td>
+<td align="right">2.221026</td>
+<td align="right">0.44</td>
+</tr>
+<tr class="even">
+<td align="left">PA_58581253010538</td>
+<td align="left">acer_pensylvanicum</td>
+<td align="right">-76.64231</td>
+<td align="right">41.34820</td>
+<td align="right">1</td>
+<td align="right">25.2665</td>
+<td align="right">2.221026</td>
+<td align="right">0.44</td>
+</tr>
+</tbody>
+</table>
 <p><br></p>
 <ul>
 <li><strong>Format sites x locations data</strong></li>
 </ul>
+<p>The function <code><a href="../reference/fb_format_sites_locations.html">fb_format_sites_locations()</a></code> extracts sites coordinates from this long table to create the sites x locations dataset. Note that one site must have one unique longitude x latitude value.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Format sites x locations data ----</span>
 <span class="va">sites_locations</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_sites_locations.html">fb_format_sites_locations</a></span><span class="op">(</span>data      <span class="op">=</span> <span class="va">all_data</span>, 
@@ -210,7 +476,6 @@
                                              longitude <span class="op">=</span> <span class="st">"longitude"</span>, 
                                              latitude  <span class="op">=</span> <span class="st">"latitude"</span>,
                                              na_rm     <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
 
 <span class="co">## Preview ----</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">sites_locations</span><span class="op">)</span>
@@ -221,25 +486,18 @@
 <span class="co">#&gt; PA_10688091010661 -78.49974 39.86120</span>
 <span class="co">#&gt; PA_10688665010661 -78.47196 40.22230</span>
 <span class="co">#&gt; PA_10688975010661 -78.36085 40.08341</span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Sites names ----</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">sites_locations</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>
-<span class="co">#&gt;  [1] "OH_19104898010661" "PA_10686546010661" "PA_10686882010661"</span>
-<span class="co">#&gt;  [4] "PA_10688091010661" "PA_10688665010661" "PA_10688975010661"</span>
-<span class="co">#&gt;  [7] "PA_10692037010661" "PA_10692419010661" "PA_10692473010661"</span>
-<span class="co">#&gt; [10] "PA_10693473010661"</span></code></pre></div>
 <p><br></p>
 <ul>
 <li><strong>Format sites x species data</strong></li>
 </ul>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<p>The function <code><a href="../reference/fb_format_sites_species.html">fb_format_sites_species()</a></code> extracts species occurrence/abundance/coverage from this long table to create the sites x species dataset. Note that one species must have been observed one time at one site (the package <code>funbiogeo</code> does not yet consider temporal survey).</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Format sites x species data ----</span>
 <span class="va">sites_species</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_sites_species.html">fb_format_sites_species</a></span><span class="op">(</span>data       <span class="op">=</span> <span class="va">all_data</span>, 
                                          site       <span class="op">=</span> <span class="st">"site"</span>, 
                                          species    <span class="op">=</span> <span class="st">"species"</span>, 
                                          value      <span class="op">=</span> <span class="st">"count"</span>,
                                          na_to_zero <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
 
 <span class="co">## Preview ----</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">sites_species</span><span class="op">)</span>
@@ -250,27 +508,16 @@
 <span class="co">#&gt; PA_58581106010538                   2                   0                  0</span>
 <span class="co">#&gt; PA_145019955010661                  3                   0                  0</span>
 <span class="co">#&gt; PA_10716167010661                   1                   0                  0</span></code></pre></div>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Sites names (first ten) ----</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">sites_species</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>
-<span class="co">#&gt;  [1] "PA_76856094010538"  "PA_68287127010538"  "PA_76855646010538" </span>
-<span class="co">#&gt;  [4] "PA_58581106010538"  "PA_145019955010661" "PA_10716167010661" </span>
-<span class="co">#&gt;  [7] "PA_58581599010538"  "PA_10752222010661"  "PA_10789064010661" </span>
-<span class="co">#&gt; [10] "PA_58581253010538"</span></code></pre></div>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Species names ----</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">sites_species</span><span class="op">)</span>
-<span class="co">#&gt; [1] "acer_pensylvanicum"  "populus_tremuloides" "quercus_macrocarpa"</span></code></pre></div>
 <p><br></p>
 <ul>
 <li><strong>Format species x traits data</strong></li>
 </ul>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<p>The function <code><a href="../reference/fb_format_species_traits.html">fb_format_species_traits()</a></code> extracts species traits values from this long table to create the species x traits dataset. Note that one species must have one unique trait value (no trait variation across sites allowed).</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Format species x traits data ----</span>
 <span class="va">species_traits</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_species_traits.html">fb_format_species_traits</a></span><span class="op">(</span>data    <span class="op">=</span> <span class="va">all_data</span>, 
                                            species <span class="op">=</span> <span class="st">"species"</span>, 
                                            traits  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"sla"</span>, <span class="st">"n_mass"</span>, <span class="st">"wood_dens"</span><span class="op">)</span><span class="op">)</span>
-
 
 <span class="co">## Preview ----</span>
 <span class="va">species_traits</span>
@@ -278,14 +525,6 @@
 <span class="co">#&gt; acer_pensylvanicum  25.26650 2.221025      0.44</span>
 <span class="co">#&gt; populus_tremuloides 15.06333 2.027469      0.35</span>
 <span class="co">#&gt; quercus_macrocarpa  11.01700 2.302263      0.58</span></code></pre></div>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Species names ----</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span>
-<span class="co">#&gt; [1] "acer_pensylvanicum"  "populus_tremuloides" "quercus_macrocarpa"</span></code></pre></div>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Traits names ----</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span>
-<span class="co">#&gt; [1] "sla"       "n_mass"    "wood_dens"</span></code></pre></div>
 </div>
 </div>
 <div id="table-of-contents" class="section level2">
@@ -298,6 +537,11 @@
 <li>Mapping functional diversity</li>
 <li>Upscale data</li>
 </ul>
+</div>
+<div id="references" class="section level2">
+<h2 class="hasAnchor">
+<a href="#references" class="anchor"></a>References</h2>
+<p>Violle C, Reich, PB Pacala SW, <em>et al.</em> (2014) The emergence and promise of functional biogeography. <em>Proceedings of the National Academy of Sciences</em>, <strong>111</strong>, 13690–13696. DOI: <a href="https://doi.org/10.1073/pnas.1415442111">10.1073/pnas.1415442111</a></p>
 </div>
   </div>
 
