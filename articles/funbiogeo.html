@@ -105,8 +105,9 @@
 <span class="co">#&gt; NJ_9687057010661  -75.05517 40.36122</span>
 <span class="co">#&gt; OH_19104898010661 -80.41646 41.88894</span>
 <span class="co">#&gt; PA_10725597010661 -76.94414 40.58342</span>
-<span class="co">#&gt; PA_10725883010661 -76.69413 40.44453</span>
-<span class="co">## Sites identifiers are row names ----</span>
+<span class="co">#&gt; PA_10725883010661 -76.69413 40.44453</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Sites identifiers are row names ----</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">sites_locs</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>
 <span class="co">#&gt;  [1] "MD_9557550010661"  "MD_9565278010661"  "NJ_9687057010661" </span>
 <span class="co">#&gt;  [4] "OH_19104898010661" "PA_10725597010661" "PA_10725883010661"</span>
@@ -116,232 +117,38 @@
 <div id="sites-x-species" class="section level3">
 <h3 class="hasAnchor">
 <a href="#sites-x-species" class="anchor"></a>Sites x Species</h3>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Load sites x species example dataset ----</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"species_occs"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
 
 <span class="co">## Preview ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">species_occs</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">species_occs</span><span class="op">[</span> , <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span>
 <span class="co">#&gt;                   acer_negundo acer_nigrum acer_pensylvanicum acer_rubrum</span>
 <span class="co">#&gt; MD_9557550010661             0           0                  0          14</span>
 <span class="co">#&gt; MD_9565278010661             0           0                  0           7</span>
 <span class="co">#&gt; NJ_9687057010661             0           0                  0           6</span>
 <span class="co">#&gt; OH_19104898010661            0           0                  0           6</span>
 <span class="co">#&gt; PA_10725597010661            0           0                  0           4</span>
-<span class="co">#&gt; PA_10725883010661            0           0                  0          28</span>
-<span class="co">#&gt;                   acer_saccharinum acer_saccharum acer_spicatum aesculus_flava</span>
-<span class="co">#&gt; MD_9557550010661                 0              0             0              0</span>
-<span class="co">#&gt; MD_9565278010661                 0              1             0              0</span>
-<span class="co">#&gt; NJ_9687057010661                 0              1             0              0</span>
-<span class="co">#&gt; OH_19104898010661                0              0             0              0</span>
-<span class="co">#&gt; PA_10725597010661                0             20             0              0</span>
-<span class="co">#&gt; PA_10725883010661                0              0             0              0</span>
-<span class="co">#&gt;                   ailanthus_altissima asimina_triloba betula_alleghaniensis</span>
-<span class="co">#&gt; MD_9557550010661                    0               0                     0</span>
-<span class="co">#&gt; MD_9565278010661                    0               0                     0</span>
-<span class="co">#&gt; NJ_9687057010661                    0               0                     0</span>
-<span class="co">#&gt; OH_19104898010661                   0               0                    10</span>
-<span class="co">#&gt; PA_10725597010661                   0               0                     0</span>
-<span class="co">#&gt; PA_10725883010661                   0               0                     0</span>
-<span class="co">#&gt;                   betula_lenta betula_nigra betula_papyrifera</span>
-<span class="co">#&gt; MD_9557550010661             0            0                 0</span>
-<span class="co">#&gt; MD_9565278010661             0            0                 0</span>
-<span class="co">#&gt; NJ_9687057010661             0            0                 0</span>
-<span class="co">#&gt; OH_19104898010661            1            0                 0</span>
-<span class="co">#&gt; PA_10725597010661            3            0                 0</span>
-<span class="co">#&gt; PA_10725883010661           22            0                 0</span>
-<span class="co">#&gt;                   betula_populifolia carpinus_caroliniana carya_alba</span>
-<span class="co">#&gt; MD_9557550010661                   0                    0          0</span>
-<span class="co">#&gt; MD_9565278010661                   0                    0          0</span>
-<span class="co">#&gt; NJ_9687057010661                   0                    0          0</span>
-<span class="co">#&gt; OH_19104898010661                  0                    0          0</span>
-<span class="co">#&gt; PA_10725597010661                  0                    0          0</span>
-<span class="co">#&gt; PA_10725883010661                  0                    0          0</span>
-<span class="co">#&gt;                   carya_cordiformis carya_glabra carya_laciniosa carya_ovata</span>
-<span class="co">#&gt; MD_9557550010661                  0            1               0           0</span>
-<span class="co">#&gt; MD_9565278010661                  0            1               0           0</span>
-<span class="co">#&gt; NJ_9687057010661                  0            0               0           0</span>
-<span class="co">#&gt; OH_19104898010661                 0            0               0           0</span>
-<span class="co">#&gt; PA_10725597010661                 0            0               0           0</span>
-<span class="co">#&gt; PA_10725883010661                 0            0               0           0</span>
-<span class="co">#&gt;                   castanea_dentata celtis_occidentalis cercis_canadensis</span>
-<span class="co">#&gt; MD_9557550010661                 0                   0                 0</span>
-<span class="co">#&gt; MD_9565278010661                 0                   0                 0</span>
-<span class="co">#&gt; NJ_9687057010661                 0                   0                 0</span>
-<span class="co">#&gt; OH_19104898010661                0                   0                 0</span>
-<span class="co">#&gt; PA_10725597010661                0                   0                 0</span>
-<span class="co">#&gt; PA_10725883010661                0                   0                 0</span>
-<span class="co">#&gt;                   chamaecyparis_thyoides cornus_florida diospyros_virginiana</span>
-<span class="co">#&gt; MD_9557550010661                       0              0                    0</span>
-<span class="co">#&gt; MD_9565278010661                       0              0                    0</span>
-<span class="co">#&gt; NJ_9687057010661                       0              7                    0</span>
-<span class="co">#&gt; OH_19104898010661                      0              0                    0</span>
-<span class="co">#&gt; PA_10725597010661                      0              0                    0</span>
-<span class="co">#&gt; PA_10725883010661                      0              0                    0</span>
-<span class="co">#&gt;                   fagus_grandifolia fraxinus_americana fraxinus_nigra</span>
-<span class="co">#&gt; MD_9557550010661                  0                  0              0</span>
-<span class="co">#&gt; MD_9565278010661                  0                  1              0</span>
-<span class="co">#&gt; NJ_9687057010661                  0                  0              0</span>
-<span class="co">#&gt; OH_19104898010661                 0                  2              0</span>
-<span class="co">#&gt; PA_10725597010661                 0                  1              0</span>
-<span class="co">#&gt; PA_10725883010661                 0                  0              0</span>
-<span class="co">#&gt;                   fraxinus_pennsylvanica gleditsia_triacanthos ilex_opaca</span>
-<span class="co">#&gt; MD_9557550010661                       0                     0          0</span>
-<span class="co">#&gt; MD_9565278010661                       0                     0          0</span>
-<span class="co">#&gt; NJ_9687057010661                       0                     0          0</span>
-<span class="co">#&gt; OH_19104898010661                      0                     0          0</span>
-<span class="co">#&gt; PA_10725597010661                      0                     0          0</span>
-<span class="co">#&gt; PA_10725883010661                      0                     0          0</span>
-<span class="co">#&gt;                   juglans_cinerea juglans_nigra juniperus_virginiana</span>
-<span class="co">#&gt; MD_9557550010661                0             0                    0</span>
-<span class="co">#&gt; MD_9565278010661                0             0                    0</span>
-<span class="co">#&gt; NJ_9687057010661                0             0                    0</span>
-<span class="co">#&gt; OH_19104898010661               0             0                    0</span>
-<span class="co">#&gt; PA_10725597010661               0             0                    0</span>
-<span class="co">#&gt; PA_10725883010661               0             0                    0</span>
-<span class="co">#&gt;                   larix_laricina liquidambar_styraciflua</span>
-<span class="co">#&gt; MD_9557550010661               0                       0</span>
-<span class="co">#&gt; MD_9565278010661               0                       0</span>
-<span class="co">#&gt; NJ_9687057010661               0                       0</span>
-<span class="co">#&gt; OH_19104898010661              0                       0</span>
-<span class="co">#&gt; PA_10725597010661              0                       0</span>
-<span class="co">#&gt; PA_10725883010661              0                       0</span>
-<span class="co">#&gt;                   liriodendron_tulipifera maclura_pomifera magnolia_acuminata</span>
-<span class="co">#&gt; MD_9557550010661                        1                0                  0</span>
-<span class="co">#&gt; MD_9565278010661                        0                1                  0</span>
-<span class="co">#&gt; NJ_9687057010661                        1                0                  0</span>
-<span class="co">#&gt; OH_19104898010661                       3                0                  0</span>
-<span class="co">#&gt; PA_10725597010661                       0                0                  0</span>
-<span class="co">#&gt; PA_10725883010661                       3                0                  0</span>
-<span class="co">#&gt;                   morus_alba morus_rubra nyssa_sylvatica ostrya_virginiana</span>
-<span class="co">#&gt; MD_9557550010661           0           0               3                 0</span>
-<span class="co">#&gt; MD_9565278010661           0           0               0                 0</span>
-<span class="co">#&gt; NJ_9687057010661           0           0               0                 0</span>
-<span class="co">#&gt; OH_19104898010661          0           0               0                 0</span>
-<span class="co">#&gt; PA_10725597010661          0           0               0                 0</span>
-<span class="co">#&gt; PA_10725883010661          0           0               4                 0</span>
-<span class="co">#&gt;                   oxydendrum_arboreum picea_abies picea_glauca picea_mariana</span>
-<span class="co">#&gt; MD_9557550010661                    0           0            0             0</span>
-<span class="co">#&gt; MD_9565278010661                    0           0            0             0</span>
-<span class="co">#&gt; NJ_9687057010661                    0           0            0             0</span>
-<span class="co">#&gt; OH_19104898010661                   0           0            0             0</span>
-<span class="co">#&gt; PA_10725597010661                   0           0            0             0</span>
-<span class="co">#&gt; PA_10725883010661                   0           0            0             0</span>
-<span class="co">#&gt;                   picea_rubens pinus_banksiana pinus_echinata pinus_pungens</span>
-<span class="co">#&gt; MD_9557550010661             0               0              0             0</span>
-<span class="co">#&gt; MD_9565278010661             0               0              0             0</span>
-<span class="co">#&gt; NJ_9687057010661             0               0              0             0</span>
-<span class="co">#&gt; OH_19104898010661            0               0              0             0</span>
-<span class="co">#&gt; PA_10725597010661            0               0              0             0</span>
-<span class="co">#&gt; PA_10725883010661            0               0              0             0</span>
-<span class="co">#&gt;                   pinus_resinosa pinus_rigida pinus_strobus pinus_sylvestris</span>
-<span class="co">#&gt; MD_9557550010661               0            0             0                0</span>
-<span class="co">#&gt; MD_9565278010661               0            0             0                0</span>
-<span class="co">#&gt; NJ_9687057010661               0            5             0                0</span>
-<span class="co">#&gt; OH_19104898010661              0            0             0                0</span>
-<span class="co">#&gt; PA_10725597010661              0            0             0                0</span>
-<span class="co">#&gt; PA_10725883010661              0            0             0                0</span>
-<span class="co">#&gt;                   pinus_taeda pinus_virginiana platanus_occidentalis</span>
-<span class="co">#&gt; MD_9557550010661            0                0                     0</span>
-<span class="co">#&gt; MD_9565278010661            0                0                     0</span>
-<span class="co">#&gt; NJ_9687057010661            0                0                     0</span>
-<span class="co">#&gt; OH_19104898010661           0                0                     0</span>
-<span class="co">#&gt; PA_10725597010661           0                0                     0</span>
-<span class="co">#&gt; PA_10725883010661           0                0                     0</span>
-<span class="co">#&gt;                   populus_balsamifera populus_deltoides populus_grandidentata</span>
-<span class="co">#&gt; MD_9557550010661                    0                 0                     0</span>
-<span class="co">#&gt; MD_9565278010661                    0                 0                     0</span>
-<span class="co">#&gt; NJ_9687057010661                    0                 0                     1</span>
-<span class="co">#&gt; OH_19104898010661                   0                 0                     5</span>
-<span class="co">#&gt; PA_10725597010661                   0                 0                     0</span>
-<span class="co">#&gt; PA_10725883010661                   0                 0                     0</span>
-<span class="co">#&gt;                   populus_tremuloides prunus_pensylvanica prunus_serotina</span>
-<span class="co">#&gt; MD_9557550010661                    0                   0               1</span>
-<span class="co">#&gt; MD_9565278010661                    0                   0              11</span>
-<span class="co">#&gt; NJ_9687057010661                    0                   0               0</span>
-<span class="co">#&gt; OH_19104898010661                   1                   0               1</span>
-<span class="co">#&gt; PA_10725597010661                   0                   0               0</span>
-<span class="co">#&gt; PA_10725883010661                   0                   0               0</span>
-<span class="co">#&gt;                   prunus_virginiana quercus_alba quercus_bicolor</span>
-<span class="co">#&gt; MD_9557550010661                  0            1               0</span>
-<span class="co">#&gt; MD_9565278010661                  0            1               0</span>
-<span class="co">#&gt; NJ_9687057010661                  0            0               0</span>
-<span class="co">#&gt; OH_19104898010661                 0            0               0</span>
-<span class="co">#&gt; PA_10725597010661                 0            0               0</span>
-<span class="co">#&gt; PA_10725883010661                 0            0               0</span>
-<span class="co">#&gt;                   quercus_coccinea quercus_ellipsoidalis quercus_imbricaria</span>
-<span class="co">#&gt; MD_9557550010661                 2                     0                  0</span>
-<span class="co">#&gt; MD_9565278010661                 0                     0                  0</span>
-<span class="co">#&gt; NJ_9687057010661                 1                     0                  0</span>
-<span class="co">#&gt; OH_19104898010661                0                     0                  0</span>
-<span class="co">#&gt; PA_10725597010661                0                     0                  0</span>
-<span class="co">#&gt; PA_10725883010661                0                     0                  0</span>
-<span class="co">#&gt;                   quercus_lyrata quercus_macrocarpa quercus_michauxii</span>
-<span class="co">#&gt; MD_9557550010661               0                  0                 0</span>
-<span class="co">#&gt; MD_9565278010661               0                  0                 0</span>
-<span class="co">#&gt; NJ_9687057010661               0                  0                 0</span>
-<span class="co">#&gt; OH_19104898010661              0                  0                 0</span>
-<span class="co">#&gt; PA_10725597010661              0                  0                 0</span>
-<span class="co">#&gt; PA_10725883010661              0                  0                 0</span>
-<span class="co">#&gt;                   quercus_muehlenbergii quercus_palustris quercus_phellos</span>
-<span class="co">#&gt; MD_9557550010661                      0                 0               0</span>
-<span class="co">#&gt; MD_9565278010661                      0                 0               0</span>
-<span class="co">#&gt; NJ_9687057010661                      0                 0               0</span>
-<span class="co">#&gt; OH_19104898010661                     0                 0               0</span>
-<span class="co">#&gt; PA_10725597010661                     0                 0               0</span>
-<span class="co">#&gt; PA_10725883010661                     0                 0               0</span>
-<span class="co">#&gt;                   quercus_prinus quercus_rubra quercus_stellata</span>
-<span class="co">#&gt; MD_9557550010661               2             0                0</span>
-<span class="co">#&gt; MD_9565278010661               0             0                0</span>
-<span class="co">#&gt; NJ_9687057010661               0             1                0</span>
-<span class="co">#&gt; OH_19104898010661              0             0                0</span>
-<span class="co">#&gt; PA_10725597010661              0             3                0</span>
-<span class="co">#&gt; PA_10725883010661             13            10                0</span>
-<span class="co">#&gt;                   quercus_velutina robinia_pseudoacacia salix_nigra</span>
-<span class="co">#&gt; MD_9557550010661                 1                    0           0</span>
-<span class="co">#&gt; MD_9565278010661                 0                    0           0</span>
-<span class="co">#&gt; NJ_9687057010661                 0                    0           0</span>
-<span class="co">#&gt; OH_19104898010661                0                    0           1</span>
-<span class="co">#&gt; PA_10725597010661                0                    0           0</span>
-<span class="co">#&gt; PA_10725883010661                0                    0           0</span>
-<span class="co">#&gt;                   sassafras_albidum sorbus_americana thuja_occidentalis</span>
-<span class="co">#&gt; MD_9557550010661                  1                0                  0</span>
-<span class="co">#&gt; MD_9565278010661                  1                0                  0</span>
-<span class="co">#&gt; NJ_9687057010661                  0                0                  0</span>
-<span class="co">#&gt; OH_19104898010661                 0                0                  0</span>
-<span class="co">#&gt; PA_10725597010661                 0                0                  0</span>
-<span class="co">#&gt; PA_10725883010661                 2                0                  0</span>
-<span class="co">#&gt;                   tilia_americana tsuga_canadensis ulmus_alata ulmus_americana</span>
-<span class="co">#&gt; MD_9557550010661                0                0           0               0</span>
-<span class="co">#&gt; MD_9565278010661                0                0           0               0</span>
-<span class="co">#&gt; NJ_9687057010661                0                0           0               0</span>
-<span class="co">#&gt; OH_19104898010661               0                4           0               0</span>
-<span class="co">#&gt; PA_10725597010661              13                0           0               0</span>
-<span class="co">#&gt; PA_10725883010661               0                0           0               0</span>
-<span class="co">#&gt;                   ulmus_rubra ulmus_thomasii</span>
-<span class="co">#&gt; MD_9557550010661            0              0</span>
-<span class="co">#&gt; MD_9565278010661            0              0</span>
-<span class="co">#&gt; NJ_9687057010661            0              0</span>
-<span class="co">#&gt; OH_19104898010661           0              0</span>
-<span class="co">#&gt; PA_10725597010661           0              0</span>
-<span class="co">#&gt; PA_10725883010661           0              0</span>
-<span class="co">## Sites identifiers are row names ----</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">species_occs</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>
-<span class="co">#&gt;  [1] "MD_9557550010661"  "MD_9565278010661"  "NJ_9687057010661" </span>
-<span class="co">#&gt;  [4] "OH_19104898010661" "PA_10725597010661" "PA_10725883010661"</span>
-<span class="co">#&gt;  [7] "PA_10725971010661" "PA_10726115010661" "PA_10726148010661"</span>
-<span class="co">#&gt; [10] "PA_10726179010661"</span>
-<span class="co">## Species names are column names ----</span>
+<span class="co">#&gt; PA_10725883010661            0           0                  0          28</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Sites identifiers are row names ----</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">species_occs</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>
 <span class="co">#&gt;  [1] "MD_9557550010661"  "MD_9565278010661"  "NJ_9687057010661" </span>
 <span class="co">#&gt;  [4] "OH_19104898010661" "PA_10725597010661" "PA_10725883010661"</span>
 <span class="co">#&gt;  [7] "PA_10725971010661" "PA_10726115010661" "PA_10726148010661"</span>
 <span class="co">#&gt; [10] "PA_10726179010661"</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Species names are column names ----</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">species_occs</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>
+<span class="co">#&gt;  [1] "acer_negundo"        "acer_nigrum"         "acer_pensylvanicum" </span>
+<span class="co">#&gt;  [4] "acer_rubrum"         "acer_saccharinum"    "acer_saccharum"     </span>
+<span class="co">#&gt;  [7] "acer_spicatum"       "aesculus_flava"      "ailanthus_altissima"</span>
+<span class="co">#&gt; [10] "asimina_triloba"</span></code></pre></div>
 </div>
 <div id="species-x-traits" class="section level3">
 <h3 class="hasAnchor">
 <a href="#species-x-traits" class="anchor"></a>Species x Traits</h3>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Load species x traits example dataset ----</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"species_traits"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
 
@@ -353,21 +160,23 @@
 <span class="co">#&gt; acer_rubrum           15.88968 1.657609     0.490</span>
 <span class="co">#&gt; acer_saccharum        14.21417 1.497401     0.560</span>
 <span class="co">#&gt; betula_alleghaniensis 15.62587 1.764643     0.550</span>
-<span class="co">#&gt; betula_nigra          11.77449 2.290171     0.490</span>
-<span class="co">## Species names are row names ----</span>
+<span class="co">#&gt; betula_nigra          11.77449 2.290171     0.490</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Species names are row names ----</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>
 <span class="co">#&gt;  [1] "acer_negundo"          "acer_pensylvanicum"    "acer_rubrum"          </span>
 <span class="co">#&gt;  [4] "acer_saccharum"        "betula_alleghaniensis" "betula_nigra"         </span>
 <span class="co">#&gt;  [7] "betula_papyrifera"     "betula_populifolia"    "carpinus_caroliniana" </span>
-<span class="co">#&gt; [10] "carya_alba"</span>
-<span class="co">## Traits names are column names ----</span>
+<span class="co">#&gt; [10] "carya_alba"</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Traits names are column names ----</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span>
 <span class="co">#&gt; [1] "sla"       "n_mass"    "wood_dens"</span></code></pre></div>
 </div>
 <div id="long-format" class="section level3">
 <h3 class="hasAnchor">
 <a href="#long-format" class="anchor"></a>Long format</h3>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Path to example raw dataset ----</span>
 <span class="va">filename</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"raw_trees_data.csv"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
 
@@ -390,10 +199,11 @@
 <span class="co">#&gt; 4 2.221025      0.44</span>
 <span class="co">#&gt; 5 2.221025      0.44</span>
 <span class="co">#&gt; 6 2.221025      0.44</span></code></pre></div>
+<p><br></p>
 <ul>
 <li><strong>Format sites x locations data</strong></li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Format sites x locations data ----</span>
 <span class="va">sites_locations</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_sites_locations.html">fb_format_sites_locations</a></span><span class="op">(</span>data      <span class="op">=</span> <span class="va">all_data</span>, 
                                              site      <span class="op">=</span> <span class="st">"site"</span>, 
@@ -401,11 +211,7 @@
                                              latitude  <span class="op">=</span> <span class="st">"latitude"</span>,
                                              na_rm     <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 
-<span class="co">## Object information ----</span>
-<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">sites_locations</span><span class="op">)</span>
-<span class="co">#&gt; [1] "matrix" "array"</span>
-<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">sites_locations</span><span class="op">)</span>
-<span class="co">#&gt; [1] 836   2</span>
+
 <span class="co">## Preview ----</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">sites_locations</span><span class="op">)</span>
 <span class="co">#&gt;                   longitude latitude</span>
@@ -414,17 +220,19 @@
 <span class="co">#&gt; PA_10686882010661 -78.33307 40.19452</span>
 <span class="co">#&gt; PA_10688091010661 -78.49974 39.86120</span>
 <span class="co">#&gt; PA_10688665010661 -78.47196 40.22230</span>
-<span class="co">#&gt; PA_10688975010661 -78.36085 40.08341</span>
-<span class="co">## Sites names ----</span>
+<span class="co">#&gt; PA_10688975010661 -78.36085 40.08341</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Sites names ----</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">sites_locations</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>
 <span class="co">#&gt;  [1] "OH_19104898010661" "PA_10686546010661" "PA_10686882010661"</span>
 <span class="co">#&gt;  [4] "PA_10688091010661" "PA_10688665010661" "PA_10688975010661"</span>
 <span class="co">#&gt;  [7] "PA_10692037010661" "PA_10692419010661" "PA_10692473010661"</span>
 <span class="co">#&gt; [10] "PA_10693473010661"</span></code></pre></div>
+<p><br></p>
 <ul>
 <li><strong>Format sites x species data</strong></li>
 </ul>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Format sites x species data ----</span>
 <span class="va">sites_species</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_sites_species.html">fb_format_sites_species</a></span><span class="op">(</span>data       <span class="op">=</span> <span class="va">all_data</span>, 
                                          site       <span class="op">=</span> <span class="st">"site"</span>, 
@@ -432,11 +240,7 @@
                                          value      <span class="op">=</span> <span class="st">"count"</span>,
                                          na_to_zero <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
-<span class="co">## Object information ----</span>
-<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">sites_species</span><span class="op">)</span>
-<span class="co">#&gt; [1] "matrix" "array"</span>
-<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">sites_species</span><span class="op">)</span>
-<span class="co">#&gt; [1] 836   3</span>
+
 <span class="co">## Preview ----</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">sites_species</span><span class="op">)</span>
 <span class="co">#&gt;                    acer_pensylvanicum populus_tremuloides quercus_macrocarpa</span>
@@ -445,40 +249,41 @@
 <span class="co">#&gt; PA_76855646010538                   4                   0                  0</span>
 <span class="co">#&gt; PA_58581106010538                   2                   0                  0</span>
 <span class="co">#&gt; PA_145019955010661                  3                   0                  0</span>
-<span class="co">#&gt; PA_10716167010661                   1                   0                  0</span>
-<span class="co">## Sites names (first ten) ----</span>
+<span class="co">#&gt; PA_10716167010661                   1                   0                  0</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Sites names (first ten) ----</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">sites_species</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>
 <span class="co">#&gt;  [1] "PA_76856094010538"  "PA_68287127010538"  "PA_76855646010538" </span>
 <span class="co">#&gt;  [4] "PA_58581106010538"  "PA_145019955010661" "PA_10716167010661" </span>
 <span class="co">#&gt;  [7] "PA_58581599010538"  "PA_10752222010661"  "PA_10789064010661" </span>
-<span class="co">#&gt; [10] "PA_58581253010538"</span>
-<span class="co">## Species names ----</span>
+<span class="co">#&gt; [10] "PA_58581253010538"</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Species names ----</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">sites_species</span><span class="op">)</span>
 <span class="co">#&gt; [1] "acer_pensylvanicum"  "populus_tremuloides" "quercus_macrocarpa"</span></code></pre></div>
+<p><br></p>
 <ul>
 <li><strong>Format species x traits data</strong></li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Format species x traits data ----</span>
 <span class="va">species_traits</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_species_traits.html">fb_format_species_traits</a></span><span class="op">(</span>data    <span class="op">=</span> <span class="va">all_data</span>, 
                                            species <span class="op">=</span> <span class="st">"species"</span>, 
                                            traits  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"sla"</span>, <span class="st">"n_mass"</span>, <span class="st">"wood_dens"</span><span class="op">)</span><span class="op">)</span>
 
-<span class="co">## Object information ----</span>
-<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span>
-<span class="co">#&gt; [1] "data.frame"</span>
-<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span>
-<span class="co">#&gt; [1] 3 3</span>
+
 <span class="co">## Preview ----</span>
 <span class="va">species_traits</span>
 <span class="co">#&gt;                          sla   n_mass wood_dens</span>
 <span class="co">#&gt; acer_pensylvanicum  25.26650 2.221025      0.44</span>
 <span class="co">#&gt; populus_tremuloides 15.06333 2.027469      0.35</span>
-<span class="co">#&gt; quercus_macrocarpa  11.01700 2.302263      0.58</span>
-<span class="co">## Species names ----</span>
+<span class="co">#&gt; quercus_macrocarpa  11.01700 2.302263      0.58</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Species names ----</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span>
-<span class="co">#&gt; [1] "acer_pensylvanicum"  "populus_tremuloides" "quercus_macrocarpa"</span>
-<span class="co">## Traits names ----</span>
+<span class="co">#&gt; [1] "acer_pensylvanicum"  "populus_tremuloides" "quercus_macrocarpa"</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Traits names ----</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span>
 <span class="co">#&gt; [1] "sla"       "n_mass"    "wood_dens"</span></code></pre></div>
 </div>
