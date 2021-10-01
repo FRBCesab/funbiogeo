@@ -22,23 +22,13 @@ knitr::opts_chunk$set(
 library("funbiogeo")
 ```
 
-
-
 Introduction...
-
-
 
 ## Data format
 
-
-
 ...
 
-
-
-### Sites x Locations 
-
-
+### Sites x Locations
 
 ```{r 'load-sites-locs'}
 ## Load sites x locations example dataset ----
@@ -46,36 +36,34 @@ data("sites_locs", package = "funbiogeo")
 
 ## Preview ----
 head(sites_locs)
+```
 
+```{r 'print-sites-ids-1'}
 ## Sites identifiers are row names ----
 rownames(sites_locs)[1:10]
 ```
 
-
-
-### Sites x Species 
-
-
+### Sites x Species
 
 ```{r 'load-sites-species'}
 ## Load sites x species example dataset ----
 data("species_occs", package = "funbiogeo")
 
 ## Preview ----
-head(species_occs)
+head(species_occs[ , 1:4])
+```
 
+```{r 'print-sites-ids-2'}
 ## Sites identifiers are row names ----
-rownames(species_occs)[1:10]
-
-## Species names are column names ----
 rownames(species_occs)[1:10]
 ```
 
+```{r 'print-species-ids-1'}
+## Species names are column names ----
+colnames(species_occs)[1:10]
+```
 
-
-### Species x Traits 
-
-
+### Species x Traits
 
 ```{r 'load-species-traits'}
 ## Load species x traits example dataset ----
@@ -83,19 +71,19 @@ data("species_traits", package = "funbiogeo")
 
 ## Preview ----
 head(species_traits)
+```
 
+```{r 'print-species-ids-2'}
 ## Species names are row names ----
 rownames(species_traits)[1:10]
+```
 
+```{r 'print-traits-ids-1'}
 ## Traits names are column names ----
 colnames(species_traits)
 ```
 
-
-
 ### Long format
-
-
 
 ```{r 'load-raw-dataset'}
 ## Path to example raw dataset ----
@@ -108,10 +96,9 @@ all_data <- read.csv2(filename)
 head(all_data)
 ```
 
+<br />
 
-
-- **Format sites x locations data**
-
+-   **Format sites x locations data**
 
 ```{r 'format-sites-locs'}
 ## Format sites x locations data ----
@@ -121,23 +108,19 @@ sites_locations <- fb_format_sites_locations(data      = all_data,
                                              latitude  = "latitude",
                                              na_rm     = FALSE)
 
-## Object information ----
-class(sites_locations)
-dim(sites_locations)
-
 
 ## Preview ----
 head(sites_locations)
+```
 
-
+```{r 'print-sites-ids-3'}
 ## Sites names ----
 rownames(sites_locations)[1:10]
 ```
 
+<br />
 
-
-- **Format sites x species data**
-
+-   **Format sites x species data**
 
 ```{r 'format-sites-species'}
 ## Format sites x species data ----
@@ -147,27 +130,24 @@ sites_species <- fb_format_sites_species(data       = all_data,
                                          value      = "count",
                                          na_to_zero = TRUE)
 
-## Object information ----
-class(sites_species)
-dim(sites_species)
-
 
 ## Preview ----
 head(sites_species)
+```
 
-
+```{r 'print-sites-ids-4'}
 ## Sites names (first ten) ----
 rownames(sites_species)[1:10]
+```
 
-
+```{r 'print-species-ids-3'}
 ## Species names ----
 colnames(sites_species)
 ```
 
+<br />
 
-
-- **Format species x traits data**
-
+-   **Format species x traits data**
 
 ```{r 'format-species-traits'}
 ## Format species x traits data ----
@@ -175,29 +155,25 @@ species_traits <- fb_format_species_traits(data    = all_data,
                                            species = "species", 
                                            traits  = c("sla", "n_mass", "wood_dens"))
 
-## Object information ----
-class(species_traits)
-dim(species_traits)
-
 
 ## Preview ----
 species_traits
+```
 
-
+```{r 'print-species-ids-4'}
 ## Species names ----
 rownames(species_traits)
+```
 
-
+```{r 'print-traits-ids-2'}
 ## Traits names ----
 colnames(species_traits)
 ```
 
-
-
 ## Table of contents...
 
-- Selecting sites based on trait coverage
-- Computing functional diversity metrics
-- Relating functional diversity to environment
-- Mapping functional diversity
-- Upscale data
+-   Selecting sites based on trait coverage
+-   Computing functional diversity metrics
+-   Relating functional diversity to environment
+-   Mapping functional diversity
+-   Upscale data
