@@ -36,7 +36,7 @@ test_that("fb_cwm() works", {
     fixed = TRUE
   )
   
-  rownames(sites_species) <- paste0("site_", 1:nrow(sites_species))
+  rownames(sites_species) <- paste0("site_", seq_len(nrow(sites_species)))
   
   expect_error(
     fb_cwm(sites_species, species_traits),
@@ -44,7 +44,8 @@ test_that("fb_cwm() works", {
     fixed = TRUE
   )
   
-  colnames(sites_species) <- paste0("species_", LETTERS[1:ncol(sites_species)])
+  colnames(sites_species) <- paste0("species_", 
+                                    LETTERS[seq_len(ncol(sites_species))])
   
   expect_error(
     fb_cwm(sites_species, species_traits),
@@ -53,7 +54,7 @@ test_that("fb_cwm() works", {
   )
   
   rownames(species_traits) <- paste0("species_", 
-                                     LETTERS[1:ncol(species_traits)])
+                                     LETTERS[seq_len(ncol(species_traits))])
   
   expect_error(
     fb_cwm(sites_species, species_traits),
@@ -61,14 +62,15 @@ test_that("fb_cwm() works", {
     fixed = TRUE
   )
   
-  colnames(species_traits) <- paste0("trait_", 1:ncol(species_traits))
+  colnames(species_traits) <- paste0("trait_", seq_len(ncol(species_traits)))
 
   
   
   # No species in common ----
   
   rownames(species_traits) <- paste0("species_", 
-                                     LETTERS[10 + (1:ncol(species_traits))])
+                                     LETTERS[10 + 
+                                               (seq_len(ncol(species_traits)))])
   
   expect_error(
     fb_cwm(sites_species, species_traits),
@@ -80,9 +82,9 @@ test_that("fb_cwm() works", {
   # No numeric traits ----
   
   species_traits <- matrix(LETTERS[1:4], ncol = 2)
-  colnames(species_traits) <- paste0("trait_", 1:ncol(species_traits))
+  colnames(species_traits) <- paste0("trait_", seq_len(ncol(species_traits)))
   rownames(species_traits) <- paste0("species_", 
-                                     LETTERS[1:ncol(species_traits)])
+                                     LETTERS[seq_len(ncol(species_traits))])
   
   expect_error(
     fb_cwm(sites_species, species_traits),
@@ -94,9 +96,9 @@ test_that("fb_cwm() works", {
   # Valid input ----
   
   species_traits <- matrix(c(1.1, 2.5, 100, 400), ncol = 2)
-  colnames(species_traits) <- paste0("trait_", 1:ncol(species_traits))
+  colnames(species_traits) <- paste0("trait_", seq_len(ncol(species_traits)))
   rownames(species_traits) <- paste0("species_", 
-                                     LETTERS[1:ncol(species_traits)])
+                                     LETTERS[seq_len(ncol(species_traits))])
   
   expect_silent(
     test_cwm <- fb_cwm(sites_species, species_traits)

@@ -56,7 +56,7 @@ test_that("fb_get_environment() works", {
   )
   
   expect_error(
-    fb_get_environment(sites_locs[-c(1:nrow(sites_locs)), ], layers),
+    fb_get_environment(sites_locs[-c(seq_len(nrow(sites_locs))), ], layers),
     "The sites x locations object should have at least one row",
     fixed = TRUE
   )

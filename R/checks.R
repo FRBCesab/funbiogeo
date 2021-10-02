@@ -44,12 +44,13 @@ check_sites_species <- function(sites_species) {
   
   if (is.data.frame(sites_species)) {
     
-    if (any(rownames(sites_species) %in% 1:nrow(sites_species))) {
+    if (any(rownames(sites_species) %in% seq_len(nrow(sites_species)))) {
       stop("The sites x species object must have row names (sites names)", 
            call. = FALSE)
     }
     
-    if (any(colnames(sites_species) %in% paste0("V", 1:ncol(sites_species)))) {
+    if (any(colnames(sites_species) %in% 
+            paste0("V", seq_len(nrow(sites_species))))) {
       stop("The sites x species object must have column names (species names)", 
            call. = FALSE)
     }
@@ -120,13 +121,13 @@ check_species_traits <- function(species_traits) {
   
   if (is.data.frame(species_traits)) {
     
-    if (any(rownames(species_traits) %in% 1:nrow(species_traits))) {
+    if (any(rownames(species_traits) %in% seq_len(nrow(species_traits)))) {
       stop("The species x traits object must have row names (species names)", 
            call. = FALSE)
     }
     
     if (any(colnames(species_traits) %in% 
-            paste0("V", 1:ncol(species_traits)))) {
+            paste0("V", seq_len(ncol(species_traits))))) {
       stop("The species x traits object must have column names (traits names)",
            call. = FALSE)
     }
@@ -185,7 +186,7 @@ check_sites_locations <- function(sites_locations) {
   
   if (is.data.frame(sites_locations)) {
     
-    if (any(rownames(sites_locations) %in% 1:nrow(sites_locations))) {
+    if (any(rownames(sites_locations) %in% seq_len(nrow(sites_locations)))) {
       stop("The sites x locations object must have row names (sites names)", 
            call. = FALSE)
     }

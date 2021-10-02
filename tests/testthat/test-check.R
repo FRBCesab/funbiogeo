@@ -53,7 +53,7 @@ test_that("check_sites_species() works", {
     fixed = TRUE)
   
   mat <- matrix(1:10, ncol = 2)
-  rownames(mat) <- paste0("site_", 1:nrow(mat))
+  rownames(mat) <- paste0("site_", seq_len(nrow(mat)))
   dat <- as.data.frame(mat)
   
   expect_error(
@@ -77,8 +77,8 @@ test_that("check_sites_species() works", {
   # Check for numeric ----
   
   mat <- as.data.frame(matrix(1:10, ncol = 2))
-  rownames(mat) <- paste0("site_", 1:nrow(mat))
-  colnames(mat) <- paste0("species_", LETTERS[1:ncol(mat)])
+  rownames(mat) <- paste0("site_", seq_len(nrow(mat)))
+  colnames(mat) <- paste0("species_", LETTERS[seq_len(ncol(mat))])
   mat$"site" <- rownames(mat)
   
   expect_error(
@@ -91,8 +91,8 @@ test_that("check_sites_species() works", {
   # Matrix should not contain negative values ----
   
   mat <- matrix(c(1:9, -1), ncol = 2)
-  rownames(mat) <- paste0("site_", 1:nrow(mat))
-  colnames(mat) <- paste0("species_", LETTERS[1:ncol(mat)])
+  rownames(mat) <- paste0("site_", seq_len(nrow(mat)))
+  colnames(mat) <- paste0("species_", LETTERS[seq_len(ncol(mat))])
   
   expect_error(
     check_sites_species(mat),
@@ -110,8 +110,8 @@ test_that("check_sites_species() works", {
   # Correct input ----
   
   mat <- matrix(1:10, ncol = 2)
-  rownames(mat) <- paste0("site_", 1:nrow(mat))
-  colnames(mat) <- paste0("species_", LETTERS[1:ncol(mat)])
+  rownames(mat) <- paste0("site_", seq_len(nrow(mat)))
+  colnames(mat) <- paste0("species_", LETTERS[seq_len(ncol(mat))])
   
   expect_silent(check_sites_species(mat))
   
@@ -122,8 +122,8 @@ test_that("check_sites_species() works", {
   expect_silent(check_sites_species(mat))
   
   mat <- matrix(c(1, rep(NA, 9)), ncol = 2)
-  rownames(mat) <- paste0("site_", 1:nrow(mat))
-  colnames(mat) <- paste0("species_", LETTERS[1:ncol(mat)])
+  rownames(mat) <- paste0("site_", seq_len(nrow(mat)))
+  colnames(mat) <- paste0("species_", LETTERS[seq_len(ncol(mat))])
   
   expect_silent(check_sites_species(mat))
 })
@@ -195,7 +195,7 @@ test_that("check_species_traits() works", {
     fixed = TRUE)
   
   mat <- matrix(1:10, ncol = 2)
-  rownames(mat) <- paste0("species_", 1:nrow(mat))
+  rownames(mat) <- paste0("species_", seq_len(nrow(mat)))
   dat <- as.data.frame(mat)
   
   expect_error(
@@ -219,8 +219,8 @@ test_that("check_species_traits() works", {
   # Correct Input ----
 
   mat <- matrix(1:10, ncol = 2)
-  rownames(mat) <- paste0("species_", 1:nrow(mat))
-  colnames(mat) <- paste0("trait_", LETTERS[1:ncol(mat)])
+  rownames(mat) <- paste0("species_", seq_len(nrow(mat)))
+  colnames(mat) <- paste0("trait_", LETTERS[seq_len(ncol(mat))])
   
   expect_silent(check_species_traits(mat))
   
@@ -230,7 +230,7 @@ test_that("check_species_traits() works", {
   
   expect_silent(check_species_traits(dat))
   
-  dat$"trait_3" <- LETTERS[1:nrow(dat)]
+  dat$"trait_3" <- LETTERS[seq_len(nrow(dat))]
   
   expect_silent(check_species_traits(dat))
   
@@ -268,7 +268,7 @@ test_that("check_sites_locations() works", {
   )
   
   expect_error(
-    check_sites_locations(sites_locs[-c(1:nrow(sites_locs)), ]),
+    check_sites_locations(sites_locs[-c(seq_len(nrow(sites_locs))), ]),
     "The sites x locations object should have at least one row",
     fixed = TRUE
   )

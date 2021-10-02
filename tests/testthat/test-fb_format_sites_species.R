@@ -32,7 +32,7 @@ test_that("fb_format_sites_species() works", {
   )
   
   expect_error(
-    fb_format_sites_species(all_data[-c(1:nrow(all_data)), ]),
+    fb_format_sites_species(all_data[-c(seq_len(nrow(all_data))), ]),
     "Argument 'data' must be a data.frame with at least one row",
     fixed = TRUE
   )

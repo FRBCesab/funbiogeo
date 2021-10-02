@@ -26,13 +26,14 @@ test_that("fb_format_species_traits() works", {
   )
   
   expect_error(
-    fb_format_species_traits(data.frame(all_data[ , -c(1:ncol(all_data))])),
+    fb_format_species_traits(data.frame(all_data[ , 
+                                                -c(seq_len(ncol(all_data)))])),
     "Argument 'data' must be a data.frame with at least one column",
     fixed = TRUE
   )
   
   expect_error(
-    fb_format_species_traits(all_data[-c(1:nrow(all_data)), ]),
+    fb_format_species_traits(all_data[-c(seq_len(nrow(all_data))), ]),
     "Argument 'data' must be a data.frame with at least one row",
     fixed = TRUE
   )

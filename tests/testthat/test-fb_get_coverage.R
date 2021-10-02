@@ -25,7 +25,7 @@ test_that("fb_get_coverage() works", {
     fixed = TRUE
   )
   
-  rownames(sites_species) <- paste0("site_", 1:nrow(sites_species))
+  rownames(sites_species) <- paste0("site_", seq_len(nrow(sites_species)))
   
   expect_error(
     fb_get_coverage(sites_species, species_traits),
@@ -33,7 +33,8 @@ test_that("fb_get_coverage() works", {
     fixed = TRUE
   )
   
-  colnames(sites_species) <- paste0("species_", LETTERS[1:ncol(sites_species)])
+  colnames(sites_species) <- paste0("species_", LETTERS[
+    seq_len(ncol(sites_species))])
   
   expect_error(
     fb_get_coverage(sites_species, species_traits),
@@ -42,7 +43,7 @@ test_that("fb_get_coverage() works", {
   )
   
   rownames(species_traits) <- paste0("species_", 
-                                     LETTERS[1:ncol(species_traits)])
+                                     LETTERS[seq_len(ncol(species_traits))])
   
   expect_error(
     fb_get_coverage(sites_species, species_traits),
@@ -50,13 +51,14 @@ test_that("fb_get_coverage() works", {
     fixed = TRUE
   )
   
-  colnames(species_traits) <- paste0("trait_", 1:ncol(species_traits))
+  colnames(species_traits) <- paste0("trait_", seq_len(ncol(species_traits)))
   
   
   # No species in common ----
   
   rownames(species_traits) <- paste0("species_", 
-                                     LETTERS[10 + (1:ncol(species_traits))])
+                                     LETTERS[10 + 
+                                               (seq_len(ncol(species_traits)))])
   
   expect_error(
     fb_get_coverage(sites_species, species_traits),
