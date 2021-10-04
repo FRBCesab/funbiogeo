@@ -12,6 +12,8 @@ status](https://www.r-pkg.org/badges/version/funbiogeo)](https://CRAN.R-project.
 [![License: GPL
 v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 [![LifeCycle](man/figures/lifecycle-experimental.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Project Status:
+Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 <!-- badges: end -->
 
 ## Overview
