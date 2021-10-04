@@ -20,16 +20,20 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library("funbiogeo")
-```
-
 
 
 The aim of the package `funbiogeo` is to help users with analyses in FUNctional 
 BIOGEOgeography (Violle *et al.* 2014). It helps to load and combine data, 
 computing trait coverage, as well as computing functional diversity indices, 
 drawing maps, correlate them with the environment, and upscaling assemblages.
+
+
+
+
+```{r setup}
+library("funbiogeo")
+library("ggplot2")
+```
 
 
 
@@ -40,7 +44,7 @@ drawing maps, correlate them with the environment, and upscaling assemblages.
 The package `funbiogeo` requires that information be spread into three datasets:
 
 -   the **sites x locations** dataset (example dataset: `sites_locs`)
--   the **sites x species** dataset (example dataset: `sites_occs`)
+-   the **sites x species** dataset (example dataset: `species_occs`)
 -   the **species x traits** dataset (example dataset: `species_traits`)
 
 Let's take a look at each of these datasets.
@@ -286,14 +290,240 @@ species_traits
 
 
 
+## Trait coverage
 
-## Table of contents...
 
--   Selecting sites based on trait coverage
--   Computing functional diversity metrics
--   Relating functional diversity to environment
--   Mapping functional diversity
--   Upscale data
+
+[...]
+
+
+
+### Community-Weighted Means
+
+
+
+[...]
+
+
+```{r 'compute-cwm'}
+data("sites_locations")
+data("species_occs")
+data("species_traits")
+
+## Compute CWM ----
+cwm <- fb_cwm(sites_species  = species_occs, 
+              species_traits = species_traits)
+
+## Preview ----
+head(cwm)
+```
+
+
+
+[...]
+
+
+
+### Compute trait coverage
+
+
+
+[...]
+
+
+```{r 'get-trait-coverage'}
+## Get trait coverage ----
+cover <- fb_get_coverage(sites_species  = species_occs, 
+                         species_traits = species_traits)
+
+## Preview ----
+head(cover)
+```
+
+
+
+[...]
+
+
+
+### Filter sites by trait coverage
+
+
+
+[...]
+
+
+
+```{r 'filter-trait-coverage'}
+## Get trait coverage ----
+sel_sites <- fb_filter_coverage(sites_species      = species_occs, 
+                                species_traits     = species_traits,
+                                coverage_threshold = 0.5)
+
+## Preview ----
+head(sel_sites[ , 1:4])
+```
+
+
+```{r 'sites-comparison'}
+## Original sites ----
+nrow(species_occs)
+
+## Filtered sites ----
+nrow(sel_sites)
+```
+
+
+
+## Functional diversity metrics
+
+
+
+[...]
+
+
+
+```{r 'species-richness'}
+## Compute species richness ----
+richness <- apply(species_occs, 1, function(x) sum(ifelse(x > 0, 1, 0)))
+
+## Convert to data frame ----
+richness <- data.frame("n_species" = richness)
+rownames(richness) <- rownames(species_occs)
+
+## Preview ----
+head(richness)
+```
+
+
+
+## Relation with environment
+
+
+
+[...]
+
+
+
+```{r 'load-rasters'}
+## Available climate rasters ----
+prec <- system.file("extdata", "annual_tot_prec.tif", package = "funbiogeo")
+tavg <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")
+
+## Import climate rasters ----
+layers <- terra::rast(c(tavg, prec))
+
+## Preview ----
+layers
+```
+
+
+
+[...]
+
+
+
+```{r 'extract-rasters'}
+## Extract environment at sites ----
+sites_env <- fb_get_environment(sites_locs, layers)
+
+## Preview ----
+head(sites_env)
+```
+
+
+
+[...]
+
+
+
+```{r 'relation-w-environment'}
+## Append information ----
+rich_env <- merge(richness, sites_env, by.x = "row.names", by.y = "site")
+
+## Preview ----
+head(rich_env)
+```
+
+
+```{r 'biplot'}
+biplot <- ggplot(rich_env, aes(x = annual_mean_temp, y = n_species)) +
+  geom_point() +
+  theme_classic() +
+  labs(x = "Annual mean temperature", y = "Species richness")
+biplot
+```
+
+```{r 'biplot-trend'}
+biplot + geom_smooth(method = "lm")
+```
+
+
+
+## Visualization
+
+
+
+
+### Map of environment
+
+
+
+[...]
+
+
+
+```{r 'map-tavg'}
+## Read raster ----
+tavg <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")
+tavg <- terra::rast(tavg)
+
+## Map of raster ----
+fb_map_raster(tavg)
+```
+
+
+```{r 'map-tavg-custom'}
+fb_map_raster(tavg) + 
+  scale_fill_distiller("Temperature", palette = "Spectral") +
+  theme(legend.position = "bottom") + 
+  ggtitle("Mean annual temperature in Pennsylvania")
+```
+
+
+
+### Map of indices
+
+
+
+[...]
+
+
+```{r 'upscale-richness'}
+## Upscale to grid ----
+rownames(rich_env) <- rich_env[ , 1]
+rich_env <- rich_env[ , "n_species", drop = FALSE]
+
+ras_richness <- fb_upscale_sites(sites_locations = sites_locs, 
+                                 data            = rich_env, 
+                                 grid            = tavg)
+
+ras_richness
+```
+
+```{r 'map-richness'}
+fb_map_raster(ras_richness)
+```
+
+
+
+```{r 'map-richness-custom'}
+fb_map_raster(ras_richness) + 
+  scale_fill_distiller("Number of species", palette = "Spectral") +
+  theme(legend.position = "bottom") + 
+  ggtitle("Trees species richness in Pennsylvania")
+```
+
 
 ## References
 
