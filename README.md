@@ -50,11 +50,11 @@ page](https://github.com/FRBCesab/funbiogeo/wiki/Design-Principles).
 
 `funbiogeo` relies on other packages to provide critical features:
 
--   [`fundiversity`](https://github.com/Bisaloo/fundiversity) computes
+  - [`fundiversity`](https://github.com/Bisaloo/fundiversity) computes
     functional diversity indices.
--   [`funrar`](https://github.com/Rekyt/funrar) computes functional
+  - [`funrar`](https://github.com/Rekyt/funrar) computes functional
     originality indices.
--   [`mFD`](https://github.com/CmlMagneville/mFD) computes functional
+  - [`mFD`](https://github.com/CmlMagneville/mFD) computes functional
     diversity indices.
 
 ## References
