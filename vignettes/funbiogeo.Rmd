@@ -306,7 +306,7 @@ species_traits
 
 
 ```{r 'compute-cwm'}
-data("sites_locations")
+data("sites_locs")
 data("species_occs")
 data("species_traits")
 
