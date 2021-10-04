@@ -491,6 +491,34 @@ fb_map_raster(tavg) +
 ```
 
 
+```{r 'composition-map'}
+library("patchwork")
+
+## Read raster ----
+tavg <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")
+tavg <- terra::rast(tavg)
+
+prec <- system.file("extdata", "annual_tot_prec.tif", package = "funbiogeo")
+prec <- terra::rast(prec)
+
+## Individual Maps ----
+x <- fb_map_raster(tavg, legend.position = "none") + 
+  scale_fill_distiller("Temperature", palette = "Spectral")
+
+y <- fb_map_raster(prec) + 
+  scale_fill_distiller("Precipitation", direction = 1)
+
+## Arrangement ----
+figure <- x / y
+
+figure + 
+  plot_annotation(title = "Pennsylvania", 
+                  theme = theme(plot.title = element_text(face = "bold"))) & 
+  theme_classic() &
+  theme(text = element_text('mono'))
+```
+
+
 
 ### Map of indices
 

@@ -39,6 +39,7 @@ Imports:
     tidyselect
 Suggests:
     knitr,
+    patchwork,
     raster,
     rgdal,
     rmarkdown,
