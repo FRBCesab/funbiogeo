@@ -83,16 +83,17 @@
 
     
     
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/frbcesab/funbiogeo">"funbiogeo"</a></span><span class="op">)</span></code></pre></div>
 <p>The aim of the package <code>funbiogeo</code> is to help users with analyses in FUNctional BIOGEOgeography (Violle <em>et al.</em> 2014). It helps to load and combine data, computing trait coverage, as well as computing functional diversity indices, drawing maps, correlate them with the environment, and upscaling assemblages.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/frbcesab/funbiogeo">"funbiogeo"</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org">"ggplot2"</a></span><span class="op">)</span></code></pre></div>
 <div id="data-format" class="section level2">
 <h2 class="hasAnchor">
 <a href="#data-format" class="anchor"></a>Data format</h2>
 <p>The package <code>funbiogeo</code> requires that information be spread into three datasets:</p>
 <ul>
 <li>the <strong>sites x locations</strong> dataset (example dataset: <code>sites_locs</code>)</li>
-<li>the <strong>sites x species</strong> dataset (example dataset: <code>sites_occs</code>)</li>
+<li>the <strong>sites x species</strong> dataset (example dataset: <code>species_occs</code>)</li>
 <li>the <strong>species x traits</strong> dataset (example dataset: <code>species_traits</code>)</li>
 </ul>
 <p>Let’s take a look at each of these datasets.</p>
@@ -527,16 +528,228 @@
 <span class="co">#&gt; quercus_macrocarpa  11.01700 2.302263      0.58</span></code></pre></div>
 </div>
 </div>
-<div id="table-of-contents" class="section level2">
+<div id="trait-coverage" class="section level2">
 <h2 class="hasAnchor">
-<a href="#table-of-contents" class="anchor"></a>Table of contents…</h2>
-<ul>
-<li>Selecting sites based on trait coverage</li>
-<li>Computing functional diversity metrics</li>
-<li>Relating functional diversity to environment</li>
-<li>Mapping functional diversity</li>
-<li>Upscale data</li>
-</ul>
+<a href="#trait-coverage" class="anchor"></a>Trait coverage</h2>
+<p>[…]</p>
+<div id="community-weighted-means" class="section level3">
+<h3 class="hasAnchor">
+<a href="#community-weighted-means" class="anchor"></a>Community-Weighted Means</h3>
+<p>[…]</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"sites_locations"</span><span class="op">)</span>
+<span class="co">#&gt; Warning in data("sites_locations"): data set 'sites_locations' not found</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"species_occs"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"species_traits"</span><span class="op">)</span>
+
+<span class="co">## Compute CWM ----</span>
+<span class="va">cwm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_cwm.html">fb_cwm</a></span><span class="op">(</span>sites_species  <span class="op">=</span> <span class="va">species_occs</span>, 
+              species_traits <span class="op">=</span> <span class="va">species_traits</span><span class="op">)</span>
+
+<span class="co">## Preview ----</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">cwm</span><span class="op">)</span>
+<span class="co">#&gt;               site     trait      cwm</span>
+<span class="co">#&gt; 1 MD_9557550010661       sla       NA</span>
+<span class="co">#&gt; 2 MD_9557550010661    n_mass 1.745102</span>
+<span class="co">#&gt; 3 MD_9557550010661 wood_dens       NA</span>
+<span class="co">#&gt; 4 MD_9565278010661       sla       NA</span>
+<span class="co">#&gt; 5 MD_9565278010661    n_mass 2.043338</span>
+<span class="co">#&gt; 6 MD_9565278010661 wood_dens       NA</span></code></pre></div>
+<p>[…]</p>
+</div>
+<div id="compute-trait-coverage" class="section level3">
+<h3 class="hasAnchor">
+<a href="#compute-trait-coverage" class="anchor"></a>Compute trait coverage</h3>
+<p>[…]</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Get trait coverage ----</span>
+<span class="va">cover</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_get_coverage.html">fb_get_coverage</a></span><span class="op">(</span>sites_species  <span class="op">=</span> <span class="va">species_occs</span>, 
+                         species_traits <span class="op">=</span> <span class="va">species_traits</span><span class="op">)</span>
+
+<span class="co">## Preview ----</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">cover</span><span class="op">)</span>
+<span class="co">#&gt;                site trait_coverage</span>
+<span class="co">#&gt; 1  MD_9557550010661      0.9629630</span>
+<span class="co">#&gt; 2  MD_9565278010661      0.9166667</span>
+<span class="co">#&gt; 3  NJ_9687057010661      1.0000000</span>
+<span class="co">#&gt; 4 OH_19104898010661      0.9705882</span>
+<span class="co">#&gt; 5 PA_10725597010661      0.9318182</span>
+<span class="co">#&gt; 6 PA_10725883010661      0.7073171</span></code></pre></div>
+<p>[…]</p>
+</div>
+<div id="filter-sites-by-trait-coverage" class="section level3">
+<h3 class="hasAnchor">
+<a href="#filter-sites-by-trait-coverage" class="anchor"></a>Filter sites by trait coverage</h3>
+<p>[…]</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Get trait coverage ----</span>
+<span class="va">sel_sites</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_filter_coverage.html">fb_filter_coverage</a></span><span class="op">(</span>sites_species      <span class="op">=</span> <span class="va">species_occs</span>, 
+                                species_traits     <span class="op">=</span> <span class="va">species_traits</span>,
+                                coverage_threshold <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>
+
+<span class="co">## Preview ----</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">sel_sites</span><span class="op">[</span> , <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span>
+<span class="co">#&gt;                   acer_negundo acer_nigrum acer_pensylvanicum acer_rubrum</span>
+<span class="co">#&gt; MD_9557550010661             0           0                  0          14</span>
+<span class="co">#&gt; MD_9565278010661             0           0                  0           7</span>
+<span class="co">#&gt; NJ_9687057010661             0           0                  0           6</span>
+<span class="co">#&gt; OH_19104898010661            0           0                  0           6</span>
+<span class="co">#&gt; PA_10725597010661            0           0                  0           4</span>
+<span class="co">#&gt; PA_10725883010661            0           0                  0          28</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Original sites ----</span>
+<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">species_occs</span><span class="op">)</span>
+<span class="co">#&gt; [1] 5770</span>
+
+<span class="co">## Filtered sites ----</span>
+<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">sel_sites</span><span class="op">)</span>
+<span class="co">#&gt; [1] 5615</span></code></pre></div>
+</div>
+</div>
+<div id="functional-diversity-metrics" class="section level2">
+<h2 class="hasAnchor">
+<a href="#functional-diversity-metrics" class="anchor"></a>Functional diversity metrics</h2>
+<p>[…]</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Compute species richness ----</span>
+<span class="va">richness</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">species_occs</span>, <span class="fl">1</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+
+<span class="co">## Convert to data frame ----</span>
+<span class="va">richness</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="st">"n_species"</span> <span class="op">=</span> <span class="va">richness</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">richness</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">species_occs</span><span class="op">)</span>
+
+<span class="co">## Preview ----</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">richness</span><span class="op">)</span>
+<span class="co">#&gt;                   n_species</span>
+<span class="co">#&gt; MD_9557550010661         10</span>
+<span class="co">#&gt; MD_9565278010661          8</span>
+<span class="co">#&gt; NJ_9687057010661          8</span>
+<span class="co">#&gt; OH_19104898010661        10</span>
+<span class="co">#&gt; PA_10725597010661         6</span>
+<span class="co">#&gt; PA_10725883010661         7</span></code></pre></div>
+</div>
+<div id="relation-with-environment" class="section level2">
+<h2 class="hasAnchor">
+<a href="#relation-with-environment" class="anchor"></a>Relation with environment</h2>
+<p>[…]</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Available climate rasters ----</span>
+<span class="va">prec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"annual_tot_prec.tif"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
+<span class="va">tavg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"annual_mean_temp.tif"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
+
+<span class="co">## Import climate rasters ----</span>
+<span class="va">layers</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html">rast</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">tavg</span>, <span class="va">prec</span><span class="op">)</span><span class="op">)</span>
+
+<span class="co">## Preview ----</span>
+<span class="va">layers</span>
+<span class="co">#&gt; class       : SpatRaster </span>
+<span class="co">#&gt; dimensions  : 61, 139, 2  (nrow, ncol, nlyr)</span>
+<span class="co">#&gt; resolution  : 0.04166667, 0.04166667  (x, y)</span>
+<span class="co">#&gt; extent      : -80.5, -74.70833, 39.70833, 42.25  (xmin, xmax, ymin, ymax)</span>
+<span class="co">#&gt; coord. ref. : +proj=longlat +datum=WGS84 +no_defs  </span>
+<span class="co">#&gt; sources     : annual_mean_temp.tif  </span>
+<span class="co">#&gt;               annual_tot_prec.tif  </span>
+<span class="co">#&gt; names       : annual_mean_temp, annual_tot_prec </span>
+<span class="co">#&gt; min values  :         6.275667,      848.000000 </span>
+<span class="co">#&gt; max values  :         12.94067,      1270.00000</span></code></pre></div>
+<p>[…]</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Extract environment at sites ----</span>
+<span class="va">sites_env</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_get_environment.html">fb_get_environment</a></span><span class="op">(</span><span class="va">sites_locs</span>, <span class="va">layers</span><span class="op">)</span>
+
+<span class="co">## Preview ----</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">sites_env</span><span class="op">)</span>
+<span class="co">#&gt;                site annual_mean_temp annual_tot_prec</span>
+<span class="co">#&gt; 1  MD_9557550010661        11.045000            1121</span>
+<span class="co">#&gt; 2  MD_9565278010661         9.591666            1124</span>
+<span class="co">#&gt; 3  NJ_9687057010661        10.919333            1177</span>
+<span class="co">#&gt; 4 OH_19104898010661         8.775333            1072</span>
+<span class="co">#&gt; 5 PA_10725597010661        10.552333            1059</span>
+<span class="co">#&gt; 6 PA_10725883010661        10.205667            1101</span></code></pre></div>
+<p>[…]</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Append information ----</span>
+<span class="va">rich_env</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html">merge</a></span><span class="op">(</span><span class="va">richness</span>, <span class="va">sites_env</span>, by.x <span class="op">=</span> <span class="st">"row.names"</span>, by.y <span class="op">=</span> <span class="st">"site"</span><span class="op">)</span>
+
+<span class="co">## Preview ----</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">rich_env</span><span class="op">)</span>
+<span class="co">#&gt;           Row.names n_species annual_mean_temp annual_tot_prec</span>
+<span class="co">#&gt; 1  MD_9557550010661        10        11.045000            1121</span>
+<span class="co">#&gt; 2  MD_9565278010661         8         9.591666            1124</span>
+<span class="co">#&gt; 3  NJ_9687057010661         8        10.919333            1177</span>
+<span class="co">#&gt; 4 OH_19104898010661        10         8.775333            1072</span>
+<span class="co">#&gt; 5 PA_10681629010661        10        10.822666            1079</span>
+<span class="co">#&gt; 6 PA_10681709010661         6        10.375333            1104</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">biplot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">rich_env</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">annual_mean_temp</span>, y <span class="op">=</span> <span class="va">n_species</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Annual mean temperature"</span>, y <span class="op">=</span> <span class="st">"Species richness"</span><span class="op">)</span>
+<span class="va">biplot</span>
+<span class="co">#&gt; Warning: Removed 24 rows containing missing values (geom_point).</span></code></pre></div>
+<p><img src="funbiogeo_files/figure-html/biplot-1.png" width="100%"></p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">biplot</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span>
+<span class="co">#&gt; `geom_smooth()` using formula 'y ~ x'</span>
+<span class="co">#&gt; Warning: Removed 24 rows containing non-finite values (stat_smooth).</span>
+<span class="co">#&gt; Warning: Removed 24 rows containing missing values (geom_point).</span></code></pre></div>
+<p><img src="funbiogeo_files/figure-html/biplot-trend-1.png" width="100%"></p>
+</div>
+<div id="visualization" class="section level2">
+<h2 class="hasAnchor">
+<a href="#visualization" class="anchor"></a>Visualization</h2>
+<div id="map-of-environment" class="section level3">
+<h3 class="hasAnchor">
+<a href="#map-of-environment" class="anchor"></a>Map of environment</h3>
+<p>[…]</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Read raster ----</span>
+<span class="va">tavg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"annual_mean_temp.tif"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
+<span class="va">tavg</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html">rast</a></span><span class="op">(</span><span class="va">tavg</span><span class="op">)</span>
+
+<span class="co">## Map of raster ----</span>
+<span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">tavg</span><span class="op">)</span></code></pre></div>
+<p><img src="funbiogeo_files/figure-html/map-tavg-1.png" width="100%"></p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">tavg</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_fill_distiller</a></span><span class="op">(</span><span class="st">"Temperature"</span>, palette <span class="op">=</span> <span class="st">"Spectral"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Mean annual temperature in Pennsylvania"</span><span class="op">)</span></code></pre></div>
+<p><img src="funbiogeo_files/figure-html/map-tavg-custom-1.png" width="100%"></p>
+</div>
+<div id="map-of-indices" class="section level3">
+<h3 class="hasAnchor">
+<a href="#map-of-indices" class="anchor"></a>Map of indices</h3>
+<p>[…]</p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Upscale to grid ----</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">rich_env</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">rich_env</span><span class="op">[</span> , <span class="fl">1</span><span class="op">]</span>
+<span class="va">rich_env</span> <span class="op">&lt;-</span> <span class="va">rich_env</span><span class="op">[</span> , <span class="st">"n_species"</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>
+
+<span class="va">ras_richness</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_upscale_sites.html">fb_upscale_sites</a></span><span class="op">(</span>sites_locations <span class="op">=</span> <span class="va">sites_locs</span>, 
+                                 data            <span class="op">=</span> <span class="va">rich_env</span>, 
+                                 grid            <span class="op">=</span> <span class="va">tavg</span><span class="op">)</span>
+
+<span class="va">ras_richness</span>
+<span class="co">#&gt; class       : SpatRaster </span>
+<span class="co">#&gt; dimensions  : 61, 139, 1  (nrow, ncol, nlyr)</span>
+<span class="co">#&gt; resolution  : 0.04166667, 0.04166667  (x, y)</span>
+<span class="co">#&gt; extent      : -80.5, -74.70833, 39.70833, 42.25  (xmin, xmax, ymin, ymax)</span>
+<span class="co">#&gt; coord. ref. : +proj=longlat +datum=WGS84 +no_defs  </span>
+<span class="co">#&gt; source      : memory </span>
+<span class="co">#&gt; name        : n_species </span>
+<span class="co">#&gt; min value   :         3 </span>
+<span class="co">#&gt; max value   :        15</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">ras_richness</span><span class="op">)</span></code></pre></div>
+<p><img src="funbiogeo_files/figure-html/map-richness-1.png" width="100%"></p>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">ras_richness</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_fill_distiller</a></span><span class="op">(</span><span class="st">"Number of species"</span>, palette <span class="op">=</span> <span class="st">"Spectral"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Trees species richness in Pennsylvania"</span><span class="op">)</span></code></pre></div>
+<p><img src="funbiogeo_files/figure-html/map-richness-custom-1.png" width="100%"></p>
+</div>
 </div>
 <div id="references" class="section level2">
 <h2 class="hasAnchor">
