@@ -715,12 +715,38 @@
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Mean annual temperature in Pennsylvania"</span><span class="op">)</span></code></pre></div>
 <p><img src="funbiogeo_files/figure-html/map-tavg-custom-1.png" width="100%"></p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://patchwork.data-imaginist.com">"patchwork"</a></span><span class="op">)</span>
+
+<span class="co">## Read raster ----</span>
+<span class="va">tavg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"annual_mean_temp.tif"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
+<span class="va">tavg</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html">rast</a></span><span class="op">(</span><span class="va">tavg</span><span class="op">)</span>
+
+<span class="va">prec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"annual_tot_prec.tif"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
+<span class="va">prec</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html">rast</a></span><span class="op">(</span><span class="va">prec</span><span class="op">)</span>
+
+<span class="co">## Individual Maps ----</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">tavg</span>, legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_fill_distiller</a></span><span class="op">(</span><span class="st">"Temperature"</span>, palette <span class="op">=</span> <span class="st">"Spectral"</span><span class="op">)</span>
+
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">prec</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_fill_distiller</a></span><span class="op">(</span><span class="st">"Precipitation"</span>, direction <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+
+<span class="co">## Arrangement ----</span>
+<span class="va">figure</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">/</span> <span class="va">y</span>
+
+<span class="va">figure</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_annotation.html">plot_annotation</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Pennsylvania"</span>, 
+                  theme <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>face <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">&amp;</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">&amp;</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span><span class="st">'mono'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p><img src="funbiogeo_files/figure-html/composition-map-1.png" width="100%"></p>
 </div>
 <div id="map-of-indices" class="section level3">
 <h3 class="hasAnchor">
 <a href="#map-of-indices" class="anchor"></a>Map of indices</h3>
 <p>[…]</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Upscale to grid ----</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">rich_env</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">rich_env</span><span class="op">[</span> , <span class="fl">1</span><span class="op">]</span>
 <span class="va">rich_env</span> <span class="op">&lt;-</span> <span class="va">rich_env</span><span class="op">[</span> , <span class="st">"n_species"</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>
@@ -739,10 +765,10 @@
 <span class="co">#&gt; name        : n_species </span>
 <span class="co">#&gt; min value   :         3 </span>
 <span class="co">#&gt; max value   :        15</span></code></pre></div>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">ras_richness</span><span class="op">)</span></code></pre></div>
 <p><img src="funbiogeo_files/figure-html/map-richness-1.png" width="100%"></p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">ras_richness</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_fill_distiller</a></span><span class="op">(</span><span class="st">"Number of species"</span>, palette <span class="op">=</span> <span class="st">"Spectral"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span> <span class="op">+</span> 
