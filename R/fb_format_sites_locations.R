@@ -95,7 +95,7 @@ fb_format_sites_locations <- function(data, site, longitude, latitude,
   }
   
   if (!is.numeric(data[ , longitude])) {
-    stop(paste0("The column '", longitude, "' is must be a numeric"), 
+    stop(paste0("The column '", longitude, "' must be a numeric"), 
          call. = FALSE)
   }
   
