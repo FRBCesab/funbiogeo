@@ -106,6 +106,11 @@ fb_upscale_sites <- function(sites_locations, data, grid, fun = mean,
   }
   
   
+  ## Subset 1st layer ----
+  
+  grid <- terra::subset(grid, 1)
+  
+  
   ## Merge sites info ----
   
   sites_locations <- merge(sites_locations, data, by = "row.names")

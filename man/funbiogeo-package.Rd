@@ -4,9 +4,9 @@
 \name{funbiogeo-package}
 \alias{funbiogeo}
 \alias{funbiogeo-package}
-\title{funbiogeo: Functional Biogeography}
+\title{funbiogeo: Functional Biogeography Analyses}
 \description{
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Helps users with analyses in functional biogeogeography by loading and combining data, computing trait coverage, as well as computing functional diversity indices, drawing maps, correlating them with the environment, and upscaling assemblages.
 }
 \seealso{
 Useful links:

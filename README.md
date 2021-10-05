@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# `funbiogeo` - helping with functional biogeography
+# funbiogeo
 
 <!-- badges: start -->
 
@@ -12,23 +12,25 @@ status](https://www.r-pkg.org/badges/version/funbiogeo)](https://CRAN.R-project.
 [![License: GPL
 v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 [![LifeCycle](man/figures/lifecycle-experimental.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Project Status:
+Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 <!-- badges: end -->
 
 ## Overview
 
-`funbiogeo` aims to be a package to help with analyses in functional
-biogeography (Violle et al. 2014).
+The package `funbiogeo` aims to help users with analyses in functional
+biogeography (Violle et al. 2014) by loading and combining data,
+computing trait coverage, as well as computing functional diversity
+indices, drawing maps, correlating them with the environment, and
+upscaling assemblages.
 
-`funbiogeo` helps to load and combine data, computing trait coverage, as
-well as computing functional diversity indices, drawing maps, correlate
-them with the environment, and upscaling assemblages. To know what
-features are planned in the future you can refer to our [Roadmap wiki
-page](https://github.com/FRBCesab/funbiogeo/wiki/Roadmap).
+To know what features are planned in the future you can refer to our
+[Roadmap wiki page](https://github.com/FRBCesab/funbiogeo/wiki/Roadmap).
 
 ## Installation
 
-For the moment `funbiogeo` is not on CRAN so you have to install it from
-GitHub.
+For the moment `funbiogeo` is not on CRAN but you can install the
+development version from GitHub as follow:
 
 ``` r
 # install.packages("remotes")  # Run this line if 'remotes' pkg is not installed
@@ -57,10 +59,10 @@ page](https://github.com/FRBCesab/funbiogeo/wiki/Design-Principles).
 
 ## References
 
-Violle, C., Reich, P. B., Pacala, S. W., Enquist, B. J., & Kattge, J.
-(2014). The emergence and promise of functional biogeography.
-Proceedings of the National Academy of Sciences, 111(38), 13690–13696.
-<https://doi.org/10.1073/pnas.1415442111>.
+Violle C, Reich, PB Pacala SW, *et al.* (2014) The emergence and promise
+of functional biogeography. *Proceedings of the National Academy of
+Sciences*, **111**, 13690–13696. DOI:
+[10.1073/pnas.1415442111](https://doi.org/10.1073/pnas.1415442111)
 
 ## Code of Conduct
 

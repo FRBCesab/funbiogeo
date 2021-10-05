@@ -1,29 +1,25 @@
 Package: funbiogeo
 Type: Package
-Title: Functional Biogeography
+Title: Functional Biogeography Analyses
 Version: 0.0.0.9000
 Authors@R:
-    c(
-        person(
-            given   = "Nicolas",
-            family  = "Casajus",
-            email   = "nicolas.casajus@fondationbiodiversite.fr",
-            role    = c("aut", "cre"),
-            comment = c(ORCID = "0000-0002-5537-5294")),
-        person(
-            given   = "Matthias",
-            family  = "Grénié",
-            email   = "matthias.grenie@idiv.de",
-            role    = "aut"),
-        person(
-            given   = "Kévin",
-            family  = "Cazelles",
-            email   = "kevin.cazelles@gmail.com",
-            role    = "aut"))
-Description: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do 
-    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim 
-    veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea  
-    commodo consequat. 
+    c(person(given   = "Nicolas",
+             family  = "Casajus",
+             email   = "nicolas.casajus@fondationbiodiversite.fr",
+             role    = c("aut", "cre"),
+             comment = c(ORCID = "0000-0002-5537-5294")),
+      person(given   = "Matthias",
+             family  = "Grénié",
+             email   = "matthias.grenie@idiv.de",
+             role    = "aut"),
+      person(given   = "Kévin",
+             family  = "Cazelles",
+             email   = "kevin.cazelles@gmail.com",
+             role    = "aut"))
+Description: Helps users with analyses in functional biogeogeography by loading 
+    and combining data, computing trait coverage, as well as computing 
+    functional diversity indices, drawing maps, correlating them with the 
+    environment, and upscaling assemblages.
 URL: https://github.com/frbcesab/funbiogeo
 BugReports: https://github.com/frbcesab/funbiogeo/issues
 License: GPL (>= 2)
@@ -39,6 +35,7 @@ Imports:
     tidyselect
 Suggests:
     knitr,
+    patchwork,
     raster,
     rgdal,
     rmarkdown,
