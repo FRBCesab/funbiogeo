@@ -120,7 +120,7 @@ test_that("fb_format_sites_locations() works", {
   
   expect_error(
     fb_format_sites_locations(all_data_test, "site", "longitude"),
-    "The column 'longitude' is must be a numeric",
+    "The column 'longitude' must be a numeric",
     fixed = TRUE
   )
   
