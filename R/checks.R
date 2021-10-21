@@ -147,7 +147,7 @@ check_species_traits <- function(species_traits) {
 #'
 #' Errors if the object is not an `sf` object and returns NULL otherwise.
 #' 
-#' @param sites_locations an `sf` object with each sites defined as points
+#' @param sites_locations an `sf` object with all sites.
 #'
 #' @return `NULL` if the object passes the test, errors otherwise 
 #' 
