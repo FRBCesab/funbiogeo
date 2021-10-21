@@ -1,19 +1,23 @@
-#' Upscale sites
+#' Upscale sites: aggregates them at higher scales
 #'
-#' @param data a `matrix` or `data.frame` containing values to rasterize. Can
-#'   have one or several columns (variables to rasterize). Row names must 
-#'   contain sites names as in the argument `sites_locations`.
+#' This function helps upscaling site data. In our sense upscaling is when
+#' you want to work with a version of your data aggregated at a coarser spatial
+#' scale. This function aggregates the site data at a given scale.
+#'
+#' @inheritParams fb_get_environment
+
+#' @param site_data a `matrix` or `data.frame` containing values per sites to 
+#'   aggregate along the provided grid. Can have one or several columns
+#'   (variables to aggregate). Row names must  contain sites names as provided
+#'   as `sites_locations`.
 #'
 #' @param grid a `SpatRaster` object (package `terra`). A raster of one single 
-#'   layer.
+#'   layer, that defines the grid along which to aggregate.
 #'   
 #' @param fun the function used to aggregate points values when there are 
 #'   multiple points in one cell. Default is `mean`.
 #'   
-#' @inheritParams fb_get_environment
-#'
-#' @return A `SpatRaster` object with `n` layers where `n` represents the number
-#'   of columns in `data`.
+#' @return A `SpatRaster` object with as many layers as columns in `site_data`.
 #' 
 #' @export
 #'
@@ -40,48 +44,50 @@
 #'   ggplot2::scale_fill_distiller("Counts", palette = "Blues", direction = 1) +
 #'   ggplot2::ggtitle("Acer negundo in Pennsylvania")
 
-fb_upscale_sites <- function(sites_locations, data, grid, fun = mean,
+fb_upscale_sites <- function(sites_locations, site_data, grid, fun = mean,
                              crs = "+proj=longlat +datum=WGS84 +no_defs") {
   
   ## Check inputs ----
   
   if (missing(sites_locations)) {
-    stop("Argument 'sites_locations' (sites x locations matrix) is required")
+    stop("Argument 'sites_locations' (sites x locations matrix) is required",
+         call. = FALSE)
   }
   
   check_sites_locations(sites_locations)
   
-  if (missing(data)) {
-    stop("Argument 'data' is required")
-  }
-  
-  if (!is.data.frame(data) & !is.matrix(data)) {
-    stop("Argument 'data' must be a matrix or a data.frame", 
+  if (missing(site_data)) {
+    stop("Argument 'site_data' is required",
          call. = FALSE)
   }
   
-  if (0 %in% dim(data)) {
-    stop("Argument 'data' should have at least one row and one column", 
+  if (!is.data.frame(site_data) & !is.matrix(site_data)) {
+    stop("Argument 'site_data' must be a matrix or a data.frame", 
          call. = FALSE)
   }
   
-  if (is.matrix(data)) {
+  if (0 %in% dim(site_data)) {
+    stop("Argument 'site_data' should have at least one row and one column", 
+         call. = FALSE)
+  }
+  
+  if (is.matrix(site_data)) {
     
-    if (is.null(rownames(data))) {
-      stop("Argument 'data' must have row names (sites names)", 
+    if (is.null(rownames(site_data))) {
+      stop("Argument 'site_data' must have row names (sites names)", 
            call. = FALSE)
     }
   }
   
-  if (is.data.frame(data)) {
+  if (is.data.frame(site_data)) {
     
-    if (any(rownames(data) %in% seq_len(nrow(data)))) {
-      stop("Argument 'data' must have row names (sites names)", 
+    if (any(rownames(site_data) %in% seq_len(nrow(site_data)))) {
+      stop("Argument 'site_data' must have row names (sites names)", 
            call. = FALSE)
     }
   }
   
-  if (!is.numeric(as.matrix(data))) {
+  if (!is.numeric(as.matrix(site_data))) {
     stop("Argument 'data' must contain only numeric values. Sites ", 
          "names must be provided as row names", call. = FALSE)
   }
@@ -113,7 +119,7 @@ fb_upscale_sites <- function(sites_locations, data, grid, fun = mean,
   
   ## Merge sites info ----
   
-  sites_locations <- merge(sites_locations, data, by = "row.names")
+  sites_locations <- merge(sites_locations, site_data, by = "row.names")
   sites_locations <- sites_locations[ , -1]
   
   
