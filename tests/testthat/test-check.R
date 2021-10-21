@@ -246,51 +246,38 @@ test_that("check_sites_locations() works", {
   
   data("sites_locs")
   
+  sites_sf <- sites_locs
+  sites_sf[["site"]] <- rownames(sites_sf)
+  rownames(sites_sf) <- NULL
+  sites_sf <- sf::st_as_sf(sites_sf, coords = 1:2)
+  
   # Wrong input ----
   
   expect_error(
-    check_sites_locations(sites_locs[ , 1]),
-    "The sites x locations object must be a matrix or a data.frame",
+    check_sites_locations(sites_locs),
+    "The sites x locations object must be an 'sf' object",
     fixed = TRUE
   )
   
   expect_error(
     check_sites_locations(as.list(sites_locs)),
-    "The sites x locations object must be a matrix or a data.frame",
+    "The sites x locations object must be an 'sf' object",
     fixed = TRUE
   )
   
   expect_error(
-    check_sites_locations(data.frame(sites_locs[ , 1])),
-    paste0("The sites x locations object should have two columns (longitude ", 
-           "and latitude)"),
+    check_sites_locations(sites_locs[, 1, drop = FALSE]),
+    paste0("The sites x locations object must be an 'sf' object"),
     fixed = TRUE
   )
   
   expect_error(
-    check_sites_locations(sites_locs[-c(seq_len(nrow(sites_locs))), ]),
+    check_sites_locations(sites_sf[-c(seq_len(nrow(sites_sf))),]),
     "The sites x locations object should have at least one row",
     fixed = TRUE
   )
   
-  data_test <- sites_locs
-  rownames(data_test) <- NULL
+  expect_silent(check_sites_locations(sites_sf))
   
-  expect_error(
-    check_sites_locations(data_test),
-    "The sites x locations object must have row names (sites names)",
-    fixed = TRUE
-  )
-  
-  data_test <- data.matrix(data_test)
-  
-  expect_error(
-    check_sites_locations(data_test),
-    "The sites x locations object must have row names (sites names)",
-    fixed = TRUE
-  )
-  
-  expect_silent(check_sites_locations(sites_locs))
-  
-  expect_equal(check_sites_locations(sites_locs), NULL)
+  expect_equal(check_sites_locations(sites_sf), NULL)
 })
