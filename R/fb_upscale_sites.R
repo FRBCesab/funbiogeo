@@ -11,8 +11,9 @@
 #'   (variables to aggregate). Row names must  contain sites names as provided
 #'   as `sites_locations`.
 #'
-#' @param grid a `SpatRaster` object (package `terra`). A raster of one single 
-#'   layer, that defines the grid along which to aggregate.
+#' @param agg_grid a `SpatRaster` object (package `terra`).
+#'   A raster of one single layer, that defines the grid along which
+#'   to aggregate.
 #'   
 #' @param fun the function used to aggregate points values when there are 
 #'   multiple points in one cell. Default is `mean`.
@@ -44,10 +45,9 @@
 #'   ggplot2::scale_fill_distiller("Counts", palette = "Blues", direction = 1) +
 #'   ggplot2::ggtitle("Acer negundo in Pennsylvania")
 
-fb_upscale_sites <- function(sites_locations, site_data, grid, fun = mean,
-                             crs = "+proj=longlat +datum=WGS84 +no_defs") {
+fb_upscale_sites <- function(sites_locations, site_data, agg_grid, fun = mean) {
   
-  ## Check inputs ----
+  ## Check inputs --------------------------------------------------------------
   
   if (missing(sites_locations)) {
     stop("Argument 'sites_locations' (sites x locations matrix) is required",
@@ -88,22 +88,22 @@ fb_upscale_sites <- function(sites_locations, site_data, grid, fun = mean,
   }
   
   if (!is.numeric(as.matrix(site_data))) {
-    stop("Argument 'data' must contain only numeric values. Sites ", 
+    stop("Argument 'site_data' must contain only numeric values. Sites ", 
          "names must be provided as row names", call. = FALSE)
   }
   
-  if (missing(grid)) {
-    stop("Argument 'grid' is required", call. = FALSE)
+  if (missing(agg_grid)) {
+    stop("Argument 'agg_grid' is required", call. = FALSE)
   }
   
-  if (!inherits(grid, "SpatRaster")) {
-    stop("The 'grid' raster must be a 'SpatRaster' object (package terra)", 
+  if (!inherits(agg_grid, "SpatRaster")) {
+    stop("The 'agg_grid' raster must be a 'SpatRaster' object (package terra)", 
          call. = FALSE)
   }
   
-  if (is.na(terra::crs(grid, proj = TRUE)) | 
-      terra::crs(grid, proj = TRUE) == "") {
-    stop("The 'grid' raster must have a CRS (coordinate system)", 
+  if (is.na(terra::crs(agg_grid, proj = TRUE)) | 
+      terra::crs(agg_grid, proj = TRUE) == "") {
+    stop("The 'agg_grid' raster must have a CRS (coordinate system)", 
          call. = FALSE)
   }
   
@@ -114,36 +114,30 @@ fb_upscale_sites <- function(sites_locations, site_data, grid, fun = mean,
   
   ## Subset 1st layer ----
   
-  grid <- terra::subset(grid, 1)
+  agg_grid <- terra::subset(agg_grid, 1)
   
   
   ## Merge sites info ----
   
   sites_locations <- merge(sites_locations, site_data, by = "row.names")
-  sites_locations <- sites_locations[ , -1]
-  
-  
-  ## Convert to sf ----
-  
-  sites_locations_sf <- sf::st_as_sf(sites_locations, coords = 1:2)
-  sites_locations_sf <- sf::st_set_crs(sites_locations_sf, crs)
   
   
   ## Project if required ----
   
-  if (crs != terra::crs(grid, proj = TRUE)) {
+  if (sf::st_crs(sites_locations) != terra::crs(grid, proj = TRUE)) {
     
-    sites_locations_sf <- sf::st_transform(sites_locations_sf, 
-                                           terra::crs(grid, proj = TRUE))
+    sites_locations <- sf::st_transform(sites_locations, 
+                                           terra::crs(agg_grid, proj = TRUE))
   }
   
   
   ## Rasterize data ----
   
-  fields <- colnames(sf::st_drop_geometry(sites_locations_sf))
+  fields <- colnames(sf::st_drop_geometry(sites_locations))
   
   rasters <- lapply(seq_along(fields), function(x) {
-    terra::rasterize(terra::vect(sites_locations_sf), grid, field = fields[x], 
+    terra::rasterize(terra::vect(sites_locations_sf), agg_grid,
+                     field = fields[x], 
                      fun = fun)
   })
   
