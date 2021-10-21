@@ -1,13 +1,25 @@
-test_that("fb_upscale_sites() works", {
-  
-  data("sites_locs")
-  data("species_occs")
-  
-  tavg_file <- system.file("extdata", "annual_mean_temp.tif", 
-                           package = "funbiogeo")
-  tavg <- terra::rast(tavg_file)
-  
-  # Wrong input ----
+# Initial data -----------------------------------------------------------------
+data("sites_locs")
+data("species_occs")
+
+# Convert site locations in to an 'sf' object
+sites_locs <- sites_locs[!duplicated(sites_locs),]
+sites_locs[["site"]] <- rownames(sites_locs)
+rownames(sites_locs) <- NULL
+sites_locs <- sf::st_as_sf(
+  sites_locs, coords = 1:2, crs = 4326
+)
+
+
+# Get proper raster file
+tavg_file <- system.file("extdata", "annual_mean_temp.tif", 
+                         package = "funbiogeo")
+tavg <- terra::rast(tavg_file)
+
+
+# Test: Missing Input ----------------------------------------------------------
+
+test_that("fb_upscale_sites() errors with missing input", {
   
   expect_error(
     fb_upscale_sites(),
@@ -17,20 +29,32 @@ test_that("fb_upscale_sites() works", {
   
   expect_error(
     fb_upscale_sites(sites_locs),
-    "Argument 'data' is required",
+    "Argument 'site_data' is required",
     fixed = TRUE
   )
   
   expect_error(
+    fb_upscale_sites(sites_locs, species_occs),
+    "Argument 'agg_grid' is required",
+    fixed = TRUE
+  )
+})
+
+# Test: Wrong Input ------------------------------------------------------------
+
+test_that("fb_upscale_sites() errors with wrong input", {
+  
+  # Wrong 'site_data' argument
+  expect_error(
     fb_upscale_sites(sites_locs, as.list(species_occs)),
-    "Argument 'data' must be a matrix or a data.frame",
+    "Argument 'site_data' must be a matrix or a data.frame",
     fixed = TRUE
   )
   
   expect_error(
     fb_upscale_sites(sites_locs, 
                      species_occs[-c(seq_len(nrow(species_occs))), ]),
-    "Argument 'data' should have at least one row and one column",
+    "Argument 'site_data' should have at least one row and one column",
     fixed = TRUE
   )
   
@@ -39,7 +63,7 @@ test_that("fb_upscale_sites() works", {
   
   expect_error(
     fb_upscale_sites(sites_locs, data_test),
-    "Argument 'data' must have row names (sites names)",
+    "Argument 'site_data' must have row names (sites names)",
     fixed = TRUE
   )
   
@@ -47,7 +71,7 @@ test_that("fb_upscale_sites() works", {
   
   expect_error(
     fb_upscale_sites(sites_locs, data_test),
-    "Argument 'data' must have row names (sites names)",
+    "Argument 'site_data' must have row names (sites names)",
     fixed = TRUE
   )
   
@@ -56,22 +80,17 @@ test_that("fb_upscale_sites() works", {
   
   expect_error(
     fb_upscale_sites(sites_locs, data_test),
-    paste0("Argument 'data' must contain only numeric values. Sites names ", 
-           "must be provided as row names"),
+    paste0("Argument 'site_data' must contain only numeric values. ",
+           "Sites names must be provided as row names"),
     fixed = TRUE
   )
   
-  expect_error(
-    fb_upscale_sites(sites_locs, species_occs),
-    "Argument 'grid' is required",
-    fixed = TRUE
-  )
-  
+  # Wrong 'agg_grid' argument
   grid_test <- raster::raster(tavg_file)
   
   expect_error(
     fb_upscale_sites(sites_locs, species_occs, grid_test),
-    "The 'grid' raster must be a 'SpatRaster' object (package terra)",
+    "The 'agg_grid' raster must be a 'SpatRaster' object (package `terra`)",
     fixed = TRUE
   )
   
@@ -80,19 +99,17 @@ test_that("fb_upscale_sites() works", {
   
   expect_error(
     fb_upscale_sites(sites_locs, species_occs, grid_test),
-    "The 'grid' raster must have a CRS (coordinate system)",
+    "The 'agg_grid' raster must have a CRS (coordinate system)",
     fixed = TRUE
   )
+})
+
+
+# Test: Good input -------------------------------------------------------------
+
+test_that("fb_upscale_sites() works", {
   
-  expect_error(
-    fb_upscale_sites(sites_locs, species_occs, tavg, crs = NULL),
-    "Argument 'crs' (coordinate system) must be a character of length 1",
-    fixed = TRUE
-  )
-  
-  
-  ## Working ----
-  
+  # No reprojection
   expect_silent(ras <- fb_upscale_sites(sites_locs, species_occs[ , 1:2], tavg))
   
   expect_s4_class(ras, "SpatRaster")
@@ -101,8 +118,7 @@ test_that("fb_upscale_sites() works", {
   expect_equal(ras[][1401], 0, tolerance = 0.000001)
   
   
-  ## Projection ----
-  
+  # Change projection of rasters
   rob <- "+proj=robin +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs"
   
   tavg_prj <- terra::project(tavg, rob)
