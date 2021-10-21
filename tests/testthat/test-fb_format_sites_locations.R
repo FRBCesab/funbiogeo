@@ -9,31 +9,31 @@ test_that("fb_format_sites_locations() works", {
   
   expect_error(
     fb_format_sites_locations(),
-    "Argument 'data' is required",
+    "Argument 'input_data' is required",
     fixed = TRUE
   )
   
   expect_error(
     fb_format_sites_locations(all_data[ , 1]),
-    "Argument 'data' must be a data.frame",
+    "Argument 'input_data' must be a data.frame",
     fixed = TRUE
   )
   
   expect_error(
     fb_format_sites_locations(as.list(all_data)),
-    "Argument 'data' must be a data.frame",
+    "Argument 'input_data' must be a data.frame",
     fixed = TRUE
   )
   
   expect_error(
     fb_format_sites_locations(data.frame(all_data[ , 1])),
-    "Argument 'data' must be a data.frame with at least two columns",
+    "Argument 'input_data' must be a data.frame with at least two columns",
     fixed = TRUE
   )
   
   expect_error(
     fb_format_sites_locations(all_data[-c(seq_len(nrow(all_data))), ]),
-    "Argument 'data' must be a data.frame with at least one row",
+    "Argument 'input_data' must be a data.frame with at least one row",
     fixed = TRUE
   )
   
@@ -72,7 +72,7 @@ test_that("fb_format_sites_locations() works", {
   
   expect_error(
     fb_format_sites_locations(all_data, "location"),
-    "The column 'location' is absent from 'data'",
+    "The column 'location' is absent from 'input_data'",
     fixed = TRUE
   )
   
@@ -111,7 +111,7 @@ test_that("fb_format_sites_locations() works", {
   
   expect_error(
     fb_format_sites_locations(all_data, "site", "x_utm"),
-    "The column 'x_utm' is absent from 'data'",
+    "The column 'x_utm' is absent from 'input_data'",
     fixed = TRUE
   )
   
@@ -160,7 +160,7 @@ test_that("fb_format_sites_locations() works", {
   
   expect_error(
     fb_format_sites_locations(all_data, "site", "longitude", "y_utm"),
-    "The column 'y_utm' is absent from 'data'",
+    "The column 'y_utm' is absent from 'input_data'",
     fixed = TRUE
   )
   
