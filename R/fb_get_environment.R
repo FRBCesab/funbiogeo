@@ -1,7 +1,6 @@
 #' Extract average raster values at sites locations
 #'
-#' @param sites_locations a `matrix` or `data.frame` with sites in rows and two
-#'   columns: longitude and latitude. The first column must be the longitude.
+#' @inheritParams check_sites_locations
 #' 
 #' @param environment_raster a `SpatRaster` object (package `terra`). A raster
 #'   of one or several environmental layers.
@@ -53,13 +52,6 @@ fb_get_environment <- function(sites_locations, environment_raster,
   if (!is.character(crs)) {
     stop("Argument 'crs' (coordinate system) must a character of length 1")
   }
-  
-  
-  ## Convert sites x locations to sf ----
-  
-  sites_locations_sf <- sf::st_as_sf(sites_locations, coords = 1:2)
-  sites_locations_sf <- sf::st_set_crs(sites_locations_sf, crs)
-  
   
   ## Project if required ----
   
