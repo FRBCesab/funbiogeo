@@ -64,24 +64,10 @@ test_that("fb_get_environment() errors with wrong input type", {
     fixed = TRUE
   )
   
-  # Wrong environmental raster
-  
+  # Wrong environmental raster type
   expect_error(
     fb_get_environment(sites_locs, raster::stack(c(tavg, prec))),
     "The raster layer must be a 'SpatRaster' object (package `terra`)",
-    fixed = TRUE
-  )
-  
-  # Wrong CRS value
-  expect_error(
-    fb_get_environment(sites_locs, layers, crs = NULL),
-    "Argument 'crs' (coordinate system) must a character of length 1",
-    fixed = TRUE
-  )
-  
-  expect_error(
-    fb_get_environment(sites_locs, layers, crs = 1),
-    "Argument 'crs' (coordinate system) must a character of length 1",
     fixed = TRUE
   )
 })

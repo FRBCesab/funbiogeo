@@ -25,8 +25,7 @@
 #' sites_env <- fb_get_environment(sites_locs, layers)
 #' head(sites_env)
 
-fb_get_environment <- function(sites_locations, environment_raster,
-                               crs = "+proj=longlat +datum=WGS84 +no_defs") {
+fb_get_environment <- function(sites_locations, environment_raster) {
   
   
   if (missing(sites_locations)) {
@@ -44,10 +43,6 @@ fb_get_environment <- function(sites_locations, environment_raster,
   if (!inherits(environment_raster, "SpatRaster")) {
     stop("The raster layer must be a 'SpatRaster' object (package `terra`)", 
          call. = FALSE)
-  }
-  
-  if (!is.character(crs)) {
-    stop("Argument 'crs' (coordinate system) must a character of length 1")
   }
   
   ## Reproject sites if needed -------------------------------------------------
