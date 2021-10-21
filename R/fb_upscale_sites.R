@@ -44,10 +44,9 @@
 #' fb_map_raster(a_neg) + 
 #'   ggplot2::scale_fill_distiller("Counts", palette = "Blues", direction = 1) +
 #'   ggplot2::ggtitle("Acer negundo in Pennsylvania")
-
 fb_upscale_sites <- function(sites_locations, site_data, agg_grid, fun = mean) {
   
-  ## Check inputs --------------------------------------------------------------
+  # Check inputs ---------------------------------------------------------------
   
   if (missing(sites_locations)) {
     stop("Argument 'sites_locations' (sites x locations matrix) is required",
@@ -97,8 +96,8 @@ fb_upscale_sites <- function(sites_locations, site_data, agg_grid, fun = mean) {
   }
   
   if (!inherits(agg_grid, "SpatRaster")) {
-    stop("The 'agg_grid' raster must be a 'SpatRaster' object (package terra)", 
-         call. = FALSE)
+    stop("The 'agg_grid' raster must be a 'SpatRaster' object ",
+         "(package `terra`)", call. = FALSE)
   }
   
   if (is.na(terra::crs(agg_grid, proj = TRUE)) | 
@@ -107,17 +106,19 @@ fb_upscale_sites <- function(sites_locations, site_data, agg_grid, fun = mean) {
          call. = FALSE)
   }
   
-  ## Subset 1st layer ----
+  
+  # Get proper aggregation grid ------------------------------------------------
   
   agg_grid <- terra::subset(agg_grid, 1)
   
   
-  ## Merge sites info ----
+  # Merge sites info -----------------------------------------------------------
   
-  sites_locations <- merge(sites_locations, site_data, by = "row.names")
+  sites_locations <- merge(sites_locations, site_data, by.x = "site",
+                           by.y = "row.names")
   
   
-  ## Project if required ----
+  # Reproject sites if required ------------------------------------------------
   
   if (sf::st_crs(sites_locations) != terra::crs(grid, proj = TRUE)) {
     
@@ -126,12 +127,12 @@ fb_upscale_sites <- function(sites_locations, site_data, agg_grid, fun = mean) {
   }
   
   
-  ## Rasterize data ----
+  # Rasterize data -------------------------------------------------------------
   
-  fields <- colnames(sf::st_drop_geometry(sites_locations))
+  fields <- colnames(sf::st_drop_geometry(sites_locations))[-1]
   
   rasters <- lapply(seq_along(fields), function(x) {
-    terra::rasterize(terra::vect(sites_locations_sf), agg_grid,
+    terra::rasterize(terra::vect(sites_locations), agg_grid,
                      field = fields[x], 
                      fun = fun)
   })
