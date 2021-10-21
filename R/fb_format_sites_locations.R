@@ -1,15 +1,19 @@
 #' Format sites x locations object
 #' 
-#' @description
-#' ...
+#' Convert a flat data.frame with site coordinates into a proper `sf` object
+#' that can then be use by other functions. This function assumes that
+#' the coordinates are given in WGS84 (longitude vs. latitude). The function
+#' automatically removes repeated coordinates from the input dataset.
 #'
 #' @param input_data a `data.frame` in a long format (see example).
 #' 
-#' @param site a character of length 1. Name of the column with site labels.
+#' @param site a `character` of length 1. Name of the column with site labels.
 #' 
-#' @param longitude a character of length 1. Name of the column with longitude. 
+#' @param longitude a `character` of length 1. Name of the column with
+#'   longitude. The function assumes coordinates are WGS84 (EPSG:4326). 
 #' 
-#' @param latitude a character of length 1. Name of the column with latitude. 
+#' @param latitude a `character` of length 1. Name of the column with latitude.
+#'   The function assumes coordinates are WGS84 (EPSG:4326).  
 #'   
 #' @param na_rm a logical value. If `TRUE` remove sites with incomplete 
 #'   coordinates. Default is `FALSE`.
@@ -34,7 +38,7 @@
 fb_format_sites_locations <- function(input_data, site, longitude, latitude, 
                                       na_rm = FALSE) {
   
-  ## Check inputs ----
+  ## Check 'input_data' --------------------------------------------------------
   
   if (missing(input_data)) {
     stop("Argument 'input_data' is required", call. = FALSE)
@@ -55,6 +59,8 @@ fb_format_sites_locations <- function(input_data, site, longitude, latitude,
   }
   
   
+  ## Check 'site' column -------------------------------------------------------
+  
   if (missing(site)) {
     stop("Argument 'site' is required", call. = FALSE)
   }
@@ -74,6 +80,8 @@ fb_format_sites_locations <- function(input_data, site, longitude, latitude,
          call. = FALSE)
   }
   
+  
+  ## Check coordinates column --------------------------------------------------
   
   if (missing(longitude)) {
     stop("Argument 'longitude' is required", call. = FALSE)
@@ -130,39 +138,19 @@ fb_format_sites_locations <- function(input_data, site, longitude, latitude,
   }
   
   
-  ## Select columns ----
+  ## Select columns ------------------------------------------------------------
   
   input_data <- input_data[ , c(site, longitude, latitude)]
   
   
-  ## Replace non-alphanumeric characters ----
+  ## Replace non-alphanumeric characters ---------------------------------------
   
   input_data[ , site] <- gsub("\\s|[[:punct:]]", "_", input_data[ , site])
   input_data[ , site] <- gsub("_{1,}", "_",           input_data[ , site])
   input_data[ , site] <- gsub("^_|_$", "",            input_data[ , site])
   
   
-  ## Get unique coordinates per site ----
-  
-  x_coord <- tapply(input_data[ , longitude], input_data[ , site],
-                    function(x) unique(x))
-  
-  if (length(unique(unlist(lapply(x_coord, length)))) > 1) {
-    stop("Some sites have non-unique longitude", call. = FALSE)
-  }
-  
-  y_coord <- tapply(input_data[ , latitude], input_data[ , site],
-                    function(x) unique(x))
-  if (length(unique(unlist(lapply(y_coord, length)))) > 1) {
-    stop("Some sites have non-unique latitude", call. = FALSE)
-  }
-  
-  input_data <- data.frame("longitude" = x_coord, "latitude" = y_coord)
-  
-  rownames(input_data) <- names(x_coord)
-  
-  
-  ## Remove sites with NA ----
+  ## Remove sites with NA ------------------------------------------------------
   
   if (na_rm) {
     input_data <- input_data[!is.na(input_data[ , longitude]), ]
@@ -170,7 +158,11 @@ fb_format_sites_locations <- function(input_data, site, longitude, latitude,
   }
   
   
-  ## Convert to matrix ----
+  # Keep unique sites only -----------------------------------------------------
   
-  data.matrix(input_data, rownames.force = TRUE)
+  input_data <- input_data[!duplicated(input_data), ]
+  
+  ## Convert to 'sf' object ----------------------------------------------------
+  
+  sf::st_as_sf(input_data, coords = c(latitude, longitude), crs = 4326)
 }

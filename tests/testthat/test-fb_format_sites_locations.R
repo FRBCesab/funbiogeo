@@ -198,47 +198,18 @@ test_that("fb_format_sites_locations() works", {
   )
   
   
-  # Non-unique coordinates ----
-  
-  all_data_test <- all_data
-  all_data_test <- rbind(all_data_test[1, ], all_data_test)
-  all_data_test[1, "longitude"] <- 9999
-  
-  expect_error(
-    fb_format_sites_locations(all_data_test, "site", "longitude", "latitude"),
-    "Some sites have non-unique longitude",
-    fixed = TRUE
-  )
-  
-  all_data_test <- all_data
-  all_data_test <- rbind(all_data_test[1, ], all_data_test)
-  all_data_test[1, "latitude"] <- 9999
-  
-  expect_error(
-    fb_format_sites_locations(all_data_test, "site", "longitude", "latitude"),
-    "Some sites have non-unique latitude",
-    fixed = TRUE
-  )
-  
-  
   # Working ----
   
   sites_locations <- fb_format_sites_locations(all_data, "site", "longitude", 
                                                "latitude")
-  expect_true(is.matrix(sites_locations))
+  expect_true(is(sites_locations, "sf"))
   expect_equal(nrow(sites_locations), 836L)
   expect_equal(ncol(sites_locations), 2L)
-  expect_false("site" %in% colnames(sites_locations))
-  expect_equal(sites_locations[1, 2], 41.88894)
+  expect_true("site" %in% colnames(sites_locations))
+  expect_equal(sf::st_coordinates(sites_locations)[1,1], 39.91707)
   
   
   # NA values ----
-  
-  sites_locations <- fb_format_sites_locations(all_data, "site", "longitude", 
-                                               "latitude", na_rm = TRUE)
-  
-  expect_true(is.matrix(sites_locations))
-  expect_equal(nrow(sites_locations), 836L)
   
   all_data_test <- all_data
   all_data_test[1, "longitude"] <- NA
@@ -247,7 +218,5 @@ test_that("fb_format_sites_locations() works", {
   sites_locations <- fb_format_sites_locations(all_data_test, "site", 
                                                "longitude", "latitude", 
                                                na_rm = TRUE)
-  
-  expect_true(is.matrix(sites_locations))
   expect_equal(nrow(sites_locations), 834L)
 })
