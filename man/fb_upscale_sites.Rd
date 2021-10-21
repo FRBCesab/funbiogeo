@@ -13,8 +13,7 @@ fb_upscale_sites(
 )
 }
 \arguments{
-\item{sites_locations}{a \code{matrix} or \code{data.frame} with sites in rows and two
-columns: longitude and latitude. The first column must be the longitude.}
+\item{sites_locations}{an \code{sf} object with all sites.}
 
 \item{data}{a \code{matrix} or \code{data.frame} containing values to rasterize. Can
 have one or several columns (variables to rasterize). Row names must

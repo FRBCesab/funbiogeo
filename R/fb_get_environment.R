@@ -1,6 +1,6 @@
 #' Extract average raster values at sites locations
 #'
-#' @inheritParams check_sites_locations
+#' @param sites_locations an `sf` object with all sites.
 #' 
 #' @param environment_raster a `SpatRaster` object (package `terra`). A raster
 #'   of one or several environmental layers.

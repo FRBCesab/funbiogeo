@@ -11,8 +11,7 @@ fb_get_environment(
 )
 }
 \arguments{
-\item{sites_locations}{a \code{matrix} or \code{data.frame} with sites in rows and two
-columns: longitude and latitude. The first column must be the longitude.}
+\item{sites_locations}{an \code{sf} object with all sites.}
 
 \item{environment_raster}{a \code{SpatRaster} object (package \code{terra}). A raster
 of one or several environmental layers.}
