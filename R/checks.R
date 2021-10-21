@@ -157,7 +157,7 @@ check_sites_locations <- function(sites_locations) {
   
   # Check object type ----
   
-  if (!is(sites_locations, "sf")) {
+  if (!inherits(sites_locations, "sf")) {
     stop("The sites x locations object must be an 'sf' object", 
          call. = FALSE)
   }

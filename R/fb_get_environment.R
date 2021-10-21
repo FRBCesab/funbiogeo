@@ -21,9 +21,7 @@
 #' 
 #' layers <- terra::rast(c(tavg, prec))
 #' 
-#' ## Extract environment at sites ----
-#' sites_env <- fb_get_environment(sites_locs, layers)
-#' head(sites_env)
+# FIXME (finish example)
 
 fb_get_environment <- function(sites_locations, environment_raster) {
   

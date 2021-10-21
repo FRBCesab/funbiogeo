@@ -33,17 +33,7 @@
 #' tavg <- terra::rast(tavg)
 #' 
 #' ## Rasterize 3 first species counts ----
-#' rasters <- fb_upscale_sites(sites_locations = sites_locs, 
-#'                             data            = species_occs[ , 1:3], 
-#'                             grid            = tavg)
-#'
-#' ## Subset first layer ----
-#' a_neg <- terra::subset(rasters, "acer_negundo")
-#' 
-#' ## Species maps ----
-#' fb_map_raster(a_neg) + 
-#'   ggplot2::scale_fill_distiller("Counts", palette = "Blues", direction = 1) +
-#'   ggplot2::ggtitle("Acer negundo in Pennsylvania")
+# FIXME (finish examples)
 fb_upscale_sites <- function(sites_locations, site_data, agg_grid, fun = mean) {
   
   # Check inputs ---------------------------------------------------------------
@@ -120,7 +110,7 @@ fb_upscale_sites <- function(sites_locations, site_data, agg_grid, fun = mean) {
   
   # Reproject sites if required ------------------------------------------------
   
-  if (sf::st_crs(sites_locations) != terra::crs(grid, proj = TRUE)) {
+  if (sf::st_crs(sites_locations) != terra::crs(agg_grid, proj = TRUE)) {
     
     sites_locations <- sf::st_transform(sites_locations, 
                                            terra::crs(agg_grid, proj = TRUE))

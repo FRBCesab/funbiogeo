@@ -2,39 +2,32 @@
 % Please edit documentation in R/fb_upscale_sites.R
 \name{fb_upscale_sites}
 \alias{fb_upscale_sites}
-\title{Upscale sites}
+\title{Upscale sites: aggregates them at higher scales}
 \usage{
-fb_upscale_sites(
-  sites_locations,
-  data,
-  grid,
-  fun = mean,
-  crs = "+proj=longlat +datum=WGS84 +no_defs"
-)
+fb_upscale_sites(sites_locations, site_data, agg_grid, fun = mean)
 }
 \arguments{
 \item{sites_locations}{an \code{sf} object with all sites.}
 
-\item{data}{a \code{matrix} or \code{data.frame} containing values to rasterize. Can
-have one or several columns (variables to rasterize). Row names must
-contain sites names as in the argument \code{sites_locations}.}
+\item{site_data}{a \code{matrix} or \code{data.frame} containing values per sites to
+aggregate along the provided grid. Can have one or several columns
+(variables to aggregate). Row names must  contain sites names as provided
+as \code{sites_locations}.}
 
-\item{grid}{a \code{SpatRaster} object (package \code{terra}). A raster of one single
-layer.}
+\item{agg_grid}{a \code{SpatRaster} object (package \code{terra}).
+A raster of one single layer, that defines the grid along which
+to aggregate.}
 
 \item{fun}{the function used to aggregate points values when there are
 multiple points in one cell. Default is \code{mean}.}
-
-\item{crs}{a character of length 1 specifying the Coordinate Reference
-System in the PROJ4 standard.
-Default is: \code{'+proj=longlat +datum=WGS84 +no_defs'}.}
 }
 \value{
-A \code{SpatRaster} object with \code{n} layers where \code{n} represents the number
-of columns in \code{data}.
+A \code{SpatRaster} object with as many layers as columns in \code{site_data}.
 }
 \description{
-Upscale sites
+This function helps upscaling site data. In our sense upscaling is when
+you want to work with a version of your data aggregated at a coarser spatial
+scale. This function aggregates the site data at a given scale.
 }
 \examples{
 library("funbiogeo")
@@ -47,15 +40,4 @@ tavg <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")
 tavg <- terra::rast(tavg)
 
 ## Rasterize 3 first species counts ----
-rasters <- fb_upscale_sites(sites_locations = sites_locs, 
-                            data            = species_occs[ , 1:3], 
-                            grid            = tavg)
-
-## Subset first layer ----
-a_neg <- terra::subset(rasters, "acer_negundo")
-
-## Species maps ----
-fb_map_raster(a_neg) + 
-  ggplot2::scale_fill_distiller("Counts", palette = "Blues", direction = 1) +
-  ggplot2::ggtitle("Acer negundo in Pennsylvania")
 }
