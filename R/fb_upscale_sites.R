@@ -107,11 +107,6 @@ fb_upscale_sites <- function(sites_locations, site_data, agg_grid, fun = mean) {
          call. = FALSE)
   }
   
-  if (!is.character(crs)) {
-    stop("Argument 'crs' (coordinate system) must be a character of length 1")
-  }
-  
-  
   ## Subset 1st layer ----
   
   agg_grid <- terra::subset(agg_grid, 1)
