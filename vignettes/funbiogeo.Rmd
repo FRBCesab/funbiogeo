@@ -460,7 +460,7 @@ figure +
 rownames(rich_env) <- rich_env[ , 1]
 rich_env <- rich_env[ , "n_species", drop = FALSE]
 
-ras_richness <- fb_upscale_sites(sites_locations = sites_locs, 
+ras_richness <- fb_aggregate_site_data(sites_locations = sites_locs, 
                                  site_data       = rich_env, 
                                  agg_grid       = tavg)
 
