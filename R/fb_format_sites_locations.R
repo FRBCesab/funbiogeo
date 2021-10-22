@@ -17,7 +17,8 @@
 #' 
 #' @param crs a `character` of length 1 or an object of class `crs`.
 #'   Coordinate Reference System (CRS) of the specified coordinates.
-#'   The CRS should be a [valid CRS in R](https://geocompr.robinlovelace.net/spatial-class.html?q=CRS#crs-in-r).
+#'   The CRS should be a [valid CRS in R](
+#'   https://geocompr.robinlovelace.net/spatial-class.html?q=CRS#crs-in-r).
 #'   It can either be a character like `"+proj=longlat +datum=WGS84 +no_defs"`
 #'   or as specified using `sf::st_crs()` like `sf::st_crs(4326)`
 #'   the default value.
