@@ -4,15 +4,15 @@
 \alias{fb_aggregate_site_data}
 \title{Aggregate site data along coarser grid}
 \usage{
-fb_aggregate_site_data(sites_locations, site_data, agg_grid, fun = mean)
+fb_aggregate_site_data(site_locations, site_data, agg_grid, fun = mean)
 }
 \arguments{
-\item{sites_locations}{an \code{sf} object with all sites.}
+\item{site_locations}{an \code{sf} object with all sites.}
 
 \item{site_data}{a \code{matrix} or \code{data.frame} containing values per sites to
 aggregate along the provided grid. Can have one or several columns
 (variables to aggregate). Row names must  contain sites names as provided
-as \code{sites_locations}.}
+as \code{site_locations}.}
 
 \item{agg_grid}{a \code{SpatRaster} object (package \code{terra}).
 A raster of one single layer, that defines the grid along which
@@ -34,7 +34,7 @@ This function helps you do exactly that.
 \examples{
 library("funbiogeo")
 
-data("sites_locs")
+data("site_locs")
 data("species_occs")
 
 ## Import grid ----

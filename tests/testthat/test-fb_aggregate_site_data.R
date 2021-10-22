@@ -1,13 +1,13 @@
 # Initial data -----------------------------------------------------------------
-data("sites_locs")
+data("site_locs")
 data("species_occs")
 
 # Convert site locations in to an 'sf' object
-sites_locs <- sites_locs[!duplicated(sites_locs),]
-sites_locs[["site"]] <- rownames(sites_locs)
-rownames(sites_locs) <- NULL
-sites_locs <- sf::st_as_sf(
-  sites_locs, coords = 1:2, crs = 4326
+site_locs <- site_locs[!duplicated(site_locs),]
+site_locs[["site"]] <- rownames(site_locs)
+rownames(site_locs) <- NULL
+site_locs <- sf::st_as_sf(
+  site_locs, coords = 1:2, crs = 4326
 )
 
 
@@ -23,18 +23,18 @@ test_that("fb_aggregate_site_data() errors with missing input", {
   
   expect_error(
     fb_aggregate_site_data(),
-    "Argument 'sites_locations' (sites x locations matrix) is required",
+    "Argument 'site_locations' (site x locations matrix) is required",
     fixed = TRUE
   )
   
   expect_error(
-    fb_aggregate_site_data(sites_locs),
+    fb_aggregate_site_data(site_locs),
     "Argument 'site_data' is required",
     fixed = TRUE
   )
   
   expect_error(
-    fb_aggregate_site_data(sites_locs, species_occs),
+    fb_aggregate_site_data(site_locs, species_occs),
     "Argument 'agg_grid' is required",
     fixed = TRUE
   )
@@ -46,13 +46,13 @@ test_that("fb_aggregate_site_data() errors with wrong input", {
   
   # Wrong 'site_data' argument
   expect_error(
-    fb_aggregate_site_data(sites_locs, as.list(species_occs)),
+    fb_aggregate_site_data(site_locs, as.list(species_occs)),
     "Argument 'site_data' must be a matrix or a data.frame",
     fixed = TRUE
   )
   
   expect_error(
-    fb_aggregate_site_data(sites_locs, 
+    fb_aggregate_site_data(site_locs, 
                      species_occs[-c(seq_len(nrow(species_occs))), ]),
     "Argument 'site_data' should have at least one row and one column",
     fixed = TRUE
@@ -62,7 +62,7 @@ test_that("fb_aggregate_site_data() errors with wrong input", {
   rownames(data_test) <- NULL
   
   expect_error(
-    fb_aggregate_site_data(sites_locs, data_test),
+    fb_aggregate_site_data(site_locs, data_test),
     "Argument 'site_data' must have row names (sites names)",
     fixed = TRUE
   )
@@ -70,7 +70,7 @@ test_that("fb_aggregate_site_data() errors with wrong input", {
   data_test <- data.matrix(data_test)
   
   expect_error(
-    fb_aggregate_site_data(sites_locs, data_test),
+    fb_aggregate_site_data(site_locs, data_test),
     "Argument 'site_data' must have row names (sites names)",
     fixed = TRUE
   )
@@ -79,7 +79,7 @@ test_that("fb_aggregate_site_data() errors with wrong input", {
   data_test <- data.frame(data_test, test = rep("A", nrow(data_test)))
   
   expect_error(
-    fb_aggregate_site_data(sites_locs, data_test),
+    fb_aggregate_site_data(site_locs, data_test),
     paste0("Argument 'site_data' must contain only numeric values. ",
            "Sites names must be provided as row names"),
     fixed = TRUE
@@ -89,7 +89,7 @@ test_that("fb_aggregate_site_data() errors with wrong input", {
   grid_test <- raster::raster(tavg_file)
   
   expect_error(
-    fb_aggregate_site_data(sites_locs, species_occs, grid_test),
+    fb_aggregate_site_data(site_locs, species_occs, grid_test),
     "The 'agg_grid' raster must be a 'SpatRaster' object (package `terra`)",
     fixed = TRUE
   )
@@ -98,7 +98,7 @@ test_that("fb_aggregate_site_data() errors with wrong input", {
   terra::crs(grid_test) <- NA
   
   expect_error(
-    fb_aggregate_site_data(sites_locs, species_occs, grid_test),
+    fb_aggregate_site_data(site_locs, species_occs, grid_test),
     "The 'agg_grid' raster must have a CRS (coordinate system)",
     fixed = TRUE
   )
@@ -110,7 +110,7 @@ test_that("fb_aggregate_site_data() errors with wrong input", {
 test_that("fb_aggregate_site_data() works", {
   
   # No reprojection
-  expect_silent(ras <- fb_aggregate_site_data(sites_locs, species_occs[ , 1:2], tavg))
+  expect_silent(ras <- fb_aggregate_site_data(site_locs, species_occs[ , 1:2], tavg))
   
   expect_s4_class(ras, "SpatRaster")
   expect_named(ras, c("acer_negundo", "acer_nigrum"))
@@ -123,7 +123,7 @@ test_that("fb_aggregate_site_data() works", {
   
   tavg_prj <- terra::project(tavg, rob)
   
-  expect_silent(ras <- fb_aggregate_site_data(sites_locs, species_occs[ , 1:2], 
+  expect_silent(ras <- fb_aggregate_site_data(site_locs, species_occs[ , 1:2], 
                                         tavg_prj))
   
   expect_s4_class(ras, "SpatRaster")

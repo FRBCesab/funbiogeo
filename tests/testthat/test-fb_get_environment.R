@@ -1,13 +1,13 @@
 # Initial data -----------------------------------------------------------------
 
 # Site x locations object
-data("sites_locs")
+data("site_locs")
 
-sites_locs <- sites_locs[!duplicated(sites_locs),]
-sites_locs[["site"]] <- rownames(sites_locs)
-rownames(sites_locs) <- NULL
-sites_locs <- sf::st_as_sf(
-  sites_locs, coords = 1:2, crs = 4326
+site_locs <- site_locs[!duplicated(site_locs),]
+site_locs[["site"]] <- rownames(site_locs)
+rownames(site_locs) <- NULL
+site_locs <- sf::st_as_sf(
+  site_locs, coords = 1:2, crs = 4326
 )
 
 # Environmental rasters
@@ -23,18 +23,18 @@ layers <- terra::rast(c(tavg, prec))
 test_that("fb_get_environment() errors with missing input", {
   expect_error(
     fb_get_environment(),
-    "Argument 'sites_locations' (sites x locations 'sf' object) is required",
+    "Argument 'site_locations' (site x locations 'sf' object) is required",
     fixed = TRUE
   )
   
   expect_error(
     fb_get_environment(environment_raster = layers),
-    "Argument 'sites_locations' (sites x locations 'sf' object) is required",
+    "Argument 'site_locations' (site x locations 'sf' object) is required",
     fixed = TRUE
   )
   
   expect_error(
-    fb_get_environment(sites_locations = sites_locs),
+    fb_get_environment(site_locations = site_locs),
     "Argument 'environment_raster' (environmental raster) is required",
     fixed = TRUE
   )
@@ -47,26 +47,26 @@ test_that("fb_get_environment() errors with wrong input type", {
   
   # Wrong site x locations object
   expect_error(
-    fb_get_environment(sites_locs[[1]], layers),
-    "The sites x locations object must be an 'sf' object",
+    fb_get_environment(site_locs[[1]], layers),
+    "The site x locations object must be an 'sf' object",
     fixed = TRUE
   )
   
   expect_error(
-    fb_get_environment(as.list(sites_locs), layers),
-    "The sites x locations object must be an 'sf' object",
+    fb_get_environment(as.list(site_locs), layers),
+    "The site x locations object must be an 'sf' object",
     fixed = TRUE
   )
   
   expect_error(
-    fb_get_environment(sites_locs[-c(seq_len(nrow(sites_locs))), ], layers),
-    "The sites x locations object should have at least one row",
+    fb_get_environment(site_locs[-c(seq_len(nrow(site_locs))), ], layers),
+    "The site x locations object should have at least one row",
     fixed = TRUE
   )
   
   # Wrong environmental raster type
   expect_error(
-    fb_get_environment(sites_locs, raster::stack(c(tavg, prec))),
+    fb_get_environment(site_locs, raster::stack(c(tavg, prec))),
     "The raster layer must be a 'SpatRaster' object (package `terra`)",
     fixed = TRUE
   )
@@ -78,7 +78,7 @@ test_that("fb_get_environment() errors with wrong input type", {
 test_that("fb_get_environment() works", {
   
   # Regular input
-  expect_silent(env_value <- fb_get_environment(sites_locs, layers))
+  expect_silent(env_value <- fb_get_environment(site_locs, layers))
   
   expect_s3_class(env_value, "data.frame")
   expect_named(env_value, c("site", "annual_mean_temp", "annual_tot_prec"))
@@ -90,7 +90,7 @@ test_that("fb_get_environment() works", {
   
   layers_prj <- terra::project(layers, rob)
   
-  expect_silent(env_value <- fb_get_environment(sites_locs, layers_prj))
+  expect_silent(env_value <- fb_get_environment(site_locs, layers_prj))
   
   expect_s3_class(env_value, "data.frame")
   expect_named(env_value, c("site", "annual_mean_temp", "annual_tot_prec"))

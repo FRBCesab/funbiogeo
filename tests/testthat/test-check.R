@@ -242,11 +242,11 @@ test_that("check_species_traits() works", {
 
 # Tests for check site x locations ---------------------------------------------
 
-test_that("check_sites_locations() works", {
+test_that("check_site_locations() works", {
   
-  data("sites_locs")
+  data("site_locs")
   
-  sites_sf <- sites_locs
+  sites_sf <- site_locs
   sites_sf[["site"]] <- rownames(sites_sf)
   rownames(sites_sf) <- NULL
   sites_sf <- sf::st_as_sf(sites_sf, coords = 1:2)
@@ -254,30 +254,30 @@ test_that("check_sites_locations() works", {
   # Wrong input ----
   
   expect_error(
-    check_sites_locations(sites_locs),
-    "The sites x locations object must be an 'sf' object",
+    check_site_locations(site_locs),
+    "The site x locations object must be an 'sf' object",
     fixed = TRUE
   )
   
   expect_error(
-    check_sites_locations(as.list(sites_locs)),
-    "The sites x locations object must be an 'sf' object",
+    check_site_locations(as.list(site_locs)),
+    "The site x locations object must be an 'sf' object",
     fixed = TRUE
   )
   
   expect_error(
-    check_sites_locations(sites_locs[, 1, drop = FALSE]),
-    paste0("The sites x locations object must be an 'sf' object"),
+    check_site_locations(site_locs[, 1, drop = FALSE]),
+    paste0("The site x locations object must be an 'sf' object"),
     fixed = TRUE
   )
   
   expect_error(
-    check_sites_locations(sites_sf[-c(seq_len(nrow(sites_sf))),]),
-    "The sites x locations object should have at least one row",
+    check_site_locations(sites_sf[-c(seq_len(nrow(sites_sf))),]),
+    "The site x locations object should have at least one row",
     fixed = TRUE
   )
   
-  expect_silent(check_sites_locations(sites_sf))
+  expect_silent(check_site_locations(sites_sf))
   
-  expect_equal(check_sites_locations(sites_sf), NULL)
+  expect_equal(check_site_locations(sites_sf), NULL)
 })

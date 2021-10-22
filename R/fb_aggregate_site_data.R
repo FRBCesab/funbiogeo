@@ -11,7 +11,7 @@
 #' @param site_data a `matrix` or `data.frame` containing values per sites to 
 #'   aggregate along the provided grid. Can have one or several columns
 #'   (variables to aggregate). Row names must  contain sites names as provided
-#'   as `sites_locations`.
+#'   as `site_locations`.
 #'
 #' @param agg_grid a `SpatRaster` object (package `terra`).
 #'   A raster of one single layer, that defines the grid along which
@@ -27,7 +27,7 @@
 #' @examples
 #' library("funbiogeo")
 #' 
-#' data("sites_locs")
+#' data("site_locs")
 #' data("species_occs")
 #' 
 #' ## Import grid ----
@@ -36,17 +36,17 @@
 #' 
 #' ## Rasterize 3 first species counts ----
 # FIXME (finish examples)
-fb_aggregate_site_data <- function(sites_locations, site_data, agg_grid,
+fb_aggregate_site_data <- function(site_locations, site_data, agg_grid,
                                    fun = mean) {
   
   # Check inputs ---------------------------------------------------------------
   
-  if (missing(sites_locations)) {
-    stop("Argument 'sites_locations' (sites x locations matrix) is required",
+  if (missing(site_locations)) {
+    stop("Argument 'site_locations' (site x locations matrix) is required",
          call. = FALSE)
   }
   
-  check_sites_locations(sites_locations)
+  check_site_locations(site_locations)
   
   if (missing(site_data)) {
     stop("Argument 'site_data' is required",
@@ -107,25 +107,25 @@ fb_aggregate_site_data <- function(sites_locations, site_data, agg_grid,
   
   # Merge sites info -----------------------------------------------------------
   
-  sites_locations <- merge(sites_locations, site_data, by.x = "site",
+  site_locations <- merge(site_locations, site_data, by.x = "site",
                            by.y = "row.names")
   
   
   # Reproject sites if required ------------------------------------------------
   
-  if (sf::st_crs(sites_locations) != terra::crs(agg_grid, proj = TRUE)) {
+  if (sf::st_crs(site_locations) != terra::crs(agg_grid, proj = TRUE)) {
     
-    sites_locations <- sf::st_transform(sites_locations, 
+    site_locations <- sf::st_transform(site_locations, 
                                            terra::crs(agg_grid, proj = TRUE))
   }
   
   
   # Rasterize data -------------------------------------------------------------
   
-  fields <- colnames(sf::st_drop_geometry(sites_locations))[-1]
+  fields <- colnames(sf::st_drop_geometry(site_locations))[-1]
   
   rasters <- lapply(seq_along(fields), function(x) {
-    terra::rasterize(terra::vect(sites_locations), agg_grid,
+    terra::rasterize(terra::vect(site_locations), agg_grid,
                      field = fields[x], 
                      fun = fun)
   })

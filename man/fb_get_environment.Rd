@@ -4,10 +4,10 @@
 \alias{fb_get_environment}
 \title{Extract average raster values at sites locations}
 \usage{
-fb_get_environment(sites_locations, environment_raster)
+fb_get_environment(site_locations, environment_raster)
 }
 \arguments{
-\item{sites_locations}{an \code{sf} object with all sites.}
+\item{site_locations}{an \code{sf} object with all sites.}
 
 \item{environment_raster}{a \code{SpatRaster} object (package \code{terra}).
 A single or multi-layers environmental raster.}
@@ -22,7 +22,7 @@ Extract average raster values at sites locations
 \examples{
 library("funbiogeo")
 
-data("sites_locs")
+data("site_locs")
 
 ## Import climate rasters ----
 prec <- system.file("extdata", "annual_tot_prec.tif", package = "funbiogeo")

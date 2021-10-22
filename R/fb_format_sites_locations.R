@@ -1,4 +1,4 @@
-#' Format sites x locations object
+#' Format site x locations object
 #' 
 #' Convert a flat data.frame with site coordinates into a proper `sf` object
 #' that can then be use by other functions. This function assumes that
@@ -39,11 +39,11 @@
 #' 
 #' head(all_data)
 #' 
-#' sites_locations <- fb_format_sites_locations(all_data, "site", "longitude", 
+#' site_locations <- fb_format_site_locations(all_data, "site", "longitude", 
 #'                                              "latitude")
-#' head(sites_locations)
+#' head(site_locations)
 
-fb_format_sites_locations <- function(
+fb_format_site_locations <- function(
   input_data, site, longitude, latitude,
   crs = sf::st_crs(4326), na_rm = FALSE
 ) {

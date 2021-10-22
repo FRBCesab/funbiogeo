@@ -1,6 +1,6 @@
 #' Extract average raster values at sites locations
 #'
-#' @param sites_locations an `sf` object with all sites.
+#' @param site_locations an `sf` object with all sites.
 #' 
 #' @param environment_raster a `SpatRaster` object (package `terra`).
 #'   A single or multi-layers environmental raster.
@@ -13,7 +13,7 @@
 #' @examples
 #' library("funbiogeo")
 #' 
-#' data("sites_locs")
+#' data("site_locs")
 #' 
 #' ## Import climate rasters ----
 #' prec <- system.file("extdata", "annual_tot_prec.tif", package = "funbiogeo")
@@ -23,11 +23,11 @@
 #' 
 # FIXME (finish example)
 
-fb_get_environment <- function(sites_locations, environment_raster) {
+fb_get_environment <- function(site_locations, environment_raster) {
   
   
-  if (missing(sites_locations)) {
-    stop("Argument 'sites_locations' (sites x locations 'sf' object) ",
+  if (missing(site_locations)) {
+    stop("Argument 'site_locations' (site x locations 'sf' object) ",
          "is required", call. = FALSE)
   }
   
@@ -36,7 +36,7 @@ fb_get_environment <- function(sites_locations, environment_raster) {
          call. = FALSE)
   }
   
-  check_sites_locations(sites_locations)
+  check_site_locations(site_locations)
   
   if (!inherits(environment_raster, "SpatRaster")) {
     stop("The raster layer must be a 'SpatRaster' object (package `terra`)", 
@@ -45,11 +45,11 @@ fb_get_environment <- function(sites_locations, environment_raster) {
   
   ## Reproject sites if needed -------------------------------------------------
   
-  if (sf::st_crs(sites_locations) !=
+  if (sf::st_crs(site_locations) !=
       terra::crs(environment_raster, proj = TRUE)) {
     
-    sites_locations <- sf::st_transform(
-      sites_locations,
+    site_locations <- sf::st_transform(
+      site_locations,
       terra::crs(environment_raster, proj = TRUE)
     )
   }
@@ -58,7 +58,7 @@ fb_get_environment <- function(sites_locations, environment_raster) {
   ## Extract values ------------------------------------------------------------
   
   env_values <- terra::extract(x = environment_raster, 
-                               y = terra::vect(sites_locations), 
+                               y = terra::vect(site_locations), 
                                fun = mean, na.rm = TRUE, df = TRUE)
   
   
@@ -66,7 +66,7 @@ fb_get_environment <- function(sites_locations, environment_raster) {
   
   colnames(env_values)[1] <- "site"
   
-  env_values[["site"]] <- sites_locations[["site"]]
+  env_values[["site"]] <- site_locations[["site"]]
   
   return(env_values)
 }

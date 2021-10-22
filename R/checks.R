@@ -143,27 +143,27 @@ check_species_traits <- function(species_traits) {
 
 
 
-#' Check sites x locations object format
+#' Check site x locations object format
 #'
 #' Errors if the object is not an `sf` object and returns NULL otherwise.
 #' 
-#' @param sites_locations an `sf` object with all sites.
+#' @param site_locations an `sf` object with all sites.
 #'
 #' @return `NULL` if the object passes the test, errors otherwise 
 #' 
 #' @noRd
 
-check_sites_locations <- function(sites_locations) {
+check_site_locations <- function(site_locations) {
   
   # Check object type ----
   
-  if (!inherits(sites_locations, "sf")) {
-    stop("The sites x locations object must be an 'sf' object", 
+  if (!inherits(site_locations, "sf")) {
+    stop("The site x locations object must be an 'sf' object", 
          call. = FALSE)
   }
   
-  if (nrow(sites_locations) == 0) {
-    stop("The sites x locations object should have at least one row", 
+  if (nrow(site_locations) == 0) {
+    stop("The site x locations object should have at least one row", 
          call. = FALSE)
   }
   

@@ -36,14 +36,14 @@ library("ggplot2")
 The package `funbiogeo` requires three different datasets to proceed with the 
 analyses:
 
-- the **sites x locations** dataset (example dataset: `sites_locs`)
+- the **site x locations** dataset (example dataset: `site_locs`)
 - the **site x species** dataset (example dataset: `species_occs`)
 - the **species x traits** dataset (example dataset: `species_traits`)
 
 Let's take a look at each of these datasets.
 
 
-### Sites x Locations
+### site x locations
 
 
 
@@ -53,28 +53,28 @@ names. It must contain at least two columns: the longitude and the latitude of
 sites. This dataset must contain unique sites. Additional columns are accepted 
 must will be ignored by `funbiogeo`.
 
-The package `funbiogeo` comes with the example dataset `sites_locs`.
+The package `funbiogeo` comes with the example dataset `site_locs`.
 
 
 ```{r 'load-sites-locs'}
-## Load sites x locations example dataset ----
-data("sites_locs", package = "funbiogeo")
+## Load site x locations example dataset ----
+data("site_locs", package = "funbiogeo")
 ```
 
 ```{r 'preview-sites-locs', echo = FALSE}
-knitr::kable(head(sites_locs, 10), 
-             caption   = "Format of sites x locations dataset", 
+knitr::kable(head(site_locs, 10), 
+             caption   = "Format of site x locations dataset", 
              align     = c("r", "r"),
              row.names = TRUE)
 ```
 
 ```{r 'print-sites-ids-1'}
 ## Row names contain sites names ----
-rownames(sites_locs)[1:4]
+rownames(site_locs)[1:4]
 ```
 
-To create your own sites x locations dataset you can use the function 
-`fb_format_sites_locations()`. See below the section ***Long format***.
+To create your own site x locations dataset you can use the function 
+`fb_format_site_locations()`. See below the section ***Long format***.
 
 ### site x species
 
@@ -174,22 +174,22 @@ knitr::kable(head(all_data, 10),
 
 <br />
 
-**Formatting sites x locations data**
+**Formatting site x locations data**
 
-The function `fb_format_sites_locations()` extracts sites coordinates from this
-long table to create the sites x locations dataset. Note that one site must have
+The function `fb_format_site_locations()` extracts sites coordinates from this
+long table to create the site x locations dataset. Note that one site must have
 one unique longitude x latitude value.
 
 ```{r 'format-sites-locs'}
-## Format sites x locations data ----
-sites_locations <- fb_format_sites_locations(input_data =  all_data, 
+## Format site x locations data ----
+site_locations <- fb_format_site_locations(input_data =  all_data, 
                                              site       = "site", 
                                              longitude  = "longitude", 
                                              latitude   = "latitude",
                                              na_rm      = FALSE)
 
 ## Preview ----
-head(sites_locations)
+head(site_locations)
 ```
 
 <br />
@@ -314,7 +314,7 @@ head(richness)
 
 
 ```{r 'compute-cwm'}
-data("sites_locs")
+data("site_locs")
 data("species_occs")
 data("species_traits")
 
@@ -354,15 +354,15 @@ layers
 
 ```{r 'extract-rasters'}
 
-sites_locs <- sites_locs[!duplicated(sites_locs),]
-sites_locs[["site"]] <- rownames(sites_locs)
-rownames(sites_locs) <- NULL
-sites_locs <- sf::st_as_sf(
-  sites_locs, coords = 1:2, crs = 4326
+site_locs <- site_locs[!duplicated(site_locs),]
+site_locs[["site"]] <- rownames(site_locs)
+rownames(site_locs) <- NULL
+site_locs <- sf::st_as_sf(
+  site_locs, coords = 1:2, crs = 4326
 )
 
 ## Extract environment at sites ----
-sites_env <- fb_get_environment(sites_locs, layers)
+sites_env <- fb_get_environment(site_locs, layers)
 
 ## Preview ----
 head(sites_env)
@@ -460,7 +460,7 @@ figure +
 rownames(rich_env) <- rich_env[ , 1]
 rich_env <- rich_env[ , "n_species", drop = FALSE]
 
-ras_richness <- fb_aggregate_site_data(sites_locations = sites_locs, 
+ras_richness <- fb_aggregate_site_data(site_locations = site_locs, 
                                  site_data       = rich_env, 
                                  agg_grid       = tavg)
 

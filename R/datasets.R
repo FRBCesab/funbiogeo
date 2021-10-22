@@ -3,7 +3,7 @@
 #' @description
 #' This dataset contains spatial coordinates of sites sampled in Pennsylvania 
 #' where trees species were counted (individuals counts). This dataset shows 
-#' the format of the argument `sites_locations` used in several functions of
+#' the format of the argument `site_locations` used in several functions of
 #' `funbiogeo`. Note that sites labels are specified in row names.
 #'   
 #' @format A data frame with 5,770 rows (sites) and the following two columns:
@@ -13,10 +13,9 @@
 #' }
 #' 
 #' @examples 
-#' data("sites_locs")
-#' head(sites_locs)
-
-"sites_locs"
+#' data("site_locs")
+#' head(site_locs)
+"site_locs"
 
 
 
