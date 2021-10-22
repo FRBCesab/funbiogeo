@@ -123,30 +123,19 @@
     <p>Extract average raster values at sites locations</p>
     </div>
 
-    <pre class="usage"><span class='fu'>fb_get_environment</span><span class='op'>(</span>
-  <span class='va'>sites_locations</span>,
-  <span class='va'>environment_raster</span>,
-  crs <span class='op'>=</span> <span class='st'>"+proj=longlat +datum=WGS84 +no_defs"</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>fb_get_environment</span><span class='op'>(</span><span class='va'>sites_locations</span>, <span class='va'>environment_raster</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>sites_locations</th>
-      <td><p>a <code>matrix</code> or <code>data.frame</code> with sites in rows and two
-columns: longitude and latitude. The first column must be the longitude.</p></td>
+      <td><p>an <code>sf</code> object with all sites.</p></td>
     </tr>
     <tr>
       <th>environment_raster</th>
-      <td><p>a <code>SpatRaster</code> object (package <code>terra</code>). A raster
-of one or several environmental layers.</p></td>
-    </tr>
-    <tr>
-      <th>crs</th>
-      <td><p>a character of length 1 specifying the Coordinate Reference
-System in the PROJ4 standard.
-Default is: <code>'+proj=longlat +datum=WGS84 +no_defs'</code>.</p></td>
+      <td><p>a <code>SpatRaster</code> object (package <code>terra</code>).
+A single or multi-layers environmental raster.</p></td>
     </tr>
     </table>
 
@@ -166,16 +155,7 @@ Default is: <code>'+proj=longlat +datum=WGS84 +no_defs'</code>.</p></td>
 
 <span class='va'>layers</span> <span class='op'>&lt;-</span> <span class='fu'>terra</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/terra/man/rast.html'>rast</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>tavg</span>, <span class='va'>prec</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='co'>## Extract environment at sites ----</span>
-<span class='va'>sites_env</span> <span class='op'>&lt;-</span> <span class='fu'>fb_get_environment</span><span class='op'>(</span><span class='va'>sites_locs</span>, <span class='va'>layers</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>sites_env</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                site annual_mean_temp annual_tot_prec
-#&gt; 1  MD_9557550010661        11.045000            1121
-#&gt; 2  MD_9565278010661         9.591666            1124
-#&gt; 3  NJ_9687057010661        10.919333            1177
-#&gt; 4 OH_19104898010661         8.775333            1072
-#&gt; 5 PA_10725597010661        10.552333            1059
-#&gt; 6 PA_10725883010661        10.205667            1101</div></pre>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

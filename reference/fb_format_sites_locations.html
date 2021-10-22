@@ -40,7 +40,10 @@
 
 
 <meta property="og:title" content="Format sites x locations object — fb_format_sites_locations" />
-<meta property="og:description" content="..." />
+<meta property="og:description" content="Convert a flat data.frame with site coordinates into a proper sf object
+that can then be use by other functions. This function assumes that
+the coordinates are given in WGS84 (longitude vs. latitude). The function
+automatically removes repeated coordinates from the input dataset." />
 
 
 
@@ -120,29 +123,50 @@
     </div>
 
     <div class="ref-description">
-    <p>...</p>
+    <p>Convert a flat data.frame with site coordinates into a proper <code>sf</code> object
+that can then be use by other functions. This function assumes that
+the coordinates are given in WGS84 (longitude vs. latitude). The function
+automatically removes repeated coordinates from the input dataset.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>fb_format_sites_locations</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>site</span>, <span class='va'>longitude</span>, <span class='va'>latitude</span>, na_rm <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>fb_format_sites_locations</span><span class='op'>(</span>
+  <span class='va'>input_data</span>,
+  <span class='va'>site</span>,
+  <span class='va'>longitude</span>,
+  <span class='va'>latitude</span>,
+  crs <span class='op'>=</span> <span class='fu'>sf</span><span class='fu'>::</span><span class='fu'><a href='https://r-spatial.github.io/sf/reference/st_crs.html'>st_crs</a></span><span class='op'>(</span><span class='fl'>4326</span><span class='op'>)</span>,
+  na_rm <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
+      <th>input_data</th>
       <td><p>a <code>data.frame</code> in a long format (see example).</p></td>
     </tr>
     <tr>
       <th>site</th>
-      <td><p>a character of length 1. Name of the column with site labels.</p></td>
+      <td><p>a <code>character</code> of length 1. Name of the column with site labels.</p></td>
     </tr>
     <tr>
       <th>longitude</th>
-      <td><p>a character of length 1. Name of the column with longitude.</p></td>
+      <td><p>a <code>character</code> of length 1. Name of the column with
+longitude. The function assumes coordinates are WGS84 (EPSG:4326).</p></td>
     </tr>
     <tr>
       <th>latitude</th>
-      <td><p>a character of length 1. Name of the column with latitude.</p></td>
+      <td><p>a <code>character</code> of length 1. Name of the column with latitude.
+The function assumes coordinates are WGS84 (EPSG:4326).</p></td>
+    </tr>
+    <tr>
+      <th>crs</th>
+      <td><p>a <code>character</code> of length 1 or an object of class <code>crs</code>.
+Coordinate Reference System (CRS) of the specified coordinates.
+The CRS should be a <a href='https://geocompr.robinlovelace.net/spatial-class.html?q=CRS#crs-in-r'>valid CRS in R</a>.
+It can either be a character like <code>"+proj=longlat +datum=WGS84 +no_defs"</code>
+or as specified using <code><a href='https://r-spatial.github.io/sf/reference/st_crs.html'>sf::st_crs()</a></code> like <code><a href='https://r-spatial.github.io/sf/reference/st_crs.html'>sf::st_crs(4326)</a></code>
+the default value.</p></td>
     </tr>
     <tr>
       <th>na_rm</th>
@@ -153,7 +177,7 @@ coordinates. Default is <code>FALSE</code>.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A matrix with sites in rows and longitude and latitude in columns.</p>
+    <p>An <code>sf</code> object with a <code>site</code> column specifying site coordinates.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='st'><a href='https://github.com/frbcesab/funbiogeo'>"funbiogeo"</a></span><span class='op'>)</span>
@@ -180,13 +204,18 @@ coordinates. Default is <code>FALSE</code>.</p></td>
 <span class='va'>sites_locations</span> <span class='op'>&lt;-</span> <span class='fu'>fb_format_sites_locations</span><span class='op'>(</span><span class='va'>all_data</span>, <span class='st'>"site"</span>, <span class='st'>"longitude"</span>, 
                                              <span class='st'>"latitude"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>sites_locations</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                   longitude latitude
-#&gt; OH_19104898010661 -80.41646 41.88894
-#&gt; PA_10686546010661 -78.22196 40.11119
-#&gt; PA_10686882010661 -78.33307 40.19452
-#&gt; PA_10688091010661 -78.49974 39.86120
-#&gt; PA_10688665010661 -78.47196 40.22230
-#&gt; PA_10688975010661 -78.36085 40.08341</div></pre>
+</div><div class='output co'>#&gt; Simple feature collection with 6 features and 1 field
+#&gt; Geometry type: POINT
+#&gt; Dimension:     XY
+#&gt; Bounding box:  xmin: 39.91707 ymin: -79.2857 xmax: 41.02784 ymax: -77.05348
+#&gt; CRS:           EPSG:4326
+#&gt;                 site                   geometry
+#&gt; 1  PA_76856094010538 POINT (39.91707 -78.60508)
+#&gt; 2  PA_68287127010538 POINT (40.35293 -77.54087)
+#&gt; 3  PA_76855646010538 POINT (40.18796 -78.30221)
+#&gt; 4  PA_58581106010538  POINT (40.04243 -79.2857)
+#&gt; 5 PA_145019955010661 POINT (40.37183 -77.05348)
+#&gt; 6  PA_10716167010661 POINT (41.02784 -78.30529)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
