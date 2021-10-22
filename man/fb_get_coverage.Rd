@@ -4,10 +4,10 @@
 \alias{fb_get_coverage}
 \title{Compute traits coverage}
 \usage{
-fb_get_coverage(sites_species, species_traits)
+fb_get_coverage(site_species, species_traits)
 }
 \arguments{
-\item{sites_species}{a \code{matrix} or \code{data.frame} with sites in rows and
+\item{site_species}{a \code{matrix} or \code{data.frame} with sites in rows and
 species in columns. Rows names (sites) and columns names (species) must be
 defined.}
 

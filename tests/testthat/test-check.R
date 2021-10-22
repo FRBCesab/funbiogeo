@@ -1,39 +1,39 @@
 # Tests for check site x species  ----------------------------------------------
-test_that("check_sites_species() works", {
+test_that("check_site_species() works", {
   
   # Wrong input type ----
   
   expect_error(
-    check_sites_species("a"),
-    "The sites x species object must be a matrix or a data.frame",
+    check_site_species("a"),
+    "The site x species object must be a matrix or a data.frame",
     fixed = TRUE)
   
   expect_error(
-    check_sites_species(1:10),
-    "The sites x species object must be a matrix or a data.frame",
+    check_site_species(1:10),
+    "The site x species object must be a matrix or a data.frame",
     fixed = TRUE)
   
   expect_error(
-    check_sites_species(list()),
-    "The sites x species object must be a matrix or a data.frame",
+    check_site_species(list()),
+    "The site x species object must be a matrix or a data.frame",
     fixed = TRUE)
   
   
   # Matrix has no rows and/or columns ----
   
   expect_error(
-    check_sites_species(matrix(ncol = 0, nrow = 0)),
-    "The sites x species object should have at least one row and one column",
+    check_site_species(matrix(ncol = 0, nrow = 0)),
+    "The site x species object should have at least one row and one column",
     fixed = TRUE)
   
   expect_error(
-    check_sites_species(matrix(ncol = 0, nrow = 1)),
-    "The sites x species object should have at least one row and one column",
+    check_site_species(matrix(ncol = 0, nrow = 1)),
+    "The site x species object should have at least one row and one column",
     fixed = TRUE)
   
   expect_error(
-    check_sites_species(matrix(ncol = 1, nrow = 0)),
-    "The sites x species object should have at least one row and one column",
+    check_site_species(matrix(ncol = 1, nrow = 0)),
+    "The site x species object should have at least one row and one column",
     fixed = TRUE)
   
   
@@ -43,13 +43,13 @@ test_that("check_sites_species() works", {
   dat <- as.data.frame(mat)
   
   expect_error(
-    check_sites_species(mat),
-    "The sites x species object must have row names (sites names)",
+    check_site_species(mat),
+    "The site x species object must have row names (sites names)",
     fixed = TRUE)
   
   expect_error(
-    check_sites_species(dat),
-    "The sites x species object must have row names (sites names)",
+    check_site_species(dat),
+    "The site x species object must have row names (sites names)",
     fixed = TRUE)
   
   mat <- matrix(1:10, ncol = 2)
@@ -57,20 +57,20 @@ test_that("check_sites_species() works", {
   dat <- as.data.frame(mat)
   
   expect_error(
-    check_sites_species(mat),
-    "The sites x species object must have column names (species names)",
+    check_site_species(mat),
+    "The site x species object must have column names (species names)",
     fixed = TRUE)
   
   expect_error(
-    check_sites_species(dat),
-    "The sites x species object must have column names (species names)",
+    check_site_species(dat),
+    "The site x species object must have column names (species names)",
     fixed = TRUE)
   
   colnames(dat) <- NULL
   
   expect_error(
-    check_sites_species(dat),
-    "The sites x species object must have column names (species names)",
+    check_site_species(dat),
+    "The site x species object must have column names (species names)",
     fixed = TRUE)
   
   
@@ -82,8 +82,8 @@ test_that("check_sites_species() works", {
   mat$"site" <- rownames(mat)
   
   expect_error(
-    check_sites_species(mat),
-    paste0("The sites x species object must contain only numeric values. ", 
+    check_site_species(mat),
+    paste0("The site x species object must contain only numeric values. ", 
            "Sites names must be provided as row names"),
     fixed = TRUE)
   
@@ -95,15 +95,15 @@ test_that("check_sites_species() works", {
   colnames(mat) <- paste0("species_", LETTERS[seq_len(ncol(mat))])
   
   expect_error(
-    check_sites_species(mat),
-    "The sites x species object cannot contain negative values",
+    check_site_species(mat),
+    "The site x species object cannot contain negative values",
     fixed = TRUE)
   
   mat[1, 1] <- NA
   
   expect_error(
-    check_sites_species(mat),
-    "The sites x species object cannot contain negative values",
+    check_site_species(mat),
+    "The site x species object cannot contain negative values",
     fixed = TRUE)
   
   
@@ -113,19 +113,19 @@ test_that("check_sites_species() works", {
   rownames(mat) <- paste0("site_", seq_len(nrow(mat)))
   colnames(mat) <- paste0("species_", LETTERS[seq_len(ncol(mat))])
   
-  expect_silent(check_sites_species(mat))
+  expect_silent(check_site_species(mat))
   
-  expect_equal(check_sites_species(mat), NULL)
+  expect_equal(check_site_species(mat), NULL)
   
   mat[1, 1] <- NA
   
-  expect_silent(check_sites_species(mat))
+  expect_silent(check_site_species(mat))
   
   mat <- matrix(c(1, rep(NA, 9)), ncol = 2)
   rownames(mat) <- paste0("site_", seq_len(nrow(mat)))
   colnames(mat) <- paste0("species_", LETTERS[seq_len(ncol(mat))])
   
-  expect_silent(check_sites_species(mat))
+  expect_silent(check_site_species(mat))
 })
 
 

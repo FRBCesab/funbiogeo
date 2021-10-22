@@ -4,10 +4,10 @@
 \alias{fb_cwm}
 \title{Compute community-weighted means of trait values}
 \usage{
-fb_cwm(sites_species, species_traits)
+fb_cwm(site_species, species_traits)
 }
 \arguments{
-\item{sites_species}{a \code{matrix} or \code{data.frame} with sites in rows and
+\item{site_species}{a \code{matrix} or \code{data.frame} with sites in rows and
 species in columns. Rows names (sites) and columns names (species) must be
 defined.}
 

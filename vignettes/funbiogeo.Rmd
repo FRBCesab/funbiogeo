@@ -37,7 +37,7 @@ The package `funbiogeo` requires three different datasets to proceed with the
 analyses:
 
 - the **sites x locations** dataset (example dataset: `sites_locs`)
-- the **sites x species** dataset (example dataset: `species_occs`)
+- the **site x species** dataset (example dataset: `species_occs`)
 - the **species x traits** dataset (example dataset: `species_traits`)
 
 Let's take a look at each of these datasets.
@@ -76,7 +76,7 @@ rownames(sites_locs)[1:4]
 To create your own sites x locations dataset you can use the function 
 `fb_format_sites_locations()`. See below the section ***Long format***.
 
-### Sites x Species
+### site x species
 
 This dataset contains species occurrences/abundance/coverage at sites (points) 
 of the study area. It can be either a `matrix` or a `data.frame` and row names 
@@ -86,13 +86,13 @@ information and sites must be unique. No additional columns are accepted.
 The package `funbiogeo` comes with the example dataset `species_occs`.
 
 ```{r 'load-sites-species'}
-## Load sites x species example dataset ----
+## Load site x species example dataset ----
 data("species_occs", package = "funbiogeo")
 ```
 
 ```{r 'preview-sites-species', echo = FALSE}
 knitr::kable(head(species_occs[ , 1:4], 10), 
-             caption   = "Format of sites x species dataset", 
+             caption   = "Format of site x species dataset", 
              align     = c("r", "r", "r", "r"),
              row.names = TRUE)
 ```
@@ -107,8 +107,8 @@ rownames(species_occs)[1:4]
 colnames(species_occs)[1:4]
 ```
 
-To create your own sites x species dataset you can use the function 
-`fb_format_sites_species()`. See below the section ***Long format***.
+To create your own site x species dataset you can use the function 
+`fb_format_site_species()`. See below the section ***Long format***.
 
 ### Species x Traits
 
@@ -194,23 +194,23 @@ head(sites_locations)
 
 <br />
 
-**Formatting sites x species data**
+**Formatting site x species data**
 
-The function `fb_format_sites_species()` extracts species 
+The function `fb_format_site_species()` extracts species 
 occurrence/abundance/coverage from this long table to create the 
-sites x species dataset. Note that one species must have been observed one time 
+site x species dataset. Note that one species must have been observed one time 
 at one site (the package `funbiogeo` does not yet consider temporal survey).
 
 ```{r 'format-sites-species'}
-## Format sites x species data ----
-sites_species <- fb_format_sites_species(data       = all_data, 
+## Format site x species data ----
+site_species <- fb_format_site_species(data       = all_data, 
                                          site       = "site", 
                                          species    = "species", 
                                          value      = "count",
                                          na_to_zero = TRUE)
 
 ## Preview ----
-head(sites_species)
+head(site_species)
 ```
 
 <br />
@@ -248,7 +248,7 @@ a.k.a, how well are sites covered given the trait data I have?
 
 ```{r 'get-trait-coverage'}
 ## Get trait coverage ----
-cover <- fb_get_coverage(sites_species  = species_occs, 
+cover <- fb_get_coverage(site_species  = species_occs, 
                          species_traits = species_traits)
 
 ## Preview ----
@@ -271,7 +271,7 @@ head(cover)
 
 ```{r 'filter-trait-coverage'}
 ## Get trait coverage ----
-sel_sites <- fb_filter_coverage(sites_species      = species_occs, 
+sel_sites <- fb_filter_coverage(site_species      = species_occs, 
                                 species_traits     = species_traits,
                                 coverage_threshold = 0.5)
 
@@ -319,7 +319,7 @@ data("species_occs")
 data("species_traits")
 
 ## Compute CWM ----
-cwm <- fb_cwm(sites_species  = species_occs, 
+cwm <- fb_cwm(site_species  = species_occs, 
               species_traits = species_traits)
 
 ## Preview ----

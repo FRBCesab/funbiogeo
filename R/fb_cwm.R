@@ -19,27 +19,27 @@
 #' 
 #' cover <- fb_cwm(species_occs, species_traits)
 
-fb_cwm <- function(sites_species, species_traits) {
+fb_cwm <- function(site_species, species_traits) {
   
   
   ## Check inputs ----
   
-  if (missing(sites_species)) {
-    stop("Argument 'sites_species' (sites x species matrix) is required")
+  if (missing(site_species)) {
+    stop("Argument 'site_species' (site x species matrix) is required")
   }
   
   if (missing(species_traits)) {
     stop("Argument 'species_traits' (species x traits matrix) is required")
   }
   
-  check_sites_species(sites_species)
+  check_site_species(site_species)
   
   check_species_traits(species_traits)
   
   
   # Get species in common between both matrices ----
   
-  species <- list_common_species(colnames(sites_species), 
+  species <- list_common_species(colnames(site_species), 
                                  rownames(species_traits))
   
   
@@ -55,12 +55,12 @@ fb_cwm <- function(sites_species, species_traits) {
   
   # Total sites abundances ----
   
-  total_abund <- rowSums(sites_species[ , species, drop = FALSE])
+  total_abund <- rowSums(site_species[ , species, drop = FALSE])
   
   
   # Compute CWM ----
   
-  cwm <- (sites_species[ , species, drop = FALSE] / total_abund) %*%
+  cwm <- (site_species[ , species, drop = FALSE] / total_abund) %*%
     species_traits[species, , drop = FALSE]
   
   

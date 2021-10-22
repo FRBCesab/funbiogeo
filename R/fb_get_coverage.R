@@ -7,7 +7,7 @@
 #' This function assumes that all species provided in the traits dataset have
 #' all their traits specified.
 #' 
-#' @param sites_species a `matrix` or `data.frame` with sites in rows and 
+#' @param site_species a `matrix` or `data.frame` with sites in rows and 
 #' species in columns. Rows names (sites) and columns names (species) must be 
 #' defined.
 #' 
@@ -29,27 +29,27 @@
 #' 
 #' cover <- fb_get_coverage(species_occs, species_traits)
 
-fb_get_coverage <- function(sites_species, species_traits) {
+fb_get_coverage <- function(site_species, species_traits) {
   
   
   ## Check inputs ----
   
-  if (missing(sites_species)) {
-    stop("Argument 'sites_species' (sites x species matrix) is required")
+  if (missing(site_species)) {
+    stop("Argument 'site_species' (site x species matrix) is required")
   }
   
   if (missing(species_traits)) {
     stop("Argument 'species_traits' (species x traits matrix) is required")
   }
   
-  check_sites_species(sites_species)
+  check_site_species(site_species)
   
   check_species_traits(species_traits)
   
   
   # Get species in common between both matrices ----
   
-  species <- list_common_species(colnames(sites_species), 
+  species <- list_common_species(colnames(site_species), 
                                  rownames(species_traits))
   
   
@@ -60,12 +60,12 @@ fb_get_coverage <- function(sites_species, species_traits) {
   
   # Count all species (presence/abundance) per site ----
   
-  site_total_abundance <- rowSums(sites_species, na.rm = TRUE)
+  site_total_abundance <- rowSums(site_species, na.rm = TRUE)
   
   
   # Count species with traits per site -----
   
-  site_cover_abundance <- rowSums(sites_species[ , species, drop = FALSE], 
+  site_cover_abundance <- rowSums(site_species[ , species, drop = FALSE], 
                                   na.rm = TRUE)
   
   # Compute trait coverage ----

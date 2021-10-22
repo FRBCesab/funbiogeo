@@ -4,10 +4,10 @@
 \alias{fb_filter_coverage}
 \title{Filter sites with a given trait coverage threshold}
 \usage{
-fb_filter_coverage(sites_species, species_traits, coverage_threshold = 1)
+fb_filter_coverage(site_species, species_traits, coverage_threshold = 1)
 }
 \arguments{
-\item{sites_species}{a \code{matrix} or \code{data.frame} with sites in rows and
+\item{site_species}{a \code{matrix} or \code{data.frame} with sites in rows and
 species in columns. Rows names (sites) and columns names (species) must be
 defined.}
 
@@ -19,7 +19,7 @@ defined.}
 percentage trait coverage threshold}
 }
 \value{
-A subset of \code{sites_species} with sites covered by X\% of
+A subset of \code{site_species} with sites covered by X\% of
 abundance/coverage considering all provided traits.
 }
 \description{

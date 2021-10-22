@@ -1,6 +1,6 @@
 test_that("fb_cwm() works", {
   
-  sites_species  <- matrix(c(1, 10, 10, 1, 10, 1), ncol = 3)
+  site_species  <- matrix(c(1, 10, 10, 1, 10, 1), ncol = 3)
   species_traits <- matrix(c(1.1, 2.5, 100, 400), ncol = 2)
   
   
@@ -8,47 +8,47 @@ test_that("fb_cwm() works", {
 
   expect_error(
     fb_cwm(species_traits = species_traits),
-    "Argument 'sites_species' (sites x species matrix) is required",
+    "Argument 'site_species' (site x species matrix) is required",
     fixed = TRUE
   )
   
   expect_error(
-    fb_cwm(sites_species = sites_species),
+    fb_cwm(site_species = site_species),
     "Argument 'species_traits' (species x traits matrix) is required",
     fixed = TRUE
   )
   
   expect_error(
     fb_cwm(species_traits = species_traits),
-    "Argument 'sites_species' (sites x species matrix) is required",
+    "Argument 'site_species' (site x species matrix) is required",
     fixed = TRUE
   )
   
   expect_error(
-    fb_cwm(sites_species = sites_species),
+    fb_cwm(site_species = site_species),
     "Argument 'species_traits' (species x traits matrix) is required",
     fixed = TRUE
   )
   
   expect_error(
-    fb_cwm(sites_species, species_traits),
-    "The sites x species object must have row names (sites names)",
+    fb_cwm(site_species, species_traits),
+    "The site x species object must have row names (sites names)",
     fixed = TRUE
   )
   
-  rownames(sites_species) <- paste0("site_", seq_len(nrow(sites_species)))
+  rownames(site_species) <- paste0("site_", seq_len(nrow(site_species)))
   
   expect_error(
-    fb_cwm(sites_species, species_traits),
-    "The sites x species object must have column names (species names)",
+    fb_cwm(site_species, species_traits),
+    "The site x species object must have column names (species names)",
     fixed = TRUE
   )
   
-  colnames(sites_species) <- paste0("species_", 
-                                    LETTERS[seq_len(ncol(sites_species))])
+  colnames(site_species) <- paste0("species_", 
+                                    LETTERS[seq_len(ncol(site_species))])
   
   expect_error(
-    fb_cwm(sites_species, species_traits),
+    fb_cwm(site_species, species_traits),
     "The species x traits object must have row names (species names)",
     fixed = TRUE
   )
@@ -57,7 +57,7 @@ test_that("fb_cwm() works", {
                                      LETTERS[seq_len(ncol(species_traits))])
   
   expect_error(
-    fb_cwm(sites_species, species_traits),
+    fb_cwm(site_species, species_traits),
     "The species x traits object must have column names (traits names)",
     fixed = TRUE
   )
@@ -73,7 +73,7 @@ test_that("fb_cwm() works", {
                                                (seq_len(ncol(species_traits)))])
   
   expect_error(
-    fb_cwm(sites_species, species_traits),
+    fb_cwm(site_species, species_traits),
     "No species found in common between inputs",
     fixed = TRUE
   )
@@ -87,7 +87,7 @@ test_that("fb_cwm() works", {
                                      LETTERS[seq_len(ncol(species_traits))])
   
   expect_error(
-    fb_cwm(sites_species, species_traits),
+    fb_cwm(site_species, species_traits),
     "CWM can only be computed on numeric traits",
     fixed = TRUE
   )
@@ -101,7 +101,7 @@ test_that("fb_cwm() works", {
                                      LETTERS[seq_len(ncol(species_traits))])
   
   expect_silent(
-    test_cwm <- fb_cwm(sites_species, species_traits)
+    test_cwm <- fb_cwm(site_species, species_traits)
   )
   
   expect_s3_class(test_cwm, "data.frame")

@@ -1,7 +1,7 @@
 test_that("fb_filter_coverage() works", {
   
   
-  sites_species  <- matrix(c(1, 10, 10, 1, 10, 1), ncol = 3)
+  site_species  <- matrix(c(1, 10, 10, 1, 10, 1), ncol = 3)
   species_traits <- matrix(c(1.1, 2.5, 100, 400), ncol = 2)
   
   
@@ -9,35 +9,35 @@ test_that("fb_filter_coverage() works", {
   
   expect_error(
     fb_filter_coverage(species_traits = species_traits),
-    "Argument 'sites_species' (sites x species matrix) is required",
+    "Argument 'site_species' (site x species matrix) is required",
     fixed = TRUE
   )
   
   expect_error(
-    fb_filter_coverage(sites_species = sites_species),
+    fb_filter_coverage(site_species = site_species),
     "Argument 'species_traits' (species x traits matrix) is required",
     fixed = TRUE
   )
   
   expect_error(
-    fb_filter_coverage(sites_species, species_traits),
-    "The sites x species object must have row names (sites names)",
+    fb_filter_coverage(site_species, species_traits),
+    "The site x species object must have row names (sites names)",
     fixed = TRUE
   )
   
-  rownames(sites_species) <- paste0("site_", seq_len(nrow(sites_species)))
+  rownames(site_species) <- paste0("site_", seq_len(nrow(site_species)))
   
   expect_error(
-    fb_filter_coverage(sites_species, species_traits),
-    "The sites x species object must have column names (species names)",
+    fb_filter_coverage(site_species, species_traits),
+    "The site x species object must have column names (species names)",
     fixed = TRUE
   )
   
-  colnames(sites_species) <- paste0("species_", 
-                                    LETTERS[seq_len(ncol(sites_species))])
+  colnames(site_species) <- paste0("species_", 
+                                    LETTERS[seq_len(ncol(site_species))])
   
   expect_error(
-    fb_filter_coverage(sites_species, species_traits),
+    fb_filter_coverage(site_species, species_traits),
     "The species x traits object must have row names (species names)",
     fixed = TRUE
   )
@@ -46,7 +46,7 @@ test_that("fb_filter_coverage() works", {
                                      LETTERS[seq_len(ncol(species_traits))])
   
   expect_error(
-    fb_filter_coverage(sites_species, species_traits),
+    fb_filter_coverage(site_species, species_traits),
     "The species x traits object must have column names (traits names)",
     fixed = TRUE
   )
@@ -61,7 +61,7 @@ test_that("fb_filter_coverage() works", {
                                                (seq_len(ncol(species_traits)))])
   
   expect_error(
-    fb_filter_coverage(sites_species, species_traits),
+    fb_filter_coverage(site_species, species_traits),
     "No species found in common between inputs",
     fixed = TRUE
   )
@@ -71,7 +71,7 @@ test_that("fb_filter_coverage() works", {
   
   expect_error(
     fb_filter_coverage(
-      sites_species  = matrix(1, dimnames = list("s1", "a")),
+      site_species  = matrix(1, dimnames = list("s1", "a")),
       species_traits = matrix(1, dimnames = list("b", "t1")),
       coverage_threshold = "a"),
     "Coverage threshold should be a numeric value >= 0 and <= 1",
@@ -83,7 +83,7 @@ test_that("fb_filter_coverage() works", {
   
   expect_error(
     fb_filter_coverage(
-      sites_species  = matrix(1, dimnames = list("s1", "a")),
+      site_species  = matrix(1, dimnames = list("s1", "a")),
       species_traits = matrix(1, dimnames = list("b", "t1")),
       coverage_threshold = 2),
     "Coverage threshold should be a numeric value >= 0 and <= 1",
@@ -95,7 +95,7 @@ test_that("fb_filter_coverage() works", {
   
   expect_error(
     fb_filter_coverage(
-      sites_species  = matrix(1, dimnames = list("s1", "a")),
+      site_species  = matrix(1, dimnames = list("s1", "a")),
       species_traits = matrix(1, dimnames = list("b", "t1")),
       coverage_threshold = -1),
     "Coverage threshold should be a numeric value >= 0 and <= 1",
@@ -106,7 +106,7 @@ test_that("fb_filter_coverage() works", {
   
   expect_silent(
     filtered_site <- fb_filter_coverage(
-      sites_species  = matrix(1, dimnames = list("s1", "a")),
+      site_species  = matrix(1, dimnames = list("s1", "a")),
       species_traits = matrix(NA_real_, dimnames = list("a", "t1")))
   )
   
@@ -122,7 +122,7 @@ test_that("fb_filter_coverage() works", {
   
   expect_silent(
     test_coverage <- fb_filter_coverage(
-      sites_species  = matrix(c(1, 0, 1), nrow = 1, ncol = 3, 
+      site_species  = matrix(c(1, 0, 1), nrow = 1, ncol = 3, 
                               dimnames = list("s1", letters[1:3])),
       species_traits = matrix(1, nrow = 3, ncol = 1,
                               dimnames = list(letters[1:3], "t1")),
@@ -138,7 +138,7 @@ test_that("fb_filter_coverage() works", {
   
   expect_message(
     test_coverage <- fb_filter_coverage(
-      sites_species  = matrix(c(1, 0, 1, 1), nrow = 1, ncol = 4, 
+      site_species  = matrix(c(1, 0, 1, 1), nrow = 1, ncol = 4, 
                               dimnames = list("s1", letters[1:4])),
       species_traits = matrix(1, nrow = 3, ncol = 1,
                               dimnames = list(letters[1:3], "t1")),
@@ -157,7 +157,7 @@ test_that("fb_filter_coverage() works", {
   
   expect_silent(
     test_coverage <- fb_filter_coverage(
-      sites_species  = matrix(c(1, 0, 1, 1), nrow = 1, ncol = 4, 
+      site_species  = matrix(c(1, 0, 1, 1), nrow = 1, ncol = 4, 
                               dimnames = list("s1", letters[1:4])),
       species_traits = matrix(1, nrow = 3, ncol = 1,
                               dimnames = list(letters[1:3], "t1")),
@@ -172,7 +172,7 @@ test_that("fb_filter_coverage() works", {
   
   expect_silent(
     test_coverage <- fb_filter_coverage(
-      sites_species  = matrix(c(5, 0, 5), nrow = 1, ncol = 3,
+      site_species  = matrix(c(5, 0, 5), nrow = 1, ncol = 3,
                               dimnames = list("s1", letters[1:3])),
       species_traits = matrix(1, nrow = 3, ncol = 1,
                               dimnames = list(letters[1:3], "t1")))
@@ -186,7 +186,7 @@ test_that("fb_filter_coverage() works", {
   
   expect_message(
     test_coverage <- fb_filter_coverage(
-      sites_species  = matrix(c(5, 0, 5, 5), nrow = 1, ncol = 4,
+      site_species  = matrix(c(5, 0, 5, 5), nrow = 1, ncol = 4,
                               dimnames = list("s1", letters[1:4])),
       species_traits = matrix(1, nrow = 3, ncol = 1,
                               dimnames = list(letters[1:3], "t1"))),
@@ -204,7 +204,7 @@ test_that("fb_filter_coverage() works", {
   
   expect_silent(
     test_coverage <- fb_filter_coverage(
-      sites_species  = matrix(c(5, 0, 5, 5), nrow = 1, ncol = 4,
+      site_species  = matrix(c(5, 0, 5, 5), nrow = 1, ncol = 4,
                               dimnames = list("s1", letters[1:4])),
       species_traits = matrix(1, nrow = 3, ncol = 1,
                               dimnames = list(letters[1:3], "t1")),
@@ -220,7 +220,7 @@ test_that("fb_filter_coverage() works", {
   
   expect_silent(
     test_coverage <- fb_filter_coverage(
-      sites_species  = matrix(c(0.3, 0, 0.3), nrow = 1, ncol = 3,
+      site_species  = matrix(c(0.3, 0, 0.3), nrow = 1, ncol = 3,
                               dimnames = list("s1", letters[1:3])),
       species_traits = matrix(1, nrow = 3, ncol = 1,
                               dimnames = list(letters[1:3], "t1")))
@@ -235,7 +235,7 @@ test_that("fb_filter_coverage() works", {
   
   expect_message(
     test_coverage <- fb_filter_coverage(
-      sites_species  = matrix(c(0.3, 0, 0.3, 0.3), nrow = 1, ncol = 4,
+      site_species  = matrix(c(0.3, 0, 0.3, 0.3), nrow = 1, ncol = 4,
                               dimnames = list("s1", letters[1:4])),
       species_traits = matrix(1, nrow = 3, ncol = 1,
                               dimnames = list(letters[1:3], "t1"))),
@@ -253,7 +253,7 @@ test_that("fb_filter_coverage() works", {
   
   expect_silent(
     test_coverage <- fb_filter_coverage(
-      sites_species  = matrix(c(0.3, 0, 0.3, 0.3), nrow = 1, ncol = 4,
+      site_species  = matrix(c(0.3, 0, 0.3, 0.3), nrow = 1, ncol = 4,
                               dimnames = list("s1", letters[1:4])),
       species_traits = matrix(1, nrow = 3, ncol = 1,
                               dimnames = list(letters[1:3], "t1")),

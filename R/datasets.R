@@ -24,7 +24,7 @@
 #' 
 #' @description
 #' This dataset contains trees species counts in sites sampled in Pennsylvania. 
-#' This dataset shows the format of the argument `sites_species` used in 
+#' This dataset shows the format of the argument `site_species` used in 
 #' several functions of `funbiogeo`. Note that sites labels are specified in 
 #' row names.
 #'   

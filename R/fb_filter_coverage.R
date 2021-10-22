@@ -8,7 +8,7 @@
 #' 
 #' @inheritParams fb_get_coverage
 #'
-#' @return A subset of `sites_species` with sites covered by X% of 
+#' @return A subset of `site_species` with sites covered by X% of 
 #' abundance/coverage considering all provided traits.
 #' 
 #' @export
@@ -21,21 +21,21 @@
 #' 
 #' cover <- fb_filter_coverage(species_occs, species_traits)
 
-fb_filter_coverage <- function(sites_species, species_traits, 
+fb_filter_coverage <- function(site_species, species_traits, 
                                coverage_threshold = 1) {
   
   
   ## Check inputs ----
   
-  if (missing(sites_species)) {
-    stop("Argument 'sites_species' (sites x species matrix) is required")
+  if (missing(site_species)) {
+    stop("Argument 'site_species' (site x species matrix) is required")
   }
   
   if (missing(species_traits)) {
     stop("Argument 'species_traits' (species x traits matrix) is required")
   }
   
-  check_sites_species(sites_species)
+  check_site_species(site_species)
   
   check_species_traits(species_traits)
   
@@ -48,7 +48,7 @@ fb_filter_coverage <- function(sites_species, species_traits,
   
   # Get trait coverage for site and traits ----
 
-  trait_coverage <- fb_get_coverage(sites_species, species_traits)
+  trait_coverage <- fb_get_coverage(site_species, species_traits)
   
   
   # Filter sites by coverage ----
@@ -61,5 +61,5 @@ fb_filter_coverage <- function(sites_species, species_traits,
     message("No sites has the specified trait coverage threshold")
   }
     
-  sites_species[selected_sites, , drop = FALSE]
+  site_species[selected_sites, , drop = FALSE]
 }

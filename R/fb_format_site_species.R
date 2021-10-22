@@ -1,4 +1,4 @@
-#' Format sites x species object
+#' Format site x species object
 #' 
 #' @description
 #' ...
@@ -29,11 +29,11 @@
 #' 
 #' head(all_data)
 #' 
-#' sites_species <- fb_format_sites_species(all_data, "site", "species", 
+#' site_species <- fb_format_site_species(all_data, "site", "species", 
 #'                                          "count")
-#' head(sites_species)
+#' head(site_species)
 
-fb_format_sites_species <- function(data, site, species, value, 
+fb_format_site_species <- function(data, site, species, value, 
                                     na_to_zero = TRUE) {
   
   ## Check inputs ----
