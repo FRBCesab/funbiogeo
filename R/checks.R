@@ -147,9 +147,9 @@ check_species_traits <- function(species_traits) {
 #'
 #' Errors if the object is not an `sf` object and returns NULL otherwise.
 #' 
-#' @param sites_locations an `sf` object with each sites defined as points
+#' @param sites_locations an `sf` object with all sites.
 #'
-#' @return NULL
+#' @return `NULL` if the object passes the test, errors otherwise 
 #' 
 #' @noRd
 
@@ -157,39 +157,14 @@ check_sites_locations <- function(sites_locations) {
   
   # Check object type ----
   
-  if (!is.data.frame(sites_locations) & !is.matrix(sites_locations)) {
-    stop("The sites x locations object must be a matrix or a data.frame", 
+  if (!inherits(sites_locations, "sf")) {
+    stop("The sites x locations object must be an 'sf' object", 
          call. = FALSE)
   }
   
   if (nrow(sites_locations) == 0) {
     stop("The sites x locations object should have at least one row", 
          call. = FALSE)
-  }
-  
-  if (ncol(sites_locations) != 2) {
-    stop("The sites x locations object should have two columns (longitude and ",
-         "latitude)", call. = FALSE)
-  }
-  
-  
-  # Check for labels (sites) ----
-  
-  if (is.matrix(sites_locations)) {
-    
-    if (is.null(rownames(sites_locations))) {
-      stop("The sites x locations object must have row names (sites names)", 
-           call. = FALSE)
-    }
-  }
-  
-  
-  if (is.data.frame(sites_locations)) {
-    
-    if (any(rownames(sites_locations) %in% seq_len(nrow(sites_locations)))) {
-      stop("The sites x locations object must have row names (sites names)", 
-           call. = FALSE)
-    }
   }
   
   invisible(NULL)

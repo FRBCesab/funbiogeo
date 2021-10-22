@@ -4,25 +4,44 @@
 \alias{fb_format_sites_locations}
 \title{Format sites x locations object}
 \usage{
-fb_format_sites_locations(data, site, longitude, latitude, na_rm = FALSE)
+fb_format_sites_locations(
+  input_data,
+  site,
+  longitude,
+  latitude,
+  crs = sf::st_crs(4326),
+  na_rm = FALSE
+)
 }
 \arguments{
-\item{data}{a \code{data.frame} in a long format (see example).}
+\item{input_data}{a \code{data.frame} in a long format (see example).}
 
-\item{site}{a character of length 1. Name of the column with site labels.}
+\item{site}{a \code{character} of length 1. Name of the column with site labels.}
 
-\item{longitude}{a character of length 1. Name of the column with longitude.}
+\item{longitude}{a \code{character} of length 1. Name of the column with
+longitude. The function assumes coordinates are WGS84 (EPSG:4326).}
 
-\item{latitude}{a character of length 1. Name of the column with latitude.}
+\item{latitude}{a \code{character} of length 1. Name of the column with latitude.
+The function assumes coordinates are WGS84 (EPSG:4326).}
+
+\item{crs}{a \code{character} of length 1 or an object of class \code{crs}.
+Coordinate Reference System (CRS) of the specified coordinates.
+The CRS should be a \href{https://geocompr.robinlovelace.net/spatial-class.html?q=CRS#crs-in-r}{valid CRS in R}.
+It can either be a character like \code{"+proj=longlat +datum=WGS84 +no_defs"}
+or as specified using \code{sf::st_crs()} like \code{sf::st_crs(4326)}
+the default value.}
 
 \item{na_rm}{a logical value. If \code{TRUE} remove sites with incomplete
 coordinates. Default is \code{FALSE}.}
 }
 \value{
-A matrix with sites in rows and longitude and latitude in columns.
+An \code{sf} object with a \code{site} column specifying site coordinates.
 }
 \description{
-...
+Convert a flat data.frame with site coordinates into a proper \code{sf} object
+that can then be use by other functions. This function assumes that
+the coordinates are given in WGS84 (longitude vs. latitude). The function
+automatically removes repeated coordinates from the input dataset.
 }
 \examples{
 library("funbiogeo")
