@@ -2,7 +2,7 @@
 % Please edit documentation in R/fb_aggregate_site_data.R
 \name{fb_aggregate_site_data}
 \alias{fb_aggregate_site_data}
-\title{Upscale sites: aggregates them at higher scales}
+\title{Aggregate site data along coarser grid}
 \usage{
 fb_aggregate_site_data(sites_locations, site_data, agg_grid, fun = mean)
 }
@@ -25,9 +25,11 @@ multiple points in one cell. Default is \code{mean}.}
 A \code{SpatRaster} object with as many layers as columns in \code{site_data}.
 }
 \description{
-This function helps upscaling site data. In our sense upscaling is when
-you want to work with a version of your data aggregated at a coarser spatial
-scale. This function aggregates the site data at a given scale.
+This function helps aggregating site data along a coarser grid.
+The idea is that you have any type of data at the site scale
+(diversity metrics, environmental data, etc.) but you would like to work
+on it at a coarser scale, or you want to visualize it at that scale.
+This function helps you do exactly that.
 }
 \examples{
 library("funbiogeo")
