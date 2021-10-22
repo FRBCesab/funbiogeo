@@ -13,7 +13,14 @@
 #'   longitude. The function assumes coordinates are WGS84 (EPSG:4326). 
 #' 
 #' @param latitude a `character` of length 1. Name of the column with latitude.
-#'   The function assumes coordinates are WGS84 (EPSG:4326).  
+#'   The function assumes coordinates are WGS84 (EPSG:4326).
+#' 
+#' @param crs a `character` of length 1 or an object of class `crs`.
+#'   Coordinate Reference System (CRS) of the specified coordinates.
+#'   The CRS should be a [valid CRS in R](https://geocompr.robinlovelace.net/spatial-class.html?q=CRS#crs-in-r).
+#'   It can either be a character like `"+proj=longlat +datum=WGS84 +no_defs"`
+#'   or as specified using `sf::st_crs()` like `sf::st_crs(4326)`
+#'   the default value.
 #'   
 #' @param na_rm a logical value. If `TRUE` remove sites with incomplete 
 #'   coordinates. Default is `FALSE`.
@@ -35,8 +42,10 @@
 #'                                              "latitude")
 #' head(sites_locations)
 
-fb_format_sites_locations <- function(input_data, site, longitude, latitude, 
-                                      na_rm = FALSE) {
+fb_format_sites_locations <- function(
+  input_data, site, longitude, latitude,
+  crs = sf::st_crs(4326), na_rm = FALSE
+) {
   
   ## Check 'input_data' --------------------------------------------------------
   
@@ -81,7 +90,7 @@ fb_format_sites_locations <- function(input_data, site, longitude, latitude,
   }
   
   
-  ## Check coordinates column --------------------------------------------------
+  ## Check coordinates columns -------------------------------------------------
   
   if (missing(longitude)) {
     stop("Argument 'longitude' is required", call. = FALSE)
@@ -138,19 +147,40 @@ fb_format_sites_locations <- function(input_data, site, longitude, latitude,
   }
   
   
-  ## Select columns ------------------------------------------------------------
+  # Check provided CRS ---------------------------------------------------------
+  
+  if (is.character(crs) | !inherits(crs, "crs")) {
+    # Try to coerce provided argument into a CRS, specific error otherwise
+    crs = tryCatch(
+      suppressWarnings(sf::st_crs(crs)),
+      error = function(e) stop(
+        "Argument 'crs' should be valid CRS or coercible to one ",
+        "with sf::st_crs()"
+      )
+    )
+    
+    # Catch other potentially invalid CRSs
+    if (is.na(crs$input)) {
+      stop(
+        "Argument 'crs' should be valid CRS or coercible to one ",
+        "with sf::st_crs()"
+      )
+    }
+  }
+  
+  # Select columns -------------------------------------------------------------
   
   input_data <- input_data[ , c(site, longitude, latitude)]
   
   
-  ## Replace non-alphanumeric characters ---------------------------------------
+  # Replace non-alphanumeric characters ----------------------------------------
   
   input_data[ , site] <- gsub("\\s|[[:punct:]]", "_", input_data[ , site])
   input_data[ , site] <- gsub("_{1,}", "_",           input_data[ , site])
   input_data[ , site] <- gsub("^_|_$", "",            input_data[ , site])
   
   
-  ## Remove sites with NA ------------------------------------------------------
+  # Remove sites with NA -------------------------------------------------------
   
   if (na_rm) {
     input_data <- input_data[!is.na(input_data[ , longitude]), ]
@@ -162,7 +192,8 @@ fb_format_sites_locations <- function(input_data, site, longitude, latitude,
   
   input_data <- input_data[!duplicated(input_data), ]
   
-  ## Convert to 'sf' object ----------------------------------------------------
   
-  sf::st_as_sf(input_data, coords = c(latitude, longitude), crs = 4326)
+  # Convert to 'sf' object -----------------------------------------------------
+  
+  sf::st_as_sf(input_data, coords = c(latitude, longitude), crs = crs)
 }
