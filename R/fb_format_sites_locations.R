@@ -25,7 +25,7 @@
 #' @param na_rm a logical value. If `TRUE` remove sites with incomplete 
 #'   coordinates. Default is `FALSE`.
 #'
-#' @return A matrix with sites in rows and longitude and latitude in columns.
+#' @return An `sf` object with a `site` column specifying site coordinates.
 #' 
 #' @export
 #'
