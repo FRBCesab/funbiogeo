@@ -92,21 +92,21 @@
 <a href="#initial-needed-data" class="anchor"></a>Initial needed data</h2>
 <p>The package <code>funbiogeo</code> requires three different datasets to proceed with the analyses:</p>
 <ul>
-<li>the <strong>sites x locations</strong> dataset (example dataset: <code>sites_locs</code>)</li>
-<li>the <strong>sites x species</strong> dataset (example dataset: <code>species_occs</code>)</li>
+<li>the <strong>site x locations</strong> dataset (example dataset: <code>site_locs</code>)</li>
+<li>the <strong>site x species</strong> dataset (example dataset: <code>species_occs</code>)</li>
 <li>the <strong>species x traits</strong> dataset (example dataset: <code>species_traits</code>)</li>
 </ul>
 <p>Let’s take a look at each of these datasets.</p>
-<div id="sites-x-locations" class="section level3">
+<div id="site-x-locations" class="section level3">
 <h3 class="hasAnchor">
-<a href="#sites-x-locations" class="anchor"></a>Sites x Locations</h3>
+<a href="#site-x-locations" class="anchor"></a>site x locations</h3>
 <p>This dataset contains spatial coordinates of sites (points) of the study area. It can be either a <code>matrix</code> or a <code>data.frame</code> and row names must contain sites names. It must contain at least two columns: the longitude and the latitude of sites. This dataset must contain unique sites. Additional columns are accepted must will be ignored by <code>funbiogeo</code>.</p>
-<p>The package <code>funbiogeo</code> comes with the example dataset <code>sites_locs</code>.</p>
+<p>The package <code>funbiogeo</code> comes with the example dataset <code>site_locs</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Load sites x locations example dataset ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"sites_locs"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="co">## Load site x locations example dataset ----</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"site_locs"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></code></pre></div>
 <table class="table">
-<caption>Format of sites x locations dataset</caption>
+<caption>Format of site x locations dataset</caption>
 <thead><tr class="header">
 <th align="left"></th>
 <th align="right">longitude</th>
@@ -167,21 +167,21 @@
 </table>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Row names contain sites names ----</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">sites_locs</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">site_locs</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>
 <span class="co">#&gt; [1] "MD_9557550010661"  "MD_9565278010661"  "NJ_9687057010661" </span>
 <span class="co">#&gt; [4] "OH_19104898010661"</span></code></pre></div>
-<p>To create your own sites x locations dataset you can use the function <code><a href="../reference/fb_format_sites_locations.html">fb_format_sites_locations()</a></code>. See below the section <strong><em>Long format</em></strong>.</p>
+<p>To create your own site x locations dataset you can use the function <code><a href="../reference/fb_format_site_locations.html">fb_format_site_locations()</a></code>. See below the section <strong><em>Long format</em></strong>.</p>
 </div>
-<div id="sites-x-species" class="section level3">
+<div id="site-x-species" class="section level3">
 <h3 class="hasAnchor">
-<a href="#sites-x-species" class="anchor"></a>Sites x Species</h3>
+<a href="#site-x-species" class="anchor"></a>site x species</h3>
 <p>This dataset contains species occurrences/abundance/coverage at sites (points) of the study area. It can be either a <code>matrix</code> or a <code>data.frame</code> and row names must contain sites names. Columns must contain only species distribution information and sites must be unique. No additional columns are accepted.</p>
 <p>The package <code>funbiogeo</code> comes with the example dataset <code>species_occs</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Load sites x species example dataset ----</span>
+<code class="sourceCode R"><span class="co">## Load site x species example dataset ----</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"species_occs"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></code></pre></div>
 <table class="table">
-<caption>Format of sites x species dataset</caption>
+<caption>Format of site x species dataset</caption>
 <thead><tr class="header">
 <th align="left"></th>
 <th align="right">acer_negundo</th>
@@ -272,7 +272,7 @@
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">species_occs</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>
 <span class="co">#&gt; [1] "acer_negundo"       "acer_nigrum"        "acer_pensylvanicum"</span>
 <span class="co">#&gt; [4] "acer_rubrum"</span></code></pre></div>
-<p>To create your own sites x species dataset you can use the function <code><a href="../reference/fb_format_sites_species.html">fb_format_sites_species()</a></code>. See below the section <strong><em>Long format</em></strong>.</p>
+<p>To create your own site x species dataset you can use the function <code><a href="../reference/fb_format_site_species.html">fb_format_site_species()</a></code>. See below the section <strong><em>Long format</em></strong>.</p>
 </div>
 <div id="species-x-traits" class="section level3">
 <h3 class="hasAnchor">
@@ -466,18 +466,18 @@
 </tbody>
 </table>
 <p><br></p>
-<p><strong>Formatting sites x locations data</strong></p>
-<p>The function <code><a href="../reference/fb_format_sites_locations.html">fb_format_sites_locations()</a></code> extracts sites coordinates from this long table to create the sites x locations dataset. Note that one site must have one unique longitude x latitude value.</p>
+<p><strong>Formatting site x locations data</strong></p>
+<p>The function <code><a href="../reference/fb_format_site_locations.html">fb_format_site_locations()</a></code> extracts sites coordinates from this long table to create the site x locations dataset. Note that one site must have one unique longitude x latitude value.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Format sites x locations data ----</span>
-<span class="va">sites_locations</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_sites_locations.html">fb_format_sites_locations</a></span><span class="op">(</span>input_data <span class="op">=</span>  <span class="va">all_data</span>, 
+<code class="sourceCode R"><span class="co">## Format site x locations data ----</span>
+<span class="va">site_locations</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_site_locations.html">fb_format_site_locations</a></span><span class="op">(</span>input_data <span class="op">=</span>  <span class="va">all_data</span>, 
                                              site       <span class="op">=</span> <span class="st">"site"</span>, 
                                              longitude  <span class="op">=</span> <span class="st">"longitude"</span>, 
                                              latitude   <span class="op">=</span> <span class="st">"latitude"</span>,
                                              na_rm      <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 
 <span class="co">## Preview ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">sites_locations</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">site_locations</span><span class="op">)</span>
 <span class="co">#&gt; Simple feature collection with 6 features and 1 field</span>
 <span class="co">#&gt; Geometry type: POINT</span>
 <span class="co">#&gt; Dimension:     XY</span>
@@ -491,18 +491,18 @@
 <span class="co">#&gt; 5 PA_145019955010661 POINT (40.37183 -77.05348)</span>
 <span class="co">#&gt; 6  PA_10716167010661 POINT (41.02784 -78.30529)</span></code></pre></div>
 <p><br></p>
-<p><strong>Formatting sites x species data</strong></p>
-<p>The function <code><a href="../reference/fb_format_sites_species.html">fb_format_sites_species()</a></code> extracts species occurrence/abundance/coverage from this long table to create the sites x species dataset. Note that one species must have been observed one time at one site (the package <code>funbiogeo</code> does not yet consider temporal survey).</p>
+<p><strong>Formatting site x species data</strong></p>
+<p>The function <code><a href="../reference/fb_format_site_species.html">fb_format_site_species()</a></code> extracts species occurrence/abundance/coverage from this long table to create the site x species dataset. Note that one species must have been observed one time at one site (the package <code>funbiogeo</code> does not yet consider temporal survey).</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Format sites x species data ----</span>
-<span class="va">sites_species</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_sites_species.html">fb_format_sites_species</a></span><span class="op">(</span>data       <span class="op">=</span> <span class="va">all_data</span>, 
+<code class="sourceCode R"><span class="co">## Format site x species data ----</span>
+<span class="va">site_species</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_site_species.html">fb_format_site_species</a></span><span class="op">(</span>data       <span class="op">=</span> <span class="va">all_data</span>, 
                                          site       <span class="op">=</span> <span class="st">"site"</span>, 
                                          species    <span class="op">=</span> <span class="st">"species"</span>, 
                                          value      <span class="op">=</span> <span class="st">"count"</span>,
                                          na_to_zero <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
 <span class="co">## Preview ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">sites_species</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span>
 <span class="co">#&gt;                    acer_pensylvanicum populus_tremuloides quercus_macrocarpa</span>
 <span class="co">#&gt; PA_76856094010538                   7                   0                  0</span>
 <span class="co">#&gt; PA_68287127010538                   2                   0                  0</span>
@@ -538,7 +538,7 @@
 <p>[…]</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Get trait coverage ----</span>
-<span class="va">cover</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_get_coverage.html">fb_get_coverage</a></span><span class="op">(</span>sites_species  <span class="op">=</span> <span class="va">species_occs</span>, 
+<span class="va">cover</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_get_coverage.html">fb_get_coverage</a></span><span class="op">(</span>site_species  <span class="op">=</span> <span class="va">species_occs</span>, 
                          species_traits <span class="op">=</span> <span class="va">species_traits</span><span class="op">)</span>
 
 <span class="co">## Preview ----</span>
@@ -558,7 +558,7 @@
 <p>[…]</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Get trait coverage ----</span>
-<span class="va">sel_sites</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_filter_coverage.html">fb_filter_coverage</a></span><span class="op">(</span>sites_species      <span class="op">=</span> <span class="va">species_occs</span>, 
+<span class="va">sel_sites</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_filter_coverage.html">fb_filter_coverage</a></span><span class="op">(</span>site_species      <span class="op">=</span> <span class="va">species_occs</span>, 
                                 species_traits     <span class="op">=</span> <span class="va">species_traits</span>,
                                 coverage_threshold <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>
 
@@ -611,12 +611,12 @@
 <a href="#community-weighted-means" class="anchor"></a>Community-Weighted Means</h3>
 <p>[…]</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"sites_locs"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"site_locs"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"species_occs"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"species_traits"</span><span class="op">)</span>
 
 <span class="co">## Compute CWM ----</span>
-<span class="va">cwm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_cwm.html">fb_cwm</a></span><span class="op">(</span>sites_species  <span class="op">=</span> <span class="va">species_occs</span>, 
+<span class="va">cwm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_cwm.html">fb_cwm</a></span><span class="op">(</span>site_species  <span class="op">=</span> <span class="va">species_occs</span>, 
               species_traits <span class="op">=</span> <span class="va">species_traits</span><span class="op">)</span>
 
 <span class="co">## Preview ----</span>
@@ -663,15 +663,15 @@
 <p>[…]</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
-<span class="va">sites_locs</span> <span class="op">&lt;-</span> <span class="va">sites_locs</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/duplicated.html">duplicated</a></span><span class="op">(</span><span class="va">sites_locs</span><span class="op">)</span>,<span class="op">]</span>
-<span class="va">sites_locs</span><span class="op">[[</span><span class="st">"site"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">sites_locs</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">sites_locs</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NULL</span>
-<span class="va">sites_locs</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf</a></span><span class="op">(</span>
-  <span class="va">sites_locs</span>, coords <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, crs <span class="op">=</span> <span class="fl">4326</span>
+<span class="va">site_locs</span> <span class="op">&lt;-</span> <span class="va">site_locs</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/duplicated.html">duplicated</a></span><span class="op">(</span><span class="va">site_locs</span><span class="op">)</span>,<span class="op">]</span>
+<span class="va">site_locs</span><span class="op">[[</span><span class="st">"site"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">site_locs</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">site_locs</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NULL</span>
+<span class="va">site_locs</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf</a></span><span class="op">(</span>
+  <span class="va">site_locs</span>, coords <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, crs <span class="op">=</span> <span class="fl">4326</span>
 <span class="op">)</span>
 
 <span class="co">## Extract environment at sites ----</span>
-<span class="va">sites_env</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_get_environment.html">fb_get_environment</a></span><span class="op">(</span><span class="va">sites_locs</span>, <span class="va">layers</span><span class="op">)</span>
+<span class="va">sites_env</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_get_environment.html">fb_get_environment</a></span><span class="op">(</span><span class="va">site_locs</span>, <span class="va">layers</span><span class="op">)</span>
 
 <span class="co">## Preview ----</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">sites_env</span><span class="op">)</span>
@@ -773,7 +773,7 @@
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">rich_env</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">rich_env</span><span class="op">[</span> , <span class="fl">1</span><span class="op">]</span>
 <span class="va">rich_env</span> <span class="op">&lt;-</span> <span class="va">rich_env</span><span class="op">[</span> , <span class="st">"n_species"</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>
 
-<span class="va">ras_richness</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data</a></span><span class="op">(</span>sites_locations <span class="op">=</span> <span class="va">sites_locs</span>, 
+<span class="va">ras_richness</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data</a></span><span class="op">(</span>site_locations <span class="op">=</span> <span class="va">site_locs</span>, 
                                  site_data       <span class="op">=</span> <span class="va">rich_env</span>, 
                                  agg_grid       <span class="op">=</span> <span class="va">tavg</span><span class="op">)</span>
 

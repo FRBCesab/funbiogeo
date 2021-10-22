@@ -123,13 +123,13 @@
     <p>Extract average raster values at sites locations</p>
     </div>
 
-    <pre class="usage"><span class='fu'>fb_get_environment</span><span class='op'>(</span><span class='va'>sites_locations</span>, <span class='va'>environment_raster</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>fb_get_environment</span><span class='op'>(</span><span class='va'>site_locations</span>, <span class='va'>environment_raster</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>sites_locations</th>
+      <th>site_locations</th>
       <td><p>an <code>sf</code> object with all sites.</p></td>
     </tr>
     <tr>
@@ -147,7 +147,7 @@ A single or multi-layers environmental raster.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='st'><a href='https://github.com/frbcesab/funbiogeo'>"funbiogeo"</a></span><span class='op'>)</span>
 
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"sites_locs"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"site_locs"</span><span class='op'>)</span>
 
 <span class='co'>## Import climate rasters ----</span>
 <span class='va'>prec</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata"</span>, <span class='st'>"annual_tot_prec.tif"</span>, package <span class='op'>=</span> <span class='st'>"funbiogeo"</span><span class='op'>)</span>
