@@ -34,7 +34,8 @@
 #' 
 #' ## Rasterize 3 first species counts ----
 # FIXME (finish examples)
-fb_upscale_sites <- function(sites_locations, site_data, agg_grid, fun = mean) {
+fb_aggregate_site_data <- function(sites_locations, site_data, agg_grid,
+                                   fun = mean) {
   
   # Check inputs ---------------------------------------------------------------
   
