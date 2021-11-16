@@ -6,10 +6,7 @@
 \alias{funbiogeo-package}
 \title{funbiogeo: Functional Biogeography Analyses}
 \description{
-Helps users with analyses in functional biogeogeography by loading 
-    and combining data, computing trait coverage, as well as computing 
-    functional diversity indices, drawing maps, correlating them with the 
-    environment, and upscaling assemblages.
+Helps users with analyses in functional biogeogeography by loading and combining data, computing trait coverage, as well as computing functional diversity indices, drawing maps, correlating them with the environment, and upscaling assemblages.
 }
 \seealso{
 Useful links:

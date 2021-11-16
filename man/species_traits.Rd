@@ -3,27 +3,47 @@
 \docType{data}
 \name{species_traits}
 \alias{species_traits}
-\title{Tree species traits}
+\title{Data: species x traits object}
 \format{
-A matrix with 67 rows (species) and the following three columns:
+A matrix with 149 rows (species) and the following six columns:
 \describe{
-\item{sla}{Specific Leaf Area}
-\item{n_mass}{Mass}
-\item{wood_dens}{Wood density}
+\item{adult_body_mass}{adult body mass (in grams)}
+\item{gestation_length}{length of time of non-inactive fetal growth
+(in days)}
+\item{litter_size}{number of offspring born per litter per female}
+\item{max_longevity}{maximum adult age (in months)}
+\item{sexual_maturity_age}{age when individuals are first physically
+capable of reproducing (in days)}
+\item{diet_breadth}{number of dietary categories eaten}
 }
 }
 \usage{
 species_traits
 }
 \description{
-This dataset contains traits of trees species. It shows the format of the
-argument \code{species_traits} used in several functions of \code{funbiogeo}. Note
-that species names are specified in row names.
+This dataset contains values for six functional traits of Western Europe
+mammals species. These values were extracted from the \strong{PanTHERIA} database
+(Jones 2009), a database on World mammals traits available at:
+https://esapubs.org/archive/ecol/E090/184/metadata.htm.
+In respect to the IUCN license, species names have been anonymized.
+
+See https://github.com/frbcesab/eumammals for a complete description of the
+workflow used to create this dataset.
+
+This dataset shows the format of the argument \code{species_traits} used in
+several functions of \code{funbiogeo}.
+
+Note that species names are specified in row names.
 }
 \examples{
 data("species_traits")
 class(species_traits)
 dim(species_traits)
 head(species_traits)
+}
+\references{
+Jones KE \emph{et al.} (2009) PanTHERIA: A species-level database of life
+history, ecology, and geography of extant and recently extinct mammals.
+\emph{Ecology}, \strong{90}, 2648. DOI: 10.1890/08-1494.1.
 }
 \keyword{datasets}
