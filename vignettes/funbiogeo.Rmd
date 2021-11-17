@@ -189,10 +189,10 @@ one unique longitude x latitude value.
 ```{r 'format-sites-locs'}
 ## Format site x locations data ----
 site_locations <- fb_format_site_locations(input_data =  all_data, 
-                                             site       = "site", 
-                                             longitude  = "longitude", 
-                                             latitude   = "latitude",
-                                             na_rm      = FALSE)
+                                           site       = "site", 
+                                           longitude  = "longitude", 
+                                           latitude   = "latitude",
+                                           na_rm      = FALSE)
 
 ## Preview ----
 head(site_locations)
@@ -210,10 +210,10 @@ at one site (the package `funbiogeo` does not yet consider temporal survey).
 ```{r 'format-sites-species'}
 ## Format site x species data ----
 site_species <- fb_format_site_species(data       = all_data, 
-                                         site       = "site", 
-                                         species    = "species", 
-                                         value      = "count",
-                                         na_to_zero = TRUE)
+                                       site       = "site", 
+                                       species    = "species", 
+                                       value      = "count",
+                                       na_to_zero = TRUE)
 
 ## Preview ----
 head(site_species)
@@ -241,7 +241,17 @@ species_traits
 
 a.k.a, how well are sites covered given the trait data I have?
 
+
+```{r 'load-datasets'}
+data("site_species", package = "funbiogeo")
+data("site_locations", package = "funbiogeo")
+data("species_traits", package = "funbiogeo")
+```
+
+
 [...]
+
+
 
 
 
@@ -254,8 +264,7 @@ a.k.a, how well are sites covered given the trait data I have?
 
 ```{r 'get-trait-coverage'}
 ## Get trait coverage ----
-cover <- fb_get_coverage(site_species   = site_species, 
-                         species_traits = species_traits)
+cover <- fb_get_coverage(site_species, species_traits)
 
 ## Preview ----
 head(cover)
@@ -275,18 +284,16 @@ head(cover)
 
 
 
-```{r 'filter-trait-coverage', eval = FALSE}
+```{r 'filter-trait-coverage'}
 ## Get trait coverage ----
-sel_sites <- fb_filter_coverage(site_species       = site_species, 
-                                species_traits     = species_traits,
-                                coverage_threshold = 0.5)
+sel_sites <- fb_filter_coverage(site_species, species_traits, coverage_threshold = 1)
 
 ## Preview ----
 head(sel_sites[ , 1:4])
 ```
 
 
-```{r 'sites-comparison', eval = FALSE}
+```{r 'sites-comparison'}
 ## Original sites ----
 nrow(site_species)
 
@@ -319,7 +326,7 @@ head(richness)
 [...]
 
 
-```{r 'compute-cwm', eval = FALSE}
+```{r 'compute-cwm'}
 data("site_locations")
 data("site_species")
 data("species_traits")
@@ -374,7 +381,7 @@ head(sites_env)
 
 [...]
 
-```{r 'relation-w-environment', eval = FALSE}
+```{r 'relation-w-environment'}
 ## Append information ----
 rich_env <- merge(richness, sites_env, by.x = "row.names", by.y = "site")
 
@@ -382,7 +389,7 @@ rich_env <- merge(richness, sites_env, by.x = "row.names", by.y = "site")
 head(rich_env)
 ```
 
-```{r 'biplot', eval = FALSE}
+```{r 'biplot'}
 biplot <- ggplot(rich_env, aes(x = annual_mean_temp, y = n_species)) +
   geom_point() +
   theme_classic() +
@@ -390,7 +397,7 @@ biplot <- ggplot(rich_env, aes(x = annual_mean_temp, y = n_species)) +
 biplot
 ```
 
-```{r 'biplot-trend', eval = FALSE}
+```{r 'biplot-trend'}
 biplot + geom_smooth(method = "lm")
 ```
 
@@ -459,23 +466,23 @@ figure +
 [...]
 
 
-```{r 'upscale-richness', eval = FALSE}
+```{r 'upscale-richness'}
 ## Upscale to grid ----
 rownames(rich_env) <- rich_env[ , 1]
 rich_env <- rich_env[ , "n_species", drop = FALSE]
 
-ras_richness <- fb_aggregate_site_data(site_locations = site_locs, 
-                                 site_data       = rich_env, 
-                                 agg_grid       = tavg)
+ras_richness <- fb_aggregate_site_data(site_locations = site_locations, 
+                                       site_data      = rich_env, 
+                                       agg_grid       = tavg)
 
 ras_richness
 ```
 
-```{r 'map-richness', eval = FALSE}
+```{r 'map-richness'}
 fb_map_raster(ras_richness)
 ```
 
-```{r 'map-richness-custom', eval = FALSE}
+```{r 'map-richness-custom'}
 fb_map_raster(ras_richness) + 
   scale_fill_distiller("Number of species", palette = "Spectral") +
   theme(legend.position = "bottom") + 
