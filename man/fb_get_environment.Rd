@@ -22,7 +22,7 @@ Extract average raster values at sites locations
 \examples{
 library("funbiogeo")
 
-data("site_locs")
+data("site_locations")
 
 ## Import climate rasters ----
 prec <- system.file("extdata", "annual_tot_prec.tif", package = "funbiogeo")
