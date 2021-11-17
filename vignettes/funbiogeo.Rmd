@@ -332,8 +332,7 @@ data("site_species")
 data("species_traits")
 
 ## Compute CWM ----
-cwm <- fb_cwm(site_species   = site_species, 
-              species_traits = species_traits)
+cwm <- fb_cwm(site_species, species_traits)
 
 ## Preview ----
 head(cwm)
