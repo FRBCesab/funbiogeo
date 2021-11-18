@@ -1,4 +1,4 @@
-#' Data: sites x locations object
+#' Data: sites x locations of Western Europe mammals occurrences
 #' 
 #' @description
 #' This dataset contains spatial coordinates of sites of Western Europe where
@@ -29,7 +29,7 @@
 
 
 
-#' Data: sites x species object
+#' Data: sites x species of Western Europe mammals occurrences
 #' 
 #' @description
 #' This dataset contains the presence/absence of mammals species in Western
@@ -62,7 +62,7 @@
 
 
 
-#' Data: species x traits object
+#' Data: species x traits of Western Europe mammals
 #' 
 #' @description
 #' This dataset contains values for six functional traits of Western Europe

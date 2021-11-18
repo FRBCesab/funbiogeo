@@ -3,7 +3,7 @@
 \docType{data}
 \name{species_traits}
 \alias{species_traits}
-\title{Data: species x traits object}
+\title{Data: species x traits of Western Europe mammals}
 \format{
 A matrix with 149 rows (species) and the following six columns:
 \describe{

@@ -3,7 +3,7 @@
 \docType{data}
 \name{site_locations}
 \alias{site_locations}
-\title{Data: sites x locations object}
+\title{Data: sites x locations of Western Europe mammals occurrences}
 \format{
 A \code{data.frame} with 1,505 rows (sites) and the following two
 columns:
