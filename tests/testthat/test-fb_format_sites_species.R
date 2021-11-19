@@ -1,8 +1,8 @@
 test_that("fb_format_site_species() works", {
   
-  filename <- system.file("extdata", "raw_trees_data.csv", 
+  filename <- system.file("extdata", "raw_mammals_data.csv", 
                           package = "funbiogeo")
-  all_data <- read.csv2(filename)
+  all_data <- read.csv(filename)
   
   
   # Wrong inputs ----
@@ -193,8 +193,8 @@ test_that("fb_format_site_species() works", {
   site_species <- fb_format_site_species(all_data, "site", "species", "count",
                                            na_to_zero = TRUE)
   expect_true(is.matrix(site_species))
-  expect_equal(nrow(site_species), 836L)
-  expect_equal(ncol(site_species), 3L)
+  expect_equal(nrow(site_species), 1496L)
+  expect_equal(ncol(site_species), 10L)
   expect_false("site" %in% colnames(site_species))
   expect_equal(site_species[1, 2], 0L)
   
