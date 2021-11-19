@@ -29,13 +29,12 @@ A matrix with sites in rows and species in columns.
 \examples{
 library("funbiogeo")
 
-filename <- system.file("extdata", "raw_trees_data.csv", 
+filename <- system.file("extdata", "raw_mammals_data.csv", 
                         package = "funbiogeo")
-all_data <- read.csv2(filename)
+all_data <- read.csv(filename)
 
 head(all_data)
 
-site_species <- fb_format_site_species(all_data, "site", "species", 
-                                         "count")
+site_species <- fb_format_site_species(all_data, "site", "species", "count")
 head(site_species)
 }

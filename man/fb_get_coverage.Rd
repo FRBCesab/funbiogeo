@@ -30,8 +30,8 @@ all their traits specified.
 \examples{
 library("funbiogeo")
 
-data("species_occs")
+data("site_species")
 data("species_traits")
 
-cover <- fb_get_coverage(species_occs, species_traits)
+cover <- fb_get_coverage(site_species, species_traits)
 }

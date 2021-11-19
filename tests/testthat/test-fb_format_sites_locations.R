@@ -1,8 +1,8 @@
 # Initial data -----------------------------------------------------------------
 
-filename <- system.file("extdata", "raw_trees_data.csv", 
+filename <- system.file("extdata", "raw_mammals_data.csv", 
                         package = "funbiogeo")
-all_data <- read.csv2(filename)
+all_data <- read.csv(filename)
 
 
 # Test: Missing input ----------------------------------------------------------
@@ -230,10 +230,10 @@ test_that("fb_format_site_locations() works with valid input", {
   site_locations <- fb_format_site_locations(all_data, "site", "longitude", 
                                                "latitude")
   expect_true(is(site_locations, "sf"))
-  expect_equal(nrow(site_locations), 836L)
+  expect_equal(nrow(site_locations), 1496L)
   expect_equal(ncol(site_locations), 2L)
   expect_true("site" %in% colnames(site_locations))
-  expect_equal(sf::st_coordinates(site_locations)[1,1], 39.91707)
+  expect_equal(sf::st_coordinates(site_locations)[1, 1], 59.097357)
   
   
   # Including NA values
@@ -244,5 +244,5 @@ test_that("fb_format_site_locations() works with valid input", {
   site_locations <- fb_format_site_locations(all_data_test, "site", 
                                                "longitude", "latitude", 
                                                na_rm = TRUE)
-  expect_equal(nrow(site_locations), 834L)
+  expect_equal(nrow(site_locations), 1495L)
 })

@@ -34,8 +34,8 @@ This function helps you do exactly that.
 \examples{
 library("funbiogeo")
 
-data("site_locs")
-data("species_occs")
+data("site_locations")
+data("site_species")
 
 ## Import grid ----
 tavg <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")

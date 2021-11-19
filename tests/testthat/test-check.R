@@ -244,9 +244,9 @@ test_that("check_species_traits() works", {
 
 test_that("check_site_locations() works", {
   
-  data("site_locs")
+  data("site_locations")
   
-  sites_sf <- site_locs
+  sites_sf <- site_locations
   sites_sf[["site"]] <- rownames(sites_sf)
   rownames(sites_sf) <- NULL
   sites_sf <- sf::st_as_sf(sites_sf, coords = 1:2)
@@ -254,19 +254,19 @@ test_that("check_site_locations() works", {
   # Wrong input ----
   
   expect_error(
-    check_site_locations(site_locs),
+    check_site_locations(site_locations),
     "The site x locations object must be an 'sf' object",
     fixed = TRUE
   )
   
   expect_error(
-    check_site_locations(as.list(site_locs)),
+    check_site_locations(as.list(site_locations)),
     "The site x locations object must be an 'sf' object",
     fixed = TRUE
   )
   
   expect_error(
-    check_site_locations(site_locs[, 1, drop = FALSE]),
+    check_site_locations(site_locations[, 1, drop = FALSE]),
     paste0("The site x locations object must be an 'sf' object"),
     fixed = TRUE
   )

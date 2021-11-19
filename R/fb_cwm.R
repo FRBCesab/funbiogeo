@@ -14,10 +14,10 @@
 #' @examples
 #' library("funbiogeo")
 #' 
-#' data("species_occs")
+#' data("site_species")
 #' data("species_traits")
 #' 
-#' cover <- fb_cwm(species_occs, species_traits)
+#' cover <- fb_cwm(site_species, species_traits)
 
 fb_cwm <- function(site_species, species_traits) {
   
@@ -47,6 +47,12 @@ fb_cwm <- function(site_species, species_traits) {
   
   quanti_traits  <- apply(species_traits, 2, is.numeric)
   species_traits <- species_traits[ , quanti_traits, drop = FALSE]
+  
+  
+  # Convert to matrix -----
+  
+  species_traits <- data.matrix(species_traits)
+  site_species   <- data.matrix(site_species)
   
   if (identical(as.logical(species_traits), logical(0))) {
     stop("CWM can only be computed on numeric traits", call. = FALSE)

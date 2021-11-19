@@ -27,8 +27,8 @@
 #' @examples
 #' library("funbiogeo")
 #' 
-#' data("site_locs")
-#' data("species_occs")
+#' data("site_locations")
+#' data("site_species")
 #' 
 #' ## Import grid ----
 #' tavg <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")
@@ -36,6 +36,7 @@
 #' 
 #' ## Rasterize 3 first species counts ----
 # FIXME (finish examples)
+
 fb_aggregate_site_data <- function(site_locations, site_data, agg_grid,
                                    fun = mean) {
   

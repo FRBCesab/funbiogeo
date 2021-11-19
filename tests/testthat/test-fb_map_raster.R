@@ -3,7 +3,7 @@ test_that("fb_map_raster() works", {
   
   # Initial data ----
   
-  data("site_locs")
+  data("site_locations")
   
   prec   <- system.file("extdata", "annual_tot_prec.tif", 
                         package = "funbiogeo")
@@ -21,7 +21,7 @@ test_that("fb_map_raster() works", {
   )
   
   expect_error(
-    fb_map_raster(site_locs),
+    fb_map_raster(site_locations),
     "Argument 'x' must be a 'SpatRaster' object (package terra)",
     fixed = TRUE
   )

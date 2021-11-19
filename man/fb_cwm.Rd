@@ -26,8 +26,8 @@ community-weighted means of quantitative traits values.
 \examples{
 library("funbiogeo")
 
-data("species_occs")
+data("site_species")
 data("species_traits")
 
-cover <- fb_cwm(species_occs, species_traits)
+cover <- fb_cwm(site_species, species_traits)
 }

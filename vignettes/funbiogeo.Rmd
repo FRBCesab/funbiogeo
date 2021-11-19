@@ -36,14 +36,14 @@ library("ggplot2")
 The package `funbiogeo` requires three different datasets to proceed with the 
 analyses:
 
-- the **site x locations** dataset (example dataset: `site_locs`)
-- the **site x species** dataset (example dataset: `species_occs`)
+- the **site x locations** dataset (example dataset: `site_locations`)
+- the **site x species** dataset (example dataset: `site_species`)
 - the **species x traits** dataset (example dataset: `species_traits`)
 
 Let's take a look at each of these datasets.
 
 
-### site x locations
+### Site x Locations
 
 
 
@@ -53,16 +53,16 @@ names. It must contain at least two columns: the longitude and the latitude of
 sites. This dataset must contain unique sites. Additional columns are accepted 
 must will be ignored by `funbiogeo`.
 
-The package `funbiogeo` comes with the example dataset `site_locs`.
+The package `funbiogeo` comes with the example dataset `site_locations`.
 
 
 ```{r 'load-sites-locs'}
 ## Load site x locations example dataset ----
-data("site_locs", package = "funbiogeo")
+data("site_locations", package = "funbiogeo")
 ```
 
 ```{r 'preview-sites-locs', echo = FALSE}
-knitr::kable(head(site_locs, 10), 
+knitr::kable(head(site_locations, 10), 
              caption   = "Format of site x locations dataset", 
              align     = c("r", "r"),
              row.names = TRUE)
@@ -70,45 +70,49 @@ knitr::kable(head(site_locs, 10),
 
 ```{r 'print-sites-ids-1'}
 ## Row names contain sites names ----
-rownames(site_locs)[1:4]
+rownames(site_locations)[1:4]
 ```
 
 To create your own site x locations dataset you can use the function 
 `fb_format_site_locations()`. See below the section ***Long format***.
 
-### site x species
+
+
+### Site x Species
 
 This dataset contains species occurrences/abundance/coverage at sites (points) 
 of the study area. It can be either a `matrix` or a `data.frame` and row names 
 must contain sites names. Columns must contain only species distribution 
 information and sites must be unique. No additional columns are accepted.
 
-The package `funbiogeo` comes with the example dataset `species_occs`.
+The package `funbiogeo` comes with the example dataset `site_species`.
 
 ```{r 'load-sites-species'}
 ## Load site x species example dataset ----
-data("species_occs", package = "funbiogeo")
+data("site_species", package = "funbiogeo")
 ```
 
 ```{r 'preview-sites-species', echo = FALSE}
-knitr::kable(head(species_occs[ , 1:4], 10), 
+knitr::kable(head(site_species[ , 1:4], 10), 
              caption   = "Format of site x species dataset", 
-             align     = c("r", "r", "r", "r"),
+             align     = c("c", "c", "c", "c"),
              row.names = TRUE)
 ```
 
 ```{r 'print-sites-ids-2'}
 ## Row names contain sites names ----
-rownames(species_occs)[1:4]
+rownames(site_species)[1:4]
 ```
 
 ```{r 'print-species-ids-1'}
 ## Column names contain species names ----
-colnames(species_occs)[1:4]
+colnames(site_species)[1:4]
 ```
 
 To create your own site x species dataset you can use the function 
 `fb_format_site_species()`. See below the section ***Long format***.
+
+
 
 ### Species x Traits
 
@@ -129,7 +133,7 @@ data("species_traits", package = "funbiogeo")
 ```{r 'preview-species-traits', echo = FALSE}
 knitr::kable(head(species_traits, 4), 
              caption   = "Format of species x traits dataset", 
-             align     = c("r", "r", "r"),
+             align     = c("r", "r", "r", "r", "r", "r"),
              row.names = TRUE)
 ```
 
@@ -146,6 +150,8 @@ colnames(species_traits)
 To create your own species x traits dataset you can use the function 
 `fb_format_species_traits()`. See below the section ***Long format***.
 
+
+
 ### Long format
 
 If your data are not spread into three datasets you can use the functions
@@ -159,16 +165,16 @@ Let's take an example
 
 ```{r 'load-raw-dataset'}
 ## Path to example raw dataset ----
-filename <- system.file("extdata", "raw_trees_data.csv", package = "funbiogeo")
+filename <- system.file("extdata", "raw_mammals_data.csv", package = "funbiogeo")
 
 ## Read CSV file ----
-all_data <- read.csv2(filename)
+all_data <- read.csv(filename)
 ```
 
 ```{r 'preview-raw-dataset', echo = FALSE}
 knitr::kable(head(all_data, 10), 
              caption   = "Long table example", 
-             align     = c("l", "l", "r", "r", "r", "r", "r", "r"),
+             align     = c("c", "r", "r", "l", "c", "r", "r", "r", "r", "r", "r"),
              row.names = FALSE)
 ```
 
@@ -183,10 +189,10 @@ one unique longitude x latitude value.
 ```{r 'format-sites-locs'}
 ## Format site x locations data ----
 site_locations <- fb_format_site_locations(input_data =  all_data, 
-                                             site       = "site", 
-                                             longitude  = "longitude", 
-                                             latitude   = "latitude",
-                                             na_rm      = FALSE)
+                                           site       = "site", 
+                                           longitude  = "longitude", 
+                                           latitude   = "latitude",
+                                           na_rm      = FALSE)
 
 ## Preview ----
 head(site_locations)
@@ -204,10 +210,10 @@ at one site (the package `funbiogeo` does not yet consider temporal survey).
 ```{r 'format-sites-species'}
 ## Format site x species data ----
 site_species <- fb_format_site_species(data       = all_data, 
-                                         site       = "site", 
-                                         species    = "species", 
-                                         value      = "count",
-                                         na_to_zero = TRUE)
+                                       site       = "site", 
+                                       species    = "species", 
+                                       value      = "count",
+                                       na_to_zero = TRUE)
 
 ## Preview ----
 head(site_species)
@@ -225,7 +231,9 @@ must have one unique trait value (no trait variation across sites allowed).
 ## Format species x traits data ----
 species_traits <- fb_format_species_traits(data    = all_data, 
                                            species = "species", 
-                                           traits  = c("sla", "n_mass", "wood_dens"))
+                                           traits  = c("adult_body_mass", "gestation_length", 
+                                                       "litter_size", "max_longevity",
+                                                       "sexual_maturity_age", "diet_breadth"))
 
 ## Preview ----
 species_traits
@@ -235,7 +243,17 @@ species_traits
 
 a.k.a, how well are sites covered given the trait data I have?
 
+
+```{r 'load-datasets'}
+data("site_species", package = "funbiogeo")
+data("site_locations", package = "funbiogeo")
+data("species_traits", package = "funbiogeo")
+```
+
+
 [...]
+
+
 
 
 
@@ -248,8 +266,7 @@ a.k.a, how well are sites covered given the trait data I have?
 
 ```{r 'get-trait-coverage'}
 ## Get trait coverage ----
-cover <- fb_get_coverage(site_species  = species_occs, 
-                         species_traits = species_traits)
+cover <- fb_get_coverage(site_species, species_traits)
 
 ## Preview ----
 head(cover)
@@ -271,9 +288,7 @@ head(cover)
 
 ```{r 'filter-trait-coverage'}
 ## Get trait coverage ----
-sel_sites <- fb_filter_coverage(site_species      = species_occs, 
-                                species_traits     = species_traits,
-                                coverage_threshold = 0.5)
+sel_sites <- fb_filter_coverage(site_species, species_traits, coverage_threshold = 1)
 
 ## Preview ----
 head(sel_sites[ , 1:4])
@@ -282,7 +297,7 @@ head(sel_sites[ , 1:4])
 
 ```{r 'sites-comparison'}
 ## Original sites ----
-nrow(species_occs)
+nrow(site_species)
 
 ## Filtered sites ----
 nrow(sel_sites)
@@ -298,11 +313,11 @@ nrow(sel_sites)
 
 ```{r 'species-richness'}
 ## Compute species richness ----
-richness <- apply(species_occs, 1, function(x) sum(ifelse(x > 0, 1, 0)))
+richness <- apply(site_species, 1, function(x) sum(ifelse(x > 0, 1, 0)))
 
 ## Convert to data frame ----
 richness <- data.frame("n_species" = richness)
-rownames(richness) <- rownames(species_occs)
+rownames(richness) <- rownames(site_species)
 
 ## Preview ----
 head(richness)
@@ -314,13 +329,12 @@ head(richness)
 
 
 ```{r 'compute-cwm'}
-data("site_locs")
-data("species_occs")
+data("site_locations")
+data("site_species")
 data("species_traits")
 
 ## Compute CWM ----
-cwm <- fb_cwm(site_species  = species_occs, 
-              species_traits = species_traits)
+cwm <- fb_cwm(site_species, species_traits)
 
 ## Preview ----
 head(cwm)
@@ -354,15 +368,13 @@ layers
 
 ```{r 'extract-rasters'}
 
-site_locs <- site_locs[!duplicated(site_locs),]
-site_locs[["site"]] <- rownames(site_locs)
-rownames(site_locs) <- NULL
-site_locs <- sf::st_as_sf(
-  site_locs, coords = 1:2, crs = 4326
-)
+site_locations <- site_locations[!duplicated(site_locations),]
+site_locations[["site"]] <- rownames(site_locations)
+rownames(site_locations) <- NULL
+site_locations <- sf::st_as_sf(site_locations, coords = 1:2, crs = 4326)
 
 ## Extract environment at sites ----
-sites_env <- fb_get_environment(site_locs, layers)
+sites_env <- fb_get_environment(site_locations, layers)
 
 ## Preview ----
 head(sites_env)
@@ -460,9 +472,9 @@ figure +
 rownames(rich_env) <- rich_env[ , 1]
 rich_env <- rich_env[ , "n_species", drop = FALSE]
 
-ras_richness <- fb_aggregate_site_data(site_locations = site_locs, 
-                                 site_data       = rich_env, 
-                                 agg_grid       = tavg)
+ras_richness <- fb_aggregate_site_data(site_locations = site_locations, 
+                                       site_data      = rich_env, 
+                                       agg_grid       = tavg)
 
 ras_richness
 ```

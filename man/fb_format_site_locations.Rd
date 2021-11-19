@@ -46,13 +46,13 @@ automatically removes repeated coordinates from the input dataset.
 \examples{
 library("funbiogeo")
 
-filename <- system.file("extdata", "raw_trees_data.csv", 
+filename <- system.file("extdata", "raw_mammals_data.csv", 
                         package = "funbiogeo")
-all_data <- read.csv2(filename)
+all_data <- read.csv(filename)
 
 head(all_data)
 
 site_locations <- fb_format_site_locations(all_data, "site", "longitude", 
-                                             "latitude")
+                                           "latitude")
 head(site_locations)
 }
