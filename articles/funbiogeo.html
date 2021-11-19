@@ -92,186 +92,183 @@
 <a href="#initial-needed-data" class="anchor"></a>Initial needed data</h2>
 <p>The package <code>funbiogeo</code> requires three different datasets to proceed with the analyses:</p>
 <ul>
-<li>the <strong>site x locations</strong> dataset (example dataset: <code>site_locs</code>)</li>
-<li>the <strong>site x species</strong> dataset (example dataset: <code>species_occs</code>)</li>
+<li>the <strong>site x locations</strong> dataset (example dataset: <code>site_locations</code>)</li>
+<li>the <strong>site x species</strong> dataset (example dataset: <code>site_species</code>)</li>
 <li>the <strong>species x traits</strong> dataset (example dataset: <code>species_traits</code>)</li>
 </ul>
 <p>Let’s take a look at each of these datasets.</p>
 <div id="site-x-locations" class="section level3">
 <h3 class="hasAnchor">
-<a href="#site-x-locations" class="anchor"></a>site x locations</h3>
+<a href="#site-x-locations" class="anchor"></a>Site x Locations</h3>
 <p>This dataset contains spatial coordinates of sites (points) of the study area. It can be either a <code>matrix</code> or a <code>data.frame</code> and row names must contain sites names. It must contain at least two columns: the longitude and the latitude of sites. This dataset must contain unique sites. Additional columns are accepted must will be ignored by <code>funbiogeo</code>.</p>
-<p>The package <code>funbiogeo</code> comes with the example dataset <code>site_locs</code>.</p>
+<p>The package <code>funbiogeo</code> comes with the example dataset <code>site_locations</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Load site x locations example dataset ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"site_locs"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"site_locations"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <caption>Format of site x locations dataset</caption>
 <thead><tr class="header">
 <th align="left"></th>
-<th align="right">longitude</th>
-<th align="right">latitude</th>
+<th align="right">x</th>
+<th align="right">y</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">MD_9557550010661</td>
-<td align="right">-76.77747</td>
-<td align="right">39.72233</td>
+<td align="left">fb_33</td>
+<td align="right">5.771820</td>
+<td align="right">59.59736</td>
 </tr>
 <tr class="even">
-<td align="left">MD_9565278010661</td>
-<td align="right">-79.38865</td>
-<td align="right">39.72230</td>
+<td align="left">fb_35</td>
+<td align="right">6.771820</td>
+<td align="right">59.59736</td>
 </tr>
 <tr class="odd">
-<td align="left">NJ_9687057010661</td>
-<td align="right">-75.05517</td>
-<td align="right">40.36122</td>
+<td align="left">fb_36</td>
+<td align="right">7.271820</td>
+<td align="right">59.59736</td>
 </tr>
 <tr class="even">
-<td align="left">OH_19104898010661</td>
-<td align="right">-80.41646</td>
-<td align="right">41.88894</td>
+<td align="left">fb_37</td>
+<td align="right">7.771820</td>
+<td align="right">59.59736</td>
 </tr>
 <tr class="odd">
-<td align="left">PA_10725597010661</td>
-<td align="right">-76.94414</td>
-<td align="right">40.58342</td>
+<td align="left">fb_38</td>
+<td align="right">8.271821</td>
+<td align="right">59.59736</td>
 </tr>
 <tr class="even">
-<td align="left">PA_10725883010661</td>
-<td align="right">-76.69413</td>
-<td align="right">40.44453</td>
+<td align="left">fb_39</td>
+<td align="right">8.771821</td>
+<td align="right">59.59736</td>
 </tr>
 <tr class="odd">
-<td align="left">PA_10725971010661</td>
-<td align="right">-76.66636</td>
-<td align="right">40.22231</td>
+<td align="left">fb_40</td>
+<td align="right">9.271821</td>
+<td align="right">59.59736</td>
 </tr>
 <tr class="even">
-<td align="left">PA_10726115010661</td>
-<td align="right">-76.69413</td>
-<td align="right">40.52786</td>
+<td align="left">fb_41</td>
+<td align="right">9.771821</td>
+<td align="right">59.59736</td>
 </tr>
 <tr class="odd">
-<td align="left">PA_10726148010661</td>
-<td align="right">-76.63858</td>
-<td align="right">40.52787</td>
+<td align="left">fb_42</td>
+<td align="right">10.271821</td>
+<td align="right">59.59736</td>
 </tr>
 <tr class="even">
-<td align="left">PA_10726179010661</td>
-<td align="right">-76.86081</td>
-<td align="right">40.33342</td>
+<td align="left">fb_43</td>
+<td align="right">10.771821</td>
+<td align="right">59.59736</td>
 </tr>
 </tbody>
 </table>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Row names contain sites names ----</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">site_locs</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>
-<span class="co">#&gt; [1] "MD_9557550010661"  "MD_9565278010661"  "NJ_9687057010661" </span>
-<span class="co">#&gt; [4] "OH_19104898010661"</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">site_locations</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>
+<span class="co">#&gt; [1] "fb_33" "fb_35" "fb_36" "fb_37"</span></code></pre></div>
 <p>To create your own site x locations dataset you can use the function <code><a href="../reference/fb_format_site_locations.html">fb_format_site_locations()</a></code>. See below the section <strong><em>Long format</em></strong>.</p>
 </div>
 <div id="site-x-species" class="section level3">
 <h3 class="hasAnchor">
-<a href="#site-x-species" class="anchor"></a>site x species</h3>
+<a href="#site-x-species" class="anchor"></a>Site x Species</h3>
 <p>This dataset contains species occurrences/abundance/coverage at sites (points) of the study area. It can be either a <code>matrix</code> or a <code>data.frame</code> and row names must contain sites names. Columns must contain only species distribution information and sites must be unique. No additional columns are accepted.</p>
-<p>The package <code>funbiogeo</code> comes with the example dataset <code>species_occs</code>.</p>
+<p>The package <code>funbiogeo</code> comes with the example dataset <code>site_species</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Load site x species example dataset ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"species_occs"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"site_species"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <caption>Format of site x species dataset</caption>
 <thead><tr class="header">
 <th align="left"></th>
-<th align="right">acer_negundo</th>
-<th align="right">acer_nigrum</th>
-<th align="right">acer_pensylvanicum</th>
-<th align="right">acer_rubrum</th>
+<th align="center">sp_001</th>
+<th align="center">sp_002</th>
+<th align="center">sp_003</th>
+<th align="center">sp_004</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">MD_9557550010661</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">14</td>
+<td align="left">fb_33</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
 </tr>
 <tr class="even">
-<td align="left">MD_9565278010661</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">7</td>
+<td align="left">fb_35</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
 </tr>
 <tr class="odd">
-<td align="left">NJ_9687057010661</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">6</td>
+<td align="left">fb_36</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
 </tr>
 <tr class="even">
-<td align="left">OH_19104898010661</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">6</td>
+<td align="left">fb_37</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
 </tr>
 <tr class="odd">
-<td align="left">PA_10725597010661</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">4</td>
+<td align="left">fb_38</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
 </tr>
 <tr class="even">
-<td align="left">PA_10725883010661</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">28</td>
+<td align="left">fb_39</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
 </tr>
 <tr class="odd">
-<td align="left">PA_10725971010661</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
+<td align="left">fb_40</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
 </tr>
 <tr class="even">
-<td align="left">PA_10726115010661</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">3</td>
+<td align="left">fb_41</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
 </tr>
 <tr class="odd">
-<td align="left">PA_10726148010661</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">5</td>
+<td align="left">fb_42</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
 </tr>
 <tr class="even">
-<td align="left">PA_10726179010661</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">8</td>
+<td align="left">fb_43</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
 </tr>
 </tbody>
 </table>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Row names contain sites names ----</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">species_occs</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>
-<span class="co">#&gt; [1] "MD_9557550010661"  "MD_9565278010661"  "NJ_9687057010661" </span>
-<span class="co">#&gt; [4] "OH_19104898010661"</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>
+<span class="co">#&gt; [1] "fb_33" "fb_35" "fb_36" "fb_37"</span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Column names contain species names ----</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">species_occs</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>
-<span class="co">#&gt; [1] "acer_negundo"       "acer_nigrum"        "acer_pensylvanicum"</span>
-<span class="co">#&gt; [4] "acer_rubrum"</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>
+<span class="co">#&gt; [1] "sp_001" "sp_002" "sp_003" "sp_004"</span></code></pre></div>
 <p>To create your own site x species dataset you can use the function <code><a href="../reference/fb_format_site_species.html">fb_format_site_species()</a></code>. See below the section <strong><em>Long format</em></strong>.</p>
 </div>
 <div id="species-x-traits" class="section level3">
@@ -285,48 +282,72 @@
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"species_traits"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <caption>Format of species x traits dataset</caption>
+<colgroup>
+<col width="7%">
+<col width="16%">
+<col width="17%">
+<col width="12%">
+<col width="14%">
+<col width="20%">
+<col width="13%">
+</colgroup>
 <thead><tr class="header">
 <th align="left"></th>
-<th align="right">sla</th>
-<th align="right">n_mass</th>
-<th align="right">wood_dens</th>
+<th align="right">adult_body_mass</th>
+<th align="right">gestation_length</th>
+<th align="right">litter_size</th>
+<th align="right">max_longevity</th>
+<th align="right">sexual_maturity_age</th>
+<th align="right">diet_breadth</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">acer_negundo</td>
-<td align="right">26.91535</td>
-<td align="right">2.500345</td>
-<td align="right">0.416</td>
+<td align="left">sp_001</td>
+<td align="right">461900.76</td>
+<td align="right">235.00</td>
+<td align="right">1.25</td>
+<td align="right">324</td>
+<td align="right">668.20</td>
+<td align="right">1</td>
 </tr>
 <tr class="even">
-<td align="left">acer_pensylvanicum</td>
-<td align="right">25.26650</td>
-<td align="right">2.221026</td>
-<td align="right">0.440</td>
+<td align="left">sp_002</td>
+<td align="right">21.11</td>
+<td align="right">19.89</td>
+<td align="right">5.64</td>
+<td align="right">48</td>
+<td align="right">76.04</td>
+<td align="right">NA</td>
 </tr>
 <tr class="odd">
-<td align="left">acer_rubrum</td>
-<td align="right">15.88968</td>
-<td align="right">1.657609</td>
-<td align="right">0.490</td>
+<td align="left">sp_003</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 </tr>
 <tr class="even">
-<td align="left">acer_saccharum</td>
-<td align="right">14.21417</td>
-<td align="right">1.497401</td>
-<td align="right">0.560</td>
+<td align="left">sp_004</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 </tr>
 </tbody>
 </table>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Row names contain species names ----</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>
-<span class="co">#&gt; [1] "acer_negundo"       "acer_pensylvanicum" "acer_rubrum"       </span>
-<span class="co">#&gt; [4] "acer_saccharum"</span></code></pre></div>
+<span class="co">#&gt; [1] "sp_001" "sp_002" "sp_003" "sp_004"</span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Column names contain traits names ----</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span>
-<span class="co">#&gt; [1] "sla"       "n_mass"    "wood_dens"</span></code></pre></div>
+<span class="co">#&gt; [1] "adult_body_mass"     "gestation_length"    "litter_size"        </span>
+<span class="co">#&gt; [4] "max_longevity"       "sexual_maturity_age" "diet_breadth"</span></code></pre></div>
 <p>To create your own species x traits dataset you can use the function <code><a href="../reference/fb_format_species_traits.html">fb_format_species_traits()</a></code>. See below the section <strong><em>Long format</em></strong>.</p>
 </div>
 <div id="long-format" class="section level3">
@@ -336,132 +357,168 @@
 <p>Let’s take an example</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Path to example raw dataset ----</span>
-<span class="va">filename</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"raw_trees_data.csv"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
+<span class="va">filename</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"raw_mammals_data.csv"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
 
 <span class="co">## Read CSV file ----</span>
-<span class="va">all_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv2</a></span><span class="op">(</span><span class="va">filename</span><span class="op">)</span></code></pre></div>
+<span class="va">all_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="va">filename</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <caption>Long table example</caption>
 <colgroup>
-<col width="21%">
-<col width="21%">
-<col width="11%">
-<col width="10%">
 <col width="6%">
+<col width="7%">
+<col width="6%">
+<col width="5%">
+<col width="5%">
+<col width="11%">
+<col width="12%">
 <col width="8%">
 <col width="10%">
-<col width="11%">
+<col width="14%">
+<col width="9%">
 </colgroup>
 <thead><tr class="header">
-<th align="left">site</th>
-<th align="left">species</th>
+<th align="center">site</th>
 <th align="right">longitude</th>
 <th align="right">latitude</th>
-<th align="right">count</th>
-<th align="right">sla</th>
-<th align="right">n_mass</th>
-<th align="right">wood_dens</th>
+<th align="left">species</th>
+<th align="center">count</th>
+<th align="right">adult_body_mass</th>
+<th align="right">gestation_length</th>
+<th align="right">litter_size</th>
+<th align="right">max_longevity</th>
+<th align="right">sexual_maturity_age</th>
+<th align="right">diet_breadth</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">PA_76856094010538</td>
-<td align="left">acer_pensylvanicum</td>
-<td align="right">-78.60508</td>
-<td align="right">39.91707</td>
-<td align="right">7</td>
-<td align="right">25.2665</td>
-<td align="right">2.221026</td>
-<td align="right">0.44</td>
-</tr>
-<tr class="even">
-<td align="left">PA_68287127010538</td>
-<td align="left">acer_pensylvanicum</td>
-<td align="right">-77.54087</td>
-<td align="right">40.35293</td>
-<td align="right">2</td>
-<td align="right">25.2665</td>
-<td align="right">2.221026</td>
-<td align="right">0.44</td>
-</tr>
-<tr class="odd">
-<td align="left">PA_76855646010538</td>
-<td align="left">acer_pensylvanicum</td>
-<td align="right">-78.30221</td>
-<td align="right">40.18796</td>
+<td align="center">fb_100</td>
+<td align="right">5.77182</td>
+<td align="right">59.09736</td>
+<td align="left">sp_006</td>
+<td align="center">1</td>
+<td align="right">21.90</td>
+<td align="right">23.68</td>
+<td align="right">5.16</td>
+<td align="right">52.8</td>
+<td align="right">57.93</td>
 <td align="right">4</td>
-<td align="right">25.2665</td>
-<td align="right">2.221026</td>
-<td align="right">0.44</td>
 </tr>
 <tr class="even">
-<td align="left">PA_58581106010538</td>
-<td align="left">acer_pensylvanicum</td>
-<td align="right">-79.28570</td>
-<td align="right">40.04243</td>
-<td align="right">2</td>
-<td align="right">25.2665</td>
-<td align="right">2.221026</td>
-<td align="right">0.44</td>
-</tr>
-<tr class="odd">
-<td align="left">PA_145019955010661</td>
-<td align="left">acer_pensylvanicum</td>
-<td align="right">-77.05348</td>
-<td align="right">40.37183</td>
-<td align="right">3</td>
-<td align="right">25.2665</td>
-<td align="right">2.221026</td>
-<td align="right">0.44</td>
-</tr>
-<tr class="even">
-<td align="left">PA_10716167010661</td>
-<td align="left">acer_pensylvanicum</td>
-<td align="right">-78.30529</td>
-<td align="right">41.02784</td>
+<td align="center">fb_1000</td>
+<td align="right">20.27182</td>
+<td align="right">52.59736</td>
+<td align="left">sp_001</td>
+<td align="center">1</td>
+<td align="right">461900.76</td>
+<td align="right">235.00</td>
+<td align="right">1.25</td>
+<td align="right">324.0</td>
+<td align="right">668.20</td>
 <td align="right">1</td>
-<td align="right">25.2665</td>
-<td align="right">2.221026</td>
-<td align="right">0.44</td>
 </tr>
 <tr class="odd">
-<td align="left">PA_58581599010538</td>
-<td align="left">acer_pensylvanicum</td>
-<td align="right">-76.53834</td>
-<td align="right">41.48055</td>
-<td align="right">7</td>
-<td align="right">25.2665</td>
-<td align="right">2.221026</td>
-<td align="right">0.44</td>
+<td align="center">fb_1000</td>
+<td align="right">20.27182</td>
+<td align="right">52.59736</td>
+<td align="left">sp_002</td>
+<td align="center">1</td>
+<td align="right">21.11</td>
+<td align="right">19.89</td>
+<td align="right">5.64</td>
+<td align="right">48.0</td>
+<td align="right">76.04</td>
+<td align="right">NA</td>
 </tr>
 <tr class="even">
-<td align="left">PA_10752222010661</td>
-<td align="left">acer_pensylvanicum</td>
-<td align="right">-78.86086</td>
-<td align="right">41.13895</td>
-<td align="right">2</td>
-<td align="right">25.2665</td>
-<td align="right">2.221026</td>
-<td align="right">0.44</td>
+<td align="center">fb_1000</td>
+<td align="right">20.27182</td>
+<td align="right">52.59736</td>
+<td align="left">sp_005</td>
+<td align="center">1</td>
+<td align="right">31.60</td>
+<td align="right">24.50</td>
+<td align="right">4.94</td>
+<td align="right">48.0</td>
+<td align="right">43.27</td>
+<td align="right">NA</td>
 </tr>
 <tr class="odd">
-<td align="left">PA_10789064010661</td>
-<td align="left">acer_pensylvanicum</td>
-<td align="right">-77.83305</td>
-<td align="right">41.66673</td>
-<td align="right">2</td>
-<td align="right">25.2665</td>
-<td align="right">2.221026</td>
-<td align="right">0.44</td>
+<td align="center">fb_1000</td>
+<td align="right">20.27182</td>
+<td align="right">52.59736</td>
+<td align="left">sp_006</td>
+<td align="center">1</td>
+<td align="right">21.90</td>
+<td align="right">23.68</td>
+<td align="right">5.16</td>
+<td align="right">52.8</td>
+<td align="right">57.93</td>
+<td align="right">4</td>
 </tr>
 <tr class="even">
-<td align="left">PA_58581253010538</td>
-<td align="left">acer_pensylvanicum</td>
-<td align="right">-76.64231</td>
-<td align="right">41.34820</td>
+<td align="center">fb_1000</td>
+<td align="right">20.27182</td>
+<td align="right">52.59736</td>
+<td align="left">sp_010</td>
+<td align="center">1</td>
+<td align="right">8.31</td>
+<td align="right">NA</td>
+<td align="right">1.73</td>
+<td align="right">252.0</td>
+<td align="right">NA</td>
 <td align="right">1</td>
-<td align="right">25.2665</td>
-<td align="right">2.221026</td>
-<td align="right">0.44</td>
+</tr>
+<tr class="odd">
+<td align="center">fb_1001</td>
+<td align="right">20.77182</td>
+<td align="right">52.59736</td>
+<td align="left">sp_001</td>
+<td align="center">1</td>
+<td align="right">461900.76</td>
+<td align="right">235.00</td>
+<td align="right">1.25</td>
+<td align="right">324.0</td>
+<td align="right">668.20</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="center">fb_1001</td>
+<td align="right">20.77182</td>
+<td align="right">52.59736</td>
+<td align="left">sp_002</td>
+<td align="center">1</td>
+<td align="right">21.11</td>
+<td align="right">19.89</td>
+<td align="right">5.64</td>
+<td align="right">48.0</td>
+<td align="right">76.04</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="center">fb_1001</td>
+<td align="right">20.77182</td>
+<td align="right">52.59736</td>
+<td align="left">sp_005</td>
+<td align="center">1</td>
+<td align="right">31.60</td>
+<td align="right">24.50</td>
+<td align="right">4.94</td>
+<td align="right">48.0</td>
+<td align="right">43.27</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="center">fb_1001</td>
+<td align="right">20.77182</td>
+<td align="right">52.59736</td>
+<td align="left">sp_006</td>
+<td align="center">1</td>
+<td align="right">21.90</td>
+<td align="right">23.68</td>
+<td align="right">5.16</td>
+<td align="right">52.8</td>
+<td align="right">57.93</td>
+<td align="right">4</td>
 </tr>
 </tbody>
 </table>
@@ -471,45 +528,45 @@
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Format site x locations data ----</span>
 <span class="va">site_locations</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_site_locations.html">fb_format_site_locations</a></span><span class="op">(</span>input_data <span class="op">=</span>  <span class="va">all_data</span>, 
-                                             site       <span class="op">=</span> <span class="st">"site"</span>, 
-                                             longitude  <span class="op">=</span> <span class="st">"longitude"</span>, 
-                                             latitude   <span class="op">=</span> <span class="st">"latitude"</span>,
-                                             na_rm      <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+                                           site       <span class="op">=</span> <span class="st">"site"</span>, 
+                                           longitude  <span class="op">=</span> <span class="st">"longitude"</span>, 
+                                           latitude   <span class="op">=</span> <span class="st">"latitude"</span>,
+                                           na_rm      <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 
 <span class="co">## Preview ----</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">site_locations</span><span class="op">)</span>
 <span class="co">#&gt; Simple feature collection with 6 features and 1 field</span>
 <span class="co">#&gt; Geometry type: POINT</span>
 <span class="co">#&gt; Dimension:     XY</span>
-<span class="co">#&gt; Bounding box:  xmin: 39.91707 ymin: -79.2857 xmax: 41.02784 ymax: -77.05348</span>
+<span class="co">#&gt; Bounding box:  xmin: 52.09736 ymin: -9.728179 xmax: 59.09736 ymax: 21.27182</span>
 <span class="co">#&gt; CRS:           EPSG:4326</span>
-<span class="co">#&gt;                 site                   geometry</span>
-<span class="co">#&gt; 1  PA_76856094010538 POINT (39.91707 -78.60508)</span>
-<span class="co">#&gt; 2  PA_68287127010538 POINT (40.35293 -77.54087)</span>
-<span class="co">#&gt; 3  PA_76855646010538 POINT (40.18796 -78.30221)</span>
-<span class="co">#&gt; 4  PA_58581106010538  POINT (40.04243 -79.2857)</span>
-<span class="co">#&gt; 5 PA_145019955010661 POINT (40.37183 -77.05348)</span>
-<span class="co">#&gt; 6  PA_10716167010661 POINT (41.02784 -78.30529)</span></code></pre></div>
+<span class="co">#&gt;       site                   geometry</span>
+<span class="co">#&gt; 1   fb_100  POINT (59.09736 5.771821)</span>
+<span class="co">#&gt; 2  fb_1000  POINT (52.59736 20.27182)</span>
+<span class="co">#&gt; 7  fb_1001  POINT (52.59736 20.77182)</span>
+<span class="co">#&gt; 12 fb_1002  POINT (52.59736 21.27182)</span>
+<span class="co">#&gt; 17 fb_1007 POINT (52.09736 -9.728179)</span>
+<span class="co">#&gt; 18 fb_1008 POINT (52.09736 -9.228179)</span></code></pre></div>
 <p><br></p>
 <p><strong>Formatting site x species data</strong></p>
 <p>The function <code><a href="../reference/fb_format_site_species.html">fb_format_site_species()</a></code> extracts species occurrence/abundance/coverage from this long table to create the site x species dataset. Note that one species must have been observed one time at one site (the package <code>funbiogeo</code> does not yet consider temporal survey).</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Format site x species data ----</span>
 <span class="va">site_species</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_site_species.html">fb_format_site_species</a></span><span class="op">(</span>data       <span class="op">=</span> <span class="va">all_data</span>, 
-                                         site       <span class="op">=</span> <span class="st">"site"</span>, 
-                                         species    <span class="op">=</span> <span class="st">"species"</span>, 
-                                         value      <span class="op">=</span> <span class="st">"count"</span>,
-                                         na_to_zero <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+                                       site       <span class="op">=</span> <span class="st">"site"</span>, 
+                                       species    <span class="op">=</span> <span class="st">"species"</span>, 
+                                       value      <span class="op">=</span> <span class="st">"count"</span>,
+                                       na_to_zero <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
 <span class="co">## Preview ----</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span>
-<span class="co">#&gt;                    acer_pensylvanicum populus_tremuloides quercus_macrocarpa</span>
-<span class="co">#&gt; PA_76856094010538                   7                   0                  0</span>
-<span class="co">#&gt; PA_68287127010538                   2                   0                  0</span>
-<span class="co">#&gt; PA_76855646010538                   4                   0                  0</span>
-<span class="co">#&gt; PA_58581106010538                   2                   0                  0</span>
-<span class="co">#&gt; PA_145019955010661                  3                   0                  0</span>
-<span class="co">#&gt; PA_10716167010661                   1                   0                  0</span></code></pre></div>
+<span class="co">#&gt;         sp_006 sp_001 sp_002 sp_005 sp_010 sp_007 sp_008 sp_003 sp_004 sp_009</span>
+<span class="co">#&gt; fb_100       1      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; fb_1000      1      1      1      1      1      0      0      0      0      0</span>
+<span class="co">#&gt; fb_1001      1      1      1      1      1      0      0      0      0      0</span>
+<span class="co">#&gt; fb_1002      1      1      1      1      1      0      0      0      0      0</span>
+<span class="co">#&gt; fb_1007      1      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; fb_1008      1      0      0      0      0      0      0      0      0      0</span></code></pre></div>
 <p><br></p>
 <p><strong>Formatting species x traits data</strong></p>
 <p>The function <code><a href="../reference/fb_format_species_traits.html">fb_format_species_traits()</a></code> extracts species traits values from this long table to create the species x traits dataset. Note that one species must have one unique trait value (no trait variation across sites allowed).</p>
@@ -517,68 +574,89 @@
 <code class="sourceCode R"><span class="co">## Format species x traits data ----</span>
 <span class="va">species_traits</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_species_traits.html">fb_format_species_traits</a></span><span class="op">(</span>data    <span class="op">=</span> <span class="va">all_data</span>, 
                                            species <span class="op">=</span> <span class="st">"species"</span>, 
-                                           traits  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"sla"</span>, <span class="st">"n_mass"</span>, <span class="st">"wood_dens"</span><span class="op">)</span><span class="op">)</span>
+                                           traits  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"adult_body_mass"</span>, <span class="st">"gestation_length"</span>, 
+                                                       <span class="st">"litter_size"</span>, <span class="st">"max_longevity"</span>,
+                                                       <span class="st">"sexual_maturity_age"</span>, <span class="st">"diet_breadth"</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co">## Preview ----</span>
 <span class="va">species_traits</span>
-<span class="co">#&gt;                          sla   n_mass wood_dens</span>
-<span class="co">#&gt; acer_pensylvanicum  25.26650 2.221025      0.44</span>
-<span class="co">#&gt; populus_tremuloides 15.06333 2.027469      0.35</span>
-<span class="co">#&gt; quercus_macrocarpa  11.01700 2.302263      0.58</span></code></pre></div>
+<span class="co">#&gt;        adult_body_mass gestation_length litter_size max_longevity</span>
+<span class="co">#&gt; sp_001       461900.76           235.00        1.25         324.0</span>
+<span class="co">#&gt; sp_002           21.11            19.89        5.64          48.0</span>
+<span class="co">#&gt; sp_003              NA               NA          NA            NA</span>
+<span class="co">#&gt; sp_004              NA               NA          NA            NA</span>
+<span class="co">#&gt; sp_005           31.60            24.50        4.94          48.0</span>
+<span class="co">#&gt; sp_006           21.90            23.68        5.16          52.8</span>
+<span class="co">#&gt; sp_007           18.26               NA        5.72            NA</span>
+<span class="co">#&gt; sp_008              NA               NA          NA            NA</span>
+<span class="co">#&gt; sp_009          903.98            39.25        2.50          84.0</span>
+<span class="co">#&gt; sp_010            8.31               NA        1.73         252.0</span>
+<span class="co">#&gt;        sexual_maturity_age diet_breadth</span>
+<span class="co">#&gt; sp_001              668.20            1</span>
+<span class="co">#&gt; sp_002               76.04           NA</span>
+<span class="co">#&gt; sp_003                  NA           NA</span>
+<span class="co">#&gt; sp_004                  NA           NA</span>
+<span class="co">#&gt; sp_005               43.27           NA</span>
+<span class="co">#&gt; sp_006               57.93            4</span>
+<span class="co">#&gt; sp_007                  NA           NA</span>
+<span class="co">#&gt; sp_008                  NA           NA</span>
+<span class="co">#&gt; sp_009                  NA            3</span>
+<span class="co">#&gt; sp_010                  NA            1</span></code></pre></div>
 </div>
 </div>
 <div id="computing-trait-coverages" class="section level2">
 <h2 class="hasAnchor">
 <a href="#computing-trait-coverages" class="anchor"></a>Computing Trait Coverages</h2>
 <p>a.k.a, how well are sites covered given the trait data I have?</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"site_species"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"site_locations"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"species_traits"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></code></pre></div>
 <p>[…]</p>
 <div id="compute-trait-coverage" class="section level3">
 <h3 class="hasAnchor">
 <a href="#compute-trait-coverage" class="anchor"></a>Compute trait coverage</h3>
 <p>[…]</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Get trait coverage ----</span>
-<span class="va">cover</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_get_coverage.html">fb_get_coverage</a></span><span class="op">(</span>site_species  <span class="op">=</span> <span class="va">species_occs</span>, 
-                         species_traits <span class="op">=</span> <span class="va">species_traits</span><span class="op">)</span>
+<span class="va">cover</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_get_coverage.html">fb_get_coverage</a></span><span class="op">(</span><span class="va">site_species</span>, <span class="va">species_traits</span><span class="op">)</span>
 
 <span class="co">## Preview ----</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">cover</span><span class="op">)</span>
-<span class="co">#&gt;                site trait_coverage</span>
-<span class="co">#&gt; 1  MD_9557550010661     0.00000000</span>
-<span class="co">#&gt; 2  MD_9565278010661     0.00000000</span>
-<span class="co">#&gt; 3  NJ_9687057010661     0.00000000</span>
-<span class="co">#&gt; 4 OH_19104898010661     0.02941176</span>
-<span class="co">#&gt; 5 PA_10725597010661     0.00000000</span>
-<span class="co">#&gt; 6 PA_10725883010661     0.00000000</span></code></pre></div>
+<span class="co">#&gt;    site trait_coverage</span>
+<span class="co">#&gt; 1 fb_33              1</span>
+<span class="co">#&gt; 2 fb_35              1</span>
+<span class="co">#&gt; 3 fb_36              1</span>
+<span class="co">#&gt; 4 fb_37              1</span>
+<span class="co">#&gt; 5 fb_38              1</span>
+<span class="co">#&gt; 6 fb_39              1</span></code></pre></div>
 <p>[…]</p>
 </div>
 <div id="filter-sites-by-trait-coverage" class="section level3">
 <h3 class="hasAnchor">
 <a href="#filter-sites-by-trait-coverage" class="anchor"></a>Filter sites by trait coverage</h3>
 <p>[…]</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Get trait coverage ----</span>
-<span class="va">sel_sites</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_filter_coverage.html">fb_filter_coverage</a></span><span class="op">(</span>site_species      <span class="op">=</span> <span class="va">species_occs</span>, 
-                                species_traits     <span class="op">=</span> <span class="va">species_traits</span>,
-                                coverage_threshold <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>
+<span class="va">sel_sites</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_filter_coverage.html">fb_filter_coverage</a></span><span class="op">(</span><span class="va">site_species</span>, <span class="va">species_traits</span>, coverage_threshold <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 
 <span class="co">## Preview ----</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">sel_sites</span><span class="op">[</span> , <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt;                   acer_negundo acer_nigrum acer_pensylvanicum acer_rubrum</span>
-<span class="co">#&gt; PA_10704182010661            0           0                  0           6</span>
-<span class="co">#&gt; PA_10788453010661            0           0                  0           2</span>
-<span class="co">#&gt; PA_10805161010661            0           0                  0           6</span>
-<span class="co">#&gt; PA_58262907010538            0           0                  1           0</span>
-<span class="co">#&gt; PA_58295494010538            0           0                  0           2</span>
-<span class="co">#&gt; PA_58568999010538            0           0                 19           0</span></code></pre></div>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<span class="co">#&gt;       sp_001 sp_002 sp_003 sp_004</span>
+<span class="co">#&gt; fb_33      1      0      0      0</span>
+<span class="co">#&gt; fb_35      1      0      0      0</span>
+<span class="co">#&gt; fb_36      1      0      0      0</span>
+<span class="co">#&gt; fb_37      1      0      0      0</span>
+<span class="co">#&gt; fb_38      1      0      0      0</span>
+<span class="co">#&gt; fb_39      1      0      0      0</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Original sites ----</span>
-<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">species_occs</span><span class="op">)</span>
-<span class="co">#&gt; [1] 5770</span>
+<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span>
+<span class="co">#&gt; [1] 1505</span>
 
 <span class="co">## Filtered sites ----</span>
 <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">sel_sites</span><span class="op">)</span>
-<span class="co">#&gt; [1] 13</span></code></pre></div>
+<span class="co">#&gt; [1] 1505</span></code></pre></div>
 </div>
 </div>
 <div id="diversity-metrics" class="section level2">
@@ -588,46 +666,45 @@
 <div id="species-richness" class="section level3">
 <h3 class="hasAnchor">
 <a href="#species-richness" class="anchor"></a>Species Richness</h3>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Compute species richness ----</span>
-<span class="va">richness</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">species_occs</span>, <span class="fl">1</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="va">richness</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">site_species</span>, <span class="fl">1</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co">## Convert to data frame ----</span>
 <span class="va">richness</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="st">"n_species"</span> <span class="op">=</span> <span class="va">richness</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">richness</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">species_occs</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">richness</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span>
 
 <span class="co">## Preview ----</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">richness</span><span class="op">)</span>
-<span class="co">#&gt;                   n_species</span>
-<span class="co">#&gt; MD_9557550010661         10</span>
-<span class="co">#&gt; MD_9565278010661          8</span>
-<span class="co">#&gt; NJ_9687057010661          8</span>
-<span class="co">#&gt; OH_19104898010661        10</span>
-<span class="co">#&gt; PA_10725597010661         6</span>
-<span class="co">#&gt; PA_10725883010661         7</span></code></pre></div>
+<span class="co">#&gt;       n_species</span>
+<span class="co">#&gt; fb_33        26</span>
+<span class="co">#&gt; fb_35        29</span>
+<span class="co">#&gt; fb_36        29</span>
+<span class="co">#&gt; fb_37        29</span>
+<span class="co">#&gt; fb_38        28</span>
+<span class="co">#&gt; fb_39        29</span></code></pre></div>
 </div>
 <div id="community-weighted-means" class="section level3">
 <h3 class="hasAnchor">
 <a href="#community-weighted-means" class="anchor"></a>Community-Weighted Means</h3>
 <p>[…]</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"site_locs"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"species_occs"</span><span class="op">)</span>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"site_locations"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"site_species"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"species_traits"</span><span class="op">)</span>
 
 <span class="co">## Compute CWM ----</span>
-<span class="va">cwm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_cwm.html">fb_cwm</a></span><span class="op">(</span>site_species  <span class="op">=</span> <span class="va">species_occs</span>, 
-              species_traits <span class="op">=</span> <span class="va">species_traits</span><span class="op">)</span>
+<span class="va">cwm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_cwm.html">fb_cwm</a></span><span class="op">(</span><span class="va">site_species</span>, <span class="va">species_traits</span><span class="op">)</span>
 
 <span class="co">## Preview ----</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">cwm</span><span class="op">)</span>
-<span class="co">#&gt;               site     trait      cwm</span>
-<span class="co">#&gt; 1 MD_9557550010661       sla       NA</span>
-<span class="co">#&gt; 2 MD_9557550010661    n_mass 1.745102</span>
-<span class="co">#&gt; 3 MD_9557550010661 wood_dens       NA</span>
-<span class="co">#&gt; 4 MD_9565278010661       sla       NA</span>
-<span class="co">#&gt; 5 MD_9565278010661    n_mass 2.043338</span>
-<span class="co">#&gt; 6 MD_9565278010661 wood_dens       NA</span></code></pre></div>
+<span class="co">#&gt;    site               trait cwm</span>
+<span class="co">#&gt; 1 fb_33     adult_body_mass  NA</span>
+<span class="co">#&gt; 2 fb_33    gestation_length  NA</span>
+<span class="co">#&gt; 3 fb_33         litter_size  NA</span>
+<span class="co">#&gt; 4 fb_33       max_longevity  NA</span>
+<span class="co">#&gt; 5 fb_33 sexual_maturity_age  NA</span>
+<span class="co">#&gt; 6 fb_33        diet_breadth  NA</span></code></pre></div>
 </div>
 <div id="other-functional-diversity-metrics" class="section level3">
 <h3 class="hasAnchor">
@@ -640,7 +717,7 @@
 <h2 class="hasAnchor">
 <a href="#relation-with-environment" class="anchor"></a>Relation with environment</h2>
 <p>[…]</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Available climate rasters ----</span>
 <span class="va">prec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"annual_tot_prec.tif"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
 <span class="va">tavg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"annual_mean_temp.tif"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
@@ -651,64 +728,59 @@
 <span class="co">## Preview ----</span>
 <span class="va">layers</span>
 <span class="co">#&gt; class       : SpatRaster </span>
-<span class="co">#&gt; dimensions  : 61, 139, 2  (nrow, ncol, nlyr)</span>
-<span class="co">#&gt; resolution  : 0.04166667, 0.04166667  (x, y)</span>
-<span class="co">#&gt; extent      : -80.5, -74.70833, 39.70833, 42.25  (xmin, xmax, ymin, ymax)</span>
+<span class="co">#&gt; dimensions  : 290, 405, 2  (nrow, ncol, nlyr)</span>
+<span class="co">#&gt; resolution  : 0.08333333, 0.08333333  (x, y)</span>
+<span class="co">#&gt; extent      : -10.5, 23.25, 35.83333, 60  (xmin, xmax, ymin, ymax)</span>
 <span class="co">#&gt; coord. ref. : lon/lat WGS 84 (EPSG:4326) </span>
 <span class="co">#&gt; sources     : annual_mean_temp.tif  </span>
 <span class="co">#&gt;               annual_tot_prec.tif  </span>
 <span class="co">#&gt; names       : annual_mean_temp, annual_tot_prec </span>
-<span class="co">#&gt; min values  :         6.275667,      848.000000 </span>
-<span class="co">#&gt; max values  :         12.94067,      1270.00000</span></code></pre></div>
+<span class="co">#&gt; min values  :        -5.921834,      123.000000 </span>
+<span class="co">#&gt; max values  :         19.84375,      3064.00000</span></code></pre></div>
 <p>[…]</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
-<span class="va">site_locs</span> <span class="op">&lt;-</span> <span class="va">site_locs</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/duplicated.html">duplicated</a></span><span class="op">(</span><span class="va">site_locs</span><span class="op">)</span>,<span class="op">]</span>
-<span class="va">site_locs</span><span class="op">[[</span><span class="st">"site"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">site_locs</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">site_locs</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NULL</span>
-<span class="va">site_locs</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf</a></span><span class="op">(</span>
-  <span class="va">site_locs</span>, coords <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, crs <span class="op">=</span> <span class="fl">4326</span>
-<span class="op">)</span>
+<span class="va">site_locations</span> <span class="op">&lt;-</span> <span class="va">site_locations</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/duplicated.html">duplicated</a></span><span class="op">(</span><span class="va">site_locations</span><span class="op">)</span>,<span class="op">]</span>
+<span class="va">site_locations</span><span class="op">[[</span><span class="st">"site"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">site_locations</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">site_locations</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NULL</span>
+<span class="va">site_locations</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf</a></span><span class="op">(</span><span class="va">site_locations</span>, coords <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span>
 
 <span class="co">## Extract environment at sites ----</span>
-<span class="va">sites_env</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_get_environment.html">fb_get_environment</a></span><span class="op">(</span><span class="va">site_locs</span>, <span class="va">layers</span><span class="op">)</span>
+<span class="va">sites_env</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_get_environment.html">fb_get_environment</a></span><span class="op">(</span><span class="va">site_locations</span>, <span class="va">layers</span><span class="op">)</span>
 
 <span class="co">## Preview ----</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">sites_env</span><span class="op">)</span>
-<span class="co">#&gt;                site annual_mean_temp annual_tot_prec</span>
-<span class="co">#&gt; 1  MD_9557550010661        11.045000            1121</span>
-<span class="co">#&gt; 2  MD_9565278010661         9.591666            1124</span>
-<span class="co">#&gt; 3  NJ_9687057010661        10.919333            1177</span>
-<span class="co">#&gt; 4 OH_19104898010661         8.775333            1072</span>
-<span class="co">#&gt; 5 PA_10725597010661        10.552333            1059</span>
-<span class="co">#&gt; 6 PA_10725883010661        10.205667            1101</span></code></pre></div>
+<span class="co">#&gt;    site annual_mean_temp annual_tot_prec</span>
+<span class="co">#&gt; 1 fb_33        6.6840000            2620</span>
+<span class="co">#&gt; 2 fb_35        4.4082499            1818</span>
+<span class="co">#&gt; 3 fb_36        0.5312084            1324</span>
+<span class="co">#&gt; 4 fb_37        2.5419166             881</span>
+<span class="co">#&gt; 5 fb_38        2.2083750             971</span>
+<span class="co">#&gt; 6 fb_39        3.0096667             939</span></code></pre></div>
 <p>[…]</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Append information ----</span>
 <span class="va">rich_env</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html">merge</a></span><span class="op">(</span><span class="va">richness</span>, <span class="va">sites_env</span>, by.x <span class="op">=</span> <span class="st">"row.names"</span>, by.y <span class="op">=</span> <span class="st">"site"</span><span class="op">)</span>
 
 <span class="co">## Preview ----</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">rich_env</span><span class="op">)</span>
-<span class="co">#&gt;           Row.names n_species annual_mean_temp annual_tot_prec</span>
-<span class="co">#&gt; 1  MD_9557550010661        10        11.045000            1121</span>
-<span class="co">#&gt; 2  MD_9565278010661         8         9.591666            1124</span>
-<span class="co">#&gt; 3  NJ_9687057010661         8        10.919333            1177</span>
-<span class="co">#&gt; 4 OH_19104898010661        10         8.775333            1072</span>
-<span class="co">#&gt; 5 PA_10681629010661        10        10.822666            1079</span>
-<span class="co">#&gt; 6 PA_10681709010661         6        10.375333            1104</span></code></pre></div>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<span class="co">#&gt;   Row.names n_species annual_mean_temp annual_tot_prec</span>
+<span class="co">#&gt; 1    fb_100         3         7.508624            1543</span>
+<span class="co">#&gt; 2   fb_1000        50         7.729875             512</span>
+<span class="co">#&gt; 3   fb_1001        49         7.604333             483</span>
+<span class="co">#&gt; 4   fb_1002        49         7.747334             470</span>
+<span class="co">#&gt; 5   fb_1007        22        10.422542            1750</span>
+<span class="co">#&gt; 6   fb_1008        21         9.545042            1274</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">biplot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">rich_env</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">annual_mean_temp</span>, y <span class="op">=</span> <span class="va">n_species</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Annual mean temperature"</span>, y <span class="op">=</span> <span class="st">"Species richness"</span><span class="op">)</span>
-<span class="va">biplot</span>
-<span class="co">#&gt; Warning: Removed 11 rows containing missing values (geom_point).</span></code></pre></div>
+<span class="va">biplot</span></code></pre></div>
 <p><img src="funbiogeo_files/figure-html/biplot-1.png" width="100%"></p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">biplot</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span>
-<span class="co">#&gt; `geom_smooth()` using formula 'y ~ x'</span>
-<span class="co">#&gt; Warning: Removed 11 rows containing non-finite values (stat_smooth).</span>
-<span class="co">#&gt; Warning: Removed 11 rows containing missing values (geom_point).</span></code></pre></div>
+<span class="co">#&gt; `geom_smooth()` using formula 'y ~ x'</span></code></pre></div>
 <p><img src="funbiogeo_files/figure-html/biplot-trend-1.png" width="100%"></p>
 </div>
 <div id="visualization" class="section level2">
@@ -723,7 +795,7 @@
 <h3 class="hasAnchor">
 <a href="#map-of-environment" class="anchor"></a>Map of environment</h3>
 <p>[…]</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Read raster ----</span>
 <span class="va">tavg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"annual_mean_temp.tif"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
 <span class="va">tavg</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html">rast</a></span><span class="op">(</span><span class="va">tavg</span><span class="op">)</span>
@@ -731,13 +803,13 @@
 <span class="co">## Map of raster ----</span>
 <span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">tavg</span><span class="op">)</span></code></pre></div>
 <p><img src="funbiogeo_files/figure-html/map-tavg-1.png" width="100%"></p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">tavg</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_fill_distiller</a></span><span class="op">(</span><span class="st">"Temperature"</span>, palette <span class="op">=</span> <span class="st">"Spectral"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Mean annual temperature in Pennsylvania"</span><span class="op">)</span></code></pre></div>
 <p><img src="funbiogeo_files/figure-html/map-tavg-custom-1.png" width="100%"></p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://patchwork.data-imaginist.com">"patchwork"</a></span><span class="op">)</span>
 
 <span class="co">## Read raster ----</span>
@@ -768,29 +840,29 @@
 <h3 class="hasAnchor">
 <a href="#map-of-indices" class="anchor"></a>Map of indices</h3>
 <p>[…]</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Upscale to grid ----</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">rich_env</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">rich_env</span><span class="op">[</span> , <span class="fl">1</span><span class="op">]</span>
 <span class="va">rich_env</span> <span class="op">&lt;-</span> <span class="va">rich_env</span><span class="op">[</span> , <span class="st">"n_species"</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>
 
-<span class="va">ras_richness</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data</a></span><span class="op">(</span>site_locations <span class="op">=</span> <span class="va">site_locs</span>, 
-                                 site_data       <span class="op">=</span> <span class="va">rich_env</span>, 
-                                 agg_grid       <span class="op">=</span> <span class="va">tavg</span><span class="op">)</span>
+<span class="va">ras_richness</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data</a></span><span class="op">(</span>site_locations <span class="op">=</span> <span class="va">site_locations</span>, 
+                                       site_data      <span class="op">=</span> <span class="va">rich_env</span>, 
+                                       agg_grid       <span class="op">=</span> <span class="va">tavg</span><span class="op">)</span>
 
 <span class="va">ras_richness</span>
 <span class="co">#&gt; class       : SpatRaster </span>
-<span class="co">#&gt; dimensions  : 61, 139, 1  (nrow, ncol, nlyr)</span>
-<span class="co">#&gt; resolution  : 0.04166667, 0.04166667  (x, y)</span>
-<span class="co">#&gt; extent      : -80.5, -74.70833, 39.70833, 42.25  (xmin, xmax, ymin, ymax)</span>
+<span class="co">#&gt; dimensions  : 290, 405, 1  (nrow, ncol, nlyr)</span>
+<span class="co">#&gt; resolution  : 0.08333333, 0.08333333  (x, y)</span>
+<span class="co">#&gt; extent      : -10.5, 23.25, 35.83333, 60  (xmin, xmax, ymin, ymax)</span>
 <span class="co">#&gt; coord. ref. : lon/lat WGS 84 (EPSG:4326) </span>
 <span class="co">#&gt; source      : memory </span>
 <span class="co">#&gt; name        : n_species </span>
-<span class="co">#&gt; min value   :         3 </span>
-<span class="co">#&gt; max value   :        15</span></code></pre></div>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<span class="co">#&gt; min value   :         2 </span>
+<span class="co">#&gt; max value   :        68</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">ras_richness</span><span class="op">)</span></code></pre></div>
 <p><img src="funbiogeo_files/figure-html/map-richness-1.png" width="100%"></p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">ras_richness</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_fill_distiller</a></span><span class="op">(</span><span class="st">"Number of species"</span>, palette <span class="op">=</span> <span class="st">"Spectral"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span> <span class="op">+</span> 

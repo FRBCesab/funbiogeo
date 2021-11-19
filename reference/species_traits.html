@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Tree species traits — species_traits • funbiogeo</title>
+<title>Data: species x traits of Western Europe mammals — species_traits • funbiogeo</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,17 @@
 
 
 
-<meta property="og:title" content="Tree species traits — species_traits" />
-<meta property="og:description" content="This dataset contains traits of trees species. It shows the format of the
-argument species_traits used in several functions of funbiogeo. Note
-that species names are specified in row names." />
+<meta property="og:title" content="Data: species x traits of Western Europe mammals — species_traits" />
+<meta property="og:description" content="This dataset contains values for six functional traits of Western Europe
+mammals species. These values were extracted from the PanTHERIA database
+(Jones 2009), a database on World mammals traits available at:
+https://esapubs.org/archive/ecol/E090/184/metadata.htm.
+In respect to the IUCN license, species names have been anonymized.
+See https://github.com/frbcesab/eumammals for a complete description of the
+workflow used to create this dataset.
+This dataset shows the format of the argument species_traits used in
+several functions of funbiogeo.
+Note that species names are specified in row names." />
 
 
 
@@ -116,15 +123,22 @@ that species names are specified in row names." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Tree species traits</h1>
+    <h1>Data: species x traits of Western Europe mammals</h1>
     <small class="dont-index">Source: <a href='https://github.com/frbcesab/funbiogeo/blob/master/R/datasets.R'><code>R/datasets.R</code></a></small>
     <div class="hidden name"><code>species_traits.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This dataset contains traits of trees species. It shows the format of the
-argument <code>species_traits</code> used in several functions of <code>funbiogeo</code>. Note
-that species names are specified in row names.</p>
+    <p>This dataset contains values for six functional traits of Western Europe
+mammals species. These values were extracted from the <strong>PanTHERIA</strong> database
+(Jones 2009), a database on World mammals traits available at:
+https://esapubs.org/archive/ecol/E090/184/metadata.htm.
+In respect to the IUCN license, species names have been anonymized.</p>
+<p>See https://github.com/frbcesab/eumammals for a complete description of the
+workflow used to create this dataset.</p>
+<p>This dataset shows the format of the argument <code>species_traits</code> used in
+several functions of <code>funbiogeo</code>.</p>
+<p>Note that species names are specified in row names.</p>
     </div>
 
     <pre class="usage"><span class='va'>species_traits</span></pre>
@@ -132,26 +146,46 @@ that species names are specified in row names.</p>
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A matrix with 67 rows (species) and the following three columns:</p><dl>
-<dt>sla</dt><dd><p>Specific Leaf Area</p></dd>
-<dt>n_mass</dt><dd><p>Mass</p></dd>
-<dt>wood_dens</dt><dd><p>Wood density</p></dd>
+    <p>A matrix with 149 rows (species) and the following six columns:</p><dl>
+<dt>adult_body_mass</dt><dd><p>adult body mass (in grams)</p></dd>
+<dt>gestation_length</dt><dd><p>length of time of non-inactive fetal growth
+(in days)</p></dd>
+<dt>litter_size</dt><dd><p>number of offspring born per litter per female</p></dd>
+<dt>max_longevity</dt><dd><p>maximum adult age (in months)</p></dd>
+<dt>sexual_maturity_age</dt><dd><p>age when individuals are first physically
+capable of reproducing (in days)</p></dd>
+<dt>diet_breadth</dt><dd><p>number of dietary categories eaten</p></dd>
 
 </dl>
 
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Jones KE <em>et al.</em> (2009) PanTHERIA: A species-level database of life
+history, ecology, and geography of extant and recently extinct mammals.
+<em>Ecology</em>, <strong>90</strong>, 2648. DOI: 10.1890/08-1494.1.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"species_traits"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>species_traits</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "matrix" "array" </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>species_traits</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 67  3</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>species_traits</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                            sla   n_mass wood_dens
-#&gt; acer_negundo          26.91535 2.500345     0.416
-#&gt; acer_pensylvanicum    25.26650 2.221025     0.440
-#&gt; acer_rubrum           15.88968 1.657609     0.490
-#&gt; acer_saccharum        14.21417 1.497401     0.560
-#&gt; betula_alleghaniensis 15.62587 1.764643     0.550
-#&gt; betula_nigra          11.77449 2.290171     0.490</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"species_traits"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>species_traits</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "data.frame"</span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>species_traits</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 149   6</span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>species_traits</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        adult_body_mass gestation_length litter_size max_longevity</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> sp_001       461900.76           235.00        1.25         324.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> sp_002           21.11            19.89        5.64          48.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> sp_003              NA               NA          NA            NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> sp_004              NA               NA          NA            NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> sp_005           31.60            24.50        4.94          48.0</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> sp_006           21.90            23.68        5.16          52.8</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        sexual_maturity_age diet_breadth</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> sp_001              668.20            1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> sp_002               76.04           NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> sp_003                  NA           NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> sp_004                  NA           NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> sp_005               43.27           NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> sp_006               57.93            4</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • funbiogeo</title>
+<title>Data: sites x locations of Western Europe mammals occurrences — site_locations • funbiogeo</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,14 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Data: sites x locations of Western Europe mammals occurrences — site_locations" />
+<meta property="og:description" content="This dataset contains spatial coordinates of sites of Western Europe where
+species presence/absence (see site_species dataset) has been sampled.
+See https://github.com/frbcesab/eumammals for a complete description of the
+workflow used to create this dataset.
+This dataset shows the format of the argument site_locations used in
+several functions of funbiogeo.
+Note that sites labels are specified in row names." />
 
 
 
@@ -58,7 +65,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -111,108 +118,52 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Data: sites x locations of Western Europe mammals occurrences</h1>
+    <small class="dont-index">Source: <a href='https://github.com/frbcesab/funbiogeo/blob/master/R/datasets.R'><code>R/datasets.R</code></a></small>
+    <div class="hidden name"><code>site_locations.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>This dataset contains spatial coordinates of sites of Western Europe where
+species presence/absence (see <code>site_species</code> dataset) has been sampled.</p>
+<p>See https://github.com/frbcesab/eumammals for a complete description of the
+workflow used to create this dataset.</p>
+<p>This dataset shows the format of the argument <code>site_locations</code> used in
+several functions of <code>funbiogeo</code>.</p>
+<p>Note that sites labels are specified in row names.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='va'>site_locations</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="fb_aggregate_site_data.html">fb_aggregate_site_data()</a></code> </p>
-        </td>
-        <td><p>Aggregate site data along coarser grid</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="fb_cwm.html">fb_cwm()</a></code> </p>
-        </td>
-        <td><p>Compute community-weighted means of trait values</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="fb_filter_coverage.html">fb_filter_coverage()</a></code> </p>
-        </td>
-        <td><p>Filter sites with a given trait coverage threshold</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="fb_format_site_locations.html">fb_format_site_locations()</a></code> </p>
-        </td>
-        <td><p>Format site x locations object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="fb_format_site_species.html">fb_format_site_species()</a></code> </p>
-        </td>
-        <td><p>Format site x species object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="fb_format_species_traits.html">fb_format_species_traits()</a></code> </p>
-        </td>
-        <td><p>Format species x traits object</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="fb_get_coverage.html">fb_get_coverage()</a></code> </p>
-        </td>
-        <td><p>Compute traits coverage</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="fb_get_environment.html">fb_get_environment()</a></code> </p>
-        </td>
-        <td><p>Extract average raster values at sites locations</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="fb_map_raster.html">fb_map_raster()</a></code> </p>
-        </td>
-        <td><p>Map a raster layer</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="site_locations.html">site_locations</a></code> </p>
-        </td>
-        <td><p>Data: sites x locations of Western Europe mammals occurrences</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="site_species.html">site_species</a></code> </p>
-        </td>
-        <td><p>Data: sites x species of Western Europe mammals occurrences</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="species_traits.html">species_traits</a></code> </p>
-        </td>
-        <td><p>Data: species x traits of Western Europe mammals</p></td>
-      </tr>
-    </tbody>
-    </table>
+
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+
+    <p>A <code>data.frame</code> with 1,505 rows (sites) and the following two
+columns:</p><dl>
+<dt>x</dt><dd><p>longitude of the site (in WGS84)</p></dd>
+<dt>y</dt><dd><p>latitude of the site (in WGS84)</p></dd>
+
+</dl>
+
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='st'>"site_locations"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>site_locations</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "data.frame"</span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>site_locations</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1505    2</span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>site_locations</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>              x        y</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> fb_33 5.771821 59.59736</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> fb_35 6.771821 59.59736</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> fb_36 7.271821 59.59736</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> fb_37 7.771821 59.59736</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> fb_38 8.271821 59.59736</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> fb_39 8.771821 59.59736</span>
+</pre>
   </div>
-
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
