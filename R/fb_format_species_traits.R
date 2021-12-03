@@ -101,7 +101,7 @@ fb_format_species_traits <- function(data, species, traits) {
   
   ## Get unique traits values per species ----
   
-  traits_values <- list()
+  traits_values <- vector("list", length(traits))
   
   for (trait in traits) {
     
