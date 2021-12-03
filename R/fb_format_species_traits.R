@@ -10,7 +10,8 @@
 #' 
 #' @param traits a character of length >= 1. Name(s) of trait column(s).
 #'
-#' @return A `data.frame` with species in rows and traits in columns.
+#' @return A `data.frame` with species in rows and traits in columns, with the
+#'   first column names `"species"` containing the species names
 #' 
 #' @export
 #'
