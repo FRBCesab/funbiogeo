@@ -4,10 +4,8 @@ data("site_species")
 
 # Convert site locations in to an 'sf' object
 site_locations <- site_locations[!duplicated(site_locations),]
-site_locations[["site"]] <- rownames(site_locations)
-rownames(site_locations) <- NULL
 site_locations <- sf::st_as_sf(
-  site_locations, coords = 1:2, crs = 4326
+  site_locations, coords = 2:3, crs = 4326
 )
 
 
@@ -58,33 +56,6 @@ test_that("fb_aggregate_site_data() errors with wrong input", {
     fixed = TRUE
   )
   
-  data_test <- as.data.frame(site_species)
-  rownames(data_test) <- NULL
-  
-  expect_error(
-    fb_aggregate_site_data(site_locations, data_test),
-    "Argument 'site_data' must have row names (sites names)",
-    fixed = TRUE
-  )
-  
-  data_test <- data.matrix(data_test)
-  
-  expect_error(
-    fb_aggregate_site_data(site_locations, data_test),
-    "Argument 'site_data' must have row names (sites names)",
-    fixed = TRUE
-  )
-  
-  data_test <- site_species
-  data_test <- data.frame(data_test, test = rep("A", nrow(data_test)))
-  
-  expect_error(
-    fb_aggregate_site_data(site_locations, data_test),
-    paste0("Argument 'site_data' must contain only numeric values. ",
-           "Sites names must be provided as row names"),
-    fixed = TRUE
-  )
-  
   # Wrong 'agg_grid' argument
   grid_test <- raster::raster(tavg_file)
   
@@ -110,7 +81,11 @@ test_that("fb_aggregate_site_data() errors with wrong input", {
 test_that("fb_aggregate_site_data() works", {
   
   # No reprojection
-  expect_silent(ras <- fb_aggregate_site_data(site_locations, site_species[ , 1:2], tavg))
+  expect_silent(
+    ras <- fb_aggregate_site_data(
+      site_locations, site_species[, 1:3], tavg
+    )
+  )
   
   expect_s4_class(ras, "SpatRaster")
   expect_named(ras, c("sp_001", "sp_002"))
@@ -123,8 +98,11 @@ test_that("fb_aggregate_site_data() works", {
   
   tavg_prj <- terra::project(tavg, rob)
   
-  expect_silent(ras <- fb_aggregate_site_data(site_locations, site_species[ , 1:2], 
-                                        tavg_prj))
+  expect_silent(
+    ras <- fb_aggregate_site_data(
+      site_locations, site_species[, 1:3], tavg_prj
+    )
+  )
   
   expect_s4_class(ras, "SpatRaster")
   expect_named(ras, c("sp_001", "sp_002"))
