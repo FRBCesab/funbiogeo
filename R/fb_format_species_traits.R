@@ -101,17 +101,17 @@ fb_format_species_traits <- function(data, species, traits) {
   
   ## Get unique traits values per species ----
   
-  traits_values <- vector("list", length(traits))
+  trait_values <- vector("list", length(traits))
   
   for (trait in traits) {
     
-    traits_values[[trait]] <- tapply(data[ , trait], data[ , species], 
+    trait_values[[trait]] <- tapply(data[ , trait], data[ , species], 
                                      function(x) unique(x))
     
-    if (length(unique(unlist(lapply(traits_values[[trait]], length)))) > 1) {
+    if (length(unique(unlist(lapply(trait_values[[trait]], length)))) > 1) {
       stop("Some species have non-unique trait values", call. = FALSE)
     }
   }
   
-  data.frame(traits_values)
+  data.frame(trait_values)
 }
