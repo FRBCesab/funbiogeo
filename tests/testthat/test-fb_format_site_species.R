@@ -192,13 +192,13 @@ test_that("fb_format_site_species() works", {
   
   site_species <- fb_format_site_species(all_data, "site", "species", "count",
                                            na_to_zero = TRUE)
-  expect_true(is.matrix(site_species))
-  expect_equal(nrow(site_species), 1496L)
-  expect_equal(ncol(site_species), 10L)
-  expect_false("site" %in% colnames(site_species))
-  expect_equal(site_species[1, 2], 0L)
+  
+  expect_equal(nrow(site_species), 1505L)
+  expect_equal(ncol(site_species), 139L)
+  expect_true("site" %in% colnames(site_species))
+  expect_equal(site_species[2, 3], 0L)
   
   site_species <- fb_format_site_species(all_data, "site", "species", "count",
                                            na_to_zero = FALSE)
-  expect_equal(site_species[1, 2], NA_real_)
+  expect_equal(site_species[2, 3], NA_real_)
 })
