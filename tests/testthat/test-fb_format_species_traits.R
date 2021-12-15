@@ -9,32 +9,32 @@ test_that("fb_format_species_traits() works", {
   
   expect_error(
     fb_format_species_traits(),
-    "Argument 'data' is required",
+    "Argument 'data_long' is required",
     fixed = TRUE
   )
   
   expect_error(
     fb_format_species_traits(all_data[ , 1]),
-    "Argument 'data' must be a data.frame",
+    "Argument 'data_long' must be a data.frame",
     fixed = TRUE
   )
   
   expect_error(
     fb_format_species_traits(as.list(all_data)),
-    "Argument 'data' must be a data.frame",
+    "Argument 'data_long' must be a data.frame",
     fixed = TRUE
   )
   
   expect_error(
     fb_format_species_traits(data.frame(all_data[ , 
                                                 -c(seq_len(ncol(all_data)))])),
-    "Argument 'data' must be a data.frame with at least one column",
+    "Argument 'data_long' must be a data.frame with at least one column",
     fixed = TRUE
   )
   
   expect_error(
     fb_format_species_traits(all_data[-c(seq_len(nrow(all_data))), ]),
-    "Argument 'data' must be a data.frame with at least one row",
+    "Argument 'data_long' must be a data.frame with at least one row",
     fixed = TRUE
   )
   
@@ -73,7 +73,7 @@ test_that("fb_format_species_traits() works", {
   
   expect_error(
     fb_format_species_traits(all_data, "location"),
-    "The column 'location' is absent from 'data'",
+    "The column 'location' is absent from 'data_long'",
     fixed = TRUE
   )
   
@@ -111,7 +111,7 @@ test_that("fb_format_species_traits() works", {
                                                     "max_longevity",
                                                     "sexual_maturity_age",
                                                     "diet_breadth")),
-    "Some traits columns are absent from 'data'",
+    "Some traits columns are absent from 'data_long'",
     fixed = TRUE
   )
   
@@ -159,9 +159,8 @@ test_that("fb_format_species_traits() works", {
                                                "sexual_maturity_age",
                                                "diet_breadth"))
   expect_true(is.data.frame(species_traits))
-  expect_equal(nrow(species_traits), 10L)
-  expect_equal(ncol(species_traits), 6L)
-  expect_false("species" %in% colnames(species_traits))
-  expect_equal(species_traits[1, 2], 235, tolerance = 7)
-  
+  expect_equal(nrow(species_traits), 138L)
+  expect_equal(ncol(species_traits), 7L)
+  expect_true("species" %in% colnames(species_traits))
+  expect_equal(species_traits[1, 3], 235, tolerance = 7)
 })
