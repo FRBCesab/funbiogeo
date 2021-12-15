@@ -64,13 +64,12 @@ data("site_locations", package = "funbiogeo")
 ```{r 'preview-sites-locs', echo = FALSE}
 knitr::kable(head(site_locations, 10), 
              caption   = "Format of site x locations dataset", 
-             align     = c("r", "r"),
-             row.names = TRUE)
+             align     = c("r", "r"))
 ```
 
 ```{r 'print-sites-ids-1'}
-## Row names contain sites names ----
-rownames(site_locations)[1:4]
+## First column contains sites names ----
+site_locations[1:4, 1]
 ```
 
 To create your own site x locations dataset you can use the function 
@@ -95,18 +94,17 @@ data("site_species", package = "funbiogeo")
 ```{r 'preview-sites-species', echo = FALSE}
 knitr::kable(head(site_species[ , 1:4], 10), 
              caption   = "Format of site x species dataset", 
-             align     = c("c", "c", "c", "c"),
-             row.names = TRUE)
+             align     = c("c", "c", "c", "c"))
 ```
 
 ```{r 'print-sites-ids-2'}
-## Row names contain sites names ----
-rownames(site_species)[1:4]
+## First column contains sites names ----
+site_species[1:4, 1]
 ```
 
 ```{r 'print-species-ids-1'}
-## Column names contain species names ----
-colnames(site_species)[1:4]
+## Column names after the first one contain species names ----
+colnames(site_species)[2:4]
 ```
 
 To create your own site x species dataset you can use the function 
@@ -133,18 +131,17 @@ data("species_traits", package = "funbiogeo")
 ```{r 'preview-species-traits', echo = FALSE}
 knitr::kable(head(species_traits, 4), 
              caption   = "Format of species x traits dataset", 
-             align     = c("r", "r", "r", "r", "r", "r"),
-             row.names = TRUE)
+             align     = c("r", "r", "r", "r", "r", "r"))
 ```
 
 ```{r 'print-species-ids-2'}
-## Row names contain species names ----
-rownames(species_traits)[1:4]
+## First column contains species names ----
+species_traits[1:4, 1]
 ```
 
 ```{r 'print-traits-ids-1'}
-## Column names contain traits names ----
-colnames(species_traits)
+## Column names (apart from the first) contain traits names ----
+colnames(species_traits)[-1]
 ```
 
 To create your own species x traits dataset you can use the function 
@@ -172,10 +169,11 @@ all_data <- read.csv(filename)
 ```
 
 ```{r 'preview-raw-dataset', echo = FALSE}
-knitr::kable(head(all_data, 10), 
-             caption   = "Long table example", 
-             align     = c("c", "r", "r", "l", "c", "r", "r", "r", "r", "r", "r"),
-             row.names = FALSE)
+knitr::kable(
+  head(all_data, 10), 
+  caption   = "Long table example", 
+  align     = c("c", "r", "r", "l", "c", "r", "r", "r", "r", "r", "r")
+)
 ```
 
 <br />
@@ -229,11 +227,12 @@ must have one unique trait value (no trait variation across sites allowed).
 
 ```{r 'format-species-traits'}
 ## Format species x traits data ----
-species_traits <- fb_format_species_traits(data    = all_data, 
-                                           species = "species", 
-                                           traits  = c("adult_body_mass", "gestation_length", 
-                                                       "litter_size", "max_longevity",
-                                                       "sexual_maturity_age", "diet_breadth"))
+species_traits <- fb_format_species_traits(
+  data    = all_data, 
+  species = "species", 
+  traits  = c("adult_body_mass", "gestation_length", "litter_size",
+              "max_longevity", "sexual_maturity_age", "diet_breadth")
+)
 
 ## Preview ----
 species_traits
