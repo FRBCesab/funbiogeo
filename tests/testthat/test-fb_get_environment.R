@@ -4,10 +4,8 @@
 data("site_locations")
 
 site_locations <- site_locations[!duplicated(site_locations),]
-site_locations[["site"]] <- rownames(site_locations)
-rownames(site_locations) <- NULL
 site_locations <- sf::st_as_sf(
-  site_locations, coords = 1:2, crs = 4326
+  site_locations, coords = 2:3, crs = 4326
 )
 
 # Environmental rasters
