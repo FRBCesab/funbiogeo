@@ -14,7 +14,7 @@ A single or multi-layers environmental raster.}
 }
 \value{
 A \code{data.frame} with average environmental values (columns) per site
-(rows).
+(rows), with the first column being \code{"site"} indicating site names.
 }
 \description{
 Extract average raster values at sites locations
