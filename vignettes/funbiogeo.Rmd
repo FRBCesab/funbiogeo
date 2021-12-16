@@ -312,11 +312,13 @@ nrow(sel_sites)
 
 ```{r 'species-richness'}
 ## Compute species richness ----
-richness <- apply(site_species, 1, function(x) sum(ifelse(x > 0, 1, 0)))
+richness <- rowSums(site_species[,-1], na.rm = TRUE)
 
 ## Convert to data frame ----
-richness <- data.frame("n_species" = richness)
-rownames(richness) <- rownames(site_species)
+richness <- data.frame(
+  site      = site_species[["site"]],
+  n_species = richness
+)
 
 ## Preview ----
 head(richness)
@@ -368,9 +370,7 @@ layers
 ```{r 'extract-rasters'}
 
 site_locations <- site_locations[!duplicated(site_locations),]
-site_locations[["site"]] <- rownames(site_locations)
-rownames(site_locations) <- NULL
-site_locations <- sf::st_as_sf(site_locations, coords = 1:2, crs = 4326)
+site_locations <- sf::st_as_sf(site_locations, coords = 2:3, crs = 4326)
 
 ## Extract environment at sites ----
 sites_env <- fb_get_environment(site_locations, layers)
@@ -383,7 +383,7 @@ head(sites_env)
 
 ```{r 'relation-w-environment'}
 ## Append information ----
-rich_env <- merge(richness, sites_env, by.x = "row.names", by.y = "site")
+rich_env <- merge(richness, sites_env, by = "site")
 
 ## Preview ----
 head(rich_env)
@@ -468,9 +468,6 @@ figure +
 
 ```{r 'upscale-richness'}
 ## Upscale to grid ----
-rownames(rich_env) <- rich_env[ , 1]
-rich_env <- rich_env[ , "n_species", drop = FALSE]
-
 ras_richness <- fb_aggregate_site_data(site_locations = site_locations, 
                                        site_data      = rich_env, 
                                        agg_grid       = tavg)
@@ -479,11 +476,11 @@ ras_richness
 ```
 
 ```{r 'map-richness'}
-fb_map_raster(ras_richness)
+fb_map_raster(ras_richness[[1]])
 ```
 
 ```{r 'map-richness-custom'}
-fb_map_raster(ras_richness) + 
+fb_map_raster(ras_richness[[1]]) + 
   scale_fill_distiller("Number of species", palette = "Spectral") +
   theme(legend.position = "bottom") + 
   ggtitle("Trees species richness in Pennsylvania")
