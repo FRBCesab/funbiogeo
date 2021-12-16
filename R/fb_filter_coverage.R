@@ -54,12 +54,13 @@ fb_filter_coverage <- function(site_species, species_traits,
   # Filter sites by coverage ----
   
   selected_sites <- trait_coverage[
-    which(trait_coverage[["trait_coverage"]] >= coverage_threshold), "site"]
+    which(trait_coverage[["trait_coverage"]] >= coverage_threshold),
+    "site"]
   
   
   if (identical(selected_sites, character(0))) {
     message("No sites has the specified trait coverage threshold")
   }
     
-  site_species[selected_sites, , drop = FALSE]
+  site_species[site_species[["site"]] %in% selected_sites, , drop = FALSE]
 }
