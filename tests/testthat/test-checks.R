@@ -147,7 +147,7 @@ test_that("check_species_traits() works", {
   
   expect_error(
     check_species_traits(dat),
-    "The species x traits object must have column names (traits names)",
+    "The species x traits object must have column names (trait names)",
     fixed = TRUE)
   
   
