@@ -88,7 +88,7 @@ check_species_traits <- function(species_traits) {
   if (is.data.frame(species_traits)) {
     
     if (is.null(colnames(species_traits))) {
-      stop("The species x traits object must have column names (traits names)",
+      stop("The species x traits object must have column names (trait names)",
            call. = FALSE)
     }
     
