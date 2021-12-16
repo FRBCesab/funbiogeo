@@ -133,7 +133,6 @@ test_that("check_species_traits() works", {
   mat <- matrix(1:10, ncol = 2)
   dat <- as.data.frame(mat)
   
-  
   expect_error(
     check_species_traits(dat),
     "The species x traits object must contain the 'species' column",
