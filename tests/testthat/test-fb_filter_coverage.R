@@ -1,32 +1,44 @@
-test_that("fb_filter_coverage() works", {
-  
-  site_species  <- data.frame(
-    site = letters[1:5],
-    sp1  = c(0, 0, 10, 0, 0),
-    sp2  = c(1, 10, 0, 25, 40),
-    sp3  = c(22, 8, 3, 0, 12),
-    sp4  = c(3, 0, 2, 12, 0)
-  )
-  species_traits <- data.frame(
-    species = paste0("sp", 1:4),
-    t1      = c(1.1, 2.5, 100, 400)
-  )
-  
-  # Occurrence matrix
-  occ_dat <- data.frame(
-    site = letters[1:5],
-    sp1  = c(0, 0, 1, 0, 0),
-    sp2  = c(1, 1, 0, 1, 1),
-    sp3  = c(1, 1, 1, 0, 1),
-    sp4  = c(1, 0, 1, 1, 0)
-  )
-  
-  # Relative cover matrix
-  rel_dat <- site_species[,2:5]/rowSums(site_species[,2:5])
-  rel_dat[["site"]] <- site_species[["site"]]
-  rel_dat <- rel_dat[, c(5, 1:4)]
-  
-  # Wrong inputs ----
+# Preliminary data --------
+
+site_species  <- data.frame(
+  site = letters[1:5],
+  sp1  = c(0, 0, 10, 0, 0),
+  sp2  = c(1, 10, 0, 25, 40),
+  sp3  = c(22, 8, 3, 0, 12),
+  sp4  = c(3, 0, 2, 12, 0)
+)
+species_traits <- data.frame(
+  species = paste0("sp", 1:4),
+  t1      = c(1.1, 2.5, 100, 400)
+)
+
+# Data with non numeric traits
+species_traits_2 <- data.frame(
+  species = paste0("sp", 1:4),
+  t1      = c(1.1, 2.5, 100, 400),
+  t2      = c("a", "a", "b", "b"),
+  t3      = factor(c("a", "a", "b", "b")),
+  t4      = ordered(c("a", "a", "b", "b"))
+)
+
+# Occurrence matrix
+occ_dat <- data.frame(
+  site = letters[1:5],
+  sp1  = c(0, 0, 1, 0, 0),
+  sp2  = c(1, 1, 0, 1, 1),
+  sp3  = c(1, 1, 1, 0, 1),
+  sp4  = c(1, 0, 1, 1, 0)
+)
+
+# Relative cover matrix
+rel_dat <- site_species[,2:5]/rowSums(site_species[,2:5])
+rel_dat[["site"]] <- site_species[["site"]]
+rel_dat <- rel_dat[, c(5, 1:4)]
+
+
+# Wrong inputs -----------------------------------------------------------------
+
+test_that("fb_filter_coverage() errors with wrong input", {
   
   expect_error(
     fb_filter_coverage(species_traits = species_traits),
@@ -73,8 +85,7 @@ test_that("fb_filter_coverage() works", {
   )
   
   
-  # No species in common ----
-  
+  # No species in common
   expect_error(
     fb_filter_coverage(site_species[,1:3], species_traits[3:4,]),
     "No species found in common between inputs",
@@ -82,8 +93,7 @@ test_that("fb_filter_coverage() works", {
   )
   
   
-  # No numeric threshold ----
-  
+  # No numeric threshold
   expect_error(
     fb_filter_coverage(site_species, species_traits, coverage_threshold = "a"),
     "Coverage threshold should be a numeric value >= 0 and <= 1",
@@ -91,7 +101,7 @@ test_that("fb_filter_coverage() works", {
   )
   
   
-  # Threshold > 1 ----
+  # Threshold > 1
   
   expect_error(
     fb_filter_coverage(site_species, species_traits, coverage_threshold = 2),
@@ -100,7 +110,7 @@ test_that("fb_filter_coverage() works", {
   )
   
   
-  # Threshold < 0 ----
+  # Threshold < 0
   
   expect_error(
     fb_filter_coverage(site_species, species_traits, coverage_threshold = -1),
@@ -108,7 +118,7 @@ test_that("fb_filter_coverage() works", {
     fixed = TRUE
   )
   
-  # Trait with NAs ----
+  # Trait with NAs
   
   expect_silent(
     {
@@ -119,10 +129,14 @@ test_that("fb_filter_coverage() works", {
   )
   
   expect_identical(filtered_site, site_species)
+
+})
+
+# Occurrence matrix ----------------------------------------------------------
+
+test_that("fb_filter_coverage() works with occurrence matrices", {  
   
-  
-  # Occurrence matrix ----------------------------------------------------------
-  
+  ## Only numeric trait
   # Working
   expect_silent(test_coverage <- fb_filter_coverage(occ_dat, species_traits, 1))
   
@@ -144,7 +158,6 @@ test_that("fb_filter_coverage() works", {
   
   
   # Lower threshold
-  
   expect_silent(
     test_coverage <- fb_filter_coverage(
       occ_dat, species_traits[1, , drop = FALSE], coverage_threshold = 0.3
@@ -153,8 +166,47 @@ test_that("fb_filter_coverage() works", {
   
   expect_identical(test_coverage, occ_dat[3,,])
   
-  # Abundance matrix -----------------------------------------------------------
   
+  ## Multiple trait types
+  # Working
+  expect_silent(
+    test_coverage <- fb_filter_coverage(occ_dat, species_traits_2, 1)
+  )
+  
+  expect_identical(test_coverage, occ_dat)
+  
+  
+  # No site is selected
+  expect_message(
+    test_coverage <- fb_filter_coverage(
+      occ_dat, species_traits_2[1, , drop = FALSE], coverage_threshold = 1
+    ),
+    "No sites has the specified trait coverage threshold",
+    fixed = TRUE
+  )
+  
+  expect_true(is.data.frame(test_coverage))
+  expect_equal(nrow(test_coverage), 0L)
+  expect_equal(ncol(test_coverage), 5L)
+  
+  
+  # Lower threshold
+  expect_silent(
+    test_coverage <- fb_filter_coverage(
+      occ_dat, species_traits_2[1, , drop = FALSE], coverage_threshold = 0.3
+    )
+  )
+  
+  expect_identical(test_coverage, occ_dat[3,,])
+
+})
+
+
+# Abundance matrix -----------------------------------------------------------
+
+test_that("fb_filter_coverage() works with abundance matrices", {  
+  
+  ## Only numeric trait
   # (with only species for which we have species_traits)
   expect_silent(
     test_coverage <- fb_filter_coverage(site_species, species_traits)
@@ -177,7 +229,6 @@ test_that("fb_filter_coverage() works", {
   
 
   # Lower threshold
-  
   expect_silent(
     test_coverage <- fb_filter_coverage(
       site_species, species_traits[1,, drop = FALSE], 0.5
@@ -187,16 +238,52 @@ test_that("fb_filter_coverage() works", {
   expect_identical(test_coverage, site_species[3,])
   
   
-  # Cover matrix ---------------------------------------------------------------
-  # (with only species for which we have species_traits)
+  ## Multiple trait types
+  # (with only species for which we have traits of species)
+  expect_silent(
+    test_coverage <- fb_filter_coverage(site_species, species_traits_2)
+  )
   
+  expect_identical(test_coverage, site_species)
+  
+  # No sites selected
+  expect_message(
+    test_coverage <- fb_filter_coverage(
+      site_species, species_traits_2[1,, drop = FALSE], 1
+    ),
+    "No sites has the specified trait coverage threshold",
+    fixed = TRUE
+  )
+  
+  expect_true(is.data.frame(test_coverage))
+  expect_equal(nrow(test_coverage), 0L)
+  expect_equal(ncol(test_coverage), 5L)
+  
+  
+  # Lower threshold
+  expect_silent(
+    test_coverage <- fb_filter_coverage(
+      site_species, species_traits_2[1,, drop = FALSE], 0.5
+    )
+  )
+  
+  expect_identical(test_coverage, site_species[3,])
+  
+})
+
+
+# Cover matrix ---------------------------------------------------------------
+
+test_that("fb_filter_coverage() works with cover matrices", {
+  
+  ## Only numeric trait
+  # (with only species for which we have species_traits)
   expect_silent(test_coverage <- fb_filter_coverage(rel_dat, species_traits))
   
   expect_identical(test_coverage, rel_dat)
   
   
-  #  (with species for which we don't have all the species_traits)
-  
+  # (with species for which we don't have all the species_traits)
   expect_message(
     test_coverage <- fb_filter_coverage(
       rel_dat, species_traits[1,, drop = FALSE], 1
@@ -215,6 +302,38 @@ test_that("fb_filter_coverage() works", {
   expect_silent(
     test_coverage <- fb_filter_coverage(
       rel_dat, species_traits[1,, drop = FALSE], coverage_threshold = 0.6
+    )
+  )
+  
+  expect_identical(test_coverage, rel_dat[3,])
+  
+  
+  ## Multiple trait types
+  # (with only species for which we have traits)
+  expect_silent(test_coverage <- fb_filter_coverage(rel_dat, species_traits_2))
+  
+  expect_identical(test_coverage, rel_dat)
+  
+  
+  # (with species for which we don't have all the species_traits_2)
+  expect_message(
+    test_coverage <- fb_filter_coverage(
+      rel_dat, species_traits_2[1,, drop = FALSE], 1
+    ),
+    "No sites has the specified trait coverage threshold",
+    fixed = TRUE
+  )
+  
+  expect_true(is.data.frame(test_coverage))
+  expect_equal(nrow(test_coverage), 0L)
+  expect_equal(ncol(test_coverage), 5L)
+  
+  
+  # Lower threshold should work
+  
+  expect_silent(
+    test_coverage <- fb_filter_coverage(
+      rel_dat, species_traits_2[1,, drop = FALSE], coverage_threshold = 0.6
     )
   )
   
