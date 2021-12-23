@@ -99,6 +99,12 @@ test_that("fb_cwm() fails with wrong inputs", {
     "CWM can only be computed on numeric traits",
     fixed = TRUE
   )
+  
+  expect_error(
+    fb_cwm(site_species, species_traits_2[, c(1, 3:4), drop = FALSE]),
+    "CWM can only be computed on numeric traits",
+    fixed = TRUE
+  )
 
 })
 
@@ -107,6 +113,8 @@ test_that("fb_cwm() fails with wrong inputs", {
 
 test_that("fb_cwm() works with valid inputs", {
   
+  # Purely numeric traits
+  
   expect_silent(test_cwm <- fb_cwm(site_species, species_traits))
   
   expect_s3_class(test_cwm, "data.frame")
@@ -114,4 +122,8 @@ test_that("fb_cwm() works with valid inputs", {
   expect_equal(dim(test_cwm), c(5, 3))
   expect_equal(test_cwm[["cwm"]][1], 130.86538, tolerance = 0.000001)
   
+  
+  # Non-numeric traits
+  
+  expect_silent(test_cwm <- fb_cwm(site_species, species_traits_2))
 })
