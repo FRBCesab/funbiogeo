@@ -64,7 +64,7 @@ fb_get_coverage <- function(site_species, species_traits) {
   
   # Count all species (presence/abundance) per site ----
   
-  site_total_abundance <- rowSums(site_species[, -1], na.rm = TRUE)
+  site_total_abundance <- rowSums(site_species[ , -1], na.rm = TRUE)
   
   
   # Count species with traits per site -----
