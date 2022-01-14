@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">funbiogeo</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../articles/funbiogeo.html">Get started</a>
 </li>
@@ -55,7 +51,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/frbcesab/funbiogeo/">
+  <a href="https://github.com/frbcesab/funbiogeo/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -70,13 +66,13 @@
 
       
 
-      </header><script src="funbiogeo_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Get started with funbiogeo</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/frbcesab/funbiogeo/blob/master/vignettes/funbiogeo.Rmd"><code>vignettes/funbiogeo.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/frbcesab/funbiogeo/blob/HEAD/vignettes/funbiogeo.Rmd" class="external-link"><code>vignettes/funbiogeo.Rmd</code></a></small>
       <div class="hidden name"><code>funbiogeo.Rmd</code></div>
 
     </div>
@@ -85,11 +81,11 @@
     
 <p>The aim of the <code>funbiogeo</code>package is to help users with analyses in <strong>Fun</strong>ctional <strong>biogeo</strong>graphy (Violle <em>et al.</em> 2014). It helps to load and combine data, computing trait coverage, as well as computing functional diversity indices, drawing maps, correlate them with the environment, and upscaling assemblages.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/frbcesab/funbiogeo">"funbiogeo"</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org">"ggplot2"</a></span><span class="op">)</span></code></pre></div>
-<div id="initial-needed-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#initial-needed-data" class="anchor"></a>Initial needed data</h2>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/frbcesab/funbiogeo" class="external-link">"funbiogeo"</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org" class="external-link">"ggplot2"</a></span><span class="op">)</span></code></pre></div>
+<div class="section level2">
+<h2 id="initial-needed-data">Initial needed data<a class="anchor" aria-label="anchor" href="#initial-needed-data"></a>
+</h2>
 <p>The package <code>funbiogeo</code> requires three different datasets to proceed with the analyses:</p>
 <ul>
 <li>the <strong>site x locations</strong> dataset (example dataset: <code>site_locations</code>)</li>
@@ -97,193 +93,182 @@
 <li>the <strong>species x traits</strong> dataset (example dataset: <code>species_traits</code>)</li>
 </ul>
 <p>Let’s take a look at each of these datasets.</p>
-<div id="site-x-locations" class="section level3">
-<h3 class="hasAnchor">
-<a href="#site-x-locations" class="anchor"></a>Site x Locations</h3>
+<div class="section level3">
+<h3 id="site-x-locations">Site x Locations<a class="anchor" aria-label="anchor" href="#site-x-locations"></a>
+</h3>
 <p>This dataset contains spatial coordinates of sites (points) of the study area. It can be either a <code>matrix</code> or a <code>data.frame</code> and row names must contain sites names. It must contain at least two columns: the longitude and the latitude of sites. This dataset must contain unique sites. Additional columns are accepted must will be ignored by <code>funbiogeo</code>.</p>
 <p>The package <code>funbiogeo</code> comes with the example dataset <code>site_locations</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Load site x locations example dataset ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"site_locations"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"site_locations"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <caption>Format of site x locations dataset</caption>
 <thead><tr class="header">
-<th align="left"></th>
+<th align="right">site</th>
 <th align="right">x</th>
 <th align="right">y</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">fb_33</td>
+<td align="right">fb_33</td>
 <td align="right">5.771820</td>
 <td align="right">59.59736</td>
 </tr>
 <tr class="even">
-<td align="left">fb_35</td>
+<td align="right">fb_35</td>
 <td align="right">6.771820</td>
 <td align="right">59.59736</td>
 </tr>
 <tr class="odd">
-<td align="left">fb_36</td>
+<td align="right">fb_36</td>
 <td align="right">7.271820</td>
 <td align="right">59.59736</td>
 </tr>
 <tr class="even">
-<td align="left">fb_37</td>
+<td align="right">fb_37</td>
 <td align="right">7.771820</td>
 <td align="right">59.59736</td>
 </tr>
 <tr class="odd">
-<td align="left">fb_38</td>
+<td align="right">fb_38</td>
 <td align="right">8.271821</td>
 <td align="right">59.59736</td>
 </tr>
 <tr class="even">
-<td align="left">fb_39</td>
+<td align="right">fb_39</td>
 <td align="right">8.771821</td>
 <td align="right">59.59736</td>
 </tr>
 <tr class="odd">
-<td align="left">fb_40</td>
+<td align="right">fb_40</td>
 <td align="right">9.271821</td>
 <td align="right">59.59736</td>
 </tr>
 <tr class="even">
-<td align="left">fb_41</td>
+<td align="right">fb_41</td>
 <td align="right">9.771821</td>
 <td align="right">59.59736</td>
 </tr>
 <tr class="odd">
-<td align="left">fb_42</td>
+<td align="right">fb_42</td>
 <td align="right">10.271821</td>
 <td align="right">59.59736</td>
 </tr>
 <tr class="even">
-<td align="left">fb_43</td>
+<td align="right">fb_43</td>
 <td align="right">10.771821</td>
 <td align="right">59.59736</td>
 </tr>
 </tbody>
 </table>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Row names contain sites names ----</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">site_locations</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>
+<code class="sourceCode R"><span class="co">## First column contains sites names ----</span>
+<span class="va">site_locations</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">]</span>
 <span class="co">#&gt; [1] "fb_33" "fb_35" "fb_36" "fb_37"</span></code></pre></div>
 <p>To create your own site x locations dataset you can use the function <code><a href="../reference/fb_format_site_locations.html">fb_format_site_locations()</a></code>. See below the section <strong><em>Long format</em></strong>.</p>
 </div>
-<div id="site-x-species" class="section level3">
-<h3 class="hasAnchor">
-<a href="#site-x-species" class="anchor"></a>Site x Species</h3>
+<div class="section level3">
+<h3 id="site-x-species">Site x Species<a class="anchor" aria-label="anchor" href="#site-x-species"></a>
+</h3>
 <p>This dataset contains species occurrences/abundance/coverage at sites (points) of the study area. It can be either a <code>matrix</code> or a <code>data.frame</code> and row names must contain sites names. Columns must contain only species distribution information and sites must be unique. No additional columns are accepted.</p>
 <p>The package <code>funbiogeo</code> comes with the example dataset <code>site_species</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Load site x species example dataset ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"site_species"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"site_species"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <caption>Format of site x species dataset</caption>
 <thead><tr class="header">
-<th align="left"></th>
+<th align="center">site</th>
 <th align="center">sp_001</th>
 <th align="center">sp_002</th>
 <th align="center">sp_003</th>
-<th align="center">sp_004</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">fb_33</td>
+<td align="center">fb_33</td>
 <td align="center">1</td>
-<td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
 </tr>
 <tr class="even">
-<td align="left">fb_35</td>
+<td align="center">fb_35</td>
 <td align="center">1</td>
-<td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
 </tr>
 <tr class="odd">
-<td align="left">fb_36</td>
+<td align="center">fb_36</td>
 <td align="center">1</td>
-<td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
 </tr>
 <tr class="even">
-<td align="left">fb_37</td>
+<td align="center">fb_37</td>
 <td align="center">1</td>
-<td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
 </tr>
 <tr class="odd">
-<td align="left">fb_38</td>
+<td align="center">fb_38</td>
 <td align="center">1</td>
-<td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
 </tr>
 <tr class="even">
-<td align="left">fb_39</td>
+<td align="center">fb_39</td>
 <td align="center">1</td>
-<td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
 </tr>
 <tr class="odd">
-<td align="left">fb_40</td>
+<td align="center">fb_40</td>
 <td align="center">1</td>
-<td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
 </tr>
 <tr class="even">
-<td align="left">fb_41</td>
+<td align="center">fb_41</td>
 <td align="center">1</td>
-<td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
 </tr>
 <tr class="odd">
-<td align="left">fb_42</td>
+<td align="center">fb_42</td>
 <td align="center">1</td>
-<td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
 </tr>
 <tr class="even">
-<td align="left">fb_43</td>
+<td align="center">fb_43</td>
 <td align="center">1</td>
-<td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
 </tr>
 </tbody>
 </table>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Row names contain sites names ----</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>
+<code class="sourceCode R"><span class="co">## First column contains sites names ----</span>
+<span class="va">site_species</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">]</span>
 <span class="co">#&gt; [1] "fb_33" "fb_35" "fb_36" "fb_37"</span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Column names contain species names ----</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>
-<span class="co">#&gt; [1] "sp_001" "sp_002" "sp_003" "sp_004"</span></code></pre></div>
+<code class="sourceCode R"><span class="co">## Column names after the first one contain species names ----</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>
+<span class="co">#&gt; [1] "sp_001" "sp_002" "sp_003"</span></code></pre></div>
 <p>To create your own site x species dataset you can use the function <code><a href="../reference/fb_format_site_species.html">fb_format_site_species()</a></code>. See below the section <strong><em>Long format</em></strong>.</p>
 </div>
-<div id="species-x-traits" class="section level3">
-<h3 class="hasAnchor">
-<a href="#species-x-traits" class="anchor"></a>Species x Traits</h3>
+<div class="section level3">
+<h3 id="species-x-traits">Species x Traits<a class="anchor" aria-label="anchor" href="#species-x-traits"></a>
+</h3>
 <p>This dataset contains traits values for studied species. It can be either a <code>matrix</code> or a <code>data.frame</code> and row names must contain species names. Columns must contain only traits variables and species must be unique. No additional columns are accepted.</p>
 <p>Note that traits values cannot vary across sites for a given species.</p>
 <p>The package <code>funbiogeo</code> comes with the example dataset <code>species_traits</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Load species x traits example dataset ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"species_traits"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"species_traits"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <caption>Format of species x traits dataset</caption>
 <colgroup>
-<col width="7%">
+<col width="8%">
 <col width="16%">
 <col width="17%">
 <col width="12%">
@@ -292,7 +277,7 @@
 <col width="13%">
 </colgroup>
 <thead><tr class="header">
-<th align="left"></th>
+<th align="right">species</th>
 <th align="right">adult_body_mass</th>
 <th align="right">gestation_length</th>
 <th align="right">litter_size</th>
@@ -302,7 +287,7 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">sp_001</td>
+<td align="right">sp_001</td>
 <td align="right">461900.76</td>
 <td align="right">235.00</td>
 <td align="right">1.25</td>
@@ -311,7 +296,7 @@
 <td align="right">1</td>
 </tr>
 <tr class="even">
-<td align="left">sp_002</td>
+<td align="right">sp_002</td>
 <td align="right">21.11</td>
 <td align="right">19.89</td>
 <td align="right">5.64</td>
@@ -320,7 +305,7 @@
 <td align="right">NA</td>
 </tr>
 <tr class="odd">
-<td align="left">sp_003</td>
+<td align="right">sp_003</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -329,7 +314,7 @@
 <td align="right">NA</td>
 </tr>
 <tr class="even">
-<td align="left">sp_004</td>
+<td align="right">sp_004</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
@@ -340,27 +325,27 @@
 </tbody>
 </table>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Row names contain species names ----</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>
+<code class="sourceCode R"><span class="co">## First column contains species names ----</span>
+<span class="va">species_traits</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">]</span>
 <span class="co">#&gt; [1] "sp_001" "sp_002" "sp_003" "sp_004"</span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Column names contain traits names ----</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span>
+<code class="sourceCode R"><span class="co">## Column names (apart from the first) contain traits names ----</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>
 <span class="co">#&gt; [1] "adult_body_mass"     "gestation_length"    "litter_size"        </span>
 <span class="co">#&gt; [4] "max_longevity"       "sexual_maturity_age" "diet_breadth"</span></code></pre></div>
 <p>To create your own species x traits dataset you can use the function <code><a href="../reference/fb_format_species_traits.html">fb_format_species_traits()</a></code>. See below the section <strong><em>Long format</em></strong>.</p>
 </div>
-<div id="long-format" class="section level3">
-<h3 class="hasAnchor">
-<a href="#long-format" class="anchor"></a>Long format</h3>
+<div class="section level3">
+<h3 id="long-format">Long format<a class="anchor" aria-label="anchor" href="#long-format"></a>
+</h3>
 <p>If your data are not spread into three datasets you can use the functions <code>fb_format_*()</code> to create these specific datasets. This implies that your data are structured into a long table, i.e. one row corresponds to the occurrence/abundance/coverage of one species at one site. This also implies that some variables are repeated across the table (e.g. sites coordinates, species traits).</p>
 <p>Let’s take an example</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Path to example raw dataset ----</span>
-<span class="va">filename</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"raw_mammals_data.csv"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
+<span class="va">filename</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"raw_mammals_data.csv"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
 
 <span class="co">## Read CSV file ----</span>
-<span class="va">all_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="va">filename</span><span class="op">)</span></code></pre></div>
+<span class="va">all_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="va">filename</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <caption>Long table example</caption>
 <colgroup>
@@ -402,6 +387,32 @@
 <td align="right">52.8</td>
 <td align="right">57.93</td>
 <td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="center">fb_100</td>
+<td align="right">5.77182</td>
+<td align="right">59.09736</td>
+<td align="left">sp_033</td>
+<td align="center">1</td>
+<td align="right">777.95</td>
+<td align="right">36.98</td>
+<td align="right">4.64</td>
+<td align="right">168.0</td>
+<td align="right">265.80</td>
+<td align="right">8</td>
+</tr>
+<tr class="odd">
+<td align="center">fb_100</td>
+<td align="right">5.77182</td>
+<td align="right">59.09736</td>
+<td align="left">sp_078</td>
+<td align="center">1</td>
+<td align="right">19.30</td>
+<td align="right">19.60</td>
+<td align="right">5.54</td>
+<td align="right">72.0</td>
+<td align="right">64.71</td>
+<td align="right">1</td>
 </tr>
 <tr class="even">
 <td align="center">fb_1000</td>
@@ -469,56 +480,30 @@
 <td align="right">1</td>
 </tr>
 <tr class="odd">
-<td align="center">fb_1001</td>
-<td align="right">20.77182</td>
+<td align="center">fb_1000</td>
+<td align="right">20.27182</td>
 <td align="right">52.59736</td>
-<td align="left">sp_001</td>
+<td align="left">sp_013</td>
 <td align="center">1</td>
-<td align="right">461900.76</td>
-<td align="right">235.00</td>
-<td align="right">1.25</td>
-<td align="right">324.0</td>
-<td align="right">668.20</td>
+<td align="right">31756.51</td>
+<td align="right">63.50</td>
+<td align="right">4.98</td>
+<td align="right">354.0</td>
+<td align="right">679.37</td>
 <td align="right">1</td>
 </tr>
 <tr class="even">
-<td align="center">fb_1001</td>
-<td align="right">20.77182</td>
+<td align="center">fb_1000</td>
+<td align="right">20.27182</td>
 <td align="right">52.59736</td>
-<td align="left">sp_002</td>
+<td align="left">sp_016</td>
 <td align="center">1</td>
-<td align="right">21.11</td>
-<td align="right">19.89</td>
-<td align="right">5.64</td>
-<td align="right">48.0</td>
-<td align="right">76.04</td>
+<td align="right">22502.01</td>
+<td align="right">196.00</td>
+<td align="right">1.79</td>
+<td align="right">204.0</td>
+<td align="right">400.97</td>
 <td align="right">NA</td>
-</tr>
-<tr class="odd">
-<td align="center">fb_1001</td>
-<td align="right">20.77182</td>
-<td align="right">52.59736</td>
-<td align="left">sp_005</td>
-<td align="center">1</td>
-<td align="right">31.60</td>
-<td align="right">24.50</td>
-<td align="right">4.94</td>
-<td align="right">48.0</td>
-<td align="right">43.27</td>
-<td align="right">NA</td>
-</tr>
-<tr class="even">
-<td align="center">fb_1001</td>
-<td align="right">20.77182</td>
-<td align="right">52.59736</td>
-<td align="left">sp_006</td>
-<td align="center">1</td>
-<td align="right">21.90</td>
-<td align="right">23.68</td>
-<td align="right">5.16</td>
-<td align="right">52.8</td>
-<td align="right">57.93</td>
-<td align="right">4</td>
 </tr>
 </tbody>
 </table>
@@ -534,19 +519,19 @@
                                            na_rm      <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 
 <span class="co">## Preview ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">site_locations</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">site_locations</span><span class="op">)</span>
 <span class="co">#&gt; Simple feature collection with 6 features and 1 field</span>
 <span class="co">#&gt; Geometry type: POINT</span>
 <span class="co">#&gt; Dimension:     XY</span>
 <span class="co">#&gt; Bounding box:  xmin: 52.09736 ymin: -9.728179 xmax: 59.09736 ymax: 21.27182</span>
 <span class="co">#&gt; CRS:           EPSG:4326</span>
-<span class="co">#&gt;       site                   geometry</span>
-<span class="co">#&gt; 1   fb_100  POINT (59.09736 5.771821)</span>
-<span class="co">#&gt; 2  fb_1000  POINT (52.59736 20.27182)</span>
-<span class="co">#&gt; 7  fb_1001  POINT (52.59736 20.77182)</span>
-<span class="co">#&gt; 12 fb_1002  POINT (52.59736 21.27182)</span>
-<span class="co">#&gt; 17 fb_1007 POINT (52.09736 -9.728179)</span>
-<span class="co">#&gt; 18 fb_1008 POINT (52.09736 -9.228179)</span></code></pre></div>
+<span class="co">#&gt;        site                   geometry</span>
+<span class="co">#&gt; 1    fb_100  POINT (59.09736 5.771821)</span>
+<span class="co">#&gt; 4   fb_1000  POINT (52.59736 20.27182)</span>
+<span class="co">#&gt; 54  fb_1001  POINT (52.59736 20.77182)</span>
+<span class="co">#&gt; 103 fb_1002  POINT (52.59736 21.27182)</span>
+<span class="co">#&gt; 152 fb_1007 POINT (52.09736 -9.728179)</span>
+<span class="co">#&gt; 174 fb_1008 POINT (52.09736 -9.228179)</span></code></pre></div>
 <p><br></p>
 <p><strong>Formatting site x species data</strong></p>
 <p>The function <code><a href="../reference/fb_format_site_species.html">fb_format_site_species()</a></code> extracts species occurrence/abundance/coverage from this long table to create the site x species dataset. Note that one species must have been observed one time at one site (the package <code>funbiogeo</code> does not yet consider temporal survey).</p>
@@ -559,70 +544,411 @@
                                        na_to_zero <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
 <span class="co">## Preview ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span>
-<span class="co">#&gt;         sp_006 sp_001 sp_002 sp_005 sp_010 sp_007 sp_008 sp_003 sp_004 sp_009</span>
-<span class="co">#&gt; fb_100       1      0      0      0      0      0      0      0      0      0</span>
-<span class="co">#&gt; fb_1000      1      1      1      1      1      0      0      0      0      0</span>
-<span class="co">#&gt; fb_1001      1      1      1      1      1      0      0      0      0      0</span>
-<span class="co">#&gt; fb_1002      1      1      1      1      1      0      0      0      0      0</span>
-<span class="co">#&gt; fb_1007      1      0      0      0      0      0      0      0      0      0</span>
-<span class="co">#&gt; fb_1008      1      0      0      0      0      0      0      0      0      0</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span>
+<span class="co">#&gt;      site sp_006 sp_033 sp_078 sp_001 sp_002 sp_005 sp_010 sp_013 sp_016 sp_017</span>
+<span class="co">#&gt; 1  fb_100      1      1      1      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 2 fb_1000      1      0      1      1      1      1      1      1      1      1</span>
+<span class="co">#&gt; 3 fb_1001      1      0      1      1      1      1      1      1      1      1</span>
+<span class="co">#&gt; 4 fb_1002      1      0      1      1      1      1      1      1      1      1</span>
+<span class="co">#&gt; 5 fb_1007      1      1      1      0      0      0      0      0      0      1</span>
+<span class="co">#&gt; 6 fb_1008      1      1      1      0      0      0      0      0      0      0</span>
+<span class="co">#&gt;   sp_026 sp_032 sp_034 sp_038 sp_048 sp_055 sp_056 sp_057 sp_059 sp_060 sp_061</span>
+<span class="co">#&gt; 1      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 2      1      1      1      1      1      1      1      1      1      1      1</span>
+<span class="co">#&gt; 3      1      1      1      1      1      1      1      1      1      1      1</span>
+<span class="co">#&gt; 4      1      1      1      1      1      1      1      1      1      1      1</span>
+<span class="co">#&gt; 5      1      0      0      0      0      0      1      1      0      0      0</span>
+<span class="co">#&gt; 6      1      0      0      0      0      0      1      1      0      0      0</span>
+<span class="co">#&gt;   sp_071 sp_073 sp_081 sp_082 sp_084 sp_085 sp_086 sp_093 sp_095 sp_096 sp_098</span>
+<span class="co">#&gt; 1      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 2      1      1      1      1      1      1      1      1      1      1      1</span>
+<span class="co">#&gt; 3      1      1      1      1      1      1      1      1      1      1      0</span>
+<span class="co">#&gt; 4      1      1      1      1      1      1      1      1      1      1      0</span>
+<span class="co">#&gt; 5      0      0      0      1      0      0      1      0      0      1      0</span>
+<span class="co">#&gt; 6      0      0      0      1      0      0      1      0      0      1      0</span>
+<span class="co">#&gt;   sp_099 sp_100 sp_104 sp_105 sp_106 sp_110 sp_111 sp_112 sp_113 sp_114 sp_119</span>
+<span class="co">#&gt; 1      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 2      1      1      1      1      1      1      1      1      1      1      1</span>
+<span class="co">#&gt; 3      1      1      1      1      1      1      1      1      1      1      1</span>
+<span class="co">#&gt; 4      1      1      1      1      1      1      1      1      1      1      1</span>
+<span class="co">#&gt; 5      1      1      1      0      0      0      1      1      1      0      1</span>
+<span class="co">#&gt; 6      1      1      1      0      0      0      1      1      1      0      1</span>
+<span class="co">#&gt;   sp_129 sp_130 sp_133 sp_137 sp_141 sp_144 sp_148 sp_149 sp_050 sp_124 sp_051</span>
+<span class="co">#&gt; 1      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 2      1      1      1      1      1      1      1      1      0      0      0</span>
+<span class="co">#&gt; 3      1      1      1      1      1      1      1      1      0      0      0</span>
+<span class="co">#&gt; 4      1      1      1      1      1      1      1      1      0      0      0</span>
+<span class="co">#&gt; 5      1      0      0      1      0      0      0      1      1      1      0</span>
+<span class="co">#&gt; 6      1      0      0      1      0      0      0      1      1      1      0</span>
+<span class="co">#&gt;   sp_147 sp_077 sp_123 sp_039 sp_091 sp_118 sp_022 sp_120 sp_134 sp_087 sp_035</span>
+<span class="co">#&gt; 1      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 2      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 3      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 4      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 5      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 6      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt;   sp_019 sp_020 sp_024 sp_097 sp_036 sp_030 sp_088 sp_007 sp_008 sp_128 sp_028</span>
+<span class="co">#&gt; 1      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 2      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 3      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 4      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 5      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 6      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt;   sp_131 sp_089 sp_139 sp_103 sp_109 sp_054 sp_092 sp_083 sp_074 sp_076 sp_122</span>
+<span class="co">#&gt; 1      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 2      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 3      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 4      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 5      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 6      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt;   sp_042 sp_079 sp_066 sp_037 sp_003 sp_116 sp_018 sp_014 sp_012 sp_142 sp_132</span>
+<span class="co">#&gt; 1      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 2      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 3      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 4      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 5      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 6      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt;   sp_070 sp_143 sp_094 sp_068 sp_072 sp_102 sp_140 sp_065 sp_080 sp_138 sp_027</span>
+<span class="co">#&gt; 1      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 2      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 3      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 4      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 5      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 6      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt;   sp_043 sp_090 sp_115 sp_121 sp_107 sp_004 sp_049 sp_069 sp_135 sp_145 sp_046</span>
+<span class="co">#&gt; 1      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 2      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 3      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 4      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 5      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 6      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt;   sp_127 sp_146 sp_075 sp_064 sp_015 sp_047 sp_101 sp_009 sp_063 sp_125 sp_021</span>
+<span class="co">#&gt; 1      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 2      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 3      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 4      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 5      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 6      0      0      0      0      0      0      0      0      0      0      0</span>
+<span class="co">#&gt;   sp_045 sp_117 sp_040 sp_031 sp_023 sp_067 sp_011</span>
+<span class="co">#&gt; 1      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 2      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 3      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 4      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 5      0      0      0      0      0      0      0</span>
+<span class="co">#&gt; 6      0      0      0      0      0      0      0</span></code></pre></div>
 <p><br></p>
 <p><strong>Formatting species x traits data</strong></p>
 <p>The function <code><a href="../reference/fb_format_species_traits.html">fb_format_species_traits()</a></code> extracts species traits values from this long table to create the species x traits dataset. Note that one species must have one unique trait value (no trait variation across sites allowed).</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Format species x traits data ----</span>
-<span class="va">species_traits</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_species_traits.html">fb_format_species_traits</a></span><span class="op">(</span>data    <span class="op">=</span> <span class="va">all_data</span>, 
-                                           species <span class="op">=</span> <span class="st">"species"</span>, 
-                                           traits  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"adult_body_mass"</span>, <span class="st">"gestation_length"</span>, 
-                                                       <span class="st">"litter_size"</span>, <span class="st">"max_longevity"</span>,
-                                                       <span class="st">"sexual_maturity_age"</span>, <span class="st">"diet_breadth"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">species_traits</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_species_traits.html">fb_format_species_traits</a></span><span class="op">(</span>
+  data    <span class="op">=</span> <span class="va">all_data</span>, 
+  species <span class="op">=</span> <span class="st">"species"</span>, 
+  traits  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"adult_body_mass"</span>, <span class="st">"gestation_length"</span>, <span class="st">"litter_size"</span>,
+              <span class="st">"max_longevity"</span>, <span class="st">"sexual_maturity_age"</span>, <span class="st">"diet_breadth"</span><span class="op">)</span>
+<span class="op">)</span>
 
 <span class="co">## Preview ----</span>
 <span class="va">species_traits</span>
-<span class="co">#&gt;        adult_body_mass gestation_length litter_size max_longevity</span>
-<span class="co">#&gt; sp_001       461900.76           235.00        1.25         324.0</span>
-<span class="co">#&gt; sp_002           21.11            19.89        5.64          48.0</span>
-<span class="co">#&gt; sp_003              NA               NA          NA            NA</span>
-<span class="co">#&gt; sp_004              NA               NA          NA            NA</span>
-<span class="co">#&gt; sp_005           31.60            24.50        4.94          48.0</span>
-<span class="co">#&gt; sp_006           21.90            23.68        5.16          52.8</span>
-<span class="co">#&gt; sp_007           18.26               NA        5.72            NA</span>
-<span class="co">#&gt; sp_008              NA               NA          NA            NA</span>
-<span class="co">#&gt; sp_009          903.98            39.25        2.50          84.0</span>
-<span class="co">#&gt; sp_010            8.31               NA        1.73         252.0</span>
-<span class="co">#&gt;        sexual_maturity_age diet_breadth</span>
-<span class="co">#&gt; sp_001              668.20            1</span>
-<span class="co">#&gt; sp_002               76.04           NA</span>
-<span class="co">#&gt; sp_003                  NA           NA</span>
-<span class="co">#&gt; sp_004                  NA           NA</span>
-<span class="co">#&gt; sp_005               43.27           NA</span>
-<span class="co">#&gt; sp_006               57.93            4</span>
-<span class="co">#&gt; sp_007                  NA           NA</span>
-<span class="co">#&gt; sp_008                  NA           NA</span>
-<span class="co">#&gt; sp_009                  NA            3</span>
-<span class="co">#&gt; sp_010                  NA            1</span></code></pre></div>
+<span class="co">#&gt;     species adult_body_mass gestation_length litter_size max_longevity</span>
+<span class="co">#&gt; 1    sp_001       461900.76           235.00        1.25        324.00</span>
+<span class="co">#&gt; 2    sp_002           21.11            19.89        5.64         48.00</span>
+<span class="co">#&gt; 3    sp_003              NA               NA          NA            NA</span>
+<span class="co">#&gt; 4    sp_004              NA               NA          NA            NA</span>
+<span class="co">#&gt; 5    sp_005           31.60            24.50        4.94         48.00</span>
+<span class="co">#&gt; 6    sp_006           21.90            23.68        5.16         52.80</span>
+<span class="co">#&gt; 7    sp_007           18.26               NA        5.72            NA</span>
+<span class="co">#&gt; 8    sp_008              NA               NA          NA            NA</span>
+<span class="co">#&gt; 9    sp_009          903.98            39.25        2.50         84.00</span>
+<span class="co">#&gt; 10   sp_010            8.31               NA        1.73        252.00</span>
+<span class="co">#&gt; 11   sp_011       675876.70           265.99        1.00        324.00</span>
+<span class="co">#&gt; 12   sp_012         9658.70            61.24        3.74        192.00</span>
+<span class="co">#&gt; 13   sp_013        31756.51            63.50        4.98        354.00</span>
+<span class="co">#&gt; 14   sp_014        69546.83           167.50        1.11        267.60</span>
+<span class="co">#&gt; 15   sp_015        60898.77           150.00        1.50        192.00</span>
+<span class="co">#&gt; 16   sp_016        22502.01           196.00        1.79        204.00</span>
+<span class="co">#&gt; 17   sp_017       240867.13           235.61        1.09        321.60</span>
+<span class="co">#&gt; 18   sp_018           42.01            20.92        3.42            NA</span>
+<span class="co">#&gt; 19   sp_019          428.95            19.50        7.14         48.00</span>
+<span class="co">#&gt; 20   sp_020           10.88            30.99        3.36         36.00</span>
+<span class="co">#&gt; 21   sp_021              NA               NA          NA            NA</span>
+<span class="co">#&gt; 22   sp_022            9.89            29.00        4.04         38.40</span>
+<span class="co">#&gt; 23   sp_023              NA               NA          NA            NA</span>
+<span class="co">#&gt; 24   sp_024            7.35            27.15        3.49         32.40</span>
+<span class="co">#&gt; 25   sp_026        57224.61           230.00        1.00        300.00</span>
+<span class="co">#&gt; 26   sp_027           56.00            30.41        2.50            NA</span>
+<span class="co">#&gt; 27   sp_028           29.50            24.50        3.24         48.00</span>
+<span class="co">#&gt; 28   sp_030          114.61            22.97        4.99         66.00</span>
+<span class="co">#&gt; 29   sp_031           23.09            65.44        1.50         72.00</span>
+<span class="co">#&gt; 30   sp_032           10.72               NA        1.50        186.00</span>
+<span class="co">#&gt; 31   sp_033          777.95            36.98        4.64        168.00</span>
+<span class="co">#&gt; 32   sp_034              NA               NA          NA            NA</span>
+<span class="co">#&gt; 33   sp_035           94.16            34.98        5.01            NA</span>
+<span class="co">#&gt; 34   sp_036         4573.08            65.49        3.59        336.00</span>
+<span class="co">#&gt; 35   sp_037         1756.17            74.18        2.29        408.00</span>
+<span class="co">#&gt; 36   sp_038          128.09            28.19        5.17        108.00</span>
+<span class="co">#&gt; 37   sp_039        12792.49           161.73        2.84        216.00</span>
+<span class="co">#&gt; 38   sp_040         2980.02            75.87        3.00        240.00</span>
+<span class="co">#&gt; 39   sp_042            6.30               NA        2.00            NA</span>
+<span class="co">#&gt; 40   sp_043        13406.27            79.19        1.73            NA</span>
+<span class="co">#&gt; 41   sp_045         2047.11            41.99        2.44            NA</span>
+<span class="co">#&gt; 42   sp_046         2822.41               NA        1.95            NA</span>
+<span class="co">#&gt; 43   sp_047              NA               NA          NA            NA</span>
+<span class="co">#&gt; 44   sp_048         3816.43            41.99        2.14        144.00</span>
+<span class="co">#&gt; 45   sp_049         2323.94               NA        1.46            NA</span>
+<span class="co">#&gt; 46   sp_050         3105.42            50.10        3.16            NA</span>
+<span class="co">#&gt; 47   sp_051        19300.00            66.99        2.30        321.60</span>
+<span class="co">#&gt; 48   sp_054         4059.15            35.22        4.00        216.00</span>
+<span class="co">#&gt; 49   sp_055         1675.00            29.86        3.78        217.20</span>
+<span class="co">#&gt; 50   sp_056         1299.99            30.63        3.49        204.00</span>
+<span class="co">#&gt; 51   sp_057        11884.03            48.60        3.11        194.40</span>
+<span class="co">#&gt; 52   sp_059            6.99            21.00        4.92         60.00</span>
+<span class="co">#&gt; 53   sp_060           35.87            20.72        4.65         39.60</span>
+<span class="co">#&gt; 54   sp_061           26.90            21.00        4.99         36.00</span>
+<span class="co">#&gt; 55   sp_063              NA               NA          NA            NA</span>
+<span class="co">#&gt; 56   sp_064           52.50               NA          NA            NA</span>
+<span class="co">#&gt; 57   sp_065           22.71               NA        2.51            NA</span>
+<span class="co">#&gt; 58   sp_066              NA               NA          NA            NA</span>
+<span class="co">#&gt; 59   sp_067           35.49               NA          NA            NA</span>
+<span class="co">#&gt; 60   sp_068              NA               NA          NA            NA</span>
+<span class="co">#&gt; 61   sp_069              NA            20.00        2.09            NA</span>
+<span class="co">#&gt; 62   sp_070           23.16               NA        3.00            NA</span>
+<span class="co">#&gt; 63   sp_071           33.10            21.51        5.62         21.60</span>
+<span class="co">#&gt; 64   sp_072           20.00               NA          NA            NA</span>
+<span class="co">#&gt; 65   sp_073           17.74            21.00        2.46            NA</span>
+<span class="co">#&gt; 66   sp_074              NA               NA        2.91            NA</span>
+<span class="co">#&gt; 67   sp_075              NA               NA        4.32            NA</span>
+<span class="co">#&gt; 68   sp_076           11.46           182.50        0.99        168.00</span>
+<span class="co">#&gt; 69   sp_077        13499.94           214.24        0.98            NA</span>
+<span class="co">#&gt; 70   sp_078           19.30            19.60        5.54         72.00</span>
+<span class="co">#&gt; 71   sp_079              NA               NA        6.69            NA</span>
+<span class="co">#&gt; 72   sp_080           16.67               NA        5.15            NA</span>
+<span class="co">#&gt; 73   sp_081           29.19            24.97        4.30         72.00</span>
+<span class="co">#&gt; 74   sp_082          284.50            66.35        6.74         85.23</span>
+<span class="co">#&gt; 75   sp_083         1684.21            40.14        7.82            NA</span>
+<span class="co">#&gt; 76   sp_084           78.45            36.49        5.07        120.00</span>
+<span class="co">#&gt; 77   sp_085          975.55            41.49        8.48        168.00</span>
+<span class="co">#&gt; 78   sp_086           20.73            19.74        4.31         58.80</span>
+<span class="co">#&gt; 79   sp_087           36.43               NA        5.01            NA</span>
+<span class="co">#&gt; 80   sp_088           29.99            23.74        5.25         12.00</span>
+<span class="co">#&gt; 81   sp_089              NA               NA          NA            NA</span>
+<span class="co">#&gt; 82   sp_090              NA               NA          NA            NA</span>
+<span class="co">#&gt; 83   sp_091            9.47               NA        1.00        252.00</span>
+<span class="co">#&gt; 84   sp_092           23.82               NA        0.98        237.99</span>
+<span class="co">#&gt; 85   sp_093            5.30               NA          NA            NA</span>
+<span class="co">#&gt; 86   sp_094            8.15            54.99        0.99            NA</span>
+<span class="co">#&gt; 87   sp_095           15.16               NA        1.00        234.00</span>
+<span class="co">#&gt; 88   sp_096            7.63            55.14        1.21        336.00</span>
+<span class="co">#&gt; 89   sp_097            7.56               NA        0.99        216.00</span>
+<span class="co">#&gt; 90   sp_098           25.59            73.00        1.50        264.00</span>
+<span class="co">#&gt; 91   sp_099              NA               NA          NA            NA</span>
+<span class="co">#&gt; 92   sp_100            7.25               NA        0.99        180.00</span>
+<span class="co">#&gt; 93   sp_101              NA               NA          NA            NA</span>
+<span class="co">#&gt; 94   sp_102          188.67            29.18        3.24         54.00</span>
+<span class="co">#&gt; 95   sp_103           45.98               NA        1.82            NA</span>
+<span class="co">#&gt; 96   sp_104           12.47               NA        1.73            NA</span>
+<span class="co">#&gt; 97   sp_105           28.48            72.24        1.33        144.00</span>
+<span class="co">#&gt; 98   sp_106         4214.99            61.84        6.36        168.00</span>
+<span class="co">#&gt; 99   sp_107         1590.57            30.45        5.24        216.00</span>
+<span class="co">#&gt; 100  sp_109            6.07               NA        1.21            NA</span>
+<span class="co">#&gt; 101  sp_110            7.44               NA        1.73         96.00</span>
+<span class="co">#&gt; 102  sp_111            5.30            44.00        1.37        200.40</span>
+<span class="co">#&gt; 103  sp_112              NA               NA          NA            NA</span>
+<span class="co">#&gt; 104  sp_113            8.19            65.12        1.22        360.00</span>
+<span class="co">#&gt; 105  sp_114            6.75               NA          NA        180.00</span>
+<span class="co">#&gt; 106  sp_115              NA               NA          NA            NA</span>
+<span class="co">#&gt; 107  sp_116              NA               NA          NA            NA</span>
+<span class="co">#&gt; 108  sp_117              NA               NA          NA            NA</span>
+<span class="co">#&gt; 109  sp_118       109088.50           222.50        2.00        242.40</span>
+<span class="co">#&gt; 110  sp_119          282.89            21.74        8.99            NA</span>
+<span class="co">#&gt; 111  sp_120          142.68            23.45        5.88         50.40</span>
+<span class="co">#&gt; 112  sp_121           10.29            91.24          NA            NA</span>
+<span class="co">#&gt; 113  sp_122            9.25            92.54        1.00            NA</span>
+<span class="co">#&gt; 114  sp_123           22.59            91.24        0.98        360.00</span>
+<span class="co">#&gt; 115  sp_124            4.57            75.51        1.00        252.00</span>
+<span class="co">#&gt; 116  sp_125           14.03               NA          NA            NA</span>
+<span class="co">#&gt; 117  sp_127        29999.99               NA          NA            NA</span>
+<span class="co">#&gt; 118  sp_128        33266.35           178.32        1.00        264.00</span>
+<span class="co">#&gt; 119  sp_129          333.00            38.00        4.50        144.00</span>
+<span class="co">#&gt; 120  sp_130            8.92            31.50        5.29         48.00</span>
+<span class="co">#&gt; 121  sp_131            8.04               NA        5.95         15.60</span>
+<span class="co">#&gt; 122  sp_132              NA               NA          NA            NA</span>
+<span class="co">#&gt; 123  sp_133            9.18            21.50        6.56         24.00</span>
+<span class="co">#&gt; 124  sp_134            9.32            23.99        4.94         13.50</span>
+<span class="co">#&gt; 125  sp_135            6.39               NA        4.89            NA</span>
+<span class="co">#&gt; 126  sp_137            4.32            23.81        6.04         24.00</span>
+<span class="co">#&gt; 127  sp_138            8.24               NA          NA            NA</span>
+<span class="co">#&gt; 128  sp_139          395.97            27.74        6.48            NA</span>
+<span class="co">#&gt; 129  sp_140            2.26            27.50        4.00         32.40</span>
+<span class="co">#&gt; 130  sp_141        84471.54           115.20        4.52        252.00</span>
+<span class="co">#&gt; 131  sp_142           28.07               NA        0.98            NA</span>
+<span class="co">#&gt; 132  sp_143           71.08               NA          NA            NA</span>
+<span class="co">#&gt; 133  sp_144           87.53            30.41        3.89         84.00</span>
+<span class="co">#&gt; 134  sp_145           49.47               NA          NA            NA</span>
+<span class="co">#&gt; 135  sp_146           92.50               NA          NA            NA</span>
+<span class="co">#&gt; 136  sp_147       196287.50           227.56        2.24        600.00</span>
+<span class="co">#&gt; 137  sp_148           15.42            52.14        1.50        144.00</span>
+<span class="co">#&gt; 138  sp_149         4820.36            52.50        4.59        180.00</span>
+<span class="co">#&gt;     sexual_maturity_age diet_breadth</span>
+<span class="co">#&gt; 1                668.20            1</span>
+<span class="co">#&gt; 2                 76.04           NA</span>
+<span class="co">#&gt; 3                    NA           NA</span>
+<span class="co">#&gt; 4                    NA           NA</span>
+<span class="co">#&gt; 5                 43.27           NA</span>
+<span class="co">#&gt; 6                 57.93            4</span>
+<span class="co">#&gt; 7                    NA           NA</span>
+<span class="co">#&gt; 8                    NA           NA</span>
+<span class="co">#&gt; 9                    NA            3</span>
+<span class="co">#&gt; 10                   NA            1</span>
+<span class="co">#&gt; 11               841.82            2</span>
+<span class="co">#&gt; 12               371.23            6</span>
+<span class="co">#&gt; 13               679.37            1</span>
+<span class="co">#&gt; 14               838.54            2</span>
+<span class="co">#&gt; 15                   NA            2</span>
+<span class="co">#&gt; 16               400.97           NA</span>
+<span class="co">#&gt; 17               659.91            5</span>
+<span class="co">#&gt; 18               371.23           NA</span>
+<span class="co">#&gt; 19                86.48           NA</span>
+<span class="co">#&gt; 20               107.16            3</span>
+<span class="co">#&gt; 21                   NA           NA</span>
+<span class="co">#&gt; 22                66.88            2</span>
+<span class="co">#&gt; 23                   NA           NA</span>
+<span class="co">#&gt; 24                68.97            4</span>
+<span class="co">#&gt; 25               543.28            2</span>
+<span class="co">#&gt; 26                   NA           NA</span>
+<span class="co">#&gt; 27                   NA            4</span>
+<span class="co">#&gt; 28               566.36            5</span>
+<span class="co">#&gt; 29                   NA            1</span>
+<span class="co">#&gt; 30                   NA            1</span>
+<span class="co">#&gt; 31               265.80            8</span>
+<span class="co">#&gt; 32                   NA           NA</span>
+<span class="co">#&gt; 33               352.43           NA</span>
+<span class="co">#&gt; 34               350.76            1</span>
+<span class="co">#&gt; 35              1262.74            6</span>
+<span class="co">#&gt; 36               339.31           NA</span>
+<span class="co">#&gt; 37               756.60            1</span>
+<span class="co">#&gt; 38               729.99            6</span>
+<span class="co">#&gt; 39                78.66            1</span>
+<span class="co">#&gt; 40                   NA            6</span>
+<span class="co">#&gt; 41               172.43            3</span>
+<span class="co">#&gt; 42                   NA           NA</span>
+<span class="co">#&gt; 43                   NA           NA</span>
+<span class="co">#&gt; 44               210.95           NA</span>
+<span class="co">#&gt; 45                   NA           NA</span>
+<span class="co">#&gt; 46                   NA           NA</span>
+<span class="co">#&gt; 47               739.52            1</span>
+<span class="co">#&gt; 48               827.69            3</span>
+<span class="co">#&gt; 49               742.46            1</span>
+<span class="co">#&gt; 50               508.47            1</span>
+<span class="co">#&gt; 51               420.91            1</span>
+<span class="co">#&gt; 52                37.37           NA</span>
+<span class="co">#&gt; 53                38.27           NA</span>
+<span class="co">#&gt; 54                28.19           NA</span>
+<span class="co">#&gt; 55                   NA           NA</span>
+<span class="co">#&gt; 56                   NA           NA</span>
+<span class="co">#&gt; 57                   NA           NA</span>
+<span class="co">#&gt; 58                   NA           NA</span>
+<span class="co">#&gt; 59                   NA           NA</span>
+<span class="co">#&gt; 60                   NA           NA</span>
+<span class="co">#&gt; 61                39.68           NA</span>
+<span class="co">#&gt; 62                   NA           NA</span>
+<span class="co">#&gt; 63                44.86           NA</span>
+<span class="co">#&gt; 64                   NA           NA</span>
+<span class="co">#&gt; 65               101.87           NA</span>
+<span class="co">#&gt; 66                   NA           NA</span>
+<span class="co">#&gt; 67                   NA           NA</span>
+<span class="co">#&gt; 68               666.44            1</span>
+<span class="co">#&gt; 69               295.12            2</span>
+<span class="co">#&gt; 70                64.71            1</span>
+<span class="co">#&gt; 71               103.46            1</span>
+<span class="co">#&gt; 72                40.36           NA</span>
+<span class="co">#&gt; 73               346.11            8</span>
+<span class="co">#&gt; 74                93.09            1</span>
+<span class="co">#&gt; 75               326.63            1</span>
+<span class="co">#&gt; 76               169.99            1</span>
+<span class="co">#&gt; 77               308.50            1</span>
+<span class="co">#&gt; 78                40.91            5</span>
+<span class="co">#&gt; 79                   NA           NA</span>
+<span class="co">#&gt; 80                25.37           NA</span>
+<span class="co">#&gt; 81                   NA           NA</span>
+<span class="co">#&gt; 82                   NA           NA</span>
+<span class="co">#&gt; 83                   NA            1</span>
+<span class="co">#&gt; 84               420.91           NA</span>
+<span class="co">#&gt; 85                   NA           NA</span>
+<span class="co">#&gt; 86               377.57            1</span>
+<span class="co">#&gt; 87                   NA            1</span>
+<span class="co">#&gt; 88               371.23            2</span>
+<span class="co">#&gt; 89               413.84           NA</span>
+<span class="co">#&gt; 90               399.60            1</span>
+<span class="co">#&gt; 91                   NA           NA</span>
+<span class="co">#&gt; 92                   NA            1</span>
+<span class="co">#&gt; 93                   NA           NA</span>
+<span class="co">#&gt; 94                   NA            4</span>
+<span class="co">#&gt; 95                   NA            1</span>
+<span class="co">#&gt; 96                   NA           NA</span>
+<span class="co">#&gt; 97               415.81            1</span>
+<span class="co">#&gt; 98               326.63            6</span>
+<span class="co">#&gt; 99               185.61            2</span>
+<span class="co">#&gt; 100                  NA           NA</span>
+<span class="co">#&gt; 101              105.22           NA</span>
+<span class="co">#&gt; 102              248.48            1</span>
+<span class="co">#&gt; 103                  NA           NA</span>
+<span class="co">#&gt; 104              338.33            1</span>
+<span class="co">#&gt; 105                  NA           NA</span>
+<span class="co">#&gt; 106                  NA           NA</span>
+<span class="co">#&gt; 107                  NA           NA</span>
+<span class="co">#&gt; 108                  NA           NA</span>
+<span class="co">#&gt; 109              758.71            3</span>
+<span class="co">#&gt; 110               55.23            1</span>
+<span class="co">#&gt; 111              115.29            5</span>
+<span class="co">#&gt; 112                  NA            1</span>
+<span class="co">#&gt; 113              845.83           NA</span>
+<span class="co">#&gt; 114              827.69            1</span>
+<span class="co">#&gt; 115              447.26            1</span>
+<span class="co">#&gt; 116                  NA            1</span>
+<span class="co">#&gt; 117                  NA           NA</span>
+<span class="co">#&gt; 118              642.64            2</span>
+<span class="co">#&gt; 119              360.85            5</span>
+<span class="co">#&gt; 120              377.57           NA</span>
+<span class="co">#&gt; 121                  NA           NA</span>
+<span class="co">#&gt; 122                  NA           NA</span>
+<span class="co">#&gt; 123              312.90            5</span>
+<span class="co">#&gt; 124              278.42            1</span>
+<span class="co">#&gt; 125                  NA           NA</span>
+<span class="co">#&gt; 126              353.38            5</span>
+<span class="co">#&gt; 127                  NA           NA</span>
+<span class="co">#&gt; 128              293.89            3</span>
+<span class="co">#&gt; 129                  NA           NA</span>
+<span class="co">#&gt; 130              350.76            5</span>
+<span class="co">#&gt; 131                  NA            1</span>
+<span class="co">#&gt; 132                  NA            1</span>
+<span class="co">#&gt; 133              335.48            1</span>
+<span class="co">#&gt; 134              371.03            1</span>
+<span class="co">#&gt; 135                  NA            1</span>
+<span class="co">#&gt; 136             1327.95            6</span>
+<span class="co">#&gt; 137              371.23            1</span>
+<span class="co">#&gt; 138              321.07            1</span></code></pre></div>
 </div>
 </div>
-<div id="computing-trait-coverages" class="section level2">
-<h2 class="hasAnchor">
-<a href="#computing-trait-coverages" class="anchor"></a>Computing Trait Coverages</h2>
+<div class="section level2">
+<h2 id="computing-trait-coverages">Computing Trait Coverages<a class="anchor" aria-label="anchor" href="#computing-trait-coverages"></a>
+</h2>
 <p>a.k.a, how well are sites covered given the trait data I have?</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"site_species"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"site_locations"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"species_traits"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"site_species"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"site_locations"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"species_traits"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></code></pre></div>
 <p>[…]</p>
-<div id="compute-trait-coverage" class="section level3">
-<h3 class="hasAnchor">
-<a href="#compute-trait-coverage" class="anchor"></a>Compute trait coverage</h3>
+<div class="section level3">
+<h3 id="compute-trait-coverage">Compute trait coverage<a class="anchor" aria-label="anchor" href="#compute-trait-coverage"></a>
+</h3>
 <p>[…]</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Get trait coverage ----</span>
 <span class="va">cover</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_get_coverage.html">fb_get_coverage</a></span><span class="op">(</span><span class="va">site_species</span>, <span class="va">species_traits</span><span class="op">)</span>
 
 <span class="co">## Preview ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">cover</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">cover</span><span class="op">)</span>
 <span class="co">#&gt;    site trait_coverage</span>
 <span class="co">#&gt; 1 fb_33              1</span>
 <span class="co">#&gt; 2 fb_35              1</span>
@@ -632,72 +958,74 @@
 <span class="co">#&gt; 6 fb_39              1</span></code></pre></div>
 <p>[…]</p>
 </div>
-<div id="filter-sites-by-trait-coverage" class="section level3">
-<h3 class="hasAnchor">
-<a href="#filter-sites-by-trait-coverage" class="anchor"></a>Filter sites by trait coverage</h3>
+<div class="section level3">
+<h3 id="filter-sites-by-trait-coverage">Filter sites by trait coverage<a class="anchor" aria-label="anchor" href="#filter-sites-by-trait-coverage"></a>
+</h3>
 <p>[…]</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Get trait coverage ----</span>
 <span class="va">sel_sites</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_filter_coverage.html">fb_filter_coverage</a></span><span class="op">(</span><span class="va">site_species</span>, <span class="va">species_traits</span>, coverage_threshold <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 
 <span class="co">## Preview ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">sel_sites</span><span class="op">[</span> , <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt;       sp_001 sp_002 sp_003 sp_004</span>
-<span class="co">#&gt; fb_33      1      0      0      0</span>
-<span class="co">#&gt; fb_35      1      0      0      0</span>
-<span class="co">#&gt; fb_36      1      0      0      0</span>
-<span class="co">#&gt; fb_37      1      0      0      0</span>
-<span class="co">#&gt; fb_38      1      0      0      0</span>
-<span class="co">#&gt; fb_39      1      0      0      0</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sel_sites</span><span class="op">[</span> , <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span>
+<span class="co">#&gt;    site sp_001 sp_002 sp_003</span>
+<span class="co">#&gt; 1 fb_33      1      0      0</span>
+<span class="co">#&gt; 2 fb_35      1      0      0</span>
+<span class="co">#&gt; 3 fb_36      1      0      0</span>
+<span class="co">#&gt; 4 fb_37      1      0      0</span>
+<span class="co">#&gt; 5 fb_38      1      0      0</span>
+<span class="co">#&gt; 6 fb_39      1      0      0</span></code></pre></div>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Original sites ----</span>
-<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span>
 <span class="co">#&gt; [1] 1505</span>
 
 <span class="co">## Filtered sites ----</span>
-<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">sel_sites</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sel_sites</span><span class="op">)</span>
 <span class="co">#&gt; [1] 1505</span></code></pre></div>
 </div>
 </div>
-<div id="diversity-metrics" class="section level2">
-<h2 class="hasAnchor">
-<a href="#diversity-metrics" class="anchor"></a>Diversity metrics</h2>
+<div class="section level2">
+<h2 id="diversity-metrics">Diversity metrics<a class="anchor" aria-label="anchor" href="#diversity-metrics"></a>
+</h2>
 <p>[…]</p>
-<div id="species-richness" class="section level3">
-<h3 class="hasAnchor">
-<a href="#species-richness" class="anchor"></a>Species Richness</h3>
+<div class="section level3">
+<h3 id="species-richness">Species Richness<a class="anchor" aria-label="anchor" href="#species-richness"></a>
+</h3>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Compute species richness ----</span>
-<span class="va">richness</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">site_species</span>, <span class="fl">1</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&gt;</span> <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="va">richness</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
 <span class="co">## Convert to data frame ----</span>
-<span class="va">richness</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="st">"n_species"</span> <span class="op">=</span> <span class="va">richness</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">richness</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span>
+<span class="va">richness</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>
+  site      <span class="op">=</span> <span class="va">site_species</span><span class="op">[[</span><span class="st">"site"</span><span class="op">]</span><span class="op">]</span>,
+  n_species <span class="op">=</span> <span class="va">richness</span>
+<span class="op">)</span>
 
 <span class="co">## Preview ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">richness</span><span class="op">)</span>
-<span class="co">#&gt;       n_species</span>
-<span class="co">#&gt; fb_33        26</span>
-<span class="co">#&gt; fb_35        29</span>
-<span class="co">#&gt; fb_36        29</span>
-<span class="co">#&gt; fb_37        29</span>
-<span class="co">#&gt; fb_38        28</span>
-<span class="co">#&gt; fb_39        29</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">richness</span><span class="op">)</span>
+<span class="co">#&gt;    site n_species</span>
+<span class="co">#&gt; 1 fb_33        26</span>
+<span class="co">#&gt; 2 fb_35        29</span>
+<span class="co">#&gt; 3 fb_36        29</span>
+<span class="co">#&gt; 4 fb_37        29</span>
+<span class="co">#&gt; 5 fb_38        28</span>
+<span class="co">#&gt; 6 fb_39        29</span></code></pre></div>
 </div>
-<div id="community-weighted-means" class="section level3">
-<h3 class="hasAnchor">
-<a href="#community-weighted-means" class="anchor"></a>Community-Weighted Means</h3>
+<div class="section level3">
+<h3 id="community-weighted-means">Community-Weighted Means<a class="anchor" aria-label="anchor" href="#community-weighted-means"></a>
+</h3>
 <p>[…]</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"site_locations"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"site_species"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"species_traits"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"site_locations"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"site_species"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"species_traits"</span><span class="op">)</span>
 
 <span class="co">## Compute CWM ----</span>
 <span class="va">cwm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_cwm.html">fb_cwm</a></span><span class="op">(</span><span class="va">site_species</span>, <span class="va">species_traits</span><span class="op">)</span>
 
 <span class="co">## Preview ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">cwm</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">cwm</span><span class="op">)</span>
 <span class="co">#&gt;    site               trait cwm</span>
 <span class="co">#&gt; 1 fb_33     adult_body_mass  NA</span>
 <span class="co">#&gt; 2 fb_33    gestation_length  NA</span>
@@ -706,24 +1034,24 @@
 <span class="co">#&gt; 5 fb_33 sexual_maturity_age  NA</span>
 <span class="co">#&gt; 6 fb_33        diet_breadth  NA</span></code></pre></div>
 </div>
-<div id="other-functional-diversity-metrics" class="section level3">
-<h3 class="hasAnchor">
-<a href="#other-functional-diversity-metrics" class="anchor"></a>Other functional diversity metrics</h3>
+<div class="section level3">
+<h3 id="other-functional-diversity-metrics">Other functional diversity metrics<a class="anchor" aria-label="anchor" href="#other-functional-diversity-metrics"></a>
+</h3>
 <p><code>fundiversity</code>, <code>funrar</code>, <code>mFD</code></p>
 <p>[…]</p>
 </div>
 </div>
-<div id="relation-with-environment" class="section level2">
-<h2 class="hasAnchor">
-<a href="#relation-with-environment" class="anchor"></a>Relation with environment</h2>
+<div class="section level2">
+<h2 id="relation-with-environment">Relation with environment<a class="anchor" aria-label="anchor" href="#relation-with-environment"></a>
+</h2>
 <p>[…]</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Available climate rasters ----</span>
-<span class="va">prec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"annual_tot_prec.tif"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
-<span class="va">tavg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"annual_mean_temp.tif"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
+<span class="va">prec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"annual_tot_prec.tif"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
+<span class="va">tavg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"annual_mean_temp.tif"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
 
 <span class="co">## Import climate rasters ----</span>
-<span class="va">layers</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html">rast</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">tavg</span>, <span class="va">prec</span><span class="op">)</span><span class="op">)</span>
+<span class="va">layers</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">tavg</span>, <span class="va">prec</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co">## Preview ----</span>
 <span class="va">layers</span>
@@ -740,16 +1068,14 @@
 <p>[…]</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
-<span class="va">site_locations</span> <span class="op">&lt;-</span> <span class="va">site_locations</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/duplicated.html">duplicated</a></span><span class="op">(</span><span class="va">site_locations</span><span class="op">)</span>,<span class="op">]</span>
-<span class="va">site_locations</span><span class="op">[[</span><span class="st">"site"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">site_locations</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">site_locations</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="cn">NULL</span>
-<span class="va">site_locations</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf</a></span><span class="op">(</span><span class="va">site_locations</span>, coords <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span>
+<span class="va">site_locations</span> <span class="op">&lt;-</span> <span class="va">site_locations</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/duplicated.html" class="external-link">duplicated</a></span><span class="op">(</span><span class="va">site_locations</span><span class="op">)</span>,<span class="op">]</span>
+<span class="va">site_locations</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">site_locations</span>, coords <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">3</span>, crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span>
 
 <span class="co">## Extract environment at sites ----</span>
 <span class="va">sites_env</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_get_environment.html">fb_get_environment</a></span><span class="op">(</span><span class="va">site_locations</span>, <span class="va">layers</span><span class="op">)</span>
 
 <span class="co">## Preview ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">sites_env</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sites_env</span><span class="op">)</span>
 <span class="co">#&gt;    site annual_mean_temp annual_tot_prec</span>
 <span class="co">#&gt; 1 fb_33        6.6840000            2620</span>
 <span class="co">#&gt; 2 fb_35        4.4082499            1818</span>
@@ -760,120 +1086,119 @@
 <p>[…]</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Append information ----</span>
-<span class="va">rich_env</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html">merge</a></span><span class="op">(</span><span class="va">richness</span>, <span class="va">sites_env</span>, by.x <span class="op">=</span> <span class="st">"row.names"</span>, by.y <span class="op">=</span> <span class="st">"site"</span><span class="op">)</span>
+<span class="va">rich_env</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html" class="external-link">merge</a></span><span class="op">(</span><span class="va">richness</span>, <span class="va">sites_env</span>, by <span class="op">=</span> <span class="st">"site"</span><span class="op">)</span>
 
 <span class="co">## Preview ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">rich_env</span><span class="op">)</span>
-<span class="co">#&gt;   Row.names n_species annual_mean_temp annual_tot_prec</span>
-<span class="co">#&gt; 1    fb_100         3         7.508624            1543</span>
-<span class="co">#&gt; 2   fb_1000        50         7.729875             512</span>
-<span class="co">#&gt; 3   fb_1001        49         7.604333             483</span>
-<span class="co">#&gt; 4   fb_1002        49         7.747334             470</span>
-<span class="co">#&gt; 5   fb_1007        22        10.422542            1750</span>
-<span class="co">#&gt; 6   fb_1008        21         9.545042            1274</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">rich_env</span><span class="op">)</span>
+<span class="co">#&gt;      site n_species annual_mean_temp annual_tot_prec</span>
+<span class="co">#&gt; 1  fb_100         3         7.508624            1543</span>
+<span class="co">#&gt; 2 fb_1000        50         7.729875             512</span>
+<span class="co">#&gt; 3 fb_1001        49         7.604333             483</span>
+<span class="co">#&gt; 4 fb_1002        49         7.747334             470</span>
+<span class="co">#&gt; 5 fb_1007        22        10.422542            1750</span>
+<span class="co">#&gt; 6 fb_1008        21         9.545042            1274</span></code></pre></div>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">biplot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">rich_env</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">annual_mean_temp</span>, y <span class="op">=</span> <span class="va">n_species</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Annual mean temperature"</span>, y <span class="op">=</span> <span class="st">"Species richness"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">biplot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">rich_env</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">annual_mean_temp</span>, y <span class="op">=</span> <span class="va">n_species</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Annual mean temperature"</span>, y <span class="op">=</span> <span class="st">"Species richness"</span><span class="op">)</span>
 <span class="va">biplot</span></code></pre></div>
 <p><img src="funbiogeo_files/figure-html/biplot-1.png" width="100%"></p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">biplot</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">biplot</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span>
 <span class="co">#&gt; `geom_smooth()` using formula 'y ~ x'</span></code></pre></div>
 <p><img src="funbiogeo_files/figure-html/biplot-trend-1.png" width="100%"></p>
 </div>
-<div id="visualization" class="section level2">
-<h2 class="hasAnchor">
-<a href="#visualization" class="anchor"></a>Visualization</h2>
-<div id="trait-coverage" class="section level3">
-<h3 class="hasAnchor">
-<a href="#trait-coverage" class="anchor"></a>Trait coverage</h3>
+<div class="section level2">
+<h2 id="visualization">Visualization<a class="anchor" aria-label="anchor" href="#visualization"></a>
+</h2>
+<div class="section level3">
+<h3 id="trait-coverage">Trait coverage<a class="anchor" aria-label="anchor" href="#trait-coverage"></a>
+</h3>
 <p>[…]</p>
 </div>
-<div id="map-of-environment" class="section level3">
-<h3 class="hasAnchor">
-<a href="#map-of-environment" class="anchor"></a>Map of environment</h3>
+<div class="section level3">
+<h3 id="map-of-environment">Map of environment<a class="anchor" aria-label="anchor" href="#map-of-environment"></a>
+</h3>
 <p>[…]</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Read raster ----</span>
-<span class="va">tavg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"annual_mean_temp.tif"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
-<span class="va">tavg</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html">rast</a></span><span class="op">(</span><span class="va">tavg</span><span class="op">)</span>
+<span class="va">tavg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"annual_mean_temp.tif"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
+<span class="va">tavg</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">tavg</span><span class="op">)</span>
 
 <span class="co">## Map of raster ----</span>
 <span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">tavg</span><span class="op">)</span></code></pre></div>
 <p><img src="funbiogeo_files/figure-html/map-tavg-1.png" width="100%"></p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">tavg</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_fill_distiller</a></span><span class="op">(</span><span class="st">"Temperature"</span>, palette <span class="op">=</span> <span class="st">"Spectral"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Mean annual temperature in Pennsylvania"</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_distiller</a></span><span class="op">(</span><span class="st">"Temperature"</span>, palette <span class="op">=</span> <span class="st">"Spectral"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Mean annual temperature in Pennsylvania"</span><span class="op">)</span></code></pre></div>
 <p><img src="funbiogeo_files/figure-html/map-tavg-custom-1.png" width="100%"></p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://patchwork.data-imaginist.com">"patchwork"</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://patchwork.data-imaginist.com" class="external-link">"patchwork"</a></span><span class="op">)</span>
 
 <span class="co">## Read raster ----</span>
-<span class="va">tavg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"annual_mean_temp.tif"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
-<span class="va">tavg</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html">rast</a></span><span class="op">(</span><span class="va">tavg</span><span class="op">)</span>
+<span class="va">tavg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"annual_mean_temp.tif"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
+<span class="va">tavg</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">tavg</span><span class="op">)</span>
 
-<span class="va">prec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"annual_tot_prec.tif"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
-<span class="va">prec</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html">rast</a></span><span class="op">(</span><span class="va">prec</span><span class="op">)</span>
+<span class="va">prec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"annual_tot_prec.tif"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
+<span class="va">prec</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">prec</span><span class="op">)</span>
 
 <span class="co">## Individual Maps ----</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">tavg</span>, legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_fill_distiller</a></span><span class="op">(</span><span class="st">"Temperature"</span>, palette <span class="op">=</span> <span class="st">"Spectral"</span><span class="op">)</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_distiller</a></span><span class="op">(</span><span class="st">"Temperature"</span>, palette <span class="op">=</span> <span class="st">"Spectral"</span><span class="op">)</span>
 
 <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">prec</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_fill_distiller</a></span><span class="op">(</span><span class="st">"Precipitation"</span>, direction <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_distiller</a></span><span class="op">(</span><span class="st">"Precipitation"</span>, direction <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
 
 <span class="co">## Arrangement ----</span>
 <span class="va">figure</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">/</span> <span class="va">y</span>
 
 <span class="va">figure</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_annotation.html">plot_annotation</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Pennsylvania"</span>, 
-                  theme <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>face <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">&amp;</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">&amp;</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span><span class="st">'mono'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_annotation.html" class="external-link">plot_annotation</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Pennsylvania"</span>, 
+                  theme <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>face <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">&amp;</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">&amp;</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span><span class="st">'mono'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="funbiogeo_files/figure-html/composition-map-1.png" width="100%"></p>
 </div>
-<div id="map-of-indices" class="section level3">
-<h3 class="hasAnchor">
-<a href="#map-of-indices" class="anchor"></a>Map of indices</h3>
+<div class="section level3">
+<h3 id="map-of-indices">Map of indices<a class="anchor" aria-label="anchor" href="#map-of-indices"></a>
+</h3>
 <p>[…]</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Upscale to grid ----</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">rich_env</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">rich_env</span><span class="op">[</span> , <span class="fl">1</span><span class="op">]</span>
-<span class="va">rich_env</span> <span class="op">&lt;-</span> <span class="va">rich_env</span><span class="op">[</span> , <span class="st">"n_species"</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>
-
 <span class="va">ras_richness</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data</a></span><span class="op">(</span>site_locations <span class="op">=</span> <span class="va">site_locations</span>, 
                                        site_data      <span class="op">=</span> <span class="va">rich_env</span>, 
                                        agg_grid       <span class="op">=</span> <span class="va">tavg</span><span class="op">)</span>
 
 <span class="va">ras_richness</span>
 <span class="co">#&gt; class       : SpatRaster </span>
-<span class="co">#&gt; dimensions  : 290, 405, 1  (nrow, ncol, nlyr)</span>
+<span class="co">#&gt; dimensions  : 290, 405, 3  (nrow, ncol, nlyr)</span>
 <span class="co">#&gt; resolution  : 0.08333333, 0.08333333  (x, y)</span>
 <span class="co">#&gt; extent      : -10.5, 23.25, 35.83333, 60  (xmin, xmax, ymin, ymax)</span>
 <span class="co">#&gt; coord. ref. : lon/lat WGS 84 (EPSG:4326) </span>
-<span class="co">#&gt; source      : memory </span>
-<span class="co">#&gt; name        : n_species </span>
-<span class="co">#&gt; min value   :         2 </span>
-<span class="co">#&gt; max value   :        68</span></code></pre></div>
+<span class="co">#&gt; sources     : memory  </span>
+<span class="co">#&gt;               memory  </span>
+<span class="co">#&gt;               memory  </span>
+<span class="co">#&gt; names       :  n_species, annual_mean_temp, annual_tot_prec </span>
+<span class="co">#&gt; min values  :   2.000000,        -2.120167,      208.000000 </span>
+<span class="co">#&gt; max values  :   68.00000,         18.03404,      2752.00000</span></code></pre></div>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">ras_richness</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">ras_richness</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></code></pre></div>
 <p><img src="funbiogeo_files/figure-html/map-richness-1.png" width="100%"></p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">ras_richness</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_fill_distiller</a></span><span class="op">(</span><span class="st">"Number of species"</span>, palette <span class="op">=</span> <span class="st">"Spectral"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Trees species richness in Pennsylvania"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">ras_richness</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_distiller</a></span><span class="op">(</span><span class="st">"Number of species"</span>, palette <span class="op">=</span> <span class="st">"Spectral"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Trees species richness in Pennsylvania"</span><span class="op">)</span></code></pre></div>
 <p><img src="funbiogeo_files/figure-html/map-richness-custom-1.png" width="100%"></p>
 </div>
 </div>
-<div id="references" class="section level2">
-<h2 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h2>
-<p>Violle C, Reich, PB Pacala SW, <em>et al.</em> (2014) The emergence and promise of functional biogeography. <em>Proceedings of the National Academy of Sciences</em>, <strong>111</strong>, 13690–13696. DOI: <a href="https://doi.org/10.1073/pnas.1415442111">10.1073/pnas.1415442111</a></p>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<p>Violle C, Reich, PB Pacala SW, <em>et al.</em> (2014) The emergence and promise of functional biogeography. <em>Proceedings of the National Academy of Sciences</em>, <strong>111</strong>, 13690–13696. DOI: <a href="https://doi.org/10.1073/pnas.1415442111" class="external-link">10.1073/pnas.1415442111</a></p>
 </div>
   </div>
 
@@ -888,11 +1213,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Nicolas Casajus, Matthias Grénié, Kévin Cazelles.</p>
+  <p></p>
+<p>Developed by Nicolas Casajus, Matthias Grénié, Kévin Cazelles.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -900,6 +1227,8 @@
 
   
 
+
+  
 
   </body>
 </html>
