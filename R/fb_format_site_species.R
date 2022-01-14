@@ -16,7 +16,8 @@
 #' @param na_to_zero a logical value. If `TRUE` (default) NA are replaced by 
 #'   `0`.
 #'
-#' @return A matrix with sites in rows and species in columns.
+#' @return A data.frame with sites in rows and species in columns. The first
+#'   column is named `"site"` and contains the name of the sites.
 #' 
 #' @export
 #'
@@ -152,20 +153,18 @@ fb_format_site_species <- function(data, site, species, value,
   ## Cleanup ----
   
   data_wider <- as.data.frame(data_wider)
-  rownames(data_wider) <- data_wider[ , site]
-  
-  data_wider <- data_wider[ , -1]
-  
-  
-  ## Convert to matrix ----
-  
-  data_wider <- data.matrix(data_wider, rownames.force = TRUE)
   
   
   ## Replace NA by 0 ----
   
   if (na_to_zero) {
-    data_wider <- ifelse(is.na(data_wider), 0, data_wider)
+    
+    # Make a list of columns where to replace NA values by 0
+    col_list <- colnames(data_wider)[-1]
+    vect_value <- as.list(rep_len(0, length(col_list)))
+    names(vect_value) <- col_list
+    
+    data_wider <- tidyr::replace_na(data_wider, vect_value)
   }
   
   data_wider

@@ -6,7 +6,7 @@
 #'   A single or multi-layers environmental raster.
 #'
 #' @return A `data.frame` with average environmental values (columns) per site
-#' (rows).
+#' (rows), with the first column being `"site"` indicating site names.
 #' 
 #' @export
 #' 

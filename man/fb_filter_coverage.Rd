@@ -7,13 +7,14 @@
 fb_filter_coverage(site_species, species_traits, coverage_threshold = 1)
 }
 \arguments{
-\item{site_species}{a \code{matrix} or \code{data.frame} with sites in rows and
-species in columns. Rows names (sites) and columns names (species) must be
-defined.}
+\item{site_species}{a \code{data.frame} with sites in rows and species in columns.
+The first column should be named \code{"site"} and contain site names. The other
+columns should be named according to species names.}
 
-\item{species_traits}{a \code{matrix} or \code{data.frame} with species in rows and
-traits in columns. Rows names (species) and columns names (traits) must be
-defined.}
+\item{species_traits}{a \code{data.frame} with species in rows and
+traits as columns. The first column should be named \code{"species"}
+and contain species names. The other columns should be named according
+to trait names.}
 
 \item{coverage_threshold}{a numeric of length 1 between 0 and 1. The
 percentage trait coverage threshold}

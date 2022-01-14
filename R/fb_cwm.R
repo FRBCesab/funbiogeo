@@ -33,46 +33,45 @@ fb_cwm <- function(site_species, species_traits) {
   }
   
   check_site_species(site_species)
-  
   check_species_traits(species_traits)
   
   
-  # Get species in common between both matrices ----
+  # Get species in common between both matrices --------------------------------
   
-  species <- list_common_species(colnames(site_species), 
-                                 rownames(species_traits))
-  
-  
-  # Select quantitative traits for CWM ---
-  
-  quanti_traits  <- apply(species_traits, 2, is.numeric)
-  species_traits <- species_traits[ , quanti_traits, drop = FALSE]
+  species <- list_common_species(colnames(site_species),
+                                 species_traits[["species"]])
   
   
-  # Convert to matrix -----
+  # Select quantitative traits for CWM -----------------------------------------
   
-  species_traits <- data.matrix(species_traits)
-  site_species   <- data.matrix(site_species)
+  quanti_traits  <- vapply(species_traits, is.numeric, TRUE)
+  quanti_traits[["species"]] <- TRUE
+  species_traits <- species_traits[, quanti_traits, drop = FALSE]
   
-  if (identical(as.logical(species_traits), logical(0))) {
+  
+  # Convert to matrix ----------------------------------------------------------
+  
+  if (sum(quanti_traits) <= 1) {
     stop("CWM can only be computed on numeric traits", call. = FALSE)
   }
   
   
-  # Total sites abundances ----
+  # Total sites abundances -----------------------------------------------------
   
   total_abund <- rowSums(site_species[ , species, drop = FALSE])
   
   
-  # Compute CWM ----
+  # Compute CWM ----------------------------------------------------------------
   
-  cwm <- (site_species[ , species, drop = FALSE] / total_abund) %*%
-    species_traits[species, , drop = FALSE]
+  cwm <- (as.matrix(site_species[ , species, drop = FALSE]) / total_abund) %*%
+    as.matrix(
+      species_traits[species_traits[["species"]] %in% species, -1, drop = FALSE]
+    )
   
   
-  # Reformat CWM in good way (tidy format) ----
+  # Reformat CWM in good way (tidy format) -------------------------------------
   
-  col_names <- expand.grid(colnames(cwm), rownames(cwm))
+  col_names <- expand.grid(colnames(cwm), site_species[["site"]])
   
   data.frame("site"  = col_names[ , 2], 
              "trait" = col_names[ , 1],

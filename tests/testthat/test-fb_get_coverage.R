@@ -1,67 +1,82 @@
+# Abundance matrix
+site_species  <- data.frame(
+  site = letters[1:5],
+  sp1  = c(0, 0, 10, 0, 0),
+  sp2  = c(1, 10, 0, 25, 40),
+  sp3  = c(22, 8, 3, 0, 12),
+  sp4  = c(3, 0, 2, 12, 0)
+)
+species_traits <- data.frame(
+  species = paste0("sp", 1:4),
+  t1      = c(1.1, 2.5, 100, 400)
+)
+
+# Occurrence matrix
+occ_dat <- data.frame(
+  site = letters[1:5],
+  sp1  = c(0, 0, 1, 0, 0),
+  sp2  = c(1, 1, 0, 1, 1),
+  sp3  = c(1, 1, 1, 0, 1),
+  sp4  = c(1, 0, 1, 1, 0)
+)
+
+# Relative cover matrix
+rel_dat <- site_species[,2:5]/rowSums(site_species[,2:5])
+rel_dat[["site"]] <- site_species[["site"]]
+rel_dat <- rel_dat[, c(5, 1:4)]
+
 test_that("fb_get_coverage() works", {
-  
-  
-  site_species  <- matrix(c(1, 10, 10, 1, 10, 1), ncol = 3)
-  species_traits <- matrix(c(1.1, 2.5, 100, 400), ncol = 2)
-  
   
   # Wrong inputs ----
   
   expect_error(
     fb_get_coverage(species_traits = species_traits),
-    "Argument 'site_species' (site x species matrix) is required",
+    "Argument 'site_species' (site x species data.frame) is required",
     fixed = TRUE
   )
   
   expect_error(
     fb_get_coverage(site_species = site_species),
-    "Argument 'species_traits' (species x traits matrix) is required",
+    "Argument 'species_traits' (species x traits data.frame) is required",
     fixed = TRUE
   )
   
   expect_error(
-    fb_get_coverage(site_species, species_traits),
-    "The site x species object must have row names (sites names)",
-    fixed = TRUE
-  )
-  
-  rownames(site_species) <- paste0("site_", seq_len(nrow(site_species)))
-  
-  expect_error(
-    fb_get_coverage(site_species, species_traits),
+    {
+      sp2 <- site_species
+      colnames(sp2) <- NULL
+      fb_get_coverage(sp2, species_traits)
+    },
     "The site x species object must have column names (species names)",
     fixed = TRUE
   )
   
-  colnames(site_species) <- paste0("species_", LETTERS[
-    seq_len(ncol(site_species))])
-  
   expect_error(
-    fb_get_coverage(site_species, species_traits),
-    "The species x traits object must have row names (species names)",
+    {
+      st2 <- species_traits
+      colnames(st2) <- NULL
+      fb_get_coverage(site_species, st2)
+    },
+    "The species x traits object must have column names (trait names)",
     fixed = TRUE
   )
   
-  rownames(species_traits) <- paste0("species_", 
-                                     LETTERS[seq_len(ncol(species_traits))])
-  
   expect_error(
-    fb_get_coverage(site_species, species_traits),
-    "The species x traits object must have column names (traits names)",
+    fb_get_coverage(site_species[,-1], species_traits),
+    "The site x species object must contain the 'site' column",
     fixed = TRUE
   )
   
-  colnames(species_traits) <- paste0("trait_", seq_len(ncol(species_traits)))
-  
+  expect_error(
+    fb_get_coverage(site_species, species_traits[,-1, drop = FALSE]),
+    "The species x traits object must contain the 'species' column",
+    fixed = TRUE
+  )
   
   # No species in common ----
   
-  rownames(species_traits) <- paste0("species_", 
-                                     LETTERS[10 + 
-                                               (seq_len(ncol(species_traits)))])
-  
   expect_error(
-    fb_get_coverage(site_species, species_traits),
+    fb_get_coverage(site_species[, 1:2], species_traits[3:4,]),
     "No species found in common between inputs",
     fixed = TRUE
   )
@@ -69,12 +84,11 @@ test_that("fb_get_coverage() works", {
   
   # Trait with NAs ----
   
-  expect_silent(
-    test_coverage <- fb_get_coverage(
-      site_species  = matrix(1, dimnames = list("s1", "a")),
-      species_traits = matrix(NA_real_, dimnames = list("a", "t1"))
-    )
-  )
+  expect_silent({
+    st3 <- species_traits
+    st3[1, 2] <- NA
+    test_coverage <- fb_get_coverage(site_species[1,,drop = FALSE], st3)
+  })
   
   
   # Check output format ----
@@ -83,90 +97,56 @@ test_that("fb_get_coverage() works", {
   expect_named(test_coverage, c("site", "trait_coverage"))
   expect_type(test_coverage$"site", "character")
   expect_type(test_coverage$"trait_coverage", "double")
-  expect_equal(test_coverage$"site", "s1")
+  expect_equal(test_coverage$"site", "a")
   expect_equal(test_coverage$"trait_coverage", 1)
   
   
   # Occurrence matrix ----
   # (with only species for which we have traits)
   
-  expect_silent(
-    test_coverage <- fb_get_coverage(
-      site_species  = matrix(c(1, 0, 1), nrow = 1, ncol = 3,
-                              dimnames = list("s1", letters[1:3])),
-      species_traits = matrix(1, nrow = 3, ncol = 1,
-                              dimnames = list(letters[1:3], "t1")))
-  )
+  expect_silent(test_coverage <- fb_get_coverage(occ_dat, species_traits))
   
-  expect_equal(test_coverage$"trait_coverage", 1)
+  expect_equal(test_coverage[["trait_coverage"]][[1]], 1)
   
   
   # Occurrence matrix ----
   # (with species for which we don't have all the traits)
   
-  expect_silent(
-    test_coverage <- fb_get_coverage(
-      site_species  = matrix(c(1, 0, 1, 1), nrow = 1, ncol = 4, 
-                              dimnames = list("s1", letters[1:4])),
-      species_traits = matrix(1, nrow = 3, ncol = 1,
-                              dimnames = list(letters[1:3], "t1")))
-  )
+  expect_silent(test_coverage <- fb_get_coverage(occ_dat, species_traits[1:3,]))
   
-  expect_equal(test_coverage$"trait_coverage", 2 / 3)
+  expect_equal(test_coverage[["trait_coverage"]][[1]], 2 / 3)
   
   
   # Abundance matrix ----
   # (with only species for which we have traits)
   
-  expect_silent(
-    test_coverage <- fb_get_coverage(
-      site_species  = matrix(c(5, 0, 5), nrow = 1, ncol = 3,
-                              dimnames = list("s1", letters[1:3])),
-      species_traits = matrix(1, nrow = 3, ncol = 1,
-                              dimnames = list(letters[1:3], "t1")))
-  )
+  expect_silent(test_coverage <- fb_get_coverage(site_species, species_traits))
   
-  expect_equal(test_coverage$"trait_coverage", 1)
+  expect_equal(test_coverage[["trait_coverage"]][[1]], 1)
   
   
   # Abundance matrix ----
   # (with species for which we don't have all the traits)
- 
+  
   expect_silent(
-    test_coverage <- fb_get_coverage(
-      site_species  = matrix(c(5, 0, 5, 5), nrow = 1, ncol = 4,
-                              dimnames = list("s1", letters[1:4])),
-      species_traits = matrix(1, nrow = 3, ncol = 1,
-                              dimnames = list(letters[1:3], "t1")))
+    test_coverage <- fb_get_coverage(site_species, species_traits[1:3,])
   )
   
-  expect_equal(test_coverage$"trait_coverage", 2 / 3)
+  expect_equal(test_coverage[["trait_coverage"]][[4]], 25/ 37)
   
   
   # Coverage matrix ----
   # (with only species for which we have traits)
   
-  expect_silent(
-    test_coverage <- fb_get_coverage(
-      site_species  = matrix(c(0.3, 0, 0.3), nrow = 1, ncol = 3,
-                              dimnames = list("s1", letters[1:3])),
-      species_traits = matrix(1, nrow = 3, ncol = 1,
-                              dimnames = list(letters[1:3], "t1")))
-  )
+  expect_silent(test_coverage <- fb_get_coverage(rel_dat, species_traits))
   
-  expect_equal(test_coverage$"trait_coverage", 1)
+  expect_equal(test_coverage[["trait_coverage"]][[1]], 1)
   
   
   # Coverage matrix ----
   # (with species for which we don't have all the traits)
   
-  expect_silent(
-    test_coverage <- fb_get_coverage(
-      site_species  = matrix(c(0.3, 0, 0.3, 0.3), nrow = 1, ncol = 4,
-                              dimnames = list("s1", letters[1:4])),
-      species_traits = matrix(1, nrow = 3, ncol = 1,
-                              dimnames = list(letters[1:3], "t1")))
-  )
+  expect_silent(test_coverage <- fb_get_coverage(rel_dat, species_traits[1:3,]))
   
-  expect_equal(test_coverage$"trait_coverage", 2 / 3)
+  expect_equal(test_coverage[["trait_coverage"]][[4]], 25/ 37)
 })

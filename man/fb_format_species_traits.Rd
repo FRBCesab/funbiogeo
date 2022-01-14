@@ -4,10 +4,10 @@
 \alias{fb_format_species_traits}
 \title{Format species x traits object}
 \usage{
-fb_format_species_traits(data, species, traits)
+fb_format_species_traits(data_long, species, traits)
 }
 \arguments{
-\item{data}{a \code{data.frame} in a long format (see example).}
+\item{data_long}{a \code{data.frame} in a long format (see example).}
 
 \item{species}{a character of length 1. Name of the column with species
 names.}
@@ -15,7 +15,8 @@ names.}
 \item{traits}{a character of length >= 1. Name(s) of trait column(s).}
 }
 \value{
-A \code{data.frame} with species in rows and traits in columns.
+A \code{data.frame} with species in rows and traits in columns, with the
+first column names \code{"species"} containing the species names
 }
 \description{
 ...

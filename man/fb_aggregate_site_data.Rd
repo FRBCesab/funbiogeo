@@ -11,8 +11,8 @@ fb_aggregate_site_data(site_locations, site_data, agg_grid, fun = mean)
 
 \item{site_data}{a \code{matrix} or \code{data.frame} containing values per sites to
 aggregate along the provided grid. Can have one or several columns
-(variables to aggregate). Row names must  contain sites names as provided
-as \code{site_locations}.}
+(variables to aggregate). The first column must contain sites names as
+provided in the example dataset \code{site_locations}.}
 
 \item{agg_grid}{a \code{SpatRaster} object (package \code{terra}).
 A raster of one single layer, that defines the grid along which

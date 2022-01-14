@@ -1,22 +1,22 @@
 #' Check site x species object format
 #'
 #' @description
-#' The object should be either a `data.frame` or a `matrix` with only positive
-#' real numbers or `NA` (of the good type!).
+#' The object should be a `data.frame` with only positive real numbers or `NA`
+#' (of the good type!). The `data.frame` should also contain a column named
+#' `"site"` containing site names.
 #' 
-#' @param site_species A site x species object (`data.frame` or a `matrix`).
+#' @param site_species A site x species object (`data.frame`).
 #'
-#' @return NULL
+#' @return `NULL` if object passes the check, errors otherwise.
 #' 
 #' @noRd
 
 check_site_species <- function(site_species) {
 
+  # Check object type ----------------------------------------------------------
   
-  # Check object type ----
-  
-  if (!is.data.frame(site_species) & !is.matrix(site_species)) {
-    stop("The site x species object must be a matrix or a data.frame", 
+  if (!is.data.frame(site_species)) {
+    stop("The site x species object must be a data.frame", 
          call. = FALSE)
   }
   
@@ -26,45 +26,25 @@ check_site_species <- function(site_species) {
   }
   
   
-  # Check for labels (sites and species) ----
-
-  if (is.matrix(site_species)) {
-    
-    if (is.null(rownames(site_species))) {
-      stop("The site x species object must have row names (sites names)", 
-           call. = FALSE)
-    }
-    
-    if (is.null(colnames(site_species))) {
-      stop("The site x species object must have column names (species names)",
-           call. = FALSE)
-    }
-  }
-  
+  # Check for labels (sites and species) ---------------------------------------
   
   if (is.data.frame(site_species)) {
     
-    if (any(rownames(site_species) %in% seq_len(nrow(site_species)))) {
-      stop("The site x species object must have row names (sites names)", 
-           call. = FALSE)
-    }
-    
-    if (any(colnames(site_species) %in% 
-            paste0("V", seq_len(nrow(site_species))))) {
-      stop("The site x species object must have column names (species names)", 
-           call. = FALSE)
-    }
-    
     if (is.null(colnames(site_species))) {
       stop("The site x species object must have column names (species names)",
            call. = FALSE)
     }
+    
+    if (!("site" %in% colnames(site_species))) {
+      stop("The site x species object must contain the 'site' column", 
+           call. = FALSE)
+    }
+    
+    
   }
   
-  if (!is.numeric(as.matrix(site_species))) {
-    stop("The site x species object must contain only numeric values. Sites ", 
-         "names must be provided as row names", call. = FALSE)
-  }
+  
+  # Check for negative values --------------------------------------------------
   
   if (any(site_species < 0, na.rm = TRUE)) {
     stop("The site x species object cannot contain negative values", 
@@ -79,21 +59,21 @@ check_site_species <- function(site_species) {
 #' Check species x traits object format
 #' 
 #' @description
-#' The object should be either a `data.frame` or a `matrix`.
+#' The object should be a `data.frame` containing a column named `"species"`
+#' containing species names.
 #' 
-#' @param species_traits A species x traits object (`data.frame` or a `matrix`)
+#' @param species_traits A species x traits object (a `data.frame`)
 #'
-#' @return NULL
+#' @return `NULL` if object passes the check, errors otherwise.
 #'
 #' @noRd
 
 check_species_traits <- function(species_traits) {
   
+  # Check object type ----------------------------------------------------------
   
-  # Check object type ----
-  
-  if (!is.data.frame(species_traits) & !is.matrix(species_traits)) {
-    stop("The species x traits object must be a matrix or a data.frame", 
+  if (!is.data.frame(species_traits)) {
+    stop("The species x traits object must be a data.frame", 
          call. = FALSE)
   }
   
@@ -103,39 +83,20 @@ check_species_traits <- function(species_traits) {
   }
   
   
-  # Check for labels (sites and species) ----
-  
-  if (is.matrix(species_traits)) {
-    
-    if (is.null(rownames(species_traits))) {
-      stop("The species x traits object must have row names (species names)", 
-           call. = FALSE)
-    }
-    
-    if (is.null(colnames(species_traits))) {
-      stop("The species x traits object must have column names (traits names)",
-           call. = FALSE)
-    }
-  }
-  
+  # Check for labels (sites and species) ---------------------------------------
   
   if (is.data.frame(species_traits)) {
     
-    if (any(rownames(species_traits) %in% seq_len(nrow(species_traits)))) {
-      stop("The species x traits object must have row names (species names)", 
-           call. = FALSE)
-    }
-    
-    if (any(colnames(species_traits) %in% 
-            paste0("V", seq_len(ncol(species_traits))))) {
-      stop("The species x traits object must have column names (traits names)",
-           call. = FALSE)
-    }
-    
     if (is.null(colnames(species_traits))) {
-      stop("The species x traits object must have column names (traits names)",
+      stop("The species x traits object must have column names (trait names)",
            call. = FALSE)
     }
+    
+    if (!("species" %in% colnames(species_traits))) {
+      stop("The species x traits object must contain the 'species' column",
+           call. = FALSE)
+    }
+    
   }
   
   invisible(NULL)

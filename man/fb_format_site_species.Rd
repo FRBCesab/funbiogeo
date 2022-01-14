@@ -21,7 +21,8 @@ occurrence/abundance.}
 \code{0}.}
 }
 \value{
-A matrix with sites in rows and species in columns.
+A data.frame with sites in rows and species in columns. The first
+column is named \code{"site"} and contains the name of the sites.
 }
 \description{
 ...

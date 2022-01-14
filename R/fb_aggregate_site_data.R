@@ -10,8 +10,8 @@
 
 #' @param site_data a `matrix` or `data.frame` containing values per sites to 
 #'   aggregate along the provided grid. Can have one or several columns
-#'   (variables to aggregate). Row names must  contain sites names as provided
-#'   as `site_locations`.
+#'   (variables to aggregate). The first column must contain sites names as
+#'   provided in the example dataset `site_locations`.
 #'
 #' @param agg_grid a `SpatRaster` object (package `terra`).
 #'   A raster of one single layer, that defines the grid along which
@@ -64,27 +64,6 @@ fb_aggregate_site_data <- function(site_locations, site_data, agg_grid,
          call. = FALSE)
   }
   
-  if (is.matrix(site_data)) {
-    
-    if (is.null(rownames(site_data))) {
-      stop("Argument 'site_data' must have row names (sites names)", 
-           call. = FALSE)
-    }
-  }
-  
-  if (is.data.frame(site_data)) {
-    
-    if (any(rownames(site_data) %in% seq_len(nrow(site_data)))) {
-      stop("Argument 'site_data' must have row names (sites names)", 
-           call. = FALSE)
-    }
-  }
-  
-  if (!is.numeric(as.matrix(site_data))) {
-    stop("Argument 'site_data' must contain only numeric values. Sites ", 
-         "names must be provided as row names", call. = FALSE)
-  }
-  
   if (missing(agg_grid)) {
     stop("Argument 'agg_grid' is required", call. = FALSE)
   }
@@ -108,8 +87,7 @@ fb_aggregate_site_data <- function(site_locations, site_data, agg_grid,
   
   # Merge sites info -----------------------------------------------------------
   
-  site_locations <- merge(site_locations, site_data, by.x = "site",
-                           by.y = "row.names")
+  site_locations <- merge(site_locations, site_data, by = "site")
   
   
   # Reproject sites if required ------------------------------------------------

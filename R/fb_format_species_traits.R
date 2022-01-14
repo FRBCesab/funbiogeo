@@ -3,14 +3,15 @@
 #' @description
 #' ...
 #'
-#' @param data a `data.frame` in a long format (see example).
+#' @param data_long a `data.frame` in a long format (see example).
 #' 
 #' @param species a character of length 1. Name of the column with species 
 #'   names.
 #' 
 #' @param traits a character of length >= 1. Name(s) of trait column(s).
 #'
-#' @return A `data.frame` with species in rows and traits in columns.
+#' @return A `data.frame` with species in rows and traits in columns, with the
+#'   first column names `"species"` containing the species names
 #' 
 #' @export
 #'
@@ -29,25 +30,25 @@
 #' species_traits <- fb_format_species_traits(all_data, "species", traits)
 #' species_traits
 
-fb_format_species_traits <- function(data, species, traits) {
+fb_format_species_traits <- function(data_long, species, traits) {
   
   ## Check inputs ----
   
-  if (missing(data)) {
-    stop("Argument 'data' is required", call. = FALSE)
+  if (missing(data_long)) {
+    stop("Argument 'data_long' is required", call. = FALSE)
   }
   
-  if (!is.data.frame(data)) {
-    stop("Argument 'data' must be a data.frame", call. = FALSE)
+  if (!is.data.frame(data_long)) {
+    stop("Argument 'data_long' must be a data.frame", call. = FALSE)
   }
   
-  if (ncol(data) == 0) {
-    stop("Argument 'data' must be a data.frame with at least one column",
+  if (ncol(data_long) == 0) {
+    stop("Argument 'data_long' must be a data.frame with at least one column",
          call. = FALSE)
   }
   
-  if (nrow(data) == 0) {
-    stop("Argument 'data' must be a data.frame with at least one row",
+  if (nrow(data_long) == 0) {
+    stop("Argument 'data_long' must be a data.frame with at least one row",
          call. = FALSE)
   }
   
@@ -66,8 +67,8 @@ fb_format_species_traits <- function(data, species, traits) {
          call. = FALSE)
   }
   
-  if (!(species %in% colnames(data))) {
-    stop(paste0("The column '", species, "' is absent from 'data'"), 
+  if (!(species %in% colnames(data_long))) {
+    stop(paste0("The column '", species, "' is absent from 'data_long'"), 
          call. = FALSE)
   }
   
@@ -81,36 +82,44 @@ fb_format_species_traits <- function(data, species, traits) {
          call. = FALSE)
   }
   
-  if (any(!(traits %in% colnames(data)))) {
-    stop("Some traits columns are absent from 'data'", call. = FALSE)
+  if (any(!(traits %in% colnames(data_long)))) {
+    stop("Some traits columns are absent from 'data_long'", call. = FALSE)
   }
 
   
   ## Select columns ----
   
-  data <- data[ , c(species, traits)]
+  data_long <- data_long[ , c(species, traits)]
   
   
   ## Replace non-alphanumeric characters ----
 
-  data[ , species] <- gsub("\\s|[[:punct:]]", "_", data[ , species])
-  data[ , species] <- gsub("_{1,}", "_", data[ , species])
-  data[ , species] <- gsub("^_|_$", "", data[ , species])
+  data_long[ , species] <- gsub("\\s|[[:punct:]]", "_", data_long[ , species])
+  data_long[ , species] <- gsub("_{1,}", "_", data_long[ , species])
+  data_long[ , species] <- gsub("^_|_$", "", data_long[ , species])
   
   
   ## Get unique traits values per species ----
   
-  traits_values <- list()
+  trait_values <- vector("list", length(traits))
+  names(trait_values) <- traits
   
   for (trait in traits) {
     
-    traits_values[[trait]] <- tapply(data[ , trait], data[ , species], 
+    trait_values[[trait]] <- tapply(data_long[ , trait], data_long[ , species], 
                                      function(x) unique(x))
     
-    if (length(unique(unlist(lapply(traits_values[[trait]], length)))) > 1) {
+    if (length(unique(unlist(lapply(trait_values[[trait]], length)))) > 1) {
       stop("Some species have non-unique trait values", call. = FALSE)
     }
   }
   
-  data.frame(traits_values)
+  trait_values_df <- data.frame(trait_values)
+  
+  # Add the 'species' column
+  trait_values_df[["species"]] <- row.names(trait_values_df)
+  row.names(trait_values_df) <- NULL
+  
+  # Reorder columns to have species column first
+  trait_values_df[, c(ncol(trait_values_df), seq(ncol(trait_values_df) - 1))]
 }
