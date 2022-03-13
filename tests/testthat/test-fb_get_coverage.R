@@ -1,5 +1,5 @@
-# Preliminary data -------------------------------------------------------------
 
+# Preliminary data -------------------------------------------------------------
 # Abundance matrix
 site_species  <- data.frame(
   site = letters[1:5],
@@ -8,6 +8,7 @@ site_species  <- data.frame(
   sp3  = c(22, 8, 3, 0, 12),
   sp4  = c(3, 0, 2, 12, 0)
 )
+
 
 # Data with only numeric traits
 species_traits <- data.frame(
@@ -160,7 +161,6 @@ test_that("fb_get_coverage() works with abundance matrices", {
   
   expect_equal(test_coverage[["trait_coverage"]][[1]], 1)
   
-
   # (with species for which we don't have all the traits)
   expect_silent(
     test_coverage <- fb_get_coverage(site_species, species_traits[1:3,])
@@ -217,6 +217,6 @@ test_that("fb_get_coverage() works with coverage matrices", {
   expect_silent(
     test_coverage <- fb_get_coverage(rel_dat, species_traits_2[1:3,])
   )
-  
+
   expect_equal(test_coverage[["trait_coverage"]][[4]], 25/ 37)
 })

@@ -189,7 +189,6 @@ test_that("fb_filter_coverage() works with occurrence matrices", {
   expect_equal(nrow(test_coverage), 0L)
   expect_equal(ncol(test_coverage), 5L)
   
-  
   # Lower threshold
   expect_silent(
     test_coverage <- fb_filter_coverage(
@@ -258,7 +257,7 @@ test_that("fb_filter_coverage() works with abundance matrices", {
   expect_true(is.data.frame(test_coverage))
   expect_equal(nrow(test_coverage), 0L)
   expect_equal(ncol(test_coverage), 5L)
-  
+
   
   # Lower threshold
   expect_silent(
@@ -275,7 +274,6 @@ test_that("fb_filter_coverage() works with abundance matrices", {
 # Cover matrix ---------------------------------------------------------------
 
 test_that("fb_filter_coverage() works with cover matrices", {
-  
   ## Only numeric trait
   # (with only species for which we have species_traits)
   expect_silent(test_coverage <- fb_filter_coverage(rel_dat, species_traits))
@@ -313,7 +311,6 @@ test_that("fb_filter_coverage() works with cover matrices", {
   expect_silent(test_coverage <- fb_filter_coverage(rel_dat, species_traits_2))
   
   expect_identical(test_coverage, rel_dat)
-  
   
   # (with species for which we don't have all the species_traits_2)
   expect_message(

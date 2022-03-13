@@ -62,7 +62,7 @@ check_site_species <- function(site_species) {
 #' The object should be a `data.frame` containing a column named `"species"`
 #' containing species names.
 #' 
-#' @param species_traits A species x traits object (`data.frame` or a `matrix`)
+#' @param species_traits A species x traits object (a `data.frame`)
 #'
 #' @return `NULL` if object passes the check, errors otherwise.
 #'
