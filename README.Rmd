@@ -15,8 +15,7 @@ knitr::opts_chunk$set(
 
 
 
-funbiogeo
-==========================
+# funbiogeo <img src="man/figures/funbiogeo-sticker.png" align="right" style="float:right; height:120px;"/>
 
 
 <!-- badges: start -->
