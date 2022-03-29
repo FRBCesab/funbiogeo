@@ -1,6 +1,7 @@
 #'
 #' Create an Hexagonal Sticker for the Package
 #'
+
 library("magrittr")
 
 ## Robinson projection ----
@@ -18,7 +19,7 @@ world <- subset(sf::st_transform(world, prj), region_wb != "Antarctica",
 
 ## Raster ----
 
-ras <- geodata::worldclim_global("tavg", 10, "inst/sticker/")
+ras <- geodata::worldclim_global("tavg", 10, here::here("inst", "sticker"))
 
 # Keep July Mean Temperature as target raster
 target_raster <- ras[[7]]
@@ -32,8 +33,7 @@ sf_rast <- target_raster %>%
 
 ## Silhouette ----
 
-sil <- png::readPNG(here::here("inst", "sticker", "plant-silhouette.png"))
-sil <- grid::rasterGrob(sil, interpolate = TRUE)
+sil <- rphylopic::image_data("f20144d1-d243-4cca-aba2-24bce6c81d42", size = 512)[[1]]
 
 
 ## Map ----
@@ -47,28 +47,27 @@ p <- ggplot2::ggplot() +
   ggplot2::coord_sf(ylim = c(-6145789, 8611877), expand = FALSE, crs  = prj,
                     clip = "off") +
   
-  ggplot2::annotation_custom(sil, 
-                             xmin = -16000000, xmax = -14000000, 
-                             ymin =  -6000000, ymax =  -5000000) +
-  ggplot2::annotation_custom(sil, 
-                             xmin = -16000000, xmax = -14000000, 
-                             ymin =   7000000, ymax =   8000000) +
-  ggplot2::annotation_custom(sil, 
-                             xmin = -17000000, xmax = -13000000,
-                             ymin =  -2000000, ymax =   4000000) +
+  rphylopic::add_phylopic(sil, 1,        0, -6000000, ysize =  750000, color = "#46125C") + 
+  rphylopic::add_phylopic(sil, 1,  4000000, -6000000, ysize = 1500000, color = "#1C9587") + 
+  rphylopic::add_phylopic(sil, 1,  9000000, -6000000, ysize = 3000000, color = "#DCE24D") + 
   
-  ggplot2::geom_segment(ggplot2::aes(x    = -15000000, y    = -1250000, 
-                                     xend = -15000000, yend = -4500000),
-                        
-                        arrow = ggplot2::arrow(length = ggplot2::unit(0.1, "cm"), 
-                                               ends = "last", type = "closed"), 
-                        lwd = 0.3) +
-  ggplot2::geom_segment(ggplot2::aes(x    = -15000000, y    = 3250000, 
-                                     xend = -15000000, yend = 6500000),
-                        arrow = ggplot2::arrow(length = ggplot2::unit(0.1, "cm"), 
-                                               ends = "last", type = "closed"), 
-                        lwd = 0.3) +
-  
+  # ggplot2::geom_segment(ggplot2::aes(x    = -15000000, y    = -1250000, 
+  #                                    xend = -15000000, yend = -4500000),
+  #                       
+  #                       arrow = ggplot2::arrow(length = ggplot2::unit(0.1, "cm"), 
+  #                                              ends = "last", type = "closed"), 
+  #                       lwd = 0.3) +
+  # ggplot2::geom_segment(ggplot2::aes(x    = -15000000, y    = 3250000,
+  #                                    xend = -15000000, yend = 6500000),
+  #                       arrow = ggplot2::arrow(length = ggplot2::unit(0.1, "cm"),
+  #                                              ends = "last", type = "closed"),
+  #                       lwd = 0.3) +
+
+  ggplot2::geom_segment(ggplot2::aes(x    =   -500000, y    = -7900000,
+                                     xend =  10550000, yend = -7900000),
+                        arrow = ggplot2::arrow(length = ggplot2::unit(0.00, "cm"),
+                                               ends = "last", type = "closed"),
+                        lwd = 0.1, color = "white") +
   ggplot2::scale_fill_viridis_c() +
 
   ggplot2::theme_void() +
@@ -85,19 +84,19 @@ hexSticker::sticker(
   filename  = here::here("man", "figures", "funbiogeo-sticker.png"),
   dpi       = 2400,
 
-  p_size    = 105.0,         # Title
-  u_size    = 15.0,         # URL
+  p_size    = 135.0,         # Title
+  u_size    =  25.0,         # URL
   p_family  = "Aller_Rg",
 
   p_color   = "#ffffff",   # Title
-  h_fill    = "#0B6116",   # Background
-  h_color   = "#023408",   # Border
+  h_fill    = "#000000",   # Background
+  h_color   = "#1E7287",   # Border
   u_color   = "#ffffff",   # URL
 
   p_x       = 1.00,        # Title
-  p_y       = 0.60,        # Title
-  s_x       = 1,        # Subplot
-  s_y       = 1.15,        # Subplot
+  p_y       = 1.50,        # Title
+  s_x       = 1.00,        # Subplot
+  s_y       = 0.90,        # Subplot
 
   s_width   = 1.8,         # Subplot 
   s_height  = 1.8,         # Subplot
