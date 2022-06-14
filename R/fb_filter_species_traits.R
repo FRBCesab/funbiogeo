@@ -75,7 +75,7 @@ fb_count_species_by_traits <- function(species_traits) {
 #'                                                        threshold = 0.6)
 
 fb_filter_traits_by_species_coverage <- function(species_traits, 
-                                                 threshold = 1) {
+                                                 threshold = 0) {
   
   
   ## Check inputs ----
@@ -114,18 +114,19 @@ fb_filter_traits_by_species_coverage <- function(species_traits,
   
   # Get species coverage for each trait ----
   
-  trait_coverage <- fb_count_species_by_traits(species_traits)
+  species_coverage <- fb_count_species_by_traits(species_traits)
   
   
   # Filter traits by species coverage ----
   
-  selected_traits <- trait_coverage[
-    which(trait_coverage[["coverage"]] >= threshold), "trait"]
+  selected_traits <- species_coverage[
+    which(species_coverage[["coverage"]] >= threshold), "trait"]
   
   
   if (identical(selected_traits, character(0))) {
     message("No trait has the specified species coverage threshold")
   }
   
-  species_traits[ , c(colnames(species_traits)[1], selected_traits)]
+  species_traits[ , c(colnames(species_traits)[1], selected_traits), 
+                  drop = FALSE]
 }

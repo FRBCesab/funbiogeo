@@ -4,7 +4,7 @@
 \alias{fb_filter_traits_by_species_coverage}
 \title{Filter traits with a given species coverage threshold}
 \usage{
-fb_filter_traits_by_species_coverage(species_traits, threshold = 1)
+fb_filter_traits_by_species_coverage(species_traits, threshold = 0)
 }
 \arguments{
 \item{species_traits}{a \code{data.frame} with species in rows and
