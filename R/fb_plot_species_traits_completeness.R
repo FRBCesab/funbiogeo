@@ -6,7 +6,7 @@
 #'
 #' @examples
 #' data(species_traits)
-#' fb_plot_species_traits_completeness(species_traits)
+#' \dontrun{fb_plot_species_traits_completeness(species_traits)}
 #' 
 #' @import ggplot2
 #' @export
@@ -14,7 +14,7 @@ fb_plot_species_traits_completeness = function(species_traits) {
   
   # Make dataset long
   species_traits_long = tidyr::pivot_longer(
-      species_traits, -species, names_to = "trait_name",
+      species_traits, -"species", names_to = "trait_name",
       values_to = "trait_value"
     )
   
@@ -24,18 +24,19 @@ fb_plot_species_traits_completeness = function(species_traits) {
   # Count Number of Trait per Species
   number_trait_per_species = count_trait_per_species(species_traits_long)
   
+  species_traits_long$has_trait = ifelse(
+    !is.na(species_traits_long$trait_value), TRUE, FALSE
+  )
+  
   # Plot Species x Trait completeness
-  species_traits_long %>%
-    mutate(
-      has_trait = ifelse(!is.na(trait_value), TRUE, FALSE)
-    ) %>%
-    ggplot(
-      aes(
-        factor(trait_name, levels = number_species_per_trait$trait_name),
-        factor(species,    levels = number_trait_per_species$species)
+  ggplot(
+    species_traits_long,
+      aes_q(
+        ~factor(trait_name, levels = number_species_per_trait$trait_name),
+        ~factor(species,    levels = number_trait_per_species$species)
       )
     ) +
-    geom_tile(aes(fill = has_trait)) +
+    geom_tile(aes_q(fill = ~has_trait)) +
     scale_x_discrete("Trait", labels = number_species_per_trait$trait_label) +
     scale_y_discrete("Species", labels = NULL) +
     scale_fill_brewer(

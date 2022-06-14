@@ -11,31 +11,39 @@
 #' @examples
 #' data(species_traits)
 #' 
+#' \dontrun{%
 #' fb_plot_number_traits_per_species(species_traits)
 #' 
 #' # Add a vertical cutoff line
 #' fb_plot_number_traits_per_species(species_traits, 30)
+#' }
 #' 
 #' @import ggplot2
 #' @importFrom scales label_percent
 #' @export
 fb_plot_number_traits_per_species = function(
-    species_traits, threshold_species_number
+    species_traits, threshold_species_number = NULL
 ) {
   
   # Make dataset long
   species_traits_long = tidyr::pivot_longer(
-    species_traits, -species, names_to = "trait_name",
+    species_traits, -"species", names_to = "trait_name",
     values_to = "trait_value"
   )
   
   number_trait_per_species = count_trait_per_species(species_traits_long)
   
-  given_plot = number_trait_per_species %>%
-    count(n_trait) %>%
-    ggplot(aes(n, n_trait)) +
+  number_trait_per_species = by(
+    number_trait_per_species, number_trait_per_species$n_trait,
+    function(x) c(n = nrow(x))
+  )
+  number_trait_per_species = utils::stack(number_trait_per_species)
+  number_trait_per_species$n_trait = 
+    as.numeric(as.character(number_trait_per_species$ind))
+  
+  given_plot = ggplot(number_trait_per_species, aes_q(~values, ~n_trait)) +
     geom_point(size = 1.5) +
-    geom_segment(aes(y = n_trait, yend = n_trait, x = 0, xend = n)) +
+    geom_segment(aes_q(y = ~n_trait, yend = ~n_trait, x =~0, xend = ~values)) +
     labs(x = "Number of Species", y = "Number of Traits") +
     scale_x_continuous(
       sec.axis = sec_axis(~./nrow(species_traits), "Proportion of Species",
@@ -58,7 +66,8 @@ fb_plot_number_traits_per_species = function(
           "(p = ",
           prettyNum(threshold_species_number/nrow(species_traits) * 100,
                     digits = 3),
-          "%)")
+          "%)"
+        )
       )
   }
   

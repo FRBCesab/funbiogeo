@@ -28,8 +28,11 @@ Show Number of Species per Trait
 \examples{
 data(species_traits)
 
+\dontrun{\%
 fb_plot_number_species_per_trait(species_traits)
 
 # Add a vertical cutoff line
 fb_plot_number_species_per_trait(species_traits, 100)
+}
+
 }

@@ -11,10 +11,13 @@
 #' @examples
 #' data(species_traits)
 #' 
+#' \dontrun{%
 #' fb_plot_number_species_per_trait(species_traits)
 #' 
 #' # Add a vertical cutoff line
 #' fb_plot_number_species_per_trait(species_traits, 100)
+#' }
+#' 
 #' @import ggplot2
 #' @importFrom scales label_percent
 #' @export
@@ -24,7 +27,7 @@ fb_plot_number_species_per_trait = function(
   
   # Make dataset long
   species_traits_long = tidyr::pivot_longer(
-    species_traits, -species, names_to = "trait_name",
+    species_traits, -"species", names_to = "trait_name",
     values_to = "trait_value"
   )
   
@@ -36,11 +39,11 @@ fb_plot_number_species_per_trait = function(
   )
   
   given_plot = ggplot(
-    number_species_per_trait, aes(n_species, trait_name)
+    number_species_per_trait, aes_string("n_species", "trait_name")
   ) +
     geom_point(color = "darkblue") +
     geom_text(
-      aes(label = paste0(prettyNum(prop_species * 100, digits = 3), "%")),
+      aes_q(label = ~paste0(prettyNum(prop_species * 100, digits = 3), "%")),
       hjust = -0.15, size = 3.5
     ) +
     scale_x_continuous(
