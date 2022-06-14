@@ -92,6 +92,26 @@ fb_filter_traits_by_species_coverage <- function(species_traits,
   }
   
   
+  # Check for absence of variability in traits ----
+  
+  n_modalities  <- unlist(lapply(colnames(species_traits)[-1], function(x) 
+    length(unique(species_traits[[x]][!is.na(species_traits[[x]])]))))
+  
+  only_na_traits <- colnames(species_traits)[-1][which(n_modalities == 0)]
+  
+  if (length(only_na_traits)) {
+    message("Some traits have only NA values. ", 
+            "Maybe you would like to remove them.")
+  }
+  
+  unique_traits <- colnames(species_traits)[-1][which(n_modalities == 1)]
+  
+  if (length(unique_traits)) {
+    message("Some traits have no variability (one single value). ", 
+            "Maybe you would like to remove them.")
+  }
+  
+  
   # Get species coverage for each trait ----
   
   trait_coverage <- fb_count_species_by_traits(species_traits)
