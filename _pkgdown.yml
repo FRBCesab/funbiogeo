@@ -16,7 +16,7 @@ reference:
 - title: Functional Diversity Functions
   contents:
     - fb_cwm
-- title: Upscaling function
+- title: Upscaling functions
   desc: >
     Aggregate your site data over a coarser spatial grid
   contents:
