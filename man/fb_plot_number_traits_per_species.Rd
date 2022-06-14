@@ -4,7 +4,10 @@
 \alias{fb_plot_number_traits_per_species}
 \title{Show Number of Traits per Species}
 \usage{
-fb_plot_number_traits_per_species(species_traits, threshold_species_number)
+fb_plot_number_traits_per_species(
+  species_traits,
+  threshold_species_number = NULL
+)
 }
 \arguments{
 \item{species_traits}{a \code{data.frame} with species in rows and
