@@ -230,7 +230,7 @@ test_that("fb_format_site_locations() works with valid input", {
   site_locations <- fb_format_site_locations(all_data, "site", "longitude", 
                                                "latitude")
   expect_true(is(site_locations, "sf"))
-  expect_equal(nrow(site_locations), 1505L)
+  expect_equal(nrow(site_locations), 32L)
   expect_equal(ncol(site_locations), 2L)
   expect_true("site" %in% colnames(site_locations))
   expect_equal(sf::st_coordinates(site_locations)[1, 1], 59.097357)
@@ -244,5 +244,5 @@ test_that("fb_format_site_locations() works with valid input", {
   site_locations <- fb_format_site_locations(all_data_test, "site", 
                                                "longitude", "latitude", 
                                                na_rm = TRUE)
-  expect_equal(nrow(site_locations), 1505L)
+  expect_equal(nrow(site_locations), 32L)
 })

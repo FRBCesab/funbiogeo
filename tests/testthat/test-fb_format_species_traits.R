@@ -151,15 +151,13 @@ test_that("fb_format_species_traits() works", {
   
   # Working ----
   
-  species_traits <- fb_format_species_traits(all_data, "species", 
-                                             c("adult_body_mass", 
-                                               "gestation_length",
-                                               "litter_size",
-                                               "max_longevity",
-                                               "sexual_maturity_age",
-                                               "diet_breadth"))
+  species_traits <- fb_format_species_traits(
+    all_data, "species",
+    c("adult_body_mass", "gestation_length", "litter_size", "max_longevity",
+      "sexual_maturity_age", "diet_breadth")
+  )
   expect_true(is.data.frame(species_traits))
-  expect_equal(nrow(species_traits), 138L)
+  expect_equal(nrow(species_traits), 65L)
   expect_equal(ncol(species_traits), 7L)
   expect_true("species" %in% colnames(species_traits))
   expect_equal(species_traits[1, 3], 235, tolerance = 7)
