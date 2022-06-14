@@ -1,0 +1,21 @@
+reference:
+- title: Formatting Functions
+  desc: >
+    Fit your dataset to the expected format by `funbiogeo`
+  contents:
+    - starts_with("fb_format")
+- title: Trait Coverage functions
+  contents:
+    - fb_get_coverage
+    - fb_filter_coverage
+- title: Functional Diversity Functions
+  contents:
+    - fb_cwm
+- title: Upscaling functions
+  desc: >
+    Aggregate your site data over a coarser spatial grid
+  contents:
+    - fb_aggregate_site_data
+- title: Visualization functions
+  contents:
+    - fb_map_raster
