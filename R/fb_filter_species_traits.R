@@ -1,0 +1,111 @@
+#' Compute species coverage for each trait
+#' 
+#' @description
+#' For each trait computes the percentage of species without `NA` (missing 
+#' trait values).
+#' 
+#' @inheritParams fb_get_coverage
+#'
+#' @return A three-column `data.frame` with:
+#' - `trait`: the name of the trait;
+#' - `n_species`: the number of species with non-missing value for the trait;
+#' - `coverage`: the percentage of species with non-missing value for the trait.
+#' 
+#' @export
+#'
+#' @examples
+#' library("funbiogeo")
+#' 
+#' data("species_traits")
+#' 
+#' species_coverage_by_trait <- fb_count_species_by_traits(species_traits)
+
+fb_count_species_by_traits <- function(species_traits) {
+  
+  ## Check inputs ----
+  
+  if (missing(species_traits)) {
+    stop("Argument 'species_traits' (species x traits data frame) is required")
+  }
+  
+  check_species_traits(species_traits)
+  
+  
+  ## Compute species coverage by trait ----
+  
+  traits_coverage <- unlist(lapply(colnames(species_traits)[-1], function(x) 
+    sum(!is.na(species_traits[[x]]))))
+  
+  traits_coverage <- data.frame(
+    "trait"      = colnames(species_traits)[-1],
+    "n_species"  = traits_coverage,
+    "coverage"   = traits_coverage / nrow(species_traits))
+  
+  traits_coverage <- traits_coverage[order(traits_coverage$"coverage", 
+                                           decreasing = TRUE), ]
+  
+  rownames(traits_coverage) <- NULL
+  
+  traits_coverage
+}
+
+
+
+#' Filter traits with a given species coverage threshold
+#' 
+#' @description
+#' Selects traits (columns) for which the percentage of species without 
+#' `NA` (missing trait values) is higher than a threshold.
+#' 
+#' @param threshold a numeric of length 1 between 0 and 1. The percentage of 
+#' species coverage threshold.
+#' 
+#' @inheritParams fb_get_coverage
+#'
+#' @return A subset of `species_traits` with traits covered by X% of species.
+#' 
+#' @export
+#'
+#' @examples
+#' library("funbiogeo")
+#' 
+#' data("species_traits")
+#' 
+#' species_traits <- fb_filter_traits_by_species_coverage(species_traits,
+#'                                                        threshold = 0.6)
+
+fb_filter_traits_by_species_coverage <- function(species_traits, 
+                                                 threshold = 1) {
+  
+  
+  ## Check inputs ----
+  
+  if (missing(species_traits)) {
+    stop("Argument 'species_traits' (species x traits data frame) is required")
+  }
+  
+  check_species_traits(species_traits)
+  
+  if (!is.numeric(threshold) | threshold > 1 | threshold < 0) {
+    stop("Coverage threshold should be a numeric value >= 0 and <= 1",
+         call. = FALSE)
+  }
+  
+  
+  # Get species coverage for each trait ----
+  
+  trait_coverage <- fb_count_species_by_traits(species_traits)
+  
+  
+  # Filter traits by species coverage ----
+  
+  selected_traits <- trait_coverage[
+    which(trait_coverage[["coverage"]] >= threshold), "trait"]
+  
+  
+  if (identical(selected_traits, character(0))) {
+    message("No trait has the specified species coverage threshold")
+  }
+  
+  species_traits[ , c(colnames(species_traits)[1], selected_traits)]
+}
