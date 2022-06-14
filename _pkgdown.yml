@@ -1,5 +1,5 @@
 reference:
-- title: Datasets
+- title: Included Datasets
   contents:
     - species_traits
     - site_species
@@ -16,10 +16,11 @@ reference:
 - title: Functional Diversity Functions
   contents:
     - fb_cwm
-- title: Upscaling functions
+- title: Upscaling function
   desc: >
     Aggregate your site data over a coarser spatial grid
   contents:
+    - fb_get_environment
     - fb_aggregate_site_data
 - title: Visualization functions
   contents:
