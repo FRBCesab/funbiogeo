@@ -1,5 +1,7 @@
 count_trait_per_species = function(species_traits_long) {
-  by(
+  
+  # Count Number of Traits per Species
+  number_trait_per_species = by(
     species_traits_long,
     species_traits_long$species,
     function(x) c(
@@ -15,4 +17,6 @@ count_trait_per_species = function(species_traits_long) {
   number_trait_per_species = number_trait_per_species[
     order(number_trait_per_species$n_trait, decreasing = TRUE),
   ]
+  
+  return(number_trait_per_species)
 }
