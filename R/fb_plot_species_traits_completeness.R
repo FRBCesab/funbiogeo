@@ -6,9 +6,9 @@
 #'
 #' @examples
 #' data(species_traits)
-#' plot_species_traits_completeness(species_traits)
+#' fb_plot_species_traits_completeness(species_traits)
 #' @export
-plot_species_traits_completeness = function(species_traits) {
+fb_plot_species_traits_completeness = function(species_traits) {
   
   # Make dataset long
   species_traits_long = tidyr::pivot_longer(
