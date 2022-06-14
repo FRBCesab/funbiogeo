@@ -76,14 +76,22 @@ automatically removes repeated coordinates from the input dataset.</p>
     <h2>Arguments</h2>
     <dl><dt>input_data</dt>
 <dd><p>a <code>data.frame</code> in a long format (see example).</p></dd>
+
+
 <dt>site</dt>
 <dd><p>a <code>character</code> of length 1. Name of the column with site labels.</p></dd>
+
+
 <dt>longitude</dt>
 <dd><p>a <code>character</code> of length 1. Name of the column with
 longitude. The function assumes coordinates are WGS84 (EPSG:4326).</p></dd>
+
+
 <dt>latitude</dt>
 <dd><p>a <code>character</code> of length 1. Name of the column with latitude.
 The function assumes coordinates are WGS84 (EPSG:4326).</p></dd>
+
+
 <dt>crs</dt>
 <dd><p>a <code>character</code> of length 1 or an object of class <code>crs</code>.
 Coordinate Reference System (CRS) of the specified coordinates.
@@ -91,13 +99,18 @@ The CRS should be a <a href="https://geocompr.robinlovelace.net/spatial-class.ht
 It can either be a character like <code>"+proj=longlat +datum=WGS84 +no_defs"</code>
 or as specified using <code><a href="https://r-spatial.github.io/sf/reference/st_crs.html" class="external-link">sf::st_crs()</a></code> like <code>sf::st_crs(4326)</code>
 the default value.</p></dd>
+
+
 <dt>na_rm</dt>
 <dd><p>a logical value. If <code>TRUE</code> remove sites with incomplete
 coordinates. Default is <code>FALSE</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An <code>sf</code> object with a <code>site</code> column specifying site coordinates.</p>
+    
+
+<p>An <code>sf</code> object with a <code>site</code> column specifying site coordinates.</p>
     </div>
 
     <div id="ref-examples">
@@ -153,7 +166,7 @@ coordinates. Default is <code>FALSE</code>.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>
