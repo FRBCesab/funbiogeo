@@ -24,4 +24,5 @@ reference:
     - fb_aggregate_site_data
 - title: Visualization functions
   contents:
-    - fb_map_raster
+    - starts_with("fb_map")
+    - starts_with("fb_plot")
