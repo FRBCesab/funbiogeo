@@ -1,5 +1,7 @@
 count_species_per_trait = function(species_traits_long) {
   
+  total_species = length(unique(species_traits_long$species))
+  
   # Count Number of Species per Trait
   number_species_per_trait = by(
     species_traits_long,
@@ -23,7 +25,7 @@ count_species_per_trait = function(species_traits_long) {
     number_species_per_trait,
     paste0(
       trait_name, "\n(",
-      prettyNum(n_species/nrow(species_traits) * 100, digits = 3), "%)"
+      prettyNum(n_species/total_species * 100, digits = 3), "%)"
     )
   )
   
