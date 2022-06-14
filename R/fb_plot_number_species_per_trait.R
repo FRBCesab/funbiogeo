@@ -10,7 +10,11 @@
 #'
 #' @examples
 #' data(species_traits)
+#' 
 #' fb_plot_number_species_per_trait(species_traits)
+#' 
+#' # Add a vertical cutoff line
+#' fb_plot_number_species_per_trait(species_traits, 100)
 #' @export
 fb_plot_number_species_per_trait = function(
     species_traits, threshold_species_number = NULL
@@ -52,7 +56,7 @@ fb_plot_number_species_per_trait = function(
     if (!is.null(threshold_species_number)) {
       given_plot = given_plot +
         geom_vline(xintercept = threshold_species_number, linetype = 2,
-                   size = 1.5, color = "darkred") +
+                   size = 1.2, color = "darkred") +
         annotate(
           "text", x = threshold_species_number, y = 0.95, hjust = 1.1,
           color = "darkred",
