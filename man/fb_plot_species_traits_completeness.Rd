@@ -21,4 +21,5 @@ Show Species by Trait Completeness
 \examples{
 data(species_traits)
 fb_plot_species_traits_completeness(species_traits)
+
 }

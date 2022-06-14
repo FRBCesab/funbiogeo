@@ -29,4 +29,5 @@ fb_plot_number_traits_per_species(species_traits)
 
 # Add a vertical cutoff line
 fb_plot_number_traits_per_species(species_traits, 30)
+
 }

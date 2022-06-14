@@ -15,6 +15,8 @@
 #' 
 #' # Add a vertical cutoff line
 #' fb_plot_number_traits_per_species(species_traits, 30)
+#' 
+#' @import ggplot2
 #' @importFrom scales label_percent
 #' @export
 fb_plot_number_traits_per_species = function(
