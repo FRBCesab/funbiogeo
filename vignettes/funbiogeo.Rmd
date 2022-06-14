@@ -214,7 +214,8 @@ site_species <- fb_format_site_species(data       = all_data,
                                        na_to_zero = TRUE)
 
 ## Preview ----
-head(site_species)
+dim(site_species)
+head(site_species)[,1:10]
 ```
 
 <br />
@@ -415,7 +416,7 @@ biplot + geom_smooth(method = "lm")
 
 
 
-```{r 'map-tavg'}
+```{r 'map-tavg', dev='png'}
 ## Read raster ----
 tavg <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")
 tavg <- terra::rast(tavg)
@@ -433,7 +434,7 @@ fb_map_raster(tavg) +
 ```
 
 
-```{r 'composition-map'}
+```{r 'composition-map', dev='png'}
 library("patchwork")
 
 ## Read raster ----
@@ -466,7 +467,7 @@ figure +
 [...]
 
 
-```{r 'upscale-richness'}
+```{r 'upscale-richness', dev='png'}
 ## Upscale to grid ----
 ras_richness <- fb_aggregate_site_data(site_locations = site_locations, 
                                        site_data      = rich_env, 
@@ -475,11 +476,11 @@ ras_richness <- fb_aggregate_site_data(site_locations = site_locations,
 ras_richness
 ```
 
-```{r 'map-richness'}
+```{r 'map-richness', dev='png'}
 fb_map_raster(ras_richness[[1]])
 ```
 
-```{r 'map-richness-custom'}
+```{r 'map-richness-custom', dev='png'}
 fb_map_raster(ras_richness[[1]]) + 
   scale_fill_distiller("Number of species", palette = "Spectral") +
   theme(legend.position = "bottom") + 
