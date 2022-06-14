@@ -6,7 +6,7 @@
 #'        at the specified number of species
 #'
 #' @return a ggplot2 object
-#' @export
+#' 
 #'
 #' @examples
 #' data(species_traits)
@@ -15,6 +15,8 @@
 #' 
 #' # Add a vertical cutoff line
 #' fb_plot_number_traits_per_species(species_traits, 30)
+#' @importFrom scales label_percent
+#' @export
 fb_plot_number_traits_per_species = function(
     species_traits, threshold_species_number
 ) {
