@@ -1,4 +1,9 @@
 reference:
+- title: Datasets
+  contents:
+    - species_traits
+    - site_species
+    - site_locations
 - title: Formatting Functions
   desc: >
     Fit your dataset to the expected format by `funbiogeo`
