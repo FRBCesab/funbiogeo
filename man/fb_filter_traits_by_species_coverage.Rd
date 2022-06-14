@@ -27,5 +27,6 @@ library("funbiogeo")
 
 data("species_traits")
 
-species_traits <- fb_filter_traits_by_species_coverage(species_traits)
+species_traits <- fb_filter_traits_by_species_coverage(species_traits,
+                                                       threshold = 0.6)
 }
