@@ -8,7 +8,6 @@
 #' data(species_traits)
 #' \dontrun{fb_plot_species_traits_completeness(species_traits)}
 #' 
-#' @import ggplot2
 #' @export
 fb_plot_species_traits_completeness = function(species_traits) {
   
@@ -29,21 +28,24 @@ fb_plot_species_traits_completeness = function(species_traits) {
   )
   
   # Plot Species x Trait completeness
-  ggplot(
+  ggplot2::ggplot(
     species_traits_long,
-      aes_q(
+    ggplot2::aes_q(
         ~factor(trait_name, levels = number_species_per_trait$trait_name),
         ~factor(species,    levels = number_trait_per_species$species)
       )
     ) +
-    geom_tile(aes_q(fill = ~has_trait)) +
-    scale_x_discrete("Trait", labels = number_species_per_trait$trait_label) +
-    scale_y_discrete("Species", labels = NULL) +
-    scale_fill_brewer(
+    ggplot2::geom_tile(
+      ggplot2::aes_q(fill = ~has_trait)) +
+    ggplot2::scale_x_discrete(
+      "Trait", labels = number_species_per_trait$trait_label
+    ) +
+    ggplot2::scale_y_discrete("Species", labels = NULL) +
+    ggplot2::scale_fill_brewer(
       "Known Trait?", palette = "Set1",
       labels = c(`FALSE` = "No", `TRUE` = "Yes")
     ) +
-    coord_cartesian(expand = FALSE) +
-    theme_bw() +
-    theme(axis.ticks.y = element_blank())
+    ggplot2::coord_cartesian(expand = FALSE) +
+    ggplot2::theme_bw() +
+    ggplot2::theme(axis.ticks.y = ggplot2::element_blank())
 }

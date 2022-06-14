@@ -18,8 +18,6 @@
 #' fb_plot_number_species_per_trait(species_traits, 100)
 #' }
 #' 
-#' @import ggplot2
-#' @importFrom scales label_percent
 #' @export
 fb_plot_number_species_per_trait = function(
     species_traits, threshold_species_number = NULL
@@ -38,31 +36,33 @@ fb_plot_number_species_per_trait = function(
     levels = rev(number_species_per_trait$trait_name)
   )
   
-  given_plot = ggplot(
-    number_species_per_trait, aes_string("n_species", "trait_name")
+  given_plot = ggplot2::ggplot(
+    number_species_per_trait, ggplot2::aes_string("n_species", "trait_name")
   ) +
-    geom_point(color = "darkblue") +
-    geom_text(
-      aes_q(label = ~paste0(prettyNum(prop_species * 100, digits = 3), "%")),
+    ggplot2::geom_point(color = "darkblue") +
+    ggplot2::geom_text(
+      ggplot2::aes_q(
+        label = ~paste0(prettyNum(prop_species * 100, digits = 3), "%")
+      ),
       hjust = -0.15, size = 3.5
     ) +
-    scale_x_continuous(
+    ggplot2::scale_x_continuous(
       "Number of Species",
-      sec.axis = sec_axis(
+      sec.axis = ggplot2::sec_axis(
         trans = ~./nrow(species_traits), "Proportion of Species",
         labels = scales::label_percent()
       ),
       # Add a tiny bit of space so that proportion can be shown
       limits = c(NA_real_, max(number_species_per_trait$n_species)*1.015)
     ) +
-    labs(y = "Trait Name") +
-    theme_bw()
+    ggplot2::labs(y = "Trait Name") +
+    ggplot2::theme_bw()
   
     if (!is.null(threshold_species_number)) {
       given_plot = given_plot +
-        geom_vline(xintercept = threshold_species_number, linetype = 2,
+        ggplot2::geom_vline(xintercept = threshold_species_number, linetype = 2,
                    size = 1.2, color = "darkred") +
-        annotate(
+        ggplot2::annotate(
           "text", x = threshold_species_number, y = 0.95, hjust = 1.1,
           color = "darkred",
           label = paste0(

@@ -18,8 +18,6 @@
 #' fb_plot_number_traits_per_species(species_traits, 30)
 #' }
 #' 
-#' @import ggplot2
-#' @importFrom scales label_percent
 #' @export
 fb_plot_number_traits_per_species = function(
     species_traits, threshold_species_number = NULL
@@ -41,24 +39,30 @@ fb_plot_number_traits_per_species = function(
   number_trait_per_species$n_trait = 
     as.numeric(as.character(number_trait_per_species$ind))
   
-  given_plot = ggplot(number_trait_per_species, aes_q(~values, ~n_trait)) +
-    geom_point(size = 1.5) +
-    geom_segment(aes_q(y = ~n_trait, yend = ~n_trait, x =~0, xend = ~values)) +
-    labs(x = "Number of Species", y = "Number of Traits") +
-    scale_x_continuous(
-      sec.axis = sec_axis(~./nrow(species_traits), "Proportion of Species",
-                          labels = scales::label_percent())
+  given_plot = ggplot2::ggplot(
+    number_trait_per_species, ggplot2::aes_q(~values, ~n_trait)
+  ) +
+    ggplot2::geom_point(size = 1.5) +
+    ggplot2::geom_segment(
+      ggplot2::aes_q(y = ~n_trait, yend = ~n_trait, x =~0, xend = ~values)
     ) +
-    scale_y_continuous(
+    ggplot2::labs(x = "Number of Species", y = "Number of Traits") +
+    ggplot2::scale_x_continuous(
+      sec.axis = ggplot2::sec_axis(
+        ~./nrow(species_traits), "Proportion of Species",
+        labels = scales::label_percent()
+      )
+    ) +
+    ggplot2::scale_y_continuous(
       breaks = seq(0, to = max(number_trait_per_species$n_trait), by = 1)
     ) +
-    theme_bw()
+    ggplot2::theme_bw()
   
   if (!is.null(threshold_species_number)) {
     given_plot = given_plot +
-      geom_vline(xintercept = threshold_species_number, linetype = 2,
+      ggplot2::geom_vline(xintercept = threshold_species_number, linetype = 2,
                  size = 1.2, color = "darkred") +
-      annotate(
+      ggplot2::annotate(
         "text", x = threshold_species_number, y = 0.95, hjust = 1.1,
         color = "darkred",
         label = paste0(
