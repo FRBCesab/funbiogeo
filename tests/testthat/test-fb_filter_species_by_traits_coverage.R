@@ -18,6 +18,12 @@ species_traits3 <- data.frame(
   t2      = c(NA, 5.0, 200, 200)
 )
 
+species_traits4 <- data.frame(
+  species = paste0("sp", 1:4),
+  t1      = c(NA, 2.5, NA, 400),
+  t2      = c(2.2, NA, 200, NA)
+)
+
 test_that("fb_filter_species_by_traits_coverage() errors with wrong inputs", {
   
   # Wrong inputs ----
@@ -125,5 +131,13 @@ test_that("fb_filter_species_by_traits_coverage() successully works", {
   )
   
   expect_equal(nrow(test_coverage), 3)
+  
+  # Test for no species selected ----
+  
+  expect_message(
+    test_coverage <- fb_filter_species_by_traits_coverage(species_traits4, 1),
+    "No species has the specified traits coverage threshold",
+    fixed = TRUE
+  )
   
 })
