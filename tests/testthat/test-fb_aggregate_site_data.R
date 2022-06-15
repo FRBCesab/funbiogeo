@@ -2,13 +2,6 @@
 data("site_locations")
 data("site_species")
 
-# Convert site locations in to an 'sf' object
-site_locations <- site_locations[!duplicated(site_locations),]
-site_locations <- sf::st_as_sf(
-  site_locations, coords = 2:3, crs = 4326
-)
-
-
 # Get proper raster file
 tavg_file <- system.file("extdata", "annual_mean_temp.tif", 
                          package = "funbiogeo")
