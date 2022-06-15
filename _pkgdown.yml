@@ -9,6 +9,14 @@ reference:
     Fit your dataset to the expected format by `funbiogeo`
   contents:
     - starts_with("fb_format")
+- title: Filtering species and traits
+  desc: >
+    Explore species x traits data and select species and/or traits
+  contents:
+    - fb_count_species_by_traits
+    - fb_count_traits_by_species
+    - fb_filter_species_by_traits_coverage
+    - fb_filter_traits_by_species_coverage
 - title: Trait Coverage functions
   contents:
     - fb_get_coverage
