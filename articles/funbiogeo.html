@@ -950,12 +950,12 @@
 <span class="co">## Preview ----</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">cover</span><span class="op">)</span>
 <span class="co">#&gt;    site trait_coverage</span>
-<span class="co">#&gt; 1 fb_33              1</span>
-<span class="co">#&gt; 2 fb_35              1</span>
-<span class="co">#&gt; 3 fb_36              1</span>
-<span class="co">#&gt; 4 fb_37              1</span>
-<span class="co">#&gt; 5 fb_38              1</span>
-<span class="co">#&gt; 6 fb_39              1</span></code></pre></div>
+<span class="co">#&gt; 1 fb_33      0.7307692</span>
+<span class="co">#&gt; 2 fb_35      0.7586207</span>
+<span class="co">#&gt; 3 fb_36      0.7586207</span>
+<span class="co">#&gt; 4 fb_37      0.7586207</span>
+<span class="co">#&gt; 5 fb_38      0.7857143</span>
+<span class="co">#&gt; 6 fb_39      0.7586207</span></code></pre></div>
 <p>[…]</p>
 </div>
 <div class="section level3">
@@ -968,13 +968,8 @@
 
 <span class="co">## Preview ----</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sel_sites</span><span class="op">[</span> , <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt;    site sp_001 sp_002 sp_003</span>
-<span class="co">#&gt; 1 fb_33      1      0      0</span>
-<span class="co">#&gt; 2 fb_35      1      0      0</span>
-<span class="co">#&gt; 3 fb_36      1      0      0</span>
-<span class="co">#&gt; 4 fb_37      1      0      0</span>
-<span class="co">#&gt; 5 fb_38      1      0      0</span>
-<span class="co">#&gt; 6 fb_39      1      0      0</span></code></pre></div>
+<span class="co">#&gt;      site sp_001 sp_002 sp_003</span>
+<span class="co">#&gt; 27 fb_100      0      0      0</span></code></pre></div>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Original sites ----</span>
 <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span>
@@ -982,7 +977,7 @@
 
 <span class="co">## Filtered sites ----</span>
 <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sel_sites</span><span class="op">)</span>
-<span class="co">#&gt; [1] 1505</span></code></pre></div>
+<span class="co">#&gt; [1] 1</span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
