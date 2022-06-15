@@ -6,6 +6,18 @@ species_traits <- data.frame(
   t2      = c(2.2, 5.0, 200, 200)
 )
 
+species_traits2 <- data.frame(
+  species = paste0("sp", 1:4),
+  t1      = c(NA, NA, NA, NA),
+  t2      = c(2.2, 5.0, 200, 200)
+)
+
+species_traits3 <- data.frame(
+  species = paste0("sp", 1:4),
+  t1      = c(NA, 2.5, 100, 400),
+  t2      = c(NA, 5.0, 200, 200)
+)
+
 
 test_that("fb_count_traits_by_species() errors with wrong inputs", {
   
@@ -56,4 +68,30 @@ test_that("fb_count_traits_by_species() successfully works", {
   expect_equal(test_coverage$"species"[1], "sp2")
   expect_equal(test_coverage$"n_traits"[1], 2)
   expect_equal(test_coverage$"coverage"[1], 1.0)
+  
+  # Test for a trait with all NA ----
+  
+  expect_silent({
+    test_coverage <- fb_count_traits_by_species(species_traits2)
+  })
+  
+  expect_equal(nrow(test_coverage), nrow(species_traits2))
+  expect_equal(ncol(test_coverage), 3)
+  
+  expect_equal(test_coverage$"species"[1], "sp1")
+  expect_equal(test_coverage$"n_traits"[1], 1)
+  expect_equal(test_coverage$"coverage"[1], 0.5)
+  
+  # Test for a species without any trait ----
+  
+  expect_silent({
+    test_coverage <- fb_count_traits_by_species(species_traits3)
+  })
+  
+  expect_equal(nrow(test_coverage), nrow(species_traits2))
+  expect_equal(ncol(test_coverage), 3)
+  
+  expect_equal(test_coverage$"species"[4], "sp1")
+  expect_equal(test_coverage$"n_traits"[4], 0)
+  expect_equal(test_coverage$"coverage"[4], 0)
 })
