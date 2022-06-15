@@ -181,26 +181,23 @@ test_that("check_site_locations() works", {
   data("site_locations")
   
   sites_sf <- site_locations
-  sites_sf[["site"]] <- rownames(sites_sf)
-  rownames(sites_sf) <- NULL
-  sites_sf <- sf::st_as_sf(sites_sf, coords = 1:2)
   
   # Wrong input ----
   
   expect_error(
-    check_site_locations(site_locations),
+    check_site_locations(data.frame("a")),
     "The site x locations object must be an 'sf' object",
     fixed = TRUE
   )
   
   expect_error(
-    check_site_locations(as.list(site_locations)),
+    check_site_locations(as.list(data.frame("a"))),
     "The site x locations object must be an 'sf' object",
     fixed = TRUE
   )
   
   expect_error(
-    check_site_locations(site_locations[, 1, drop = FALSE]),
+    check_site_locations("a"),
     paste0("The site x locations object must be an 'sf' object"),
     fixed = TRUE
   )

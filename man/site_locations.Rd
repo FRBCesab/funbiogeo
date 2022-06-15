@@ -5,12 +5,8 @@
 \alias{site_locations}
 \title{Data: sites x locations of Western Europe mammals occurrences}
 \format{
-A \code{data.frame} with 1,505 rows (sites) and the following two
-columns:
-\describe{
-\item{x}{longitude of the site (in WGS84)}
-\item{y}{latitude of the site (in WGS84)}
-}
+An \code{sf} object with 1,505 rows (sites) with a WGS84 (EPSG:4236)
+Coordinate Reference System
 }
 \usage{
 site_locations
