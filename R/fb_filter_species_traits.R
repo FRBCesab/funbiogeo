@@ -57,8 +57,8 @@ fb_count_species_by_traits <- function(species_traits) {
 #' Selects traits (columns) for which the percentage of species without 
 #' `NA` (missing trait values) is higher than a threshold.
 #' 
-#' @param threshold a numeric of length 1 between 0 and 1. The percentage of 
-#' species coverage threshold.
+#' @param threshold_species_proportion a numeric of length 1 between 0 and 1.
+#' The percentage of species coverage threshold.
 #' 
 #' @inheritParams fb_get_coverage
 #'
@@ -71,11 +71,13 @@ fb_count_species_by_traits <- function(species_traits) {
 #' 
 #' data("species_traits")
 #' 
-#' species_traits <- fb_filter_traits_by_species_coverage(species_traits,
-#'                                                        threshold = 0.6)
+#' species_traits <- fb_filter_traits_by_species_coverage(
+#'   species_traits,
+#'   threshold_species_proportion = 0.6)
 
-fb_filter_traits_by_species_coverage <- function(species_traits, 
-                                                 threshold = 0) {
+fb_filter_traits_by_species_coverage <- function(
+    species_traits, 
+    threshold_species_proportion = 0) {
   
   ## Check inputs ----
   
@@ -85,7 +87,8 @@ fb_filter_traits_by_species_coverage <- function(species_traits,
   
   check_species_traits(species_traits)
   
-  if (!is.numeric(threshold) | threshold > 1 | threshold < 0) {
+  if (!is.numeric(threshold_species_proportion) | 
+      threshold_species_proportion > 1 | threshold_species_proportion < 0) {
     stop("Coverage threshold should be a numeric value >= 0 and <= 1",
          call. = FALSE)
   }
@@ -119,7 +122,8 @@ fb_filter_traits_by_species_coverage <- function(species_traits,
   # Filter traits by species coverage ----
   
   selected_traits <- species_coverage[
-    which(species_coverage[["coverage"]] >= threshold), "trait"]
+    which(species_coverage[["coverage"]] >= threshold_species_proportion), 
+    "trait"]
   
   
   if (identical(selected_traits, character(0))) {
