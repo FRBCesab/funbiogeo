@@ -96,7 +96,8 @@ fb_aggregate_site_data <- function(site_locations, site_data, agg_grid,
       sf::st_crs(terra::crs(agg_grid, proj = TRUE))) {
     
     site_locations <- sf::st_transform(
-      site_locations, sf::st_crs(terra::crs(agg_grid, proj = TRUE))
+      site_locations,
+      sf::st_crs(terra::crs(agg_grid, proj = TRUE))
     )
   }
   
