@@ -93,7 +93,7 @@ fb_plot_distribution_site_trait_coverage = function(
   avg_coverage = t(utils::unstack(avg_coverage))
   
   
-  if (!requireNamespace("ggridges")) {
+  if (!is_ggridges_installed()) {
     stop("This function requires 'ggridges' to work\n",
          "Please run \"install.packages('ggridges')\"", call. = FALSE)
   }
