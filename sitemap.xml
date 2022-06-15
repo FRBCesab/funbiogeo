@@ -64,6 +64,21 @@
     <loc>/reference/fb_map_raster.html</loc>
   </url>
   <url>
+    <loc>/reference/fb_plot_distribution_site_trait_coverage.html</loc>
+  </url>
+  <url>
+    <loc>/reference/fb_plot_number_species_by_trait.html</loc>
+  </url>
+  <url>
+    <loc>/reference/fb_plot_number_traits_by_species.html</loc>
+  </url>
+  <url>
+    <loc>/reference/fb_plot_site_traits_completeness.html</loc>
+  </url>
+  <url>
+    <loc>/reference/fb_plot_species_traits_completeness.html</loc>
+  </url>
+  <url>
     <loc>/reference/funbiogeo-package.html</loc>
   </url>
   <url>
