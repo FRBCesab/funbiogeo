@@ -32,7 +32,10 @@ test_that("fb_count_traits_by_species() errors with wrong inputs", {
     "The species x traits object must contain the 'species' column",
     fixed = TRUE
   )
-  
+})
+
+
+test_that("fb_count_traits_by_species() successfully works", {
   
   # Success ----
   
@@ -53,5 +56,4 @@ test_that("fb_count_traits_by_species() errors with wrong inputs", {
   expect_equal(test_coverage$"species"[1], "sp2")
   expect_equal(test_coverage$"n_traits"[1], 2)
   expect_equal(test_coverage$"coverage"[1], 1.0)
-  
 })

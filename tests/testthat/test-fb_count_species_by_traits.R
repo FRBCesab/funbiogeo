@@ -32,8 +32,12 @@ test_that("fb_count_species_by_traits() errors with wrong inputs", {
     "The species x traits object must contain the 'species' column",
     fixed = TRUE
   )
-  
-  
+})
+
+
+
+test_that("fb_count_species_by_traits() successfully works", {
+    
   # Success ----
   
   expect_silent({

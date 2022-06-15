@@ -90,7 +90,10 @@ test_that("fb_filter_species_by_traits_coverage() errors with wrong inputs", {
     "Some species have only NA values for all traits. Maybe you would like to remove them.",
     fixed = TRUE
   )
-  
+})
+
+
+test_that("fb_filter_species_by_traits_coverage() successully works", {
   
   # Success ----
   
@@ -114,5 +117,4 @@ test_that("fb_filter_species_by_traits_coverage() errors with wrong inputs", {
   expect_type(test_coverage$"t2", "double")
   expect_equal(test_coverage$"species"[1], "sp3")
   expect_equal(test_coverage$"t2"[1], 200)
-  
 })
