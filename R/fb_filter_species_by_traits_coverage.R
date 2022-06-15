@@ -48,7 +48,7 @@ fb_filter_species_by_traits_coverage <- function(
   
   only_na_traits <- species_traits[which(n_modalities == 0), 1]
   
-  if (length(only_na_traits)) {
+  if (length(only_na_traits) > 0) {
     message("Some species have only NA values for all traits. ", 
             "Maybe you would like to remove them.")
   }
