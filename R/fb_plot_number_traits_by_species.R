@@ -31,6 +31,7 @@ fb_plot_number_traits_by_species = function(
   
   number_trait_per_species = fb_count_traits_by_species(species_traits)
   
+  # Count number of species per number of trait (XX species has YY traits)
   number_trait_per_species = by(
     number_trait_per_species, number_trait_per_species$n_traits,
     function(x) c(n = nrow(x))
