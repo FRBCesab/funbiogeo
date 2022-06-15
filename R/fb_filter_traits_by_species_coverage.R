@@ -4,8 +4,8 @@
 #' Selects traits (columns) for which the percentage of species without 
 #' `NA` (missing trait values) is higher than a threshold.
 #' 
-#' @param threshold_species_proportion a numeric of length 1 between 0 and 1.
-#' The percentage of species coverage threshold.
+#' @param threshold_species_proportion `numeric(1)` \[default = `NULL`\]\cr{}
+#'   between 0 and 1. The percentage of species coverage threshold.
 #' 
 #' @inheritParams fb_get_coverage
 #'
@@ -85,5 +85,5 @@ fb_filter_traits_by_species_coverage <- function(
   }
   
   species_traits[, c(colnames(species_traits)[1], selected_traits), 
-                  drop = FALSE]
+                 drop = FALSE]
 }

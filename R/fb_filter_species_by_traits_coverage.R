@@ -25,7 +25,7 @@
 fb_filter_species_by_traits_coverage <- function(
     species_traits, 
     threshold_traits_proportion = 0) { 
-
+  
   ## Check inputs ----
   
   if (missing(species_traits)) {

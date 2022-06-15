@@ -6,7 +6,7 @@
 \usage{
 fb_plot_number_species_by_trait(
   species_traits,
-  threshold_species_number = NULL
+  threshold_species_proportion = NULL
 )
 }
 \arguments{
@@ -15,9 +15,8 @@ traits as columns. The first column should be named \code{"species"}
 and contain species names. The other columns should be named according
 to trait names.}
 
-\item{threshold_species_number}{\code{NULL} or \code{numeric(1)} [default = \code{NULL}]\cr{}
-If \code{NULL} doesn't show a line otherwise adds a vertical line
-at the specified number of species}
+\item{threshold_species_proportion}{\code{numeric(1)} [default = \code{NULL}]\cr{}
+between 0 and 1. The percentage of species coverage threshold.}
 }
 \value{
 a ggplot2 object
@@ -28,11 +27,11 @@ Show Number of Species per Trait
 \examples{
 data(species_traits)
 
-\dontrun{\%
+\dontrun{
 fb_plot_number_species_by_trait(species_traits)
 
-# Add a vertical cutoff line
-fb_plot_number_species_by_trait(species_traits, 100)
+# Add a vertical cutoff line (12.5\% of species)
+fb_plot_number_species_by_trait(species_traits, 1/8)
 }
 
 }

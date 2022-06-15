@@ -1,9 +1,6 @@
 #' Show Number of Traits per Species
 #'
-#' @inheritParams fb_get_coverage
-#' @param threshold_species_number `NULL` or `numeric(1)` \[default = `NULL`\]\cr{}
-#'        If `NULL` doesn't show a line otherwise adds a vertical line
-#'        at the specified number of species
+#' @inheritParams fb_filter_traits_by_species_coverage
 #'
 #' @return a ggplot2 object
 #' 
@@ -11,16 +8,16 @@
 #' @examples
 #' data(species_traits)
 #' 
-#' \dontrun{%
+#' \dontrun{
 #' fb_plot_number_traits_by_species(species_traits)
 #' 
-#' # Add a vertical cutoff line
-#' fb_plot_number_traits_by_species(species_traits, 30)
+#' # Add a vertical cutoff line (30% of the species)
+#' fb_plot_number_traits_by_species(species_traits, 1/3)
 #' }
 #' 
 #' @export
 fb_plot_number_traits_by_species = function(
-    species_traits, threshold_species_number = NULL
+    species_traits, threshold_species_proportion = NULL
 ) {
   
   # Make dataset long
@@ -59,18 +56,19 @@ fb_plot_number_traits_by_species = function(
     ) +
     ggplot2::theme_bw()
   
-  if (!is.null(threshold_species_number)) {
+  if (!is.null(threshold_species_proportion)) {
     given_plot = given_plot +
-      ggplot2::geom_vline(xintercept = threshold_species_number, linetype = 2,
-                 size = 1.2, color = "darkred") +
+      ggplot2::geom_vline(
+        xintercept = threshold_species_proportion * nrow(species_traits),
+        linetype = 2, size = 1.2, color = "darkred"
+      ) +
       ggplot2::annotate(
-        "text", x = threshold_species_number, y = 0.95, hjust = 1.1,
-        color = "darkred",
+        "text", x = threshold_species_proportion * nrow(species_traits),
+        y = 0.95, hjust = 1.1, color = "darkred",
         label = paste0(
-          "(n = ", threshold_species_number, ")\n",
+          "(n = ", threshold_species_proportion * nrow(species_traits), ")\n",
           "(p = ",
-          prettyNum(threshold_species_number/nrow(species_traits) * 100,
-                    digits = 3),
+          prettyNum(threshold_species_proportion * 100,  digits = 3),
           "%)"
         )
       )

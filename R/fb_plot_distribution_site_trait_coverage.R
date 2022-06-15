@@ -5,7 +5,7 @@
 #' @return a 'ggplot2' object
 #'
 #' @examples
-#' \dontrun{%
+#' \dontrun{
 #' fb_plot_distribution_site_trait_coverage(site_species, species_traits)
 #' }
 #' 
@@ -25,15 +25,15 @@ fb_plot_distribution_site_trait_coverage = function(
   trait_coverage = lapply(
     colnames(species_traits)[-1],
     function(x) {
-    
-    trait_cov2 = fb_get_coverage(
-      site_species, species_traits[, c("species", x)]
-    )
-    
-    colnames(trait_cov2)[2] = x
-    
-    return(trait_cov2)
-  })
+      
+      trait_cov2 = fb_get_coverage(
+        site_species, species_traits[, c("species", x)]
+      )
+      
+      colnames(trait_cov2)[2] = x
+      
+      return(trait_cov2)
+    })
   
   # Combine Trait Coverages
   trait_coverage = Reduce(

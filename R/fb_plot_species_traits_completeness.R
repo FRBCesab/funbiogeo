@@ -37,10 +37,10 @@ fb_plot_species_traits_completeness = function(species_traits) {
   ggplot2::ggplot(
     species_traits_long,
     ggplot2::aes_q(
-        ~factor(trait_name, levels = number_species_per_trait$trait),
-        ~factor(species,    levels = number_trait_per_species$species)
-      )
-    ) +
+      ~factor(trait_name, levels = number_species_per_trait$trait),
+      ~factor(species,    levels = number_trait_per_species$species)
+    )
+  ) +
     ggplot2::geom_tile(
       ggplot2::aes_q(fill = ~has_trait)) +
     ggplot2::scale_x_discrete(

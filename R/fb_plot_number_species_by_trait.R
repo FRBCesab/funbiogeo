@@ -1,26 +1,22 @@
 #' Show Number of Species per Trait
 #'
-#' @inheritParams fb_get_coverage
-#'
-#' @param threshold_species_number `NULL` or `numeric(1)` \[default = `NULL`\]\cr{}
-#'        If `NULL` doesn't show a line otherwise adds a vertical line
-#'        at the specified number of species
+#' @inheritParams fb_filter_traits_by_species_coverage
 #'
 #' @return a ggplot2 object
 #'
 #' @examples
 #' data(species_traits)
 #' 
-#' \dontrun{%
+#' \dontrun{
 #' fb_plot_number_species_by_trait(species_traits)
 #' 
-#' # Add a vertical cutoff line
-#' fb_plot_number_species_by_trait(species_traits, 100)
+#' # Add a vertical cutoff line (12.5% of species)
+#' fb_plot_number_species_by_trait(species_traits, 1/8)
 #' }
 #' 
 #' @export
 fb_plot_number_species_by_trait = function(
-    species_traits, threshold_species_number = NULL
+    species_traits, threshold_species_proportion = NULL
 ) {
   
   # Make dataset long
@@ -60,23 +56,22 @@ fb_plot_number_species_by_trait = function(
     ggplot2::labs(y = "Trait Name") +
     ggplot2::theme_bw()
   
-    if (!is.null(threshold_species_number)) {
-      given_plot = given_plot +
-        ggplot2::geom_vline(
-          xintercept = threshold_species_number, linetype = 2, size = 1.2,
-          color = "darkred"
-        ) +
-        ggplot2::annotate(
-          "text", x = threshold_species_number, y = 0.95, hjust = 1.1,
-          color = "darkred",
-          label = paste0(
-            "(n = ", threshold_species_number, ")\n",
-            "(p = ",
-            prettyNum(threshold_species_number/nrow(species_traits) * 100,
-                      digits = 3),
-            "%)")
+  if (!is.null(threshold_species_proportion)) {
+    given_plot = given_plot +
+      ggplot2::geom_vline(
+        xintercept = threshold_species_proportion * nrow(species_traits),
+        linetype = 2, size = 1.2, color = "darkred"
+      ) +
+      ggplot2::annotate(
+        "text", x = threshold_species_proportion * nrow(species_traits),
+        y = 0.95, hjust = 1.1, color = "darkred",
+        label = paste0(
+          "(n = ", threshold_species_proportion * nrow(species_traits), ")\n",
+          "(p = ",
+          prettyNum(threshold_species_proportion, digits = 3), "%)"
         )
-    }  
+      )
+  }  
   
-    return(given_plot)
+  return(given_plot)
 }
