@@ -50,7 +50,7 @@ fb_get_coverage <- function(site_species, species_traits) {
   check_species_traits(species_traits)
   
   # Remove missing trait data
-  species_traits <- species_traits[complete.cases(species_traits),]
+  species_traits <- species_traits[stats::complete.cases(species_traits),]
   
   # Get species in common between both matrices ----
   
