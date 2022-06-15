@@ -104,8 +104,11 @@ test_that("fb_filter_traits_by_species_coverage() errors with wrong inputs", {
     "No trait has the specified species coverage threshold",
     fixed = TRUE
   )
-  
-  
+})
+
+
+test_that("fb_filter_traits_by_species_coverage() successully works", {
+
   # Success ----
   
   expect_silent(
@@ -127,5 +130,4 @@ test_that("fb_filter_traits_by_species_coverage() errors with wrong inputs", {
   expect_type(test_coverage$"t2", "double")
   expect_equal(test_coverage$"species"[1], "sp1")
   expect_equal(test_coverage$"t2"[1], 2.2)
-  
 })
