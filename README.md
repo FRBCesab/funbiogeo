@@ -24,8 +24,8 @@ computing trait coverage, as well as computing functional diversity
 indices, drawing maps, correlating them with the environment, and
 upscaling assemblages.
 
-To know what features are planned in the future you can refer to our
-[Roadmap wiki page](https://github.com/FRBCesab/funbiogeo/wiki/Roadmap).
+It is aimed at first-timers of functional biogeography as well as more
+experienced users who want to obtain quick and easy exploratory plots.
 
 ## Installation
 
