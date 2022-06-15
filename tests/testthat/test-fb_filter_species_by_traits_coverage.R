@@ -15,15 +15,8 @@ species_traits2 <- data.frame(
 species_traits3 <- data.frame(
   species = paste0("sp", 1:4),
   t1      = c(NA, 2.5, 100, 400),
-  t2      = c(2.2, 2.2, 2.2, NA)
+  t2      = c(NA, 5.0, 200, 200)
 )
-
-species_traits4 <- data.frame(
-  species = paste0("sp", 1:4),
-  t1      = c(NA, NA, 100, 400),
-  t2      = c(2.2, 5.0, NA, 200)
-)
-
 
 test_that("fb_filter_species_by_traits_coverage() errors with wrong inputs", {
   
@@ -85,8 +78,7 @@ test_that("fb_filter_species_by_traits_coverage() errors with wrong inputs", {
   # Check for only NA for some species ----
   
   expect_message(
-    fb_filter_species_by_traits_coverage(species_traits2, 
-                                         threshold_traits_proportion = 0),
+    test_na_trait <- fb_filter_species_by_traits_coverage(species_traits2, threshold_traits_proportion = 0),
     "Some species have only NA values for all traits. Maybe you would like to remove them.",
     fixed = TRUE
   )
@@ -117,4 +109,21 @@ test_that("fb_filter_species_by_traits_coverage() successully works", {
   expect_type(test_coverage$"t2", "double")
   expect_equal(test_coverage$"species"[1], "sp3")
   expect_equal(test_coverage$"t2"[1], 200)
+  
+  # Test for one trait with all NA ----
+  
+  expect_message(
+    test_coverage <- fb_filter_species_by_traits_coverage(species_traits2, 0.5)
+  )
+  
+  expect_equal(nrow(test_coverage), 3)
+  
+  # Test for one species with all NA ----
+  
+  expect_message(
+    test_coverage <- fb_filter_species_by_traits_coverage(species_traits3, 0.1)
+  )
+  
+  expect_equal(nrow(test_coverage), 3)
+  
 })
