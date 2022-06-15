@@ -92,10 +92,13 @@ fb_aggregate_site_data <- function(site_locations, site_data, agg_grid,
   
   # Reproject sites if required ------------------------------------------------
   
-  if (sf::st_crs(site_locations) != terra::crs(agg_grid, proj = TRUE)) {
+  if (sf::st_crs(site_locations) !=
+      sf::st_crs(terra::crs(agg_grid, proj = TRUE))) {
     
-    site_locations <- sf::st_transform(site_locations, 
-                                           terra::crs(agg_grid, proj = TRUE))
+    site_locations <- sf::st_transform(
+      site_locations,
+      sf::st_crs(terra::crs(agg_grid, proj = TRUE))
+    )
   }
   
   

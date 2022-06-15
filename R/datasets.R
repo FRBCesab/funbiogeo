@@ -12,12 +12,8 @@
 #' 
 #' Note that sites labels are specified in row names.
 #'   
-#' @format A `data.frame` with 1,505 rows (sites) and the following two 
-#' columns:
-#' \describe{
-#'   \item{x}{longitude of the site (in WGS84)}
-#'   \item{y}{latitude of the site (in WGS84)}
-#' }
+#' @format An `sf` object with 1,505 rows (sites) with a WGS84 (EPSG:4236)
+#'   Coordinate Reference System
 #' 
 #' @examples 
 #' data("site_locations")
