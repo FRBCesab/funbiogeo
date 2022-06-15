@@ -39,6 +39,7 @@ Imports:
 Suggests:
     ggridges,
     knitr,
+    mockery,
     patchwork,
     raster,
     rgdal,
