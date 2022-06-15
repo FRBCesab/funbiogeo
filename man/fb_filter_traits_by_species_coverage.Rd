@@ -15,11 +15,12 @@ traits as columns. The first column should be named \code{"species"}
 and contain species names. The other columns should be named according
 to trait names.}
 
-\item{threshold_species_proportion}{a numeric of length 1 between 0 and 1.
-The percentage of species coverage threshold.}
+\item{threshold_species_proportion}{\code{numeric(1)} [default = \code{NULL}]\cr{}
+between 0 and 1. The percentage of species coverage threshold.}
 }
 \value{
-A subset of \code{species_traits} with traits covered by X\% of species.
+A subset of \code{species_traits} with traits for the specified
+proportion of species.
 }
 \description{
 Selects traits (columns) for which the percentage of species without

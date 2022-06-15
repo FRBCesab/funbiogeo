@@ -29,12 +29,17 @@ Depends:
     R (>= 3.5.0)
 Imports:
     ggplot2,
+    scales,
     sf,
+    stats,
     terra,
     tidyr,
-    tidyselect
+    tidyselect,
+    utils
 Suggests:
+    ggridges,
     knitr,
+    mockery,
     patchwork,
     raster,
     rgdal,
