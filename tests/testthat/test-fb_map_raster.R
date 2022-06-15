@@ -1,5 +1,6 @@
 test_that("fb_map_raster() works", {
   
+  library("terra")
   
   # Initial data ----
   
@@ -32,7 +33,7 @@ test_that("fb_map_raster() works", {
     fixed = TRUE
   )
   
-  x <- terra::rast(prec)
+  x <- rast(prec)
   expect_error(
     fb_map_raster(x, add = FALSE),
     NA)
@@ -40,7 +41,7 @@ test_that("fb_map_raster() works", {
   
   ## Working ----
   
-  x <- terra::rast(prec)
+  x <- rast(prec)
   
   expect_silent(fb_map_raster(x))
   
