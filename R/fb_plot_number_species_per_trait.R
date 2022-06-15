@@ -29,15 +29,17 @@ fb_plot_number_species_per_trait = function(
     values_to = "trait_value"
   )
   
-  number_species_per_trait = count_species_per_trait(species_traits_long)
+  number_species_per_trait = fb_count_species_by_traits(species_traits)
   
-  number_species_per_trait$trait_name = factor(
-    number_species_per_trait$trait_name,
-    levels = rev(number_species_per_trait$trait_name)
+  number_species_per_trait$trait = factor(
+    number_species_per_trait$trait, levels = rev(number_species_per_trait$trait)
   )
   
+  number_species_per_trait[["prop_species"]] =
+    number_species_per_trait[["n_species"]]/nrow(species_traits)
+  
   given_plot = ggplot2::ggplot(
-    number_species_per_trait, ggplot2::aes_string("n_species", "trait_name")
+    number_species_per_trait, ggplot2::aes_string("n_species", "trait")
   ) +
     ggplot2::geom_point(color = "darkblue") +
     ggplot2::geom_text(
@@ -60,8 +62,10 @@ fb_plot_number_species_per_trait = function(
   
     if (!is.null(threshold_species_number)) {
       given_plot = given_plot +
-        ggplot2::geom_vline(xintercept = threshold_species_number, linetype = 2,
-                   size = 1.2, color = "darkred") +
+        ggplot2::geom_vline(
+          xintercept = threshold_species_number, linetype = 2, size = 1.2,
+          color = "darkred"
+        ) +
         ggplot2::annotate(
           "text", x = threshold_species_number, y = 0.95, hjust = 1.1,
           color = "darkred",

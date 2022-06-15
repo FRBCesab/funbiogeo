@@ -29,22 +29,22 @@ fb_plot_number_traits_per_species = function(
     values_to = "trait_value"
   )
   
-  number_trait_per_species = count_trait_per_species(species_traits_long)
+  number_trait_per_species = fb_count_traits_by_species(species_traits)
   
   number_trait_per_species = by(
-    number_trait_per_species, number_trait_per_species$n_trait,
+    number_trait_per_species, number_trait_per_species$n_traits,
     function(x) c(n = nrow(x))
   )
   number_trait_per_species = utils::stack(number_trait_per_species)
-  number_trait_per_species$n_trait = 
+  number_trait_per_species$n_traits = 
     as.numeric(as.character(number_trait_per_species$ind))
   
   given_plot = ggplot2::ggplot(
-    number_trait_per_species, ggplot2::aes_q(~values, ~n_trait)
+    number_trait_per_species, ggplot2::aes_q(~values, ~n_traits)
   ) +
     ggplot2::geom_point(size = 1.5) +
     ggplot2::geom_segment(
-      ggplot2::aes_q(y = ~n_trait, yend = ~n_trait, x =~0, xend = ~values)
+      ggplot2::aes_q(y = ~n_traits, yend = ~n_traits, x =~0, xend = ~values)
     ) +
     ggplot2::labs(x = "Number of Species", y = "Number of Traits") +
     ggplot2::scale_x_continuous(

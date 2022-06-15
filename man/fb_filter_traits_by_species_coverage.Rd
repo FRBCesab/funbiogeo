@@ -19,7 +19,8 @@ to trait names.}
 The percentage of species coverage threshold.}
 }
 \value{
-A subset of \code{species_traits} with traits covered by X\% of species.
+A subset of \code{species_traits} with traits for the specified
+proportion of species.
 }
 \description{
 Selects traits (columns) for which the percentage of species without
