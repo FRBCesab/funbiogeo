@@ -12,14 +12,14 @@
 #' data(species_traits)
 #' 
 #' \dontrun{%
-#' fb_plot_number_traits_per_species(species_traits)
+#' fb_plot_number_traits_by_species(species_traits)
 #' 
 #' # Add a vertical cutoff line
-#' fb_plot_number_traits_per_species(species_traits, 30)
+#' fb_plot_number_traits_by_species(species_traits, 30)
 #' }
 #' 
 #' @export
-fb_plot_number_traits_per_species = function(
+fb_plot_number_traits_by_species = function(
     species_traits, threshold_species_number = NULL
 ) {
   
