@@ -21,6 +21,12 @@ species_traits_2 <- data.frame(
   t4      = ordered(c("a", "a", "b", "b"))
 )
 
+# Data with missing data
+species_traits_na <- data.frame(
+  species = paste0("sp", 1:4),
+  t1      = c(1.1, 2.5, NA, NA)
+)
+
 # Occurrence matrix
 occ_dat <- data.frame(
   site = letters[1:5],
@@ -128,7 +134,7 @@ test_that("fb_filter_coverage() errors with wrong input", {
     }
   )
   
-  expect_identical(filtered_site, site_species)
+  expect_identical(filtered_site, site_species[-3,])
 
 })
 
@@ -165,6 +171,13 @@ test_that("fb_filter_coverage() works with occurrence matrices", {
   )
   
   expect_identical(test_coverage, occ_dat[3,,])
+  
+  
+  ## Missing trait data
+  expect_silent(
+    test_coverage <- fb_filter_coverage(occ_dat, species_traits_na, 1/2)
+  )
+  expect_identical(test_coverage, occ_dat[c(2, 4, 5),])
   
   
   ## Multiple trait types
@@ -237,6 +250,12 @@ test_that("fb_filter_coverage() works with abundance matrices", {
   expect_identical(test_coverage, site_species[3,])
   
   
+  ## Missing trait data
+  expect_silent(
+    test_coverage <- fb_filter_coverage(site_species, species_traits_na, 1/2)
+  )
+  expect_identical(test_coverage, site_species[2:5,])
+  
   ## Multiple trait types
   # (with only species for which we have traits of species)
   expect_silent(
@@ -305,6 +324,11 @@ test_that("fb_filter_coverage() works with cover matrices", {
   
   expect_identical(test_coverage, rel_dat[3,])
   
+  ## Missing Trait Data
+  expect_silent(
+    test_coverage <- fb_filter_coverage(rel_dat, species_traits_na, 1/2)
+  )
+  expect_identical(test_coverage, rel_dat[2:5,])
   
   ## Multiple trait types
   # (with only species for which we have traits)
