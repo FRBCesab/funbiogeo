@@ -3,5 +3,5 @@ test_that("fb_plot_site_traits_completeness works", {
     given_plot <- fb_plot_site_traits_completeness(site_species, species_traits)
   )
   
-  expect_s3_class(given_plot, "ggplot2")
+  expect_s3_class(given_plot, "ggplot")
 })

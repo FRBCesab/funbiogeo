@@ -1,13 +1,18 @@
-#' Plot Sites per Traits Completeness
+#' Distribution of Trait Coverages across all sites
 #'
 #' @inheritParams fb_get_coverage
 #'
-#' @return a ggplot2 object
+#' @return a 'ggplot2' object
 #'
 #' @examples
-#' \dontrun{fb_plot_site_traits_completeness(site_species, species_traits)}
+#' \dontrun{%
+#' fb_plot_distribution_site_trait_coverage(site_species, species_traits)
+#' }
+#' 
 #' @export
-fb_plot_site_traits_completeness = function(site_species, species_traits) {
+fb_plot_distribution_site_trait_coverage = function(
+    site_species, species_traits
+) {
   
   # Checks
   check_site_species(site_species)
@@ -17,7 +22,9 @@ fb_plot_site_traits_completeness = function(site_species, species_traits) {
   full_coverage = fb_get_coverage(site_species, species_traits)
   colnames(full_coverage)[2] = "all_traits"
   
-  trait_coverage = lapply(colnames(species_traits)[-1], function(x) {
+  trait_coverage = lapply(
+    colnames(species_traits)[-1],
+    function(x) {
     
     trait_cov2 = fb_get_coverage(
       site_species, species_traits[, c("species", x)]
@@ -86,25 +93,23 @@ fb_plot_site_traits_completeness = function(site_species, species_traits) {
   avg_coverage = t(utils::unstack(avg_coverage))
   
   
+  if (!requireNamespace("ggridges")) {
+    stop("This function requires 'ggridges' to work\n",
+         "Please run \"install.packages('ggridges')\"", call. = FALSE)
+  }
+  
+  # Figure
   ggplot2::ggplot(
     all_coverage,
-    ggplot2::aes_q(~coverage_name, ~site, fill = ~coverage_value)
+    ggplot2::aes_q(~coverage_value, ~coverage_name)
   ) +
-    ggplot2::geom_tile() +
-    ggplot2::coord_cartesian(expand = FALSE) +
-    ggplot2::labs(x = "Trait Name", y = "Sites") +
-    ggplot2::scale_x_discrete(labels = avg_coverage) +
-    ggplot2::scale_fill_viridis_b(
-      n.breaks = 10,
-      "Trait Coverage\n(Prop. of species)",
-      labels = scales::label_percent(),
-      show.limits = TRUE
+    ggridges::stat_density_ridges(
+      quantile_lines = TRUE, quantile_fun = mean, scale = 0.98,
+      vline_linetype = 2
     ) +
-    ggplot2::theme_bw() +
-    ggplot2::theme(
-      axis.text.y  = ggplot2::element_blank(),
-      axis.ticks.y = ggplot2::element_blank(),
-      legend.position = "top",
-      legend.key.width = grid::unit(2, "cm")
-    )
+    ggplot2::scale_x_continuous(
+      "Average Trait Coverage per Site", labels = scales::label_percent()
+    ) +
+    ggplot2::scale_y_discrete("Trait Name", labels = avg_coverage) +
+    ggplot2::theme_bw()
 }

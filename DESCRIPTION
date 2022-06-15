@@ -37,6 +37,7 @@ Imports:
     tidyselect,
     utils
 Suggests:
+    ggridges,
     knitr,
     patchwork,
     raster,
