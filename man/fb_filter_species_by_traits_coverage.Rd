@@ -4,7 +4,10 @@
 \alias{fb_filter_species_by_traits_coverage}
 \title{Filter species with a given traits coverage threshold}
 \usage{
-fb_filter_species_by_traits_coverage(species_traits, threshold = 0)
+fb_filter_species_by_traits_coverage(
+  species_traits,
+  threshold_traits_proportion = 0
+)
 }
 \arguments{
 \item{species_traits}{a \code{data.frame} with species in rows and
@@ -12,7 +15,7 @@ traits as columns. The first column should be named \code{"species"}
 and contain species names. The other columns should be named according
 to trait names.}
 
-\item{threshold}{a numeric of length 1 between 0 and 1. The percentage of
+\item{threshold_traits_proportion}{a numeric of length 1 between 0 and 1. The percentage of
 traits coverage threshold.}
 }
 \value{
@@ -27,6 +30,7 @@ library("funbiogeo")
 
 data("species_traits")
 
-species_traits <- fb_filter_species_by_traits_coverage(species_traits,
-                                                       threshold = 0.6)
+species_traits <- fb_filter_species_by_traits_coverage(
+  species_traits,
+  threshold_traits_proportion = 0.6)
 }
