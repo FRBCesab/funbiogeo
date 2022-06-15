@@ -28,10 +28,22 @@
     <loc>/reference/fb_aggregate_site_data.html</loc>
   </url>
   <url>
+    <loc>/reference/fb_count_species_by_traits.html</loc>
+  </url>
+  <url>
+    <loc>/reference/fb_count_traits_by_species.html</loc>
+  </url>
+  <url>
     <loc>/reference/fb_cwm.html</loc>
   </url>
   <url>
     <loc>/reference/fb_filter_coverage.html</loc>
+  </url>
+  <url>
+    <loc>/reference/fb_filter_species_by_traits_coverage.html</loc>
+  </url>
+  <url>
+    <loc>/reference/fb_filter_traits_by_species_coverage.html</loc>
   </url>
   <url>
     <loc>/reference/fb_format_site_locations.html</loc>
