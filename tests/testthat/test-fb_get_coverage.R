@@ -25,6 +25,12 @@ species_traits_2 <- data.frame(
   t4      = ordered(c("a", "a", "b", "b"))
 )
 
+# Data with missing data
+species_traits_na <- data.frame(
+  species = paste0("sp", 1:4),
+  t1      = c(1.1, 2.5, NA, NA)
+)
+
 # Occurrence matrix
 occ_dat <- data.frame(
   site = letters[1:5],
@@ -132,7 +138,12 @@ test_that("fb_get_coverage() works with occurrence matrices", {
   
   expect_silent(test_coverage <- fb_get_coverage(occ_dat, species_traits[1:3,]))
   
-  expect_equal(test_coverage[["trait_coverage"]][[1]], 2 / 3)
+  expect_equal(test_coverage[["trait_coverage"]][[1]], 2/3)
+  
+  
+  ## Missing trait
+  expect_silent(test_coverage <- fb_get_coverage(occ_dat, species_traits_na))
+  expect_equal(test_coverage[["trait_coverage"]], c(1/3, 1/2, 1/3, 1/2, 1/2))
   
   
   ## Multiple trait types
@@ -146,7 +157,7 @@ test_that("fb_get_coverage() works with occurrence matrices", {
     test_coverage <- fb_get_coverage(occ_dat, species_traits_2[1:3,])
   )
   
-  expect_equal(test_coverage[["trait_coverage"]][[1]], 2 / 3)
+  expect_equal(test_coverage[["trait_coverage"]][[1]], 2/3)
   
 })
 
@@ -166,8 +177,16 @@ test_that("fb_get_coverage() works with abundance matrices", {
     test_coverage <- fb_get_coverage(site_species, species_traits[1:3,])
   )
   
-  expect_equal(test_coverage[["trait_coverage"]][[4]], 25/ 37)
+  expect_equal(test_coverage[["trait_coverage"]][[4]], 25/37)
+
   
+  ## Missing trait
+  expect_silent(
+    test_coverage <- fb_get_coverage(site_species, species_traits_na)
+  )
+  expect_equal(
+    test_coverage[["trait_coverage"]], c(1/26, 10/18, 10/15, 25/37, 40/52)
+  )
   
   ## Multiple trait types
   # (with only species for which we have traits)
@@ -183,7 +202,7 @@ test_that("fb_get_coverage() works with abundance matrices", {
     test_coverage <- fb_get_coverage(site_species, species_traits_2[1:3,])
   )
   
-  expect_equal(test_coverage[["trait_coverage"]][[4]], 25/ 37)
+  expect_equal(test_coverage[["trait_coverage"]][[4]], 25/37)
   
 })
 
@@ -204,6 +223,15 @@ test_that("fb_get_coverage() works with coverage matrices", {
   expect_equal(test_coverage[["trait_coverage"]][[4]], 25/ 37)
   
   
+  ## Missing trait
+  expect_silent(
+    test_coverage <- fb_get_coverage(rel_dat, species_traits_na)
+  )
+  expect_equal(
+    test_coverage[["trait_coverage"]], c(1/26, 10/18, 10/15, 25/37, 40/52)
+  )
+  
+  
   ## Multiple trait types
   # (with only species for which we have traits)
   expect_silent(
@@ -218,5 +246,5 @@ test_that("fb_get_coverage() works with coverage matrices", {
     test_coverage <- fb_get_coverage(rel_dat, species_traits_2[1:3,])
   )
 
-  expect_equal(test_coverage[["trait_coverage"]][[4]], 25/ 37)
+  expect_equal(test_coverage[["trait_coverage"]][[4]], 25/37)
 })
