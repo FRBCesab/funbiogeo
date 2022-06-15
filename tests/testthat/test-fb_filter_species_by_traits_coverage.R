@@ -55,7 +55,8 @@ test_that("fb_filter_species_by_traits_coverage() errors with wrong inputs", {
   # No numeric threshold ----
   
   expect_error(
-    fb_filter_species_by_traits_coverage(species_traits, threshold = "a"),
+    fb_filter_species_by_traits_coverage(species_traits, 
+                                         threshold_traits_proportion = "a"),
     "Coverage threshold should be a numeric value >= 0 and <= 1",
     fixed = TRUE
   )
@@ -64,7 +65,8 @@ test_that("fb_filter_species_by_traits_coverage() errors with wrong inputs", {
   # Threshold > 1 ----
   
   expect_error(
-    fb_filter_species_by_traits_coverage(species_traits, threshold = 2),
+    fb_filter_species_by_traits_coverage(species_traits, 
+                                         threshold_traits_proportion = 2),
     "Coverage threshold should be a numeric value >= 0 and <= 1",
     fixed = TRUE
   )
@@ -73,7 +75,8 @@ test_that("fb_filter_species_by_traits_coverage() errors with wrong inputs", {
   # Threshold < 0 ----
   
   expect_error(
-    fb_filter_species_by_traits_coverage(species_traits, threshold = -1),
+    fb_filter_species_by_traits_coverage(species_traits, 
+                                         threshold_traits_proportion = -1),
     "Coverage threshold should be a numeric value >= 0 and <= 1",
     fixed = TRUE
   )
@@ -82,7 +85,8 @@ test_that("fb_filter_species_by_traits_coverage() errors with wrong inputs", {
   # Check for only NA for some species ----
   
   expect_message(
-    fb_filter_species_by_traits_coverage(species_traits2, threshold = 0),
+    fb_filter_species_by_traits_coverage(species_traits2, 
+                                         threshold_traits_proportion = 0),
     "Some species have only NA values for all traits. Maybe you would like to remove them.",
     fixed = TRUE
   )
