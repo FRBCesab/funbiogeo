@@ -12,7 +12,7 @@ reference:
 - title: Filtering species and traits
   desc: >
     Explore species x traits data and select species and/or traits
-  content:
+  contents:
     - fb_count_species_by_traits
     - fb_count_traits_by_species
     - fb_filter_species_by_traits_coverage
