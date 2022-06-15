@@ -73,31 +73,30 @@ several functions of <code>funbiogeo</code>.</p>
 
     <div id="format">
     <h2>Format</h2>
-    <p>A <code>data.frame</code> with 1,505 rows (sites) and the following two
-columns:</p><dl><dt>x</dt>
-<dd><p>longitude of the site (in WGS84)</p></dd>
-
-<dt>y</dt>
-<dd><p>latitude of the site (in WGS84)</p></dd>
-
-
-</dl></div>
+    <p>An <code>sf</code> object with 1,505 rows (sites) with a WGS84 (EPSG:4236)
+Coordinate Reference System</p>
+    </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"site_locations"</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">site_locations</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "data.frame"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "sf"         "data.frame"</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">site_locations</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1505    3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1505    2</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">site_locations</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    site        x        y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 fb_33 5.771821 59.59736</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 fb_35 6.771821 59.59736</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 fb_36 7.271821 59.59736</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 fb_37 7.771821 59.59736</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 fb_38 8.271821 59.59736</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 fb_39 8.771821 59.59736</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Simple feature collection with 6 features and 1 field</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Geometry type: POINT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Dimension:     XY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bounding box:  xmin: 5.771821 ymin: 59.59736 xmax: 8.771821 ymax: 59.59736</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Geodetic CRS:  WGS 84</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    site                  geometry</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 fb_33 POINT (5.771821 59.59736)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 fb_35 POINT (6.771821 59.59736)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 fb_36 POINT (7.271821 59.59736)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 fb_37 POINT (7.771821 59.59736)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 fb_38 POINT (8.271821 59.59736)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 fb_39 POINT (8.771821 59.59736)</span>
 </code></pre></div>
     </div>
   </div>
