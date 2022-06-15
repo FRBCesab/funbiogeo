@@ -9,7 +9,8 @@
 #' 
 #' @inheritParams fb_get_coverage
 #'
-#' @return A subset of `species_traits` with traits covered by X% of species.
+#' @return A subset of `species_traits` with traits for the specified
+#'   proportion of species.
 #' 
 #' @export
 #'
@@ -24,7 +25,8 @@
 
 fb_filter_traits_by_species_coverage <- function(
     species_traits, 
-    threshold_species_proportion = 0) {
+    threshold_species_proportion = 0
+) {
   
   ## Check inputs ----
   
@@ -43,8 +45,13 @@ fb_filter_traits_by_species_coverage <- function(
   
   # Check for absence of variability in traits ----
   
-  n_modalities  <- unlist(lapply(colnames(species_traits)[-1], function(x) 
-    length(unique(species_traits[[x]][!is.na(species_traits[[x]])]))))
+  n_modalities  <- unlist(
+    lapply(
+      colnames(species_traits)[-1], function(x) {
+        length(unique(species_traits[[x]][!is.na(species_traits[[x]])]))
+      }
+    )
+  )
   
   only_na_traits <- colnames(species_traits)[-1][which(n_modalities == 0)]
   
@@ -77,6 +84,6 @@ fb_filter_traits_by_species_coverage <- function(
     message("No trait has the specified species coverage threshold")
   }
   
-  species_traits[ , c(colnames(species_traits)[1], selected_traits), 
+  species_traits[, c(colnames(species_traits)[1], selected_traits), 
                   drop = FALSE]
 }

@@ -18,10 +18,16 @@ fb_plot_species_traits_completeness = function(species_traits) {
     )
   
   # Count Number of Species per Trait
-  number_species_per_trait = count_species_per_trait(species_traits_long)
+  number_species_per_trait = fb_count_species_by_traits(species_traits)
+  
+  number_species_per_trait$trait_label = with(
+    number_species_per_trait,
+    paste0(trait, "\n(", prettyNum(coverage * 100, digits = 3), "%)")
+  )
+  
   
   # Count Number of Trait per Species
-  number_trait_per_species = count_trait_per_species(species_traits_long)
+  number_trait_per_species = fb_count_traits_by_species(species_traits)
   
   species_traits_long$has_trait = ifelse(
     !is.na(species_traits_long$trait_value), TRUE, FALSE
@@ -31,7 +37,7 @@ fb_plot_species_traits_completeness = function(species_traits) {
   ggplot2::ggplot(
     species_traits_long,
     ggplot2::aes_q(
-        ~factor(trait_name, levels = number_species_per_trait$trait_name),
+        ~factor(trait_name, levels = number_species_per_trait$trait),
         ~factor(species,    levels = number_trait_per_species$species)
       )
     ) +
