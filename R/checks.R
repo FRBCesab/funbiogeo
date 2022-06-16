@@ -12,6 +12,15 @@
 #' @noRd
 
 check_site_species <- function(site_species) {
+  
+  # Check missing --------------------------------------------------------------
+  
+  if (missing(site_species)) {
+    stop(
+      "Argument 'site_species' (site x species data frame) is required",
+      call. = FALSE
+    )
+  }
 
   # Check object type ----------------------------------------------------------
   
@@ -70,6 +79,15 @@ check_site_species <- function(site_species) {
 
 check_species_traits <- function(species_traits) {
   
+  # Check missing --------------------------------------------------------------
+  
+  if (missing(species_traits)) {
+    stop(
+      "Argument 'species_traits' (species x traits data frame) is required",
+      call. = FALSE
+    )
+  }
+  
   # Check object type ----------------------------------------------------------
   
   if (!is.data.frame(species_traits)) {
@@ -116,7 +134,16 @@ check_species_traits <- function(species_traits) {
 
 check_site_locations <- function(site_locations) {
   
-  # Check object type ----
+  # Check missing --------------------------------------------------------------
+  
+  if (missing(site_locations)) {
+    stop(
+      "Argument 'sites_locations' (spatial sites 'sf' object) is required",
+      call. = FALSE
+    )
+  }
+  
+  # Check object type ----------------------------------------------------------
   
   if (!inherits(site_locations, "sf")) {
     stop("The site x locations object must be an 'sf' object", 

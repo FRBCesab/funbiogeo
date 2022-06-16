@@ -4,6 +4,11 @@ test_that("check_site_species() works", {
   # Wrong input type ----
   
   expect_error(
+    check_site_species(),
+    "Argument 'site_species' (site x species data frame) is required",
+    fixed = TRUE)
+  
+  expect_error(
     check_site_species("a"),
     "The site x species object must be a data.frame",
     fixed = TRUE)
@@ -104,6 +109,11 @@ test_that("check_species_traits() works", {
   # Wrong input type ----
   
   expect_error(
+    check_species_traits(),
+    "Argument 'species_traits' (species x traits data frame) is required",
+    fixed = TRUE)
+  
+  expect_error(
     check_species_traits("a"),
     "The species x traits object must be a data.frame",
     fixed = TRUE)
@@ -183,6 +193,12 @@ test_that("check_site_locations() works", {
   sites_sf <- site_locations
   
   # Wrong input ----
+  
+  expect_error(
+    check_site_locations(),
+    "Argument 'sites_locations' (spatial sites 'sf' object) is required",
+    fixed = TRUE
+  )
   
   expect_error(
     check_site_locations(data.frame("a")),
