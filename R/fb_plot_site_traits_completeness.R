@@ -13,27 +13,9 @@ fb_plot_site_traits_completeness = function(site_species, species_traits) {
   check_site_species(site_species)
   check_species_traits(species_traits)
   
-  # Computing Trait Coverage per Site
-  full_coverage = fb_get_coverage(site_species, species_traits)
-  colnames(full_coverage)[2] = "all_traits"
+  # Computing All Trait Coverages per Site
+  all_coverage = fb_get_all_coverages(site_species, species_traits)
   
-  trait_coverage = lapply(colnames(species_traits)[-1], function(x) {
-    
-    trait_cov2 = fb_get_coverage(
-      site_species, species_traits[, c("species", x)]
-    )
-    
-    colnames(trait_cov2)[2] = x
-    
-    return(trait_cov2)
-  })
-  
-  # Combine Trait Coverages
-  trait_coverage = Reduce(
-    function(...) merge(..., by = "site", all.x = TRUE), trait_coverage
-  )
-  
-  all_coverage = merge(full_coverage, trait_coverage, by = "site")
   all_coverage = tidyr::pivot_longer(
     all_coverage, -"site", names_to = "coverage_name",
     values_to = "coverage_value"
