@@ -3,7 +3,7 @@
 #' @description
 #' ...
 #' 
-#' @param coverage_threshold a numeric of length 1 between 0 and 1. The 
+#' @param threshold_traits_proportion a numeric of length 1 between 0 and 1. The 
 #' percentage trait coverage threshold
 #' 
 #' @inheritParams fb_get_trait_coverage_by_site
@@ -19,10 +19,11 @@
 #' data("site_species")
 #' data("species_traits")
 #' 
-#' cover <- fb_filter_coverage(site_species, species_traits)
+#' cover <- fb_filter_sites_by_trait_coverage(site_species, species_traits)
 
-fb_filter_coverage <- function(site_species, species_traits, 
-                               coverage_threshold = 1) {
+fb_filter_sites_by_trait_coverage <- function(
+    site_species, species_traits, threshold_traits_proportion = 1
+) {
   
   
   ## Check inputs ----
@@ -39,8 +40,9 @@ fb_filter_coverage <- function(site_species, species_traits,
   
   check_species_traits(species_traits)
   
-  if (!is.numeric(coverage_threshold) | coverage_threshold > 1 |
-      coverage_threshold < 0) {
+  if (!is.numeric(threshold_traits_proportion) |
+      threshold_traits_proportion > 1 |
+      threshold_traits_proportion < 0) {
     stop("Coverage threshold should be a numeric value >= 0 and <= 1",
          call. = FALSE)
   }
@@ -54,7 +56,7 @@ fb_filter_coverage <- function(site_species, species_traits,
   # Filter sites by coverage ----
   
   selected_sites <- trait_coverage[
-    which(trait_coverage[["trait_coverage"]] >= coverage_threshold),
+    which(trait_coverage[["trait_coverage"]] >= threshold_traits_proportion),
     "site"]
   
   

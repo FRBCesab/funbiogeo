@@ -18,7 +18,7 @@ reference:
     - fb_count_traits_by_species
     - fb_get_trait_coverage_by_site
     - fb_get_all_coverages
-    - fb_filter_coverage
+    - fb_filter_sites_by_trait_coverage
     - fb_filter_traits_by_species_coverage
     - fb_filter_species_by_traits_coverage
 - title: Functional Diversity Functions

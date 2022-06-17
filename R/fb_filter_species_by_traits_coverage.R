@@ -4,8 +4,8 @@
 #' Selects species (rows) for which the percentage of traits without 
 #' `NA` (missing trait values) is higher than a threshold.
 #' 
-#' @param threshold_traits_proportion a numeric of length 1 between 0 and 1. The percentage of 
-#' traits coverage threshold.
+#' @param threshold_traits_proportion a numeric of length 1 between 0 and 1.
+#'   The percentage of traits coverage threshold.
 #' 
 #' @inheritParams fb_get_trait_coverage_by_site
 #'

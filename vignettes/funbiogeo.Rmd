@@ -288,7 +288,9 @@ head(cover)
 
 ```{r 'filter-trait-coverage'}
 ## Get trait coverage ----
-sel_sites <- fb_filter_coverage(site_species, species_traits, coverage_threshold = 1)
+sel_sites <- fb_filter_sites_by_trait_coverage(
+  site_species, species_traits, threshold_traits_proportion = 1
+)
 
 ## Preview ----
 head(sel_sites[ , 1:4])
