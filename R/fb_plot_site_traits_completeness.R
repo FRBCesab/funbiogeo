@@ -5,7 +5,9 @@
 #' @return a ggplot2 object
 #'
 #' @examples
-#' \dontrun{fb_plot_site_traits_completeness(site_species, species_traits)}
+#' fb_plot_site_traits_completeness(site_species, species_traits)
+#' 
+#' @importFrom rlang .data
 #' @export
 fb_plot_site_traits_completeness = function(site_species, species_traits) {
   
@@ -70,7 +72,7 @@ fb_plot_site_traits_completeness = function(site_species, species_traits) {
   
   ggplot2::ggplot(
     all_coverage,
-    ggplot2::aes_q(~coverage_name, ~site, fill = ~coverage_value)
+    ggplot2::aes(.data$coverage_name, .data$site, fill = .data$coverage_value)
   ) +
     ggplot2::geom_tile() +
     ggplot2::coord_cartesian(expand = FALSE) +

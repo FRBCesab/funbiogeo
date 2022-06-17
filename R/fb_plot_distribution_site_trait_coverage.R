@@ -5,10 +5,9 @@
 #' @return a 'ggplot2' object
 #'
 #' @examples
-#' \dontrun{
 #' fb_plot_distribution_site_trait_coverage(site_species, species_traits)
-#' }
 #' 
+#' @importFrom rlang .data
 #' @export
 fb_plot_distribution_site_trait_coverage = function(
     site_species, species_traits
@@ -101,7 +100,7 @@ fb_plot_distribution_site_trait_coverage = function(
   # Figure
   ggplot2::ggplot(
     all_coverage,
-    ggplot2::aes_q(~coverage_value, ~coverage_name)
+    ggplot2::aes(.data$coverage_value, .data$coverage_name)
   ) +
     ggridges::stat_density_ridges(
       quantile_lines = TRUE, quantile_fun = mean, scale = 0.98,

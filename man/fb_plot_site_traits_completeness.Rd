@@ -23,5 +23,6 @@ a ggplot2 object
 Plot Sites per Traits Completeness
 }
 \examples{
-\dontrun{fb_plot_site_traits_completeness(site_species, species_traits)}
+fb_plot_site_traits_completeness(site_species, species_traits)
+
 }

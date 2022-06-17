@@ -6,6 +6,7 @@
 #' @return a 'ggplot2' object
 #' @export
 #'
+#' @importFrom rlang .data
 #' @examples
 #' fb_map_site_traits_completeness(site_locations, site_species, species_traits)
 fb_map_site_traits_completeness = function(
@@ -37,7 +38,7 @@ fb_map_site_traits_completeness = function(
   if(inherits(site_locations_cov[["geometry"]], "sfc_POINT")) {
     
     base_plot = ggplot2::ggplot(
-      site_locations_cov, ggplot2::aes_q(colour = ~coverage_value)
+      site_locations_cov, ggplot2::aes(colour = .data$coverage_value)
     ) +
       ggplot2::geom_sf() +
       ggplot2::scale_colour_viridis_c(
@@ -46,7 +47,7 @@ fb_map_site_traits_completeness = function(
     
   } else {
     base_plot = ggplot2::ggplot(
-      site_locations_cov, ggplot2::aes_string(fill = "coverage_value")
+      site_locations_cov, ggplot2::aes(fill = .data$coverage_value)
     ) +
       ggplot2::geom_sf() +
       ggplot2::scale_fill_viridis_c(
@@ -55,6 +56,6 @@ fb_map_site_traits_completeness = function(
   }
   
   base_plot +
-    ggplot2::facet_wrap(ggplot2::vars("coverage_name")) +
+    ggplot2::facet_wrap(ggplot2::vars(.data$coverage_name)) +
     ggplot2::theme_bw()
 }

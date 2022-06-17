@@ -29,6 +29,7 @@ Depends:
     R (>= 3.5.0)
 Imports:
     ggplot2,
+    rlang,
     scales,
     sf,
     stats,

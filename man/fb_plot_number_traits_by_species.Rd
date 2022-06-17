@@ -27,11 +27,9 @@ Show Number of Traits per Species
 \examples{
 data(species_traits)
 
-\dontrun{
 fb_plot_number_traits_by_species(species_traits)
 
 # Add a vertical cutoff line (30\% of the species)
 fb_plot_number_traits_by_species(species_traits, 1/3)
-}
 
 }

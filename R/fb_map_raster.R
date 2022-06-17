@@ -7,6 +7,7 @@
 #'
 #' @return A `ggplot` object.
 #' 
+#' @importFrom rlang .data
 #' @export
 #'
 #' @examples
@@ -63,11 +64,11 @@ fb_map_raster <- function(x, ...) {
   ## Plot ----
   
   ggplot2::ggplot(x) + 
-    
-    ggplot2::geom_raster(ggplot2::aes_string(x = "x", y = "y", 
-                                             fill = colnames(x)[3])) + 
-    
-    ggplot2::coord_equal() + ggplot2::labs(x = "Longitude", y = "Latitude") + 
-    
-    ggplot2::theme_bw() + ggplot2::theme(...)
+    ggplot2::geom_raster(
+      ggplot2::aes(x = .data$x, y = .data$y, fill = .data[[colnames(x)[3]]])
+    ) + 
+    ggplot2::coord_equal() +
+    ggplot2::labs(x = "Longitude", y = "Latitude") + 
+    ggplot2::theme_bw() +
+    ggplot2::theme(...)
 }

@@ -23,8 +23,6 @@ a 'ggplot2' object
 Distribution of Trait Coverages across all sites
 }
 \examples{
-\dontrun{
 fb_plot_distribution_site_trait_coverage(site_species, species_traits)
-}
 
 }

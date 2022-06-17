@@ -7,13 +7,12 @@
 #' @examples
 #' data(species_traits)
 #' 
-#' \dontrun{
 #' fb_plot_number_species_by_trait(species_traits)
 #' 
 #' # Add a vertical cutoff line (12.5% of species)
 #' fb_plot_number_species_by_trait(species_traits, 1/8)
-#' }
 #' 
+#' @importFrom rlang .data
 #' @export
 fb_plot_number_species_by_trait = function(
     species_traits, threshold_species_proportion = NULL
@@ -35,12 +34,12 @@ fb_plot_number_species_by_trait = function(
     number_species_per_trait[["n_species"]]/nrow(species_traits)
   
   given_plot = ggplot2::ggplot(
-    number_species_per_trait, ggplot2::aes_string("n_species", "trait")
+    number_species_per_trait, ggplot2::aes(.data$n_species, .data$trait)
   ) +
     ggplot2::geom_point(color = "darkblue") +
     ggplot2::geom_text(
-      ggplot2::aes_q(
-        label = ~paste0(prettyNum(prop_species * 100, digits = 3), "%")
+      ggplot2::aes(
+        label = paste0(prettyNum(.data$prop_species * 100, digits = 3), "%")
       ),
       hjust = -0.15, size = 3.5
     ) +
