@@ -20,6 +20,7 @@ reference:
 - title: Trait Coverage functions
   contents:
     - fb_get_coverage
+    - fb_get_all_coverages
     - fb_filter_coverage
 - title: Functional Diversity Functions
   contents:
