@@ -35,7 +35,6 @@ library("funbiogeo")
 library("ggplot2")
 ```
 
-
 ## Provided data
 
 We are interested in mapping the functional traits of mammals of Europe.
@@ -142,19 +141,63 @@ knitr::kable(head(site_locations, 10),
 
 ## Visualizing the data (diagnostic plots)
 
-Showing trait coverage
+`funbiogeo` provides many functions to display the data to help the use select
+specific traits, species, and/or sites. We are going to detail some of them
+in this section. We call them *diagnostic plots* because they help us
+to have an overview of our dataset **prior** to the analyses.
 
-Showing species
+### Trait completeness per species
 
-Showing sites
+A first way to visualize our dataset is to look at the proportion of species
+with non-missing traits using the `fb_plot_number_species_by_trait()` function.
+It takes the species by trait data.frame as input.
+
+```{r fig-plot-sp-by-trait}
+fb_plot_number_species_by_trait(species_traits)
+```
+
+This plot shows us the number of species (along the x-axis) in function of 
+the trait name (along the y-axis). The number of concerned species is shown at
+the bottom of the plot while the corresponding proportion of species
+(compared to all the species included in the trait dataset) is indicated as
+a secondary y-axis at the top. The proportion of species concerned is shown at
+the right of each point. For example, in our example dataset, 82.6% species have
+a non-NA adult body mass.
+
+The function also include a way to provide a target proportion of species as
+the second argument. It will display the proportion as a dark red dashed line.
+
+For example, if we want to visualize which traits cover more than 75%
+of the species:
+
+```{r fig-plot-sp-by-trait-prop}
+fb_plot_number_species_by_trait(species_traits, 0.75)
+```
+
+The top number shows the corresponding number of species.
+
+
+### Number of Traits per Species
+
+Another one to filter the data would be to select certain species that
+have at least a certain number of traits. This can be visualized using the
+`fb_plot_number_traits_by_species()` function. Similarly to the above-mentioned
+function, it takes the species-traits data.frame as the first argument:
+
+```{r fig-plot-trait-by-sp}
+fb_plot_number_traits_by_species(species_traits)
+```
+
+The plots shows the number (bottom axis) and the proportion (top axis) of
+species covered by a specific number of trait (0 to 6 in our example).
 
 ## Filtering the data
 
-### Filtering trait by species coverage
+### Filter trait by species coverage
 
-### Filtering species by trait coverage
+### Filter species by trait coverage
 
-### Filtering sites by trait coverage
+### Filter sites by trait coverage
 
 ```{r 'filter-trait-coverage'}
 ## Get trait coverage ----
