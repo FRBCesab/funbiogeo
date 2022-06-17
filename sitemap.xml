@@ -55,6 +55,9 @@
     <loc>/reference/fb_format_species_traits.html</loc>
   </url>
   <url>
+    <loc>/reference/fb_get_all_coverages.html</loc>
+  </url>
+  <url>
     <loc>/reference/fb_get_coverage.html</loc>
   </url>
   <url>
@@ -62,6 +65,9 @@
   </url>
   <url>
     <loc>/reference/fb_map_raster.html</loc>
+  </url>
+  <url>
+    <loc>/reference/fb_map_site_traits_completeness.html</loc>
   </url>
   <url>
     <loc>/reference/fb_plot_distribution_site_trait_coverage.html</loc>
