@@ -97,10 +97,6 @@ summary(species_traits)
 From there we can see that there are 149 included species and some missing trait
 values. For example, there we don't have body mass for 26 species.
 
-To create your own species x traits dataset you can use the function 
-`fb_format_species_traits()`.
-See below the [section ***Long format***](#long-format).
-
 
 ### Site x Species
 
@@ -124,10 +120,6 @@ knitr::kable(head(site_species[ , 1:4], 10),
 The example dataset contains the occurrence of the 149 above-mentioned species
 across 1505 sites of 0.5° by 0.5° resolution.
 
-To create your own site x species dataset you can use the function 
-`fb_format_site_species()`.
-See below the [section ***Long format***](#long-format).
-
 
 ### Site x Locations
 
@@ -146,100 +138,6 @@ knitr::kable(head(site_locations, 10),
              caption   = "Format of site x locations dataset", 
              align     = c("r", "r"))
 ```
-
-To create your own site x locations dataset you can use the function 
-`fb_format_site_locations()`.
-See below the [section ***Long format***](#long-format).
-
-
-### Long format
-
-If your data are not split into three tables you can use the functions
-`fb_format_*()` to create these specific objects. These functions take a long
-table as input, where one row corresponds to the occurrence/abundance/coverage 
-f one species at one site and output a tidy object. Similarly, if your data is
-in a long format some variables are repeated across the table
-(e.g. sites coordinates, species traits).
-
-For example, the raw data used to generate the internal data of `funbiogeo`:
-
-```{r 'load-raw-dataset'}
-## Path to example raw dataset ----
-filename <- system.file(
-  "extdata", "raw_mammals_data.csv", package = "funbiogeo"
-)
-
-## Read CSV file ----
-all_data <- read.csv(filename)
-```
-
-```{r 'preview-raw-dataset', echo = FALSE}
-knitr::kable(
-  head(all_data, 10), 
-  caption   = "Long table example", 
-  align     = c("c", "r", "r", "l", "c", "r", "r", "r", "r", "r", "r")
-)
-```
-
-
-#### Formatting species x traits data
-
-The function `fb_format_species_traits()` extracts species traits values from 
-this long table to create the species x traits dataset. Note that one species 
-must have one unique trait value (no trait variation across sites allowed).
-
-```{r 'format-species-traits'}
-## Format species x traits data ----
-species_traits <- fb_format_species_traits(
-  data    = all_data, 
-  species = "species", 
-  traits  = c("adult_body_mass", "gestation_length", "litter_size",
-              "max_longevity", "sexual_maturity_age", "diet_breadth")
-)
-
-## Preview ----
-species_traits
-```
-
-#### Formatting site x species data
-
-The function `fb_format_site_species()` extracts species 
-occurrence/abundance/coverage from this long table to create the 
-site x species dataset. Note that one species must have been observed one time 
-at one site (the package `funbiogeo` does not yet consider temporal survey).
-
-```{r 'format-sites-species'}
-## Format site x species data ----
-site_species <- fb_format_site_species(data       = all_data, 
-                                       site       = "site", 
-                                       species    = "species", 
-                                       value      = "count",
-                                       na_to_zero = TRUE)
-
-## Preview ----
-dim(site_species)
-head(site_species)[,1:10]
-```
-
-
-#### Formatting site x locations data
-
-The function `fb_format_site_locations()` extracts sites coordinates from this
-long table to create the site x locations dataset. Note that one site must have
-one unique longitude x latitude value.
-
-```{r 'format-sites-locs'}
-## Format site x locations data ----
-site_locations <- fb_format_site_locations(input_data =  all_data, 
-                                           site       = "site", 
-                                           longitude  = "longitude", 
-                                           latitude   = "latitude",
-                                           na_rm      = FALSE)
-
-## Preview ----
-head(site_locations)
-```
-
 
 
 ## Visualizing the data (diagnostic plots)
