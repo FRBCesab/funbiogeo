@@ -1,6 +1,7 @@
 ---
 title: "Get started with funbiogeo"
 output: rmarkdown::html_vignette
+bibliography: refs.bib
 vignette: >
   %\VignetteIndexEntry{Get started with funbiogeo}
   %\VignetteEncoding{UTF-8}
@@ -20,10 +21,14 @@ knitr::opts_chunk$set(
 )
 ```
 
-The aim of the `funbiogeo`package is to help users with analyses in **Fun**ctional 
-**biogeo**graphy (Violle *et al.* 2014). It helps to load and combine data, 
-computing trait coverage, as well as computing functional diversity indices, 
-drawing maps, correlate them with the environment, and upscaling assemblages.
+The aim of the `funbiogeo`package is to help users streamline the workflows in **fun**ctional **biogeo**graphy [@Violle_emergence_2014].
+It helps filter sites, species, and traits based on their trait coverages.
+It also provide default diagnostic plots and standard tables summarizing input
+data. This vignette aims to be an introduction to the most commonly used
+functions.
+
+The vignette will be a worked through a real world example using the internal
+dataset provided by `funbiogeo`.
 
 ```{r setup}
 library("funbiogeo")
@@ -31,65 +36,84 @@ library("ggplot2")
 ```
 
 
-## Initial needed data
+## Provided data
 
-The package `funbiogeo` requires three different datasets to proceed with the 
+We are interested in mapping the functional traits of mammals of Europe.
+We used range maps data
+[from the IUCN](https://www.iucnredlist.org/resources/spatial-data-download)
+and trait data from the
+[PanTHERIA database](https://esapubs.org/archive/ecol/E090/184/)
+[@Jones_PanTHERIA_2009].
+The initial extraction is available
+[on GitHub](https://github.com/FRBCesab/eumammals).
+
+The package `funbiogeo` requires three different data.frame to proceed with the 
 analyses:
 
-- the **site x locations** dataset (example dataset: `site_locations`)
-- the **site x species** dataset (example dataset: `site_species`)
-- the **species x traits** dataset (example dataset: `species_traits`)
+- the **species x traits** data.frame (`species_traits` in `funbiogeo`)
+- the **site x species** data.frame (`site_species` in `funbiogeo`)
+- the **site x locations** object (`site_locations` in `funbiogeo`)
 
-Let's take a look at each of these datasets.
+You can load the example data using `data(..., package = "funbiogeo")` call:
 
-
-### Site x Locations
-
-
-
-This dataset contains spatial coordinates of sites (points) of the study area. 
-It can be either a `matrix` or a `data.frame` and row names must contain sites 
-names. It must contain at least two columns: the longitude and the latitude of 
-sites. This dataset must contain unique sites. Additional columns are accepted 
-must will be ignored by `funbiogeo`.
-
-The package `funbiogeo` comes with the example dataset `site_locations`.
-
-
-```{r 'load-sites-locs'}
-## Load site x locations example dataset ----
+```{r 'load-datasets'}
+data("site_species", package = "funbiogeo")
 data("site_locations", package = "funbiogeo")
+data("species_traits", package = "funbiogeo")
 ```
 
-```{r 'preview-sites-locs', echo = FALSE}
-knitr::kable(head(site_locations, 10), 
-             caption   = "Format of site x locations dataset", 
-             align     = c("r", "r"))
+
+### Species x Traits
+
+This object contains traits values for studied species.
+It should be a `data.frame`. The first column should contain species names and
+the other columns contain trait values.
+
+Note that we'll be talking about **species** throughout this vignette
+and in the arguments of `funbiogeo`, but the package doesn't make any assumption
+on the biological level at which species are. It can be individuals,
+populations, strains, species, genera, families, etc. The important fact is that
+you should have trait data for the level at which you want to work.
+
+Let's examine the `species_traits` data include in the package:
+
+```{r 'preview-species-traits', echo = FALSE}
+knitr::kable(head(species_traits, 4), 
+             caption   = "First lines of species x traits dataset", 
+             align     = c("r", "r", "r", "r", "r", "r"))
 ```
 
-```{r 'print-sites-ids-1'}
-## First column contains sites names ----
-site_locations[1:4, 1]
+The first column `species` contains species names, while the next 6 columns
+contains the trait values for all species. Note that the species names are 
+anonymized because the IUCN data
+[cannot be redistributed](https://www.iucnredlist.org/terms/terms-of-use#4.%20No%20Reposting%20or%20Redistribution).
+
+Let's look at a summary of the trait dataset:
+
+```{r summary-trait-dataset}
+summary(species_traits)
 ```
 
-To create your own site x locations dataset you can use the function 
-`fb_format_site_locations()`. See below the section ***Long format***.
+From there we can see that there are 149 included species and some missing trait
+values. For example, there we don't have body mass for 26 species.
 
+To create your own species x traits dataset you can use the function 
+`fb_format_species_traits()`.
+See below the [section ***Long format***](#long-format).
 
 
 ### Site x Species
 
-This dataset contains species occurrences/abundance/coverage at sites (points) 
-of the study area. It can be either a `matrix` or a `data.frame` and row names 
-must contain sites names. Columns must contain only species distribution 
-information and sites must be unique. No additional columns are accepted.
+This object contains species occurrences/abundance/coverage at sites  
+of the study area. It is a `data.frame`. The first column contain site names
+while the other columns contains the distribution of species across sites.
+
+Note that here we are talking about sites in an abstract way.
+These can be plots, assemblages, of whatever set of species
+you're interested in.
 
 The package `funbiogeo` comes with the example dataset `site_species`.
-
-```{r 'load-sites-species'}
-## Load site x species example dataset ----
-data("site_species", package = "funbiogeo")
-```
+Let's look at it:
 
 ```{r 'preview-sites-species', echo = FALSE}
 knitr::kable(head(site_species[ , 1:4], 10), 
@@ -97,72 +121,53 @@ knitr::kable(head(site_species[ , 1:4], 10),
              align     = c("c", "c", "c", "c"))
 ```
 
-```{r 'print-sites-ids-2'}
-## First column contains sites names ----
-site_species[1:4, 1]
-```
-
-```{r 'print-species-ids-1'}
-## Column names after the first one contain species names ----
-colnames(site_species)[2:4]
-```
+The example dataset contains the occurrence of the 149 above-mentioned species
+across 1505 sites of 0.5° by 0.5° resolution.
 
 To create your own site x species dataset you can use the function 
-`fb_format_site_species()`. See below the section ***Long format***.
+`fb_format_site_species()`.
+See below the [section ***Long format***](#long-format).
 
 
+### Site x Locations
 
-### Species x Traits
+This object contains the geographical location of the sites.
+It should be an `sf` object
+from the [`sf` package](https://cran.r-project.org/package=sf). The sites can
+have arbitrary shapes: points, regular polygons, irregular polygons, or even
+line transects! To make sure that your data is well plotted you should specify
+the Coordinate Reference System (CRS) of this object.
 
-This dataset contains traits values for studied species. It can be either a 
-`matrix` or a `data.frame` and row names must contain species names. Columns 
-must contain only traits variables and species must be unique. No additional 
-columns are accepted.
+The package `funbiogeo` comes with the example dataset `site_locations` defining
+the location of the 1505 pixels of 0.5° by 0.5° resolution.
 
-Note that traits values cannot vary across sites for a given species.
-
-The package `funbiogeo` comes with the example dataset `species_traits`.
-
-```{r 'load-species-traits'}
-## Load species x traits example dataset ----
-data("species_traits", package = "funbiogeo")
+```{r 'preview-sites-locs', echo = FALSE}
+knitr::kable(head(site_locations, 10), 
+             caption   = "Format of site x locations dataset", 
+             align     = c("r", "r"))
 ```
 
-```{r 'preview-species-traits', echo = FALSE}
-knitr::kable(head(species_traits, 4), 
-             caption   = "Format of species x traits dataset", 
-             align     = c("r", "r", "r", "r", "r", "r"))
-```
-
-```{r 'print-species-ids-2'}
-## First column contains species names ----
-species_traits[1:4, 1]
-```
-
-```{r 'print-traits-ids-1'}
-## Column names (apart from the first) contain traits names ----
-colnames(species_traits)[-1]
-```
-
-To create your own species x traits dataset you can use the function 
-`fb_format_species_traits()`. See below the section ***Long format***.
-
+To create your own site x locations dataset you can use the function 
+`fb_format_site_locations()`.
+See below the [section ***Long format***](#long-format).
 
 
 ### Long format
 
-If your data are not spread into three datasets you can use the functions
-`fb_format_*()` to create these specific datasets. This implies that your data 
-are structured into a long table, i.e. one row corresponds to the 
-occurrence/abundance/coverage of one species at one site. This also implies that
-some variables are repeated across the table (e.g. sites coordinates, species 
-traits).
+If your data are not split into three tables you can use the functions
+`fb_format_*()` to create these specific objects. These functions take a long
+table as input, where one row corresponds to the occurrence/abundance/coverage 
+f one species at one site and output a tidy object. Similarly, if your data is
+in a long format some variables are repeated across the table
+(e.g. sites coordinates, species traits).
 
-Let's take an example
+For example, the raw data used to generate the internal data of `funbiogeo`:
 
 ```{r 'load-raw-dataset'}
 ## Path to example raw dataset ----
-filename <- system.file("extdata", "raw_mammals_data.csv", package = "funbiogeo")
+filename <- system.file(
+  "extdata", "raw_mammals_data.csv", package = "funbiogeo"
+)
 
 ## Read CSV file ----
 all_data <- read.csv(filename)
@@ -176,29 +181,27 @@ knitr::kable(
 )
 ```
 
-<br />
 
-**Formatting site x locations data**
+#### Formatting species x traits data
 
-The function `fb_format_site_locations()` extracts sites coordinates from this
-long table to create the site x locations dataset. Note that one site must have
-one unique longitude x latitude value.
+The function `fb_format_species_traits()` extracts species traits values from 
+this long table to create the species x traits dataset. Note that one species 
+must have one unique trait value (no trait variation across sites allowed).
 
-```{r 'format-sites-locs'}
-## Format site x locations data ----
-site_locations <- fb_format_site_locations(input_data =  all_data, 
-                                           site       = "site", 
-                                           longitude  = "longitude", 
-                                           latitude   = "latitude",
-                                           na_rm      = FALSE)
+```{r 'format-species-traits'}
+## Format species x traits data ----
+species_traits <- fb_format_species_traits(
+  data    = all_data, 
+  species = "species", 
+  traits  = c("adult_body_mass", "gestation_length", "litter_size",
+              "max_longevity", "sexual_maturity_age", "diet_breadth")
+)
 
 ## Preview ----
-head(site_locations)
+species_traits
 ```
 
-<br />
-
-**Formatting site x species data**
+#### Formatting site x species data
 
 The function `fb_format_site_species()` extracts species 
 occurrence/abundance/coverage from this long table to create the 
@@ -218,73 +221,42 @@ dim(site_species)
 head(site_species)[,1:10]
 ```
 
-<br />
 
-**Formatting species x traits data**
+#### Formatting site x locations data
 
-The function `fb_format_species_traits()` extracts species traits values from 
-this long table to create the species x traits dataset. Note that one species 
-must have one unique trait value (no trait variation across sites allowed).
+The function `fb_format_site_locations()` extracts sites coordinates from this
+long table to create the site x locations dataset. Note that one site must have
+one unique longitude x latitude value.
 
-```{r 'format-species-traits'}
-## Format species x traits data ----
-species_traits <- fb_format_species_traits(
-  data    = all_data, 
-  species = "species", 
-  traits  = c("adult_body_mass", "gestation_length", "litter_size",
-              "max_longevity", "sexual_maturity_age", "diet_breadth")
-)
+```{r 'format-sites-locs'}
+## Format site x locations data ----
+site_locations <- fb_format_site_locations(input_data =  all_data, 
+                                           site       = "site", 
+                                           longitude  = "longitude", 
+                                           latitude   = "latitude",
+                                           na_rm      = FALSE)
 
 ## Preview ----
-species_traits
-```
-
-## Computing Trait Coverages
-
-a.k.a, how well are sites covered given the trait data I have?
-
-
-```{r 'load-datasets'}
-data("site_species", package = "funbiogeo")
-data("site_locations", package = "funbiogeo")
-data("species_traits", package = "funbiogeo")
-```
-
-
-[...]
-
-
-
-
-
-### Compute trait coverage
-
-
-
-[...]
-
-
-```{r 'get-trait-coverage'}
-## Get trait coverage ----
-cover <- fb_get_trait_coverage_by_site(site_species, species_traits)
-
-## Preview ----
-head(cover)
+head(site_locations)
 ```
 
 
 
-[...]
+## Visualizing the data (diagnostic plots)
 
+Showing trait coverage
 
+Showing species
 
-### Filter sites by trait coverage
+Showing sites
 
+## Filtering the data
 
+### Filtering trait by species coverage
 
-[...]
+### Filtering species by trait coverage
 
-
+### Filtering sites by trait coverage
 
 ```{r 'filter-trait-coverage'}
 ## Get trait coverage ----
@@ -306,31 +278,9 @@ nrow(sel_sites)
 ```
 
 
-
-## Diversity metrics
-
-[...]
-
-### Species Richness
-
-```{r 'species-richness'}
-## Compute species richness ----
-richness <- rowSums(site_species[,-1], na.rm = TRUE)
-
-## Convert to data frame ----
-richness <- data.frame(
-  site      = site_species[["site"]],
-  n_species = richness
-)
-
-## Preview ----
-head(richness)
-```
+## Computing Functional Diversity metrics
 
 ### Community-Weighted Means
-
-[...]
-
 
 ```{r 'compute-cwm'}
 data("site_locations")
@@ -349,73 +299,11 @@ head(cwm)
 
 `fundiversity`, `funrar`, `mFD`
 
-[...]
 
 
-## Relation with environment
-
-[...]
-
-```{r 'load-rasters'}
-## Available climate rasters ----
-prec <- system.file("extdata", "annual_tot_prec.tif", package = "funbiogeo")
-tavg <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")
-
-## Import climate rasters ----
-layers <- terra::rast(c(tavg, prec))
-
-## Preview ----
-layers
-```
-
-[...]
-
-```{r 'extract-rasters'}
-
-site_locations <- site_locations[!duplicated(site_locations),]
-site_locations <- sf::st_as_sf(site_locations, coords = 2:3, crs = 4326)
-
-## Extract environment at sites ----
-sites_env <- fb_get_environment(site_locations, layers)
-
-## Preview ----
-head(sites_env)
-```
-
-[...]
-
-```{r 'relation-w-environment'}
-## Append information ----
-rich_env <- merge(richness, sites_env, by = "site")
-
-## Preview ----
-head(rich_env)
-```
-
-```{r 'biplot'}
-biplot <- ggplot(rich_env, aes(x = annual_mean_temp, y = n_species)) +
-  geom_point() +
-  theme_classic() +
-  labs(x = "Annual mean temperature", y = "Species richness")
-biplot
-```
-
-```{r 'biplot-trend'}
-biplot + geom_smooth(method = "lm")
-```
-
-
-
-## Visualization
-
-### Trait coverage
-
-[...]
+## Putting Functional Diversity on the map
 
 ### Map of environment
-
-[...]
-
 
 
 ```{r 'map-tavg', dev='png'}
@@ -491,8 +379,3 @@ fb_map_raster(ras_richness[[1]]) +
 
 
 ## References
-
-Violle C, Reich, PB Pacala SW, _et al._ (2014) 
-The emergence and promise of functional biogeography. 
-*Proceedings of the National Academy of Sciences*, **111**, 13690--13696. 
-DOI: [10.1073/pnas.1415442111](https://doi.org/10.1073/pnas.1415442111)
