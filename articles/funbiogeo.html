@@ -706,7 +706,7 @@
 <p>[…]</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Get trait coverage ----</span>
-<span class="va">cover</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_get_coverage.html">fb_get_coverage</a></span><span class="op">(</span><span class="va">site_species</span>, <span class="va">species_traits</span><span class="op">)</span>
+<span class="va">cover</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_get_trait_coverage_by_site.html">fb_get_trait_coverage_by_site</a></span><span class="op">(</span><span class="va">site_species</span>, <span class="va">species_traits</span><span class="op">)</span>
 
 <span class="co">## Preview ----</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">cover</span><span class="op">)</span>
@@ -725,7 +725,9 @@
 <p>[…]</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Get trait coverage ----</span>
-<span class="va">sel_sites</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_filter_coverage.html">fb_filter_coverage</a></span><span class="op">(</span><span class="va">site_species</span>, <span class="va">species_traits</span>, coverage_threshold <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<span class="va">sel_sites</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_filter_sites_by_trait_coverage.html">fb_filter_sites_by_trait_coverage</a></span><span class="op">(</span>
+  <span class="va">site_species</span>, <span class="va">species_traits</span>, threshold_traits_proportion <span class="op">=</span> <span class="fl">1</span>
+<span class="op">)</span>
 
 <span class="co">## Preview ----</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sel_sites</span><span class="op">[</span> , <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span>
