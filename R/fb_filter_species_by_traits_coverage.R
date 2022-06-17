@@ -7,7 +7,7 @@
 #' @param threshold_traits_proportion a numeric of length 1 between 0 and 1. The percentage of 
 #' traits coverage threshold.
 #' 
-#' @inheritParams fb_get_coverage
+#' @inheritParams fb_get_trait_coverage_by_site
 #'
 #' @return A subset of `species_traits` with species covered by X% of traits.
 #' 

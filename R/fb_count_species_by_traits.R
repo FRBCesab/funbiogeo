@@ -4,7 +4,7 @@
 #' For each trait computes the percentage of species without `NA` (missing 
 #' trait values).
 #' 
-#' @inheritParams fb_get_coverage
+#' @inheritParams fb_get_trait_coverage_by_site
 #'
 #' @return A three-column `data.frame` with:
 #' - `trait`: the name of the trait;

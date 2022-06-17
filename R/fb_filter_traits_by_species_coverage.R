@@ -7,7 +7,7 @@
 #' @param threshold_species_proportion `numeric(1)` \[default = `NULL`\]\cr{}
 #'   between 0 and 1. The percentage of species coverage threshold.
 #' 
-#' @inheritParams fb_get_coverage
+#' @inheritParams fb_get_trait_coverage_by_site
 #'
 #' @return A subset of `species_traits` with traits for the specified
 #'   proportion of species.

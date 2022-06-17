@@ -266,7 +266,7 @@ data("species_traits", package = "funbiogeo")
 
 ```{r 'get-trait-coverage'}
 ## Get trait coverage ----
-cover <- fb_get_coverage(site_species, species_traits)
+cover <- fb_get_trait_coverage_by_site(site_species, species_traits)
 
 ## Preview ----
 head(cover)

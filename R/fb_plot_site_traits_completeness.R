@@ -1,6 +1,6 @@
 #' Plot Sites per Traits Completeness
 #'
-#' @inheritParams fb_get_coverage
+#' @inheritParams fb_get_trait_coverage_by_site
 #'
 #' @return a ggplot2 object
 #'

@@ -6,7 +6,7 @@
 #' @param coverage_threshold a numeric of length 1 between 0 and 1. The 
 #' percentage trait coverage threshold
 #' 
-#' @inheritParams fb_get_coverage
+#' @inheritParams fb_get_trait_coverage_by_site
 #'
 #' @return A subset of `site_species` with sites covered by X% of 
 #' abundance/coverage considering all provided traits.
@@ -48,7 +48,7 @@ fb_filter_coverage <- function(site_species, species_traits,
   
   # Get trait coverage for site and traits ----
 
-  trait_coverage <- fb_get_coverage(site_species, species_traits)
+  trait_coverage <- fb_get_trait_coverage_by_site(site_species, species_traits)
   
   
   # Filter sites by coverage ----

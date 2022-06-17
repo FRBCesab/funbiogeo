@@ -28,9 +28,9 @@
 #' data("site_species")
 #' data("species_traits")
 #' 
-#' cover <- fb_get_coverage(site_species, species_traits)
+#' cover <- fb_get_trait_coverage_by_site(site_species, species_traits)
 
-fb_get_coverage <- function(site_species, species_traits) {
+fb_get_trait_coverage_by_site <- function(site_species, species_traits) {
   
   
   ## Check inputs ----

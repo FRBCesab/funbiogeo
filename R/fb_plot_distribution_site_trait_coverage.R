@@ -1,6 +1,6 @@
 #' Distribution of Trait Coverages across all sites
 #'
-#' @inheritParams fb_get_coverage
+#' @inheritParams fb_get_trait_coverage_by_site
 #'
 #' @return a 'ggplot2' object
 #'
@@ -19,14 +19,14 @@ fb_plot_distribution_site_trait_coverage = function(
   check_species_traits(species_traits)
   
   # Computing Trait Coverage per Site
-  full_coverage = fb_get_coverage(site_species, species_traits)
+  full_coverage = fb_get_trait_coverage_by_site(site_species, species_traits)
   colnames(full_coverage)[2] = "all_traits"
   
   trait_coverage = lapply(
     colnames(species_traits)[-1],
     function(x) {
       
-      trait_cov2 = fb_get_coverage(
+      trait_cov2 = fb_get_trait_coverage_by_site(
         site_species, species_traits[, c("species", x)]
       )
       

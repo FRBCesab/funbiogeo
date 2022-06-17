@@ -1,6 +1,6 @@
 #' Compute Trait Coverage per Site for All Traits
 #'
-#' @inheritParams fb_get_coverage
+#' @inheritParams fb_get_trait_coverage_by_site
 #'
 #' @return a data.frame with a column with sites and one column per provided
 #'   trait giving its coverage (percent species per site, weighted by abundance
@@ -16,13 +16,13 @@ fb_get_all_coverages = function(site_species, species_traits) {
   check_species_traits(species_traits)
   
   # Computing Trait Coverage per Site for all Traits
-  full_coverage = fb_get_coverage(site_species, species_traits)
+  full_coverage = fb_get_trait_coverage_by_site(site_species, species_traits)
   colnames(full_coverage)[2] = "all_traits"
   
   # Trait by Trait
   trait_coverage = lapply(colnames(species_traits)[-1], function(x) {
     
-    single_trait_coverage = fb_get_coverage(
+    single_trait_coverage = fb_get_trait_coverage_by_site(
       site_species, species_traits[, c("species", x)]
     )
     

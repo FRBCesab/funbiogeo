@@ -1,7 +1,7 @@
 #' Map Trait Coverage Per Site
 #'
 #' @inheritParams fb_get_environment 
-#' @inheritParams fb_get_coverage
+#' @inheritParams fb_get_trait_coverage_by_site
 #'
 #' @return a 'ggplot2' object
 #' @export
@@ -55,6 +55,6 @@ fb_map_site_traits_completeness = function(
   }
   
   base_plot +
-    ggplot2::facet_wrap(ggplot2::vars(coverage_name)) +
+    ggplot2::facet_wrap(ggplot2::vars("coverage_name")) +
     ggplot2::theme_bw()
 }
