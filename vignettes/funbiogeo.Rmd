@@ -55,7 +55,7 @@ analyses:
 
 You can load the example data using `data(..., package = "funbiogeo")` call:
 
-```{r 'load-datasets'}
+```{r load-datasets}
 data("site_species", package = "funbiogeo")
 data("site_locations", package = "funbiogeo")
 data("species_traits", package = "funbiogeo")
@@ -76,7 +76,7 @@ you should have trait data for the level at which you want to work.
 
 Let's examine the `species_traits` data include in the package:
 
-```{r 'preview-species-traits', echo = FALSE}
+```{r preview-species-traits, echo = FALSE}
 knitr::kable(head(species_traits, 4), 
              caption   = "First lines of species x traits dataset", 
              align     = c("r", "r", "r", "r", "r", "r"))
@@ -105,12 +105,12 @@ while the other columns contains the distribution of species across sites.
 
 Note that here we are talking about sites in an abstract way.
 These can be plots, assemblages, of whatever set of species
-you're interested in.
+youre interested in.
 
 The package `funbiogeo` comes with the example dataset `site_species`.
 Let's look at it:
 
-```{r 'preview-sites-species', echo = FALSE}
+```{r preview-sites-species, echo = FALSE}
 knitr::kable(head(site_species[ , 1:4], 10), 
              caption   = "Format of site x species dataset", 
              align     = c("c", "c", "c", "c"))
@@ -132,7 +132,7 @@ the Coordinate Reference System (CRS) of this object.
 The package `funbiogeo` comes with the example dataset `site_locations` defining
 the location of the 1505 pixels of 0.5° by 0.5° resolution.
 
-```{r 'preview-sites-locs', echo = FALSE}
+```{r preview-sites-locs, echo = FALSE}
 knitr::kable(head(site_locations, 10), 
              caption   = "Format of site x locations dataset", 
              align     = c("r", "r"))
@@ -191,55 +191,119 @@ fb_plot_number_traits_by_species(species_traits)
 The plots shows the number (bottom axis) and the proportion (top axis) of
 species covered by a specific number of trait (0 to 6 in our example).
 
+  
 ## Filtering the data
+
+Now that we displayed the diagnostic plots, we can decide thresholds and filter
+our data for our following analyses.
 
 ### Filter trait by species coverage
 
+We want to select the traits that cover at least 75% of the species. 
+To do that we can use the `fb_filter_traits_by_species_coverage()` function.
+The function takes the species by traits data.frame and outputs the same dataset
+but with the traits filtered (so with less columns). The second argument
+`threshold_species_proportion` is the threshold proportion of species covered:
+
+```{r filter-traits-by-species}
+# Initial dimension of the input data
+dim(species_traits)
+
+# Filter traits 
+red_sp_traits = fb_filter_traits_by_species_coverage(
+  species_traits, threshold_species_proportion =  0.75
+)
+
+dim(red_sp_traits)
+
+# The reduced data set now has fewer trait columns
+head(red_sp_traits)
+```
+
+
 ### Filter species by trait coverage
+
+Similarly you could filter species by their trait coverage. For example we would
+like to make sure that the species we filtered previously so that they show
+at least one of the two traits selected above.
+The function is `fb_filter_species_by_traits_coverage()` with the species by
+traits data.frame as the first argument and the second argument the proportion
+of traits covered by species.
+
+```{r filter-species-by-traits}
+# Filter species with at least 50% of included (two traits)
+# at least one trait
+red_sp_traits_2 = fb_filter_species_by_traits_coverage(
+  red_sp_traits, threshold_traits_proportion = 0.5
+)
+
+head(red_sp_traits_2)
+
+dim(red_sp_traits_2)
+```
+We thus have selected 2 traits that cover at least 75% of the species and
+127 species which have at either traits.
+
 
 ### Filter sites by trait coverage
 
-```{r 'filter-trait-coverage'}
-## Get trait coverage ----
-sel_sites <- fb_filter_sites_by_trait_coverage(
-  site_species, species_traits, threshold_traits_proportion = 1
+Now that we have filtered our traits and species of interest we need to filter
+the sites. Similarly to above the function is
+`fb_filter_sites_by_trait_coverage()` it takes as two first arguments
+the site by species data frame and the species by traits data frame. The third
+argument is `threshold_traits_proportion` that indicates the percent coverage
+of traits to filter each site. Note that this coverage is weighted by
+the occurrence, abundance, or cover depending on the content of the site-species
+data frame.
+
+```{r filter-trait-coverage}
+# Initial site-species data
+dim(site_species)
+
+# Filter sites with at least 90% species covered
+filt_sites = fb_filter_sites_by_trait_coverage(
+  site_species, red_sp_traits_2, threshold_traits_proportion = 0.9
 )
 
-## Preview ----
-head(sel_sites[ , 1:4])
+# Filtered sites
+dim(filt_sites)
+
+filt_sites[1:4, 1:4]
 ```
 
-
-```{r 'sites-comparison'}
-## Original sites ----
-nrow(site_species)
-
-## Filtered sites ----
-nrow(sel_sites)
-```
+Now we selected 1268 sites out of 1505.
 
 
 ## Computing Functional Diversity metrics
 
+Now that `funbiogeo` helped us filter our data we can use them to proceed with
+our analyses. We can for example compute functional diversity indices.
+This where you should use your preferred packages to compute functional
+diversity indices like [`mFD`](https://cran.r-project.org/package=mFD),
+[`betapart`](https://cran.r-project.org/package=betapart), or
+[`hypervolume`](https://cran.r-project.org/package=hypervolume).
+
+For the sake of the example we included a single function in `funbiogeo`
+to compute Community-Weighted Mean (CWM) named `fb_cwm()`. The CWM is the
+abundance-weighted average trait per site. We'll be using it in
+the following section but feel free to use any other functional diversity
+package.
+
+
 ### Community-Weighted Means
 
-```{r 'compute-cwm'}
-data("site_locations")
-data("site_species")
-data("species_traits")
+To compute CWM you can use the `fb_cwm()` function, it takes the site-species
+data.frame and species-traits data.frame as arguments.
 
-## Compute CWM ----
-cwm <- fb_cwm(site_species, species_traits)
+```{r compute-cwm}
+cwm <- fb_cwm(filt_sites, red_sp_traits_2)
 
-## Preview ----
 head(cwm)
 ```
-
-
-### Other functional diversity metrics
-
-`fundiversity`, `funrar`, `mFD`
-
+It outputs a data frame with 3 columns: `site` the first one shows the site
+name as provided in the input site-species data frame, `trait` which indicates
+the trait name on which the CWM is computed, and `cwm` which shows the value of
+the CWM.
 
 
 ## Putting Functional Diversity on the map
@@ -247,7 +311,7 @@ head(cwm)
 ### Map of environment
 
 
-```{r 'map-tavg', dev='png'}
+```{r map-tavg, dev=png}
 ## Read raster ----
 tavg <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")
 tavg <- terra::rast(tavg)
@@ -257,7 +321,7 @@ fb_map_raster(tavg)
 ```
 
 
-```{r 'map-tavg-custom'}
+```{r map-tavg-custom}
 fb_map_raster(tavg) + 
   scale_fill_distiller("Temperature", palette = "Spectral") +
   theme(legend.position = "bottom") + 
@@ -265,7 +329,7 @@ fb_map_raster(tavg) +
 ```
 
 
-```{r 'composition-map', dev='png'}
+```{r composition-map, dev=png}
 library("patchwork")
 
 ## Read raster ----
@@ -289,34 +353,11 @@ figure +
   plot_annotation(title = "Pennsylvania", 
                   theme = theme(plot.title = element_text(face = "bold"))) & 
   theme_classic() &
-  theme(text = element_text('mono'))
+  theme(text = element_text(mono))
 ```
 
 
 ### Map of indices
-
-[...]
-
-
-```{r upscale-richness, eval=FALSE}
-## Upscale to grid ----
-ras_richness <- fb_aggregate_site_data(site_locations = site_locations, 
-                                       site_data      = rich_env, 
-                                       agg_grid       = tavg)
-
-ras_richness
-```
-
-```{r 'map-richness', dev='png', eval=FALSE}
-fb_map_raster(ras_richness[[1]])
-```
-
-```{r 'map-richness-custom', dev='png', eval = FALSE}
-fb_map_raster(ras_richness[[1]]) + 
-  scale_fill_distiller("Number of species", palette = "Spectral") +
-  theme(legend.position = "bottom") + 
-  ggtitle("Trees species richness in Pennsylvania")
-```
 
 
 ## References
