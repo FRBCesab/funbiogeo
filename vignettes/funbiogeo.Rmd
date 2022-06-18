@@ -310,8 +310,7 @@ the CWM.
 
 ### Map of environment
 
-
-```{r map-tavg, dev=png}
+```{r map-tavg, dev = 'png'}
 ## Read raster ----
 tavg <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")
 tavg <- terra::rast(tavg)
@@ -329,7 +328,7 @@ fb_map_raster(tavg) +
 ```
 
 
-```{r composition-map, dev=png}
+```{r composition-map, dev = 'png'}
 library("patchwork")
 
 ## Read raster ----
@@ -353,7 +352,7 @@ figure +
   plot_annotation(title = "Pennsylvania", 
                   theme = theme(plot.title = element_text(face = "bold"))) & 
   theme_classic() &
-  theme(text = element_text(mono))
+  theme(text = element_text(family = "mono"))
 ```
 
 

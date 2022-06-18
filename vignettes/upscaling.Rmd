@@ -10,7 +10,8 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  eval = FALSE
 )
 ```
 
@@ -20,7 +21,7 @@ library(funbiogeo)
 
 The aims of this vignette is to provide explanation on upscaling.
 
-```{r upscale-richness, eval=FALSE}
+```{r upscale-richness}
 ## Upscale to grid ----
 ras_richness <- fb_aggregate_site_data(site_locations = site_locations, 
                                        site_data      = rich_env, 
@@ -29,11 +30,11 @@ ras_richness <- fb_aggregate_site_data(site_locations = site_locations,
 ras_richness
 ```
 
-```{r map-richness, dev=png, eval = FALSE}
+```{r map-richness, dev = 'png'}
 fb_map_raster(ras_richness[[1]])
 ```
 
-```{r map-richness-custom, dev=png, eval = FALSE}
+```{r map-richness-custom, dev = 'png'}
 fb_map_raster(ras_richness[[1]]) + 
   scale_fill_distiller("Number of species", palette = "Spectral") +
   theme(legend.position = "bottom") + 
