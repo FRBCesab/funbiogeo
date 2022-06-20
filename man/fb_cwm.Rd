@@ -2,7 +2,7 @@
 % Please edit documentation in R/fb_cwm.R
 \name{fb_cwm}
 \alias{fb_cwm}
-\title{Compute community-weighted means of trait values}
+\title{Compute community-weighted means (CWM) of trait values}
 \usage{
 fb_cwm(site_species, species_traits)
 }
@@ -18,11 +18,17 @@ to trait names.}
 }
 \value{
 A \code{data.frame} with sites in rows and the following variables:
-\code{site}, the site label, \code{trait}, quantitative traits, and \code{cwm}, the
-community-weighted means of quantitative traits values.
+\itemize{
+\item \code{site}, the site label,
+\item \code{trait}, the trait label as provided in \code{species_traits},
+\item and \code{cwm}, the community-weighted means of quantitative traits values.
+}
 }
 \description{
-...
+This function returns the community-weighted mean of provided trait values.
+It only works with quantitative traits and will warn you otherwise.
+It will remove species that either have \code{NA} values in the \code{site_species}
+input or \code{NA} values as their trait.
 }
 \examples{
 library("funbiogeo")
