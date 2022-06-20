@@ -14,13 +14,10 @@ reference:
     Count species, traits, sites by trait coverage (proportion of species with
     known traits). Also filter datasets based on their coverages.
   contents:
-    - fb_count_species_by_traits
-    - fb_count_traits_by_species
+    - starts_with("fb_count")
     - fb_get_trait_coverage_by_site
     - fb_get_all_coverages
-    - fb_filter_sites_by_trait_coverage
-    - fb_filter_traits_by_species_coverage
-    - fb_filter_species_by_traits_coverage
+    - starts_with("fb_filter")
 - title: Functional Diversity Functions
   contents:
     - fb_cwm
