@@ -24,7 +24,7 @@ fb_plot_number_species_by_trait = function(
     values_to = "trait_value"
   )
   
-  number_species_per_trait = fb_count_species_by_traits(species_traits)
+  number_species_per_trait = fb_count_species_by_trait(species_traits)
   
   number_species_per_trait$trait = factor(
     number_species_per_trait$trait, levels = rev(number_species_per_trait$trait)

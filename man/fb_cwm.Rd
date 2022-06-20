@@ -36,5 +36,5 @@ library("funbiogeo")
 data("site_species")
 data("species_traits")
 
-cover <- fb_cwm(site_species, species_traits)
+cover <- fb_cwm(head(site_species), species_traits)
 }

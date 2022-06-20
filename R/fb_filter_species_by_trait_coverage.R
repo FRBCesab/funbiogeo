@@ -18,13 +18,13 @@
 #' 
 #' data("species_traits")
 #' 
-#' species_traits <- fb_filter_species_by_traits_coverage(
+#' species_traits <- fb_filter_species_by_trait_coverage(
 #'   species_traits,
 #'   threshold_traits_proportion = 0.6)
 
-fb_filter_species_by_traits_coverage <- function(
-    species_traits, 
-    threshold_traits_proportion = 0) { 
+fb_filter_species_by_trait_coverage <- function(
+    species_traits, threshold_traits_proportion = 0
+  ) { 
   
   ## Check inputs ----
   

@@ -18,7 +18,7 @@ fb_plot_species_traits_completeness = function(species_traits) {
     )
   
   # Count Number of Species per Trait
-  number_species_per_trait = fb_count_species_by_traits(species_traits)
+  number_species_per_trait = fb_count_species_by_trait(species_traits)
   
   number_species_per_trait$trait_label = with(
     number_species_per_trait,

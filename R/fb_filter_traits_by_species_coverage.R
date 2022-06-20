@@ -70,7 +70,7 @@ fb_filter_traits_by_species_coverage <- function(
   
   # Get species coverage for each trait ----
   
-  species_coverage <- fb_count_species_by_traits(species_traits)
+  species_coverage <- fb_count_species_by_trait(species_traits)
   
   
   # Filter traits by species coverage ----

@@ -18,9 +18,9 @@
 #' 
 #' data("species_traits")
 #' 
-#' species_coverage_by_trait <- fb_count_species_by_traits(species_traits)
+#' species_coverage_by_trait <- fb_count_species_by_trait(species_traits)
 
-fb_count_species_by_traits <- function(species_traits) {
+fb_count_species_by_trait <- function(species_traits) {
   
   ## Check inputs ----
   
