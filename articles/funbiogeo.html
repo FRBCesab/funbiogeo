@@ -781,16 +781,17 @@
 
 <span class="co">## Compute CWM ----</span>
 <span class="va">cwm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_cwm.html">fb_cwm</a></span><span class="op">(</span><span class="va">site_species</span>, <span class="va">species_traits</span><span class="op">)</span>
+<span class="co">#&gt; Some species had NA trait values, removing them from CWM computation</span>
 
 <span class="co">## Preview ----</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">cwm</span><span class="op">)</span>
-<span class="co">#&gt;    site               trait cwm</span>
-<span class="co">#&gt; 1 fb_33     adult_body_mass  NA</span>
-<span class="co">#&gt; 2 fb_33    gestation_length  NA</span>
-<span class="co">#&gt; 3 fb_33         litter_size  NA</span>
-<span class="co">#&gt; 4 fb_33       max_longevity  NA</span>
-<span class="co">#&gt; 5 fb_33 sexual_maturity_age  NA</span>
-<span class="co">#&gt; 6 fb_33        diet_breadth  NA</span></code></pre></div>
+<span class="co">#&gt;      site           trait       cwm</span>
+<span class="co">#&gt; 1  fb_100 adult_body_mass   273.050</span>
+<span class="co">#&gt; 2 fb_1000 adult_body_mass 19767.111</span>
+<span class="co">#&gt; 3 fb_1001 adult_body_mass 20196.275</span>
+<span class="co">#&gt; 4 fb_1002 adult_body_mass 20196.275</span>
+<span class="co">#&gt; 5 fb_1007 adult_body_mass 16049.577</span>
+<span class="co">#&gt; 6 fb_1008 adult_body_mass  4217.074</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="other-functional-diversity-metrics">Other functional diversity metrics<a class="anchor" aria-label="anchor" href="#other-functional-diversity-metrics"></a>
