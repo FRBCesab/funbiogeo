@@ -28,7 +28,7 @@
     <loc>/reference/fb_aggregate_site_data.html</loc>
   </url>
   <url>
-    <loc>/reference/fb_count_species_by_traits.html</loc>
+    <loc>/reference/fb_count_species_by_trait.html</loc>
   </url>
   <url>
     <loc>/reference/fb_count_traits_by_species.html</loc>
@@ -40,7 +40,7 @@
     <loc>/reference/fb_filter_sites_by_trait_coverage.html</loc>
   </url>
   <url>
-    <loc>/reference/fb_filter_species_by_traits_coverage.html</loc>
+    <loc>/reference/fb_filter_species_by_trait_coverage.html</loc>
   </url>
   <url>
     <loc>/reference/fb_filter_traits_by_species_coverage.html</loc>
