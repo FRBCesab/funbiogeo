@@ -331,7 +331,9 @@
 <p>Let’s take an example</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Path to example raw dataset ----</span>
-<span class="va">filename</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"raw_mammals_data.csv"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
+<span class="va">filename</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span>
+  <span class="st">"extdata"</span>, <span class="st">"raw_mammals_data.csv"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span>
+<span class="op">)</span>
 
 <span class="co">## Read CSV file ----</span>
 <span class="va">all_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="va">filename</span><span class="op">)</span></code></pre></div>
