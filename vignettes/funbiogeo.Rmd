@@ -162,7 +162,9 @@ Let's take an example
 
 ```{r 'load-raw-dataset'}
 ## Path to example raw dataset ----
-filename <- system.file("extdata", "raw_mammals_data.csv", package = "funbiogeo")
+filename <- system.file(
+  "extdata", "raw_mammals_data.csv", package = "funbiogeo"
+)
 
 ## Read CSV file ----
 all_data <- read.csv(filename)

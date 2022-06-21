@@ -9,39 +9,39 @@
 #' 
 #' @importFrom rlang .data
 #' @export
-fb_plot_site_traits_completeness = function(site_species, species_traits) {
+fb_plot_site_traits_completeness <- function(site_species, species_traits) {
   
   # Checks
   check_site_species(site_species)
   check_species_traits(species_traits)
   
   # Computing All Trait Coverages per Site
-  all_coverage = fb_get_all_coverages(site_species, species_traits)
+  all_coverage <- fb_get_all_coverages(site_species, species_traits)
   
-  all_coverage = tidyr::pivot_longer(
+  all_coverage <- tidyr::pivot_longer(
     all_coverage, -"site", names_to = "coverage_name",
     values_to = "coverage_value"
   )
   
-  site_order = by(
+  site_order <- by(
     all_coverage, all_coverage$site, function(x) mean(x$coverage_value)
   )
-  site_order = utils::stack(site_order)
+  site_order <- utils::stack(site_order)
   
-  coverage_order = by(
+  coverage_order <- by(
     all_coverage, all_coverage$coverage_name, function(x) mean(x$coverage_value)
   )
-  coverage_order = utils::stack(coverage_order)
+  coverage_order <- utils::stack(coverage_order)
   
   # Reorder sites and traits by average coverage
-  all_coverage$site = factor(
+  all_coverage$site <- factor(
     all_coverage$site,
     levels = site_order[["ind"]][
       order(site_order[["values"]], decreasing = TRUE)
     ]
   )
   
-  all_coverage$coverage_name = factor(
+  all_coverage$coverage_name <- factor(
     all_coverage$coverage_name,
     levels = coverage_order[["ind"]][
       order(coverage_order[["values"]], decreasing = TRUE)
@@ -50,15 +50,15 @@ fb_plot_site_traits_completeness = function(site_species, species_traits) {
   
   
   # Get averaging coverage
-  avg_coverage = by(
+  avg_coverage <- by(
     all_coverage, all_coverage$coverage_name,
     function(x) mean(x$coverage_value)
   )
   
-  avg_coverage = utils::stack(avg_coverage)
-  colnames(avg_coverage) = c("avg_coverage", "coverage_name")
+  avg_coverage <- utils::stack(avg_coverage)
+  colnames(avg_coverage) <- c("avg_coverage", "coverage_name")
   
-  avg_coverage[["cov_label"]] =
+  avg_coverage[["cov_label"]] <- 
     with(
       avg_coverage,
       paste0(
@@ -66,8 +66,8 @@ fb_plot_site_traits_completeness = function(site_species, species_traits) {
       )
     )
   
-  avg_coverage = avg_coverage[, c("cov_label", "coverage_name")]
-  avg_coverage = t(utils::unstack(avg_coverage))
+  avg_coverage <- avg_coverage[, c("cov_label", "coverage_name")]
+  avg_coverage <- t(utils::unstack(avg_coverage))
   
   
   ggplot2::ggplot(

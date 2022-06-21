@@ -3,8 +3,8 @@
 #' @description
 #' ...
 #' 
-#' @param threshold_traits_proportion a numeric of length 1 between 0 and 1. The 
-#' percentage trait coverage threshold
+#' @param threshold_traits_proportion a numeric of length 1 between 0 and 1.
+#'   The percentage trait coverage threshold
 #' 
 #' @inheritParams fb_get_trait_coverage_by_site
 #'

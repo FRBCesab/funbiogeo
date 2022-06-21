@@ -152,7 +152,7 @@ fb_format_site_locations <- function(
   
   if (is.character(crs) | !inherits(crs, "crs")) {
     # Try to coerce provided argument into a CRS, specific error otherwise
-    crs = tryCatch(
+    crs <- tryCatch(
       suppressWarnings(sf::st_crs(crs)),
       error = function(e) stop(
         "Argument 'crs' should be valid CRS or coercible to one ",

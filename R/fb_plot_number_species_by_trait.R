@@ -14,26 +14,26 @@
 #' 
 #' @importFrom rlang .data
 #' @export
-fb_plot_number_species_by_trait = function(
+fb_plot_number_species_by_trait <- function(
     species_traits, threshold_species_proportion = NULL
 ) {
   
   # Make dataset long
-  species_traits_long = tidyr::pivot_longer(
+  species_traits_long <- tidyr::pivot_longer(
     species_traits, -"species", names_to = "trait_name",
     values_to = "trait_value"
   )
   
-  number_species_per_trait = fb_count_species_by_trait(species_traits)
+  number_species_per_trait <- fb_count_species_by_trait(species_traits)
   
-  number_species_per_trait$trait = factor(
+  number_species_per_trait$trait <- factor(
     number_species_per_trait$trait, levels = rev(number_species_per_trait$trait)
   )
   
-  number_species_per_trait[["prop_species"]] =
+  number_species_per_trait[["prop_species"]] <- 
     number_species_per_trait[["n_species"]]/nrow(species_traits)
   
-  given_plot = ggplot2::ggplot(
+  given_plot <- ggplot2::ggplot(
     number_species_per_trait, ggplot2::aes(.data$n_species, .data$trait)
   ) +
     ggplot2::geom_point(color = "darkblue") +
@@ -56,7 +56,7 @@ fb_plot_number_species_by_trait = function(
     ggplot2::theme_bw()
   
   if (!is.null(threshold_species_proportion)) {
-    given_plot = given_plot +
+    given_plot <- given_plot +
       ggplot2::geom_vline(
         xintercept = threshold_species_proportion * nrow(species_traits),
         linetype = 2, size = 1.2, color = "darkred"

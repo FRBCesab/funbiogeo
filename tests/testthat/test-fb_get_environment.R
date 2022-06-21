@@ -57,7 +57,9 @@ test_that("fb_get_environment() errors with wrong input type", {
   )
   
   expect_error(
-    fb_get_environment(site_locations[-c(seq_len(nrow(site_locations))), ], layers),
+    fb_get_environment(
+      site_locations[-c(seq_len(nrow(site_locations))), ], layers
+    ),
     "The site x locations object should have at least one row",
     fixed = TRUE
   )

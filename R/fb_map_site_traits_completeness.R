@@ -9,7 +9,7 @@
 #' @importFrom rlang .data
 #' @examples
 #' fb_map_site_traits_completeness(site_locations, site_species, species_traits)
-fb_map_site_traits_completeness = function(
+fb_map_site_traits_completeness <- function(
     site_locations, site_species, species_traits
 ) {
   
@@ -19,25 +19,25 @@ fb_map_site_traits_completeness = function(
   check_species_traits(species_traits)
   
   # Compute Trait Coverage by Site
-  all_coverages = fb_get_all_coverages(site_species, species_traits)
+  all_coverages <- fb_get_all_coverages(site_species, species_traits)
   
   # Make coverage df long
-  all_coverages_long = tidyr::pivot_longer(
+  all_coverages_long <- tidyr::pivot_longer(
     all_coverages, -"site", names_to = "coverage_name",
     values_to = "coverage_value"
   )
   
-  all_coverages_long[["coverage_name"]] =
+  all_coverages_long[["coverage_name"]] <- 
     factor(all_coverages_long[["coverage_name"]],
            levels = c("all_traits", colnames(all_coverages)[-c(1, 2)]))
   
   # Combine Trait Coverage with Location
-  site_locations_cov = merge(site_locations, all_coverages_long, by = "site")
+  site_locations_cov <- merge(site_locations, all_coverages_long, by = "site")
   
   # Make the Map
   if(inherits(site_locations_cov[["geometry"]], "sfc_POINT")) {
     
-    base_plot = ggplot2::ggplot(
+    base_plot <- ggplot2::ggplot(
       site_locations_cov, ggplot2::aes(colour = .data$coverage_value)
     ) +
       ggplot2::geom_sf() +
@@ -46,7 +46,7 @@ fb_map_site_traits_completeness = function(
       )
     
   } else {
-    base_plot = ggplot2::ggplot(
+    base_plot <- ggplot2::ggplot(
       site_locations_cov, ggplot2::aes(fill = .data$coverage_value)
     ) +
       ggplot2::geom_sf() +
