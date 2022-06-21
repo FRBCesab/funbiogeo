@@ -56,7 +56,9 @@ fb_plot_number_traits_by_species <- function(
     ) +
     ggplot2::geom_text(
       ggplot2::aes(
-        label = paste0(round((.data$at_least/nrow(species_traits)) * 100), "%"),
+        label = paste0(
+          round((.data$at_least/nrow(species_traits)) * 100, 1), "%"
+        ),
         x = .data$at_least, y = .data$n_traits
       ), hjust = 0.5, vjust = -0.6, size = 3
     ) +
@@ -84,8 +86,8 @@ fb_plot_number_traits_by_species <- function(
         y = 0.95, hjust = 1.1, color = "darkred",
         label = paste0(
           "(n = ", round(threshold_species_proportion * nrow(species_traits)),
-          ")\n(p = ",
-          prettyNum(threshold_species_proportion * 100,  digits = 3), "%)"
+          ")\n(p = ", round(threshold_species_proportion * 100, digits = 1),
+          "%)"
         )
       )
   }

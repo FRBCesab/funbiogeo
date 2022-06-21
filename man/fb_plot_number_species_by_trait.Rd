@@ -22,7 +22,8 @@ between 0 and 1. The percentage of species coverage threshold.}
 a ggplot2 object
 }
 \description{
-Show Number of Species per Trait
+Display a lollipop graph showing the number and proportion of species
+with non-NA trait for each trait ranked in decreasing order.
 }
 \examples{
 data(species_traits)

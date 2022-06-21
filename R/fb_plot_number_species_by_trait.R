@@ -1,5 +1,8 @@
 #' Show Number of Species per Trait
 #'
+#' Display a lollipop graph showing the number and proportion of species
+#' with non-NA trait for each trait ranked in decreasing order.
+#' 
 #' @inheritParams fb_filter_traits_by_species_coverage
 #'
 #' @return a ggplot2 object
@@ -36,12 +39,17 @@ fb_plot_number_species_by_trait <- function(
   given_plot <- ggplot2::ggplot(
     number_species_per_trait, ggplot2::aes(.data$n_species, .data$trait)
   ) +
-    ggplot2::geom_point(color = "darkblue") +
+    ggplot2::geom_point() +
+    ggplot2::geom_segment(
+      ggplot2::aes(
+        y = .data$trait, yend = .data$trait, x = 0, xend = .data$n_species
+      )
+    ) +
     ggplot2::geom_text(
       ggplot2::aes(
-        label = paste0(prettyNum(.data$prop_species * 100, digits = 3), "%")
+        label = paste0(round(.data$prop_species * 100, digits = 1), "%")
       ),
-      hjust = -0.15, size = 3.5
+      hjust = 0.5, vjust = -0.6, size = 3
     ) +
     ggplot2::scale_x_continuous(
       "Number of Species",
@@ -50,7 +58,7 @@ fb_plot_number_species_by_trait <- function(
         labels = scales::label_percent()
       ),
       # Add a tiny bit of space so that proportion can be shown
-      limits = c(NA_real_, max(number_species_per_trait$n_species)*1.015)
+      limits = c(0, NA)
     ) +
     ggplot2::labs(y = "Trait Name") +
     ggplot2::theme_bw()
