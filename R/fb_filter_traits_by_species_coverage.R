@@ -79,11 +79,16 @@ fb_filter_traits_by_species_coverage <- function(
     which(species_coverage[["coverage"]] >= threshold_species_proportion), 
     "trait"]
   
+  returned_traits = species_traits[
+    , c(colnames(species_traits)[1], selected_traits), drop = FALSE
+  ]
   
   if (identical(selected_traits, character(0))) {
     message("No trait has the specified species coverage threshold")
+    
+    # Return empty data.frame when no species are retained
+    returned_traits = species_traits[NULL, ]
   }
   
-  species_traits[, c(colnames(species_traits)[1], selected_traits), 
-                 drop = FALSE]
+  return(returned_traits)
 }

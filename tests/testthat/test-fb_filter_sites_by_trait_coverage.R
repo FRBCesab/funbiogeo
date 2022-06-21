@@ -165,9 +165,7 @@ test_that("fb_filter_sites_by_trait_coverage() works with occurrence matrices", 
     fixed = TRUE
   )
   
-  expect_true(is.data.frame(test_coverage))
-  expect_equal(nrow(test_coverage), 0L)
-  expect_equal(ncol(test_coverage), 5L)
+  expect_identical(test_coverage, occ_dat[NULL,])
   
   
   # Lower threshold
@@ -211,9 +209,7 @@ test_that("fb_filter_sites_by_trait_coverage() works with occurrence matrices", 
     fixed = TRUE
   )
   
-  expect_true(is.data.frame(test_coverage))
-  expect_equal(nrow(test_coverage), 0L)
-  expect_equal(ncol(test_coverage), 5L)
+  expect_identical(test_coverage, occ_dat[NULL,])
   
   # Lower threshold
   expect_silent(
@@ -251,9 +247,7 @@ test_that("fb_filter_sites_by_trait_coverage() works with abundance matrices", {
     fixed = TRUE
   )
   
-  expect_true(is.data.frame(test_coverage))
-  expect_equal(nrow(test_coverage), 0L)
-  expect_equal(ncol(test_coverage), 5L)
+  expect_identical(test_coverage, site_species[NULL,])
   
 
   # Lower threshold
@@ -293,9 +287,7 @@ test_that("fb_filter_sites_by_trait_coverage() works with abundance matrices", {
     fixed = TRUE
   )
   
-  expect_true(is.data.frame(test_coverage))
-  expect_equal(nrow(test_coverage), 0L)
-  expect_equal(ncol(test_coverage), 5L)
+  expect_identical(test_coverage, site_species[NULL,])
 
   
   # Lower threshold
@@ -331,9 +323,7 @@ test_that("fb_filter_sites_by_trait_coverage() works with cover matrices", {
     fixed = TRUE
   )
   
-  expect_true(is.data.frame(test_coverage))
-  expect_equal(nrow(test_coverage), 0L)
-  expect_equal(ncol(test_coverage), 5L)
+  expect_identical(test_coverage, rel_dat[NULL,])
   
   
   # Lower threshold should work
@@ -374,13 +364,10 @@ test_that("fb_filter_sites_by_trait_coverage() works with cover matrices", {
     fixed = TRUE
   )
   
-  expect_true(is.data.frame(test_coverage))
-  expect_equal(nrow(test_coverage), 0L)
-  expect_equal(ncol(test_coverage), 5L)
+  expect_identical(test_coverage, rel_dat[NULL,])
   
   
   # Lower threshold should work
-  
   expect_silent(
     test_coverage <- fb_filter_sites_by_trait_coverage(
       rel_dat, species_traits_2[1,, drop = FALSE],
