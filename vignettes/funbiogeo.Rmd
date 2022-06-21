@@ -224,14 +224,14 @@ head(red_sp_traits)
 Similarly you could filter species by their trait coverage. For example we would
 like to make sure that the species we filtered previously so that they show
 at least one of the two traits selected above.
-We can use the function `fb_filter_species_by_traits_coverage()` with
+We can use the function `fb_filter_species_by_trait_coverage()` with
 the species x traits `data.frame` as the first argument and the second argument
 the proportion of traits covered by species.
 
 ```{r filter-species-by-traits}
 # Filter species with at least 50% of included (two traits)
 # at least one trait
-red_sp_traits_2 <- fb_filter_species_by_traits_coverage(
+red_sp_traits_2 <- fb_filter_species_by_trait_coverage(
   red_sp_traits, threshold_traits_proportion = 0.5
 )
 
