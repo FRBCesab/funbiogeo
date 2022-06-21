@@ -19,10 +19,13 @@ to trait names.}
 between 0 and 1. The percentage of species coverage threshold.}
 }
 \value{
-a ggplot2 object
+a \code{ggplot2} object
 }
 \description{
-Show Number of Traits per Species
+Display a graph showing the number (and proportion) of species having
+at least 0, 1, etc. number of traits. It provides a lollipop graph to examine
+which number of trait cover a certain proportion of the species.
+This plot doesn't show which traits are concerned.
 }
 \examples{
 data(species_traits)

@@ -1,8 +1,13 @@
 #' Show Number of Traits per Species
+#' 
+#' Display a graph showing the number (and proportion) of species having
+#' at least 0, 1, etc. number of traits. It provides a lollipop graph to examine
+#' which number of trait cover a certain proportion of the species.
+#' This plot doesn't show which traits are concerned.
 #'
 #' @inheritParams fb_filter_traits_by_species_coverage
 #'
-#' @return a ggplot2 object
+#' @return a `ggplot2` object
 #' 
 #' @examples
 #' data(species_traits)
@@ -35,14 +40,25 @@ fb_plot_number_traits_by_species <- function(
   number_trait_per_species$n_traits <-
     as.numeric(as.character(number_trait_per_species$ind))
   
+  # Compute number to show at least 0 or more, etc.
+  number_trait_per_species[["at_least"]] <- rev(
+    cumsum(rev(number_trait_per_species$values))
+  )
+  
   given_plot <- ggplot2::ggplot(
-    number_trait_per_species, ggplot2::aes(.data$values, .data$n_traits)
+    number_trait_per_species, ggplot2::aes(.data$at_least, .data$n_traits)
   ) +
-    ggplot2::geom_point(size = 1.5) +
+    ggplot2::geom_point(size = 1.7) +
     ggplot2::geom_segment(
       ggplot2::aes(
-        y = .data$n_traits, yend = .data$n_traits, x = 0, xend = .data$values
+        y = .data$n_traits, yend = .data$n_traits, x = 0, xend = .data$at_least
       )
+    ) +
+    ggplot2::geom_text(
+      ggplot2::aes(
+        label = paste0(round((.data$at_least/nrow(species_traits)) * 100), "%"),
+        x = .data$at_least, y = .data$n_traits
+      ), hjust = 0.5, vjust = -0.6, size = 3
     ) +
     ggplot2::labs(x = "Number of Species", y = "Number of Traits") +
     ggplot2::scale_x_continuous(
@@ -52,7 +68,8 @@ fb_plot_number_traits_by_species <- function(
       )
     ) +
     ggplot2::scale_y_continuous(
-      breaks = seq(0, to = max(number_trait_per_species$n_trait), by = 1)
+      breaks = seq(0, to = max(number_trait_per_species$n_trait), by = 1),
+      labels = function(x) paste0("\u2265", x, " trait(s)")
     ) +
     ggplot2::theme_bw()
   
