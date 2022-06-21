@@ -44,13 +44,13 @@ and trait data from the
 [PanTHERIA database](https://esapubs.org/archive/ecol/E090/184/)
 [@Jones_PanTHERIA_2009].
 The initial extraction is available
-[on GitHub](https://github.com/FRBCesab/eumammals).
+on [GitHub](https://github.com/FRBCesab/eumammals).
 
-The package `funbiogeo` requires three different data.frame to proceed with the 
+The package `funbiogeo` requires three different datasets to proceed with the 
 analyses:
 
-- the **species x traits** data.frame (`species_traits` in `funbiogeo`)
-- the **site x species** data.frame (`site_species` in `funbiogeo`)
+- the **species x traits** `data.frame` (`species_traits` in `funbiogeo`)
+- the **site x species** `data.frame` (`site_species` in `funbiogeo`)
 - the **site x locations** object (`site_locations` in `funbiogeo`)
 
 You can load the example data using `data(..., package = "funbiogeo")` call:
@@ -70,11 +70,11 @@ the other columns contain trait values.
 
 Note that we'll be talking about **species** throughout this vignette
 and in the arguments of `funbiogeo`, but the package doesn't make any assumption
-on the biological level at which species are. It can be individuals,
-populations, strains, species, genera, families, etc. The important fact is that
-you should have trait data for the level at which you want to work.
+on the biological level. It can be individuals, populations, strains, species,
+genera, families, etc. The important fact is that you should have trait data
+for the level at which you want to work.
 
-Let's examine the `species_traits` data include in the package:
+Let's examine the `species_traits` data included in the package:
 
 ```{r preview-species-traits, echo = FALSE}
 knitr::kable(head(species_traits, 4), 
@@ -83,7 +83,7 @@ knitr::kable(head(species_traits, 4),
 ```
 
 The first column `species` contains species names, while the next 6 columns
-contains the trait values for all species. Note that the species names are 
+contain the trait values for all species. Note that the species names are 
 anonymized because the IUCN data
 [cannot be redistributed](https://www.iucnredlist.org/terms/terms-of-use#4.%20No%20Reposting%20or%20Redistribution).
 
@@ -105,7 +105,7 @@ while the other columns contains the distribution of species across sites.
 
 Note that here we are talking about sites in an abstract way.
 These can be plots, assemblages, of whatever set of species
-youre interested in.
+you're interested in.
 
 The package `funbiogeo` comes with the example dataset `site_species`.
 Let's look at it:
@@ -117,7 +117,7 @@ knitr::kable(head(site_species[ , 1:4], 10),
 ```
 
 The example dataset contains the occurrence of the 149 above-mentioned species
-across 1505 sites of 0.5° by 0.5° resolution.
+across 1,505 sites (grid cells of 0.5° x 0.5° resolution).
 
 
 ### Site x Locations
@@ -130,27 +130,25 @@ line transects! To make sure that your data is well plotted you should specify
 the Coordinate Reference System (CRS) of this object.
 
 The package `funbiogeo` comes with the example dataset `site_locations` defining
-the location of the 1505 pixels of 0.5° by 0.5° resolution.
+the location of the 1,505 sites (grid cells of 0.5° x 0.5° resolution).
 
-```{r preview-sites-locs, echo = FALSE}
-knitr::kable(head(site_locations, 10), 
-             caption   = "Format of site x locations dataset", 
-             align     = c("r", "r"))
+```{r preview-sites-locs}
+head(site_locations, 10)
 ```
 
 
 ## Visualizing the data (diagnostic plots)
 
-`funbiogeo` provides many functions to display the data to help the use select
+`funbiogeo` provides many functions to display the data to help the user select
 specific traits, species, and/or sites. We are going to detail some of them
 in this section. We call them *diagnostic plots* because they help us
 to have an overview of our dataset **prior** to the analyses.
 
 ### Trait completeness per species
 
-A first way to visualize our dataset is to look at the proportion of species
+A first way to visualize our `data.frame` is to look at the proportion of species
 with non-missing traits using the `fb_plot_number_species_by_trait()` function.
-It takes the species by trait data.frame as input.
+It takes the species by trait `data.frame` as input.
 
 ```{r fig-plot-sp-by-trait}
 fb_plot_number_species_by_trait(species_traits)
@@ -160,7 +158,7 @@ This plot shows us the number of species (along the x-axis) in function of
 the trait name (along the y-axis). The number of concerned species is shown at
 the bottom of the plot while the corresponding proportion of species
 (compared to all the species included in the trait dataset) is indicated as
-a secondary y-axis at the top. The proportion of species concerned is shown at
+a secondary x-axis at the top. The proportion of species concerned is shown at
 the right of each point. For example, in our example dataset, 82.6% species have
 a non-NA adult body mass.
 
@@ -179,17 +177,17 @@ The top number shows the corresponding number of species.
 
 ### Number of Traits per Species
 
-Another one to filter the data would be to select certain species that
+Another way to filter the data would be to select certain species that
 have at least a certain number of traits. This can be visualized using the
 `fb_plot_number_traits_by_species()` function. Similarly to the above-mentioned
-function, it takes the species-traits data.frame as the first argument:
+function, it takes the species x traits `data.frame` as the first argument:
 
 ```{r fig-plot-trait-by-sp}
 fb_plot_number_traits_by_species(species_traits)
 ```
 
-The plots shows the number (bottom axis) and the proportion (top axis) of
-species covered by a specific number of trait (0 to 6 in our example).
+The plot shows the number (bottom axis) and the proportion (top axis) of
+species covered by a specific number of traits (0 to 6 in our example).
 
   
 ## Filtering the data
@@ -201,7 +199,7 @@ our data for our following analyses.
 
 We want to select the traits that cover at least 75% of the species. 
 To do that we can use the `fb_filter_traits_by_species_coverage()` function.
-The function takes the species by traits data.frame and outputs the same dataset
+The function takes the species by traits `data.frame` and outputs the same dataset
 but with the traits filtered (so with less columns). The second argument
 `threshold_species_proportion` is the threshold proportion of species covered:
 
@@ -210,7 +208,7 @@ but with the traits filtered (so with less columns). The second argument
 dim(species_traits)
 
 # Filter traits 
-red_sp_traits = fb_filter_traits_by_species_coverage(
+red_sp_traits <- fb_filter_traits_by_species_coverage(
   species_traits, threshold_species_proportion =  0.75
 )
 
@@ -226,14 +224,14 @@ head(red_sp_traits)
 Similarly you could filter species by their trait coverage. For example we would
 like to make sure that the species we filtered previously so that they show
 at least one of the two traits selected above.
-The function is `fb_filter_species_by_traits_coverage()` with the species by
-traits data.frame as the first argument and the second argument the proportion
-of traits covered by species.
+We can use the function `fb_filter_species_by_traits_coverage()` with
+the species x traits `data.frame` as the first argument and the second argument
+the proportion of traits covered by species.
 
 ```{r filter-species-by-traits}
 # Filter species with at least 50% of included (two traits)
 # at least one trait
-red_sp_traits_2 = fb_filter_species_by_traits_coverage(
+red_sp_traits_2 <- fb_filter_species_by_traits_coverage(
   red_sp_traits, threshold_traits_proportion = 0.5
 )
 
@@ -241,8 +239,9 @@ head(red_sp_traits_2)
 
 dim(red_sp_traits_2)
 ```
+
 We thus have selected 2 traits that cover at least 75% of the species and
-127 species which have at either traits.
+127 species which have known values for these two traits.
 
 
 ### Filter sites by trait coverage
@@ -250,18 +249,18 @@ We thus have selected 2 traits that cover at least 75% of the species and
 Now that we have filtered our traits and species of interest we need to filter
 the sites. Similarly to above the function is
 `fb_filter_sites_by_trait_coverage()` it takes as two first arguments
-the site by species data frame and the species by traits data frame. The third
+the site x species `data.frame` and the species x traits `data.frame`. The third
 argument is `threshold_traits_proportion` that indicates the percent coverage
 of traits to filter each site. Note that this coverage is weighted by
-the occurrence, abundance, or cover depending on the content of the site-species
-data frame.
+the occurrence, abundance, or cover depending on the content
+of the site x species `data.frame`.
 
 ```{r filter-trait-coverage}
-# Initial site-species data
+# Initial site x species data
 dim(site_species)
 
 # Filter sites with at least 90% species covered
-filt_sites = fb_filter_sites_by_trait_coverage(
+filt_sites <- fb_filter_sites_by_trait_coverage(
   site_species, red_sp_traits_2, threshold_traits_proportion = 0.9
 )
 
@@ -271,7 +270,7 @@ dim(filt_sites)
 filt_sites[1:4, 1:4]
 ```
 
-Now we selected 1268 sites out of 1505.
+Now we selected 1,268 sites out of 1,505.
 
 
 ## Computing Functional Diversity metrics
@@ -284,26 +283,26 @@ diversity indices like [`mFD`](https://cran.r-project.org/package=mFD),
 [`hypervolume`](https://cran.r-project.org/package=hypervolume).
 
 For the sake of the example we included a single function in `funbiogeo`
-to compute Community-Weighted Mean (CWM) named `fb_cwm()`. The CWM is the
-abundance-weighted average trait per site. We'll be using it in
+to compute Community-Weighted Mean [CWM, @Garnier_Plant_2004] named `fb_cwm()`.
+The CWM is the abundance-weighted average trait per site. We'll be using it in
 the following section but feel free to use any other functional diversity
 package.
 
 
-### Community-Weighted Means
+### Community-Weighted Mean (CWM)
 
-To compute CWM you can use the `fb_cwm()` function, it takes the site-species
-data.frame and species-traits data.frame as arguments.
+To compute the CWM you can use the `fb_cwm()` function, it takes
+the site x species `data.frame` and species x traits `data.frame` as arguments.
 
 ```{r compute-cwm}
 cwm <- fb_cwm(filt_sites, red_sp_traits_2)
 
 head(cwm)
 ```
-It outputs a data frame with 3 columns: `site` the first one shows the site
-name as provided in the input site-species data frame, `trait` which indicates
-the trait name on which the CWM is computed, and `cwm` which shows the value of
-the CWM.
+It outputs a `data.frame` with 3 columns: `site` the first one shows the site
+name as provided in the input site x species `data.frame`, `trait`
+which indicates the trait name on which the CWM is computed,
+and `cwm` which shows the value of the CWM.
 
 
 ## Putting Functional Diversity on the map
