@@ -45,6 +45,21 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="../articles/long-format.html">Formatting your data from raw data</a>
+    </li>
+    <li>
+      <a href="../articles/upscaling.html">Upscaling Your Data with funbiogeo</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
@@ -79,91 +94,120 @@
 
     
     
-<p>The aim of the <code>funbiogeo</code>package is to help users with analyses in <strong>Fun</strong>ctional <strong>biogeo</strong>graphy (Violle <em>et al.</em> 2014). It helps to load and combine data, computing trait coverage, as well as computing functional diversity indices, drawing maps, correlate them with the environment, and upscaling assemblages.</p>
+<p>The aim of the <code>funbiogeo</code>package is to help users streamline the workflows in <strong>fun</strong>ctional <strong>biogeo</strong>graphy <span class="citation">(Violle et al. 2014)</span>. It helps filter sites, species, and traits based on their trait coverages. It also provide default diagnostic plots and standard tables summarizing input data. This vignette aims to be an introduction to the most commonly used functions.</p>
+<p>The vignette will be a worked through a real world example using the internal dataset provided by <code>funbiogeo</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/frbcesab/funbiogeo" class="external-link">"funbiogeo"</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org" class="external-link">"ggplot2"</a></span><span class="op">)</span></code></pre></div>
 <div class="section level2">
-<h2 id="initial-needed-data">Initial needed data<a class="anchor" aria-label="anchor" href="#initial-needed-data"></a>
+<h2 id="provided-data">Provided data<a class="anchor" aria-label="anchor" href="#provided-data"></a>
 </h2>
+<p>We are interested in mapping the functional traits of mammals of Europe. We used range maps data <a href="https://www.iucnredlist.org/resources/spatial-data-download" class="external-link">from the IUCN</a> and trait data from the <a href="https://esapubs.org/archive/ecol/E090/184/" class="external-link">PanTHERIA database</a> <span class="citation">(Jones et al. 2009)</span>. The initial extraction is available on <a href="https://github.com/FRBCesab/eumammals" class="external-link">GitHub</a>.</p>
 <p>The package <code>funbiogeo</code> requires three different datasets to proceed with the analyses:</p>
 <ul>
-<li>the <strong>site x locations</strong> dataset (example dataset: <code>site_locations</code>)</li>
-<li>the <strong>site x species</strong> dataset (example dataset: <code>site_species</code>)</li>
-<li>the <strong>species x traits</strong> dataset (example dataset: <code>species_traits</code>)</li>
+<li>the <strong>species x traits</strong> <code>data.frame</code> (<code>species_traits</code> in <code>funbiogeo</code>)</li>
+<li>the <strong>site x species</strong> <code>data.frame</code> (<code>site_species</code> in <code>funbiogeo</code>)</li>
+<li>the <strong>site x locations</strong> object (<code>site_locations</code> in <code>funbiogeo</code>)</li>
 </ul>
-<p>Let’s take a look at each of these datasets.</p>
-<div class="section level3">
-<h3 id="site-x-locations">Site x Locations<a class="anchor" aria-label="anchor" href="#site-x-locations"></a>
-</h3>
-<p>This dataset contains spatial coordinates of sites (points) of the study area. It can be either a <code>matrix</code> or a <code>data.frame</code> and row names must contain sites names. It must contain at least two columns: the longitude and the latitude of sites. This dataset must contain unique sites. Additional columns are accepted must will be ignored by <code>funbiogeo</code>.</p>
-<p>The package <code>funbiogeo</code> comes with the example dataset <code>site_locations</code>.</p>
+<p>You can load the example data using <code>data(..., package = "funbiogeo")</code> call:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Load site x locations example dataset ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"site_locations"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"site_species"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"site_locations"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"species_traits"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></code></pre></div>
+<div class="section level3">
+<h3 id="species-x-traits">Species x Traits<a class="anchor" aria-label="anchor" href="#species-x-traits"></a>
+</h3>
+<p>This object contains traits values for studied species. It should be a <code>data.frame</code>. The first column should contain species names and the other columns contain trait values.</p>
+<p>Note that we’ll be talking about <strong>species</strong> throughout this vignette and in the arguments of <code>funbiogeo</code>, but the package doesn’t make any assumption on the biological level. It can be individuals, populations, strains, species, genera, families, etc. The important fact is that you should have trait data for the level at which you want to work.</p>
+<p>Let’s examine the <code>species_traits</code> data included in the package:</p>
 <table class="table">
-<caption>Format of site x locations dataset</caption>
+<caption>First lines of species x traits dataset</caption>
+<colgroup>
+<col width="8%">
+<col width="16%">
+<col width="17%">
+<col width="12%">
+<col width="14%">
+<col width="20%">
+<col width="13%">
+</colgroup>
 <thead><tr class="header">
-<th align="right">site</th>
-<th align="right">geometry</th>
+<th align="right">species</th>
+<th align="right">adult_body_mass</th>
+<th align="right">gestation_length</th>
+<th align="right">litter_size</th>
+<th align="right">max_longevity</th>
+<th align="right">sexual_maturity_age</th>
+<th align="right">diet_breadth</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="right">fb_33</td>
-<td align="right">5.771821, 59.597357</td>
+<td align="right">sp_001</td>
+<td align="right">461900.76</td>
+<td align="right">235.00</td>
+<td align="right">1.25</td>
+<td align="right">324</td>
+<td align="right">668.20</td>
+<td align="right">1</td>
 </tr>
 <tr class="even">
-<td align="right">fb_35</td>
-<td align="right">6.771821, 59.597357</td>
+<td align="right">sp_002</td>
+<td align="right">21.11</td>
+<td align="right">19.89</td>
+<td align="right">5.64</td>
+<td align="right">48</td>
+<td align="right">76.04</td>
+<td align="right">NA</td>
 </tr>
 <tr class="odd">
-<td align="right">fb_36</td>
-<td align="right">7.271821, 59.597357</td>
+<td align="right">sp_003</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 </tr>
 <tr class="even">
-<td align="right">fb_37</td>
-<td align="right">7.771821, 59.597357</td>
-</tr>
-<tr class="odd">
-<td align="right">fb_38</td>
-<td align="right">8.271821, 59.597357</td>
-</tr>
-<tr class="even">
-<td align="right">fb_39</td>
-<td align="right">8.771821, 59.597357</td>
-</tr>
-<tr class="odd">
-<td align="right">fb_40</td>
-<td align="right">9.271821, 59.597357</td>
-</tr>
-<tr class="even">
-<td align="right">fb_41</td>
-<td align="right">9.771821, 59.597357</td>
-</tr>
-<tr class="odd">
-<td align="right">fb_42</td>
-<td align="right">10.27182, 59.59736</td>
-</tr>
-<tr class="even">
-<td align="right">fb_43</td>
-<td align="right">10.77182, 59.59736</td>
+<td align="right">sp_004</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
 </tr>
 </tbody>
 </table>
+<p>The first column <code>species</code> contains species names, while the next 6 columns contain the trait values for all species. Note that the species names are anonymized because the IUCN data <a href="https://www.iucnredlist.org/terms/terms-of-use#4.%20No%20Reposting%20or%20Redistribution" class="external-link">cannot be redistributed</a>.</p>
+<p>Let’s look at a summary of the trait dataset:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## First column contains sites names ----</span>
-<span class="va">site_locations</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">]</span>
-<span class="co">#&gt; [1] "fb_33" "fb_35" "fb_36" "fb_37"</span></code></pre></div>
-<p>To create your own site x locations dataset you can use the function <code><a href="../reference/fb_format_site_locations.html">fb_format_site_locations()</a></code>. See below the section <strong><em>Long format</em></strong>.</p>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span>
+<span class="co">#&gt;    species          adult_body_mass    gestation_length  litter_size   </span>
+<span class="co">#&gt;  Length:149         Min.   :     2.3   Min.   : 19.50   Min.   :0.980  </span>
+<span class="co">#&gt;  Class :character   1st Qu.:    11.2   1st Qu.: 26.61   1st Qu.:1.500  </span>
+<span class="co">#&gt;  Mode  :character   Median :    35.9   Median : 41.99   Median :3.055  </span>
+<span class="co">#&gt;                     Mean   : 18809.7   Mean   : 69.93   Mean   :3.369  </span>
+<span class="co">#&gt;                     3rd Qu.:  2573.2   3rd Qu.: 76.70   3rd Qu.:4.970  </span>
+<span class="co">#&gt;                     Max.   :675876.7   Max.   :265.99   Max.   :8.990  </span>
+<span class="co">#&gt;                     NA's   :26         NA's   :61       NA's   :35     </span>
+<span class="co">#&gt;  max_longevity   sexual_maturity_age  diet_breadth  </span>
+<span class="co">#&gt;  Min.   : 12.0   Min.   :  25.37     Min.   :1.000  </span>
+<span class="co">#&gt;  1st Qu.: 58.8   1st Qu.: 106.67     1st Qu.:1.000  </span>
+<span class="co">#&gt;  Median :180.0   Median : 348.44     Median :1.000  </span>
+<span class="co">#&gt;  Mean   :171.3   Mean   : 392.01     Mean   :2.458  </span>
+<span class="co">#&gt;  3rd Qu.:252.0   3rd Qu.: 549.05     3rd Qu.:4.000  </span>
+<span class="co">#&gt;  Max.   :600.0   Max.   :1542.25     Max.   :8.000  </span>
+<span class="co">#&gt;  NA's   :68      NA's   :65          NA's   :66</span></code></pre></div>
+<p>From there we can see that there are 149 included species and some missing trait values. For example, there we don’t have body mass for 26 species.</p>
 </div>
 <div class="section level3">
 <h3 id="site-x-species">Site x Species<a class="anchor" aria-label="anchor" href="#site-x-species"></a>
 </h3>
-<p>This dataset contains species occurrences/abundance/coverage at sites (points) of the study area. It can be either a <code>matrix</code> or a <code>data.frame</code> and row names must contain sites names. Columns must contain only species distribution information and sites must be unique. No additional columns are accepted.</p>
-<p>The package <code>funbiogeo</code> comes with the example dataset <code>site_species</code>.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Load site x species example dataset ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"site_species"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></code></pre></div>
+<p>This object contains species occurrences/abundance/coverage at sites<br>
+of the study area. It is a <code>data.frame</code>. The first column contain site names while the other columns contains the distribution of species across sites.</p>
+<p>Note that here we are talking about sites in an abstract way. These can be plots, assemblages, of whatever set of species you’re interested in.</p>
+<p>The package <code>funbiogeo</code> comes with the example dataset <code>site_species</code>. Let’s look at it:</p>
 <table class="table">
 <caption>Format of site x species dataset</caption>
 <thead><tr class="header">
@@ -235,668 +279,187 @@
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## First column contains sites names ----</span>
-<span class="va">site_species</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">]</span>
-<span class="co">#&gt; [1] "fb_33" "fb_35" "fb_36" "fb_37"</span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Column names after the first one contain species names ----</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>
-<span class="co">#&gt; [1] "sp_001" "sp_002" "sp_003"</span></code></pre></div>
-<p>To create your own site x species dataset you can use the function <code><a href="../reference/fb_format_site_species.html">fb_format_site_species()</a></code>. See below the section <strong><em>Long format</em></strong>.</p>
+<p>The example dataset contains the occurrence of the 149 above-mentioned species across 1,505 sites (grid cells of 0.5° x 0.5° resolution).</p>
 </div>
 <div class="section level3">
-<h3 id="species-x-traits">Species x Traits<a class="anchor" aria-label="anchor" href="#species-x-traits"></a>
+<h3 id="site-x-locations">Site x Locations<a class="anchor" aria-label="anchor" href="#site-x-locations"></a>
 </h3>
-<p>This dataset contains traits values for studied species. It can be either a <code>matrix</code> or a <code>data.frame</code> and row names must contain species names. Columns must contain only traits variables and species must be unique. No additional columns are accepted.</p>
-<p>Note that traits values cannot vary across sites for a given species.</p>
-<p>The package <code>funbiogeo</code> comes with the example dataset <code>species_traits</code>.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Load species x traits example dataset ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"species_traits"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></code></pre></div>
-<table class="table">
-<caption>Format of species x traits dataset</caption>
-<colgroup>
-<col width="8%">
-<col width="16%">
-<col width="17%">
-<col width="12%">
-<col width="14%">
-<col width="20%">
-<col width="13%">
-</colgroup>
-<thead><tr class="header">
-<th align="right">species</th>
-<th align="right">adult_body_mass</th>
-<th align="right">gestation_length</th>
-<th align="right">litter_size</th>
-<th align="right">max_longevity</th>
-<th align="right">sexual_maturity_age</th>
-<th align="right">diet_breadth</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="right">sp_001</td>
-<td align="right">461900.76</td>
-<td align="right">235.00</td>
-<td align="right">1.25</td>
-<td align="right">324</td>
-<td align="right">668.20</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="right">sp_002</td>
-<td align="right">21.11</td>
-<td align="right">19.89</td>
-<td align="right">5.64</td>
-<td align="right">48</td>
-<td align="right">76.04</td>
-<td align="right">NA</td>
-</tr>
-<tr class="odd">
-<td align="right">sp_003</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-</tr>
-<tr class="even">
-<td align="right">sp_004</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-</tr>
-</tbody>
-</table>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## First column contains species names ----</span>
-<span class="va">species_traits</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">]</span>
-<span class="co">#&gt; [1] "sp_001" "sp_002" "sp_003" "sp_004"</span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Column names (apart from the first) contain traits names ----</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>
-<span class="co">#&gt; [1] "adult_body_mass"     "gestation_length"    "litter_size"        </span>
-<span class="co">#&gt; [4] "max_longevity"       "sexual_maturity_age" "diet_breadth"</span></code></pre></div>
-<p>To create your own species x traits dataset you can use the function <code><a href="../reference/fb_format_species_traits.html">fb_format_species_traits()</a></code>. See below the section <strong><em>Long format</em></strong>.</p>
-</div>
-<div class="section level3">
-<h3 id="long-format">Long format<a class="anchor" aria-label="anchor" href="#long-format"></a>
-</h3>
-<p>If your data are not spread into three datasets you can use the functions <code>fb_format_*()</code> to create these specific datasets. This implies that your data are structured into a long table, i.e. one row corresponds to the occurrence/abundance/coverage of one species at one site. This also implies that some variables are repeated across the table (e.g. sites coordinates, species traits).</p>
-<p>Let’s take an example</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Path to example raw dataset ----</span>
-<span class="va">filename</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span>
-  <span class="st">"extdata"</span>, <span class="st">"raw_mammals_data.csv"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span>
-<span class="op">)</span>
-
-<span class="co">## Read CSV file ----</span>
-<span class="va">all_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="va">filename</span><span class="op">)</span></code></pre></div>
-<table class="table">
-<caption>Long table example</caption>
-<colgroup>
-<col width="6%">
-<col width="7%">
-<col width="6%">
-<col width="5%">
-<col width="5%">
-<col width="11%">
-<col width="12%">
-<col width="8%">
-<col width="10%">
-<col width="14%">
-<col width="9%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">site</th>
-<th align="right">longitude</th>
-<th align="right">latitude</th>
-<th align="left">species</th>
-<th align="center">count</th>
-<th align="right">adult_body_mass</th>
-<th align="right">gestation_length</th>
-<th align="right">litter_size</th>
-<th align="right">max_longevity</th>
-<th align="right">sexual_maturity_age</th>
-<th align="right">diet_breadth</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="center">fb_100</td>
-<td align="right">5.77182</td>
-<td align="right">59.09736</td>
-<td align="left">sp_006</td>
-<td align="center">1</td>
-<td align="right">21.90</td>
-<td align="right">23.68</td>
-<td align="right">5.16</td>
-<td align="right">52.8</td>
-<td align="right">57.93</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td align="center">fb_100</td>
-<td align="right">5.77182</td>
-<td align="right">59.09736</td>
-<td align="left">sp_033</td>
-<td align="center">1</td>
-<td align="right">777.95</td>
-<td align="right">36.98</td>
-<td align="right">4.64</td>
-<td align="right">168.0</td>
-<td align="right">265.80</td>
-<td align="right">8</td>
-</tr>
-<tr class="odd">
-<td align="center">fb_100</td>
-<td align="right">5.77182</td>
-<td align="right">59.09736</td>
-<td align="left">sp_078</td>
-<td align="center">1</td>
-<td align="right">19.30</td>
-<td align="right">19.60</td>
-<td align="right">5.54</td>
-<td align="right">72.0</td>
-<td align="right">64.71</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="center">fb_1000</td>
-<td align="right">20.27182</td>
-<td align="right">52.59736</td>
-<td align="left">sp_001</td>
-<td align="center">1</td>
-<td align="right">461900.76</td>
-<td align="right">235.00</td>
-<td align="right">1.25</td>
-<td align="right">324.0</td>
-<td align="right">668.20</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="center">fb_1000</td>
-<td align="right">20.27182</td>
-<td align="right">52.59736</td>
-<td align="left">sp_002</td>
-<td align="center">1</td>
-<td align="right">21.11</td>
-<td align="right">19.89</td>
-<td align="right">5.64</td>
-<td align="right">48.0</td>
-<td align="right">76.04</td>
-<td align="right">NA</td>
-</tr>
-<tr class="even">
-<td align="center">fb_1000</td>
-<td align="right">20.27182</td>
-<td align="right">52.59736</td>
-<td align="left">sp_005</td>
-<td align="center">1</td>
-<td align="right">31.60</td>
-<td align="right">24.50</td>
-<td align="right">4.94</td>
-<td align="right">48.0</td>
-<td align="right">43.27</td>
-<td align="right">NA</td>
-</tr>
-<tr class="odd">
-<td align="center">fb_1000</td>
-<td align="right">20.27182</td>
-<td align="right">52.59736</td>
-<td align="left">sp_006</td>
-<td align="center">1</td>
-<td align="right">21.90</td>
-<td align="right">23.68</td>
-<td align="right">5.16</td>
-<td align="right">52.8</td>
-<td align="right">57.93</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td align="center">fb_1000</td>
-<td align="right">20.27182</td>
-<td align="right">52.59736</td>
-<td align="left">sp_010</td>
-<td align="center">1</td>
-<td align="right">8.31</td>
-<td align="right">NA</td>
-<td align="right">1.73</td>
-<td align="right">252.0</td>
-<td align="right">NA</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="center">fb_1000</td>
-<td align="right">20.27182</td>
-<td align="right">52.59736</td>
-<td align="left">sp_013</td>
-<td align="center">1</td>
-<td align="right">31756.51</td>
-<td align="right">63.50</td>
-<td align="right">4.98</td>
-<td align="right">354.0</td>
-<td align="right">679.37</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="center">fb_1000</td>
-<td align="right">20.27182</td>
-<td align="right">52.59736</td>
-<td align="left">sp_016</td>
-<td align="center">1</td>
-<td align="right">22502.01</td>
-<td align="right">196.00</td>
-<td align="right">1.79</td>
-<td align="right">204.0</td>
-<td align="right">400.97</td>
-<td align="right">NA</td>
-</tr>
-</tbody>
-</table>
-<p><br></p>
-<p><strong>Formatting site x locations data</strong></p>
-<p>The function <code><a href="../reference/fb_format_site_locations.html">fb_format_site_locations()</a></code> extracts sites coordinates from this long table to create the site x locations dataset. Note that one site must have one unique longitude x latitude value.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Format site x locations data ----</span>
-<span class="va">site_locations</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_site_locations.html">fb_format_site_locations</a></span><span class="op">(</span>input_data <span class="op">=</span>  <span class="va">all_data</span>, 
-                                           site       <span class="op">=</span> <span class="st">"site"</span>, 
-                                           longitude  <span class="op">=</span> <span class="st">"longitude"</span>, 
-                                           latitude   <span class="op">=</span> <span class="st">"latitude"</span>,
-                                           na_rm      <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="co">## Preview ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">site_locations</span><span class="op">)</span>
-<span class="co">#&gt; Simple feature collection with 6 features and 1 field</span>
-<span class="co">#&gt; Geometry type: POINT</span>
-<span class="co">#&gt; Dimension:     XY</span>
-<span class="co">#&gt; Bounding box:  xmin: 52.09736 ymin: -9.728179 xmax: 59.09736 ymax: 21.27182</span>
-<span class="co">#&gt; Geodetic CRS:  WGS 84</span>
-<span class="co">#&gt;        site                   geometry</span>
-<span class="co">#&gt; 1    fb_100  POINT (59.09736 5.771821)</span>
-<span class="co">#&gt; 4   fb_1000  POINT (52.59736 20.27182)</span>
-<span class="co">#&gt; 54  fb_1001  POINT (52.59736 20.77182)</span>
-<span class="co">#&gt; 103 fb_1002  POINT (52.59736 21.27182)</span>
-<span class="co">#&gt; 152 fb_1007 POINT (52.09736 -9.728179)</span>
-<span class="co">#&gt; 174 fb_1008 POINT (52.09736 -9.228179)</span></code></pre></div>
-<p><br></p>
-<p><strong>Formatting site x species data</strong></p>
-<p>The function <code><a href="../reference/fb_format_site_species.html">fb_format_site_species()</a></code> extracts species occurrence/abundance/coverage from this long table to create the site x species dataset. Note that one species must have been observed one time at one site (the package <code>funbiogeo</code> does not yet consider temporal survey).</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Format site x species data ----</span>
-<span class="va">site_species</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_site_species.html">fb_format_site_species</a></span><span class="op">(</span>data       <span class="op">=</span> <span class="va">all_data</span>, 
-                                       site       <span class="op">=</span> <span class="st">"site"</span>, 
-                                       species    <span class="op">=</span> <span class="st">"species"</span>, 
-                                       value      <span class="op">=</span> <span class="st">"count"</span>,
-                                       na_to_zero <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="co">## Preview ----</span>
-<span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span>
-<span class="co">#&gt; [1] 32 66</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>
-<span class="co">#&gt;      site sp_006 sp_033 sp_078 sp_001 sp_002 sp_005 sp_010 sp_013 sp_016</span>
-<span class="co">#&gt; 1  fb_100      1      1      1      0      0      0      0      0      0</span>
-<span class="co">#&gt; 2 fb_1000      1      0      1      1      1      1      1      1      1</span>
-<span class="co">#&gt; 3 fb_1001      1      0      1      1      1      1      1      1      1</span>
-<span class="co">#&gt; 4 fb_1002      1      0      1      1      1      1      1      1      1</span>
-<span class="co">#&gt; 5 fb_1007      1      1      1      0      0      0      0      0      0</span>
-<span class="co">#&gt; 6 fb_1008      1      1      1      0      0      0      0      0      0</span></code></pre></div>
-<p><br></p>
-<p><strong>Formatting species x traits data</strong></p>
-<p>The function <code><a href="../reference/fb_format_species_traits.html">fb_format_species_traits()</a></code> extracts species traits values from this long table to create the species x traits dataset. Note that one species must have one unique trait value (no trait variation across sites allowed).</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Format species x traits data ----</span>
-<span class="va">species_traits</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_species_traits.html">fb_format_species_traits</a></span><span class="op">(</span>
-  data    <span class="op">=</span> <span class="va">all_data</span>, 
-  species <span class="op">=</span> <span class="st">"species"</span>, 
-  traits  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"adult_body_mass"</span>, <span class="st">"gestation_length"</span>, <span class="st">"litter_size"</span>,
-              <span class="st">"max_longevity"</span>, <span class="st">"sexual_maturity_age"</span>, <span class="st">"diet_breadth"</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="co">## Preview ----</span>
-<span class="va">species_traits</span>
-<span class="co">#&gt;    species adult_body_mass gestation_length litter_size max_longevity</span>
-<span class="co">#&gt; 1   sp_001       461900.76           235.00        1.25        324.00</span>
-<span class="co">#&gt; 2   sp_002           21.11            19.89        5.64         48.00</span>
-<span class="co">#&gt; 3   sp_005           31.60            24.50        4.94         48.00</span>
-<span class="co">#&gt; 4   sp_006           21.90            23.68        5.16         52.80</span>
-<span class="co">#&gt; 5   sp_010            8.31               NA        1.73        252.00</span>
-<span class="co">#&gt; 6   sp_013        31756.51            63.50        4.98        354.00</span>
-<span class="co">#&gt; 7   sp_016        22502.01           196.00        1.79        204.00</span>
-<span class="co">#&gt; 8   sp_017       240867.13           235.61        1.09        321.60</span>
-<span class="co">#&gt; 9   sp_022            9.89            29.00        4.04         38.40</span>
-<span class="co">#&gt; 10  sp_026        57224.61           230.00        1.00        300.00</span>
-<span class="co">#&gt; 11  sp_032           10.72               NA        1.50        186.00</span>
-<span class="co">#&gt; 12  sp_033          777.95            36.98        4.64        168.00</span>
-<span class="co">#&gt; 13  sp_034              NA               NA          NA            NA</span>
-<span class="co">#&gt; 14  sp_035           94.16            34.98        5.01            NA</span>
-<span class="co">#&gt; 15  sp_038          128.09            28.19        5.17        108.00</span>
-<span class="co">#&gt; 16  sp_039        12792.49           161.73        2.84        216.00</span>
-<span class="co">#&gt; 17  sp_048         3816.43            41.99        2.14        144.00</span>
-<span class="co">#&gt; 18  sp_050         3105.42            50.10        3.16            NA</span>
-<span class="co">#&gt; 19  sp_051        19300.00            66.99        2.30        321.60</span>
-<span class="co">#&gt; 20  sp_055         1675.00            29.86        3.78        217.20</span>
-<span class="co">#&gt; 21  sp_056         1299.99            30.63        3.49        204.00</span>
-<span class="co">#&gt; 22  sp_057        11884.03            48.60        3.11        194.40</span>
-<span class="co">#&gt; 23  sp_059            6.99            21.00        4.92         60.00</span>
-<span class="co">#&gt; 24  sp_060           35.87            20.72        4.65         39.60</span>
-<span class="co">#&gt; 25  sp_061           26.90            21.00        4.99         36.00</span>
-<span class="co">#&gt; 26  sp_071           33.10            21.51        5.62         21.60</span>
-<span class="co">#&gt; 27  sp_073           17.74            21.00        2.46            NA</span>
-<span class="co">#&gt; 28  sp_077        13499.94           214.24        0.98            NA</span>
-<span class="co">#&gt; 29  sp_078           19.30            19.60        5.54         72.00</span>
-<span class="co">#&gt; 30  sp_081           29.19            24.97        4.30         72.00</span>
-<span class="co">#&gt; 31  sp_082          284.50            66.35        6.74         85.23</span>
-<span class="co">#&gt; 32  sp_084           78.45            36.49        5.07        120.00</span>
-<span class="co">#&gt; 33  sp_085          975.55            41.49        8.48        168.00</span>
-<span class="co">#&gt; 34  sp_086           20.73            19.74        4.31         58.80</span>
-<span class="co">#&gt; 35  sp_087           36.43               NA        5.01            NA</span>
-<span class="co">#&gt; 36  sp_091            9.47               NA        1.00        252.00</span>
-<span class="co">#&gt; 37  sp_093            5.30               NA          NA            NA</span>
-<span class="co">#&gt; 38  sp_095           15.16               NA        1.00        234.00</span>
-<span class="co">#&gt; 39  sp_096            7.63            55.14        1.21        336.00</span>
-<span class="co">#&gt; 40  sp_098           25.59            73.00        1.50        264.00</span>
-<span class="co">#&gt; 41  sp_099              NA               NA          NA            NA</span>
-<span class="co">#&gt; 42  sp_100            7.25               NA        0.99        180.00</span>
-<span class="co">#&gt; 43  sp_104           12.47               NA        1.73            NA</span>
-<span class="co">#&gt; 44  sp_105           28.48            72.24        1.33        144.00</span>
-<span class="co">#&gt; 45  sp_106         4214.99            61.84        6.36        168.00</span>
-<span class="co">#&gt; 46  sp_110            7.44               NA        1.73         96.00</span>
-<span class="co">#&gt; 47  sp_111            5.30            44.00        1.37        200.40</span>
-<span class="co">#&gt; 48  sp_112              NA               NA          NA            NA</span>
-<span class="co">#&gt; 49  sp_113            8.19            65.12        1.22        360.00</span>
-<span class="co">#&gt; 50  sp_114            6.75               NA          NA        180.00</span>
-<span class="co">#&gt; 51  sp_118       109088.50           222.50        2.00        242.40</span>
-<span class="co">#&gt; 52  sp_119          282.89            21.74        8.99            NA</span>
-<span class="co">#&gt; 53  sp_120          142.68            23.45        5.88         50.40</span>
-<span class="co">#&gt; 54  sp_123           22.59            91.24        0.98        360.00</span>
-<span class="co">#&gt; 55  sp_124            4.57            75.51        1.00        252.00</span>
-<span class="co">#&gt; 56  sp_129          333.00            38.00        4.50        144.00</span>
-<span class="co">#&gt; 57  sp_130            8.92            31.50        5.29         48.00</span>
-<span class="co">#&gt; 58  sp_133            9.18            21.50        6.56         24.00</span>
-<span class="co">#&gt; 59  sp_134            9.32            23.99        4.94         13.50</span>
-<span class="co">#&gt; 60  sp_137            4.32            23.81        6.04         24.00</span>
-<span class="co">#&gt; 61  sp_141        84471.54           115.20        4.52        252.00</span>
-<span class="co">#&gt; 62  sp_144           87.53            30.41        3.89         84.00</span>
-<span class="co">#&gt; 63  sp_147       196287.50           227.56        2.24        600.00</span>
-<span class="co">#&gt; 64  sp_148           15.42            52.14        1.50        144.00</span>
-<span class="co">#&gt; 65  sp_149         4820.36            52.50        4.59        180.00</span>
-<span class="co">#&gt;    sexual_maturity_age diet_breadth</span>
-<span class="co">#&gt; 1               668.20            1</span>
-<span class="co">#&gt; 2                76.04           NA</span>
-<span class="co">#&gt; 3                43.27           NA</span>
-<span class="co">#&gt; 4                57.93            4</span>
-<span class="co">#&gt; 5                   NA            1</span>
-<span class="co">#&gt; 6               679.37            1</span>
-<span class="co">#&gt; 7               400.97           NA</span>
-<span class="co">#&gt; 8               659.91            5</span>
-<span class="co">#&gt; 9                66.88            2</span>
-<span class="co">#&gt; 10              543.28            2</span>
-<span class="co">#&gt; 11                  NA            1</span>
-<span class="co">#&gt; 12              265.80            8</span>
-<span class="co">#&gt; 13                  NA           NA</span>
-<span class="co">#&gt; 14              352.43           NA</span>
-<span class="co">#&gt; 15              339.31           NA</span>
-<span class="co">#&gt; 16              756.60            1</span>
-<span class="co">#&gt; 17              210.95           NA</span>
-<span class="co">#&gt; 18                  NA           NA</span>
-<span class="co">#&gt; 19              739.52            1</span>
-<span class="co">#&gt; 20              742.46            1</span>
-<span class="co">#&gt; 21              508.47            1</span>
-<span class="co">#&gt; 22              420.91            1</span>
-<span class="co">#&gt; 23               37.37           NA</span>
-<span class="co">#&gt; 24               38.27           NA</span>
-<span class="co">#&gt; 25               28.19           NA</span>
-<span class="co">#&gt; 26               44.86           NA</span>
-<span class="co">#&gt; 27              101.87           NA</span>
-<span class="co">#&gt; 28              295.12            2</span>
-<span class="co">#&gt; 29               64.71            1</span>
-<span class="co">#&gt; 30              346.11            8</span>
-<span class="co">#&gt; 31               93.09            1</span>
-<span class="co">#&gt; 32              169.99            1</span>
-<span class="co">#&gt; 33              308.50            1</span>
-<span class="co">#&gt; 34               40.91            5</span>
-<span class="co">#&gt; 35                  NA           NA</span>
-<span class="co">#&gt; 36                  NA            1</span>
-<span class="co">#&gt; 37                  NA           NA</span>
-<span class="co">#&gt; 38                  NA            1</span>
-<span class="co">#&gt; 39              371.23            2</span>
-<span class="co">#&gt; 40              399.60            1</span>
-<span class="co">#&gt; 41                  NA           NA</span>
-<span class="co">#&gt; 42                  NA            1</span>
-<span class="co">#&gt; 43                  NA           NA</span>
-<span class="co">#&gt; 44              415.81            1</span>
-<span class="co">#&gt; 45              326.63            6</span>
-<span class="co">#&gt; 46              105.22           NA</span>
-<span class="co">#&gt; 47              248.48            1</span>
-<span class="co">#&gt; 48                  NA           NA</span>
-<span class="co">#&gt; 49              338.33            1</span>
-<span class="co">#&gt; 50                  NA           NA</span>
-<span class="co">#&gt; 51              758.71            3</span>
-<span class="co">#&gt; 52               55.23            1</span>
-<span class="co">#&gt; 53              115.29            5</span>
-<span class="co">#&gt; 54              827.69            1</span>
-<span class="co">#&gt; 55              447.26            1</span>
-<span class="co">#&gt; 56              360.85            5</span>
-<span class="co">#&gt; 57              377.57           NA</span>
-<span class="co">#&gt; 58              312.90            5</span>
-<span class="co">#&gt; 59              278.42            1</span>
-<span class="co">#&gt; 60              353.38            5</span>
-<span class="co">#&gt; 61              350.76            5</span>
-<span class="co">#&gt; 62              335.48            1</span>
-<span class="co">#&gt; 63             1327.95            6</span>
-<span class="co">#&gt; 64              371.23            1</span>
-<span class="co">#&gt; 65              321.07            1</span></code></pre></div>
+<p>This object contains the geographical location of the sites. It should be an <code>sf</code> object from the <a href="https://cran.r-project.org/package=sf" class="external-link"><code>sf</code> package</a>. The sites can have arbitrary shapes: points, regular polygons, irregular polygons, or even line transects! To make sure that your data is well plotted you should specify the Coordinate Reference System (CRS) of this object.</p>
+<p>The package <code>funbiogeo</code> comes with the example dataset <code>site_locations</code> defining the location of the 1,505 sites (grid cells of 0.5° x 0.5° resolution).</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">site_locations</span>, <span class="fl">10</span><span class="op">)</span>
+<span class="co">#&gt;     site            geometry</span>
+<span class="co">#&gt; 1  fb_33 5.771821, 59.597357</span>
+<span class="co">#&gt; 2  fb_35 6.771821, 59.597357</span>
+<span class="co">#&gt; 3  fb_36 7.271821, 59.597357</span>
+<span class="co">#&gt; 4  fb_37 7.771821, 59.597357</span>
+<span class="co">#&gt; 5  fb_38 8.271821, 59.597357</span>
+<span class="co">#&gt; 6  fb_39 8.771821, 59.597357</span>
+<span class="co">#&gt; 7  fb_40 9.271821, 59.597357</span>
+<span class="co">#&gt; 8  fb_41 9.771821, 59.597357</span>
+<span class="co">#&gt; 9  fb_42  10.27182, 59.59736</span>
+<span class="co">#&gt; 10 fb_43  10.77182, 59.59736</span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
-<h2 id="computing-trait-coverages">Computing Trait Coverages<a class="anchor" aria-label="anchor" href="#computing-trait-coverages"></a>
+<h2 id="visualizing-the-data-diagnostic-plots">Visualizing the data (diagnostic plots)<a class="anchor" aria-label="anchor" href="#visualizing-the-data-diagnostic-plots"></a>
 </h2>
-<p>a.k.a, how well are sites covered given the trait data I have?</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"site_species"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"site_locations"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"species_traits"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></code></pre></div>
-<p>[…]</p>
+<p><code>funbiogeo</code> provides many functions to display the data to help the user select specific traits, species, and/or sites. We are going to detail some of them in this section. We call them <em>diagnostic plots</em> because they help us to have an overview of our dataset <strong>prior</strong> to the analyses.</p>
 <div class="section level3">
-<h3 id="compute-trait-coverage">Compute trait coverage<a class="anchor" aria-label="anchor" href="#compute-trait-coverage"></a>
+<h3 id="trait-completeness-per-species">Trait completeness per species<a class="anchor" aria-label="anchor" href="#trait-completeness-per-species"></a>
 </h3>
-<p>[…]</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Get trait coverage ----</span>
-<span class="va">cover</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_get_trait_coverage_by_site.html">fb_get_trait_coverage_by_site</a></span><span class="op">(</span><span class="va">site_species</span>, <span class="va">species_traits</span><span class="op">)</span>
+<p>A first way to visualize our <code>data.frame</code> is to look at the proportion of species with non-missing traits using the <code><a href="../reference/fb_plot_number_species_by_trait.html">fb_plot_number_species_by_trait()</a></code> function. It takes the species by trait <code>data.frame</code> as input.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/fb_plot_number_species_by_trait.html">fb_plot_number_species_by_trait</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span></code></pre></div>
+<p><img src="funbiogeo_files/figure-html/fig-plot-sp-by-trait-1.png" width="100%"></p>
+<p>This plot shows us the number of species (along the x-axis) in function of the trait name (along the y-axis). The number of concerned species is shown at the bottom of the plot while the corresponding proportion of species (compared to all the species included in the trait dataset) is indicated as a secondary x-axis at the top. The proportion of species concerned is shown at the right of each point. For example, in our example dataset, 82.6% species have a non-NA adult body mass.</p>
+<p>The function also include a way to provide a target proportion of species as the second argument. It will display the proportion as a dark red dashed line.</p>
+<p>For example, if we want to visualize which traits cover more than 75% of the species:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/fb_plot_number_species_by_trait.html">fb_plot_number_species_by_trait</a></span><span class="op">(</span><span class="va">species_traits</span>, <span class="fl">0.75</span><span class="op">)</span></code></pre></div>
+<p><img src="funbiogeo_files/figure-html/fig-plot-sp-by-trait-prop-1.png" width="100%"></p>
+<p>The top number shows the corresponding number of species.</p>
+</div>
+<div class="section level3">
+<h3 id="number-of-traits-per-species">Number of Traits per Species<a class="anchor" aria-label="anchor" href="#number-of-traits-per-species"></a>
+</h3>
+<p>Another way to filter the data would be to select certain species that have at least a certain number of traits. This can be visualized using the <code><a href="../reference/fb_plot_number_traits_by_species.html">fb_plot_number_traits_by_species()</a></code> function. Similarly to the above-mentioned function, it takes the species x traits <code>data.frame</code> as the first argument:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/fb_plot_number_traits_by_species.html">fb_plot_number_traits_by_species</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span></code></pre></div>
+<p><img src="funbiogeo_files/figure-html/fig-plot-trait-by-sp-1.png" width="100%"></p>
+<p>The plot shows the number (bottom axis) and the proportion (top axis) of species covered by a specific number of traits (0 to 6 in our example).</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="filtering-the-data">Filtering the data<a class="anchor" aria-label="anchor" href="#filtering-the-data"></a>
+</h2>
+<p>Now that we displayed the diagnostic plots, we can decide thresholds and filter our data for our following analyses.</p>
+<div class="section level3">
+<h3 id="filter-trait-by-species-coverage">Filter trait by species coverage<a class="anchor" aria-label="anchor" href="#filter-trait-by-species-coverage"></a>
+</h3>
+<p>We want to select the traits that cover at least 75% of the species. To do that we can use the <code><a href="../reference/fb_filter_traits_by_species_coverage.html">fb_filter_traits_by_species_coverage()</a></code> function. The function takes the species by traits <code>data.frame</code> and outputs the same dataset but with the traits filtered (so with less columns). The second argument <code>threshold_species_proportion</code> is the threshold proportion of species covered:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Initial dimension of the input data</span>
+<span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span>
+<span class="co">#&gt; [1] 149   7</span>
 
-<span class="co">## Preview ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">cover</span><span class="op">)</span>
-<span class="co">#&gt;    site trait_coverage</span>
-<span class="co">#&gt; 1 fb_33      0.7307692</span>
-<span class="co">#&gt; 2 fb_35      0.7586207</span>
-<span class="co">#&gt; 3 fb_36      0.7586207</span>
-<span class="co">#&gt; 4 fb_37      0.7586207</span>
-<span class="co">#&gt; 5 fb_38      0.7857143</span>
-<span class="co">#&gt; 6 fb_39      0.7586207</span></code></pre></div>
-<p>[…]</p>
+<span class="co"># Filter traits </span>
+<span class="va">red_sp_traits</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_filter_traits_by_species_coverage.html">fb_filter_traits_by_species_coverage</a></span><span class="op">(</span>
+  <span class="va">species_traits</span>, threshold_species_proportion <span class="op">=</span>  <span class="fl">0.75</span>
+<span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">red_sp_traits</span><span class="op">)</span>
+<span class="co">#&gt; [1] 149   3</span>
+
+<span class="co"># The reduced data set now has fewer trait columns</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">red_sp_traits</span><span class="op">)</span>
+<span class="co">#&gt;   species adult_body_mass litter_size</span>
+<span class="co">#&gt; 1  sp_001       461900.76        1.25</span>
+<span class="co">#&gt; 2  sp_002           21.11        5.64</span>
+<span class="co">#&gt; 3  sp_003              NA          NA</span>
+<span class="co">#&gt; 4  sp_004              NA          NA</span>
+<span class="co">#&gt; 5  sp_005           31.60        4.94</span>
+<span class="co">#&gt; 6  sp_006           21.90        5.16</span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="filter-species-by-trait-coverage">Filter species by trait coverage<a class="anchor" aria-label="anchor" href="#filter-species-by-trait-coverage"></a>
+</h3>
+<p>Similarly you could filter species by their trait coverage. For example we would like to make sure that the species we filtered previously so that they show at least one of the two traits selected above. We can use the function <code><a href="../reference/fb_filter_species_by_trait_coverage.html">fb_filter_species_by_trait_coverage()</a></code> with the species x traits <code>data.frame</code> as the first argument and the second argument the proportion of traits covered by species.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Filter species with at least 50% of included (two traits)</span>
+<span class="co"># at least one trait</span>
+<span class="va">red_sp_traits_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_filter_species_by_trait_coverage.html">fb_filter_species_by_trait_coverage</a></span><span class="op">(</span>
+  <span class="va">red_sp_traits</span>, threshold_traits_proportion <span class="op">=</span> <span class="fl">0.5</span>
+<span class="op">)</span>
+<span class="co">#&gt; Some species have only NA values for all traits. Maybe you would like to remove them.</span>
+
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">red_sp_traits_2</span><span class="op">)</span>
+<span class="co">#&gt;   species adult_body_mass litter_size</span>
+<span class="co">#&gt; 1  sp_001       461900.76        1.25</span>
+<span class="co">#&gt; 2  sp_002           21.11        5.64</span>
+<span class="co">#&gt; 5  sp_005           31.60        4.94</span>
+<span class="co">#&gt; 6  sp_006           21.90        5.16</span>
+<span class="co">#&gt; 7  sp_007           18.26        5.72</span>
+<span class="co">#&gt; 9  sp_009          903.98        2.50</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">red_sp_traits_2</span><span class="op">)</span>
+<span class="co">#&gt; [1] 127   3</span></code></pre></div>
+<p>We thus have selected 2 traits that cover at least 75% of the species and 127 species which have known values for these two traits.</p>
 </div>
 <div class="section level3">
 <h3 id="filter-sites-by-trait-coverage">Filter sites by trait coverage<a class="anchor" aria-label="anchor" href="#filter-sites-by-trait-coverage"></a>
 </h3>
-<p>[…]</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Get trait coverage ----</span>
-<span class="va">sel_sites</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_filter_sites_by_trait_coverage.html">fb_filter_sites_by_trait_coverage</a></span><span class="op">(</span>
-  <span class="va">site_species</span>, <span class="va">species_traits</span>, threshold_traits_proportion <span class="op">=</span> <span class="fl">1</span>
+<p>Now that we have filtered our traits and species of interest we need to filter the sites. Similarly to above the function is <code><a href="../reference/fb_filter_sites_by_trait_coverage.html">fb_filter_sites_by_trait_coverage()</a></code> it takes as two first arguments the site x species <code>data.frame</code> and the species x traits <code>data.frame</code>. The third argument is <code>threshold_traits_proportion</code> that indicates the percent coverage of traits to filter each site. Note that this coverage is weighted by the occurrence, abundance, or cover depending on the content of the site x species <code>data.frame</code>.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Initial site x species data</span>
+<span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span>
+<span class="co">#&gt; [1] 1505  150</span>
+
+<span class="co"># Filter sites with at least 90% species covered</span>
+<span class="va">filt_sites</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_filter_sites_by_trait_coverage.html">fb_filter_sites_by_trait_coverage</a></span><span class="op">(</span>
+  <span class="va">site_species</span>, <span class="va">red_sp_traits_2</span>, threshold_traits_proportion <span class="op">=</span> <span class="fl">0.9</span>
 <span class="op">)</span>
 
-<span class="co">## Preview ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sel_sites</span><span class="op">[</span> , <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt;      site sp_001 sp_002 sp_003</span>
-<span class="co">#&gt; 27 fb_100      0      0      0</span></code></pre></div>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Original sites ----</span>
-<span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span>
-<span class="co">#&gt; [1] 1505</span>
+<span class="co"># Filtered sites</span>
+<span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">filt_sites</span><span class="op">)</span>
+<span class="co">#&gt; [1] 1268  150</span>
 
-<span class="co">## Filtered sites ----</span>
-<span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sel_sites</span><span class="op">)</span>
-<span class="co">#&gt; [1] 1</span></code></pre></div>
+<span class="va">filt_sites</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>
+<span class="co">#&gt;    site sp_001 sp_002 sp_003</span>
+<span class="co">#&gt; 1 fb_33      1      0      0</span>
+<span class="co">#&gt; 2 fb_35      1      0      0</span>
+<span class="co">#&gt; 3 fb_36      1      0      0</span>
+<span class="co">#&gt; 4 fb_37      1      0      0</span></code></pre></div>
+<p>Now we selected 1,268 sites out of 1,505.</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="diversity-metrics">Diversity metrics<a class="anchor" aria-label="anchor" href="#diversity-metrics"></a>
+<h2 id="computing-functional-diversity-metrics">Computing Functional Diversity metrics<a class="anchor" aria-label="anchor" href="#computing-functional-diversity-metrics"></a>
 </h2>
-<p>[…]</p>
+<p>Now that <code>funbiogeo</code> helped us filter our data we can use them to proceed with our analyses. We can for example compute functional diversity indices. This where you should use your preferred packages to compute functional diversity indices like <a href="https://cran.r-project.org/package=mFD" class="external-link"><code>mFD</code></a>, <a href="https://cran.r-project.org/package=betapart" class="external-link"><code>betapart</code></a>, or <a href="https://cran.r-project.org/package=hypervolume" class="external-link"><code>hypervolume</code></a>.</p>
+<p>For the sake of the example we included a single function in <code>funbiogeo</code> to compute Community-Weighted Mean <span class="citation">(CWM, Garnier et al. 2004)</span> named <code><a href="../reference/fb_cwm.html">fb_cwm()</a></code>. The CWM is the abundance-weighted average trait per site. We’ll be using it in the following section but feel free to use any other functional diversity package.</p>
 <div class="section level3">
-<h3 id="species-richness">Species Richness<a class="anchor" aria-label="anchor" href="#species-richness"></a>
+<h3 id="community-weighted-mean-cwm">Community-Weighted Mean (CWM)<a class="anchor" aria-label="anchor" href="#community-weighted-mean-cwm"></a>
 </h3>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Compute species richness ----</span>
-<span class="va">richness</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">[</span>,<span class="op">-</span><span class="fl">1</span><span class="op">]</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="co">## Convert to data frame ----</span>
-<span class="va">richness</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>
-  site      <span class="op">=</span> <span class="va">site_species</span><span class="op">[[</span><span class="st">"site"</span><span class="op">]</span><span class="op">]</span>,
-  n_species <span class="op">=</span> <span class="va">richness</span>
-<span class="op">)</span>
-
-<span class="co">## Preview ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">richness</span><span class="op">)</span>
-<span class="co">#&gt;    site n_species</span>
-<span class="co">#&gt; 1 fb_33        26</span>
-<span class="co">#&gt; 2 fb_35        29</span>
-<span class="co">#&gt; 3 fb_36        29</span>
-<span class="co">#&gt; 4 fb_37        29</span>
-<span class="co">#&gt; 5 fb_38        28</span>
-<span class="co">#&gt; 6 fb_39        29</span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="community-weighted-means">Community-Weighted Means<a class="anchor" aria-label="anchor" href="#community-weighted-means"></a>
-</h3>
-<p>[…]</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"site_locations"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"site_species"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"species_traits"</span><span class="op">)</span>
-
-<span class="co">## Compute CWM ----</span>
-<span class="va">cwm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_cwm.html">fb_cwm</a></span><span class="op">(</span><span class="va">site_species</span>, <span class="va">species_traits</span><span class="op">)</span>
+<p>To compute the CWM you can use the <code><a href="../reference/fb_cwm.html">fb_cwm()</a></code> function, it takes the site x species <code>data.frame</code> and species x traits <code>data.frame</code> as arguments.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cwm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_cwm.html">fb_cwm</a></span><span class="op">(</span><span class="va">filt_sites</span>, <span class="va">red_sp_traits_2</span><span class="op">)</span>
 <span class="co">#&gt; Some species had NA trait values, removing them from CWM computation</span>
 
-<span class="co">## Preview ----</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">cwm</span><span class="op">)</span>
 <span class="co">#&gt;      site           trait       cwm</span>
 <span class="co">#&gt; 1  fb_100 adult_body_mass   273.050</span>
 <span class="co">#&gt; 2 fb_1000 adult_body_mass 19767.111</span>
-<span class="co">#&gt; 3 fb_1001 adult_body_mass 20196.275</span>
-<span class="co">#&gt; 4 fb_1002 adult_body_mass 20196.275</span>
-<span class="co">#&gt; 5 fb_1007 adult_body_mass 16049.577</span>
-<span class="co">#&gt; 6 fb_1008 adult_body_mass  4217.074</span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="other-functional-diversity-metrics">Other functional diversity metrics<a class="anchor" aria-label="anchor" href="#other-functional-diversity-metrics"></a>
-</h3>
-<p><code>fundiversity</code>, <code>funrar</code>, <code>mFD</code></p>
-<p>[…]</p>
+<span class="co">#&gt; 3 fb_1007 adult_body_mass 16049.577</span>
+<span class="co">#&gt; 4 fb_1008 adult_body_mass  4217.074</span>
+<span class="co">#&gt; 5 fb_1009 adult_body_mass  4217.074</span>
+<span class="co">#&gt; 6  fb_101 adult_body_mass 38293.892</span></code></pre></div>
+<p>It outputs a <code>data.frame</code> with 3 columns: <code>site</code> the first one shows the site name as provided in the input site x species <code>data.frame</code>, <code>trait</code> which indicates the trait name on which the CWM is computed, and <code>cwm</code> which shows the value of the CWM.</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="relation-with-environment">Relation with environment<a class="anchor" aria-label="anchor" href="#relation-with-environment"></a>
+<h2 id="putting-functional-diversity-on-the-map">Putting Functional Diversity on the map<a class="anchor" aria-label="anchor" href="#putting-functional-diversity-on-the-map"></a>
 </h2>
-<p>[…]</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Available climate rasters ----</span>
-<span class="va">prec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"annual_tot_prec.tif"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
-<span class="va">tavg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"annual_mean_temp.tif"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
-
-<span class="co">## Import climate rasters ----</span>
-<span class="va">layers</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">tavg</span>, <span class="va">prec</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co">## Preview ----</span>
-<span class="va">layers</span>
-<span class="co">#&gt; class       : SpatRaster </span>
-<span class="co">#&gt; dimensions  : 290, 405, 2  (nrow, ncol, nlyr)</span>
-<span class="co">#&gt; resolution  : 0.08333333, 0.08333333  (x, y)</span>
-<span class="co">#&gt; extent      : -10.5, 23.25, 35.83333, 60  (xmin, xmax, ymin, ymax)</span>
-<span class="co">#&gt; coord. ref. : lon/lat WGS 84 (EPSG:4326) </span>
-<span class="co">#&gt; sources     : annual_mean_temp.tif  </span>
-<span class="co">#&gt;               annual_tot_prec.tif  </span>
-<span class="co">#&gt; names       : annual_mean_temp, annual_tot_prec </span>
-<span class="co">#&gt; min values  :        -5.921834,      123.000000 </span>
-<span class="co">#&gt; max values  :         19.84375,      3064.00000</span></code></pre></div>
-<p>[…]</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">site_locations</span> <span class="op">&lt;-</span> <span class="va">site_locations</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/duplicated.html" class="external-link">duplicated</a></span><span class="op">(</span><span class="va">site_locations</span><span class="op">)</span>,<span class="op">]</span>
-<span class="va">site_locations</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">site_locations</span>, coords <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">3</span>, crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span>
-
-<span class="co">## Extract environment at sites ----</span>
-<span class="va">sites_env</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_get_environment.html">fb_get_environment</a></span><span class="op">(</span><span class="va">site_locations</span>, <span class="va">layers</span><span class="op">)</span>
-
-<span class="co">## Preview ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sites_env</span><span class="op">)</span>
-<span class="co">#&gt;    site annual_mean_temp annual_tot_prec</span>
-<span class="co">#&gt; 1 fb_33        6.6840000            2620</span>
-<span class="co">#&gt; 2 fb_35        4.4082499            1818</span>
-<span class="co">#&gt; 3 fb_36        0.5312084            1324</span>
-<span class="co">#&gt; 4 fb_37        2.5419166             881</span>
-<span class="co">#&gt; 5 fb_38        2.2083750             971</span>
-<span class="co">#&gt; 6 fb_39        3.0096667             939</span></code></pre></div>
-<p>[…]</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Append information ----</span>
-<span class="va">rich_env</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html" class="external-link">merge</a></span><span class="op">(</span><span class="va">richness</span>, <span class="va">sites_env</span>, by <span class="op">=</span> <span class="st">"site"</span><span class="op">)</span>
-
-<span class="co">## Preview ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">rich_env</span><span class="op">)</span>
-<span class="co">#&gt;      site n_species annual_mean_temp annual_tot_prec</span>
-<span class="co">#&gt; 1  fb_100         3         7.508624            1543</span>
-<span class="co">#&gt; 2 fb_1000        50         7.729875             512</span>
-<span class="co">#&gt; 3 fb_1001        49         7.604333             483</span>
-<span class="co">#&gt; 4 fb_1002        49         7.747334             470</span>
-<span class="co">#&gt; 5 fb_1007        22        10.422542            1750</span>
-<span class="co">#&gt; 6 fb_1008        21         9.545042            1274</span></code></pre></div>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">biplot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">rich_env</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">annual_mean_temp</span>, y <span class="op">=</span> <span class="va">n_species</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Annual mean temperature"</span>, y <span class="op">=</span> <span class="st">"Species richness"</span><span class="op">)</span>
-<span class="va">biplot</span></code></pre></div>
-<p><img src="funbiogeo_files/figure-html/biplot-1.png" width="100%"></p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">biplot</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span><span class="op">)</span>
-<span class="co">#&gt; `geom_smooth()` using formula 'y ~ x'</span></code></pre></div>
-<p><img src="funbiogeo_files/figure-html/biplot-trend-1.png" width="100%"></p>
-</div>
-<div class="section level2">
-<h2 id="visualization">Visualization<a class="anchor" aria-label="anchor" href="#visualization"></a>
-</h2>
-<div class="section level3">
-<h3 id="trait-coverage">Trait coverage<a class="anchor" aria-label="anchor" href="#trait-coverage"></a>
-</h3>
-<p>[…]</p>
-</div>
 <div class="section level3">
 <h3 id="map-of-environment">Map of environment<a class="anchor" aria-label="anchor" href="#map-of-environment"></a>
 </h3>
-<p>[…]</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">## Read raster ----</span>
-<span class="va">tavg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"annual_mean_temp.tif"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span>
+<span class="va">tavg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span>
+  <span class="st">"extdata"</span>, <span class="st">"annual_mean_temp.tif"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span>
+<span class="op">)</span>
 <span class="va">tavg</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">tavg</span><span class="op">)</span>
 
 <span class="co">## Map of raster ----</span>
 <span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">tavg</span><span class="op">)</span></code></pre></div>
 <p><img src="funbiogeo_files/figure-html/map-tavg-1.png" width="100%"></p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">tavg</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_distiller</a></span><span class="op">(</span><span class="st">"Temperature"</span>, palette <span class="op">=</span> <span class="st">"Spectral"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Mean annual temperature in Pennsylvania"</span><span class="op">)</span></code></pre></div>
 <p><img src="funbiogeo_files/figure-html/map-tavg-custom-1.png" width="100%"></p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://patchwork.data-imaginist.com" class="external-link">"patchwork"</a></span><span class="op">)</span>
 
 <span class="co">## Read raster ----</span>
@@ -920,46 +483,28 @@
   <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_annotation.html" class="external-link">plot_annotation</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Pennsylvania"</span>, 
                   theme <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>face <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">&amp;</span> 
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">&amp;</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span><span class="st">'mono'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>family <span class="op">=</span> <span class="st">"mono"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="funbiogeo_files/figure-html/composition-map-1.png" width="100%"></p>
 </div>
 <div class="section level3">
 <h3 id="map-of-indices">Map of indices<a class="anchor" aria-label="anchor" href="#map-of-indices"></a>
 </h3>
-<p>[…]</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Upscale to grid ----</span>
-<span class="va">ras_richness</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data</a></span><span class="op">(</span>site_locations <span class="op">=</span> <span class="va">site_locations</span>, 
-                                       site_data      <span class="op">=</span> <span class="va">rich_env</span>, 
-                                       agg_grid       <span class="op">=</span> <span class="va">tavg</span><span class="op">)</span>
-
-<span class="va">ras_richness</span>
-<span class="co">#&gt; class       : SpatRaster </span>
-<span class="co">#&gt; dimensions  : 290, 405, 3  (nrow, ncol, nlyr)</span>
-<span class="co">#&gt; resolution  : 0.08333333, 0.08333333  (x, y)</span>
-<span class="co">#&gt; extent      : -10.5, 23.25, 35.83333, 60  (xmin, xmax, ymin, ymax)</span>
-<span class="co">#&gt; coord. ref. : lon/lat WGS 84 (EPSG:4326) </span>
-<span class="co">#&gt; sources     : memory  </span>
-<span class="co">#&gt;               memory  </span>
-<span class="co">#&gt;               memory  </span>
-<span class="co">#&gt; names       :  n_species, annual_mean_temp, annual_tot_prec </span>
-<span class="co">#&gt; min values  :   2.000000,        -2.120167,      208.000000 </span>
-<span class="co">#&gt; max values  :   68.00000,         18.03404,      2752.00000</span></code></pre></div>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">ras_richness</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></code></pre></div>
-<p><img src="funbiogeo_files/figure-html/map-richness-1.png" width="100%"></p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">ras_richness</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_distiller</a></span><span class="op">(</span><span class="st">"Number of species"</span>, palette <span class="op">=</span> <span class="st">"Spectral"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Trees species richness in Pennsylvania"</span><span class="op">)</span></code></pre></div>
-<p><img src="funbiogeo_files/figure-html/map-richness-custom-1.png" width="100%"></p>
 </div>
 </div>
-<div class="section level2">
-<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+<div class="section level2 unnumbered">
+<h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
-<p>Violle C, Reich, PB Pacala SW, <em>et al.</em> (2014) The emergence and promise of functional biogeography. <em>Proceedings of the National Academy of Sciences</em>, <strong>111</strong>, 13690–13696. DOI: <a href="https://doi.org/10.1073/pnas.1415442111" class="external-link">10.1073/pnas.1415442111</a></p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-Garnier_Plant_2004" class="csl-entry">
+Garnier, Eric, Jacques Cortez, Georges Billès, Marie-Laure Navas, Catherine Roumet, Max Debussche, Gérard Laurent, et al. 2004. <span>“Plant <span>Functional Markers Capture Ecosystem Properties During Secondary Succession</span>.”</span> <em>Ecology</em> 85 (9): 2630–37. <a href="https://doi.org/10.1890/03-0799" class="external-link">https://doi.org/10.1890/03-0799</a>.
+</div>
+<div id="ref-Jones_PanTHERIA_2009" class="csl-entry">
+Jones, Kate E., Jon Bielby, Marcel Cardillo, Susanne A. Fritz, Justin O’Dell, C. David L. Orme, Kamran Safi, et al. 2009. <span>“<span>PanTHERIA</span>: A Species-Level Database of Life History, Ecology, and Geography of Extant and Recently Extinct Mammals.”</span> <em>Ecology</em> 90 (9): 2648–48. <a href="https://doi.org/10.1890/08-1494.1" class="external-link">https://doi.org/10.1890/08-1494.1</a>.
+</div>
+<div id="ref-Violle_emergence_2014" class="csl-entry">
+Violle, Cyrille, Peter B. Reich, Stephen W. Pacala, Brian J. Enquist, and Jens Kattge. 2014. <span>“The Emergence and Promise of Functional Biogeography.”</span> <em>Proceedings of the National Academy of Sciences</em> 111 (38): 13690–96. <a href="https://doi.org/10.1073/pnas.1415442111" class="external-link">https://doi.org/10.1073/pnas.1415442111</a>.
+</div>
+</div>
 </div>
   </div>
 

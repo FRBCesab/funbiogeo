@@ -3,5 +3,7 @@ pkgdown: 2.0.4
 pkgdown_sha: ~
 articles:
   funbiogeo: funbiogeo.html
-last_built: 2022-06-21T10:39Z
+  long-format: long-format.html
+  upscaling: upscaling.html
+last_built: 2022-06-21T11:00Z
 
