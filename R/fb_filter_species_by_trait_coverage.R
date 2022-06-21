@@ -18,13 +18,13 @@
 #' 
 #' data("species_traits")
 #' 
-#' species_traits <- fb_filter_species_by_traits_coverage(
+#' species_traits <- fb_filter_species_by_trait_coverage(
 #'   species_traits,
 #'   threshold_traits_proportion = 0.6)
 
-fb_filter_species_by_traits_coverage <- function(
-    species_traits, 
-    threshold_traits_proportion = 0) { 
+fb_filter_species_by_trait_coverage <- function(
+    species_traits, threshold_traits_proportion = 0
+  ) { 
   
   ## Check inputs ----
   
@@ -66,9 +66,15 @@ fb_filter_species_by_traits_coverage <- function(
     "species"]
   
   
+  returned_traits <- species_traits[
+    species_traits[ , 1] %in% selected_species, , drop = FALSE
+  ]
+  
   if (identical(selected_species, character(0))) {
     message("No species has the specified traits coverage threshold")
+    
+    returned_traits <- species_traits[NULL, ]
   }
   
-  species_traits[species_traits[ , 1] %in% selected_species, , drop = FALSE]
+  return(returned_traits)
 }

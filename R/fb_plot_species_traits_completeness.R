@@ -9,27 +9,27 @@
 #' \dontrun{fb_plot_species_traits_completeness(species_traits)}
 #' 
 #' @export
-fb_plot_species_traits_completeness = function(species_traits) {
+fb_plot_species_traits_completeness <- function(species_traits) {
   
   # Make dataset long
-  species_traits_long = tidyr::pivot_longer(
+  species_traits_long <- tidyr::pivot_longer(
       species_traits, -"species", names_to = "trait_name",
       values_to = "trait_value"
     )
   
   # Count Number of Species per Trait
-  number_species_per_trait = fb_count_species_by_traits(species_traits)
+  number_species_per_trait <- fb_count_species_by_trait(species_traits)
   
-  number_species_per_trait$trait_label = with(
+  number_species_per_trait$trait_label <- with(
     number_species_per_trait,
     paste0(trait, "\n(", prettyNum(coverage * 100, digits = 3), "%)")
   )
   
   
   # Count Number of Trait per Species
-  number_trait_per_species = fb_count_traits_by_species(species_traits)
+  number_trait_per_species <- fb_count_traits_by_species(species_traits)
   
-  species_traits_long$has_trait = ifelse(
+  species_traits_long$has_trait <- ifelse(
     !is.na(species_traits_long$trait_value), TRUE, FALSE
   )
   

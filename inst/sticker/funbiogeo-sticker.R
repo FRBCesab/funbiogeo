@@ -33,30 +33,41 @@ sf_rast <- target_raster %>%
 
 ## Silhouette ----
 
-sil <- rphylopic::image_data("f20144d1-d243-4cca-aba2-24bce6c81d42", size = 512)[[1]]
+sil <- rphylopic::image_data(
+  "f20144d1-d243-4cca-aba2-24bce6c81d42", size = 512
+  )[[1]]
 
 
 ## Map ----
 
 p <- ggplot2::ggplot() +
   
-  ggplot2::geom_sf(data = world, fill = "#0D3E6F", col = "#005094", lwd = 0.05) +
-  ggplot2::geom_sf(data = sf_rast,
-                   ggplot2::aes(fill = wc2.1_10m_tavg_07), color = NA) +
+  ggplot2::geom_sf(data = world, fill = "#0D3E6F", col = "#005094",
+                   lwd = 0.05) +
+  ggplot2::geom_sf(
+    data = sf_rast, ggplot2::aes(fill = wc2.1_10m_tavg_07), color = NA
+  ) +
   
   ggplot2::coord_sf(ylim = c(-6145789, 8611877), expand = FALSE, crs  = prj,
                     clip = "off") +
   
-  # rphylopic::add_phylopic(sil, 1,        0, -6000000, ysize =  780000, color = "white") + 
-  rphylopic::add_phylopic(sil, 1,        0, -6000000, ysize =  750000, color = "#266E8C") + 
-  rphylopic::add_phylopic(sil, 1,  4000000, -6000000, ysize = 1500000, color = "#55C968") + 
-  rphylopic::add_phylopic(sil, 1,  9000000, -6000000, ysize = 3000000, color = "#FFE740") + 
+  rphylopic::add_phylopic(
+    sil, 1,        0, -6000000, ysize =  750000, color = "#266E8C"
+  ) + 
+  rphylopic::add_phylopic(
+    sil, 1,  4000000, -6000000, ysize = 1500000, color = "#55C968"
+  ) + 
+  rphylopic::add_phylopic(
+    sil, 1,  9000000, -6000000, ysize = 3000000, color = "#FFE740"
+  ) + 
 
-  ggplot2::geom_segment(ggplot2::aes(x    =   -500000, y    = -7900000,
-                                     xend =  10550000, yend = -7900000),
-                        arrow = ggplot2::arrow(length = ggplot2::unit(0.05, "cm"),
-                                               ends = "last", type = "closed"),
-                        lwd = 0.1, color = "white") +
+  ggplot2::geom_segment(
+    ggplot2::aes(x = -500000, y = -7900000, xend = 10550000, yend = -7900000),
+    arrow = ggplot2::arrow(
+      length = ggplot2::unit(0.05, "cm"), ends = "last", type = "closed"
+    ),
+    lwd = 0.1, color = "white"
+  ) +
   ggplot2::scale_fill_viridis_c() +
 
   ggplot2::theme_void() +

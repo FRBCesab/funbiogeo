@@ -20,8 +20,8 @@ traits as columns. The first column should be named \code{"species"}
 and contain species names. The other columns should be named according
 to trait names.}
 
-\item{threshold_traits_proportion}{a numeric of length 1 between 0 and 1. The
-percentage trait coverage threshold}
+\item{threshold_traits_proportion}{a numeric of length 1 between 0 and 1.
+The percentage trait coverage threshold}
 }
 \value{
 A subset of \code{site_species} with sites covered by X\% of

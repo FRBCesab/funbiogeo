@@ -311,7 +311,9 @@ and `cwm` which shows the value of the CWM.
 
 ```{r map-tavg, dev = 'png'}
 ## Read raster ----
-tavg <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")
+tavg <- system.file(
+  "extdata", "annual_mean_temp.tif", package = "funbiogeo"
+)
 tavg <- terra::rast(tavg)
 
 ## Map of raster ----

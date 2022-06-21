@@ -1,13 +1,16 @@
-#' Compute community-weighted means of trait values
+#' Compute community-weighted means (CWM) of trait values
 #' 
-#' @description
-#' ...
+#' This function returns the community-weighted mean of provided trait values.
+#' It only works with quantitative traits and will warn you otherwise.
+#' It will remove species that either have `NA` values in the `site_species`
+#' input or `NA` values as their trait.
 #' 
 #' @inheritParams fb_get_trait_coverage_by_site
 #'
 #' @return A `data.frame` with sites in rows and the following variables:
-#' `site`, the site label, `trait`, quantitative traits, and `cwm`, the 
-#' community-weighted means of quantitative traits values.
+#'   * `site`, the site label,
+#'   * `trait`, the trait label as provided in `species_traits`,
+#'   * and `cwm`, the community-weighted means of quantitative traits values.
 #' 
 #' @export
 #'
@@ -17,12 +20,11 @@
 #' data("site_species")
 #' data("species_traits")
 #' 
-#' cover <- fb_cwm(site_species, species_traits)
+#' cover <- fb_cwm(head(site_species), species_traits)
 
 fb_cwm <- function(site_species, species_traits) {
   
-  
-  ## Check inputs ----
+  # Check inputs ---------------------------------------------------------------
   
   if (missing(site_species)) {
     stop("Argument 'site_species' (site x species matrix) is required")
@@ -36,44 +38,68 @@ fb_cwm <- function(site_species, species_traits) {
   check_species_traits(species_traits)
   
   
-  # Get species in common between both matrices --------------------------------
+  # Get species in common between both matrices
+  species <- list_common_species(
+    colnames(site_species), species_traits[["species"]]
+  )
   
-  species <- list_common_species(colnames(site_species),
-                                 species_traits[["species"]])
   
-  
-  # Select quantitative traits for CWM -----------------------------------------
-  
+  # Select quantitative traits for CWM
   quanti_traits  <- vapply(species_traits, is.numeric, TRUE)
   quanti_traits[["species"]] <- TRUE
   species_traits <- species_traits[, quanti_traits, drop = FALSE]
   
-  
-  # Convert to matrix ----------------------------------------------------------
-  
+
   if (sum(quanti_traits) <= 1) {
-    stop("CWM can only be computed on numeric traits", call. = FALSE)
+    stop(
+      "No numeric traits found. CWM can only be computed on numeric traits",
+      call. = FALSE
+    )
   }
   
   
-  # Total sites abundances -----------------------------------------------------
-  
-  total_abund <- rowSums(site_species[ , species, drop = FALSE])
-  
-  
-  # Compute CWM ----------------------------------------------------------------
-  
-  cwm <- (as.matrix(site_species[ , species, drop = FALSE]) / total_abund) %*%
-    as.matrix(
-      species_traits[species_traits[["species"]] %in% species, -1, drop = FALSE]
+  # Total sites abundances
+  if (any(is.na(site_species[ , species, drop = FALSE]))) {
+    message(
+      "Some species had NA abundances, removing them from CWM computation"
     )
+  }
+  
+  site_species_long <- tidyr::pivot_longer(
+    site_species, -"site", names_to = "species", values_to = "ab_value"
+  )
+  
+  # Extracting Trait Matrix
+  trait_matrix <- species_traits[
+    species_traits[["species"]] %in% species,, drop = FALSE
+  ]
+  
+  if (any(is.na(trait_matrix))) {
+    message(
+      "Some species had NA trait values, removing them from CWM computation"
+    )
+  }
+  
+  trait_matrix_long <- tidyr::pivot_longer(
+    trait_matrix, -"species", names_to = "trait_name", values_to = "trait_value"
+  )
   
   
-  # Reformat CWM in good way (tidy format) -------------------------------------
+  site_species_traits <- merge(
+    site_species_long, trait_matrix_long, by = "species"
+  )
   
-  col_names <- expand.grid(colnames(cwm), site_species[["site"]])
+  # Compute CWM
+  cwm <- by(
+    site_species_traits,
+    list(site_species_traits[["site"]], site_species_traits[["trait_name"]]),
+      function(x) {
+      weighted_mean(x$trait_value, x$ab_value, na.rm = TRUE)
+    }, simplify = TRUE
+  )
   
-  data.frame("site"  = col_names[ , 2], 
-             "trait" = col_names[ , 1],
-             "cwm"   = as.numeric(t(cwm)))
+  cwm <- as.data.frame.table(cwm)
+  colnames(cwm) <- c("site", "trait", "cwm")
+  
+  return(cwm)
 }

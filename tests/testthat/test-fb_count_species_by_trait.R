@@ -19,12 +19,12 @@ species_traits3 <- data.frame(
 )
 
 
-test_that("fb_count_species_by_traits() errors with wrong inputs", {
+test_that("fb_count_species_by_trait() errors with wrong inputs", {
   
   # Wrong inputs ----
   
   expect_error(
-    fb_count_species_by_traits(),
+    fb_count_species_by_trait(),
     "Argument 'species_traits' (species x traits data frame) is required",
     fixed = TRUE
   )
@@ -33,14 +33,14 @@ test_that("fb_count_species_by_traits() errors with wrong inputs", {
     {
       st2 <- species_traits
       colnames(st2) <- NULL
-      fb_count_species_by_traits(st2)
+      fb_count_species_by_trait(st2)
     },
     "The species x traits object must have column names (trait names)",
     fixed = TRUE
   )
   
   expect_error(
-    fb_count_species_by_traits(species_traits[ , -1, drop = FALSE]),
+    fb_count_species_by_trait(species_traits[ , -1, drop = FALSE]),
     "The species x traits object must contain the 'species' column",
     fixed = TRUE
   )
@@ -48,14 +48,14 @@ test_that("fb_count_species_by_traits() errors with wrong inputs", {
 
 
 
-test_that("fb_count_species_by_traits() successfully works", {
+test_that("fb_count_species_by_trait() successfully works", {
     
   # Success ----
   
   expect_silent({
     st3 <- species_traits
     st3[1, 2] <- NA
-    test_coverage <- fb_count_species_by_traits(st3)
+    test_coverage <- fb_count_species_by_trait(st3)
   })
   
   
@@ -74,7 +74,7 @@ test_that("fb_count_species_by_traits() successfully works", {
   # Test for a trait with all NA ----
   
   expect_silent({
-    test_coverage <- fb_count_species_by_traits(species_traits2)
+    test_coverage <- fb_count_species_by_trait(species_traits2)
   })
   
   expect_equal(nrow(test_coverage), (ncol(species_traits2) - 1))
@@ -87,7 +87,7 @@ test_that("fb_count_species_by_traits() successfully works", {
   # Test for a species without any trait ----
   
   expect_silent({
-    test_coverage <- fb_count_species_by_traits(species_traits3)
+    test_coverage <- fb_count_species_by_trait(species_traits3)
   })
   
   expect_equal(nrow(test_coverage), (ncol(species_traits2) - 1))
