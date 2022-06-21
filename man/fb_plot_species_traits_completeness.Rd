@@ -16,7 +16,12 @@ to trait names.}
 a \code{ggplot2} object
 }
 \description{
-Show Species by Trait Completeness
+Display a binary heatmap visualizing the species x traits matrix with colors
+displaying present and missing traits. Traits are ordered from the most to
+the least known (left to right).
+Species are ordered from the ones with most to the ones with least traits
+(bottom to top). The proportion of species with non-missing traits is shown
+on the x-axis labels.
 }
 \examples{
 data(species_traits)

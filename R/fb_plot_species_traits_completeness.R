@@ -1,5 +1,12 @@
 #' Show Species by Trait Completeness
 #'
+#' Display a binary heatmap visualizing the species x traits matrix with colors
+#' displaying present and missing traits. Traits are ordered from the most to
+#' the least known (left to right).
+#' Species are ordered from the ones with most to the ones with least traits
+#' (bottom to top). The proportion of species with non-missing traits is shown
+#' on the x-axis labels.
+#'
 #' @inheritParams fb_get_trait_coverage_by_site
 #'
 #' @return a `ggplot2` object
@@ -20,15 +27,38 @@ fb_plot_species_traits_completeness <- function(species_traits) {
   # Count Number of Species per Trait
   number_species_per_trait <- fb_count_species_by_trait(species_traits)
   
-  number_species_per_trait$trait_label <- with(
-    number_species_per_trait,
-    paste0(trait, "\n(", prettyNum(coverage * 100, digits = 3), "%)")
-  )
-  
-  
-  # Count Number of Trait per Species
+  # Get Combination for All Traits
   number_trait_per_species <- fb_count_traits_by_species(species_traits)
   
+  max_traits <- max(number_trait_per_species$n_traits)
+  
+  all_traits <- sum(number_trait_per_species$n_traits == max_traits)
+  
+  # Add "All Traits" in number of species per trait
+  number_species_per_trait <- rbind(
+    number_species_per_trait,
+    data.frame(trait = "all_traits", n_species = all_traits,
+               coverage = all_traits/nrow(species_traits))
+  )
+  
+  # Label with name of trait and proportion of species
+  number_species_per_trait$trait_label <- with(
+    number_species_per_trait,
+    paste0(trait, "\n(", round(coverage * 100, digits = 1), "%)")
+  )
+  
+  # Add all traits in long table
+  species_traits_long <- rbind(
+    species_traits_long,
+    data.frame(
+      species = number_trait_per_species$species, trait_name = "all_traits",
+      trait_value = ifelse(
+        number_trait_per_species$n_traits == max_traits, TRUE, NA
+      )
+    )
+  )
+  
+  # Add column for value
   species_traits_long$has_trait <- ifelse(
     !is.na(species_traits_long$trait_value), TRUE, FALSE
   )
