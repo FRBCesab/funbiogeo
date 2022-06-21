@@ -65,8 +65,8 @@ fb_plot_number_species_by_trait <- function(
         "text", x = threshold_species_proportion * nrow(species_traits),
         y = 0.95, hjust = 1.1, color = "darkred",
         label = paste0(
-          "(n = ", threshold_species_proportion * nrow(species_traits), ")\n",
-          "(p = ",
+          "(n = ", round(threshold_species_proportion * nrow(species_traits)),
+          ")\n(p = ",
           prettyNum(threshold_species_proportion, digits = 3), "%)"
         )
       )
