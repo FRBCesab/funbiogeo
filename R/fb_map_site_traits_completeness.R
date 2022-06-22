@@ -18,8 +18,9 @@ fb_map_site_traits_completeness <- function(
   check_site_species(site_species)
   check_species_traits(species_traits)
   
-  # Compute Trait Coverage by Site
-  all_coverages <- fb_get_all_coverages(site_species, species_traits)
+  all_coverages <- fb_get_all_trait_coverages_by_site(
+    site_species, species_traits
+  )
   
   # Make coverage df long
   all_coverages_long <- tidyr::pivot_longer(

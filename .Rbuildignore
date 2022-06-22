@@ -11,5 +11,5 @@
 ^pkgdown$
 ^CODE_OF_CONDUCT\.md$
 ^inst/sticker/.*
-^inst/misc/funbiogeo_presentation.*
 ^inst/extdata/raw_mammals_data_full.csv$
+^inst/misc/.$
