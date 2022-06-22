@@ -1,8 +1,9 @@
-#' Data: sites x locations of Western Europe mammals occurrences
+#' Sites x Locations of Western Europe mammals occurrences
 #' 
 #' @description
-#' This dataset contains spatial coordinates of sites of Western Europe where
-#' species presence/absence (see `site_species` dataset) has been sampled.
+#' This dataset contains spatial coordinates (grid cells of 0.5° x 0.5° 
+#' horizontal resolution) of sites of Western Europe where mammals species 
+#' presence/absence (see `site_species` dataset) has been sampled.
 #' 
 #' See https://github.com/frbcesab/eumammals for a complete description of the
 #' workflow used to create this dataset.
@@ -10,10 +11,10 @@
 #' This dataset shows the format of the argument `site_locations` used in 
 #' several functions of `funbiogeo`.
 #' 
-#' Note that sites labels are specified in row names.
+#' The variable `cell` corresponds to the sites labels.
 #'   
-#' @format An `sf` object with 1,505 rows (sites) with a WGS84 (EPSG:4236)
-#'   Coordinate Reference System
+#' @format An `sf` object with 1,505 rows (grid cells) with a WGS84 (EPSG:4236)
+#'   Coordinate Reference System.
 #' 
 #' @examples 
 #' data("site_locations")
@@ -25,7 +26,7 @@
 
 
 
-#' Data: sites x species of Western Europe mammals occurrences
+#' Sites x Species of Western Europe mammals occurrences
 #' 
 #' @description
 #' This dataset contains the presence/absence of mammals species in Western
@@ -39,10 +40,10 @@
 #' This dataset shows the format of the argument `site_species` used in 
 #' several functions of `funbiogeo`.
 #' 
-#' Note that sites labels are specified in row names.
+#' Note that sites labels (`cell`) is the first column of this dataset.
 #'   
-#' @format A `data.frame` with 1,505 rows (sites) and 149 columns (species 
-#' occurrence).
+#' @format A `data.frame` with 1,505 rows (sites) and 150 columns (1 column for 
+#' site label and 149 for species occurrence).
 #' 
 #' @references 
 #' IUCN (2021) The IUCN Red List of Threatened Species. Version 2021-2.
@@ -58,7 +59,7 @@
 
 
 
-#' Data: species x traits of Western Europe mammals
+#' Species x Traits of Western Europe mammals
 #' 
 #' @description
 #' This dataset contains values for six functional traits of Western Europe
@@ -73,10 +74,11 @@
 #' This dataset shows the format of the argument `species_traits` used in 
 #' several functions of `funbiogeo`.
 #' 
-#' Note that species names are specified in row names.
+#' Note that species names (`species`) is the first column of this dataset.
 #'   
-#' @format A matrix with 149 rows (species) and the following six columns:
+#' @format A matrix with 149 rows (species) and the following seven columns:
 #' \describe{
+#'   \item{species}{species name corresponding to the columns of `site_species`}
 #'   \item{adult_body_mass}{adult body mass (in grams)}
 #'   \item{gestation_length}{length of time of non-inactive fetal growth 
 #'   (in days)}

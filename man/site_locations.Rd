@@ -3,17 +3,18 @@
 \docType{data}
 \name{site_locations}
 \alias{site_locations}
-\title{Data: sites x locations of Western Europe mammals occurrences}
+\title{Sites x Locations of Western Europe mammals occurrences}
 \format{
-An \code{sf} object with 1,505 rows (sites) with a WGS84 (EPSG:4236)
-Coordinate Reference System
+An \code{sf} object with 1,505 rows (grid cells) with a WGS84 (EPSG:4236)
+Coordinate Reference System.
 }
 \usage{
 site_locations
 }
 \description{
-This dataset contains spatial coordinates of sites of Western Europe where
-species presence/absence (see \code{site_species} dataset) has been sampled.
+This dataset contains spatial coordinates (grid cells of 0.5° x 0.5°
+horizontal resolution) of sites of Western Europe where mammals species
+presence/absence (see \code{site_species} dataset) has been sampled.
 
 See https://github.com/frbcesab/eumammals for a complete description of the
 workflow used to create this dataset.
@@ -21,7 +22,7 @@ workflow used to create this dataset.
 This dataset shows the format of the argument \code{site_locations} used in
 several functions of \code{funbiogeo}.
 
-Note that sites labels are specified in row names.
+The variable \code{cell} corresponds to the sites labels.
 }
 \examples{
 data("site_locations")
