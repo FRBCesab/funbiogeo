@@ -15,8 +15,9 @@ fb_plot_site_traits_completeness <- function(site_species, species_traits) {
   check_site_species(site_species)
   check_species_traits(species_traits)
   
-  # Computing All Trait Coverages per Site
-  all_coverage <- fb_get_all_coverages(site_species, species_traits)
+  all_coverage <- fb_get_all_trait_coverages_by_site(
+    site_species, species_traits
+  )
   
   all_coverage <- tidyr::pivot_longer(
     all_coverage, -"site", names_to = "coverage_name",

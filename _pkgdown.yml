@@ -15,8 +15,7 @@ reference:
     known traits). Also filter datasets based on their coverages.
   contents:
     - starts_with("fb_count")
-    - fb_get_trait_coverage_by_site
-    - fb_get_all_coverages
+    - starts_with("fb_get_trait")
     - starts_with("fb_filter")
 - title: Functional Diversity Functions
   contents:

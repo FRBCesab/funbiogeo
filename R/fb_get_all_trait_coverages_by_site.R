@@ -8,8 +8,8 @@
 #' @export
 #'
 #' @examples
-#' fb_get_all_coverages(site_species, species_traits)
-fb_get_all_coverages <- function(site_species, species_traits) {
+#' fb_get_all_trait_coverages_by_site(site_species, species_traits)
+fb_get_all_trait_coverages_by_site <- function(site_species, species_traits) {
   
   # Checks
   check_site_species(site_species)

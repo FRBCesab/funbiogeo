@@ -44,3 +44,4 @@ README.html
 inst/doc
 .DS_Store
 inst/sticker/wc2.1_10m/*
+.*~lock.*
