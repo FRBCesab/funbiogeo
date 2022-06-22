@@ -52,6 +52,6 @@ test_that("fb_get_all_coverages() works well with good arguments", {
   expect_equal(
     colnames(res), c("site", "all_traits", colnames(species_traits)[-1])
   )
-  expect_equal(res[1, 2], 1)
-  expect_equal(res[2, 5], 9/10)
+  expect_equal(round(res[1, 2], 2), 0.73)
+  expect_equal(round(res[2, 5], 2), 0.97)
 })
