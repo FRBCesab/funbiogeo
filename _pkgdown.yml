@@ -6,7 +6,7 @@ reference:
     - site_locations
 - title: Formatting Functions
   desc: >
-    Fit your dataset to the expected format by `funbiogeo`
+    Transform your raw dataset to the expected format by `funbiogeo`
   contents:
     - starts_with("fb_format")
 - title: Trait Coverage functions
@@ -15,7 +15,8 @@ reference:
     known traits). Also filter datasets based on their coverages.
   contents:
     - starts_with("fb_count")
-    - starts_with(c("fb_get_trait", "fb_get_all"))
+    - starts_with("fb_get_trait")
+    - starts_with("fb_get_all")
     - starts_with("fb_filter")
 - title: Functional Diversity Functions
   contents:
