@@ -3,10 +3,6 @@
 # Site x locations object
 data("site_locations")
 
-site_locations <- site_locations[!duplicated(site_locations),]
-site_locations <- sf::st_as_sf(
-  site_locations, coords = 2:3, crs = 4326
-)
 
 # Environmental rasters
 prec   <- system.file("extdata", "annual_tot_prec.tif", 
@@ -83,7 +79,7 @@ test_that("fb_get_environment() works", {
   expect_s3_class(env_value, "data.frame")
   expect_named(env_value, c("site", "annual_mean_temp", "annual_tot_prec"))
   expect_equal(dim(env_value), c(1505, 3))
-  expect_equal(env_value[["annual_tot_prec"]][[1]], 2620)
+  expect_equal(round(env_value[["annual_tot_prec"]][[1]]), 2480)
   
   # Different CRS
   rob <- "+proj=robin +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs"
@@ -95,5 +91,5 @@ test_that("fb_get_environment() works", {
   expect_s3_class(env_value, "data.frame")
   expect_named(env_value, c("site", "annual_mean_temp", "annual_tot_prec"))
   expect_equal(dim(env_value), c(1505, 3))
-  expect_equal(env_value[["annual_mean_temp"]][[1]], 6.3, tolerance = 0.01)
+  expect_equal(env_value[["annual_mean_temp"]][[1]], 6.6, tolerance = 0.01)
 })

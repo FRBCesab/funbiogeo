@@ -3,10 +3,10 @@
 \docType{data}
 \name{site_species}
 \alias{site_species}
-\title{Data: sites x species of Western Europe mammals occurrences}
+\title{Sites x Species of Western Europe mammals occurrences}
 \format{
-A \code{data.frame} with 1,505 rows (sites) and 149 columns (species
-occurrence).
+A \code{data.frame} with 1,505 rows (sites) and 150 columns (1 column for
+site label and 149 for species occurrence).
 }
 \usage{
 site_species
@@ -23,7 +23,7 @@ workflow used to create this dataset.
 This dataset shows the format of the argument \code{site_species} used in
 several functions of \code{funbiogeo}.
 
-Note that sites labels are specified in row names.
+Note that sites labels (\code{cell}) is the first column of this dataset.
 }
 \examples{
 data("site_species")

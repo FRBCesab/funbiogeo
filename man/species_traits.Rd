@@ -3,10 +3,11 @@
 \docType{data}
 \name{species_traits}
 \alias{species_traits}
-\title{Data: species x traits of Western Europe mammals}
+\title{Species x Traits of Western Europe mammals}
 \format{
-A matrix with 149 rows (species) and the following six columns:
+A matrix with 149 rows (species) and the following seven columns:
 \describe{
+\item{species}{species name corresponding to the columns of \code{site_species}}
 \item{adult_body_mass}{adult body mass (in grams)}
 \item{gestation_length}{length of time of non-inactive fetal growth
 (in days)}
@@ -33,7 +34,7 @@ workflow used to create this dataset.
 This dataset shows the format of the argument \code{species_traits} used in
 several functions of \code{funbiogeo}.
 
-Note that species names are specified in row names.
+Note that species names (\code{species}) is the first column of this dataset.
 }
 \examples{
 data("species_traits")

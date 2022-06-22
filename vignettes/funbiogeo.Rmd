@@ -133,7 +133,7 @@ The package `funbiogeo` comes with the example dataset `site_locations` defining
 the location of the 1,505 sites (grid cells of 0.5° x 0.5° resolution).
 
 ```{r preview-sites-locs}
-head(site_locations, 10)
+site_locations
 ```
 
 
