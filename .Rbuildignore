@@ -10,6 +10,6 @@
 ^docs$
 ^pkgdown$
 ^CODE_OF_CONDUCT\.md$
-^inst/sticker/.*
+^inst/sticker*
 ^inst/extdata/raw_mammals_data_full.csv$
-^inst/misc/.$
+^inst/misc$
