@@ -35,7 +35,7 @@ fb_count_species_by_site <- function(site_species) {
   species_coverage <- data.frame(
     "site"      = site_species[ , 1],
     "n_species" = species_coverage,
-    "coverage"  = species_coverage / length(species_coverage))
+    "coverage"  = species_coverage / ncol(site_species[ , -1]))
   
   species_coverage <- species_coverage[order(species_coverage$"coverage", 
                                          decreasing = TRUE), ]
