@@ -36,8 +36,8 @@ fb_map_site_traits_completeness <- function(
   site_locations_cov <- merge(site_locations, all_coverages_long, by = "site")
   
   # Make the Map
-  if(inherits(site_locations_cov$geom, "sfc_POLYGON") |
-     inherits(site_locations_cov$geom, "sfc_MULTIPOLYGON")) {
+  if(inherits(sf::st_geometry(site_locations_cov), "sfc_POLYGON") |
+     inherits(sf::st_geometry(site_locations_cov), "sfc_MULTIPOLYGON")) {
     
     # If sites are (multi-)polygons
     base_plot <- ggplot2::ggplot(
