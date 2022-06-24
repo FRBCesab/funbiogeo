@@ -34,6 +34,12 @@
     <loc>/reference/fb_aggregate_site_data.html</loc>
   </url>
   <url>
+    <loc>/reference/fb_count_sites_by_species.html</loc>
+  </url>
+  <url>
+    <loc>/reference/fb_count_species_by_site.html</loc>
+  </url>
+  <url>
     <loc>/reference/fb_count_species_by_trait.html</loc>
   </url>
   <url>
@@ -43,7 +49,13 @@
     <loc>/reference/fb_cwm.html</loc>
   </url>
   <url>
+    <loc>/reference/fb_filter_sites_by_species_coverage.html</loc>
+  </url>
+  <url>
     <loc>/reference/fb_filter_sites_by_trait_coverage.html</loc>
+  </url>
+  <url>
+    <loc>/reference/fb_filter_species_by_site_coverage.html</loc>
   </url>
   <url>
     <loc>/reference/fb_filter_species_by_trait_coverage.html</loc>
