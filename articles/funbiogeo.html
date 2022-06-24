@@ -179,7 +179,7 @@
 </tr>
 </tbody>
 </table>
-<p>The first column <code>species</code> contains species names, while the next 6 columns contain the trait values for all species. Note that the species names are anonymized because the IUCN data <a href="https://www.iucnredlist.org/terms/terms-of-use#4.%20No%20Reposting%20or%20Redistribution" class="external-link">cannot be redistributed</a>.</p>
+<p>The first column <strong><code>"species"</code></strong> contains species names, while the next 6 columns contain the trait values for all species. Note that the species names are anonymized because the IUCN data <a href="https://www.iucnredlist.org/terms/terms-of-use#4.%20No%20Reposting%20or%20Redistribution" class="external-link">cannot be redistributed</a>.</p>
 <p>Let’s look at a summary of the trait dataset:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span>
@@ -200,12 +200,13 @@
 <span class="co">#&gt;  Max.   :600.0   Max.   :1542.25     Max.   :8.000  </span>
 <span class="co">#&gt;  NA's   :68      NA's   :65          NA's   :66</span></code></pre></div>
 <p>From there we can see that there are 149 included species and some missing trait values. For example, there we don’t have body mass for 26 species.</p>
+<p>Note that to use your own species by traits <code>data.frame</code>, it should follow similar structure with the first column being named <strong><code>"species"</code></strong> and the other ones containing traits.</p>
 </div>
 <div class="section level3">
 <h3 id="site-x-species">Site x Species<a class="anchor" aria-label="anchor" href="#site-x-species"></a>
 </h3>
 <p>This object contains species occurrences/abundance/coverage at sites<br>
-of the study area. It is a <code>data.frame</code>. The first column contain site names while the other columns contains the distribution of species across sites.</p>
+of the study area. It is a <code>data.frame</code>. The first column, <strong><code>"site"</code></strong>, contains site names while the other columns contains the abundance of each species across sites.</p>
 <p>Note that here we are talking about sites in an abstract way. These can be plots, assemblages, of whatever set of species you’re interested in.</p>
 <p>The package <code>funbiogeo</code> comes with the example dataset <code>site_species</code>. Let’s look at it:</p>
 <table class="table">
@@ -280,12 +281,13 @@ of the study area. It is a <code>data.frame</code>. The first column contain sit
 </tbody>
 </table>
 <p>The example dataset contains the occurrence of the 149 above-mentioned species across 1,505 sites (grid cells of 0.5° x 0.5° resolution).</p>
+<p>Note that to use your own site by species <code>data.frame</code>, it should follow similar structure with the first column being named <strong><code>"sites"</code></strong> and the other ones containing presence information of species across sites.</p>
 </div>
 <div class="section level3">
 <h3 id="site-x-locations">Site x Locations<a class="anchor" aria-label="anchor" href="#site-x-locations"></a>
 </h3>
 <p>This object contains the geographical location of the sites. It should be an <code>sf</code> object from the <a href="https://cran.r-project.org/package=sf" class="external-link"><code>sf</code> package</a>. The sites can have arbitrary shapes: points, regular polygons, irregular polygons, or even line transects! To make sure that your data is well plotted you should specify the Coordinate Reference System (CRS) of this object.</p>
-<p>The package <code>funbiogeo</code> comes with the example dataset <code>site_locations</code> defining the location of the 1,505 sites (grid cells of 0.5° x 0.5° resolution).</p>
+<p>The package <code>funbiogeo</code> comes with the example dataset <code>site_locations</code> defining the location of the 1,505 sites (grid cells of 0.5° x 0.5° resolution). It contains the names of the site in its first column <strong><code>"site"</code></strong>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">site_locations</span>
 <span class="co">#&gt;      site</span>
@@ -3300,6 +3302,7 @@ of the study area. It is a <code>data.frame</code>. The first column contain sit
 <span class="co">#&gt; 1503                   -5.478179, -4.978179, -4.978179, -5.478179, -5.478179, 36.847357, 36.847357, 36.347357, 36.347357, 36.847357</span>
 <span class="co">#&gt; 1504                   -4.978179, -4.478179, -4.478179, -4.978179, -4.978179, 36.847357, 36.847357, 36.347357, 36.347357, 36.847357</span>
 <span class="co">#&gt; 1505                   -5.978179, -5.478179, -5.478179, -5.978179, -5.978179, 36.347357, 36.347357, 35.847357, 35.847357, 36.347357</span></code></pre></div>
+<p>Note that to use your own site locations object, it should follow similar structure with the first column being named <strong><code>"sites"</code></strong>.</p>
 </div>
 </div>
 <div class="section level2">
