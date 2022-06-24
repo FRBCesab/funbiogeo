@@ -42,7 +42,7 @@ fb_filter_sites_by_species_coverage <- function(
   empty_sites <- apply(site_species[ , -1], 1, function(x)
     length(unique(x[!is.na(x) & x > 0])))
   
-  empty_sites <- names(empty_sites)[which(empty_sites == 0)]
+  empty_sites <- which(empty_sites == 0)
   
   if (length(empty_sites) > 0) {
     message("Some sites have no present species. ", 
