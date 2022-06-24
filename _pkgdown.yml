@@ -9,10 +9,11 @@ reference:
     Transform your raw dataset to the expected format by `funbiogeo`
   contents:
     - starts_with("fb_format")
-- title: Trait Coverage functions
+- title: Coverage functions
   desc: >
-    Count species, traits, sites by trait coverage (proportion of species with
-    known traits). Also filter datasets based on their coverages.
+    Count species, traits, sites by trait/species coverage (proportion of
+    species with known traits/present). Also filter datasets based on their
+    coverages.
   contents:
     - starts_with("fb_count")
     - starts_with("fb_get_trait")
