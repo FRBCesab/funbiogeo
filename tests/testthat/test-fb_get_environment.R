@@ -75,7 +75,9 @@ test_that("fb_get_environment() works", {
   
   # Regular input
   expect_silent(
-    env_value <- fb_get_environment(sf::st_centroid(site_locations, layers))
+    env_value <- fb_get_environment(
+      suppressWarnings(sf::st_centroid(site_locations)), layers
+    )
   )
   
   expect_s3_class(env_value, "data.frame")
@@ -89,7 +91,9 @@ test_that("fb_get_environment() works", {
   layers_prj <- terra::project(layers, rob)
   
   expect_silent(
-    env_value <- fb_get_environment(sf::st_centroid(site_locations), layers_prj)
+    env_value <- fb_get_environment(
+      suppressWarnings(sf::st_centroid(site_locations)), layers_prj
+    )
   )
   
   expect_s3_class(env_value, "data.frame")
