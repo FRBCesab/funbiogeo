@@ -55,15 +55,17 @@ fb_filter_species_by_trait_coverage <- function(
     which(traits_coverage[["coverage"]] >= threshold_traits_proportion), 
     "species"]
   
+  if (length(selected_species) == 0) {
   
-  returned_traits <- species_traits[
-    species_traits[ , 1] %in% selected_species, , drop = FALSE
-  ]
-  
-  if (identical(selected_species, character(0))) {
     message("No species has the specified traits coverage threshold")
     
     returned_traits <- species_traits[NULL, ]
+  } else {
+    
+    returned_traits <- species_traits[
+      species_traits[ , 1] %in% selected_species, , drop = FALSE
+    ]
+    
   }
   
   return(returned_traits)

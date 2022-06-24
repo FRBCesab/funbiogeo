@@ -133,5 +133,5 @@ test_that("fb_filter_species_by_site_coverage() successully works", {
     fixed = TRUE
   )
   
-  expect_identical(test_coverage, site_species[ , "site", drop = FALSE])
+  expect_identical(test_coverage, site_species[NULL,])
 })

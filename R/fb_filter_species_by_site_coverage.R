@@ -60,12 +60,20 @@ fb_filter_species_by_site_coverage <- function(
   # Filter species by site coverage ----
   
   selected_species <- sites_coverage[
-    which(sites_coverage[["coverage"]] >= threshold_sites_proportion), 
-    "species"]
+    which(sites_coverage[["coverage"]] >= threshold_sites_proportion), "species"
+  ]
   
-  if (identical(selected_species, character(0))) {
+  if (length(selected_species) == 0) {
+  
     message("All species are absent from the study area")
+    
+    returned_sites <- site_species[NULL, ]
+  
+  } else {
+    
+    returned_sites <- site_species[ , c("site", selected_species), drop = FALSE]
+    
   }
   
-  site_species[ , c("site", selected_species), drop = FALSE]
+  return(returned_sites)
 }

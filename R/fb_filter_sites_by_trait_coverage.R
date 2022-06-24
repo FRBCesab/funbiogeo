@@ -43,14 +43,18 @@ fb_filter_sites_by_trait_coverage <- function(
     which(trait_coverage[["trait_coverage"]] >= threshold_traits_proportion),
     "site"]
   
-  returned_sites <- site_species[
-    site_species[["site"]] %in% selected_sites, , drop = FALSE
-  ]
-  
-  if (identical(selected_sites, character(0))) {
+  if (length(selected_sites) == 0) {
+    
     message("No sites has the specified trait coverage threshold")
     
     returned_sites <- site_species[NULL,]
+  
+  } else {
+    
+    returned_sites <- site_species[
+      site_species[["site"]] %in% selected_sites, , drop = FALSE
+    ]
+    
   }
   
   return(returned_sites)

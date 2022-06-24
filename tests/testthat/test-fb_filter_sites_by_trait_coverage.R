@@ -7,6 +7,15 @@ site_species  <- data.frame(
   sp3  = c(22, 8, 3, 0, 12),
   sp4  = c(3, 0, 2, 12, 0)
 )
+
+num_site_species <- data.frame(
+  site = 1:5,
+  sp1  = c(0, 0, 10, 0, 0),
+  sp2  = c(1, 10, 0, 25, 40),
+  sp3  = c(22, 8, 3, 0, 12),
+  sp4  = c(3, 0, 2, 12, 0)
+)
+
 species_traits <- data.frame(
   species = paste0("sp", 1:4),
   t1      = c(1.1, 2.5, 100, 400)
@@ -259,6 +268,17 @@ test_that(
     )
     
     expect_identical(test_coverage, site_species[NULL,])
+    
+    # No site selected but numerical site names
+    expect_message(
+      test_coverage <- fb_filter_sites_by_trait_coverage(
+        num_site_species, species_traits[1, , drop = FALSE], 1
+      ),
+      "No sites has the specified trait coverage threshold",
+      fixed = TRUE
+    )
+    
+    expect_identical(test_coverage, num_site_species[NULL,])
     
     
     # Lower threshold
