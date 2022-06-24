@@ -7,8 +7,12 @@ tavg_file <- system.file("extdata", "annual_mean_temp.tif",
                          package = "funbiogeo")
 tavg <- terra::rast(tavg_file)
 
-# Force CRS to be EPSG:4326 (works with old and new GDAL versions)
-# suppressWarnings(sf::st_crs(site_locations) <- 4326)
+## Prepare multiple sf geometries
+# Points
+site_points <- suppressWarnings(sf::st_centroid(site_locations))
+
+# Multiline
+site_lines <- sf::st_cast(site_locations[1,], "MULTILINESTRING")
 
 # Test: Missing Input ----------------------------------------------------------
 
@@ -75,12 +79,10 @@ test_that("fb_aggregate_site_data() errors with wrong input", {
 
 test_that("fb_aggregate_site_data() works", {
   
-  # No reprojection point data
+  ## Points spatial data
+  # Unprojected raster
   expect_silent(
-    ras <- fb_aggregate_site_data(
-      suppressWarnings(sf::st_centroid(site_locations)),
-      site_species[, 1:3], tavg
-    )
+    ras <- fb_aggregate_site_data(site_points, site_species[, 1:3], tavg)
   )
   
   expect_s4_class(ras, "SpatRaster")
@@ -89,16 +91,13 @@ test_that("fb_aggregate_site_data() works", {
   expect_equal(ras[][1816], 1, tolerance = 0.000001)
   
   
-  # Change projection of rasters
+  # Projected raster
   rob <- "+proj=robin +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs"
   
   tavg_prj <- terra::project(tavg, rob)
   
   expect_silent(
-    ras <- fb_aggregate_site_data(
-      suppressWarnings(sf::st_centroid(site_locations)), site_species[, 1:3],
-      tavg_prj
-    )
+    ras <- fb_aggregate_site_data(site_points, site_species[, 1:3], tavg_prj)
   )
   
   expect_s4_class(ras, "SpatRaster")
@@ -119,6 +118,25 @@ test_that("fb_aggregate_site_data() works", {
   # Projected Raster
   expect_silent(
     ras <- fb_aggregate_site_data(site_locations, site_species[, 1:3], tavg_prj)
+  )
+  
+  expect_s4_class(ras, "SpatRaster")
+  expect_named(ras, c("sp_001", "sp_002"))
+  
+  
+  ## Multiline spatial data
+  # Unprojected raster
+  expect_silent(
+    ras <- fb_aggregate_site_data(site_lines, site_species[, 1:3], tavg)
+  )
+  
+  expect_s4_class(ras, "SpatRaster")
+  expect_named(ras, c("sp_001", "sp_002"))
+  expect_equal(dim(ras), c(290, 405, 2))
+  
+  # Projected Raster
+  expect_silent(
+    ras <- fb_aggregate_site_data(site_lines, site_species[, 1:3], tavg_prj)
   )
   
   expect_s4_class(ras, "SpatRaster")
