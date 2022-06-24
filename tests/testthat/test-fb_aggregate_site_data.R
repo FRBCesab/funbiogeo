@@ -8,7 +8,7 @@ tavg_file <- system.file("extdata", "annual_mean_temp.tif",
 tavg <- terra::rast(tavg_file)
 
 # Force CRS to be EPSG:4326 (works with old and new GDAL versions)
-suppressWarnings(sf::st_crs(site_locations) <- 4326)
+# suppressWarnings(sf::st_crs(site_locations) <- 4326)
 
 # Test: Missing Input ----------------------------------------------------------
 
@@ -78,7 +78,7 @@ test_that("fb_aggregate_site_data() works", {
   # No reprojection point data
   expect_silent(
     ras <- fb_aggregate_site_data(
-      suppressWarnings(sf::st_centroid(sf::st_set_crs(site_locations, 4326))),
+      suppressWarnings(sf::st_centroid(site_locations)),
       site_species[, 1:3], tavg
     )
   )
