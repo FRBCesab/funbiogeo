@@ -24,16 +24,7 @@
 
 fb_cwm <- function(site_species, species_traits) {
   
-  # Check inputs ---------------------------------------------------------------
-  
-  if (missing(site_species)) {
-    stop("Argument 'site_species' (site x species matrix) is required")
-  }
-  
-  if (missing(species_traits)) {
-    stop("Argument 'species_traits' (species x traits matrix) is required")
-  }
-  
+  # Check inputs
   check_site_species(site_species)
   check_species_traits(species_traits)
   

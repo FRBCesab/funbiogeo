@@ -23,17 +23,11 @@
 
 fb_count_traits_by_species <- function(species_traits) { 
   
-  ## Check inputs ----
-  
-  if (missing(species_traits)) {
-    stop("Argument 'species_traits' (species x traits data frame) is required")
-  }
-  
+  # Check inputs
   check_species_traits(species_traits)
   
   
-  ## Compute traits coverage by species ----
-  
+  # Compute traits coverage by species
   traits_coverage <- apply(species_traits[ , -1], 1, function(x)
     sum(!is.na(x)))
   

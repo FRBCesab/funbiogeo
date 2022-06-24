@@ -25,18 +25,14 @@
 
 fb_get_environment <- function(site_locations, environment_raster) {
   
-  
-  if (missing(site_locations)) {
-    stop("Argument 'site_locations' (site x locations 'sf' object) ",
-         "is required", call. = FALSE)
-  }
+
+  # Check inputs  
+  check_site_locations(site_locations)
   
   if (missing(environment_raster)) {
     stop("Argument 'environment_raster' (environmental raster) is required",
          call. = FALSE)
   }
-  
-  check_site_locations(site_locations)
   
   if (!inherits(environment_raster, "SpatRaster")) {
     stop("The raster layer must be a 'SpatRaster' object (package `terra`)", 

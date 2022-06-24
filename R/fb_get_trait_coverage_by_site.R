@@ -33,20 +33,8 @@
 fb_get_trait_coverage_by_site <- function(site_species, species_traits) {
   
   
-  ## Check inputs ----
-  
-  if (missing(site_species)) {
-    stop("Argument 'site_species' (site x species data.frame) is required",
-         call. = FALSE)
-  }
-  
-  if (missing(species_traits)) {
-    stop("Argument 'species_traits' (species x traits data.frame) is required",
-         call. = FALSE)
-  }
-  
+  # Check inputs
   check_site_species(site_species)
-  
   check_species_traits(species_traits)
   
   # Remove missing trait data

@@ -26,12 +26,7 @@ fb_filter_species_by_trait_coverage <- function(
     species_traits, threshold_traits_proportion = 0
   ) { 
   
-  ## Check inputs ----
-  
-  if (missing(species_traits)) {
-    stop("Argument 'species_traits' (species x traits data frame) is required")
-  }
-  
+  # Check inputs
   check_species_traits(species_traits)
   
   if (!is.numeric(threshold_traits_proportion) | 
