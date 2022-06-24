@@ -11,6 +11,9 @@ tavg   <- system.file("extdata", "annual_mean_temp.tif",
                       package = "funbiogeo")
 layers <- terra::rast(c(tavg, prec))
 
+# Force CRS to be EPSG:4326 (works with old and new GDAL versions)
+suppressWarnings(sf::st_crs(site_locations) <- 4326)
+
 
 # Test: Missing input ----------------------------------------------------------
 
