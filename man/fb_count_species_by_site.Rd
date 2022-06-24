@@ -20,8 +20,9 @@ A three-column \code{data.frame} with:
 }
 }
 \description{
-For each site computes the percentage of present species (distribution value
-higher than 0 and non-NA).
+For each site computes the proportion of species present (distribution value
+higher than 0 and non-NA) compared to all species provided.
+For example, a site could contain only 20\% of all species provided.
 }
 \examples{
 library("funbiogeo")

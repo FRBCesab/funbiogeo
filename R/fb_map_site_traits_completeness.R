@@ -36,8 +36,21 @@ fb_map_site_traits_completeness <- function(
   site_locations_cov <- merge(site_locations, all_coverages_long, by = "site")
   
   # Make the Map
-  if(inherits(site_locations_cov[["geometry"]], "sfc_POINT")) {
+  if(inherits(site_locations_cov$geom, "sfc_POLYGON") |
+     inherits(site_locations_cov$geom, "sfc_MULTIPOLYGON")) {
     
+    # If sites are (multi-)polygons
+    base_plot <- ggplot2::ggplot(
+      site_locations_cov, ggplot2::aes(fill = .data$coverage_value)
+    ) +
+      ggplot2::geom_sf() +
+      ggplot2::scale_fill_viridis_c(
+        "Trait Coverage", labels = scales::label_percent()
+      )
+    
+  } else {
+    
+    # If sites are points or (multi-)linestrings or geometrycollection
     base_plot <- ggplot2::ggplot(
       site_locations_cov, ggplot2::aes(colour = .data$coverage_value)
     ) +
@@ -46,14 +59,6 @@ fb_map_site_traits_completeness <- function(
         "Trait Coverage", labels = scales::label_percent()
       )
     
-  } else {
-    base_plot <- ggplot2::ggplot(
-      site_locations_cov, ggplot2::aes(fill = .data$coverage_value)
-    ) +
-      ggplot2::geom_sf() +
-      ggplot2::scale_fill_viridis_c(
-        "Trait Coverage", labels = scales::label_percent()
-      )
   }
   
   base_plot +
