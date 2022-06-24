@@ -74,7 +74,9 @@ test_that("fb_get_environment() errors with wrong input type", {
 test_that("fb_get_environment() works", {
   
   # Regular input
-  expect_silent(env_value <- fb_get_environment(site_locations, layers))
+  expect_silent(
+    env_value <- fb_get_environment(sf::st_centroid(site_locations, layers))
+  )
   
   expect_s3_class(env_value, "data.frame")
   expect_named(env_value, c("site", "annual_mean_temp", "annual_tot_prec"))
@@ -86,7 +88,9 @@ test_that("fb_get_environment() works", {
   
   layers_prj <- terra::project(layers, rob)
   
-  expect_silent(env_value <- fb_get_environment(site_locations, layers_prj))
+  expect_silent(
+    env_value <- fb_get_environment(sf::st_centroid(site_locations), layers_prj)
+  )
   
   expect_s3_class(env_value, "data.frame")
   expect_named(env_value, c("site", "annual_mean_temp", "annual_tot_prec"))

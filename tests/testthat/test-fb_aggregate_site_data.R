@@ -76,7 +76,8 @@ test_that("fb_aggregate_site_data() works", {
   # No reprojection
   expect_silent(
     ras <- fb_aggregate_site_data(
-      sf::st_set_crs(site_locations, 4326), site_species[, 1:3], tavg
+      sf::st_centroid(sf::st_set_crs(site_locations, 4326)),
+      site_species[, 1:3], tavg
     )
   )
   
@@ -93,7 +94,7 @@ test_that("fb_aggregate_site_data() works", {
   
   expect_silent(
     ras <- fb_aggregate_site_data(
-      site_locations, site_species[, 1:3], tavg_prj
+      sf::st_centroid(site_locations), site_species[, 1:3], tavg_prj
     )
   )
   
