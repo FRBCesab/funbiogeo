@@ -228,3 +228,43 @@ test_that("check_site_locations() works", {
   
   expect_equal(check_site_locations(sites_sf), NULL)
 })
+
+
+test_that("check_threshold_proportion() works", {
+  
+  ## Wrong inputs
+  # Missing threshold
+  expect_error(
+    check_threshold_proportion(),
+    "Argument '' (trait coverage) is required",
+    fixed = TRUE
+  )
+  
+  # Wrong 'type'
+  expect_error(
+    check_threshold_proportion(0, type = "bla"),
+    "'arg' should be one of \"trait\", \"site\", \"species\"",
+    fixed = TRUE
+  )
+  
+  # Threshold below 0
+  expect_error(
+    check_threshold_proportion(-1),
+    paste0("Argument '-1' (trait coverage proportion) should be ",
+           "a numeric value >= 0 and <= 1"),
+    fixed = TRUE
+  )
+  
+  # Threshold above 1
+  expect_error(
+    check_threshold_proportion(2),
+    paste0("Argument '2' (trait coverage proportion) should be ",
+           "a numeric value >= 0 and <= 1"),
+    fixed = TRUE
+  )
+  
+  # Correct inputs
+  expect_silent(check_threshold_proportion(0))
+  expect_silent(check_threshold_proportion(0.5))
+  expect_silent(check_threshold_proportion(1))
+})

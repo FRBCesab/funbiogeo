@@ -20,13 +20,13 @@ layers <- terra::rast(c(tavg, prec))
 test_that("fb_get_environment() errors with missing input", {
   expect_error(
     fb_get_environment(),
-    "Argument 'site_locations' (site x locations 'sf' object) is required",
+    "Argument 'sites_locations' (spatial sites 'sf' object) is required",
     fixed = TRUE
   )
   
   expect_error(
     fb_get_environment(environment_raster = layers),
-    "Argument 'site_locations' (site x locations 'sf' object) is required",
+    "Argument 'sites_locations' (spatial sites 'sf' object) is required",
     fixed = TRUE
   )
   

@@ -48,13 +48,13 @@ test_that("fb_filter_sites_by_trait_coverage() errors with wrong input", {
   
   expect_error(
     fb_filter_sites_by_trait_coverage(species_traits = species_traits),
-    "Argument 'site_species' (site x species matrix) is required",
+    "Argument 'site_species' (site x species data frame) is required",
     fixed = TRUE
   )
   
   expect_error(
     fb_filter_sites_by_trait_coverage(site_species = site_species),
-    "Argument 'species_traits' (species x traits matrix) is required",
+    "Argument 'species_traits' (species x traits data frame) is required",
     fixed = TRUE
   )
   
@@ -106,7 +106,8 @@ test_that("fb_filter_sites_by_trait_coverage() errors with wrong input", {
     fb_filter_sites_by_trait_coverage(
       site_species, species_traits, threshold_traits_proportion = "a"
     ),
-    "Coverage threshold should be a numeric value >= 0 and <= 1",
+    paste0("Argument 'threshold_traits_proportion' (trait coverage proportion)",
+           " must be numeric"),
     fixed = TRUE
   )
   
@@ -117,7 +118,8 @@ test_that("fb_filter_sites_by_trait_coverage() errors with wrong input", {
     fb_filter_sites_by_trait_coverage(
       site_species, species_traits, threshold_traits_proportion = 2
     ),
-    "Coverage threshold should be a numeric value >= 0 and <= 1",
+    paste0("Argument 'threshold_traits_proportion' (trait coverage proportion)",
+           " should be a numeric value >= 0 and <= 1"),
     fixed = TRUE
   )
   
@@ -128,7 +130,8 @@ test_that("fb_filter_sites_by_trait_coverage() errors with wrong input", {
     fb_filter_sites_by_trait_coverage(
       site_species, species_traits, threshold_traits_proportion = -1
     ),
-    "Coverage threshold should be a numeric value >= 0 and <= 1",
+    paste0("Argument 'threshold_traits_proportion' (trait coverage proportion)",
+           " should be a numeric value >= 0 and <= 1"),
     fixed = TRUE
   )
   

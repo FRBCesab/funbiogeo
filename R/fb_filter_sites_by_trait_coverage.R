@@ -26,26 +26,10 @@ fb_filter_sites_by_trait_coverage <- function(
 ) {
   
   
-  ## Check inputs ----
-  
-  if (missing(site_species)) {
-    stop("Argument 'site_species' (site x species matrix) is required")
-  }
-  
-  if (missing(species_traits)) {
-    stop("Argument 'species_traits' (species x traits matrix) is required")
-  }
-  
+  # Check inputs
   check_site_species(site_species)
-  
   check_species_traits(species_traits)
-  
-  if (!is.numeric(threshold_traits_proportion) |
-      threshold_traits_proportion > 1 |
-      threshold_traits_proportion < 0) {
-    stop("Coverage threshold should be a numeric value >= 0 and <= 1",
-         call. = FALSE)
-  }
+  check_threshold_proportion(threshold_traits_proportion, "trait")
   
   
   # Get trait coverage for site and traits ----
