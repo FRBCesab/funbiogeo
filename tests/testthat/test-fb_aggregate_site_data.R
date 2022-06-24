@@ -7,6 +7,7 @@ tavg_file <- system.file("extdata", "annual_mean_temp.tif",
                          package = "funbiogeo")
 tavg <- terra::rast(tavg_file)
 
+sf::st_crs(site_locations) <- 4326
 
 # Test: Missing Input ----------------------------------------------------------
 
