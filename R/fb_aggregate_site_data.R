@@ -42,7 +42,6 @@ fb_aggregate_site_data <- function(site_locations, site_data, agg_grid,
   
   # Check inputs ---------------------------------------------------------------
   
-  
   check_site_locations(site_locations)
   
   if (missing(site_data)) {

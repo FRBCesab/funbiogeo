@@ -52,13 +52,13 @@ test_that("fb_get_trait_coverage_by_site() errors with wrong inputs", {
   
   expect_error(
     fb_get_trait_coverage_by_site(species_traits = species_traits),
-    "Argument 'site_species' (site x species data.frame) is required",
+    "Argument 'site_species' (site x species data frame) is required",
     fixed = TRUE
   )
   
   expect_error(
     fb_get_trait_coverage_by_site(site_species = site_species),
-    "Argument 'species_traits' (species x traits data.frame) is required",
+    "Argument 'species_traits' (species x traits data frame) is required",
     fixed = TRUE
   )
   

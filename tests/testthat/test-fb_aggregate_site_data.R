@@ -14,7 +14,7 @@ test_that("fb_aggregate_site_data() errors with missing input", {
   
   expect_error(
     fb_aggregate_site_data(),
-    "Argument 'site_locations' (site x locations matrix) is required",
+    "Argument 'sites_locations' (spatial sites 'sf' object) is required",
     fixed = TRUE
   )
   
