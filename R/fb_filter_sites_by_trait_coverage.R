@@ -29,13 +29,9 @@ fb_filter_sites_by_trait_coverage <- function(
   # Check inputs
   check_site_species(site_species)
   check_species_traits(species_traits)
-  
-  if (!is.numeric(threshold_traits_proportion) |
-      threshold_traits_proportion > 1 |
-      threshold_traits_proportion < 0) {
-    stop("Coverage threshold should be a numeric value >= 0 and <= 1",
-         call. = FALSE)
-  }
+  check_threshold_proportion(
+    threshold_traits_proportion, "trait", "threshold_traits_proportion"
+  )
   
   
   # Get trait coverage for site and traits ----

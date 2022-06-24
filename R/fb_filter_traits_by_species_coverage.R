@@ -30,13 +30,9 @@ fb_filter_traits_by_species_coverage <- function(
   
   # Check inputs
   check_species_traits(species_traits)
-  
-  if (!is.numeric(threshold_species_proportion) | 
-      threshold_species_proportion > 1 | threshold_species_proportion < 0) {
-    stop("Coverage threshold should be a numeric value >= 0 and <= 1",
-         call. = FALSE)
-  }
-  
+  check_threshold_proportion(
+    threshold_species_proportion, "species", "threshold_species_proportion"
+  )
   
   # Check for absence of variability in traits ----
   

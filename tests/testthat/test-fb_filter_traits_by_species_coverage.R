@@ -57,7 +57,8 @@ test_that("fb_filter_traits_by_species_coverage() errors with wrong inputs", {
   expect_error(
     fb_filter_traits_by_species_coverage(species_traits, 
                                          threshold_species_proportion = "a"),
-    "Coverage threshold should be a numeric value >= 0 and <= 1",
+    paste0("Argument 'threshold_species_proportion' (species coverage ",
+           "proportion) must be numeric"),
     fixed = TRUE
   )
   
@@ -66,7 +67,9 @@ test_that("fb_filter_traits_by_species_coverage() errors with wrong inputs", {
   expect_error(
     fb_filter_traits_by_species_coverage(species_traits, 
                                          threshold_species_proportion = 2),
-    "Coverage threshold should be a numeric value >= 0 and <= 1",
+    paste0("Argument 'threshold_species_proportion' ",
+           "(species coverage proportion) should be a numeric value >= 0 and ",
+           "<= 1"),
     fixed = TRUE
   )
   
@@ -75,7 +78,9 @@ test_that("fb_filter_traits_by_species_coverage() errors with wrong inputs", {
   expect_error(
     fb_filter_traits_by_species_coverage(species_traits, 
                                          threshold_species_proportion = -1),
-    "Coverage threshold should be a numeric value >= 0 and <= 1",
+    paste0("Argument 'threshold_species_proportion' ",
+           "(species coverage proportion) should be a numeric value >= 0 and ",
+           "<= 1"),
     fixed = TRUE
   )
   
