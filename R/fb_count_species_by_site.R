@@ -18,9 +18,9 @@
 #' 
 #' data("site_species")
 #' 
-#' species_coverage_by_site <- fb_count_species_by_sites(site_species)
+#' species_coverage_by_site <- fb_count_species_by_site(site_species)
 
-fb_count_species_by_sites <- function(site_species) {
+fb_count_species_by_site <- function(site_species) {
   
   ## Check inputs ----
   
