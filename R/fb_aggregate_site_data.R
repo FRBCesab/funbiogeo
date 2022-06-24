@@ -42,10 +42,6 @@ fb_aggregate_site_data <- function(site_locations, site_data, agg_grid,
   
   # Check inputs ---------------------------------------------------------------
   
-  if (missing(site_locations)) {
-    stop("Argument 'site_locations' (site x locations matrix) is required",
-         call. = FALSE)
-  }
   
   check_site_locations(site_locations)
   
