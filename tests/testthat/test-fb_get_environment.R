@@ -76,11 +76,7 @@ test_that("fb_get_environment() errors with wrong input type", {
 
 test_that("fb_get_environment() works", {
   
-  env_value <- fb_get_environment(
-    suppressWarnings(sf::st_centroid(site_locations)), layers
-  )
-  
-  # Regular input
+  # Regular input (sf points)
   expect_silent(
     env_value <- fb_get_environment(
       suppressWarnings(sf::st_centroid(site_locations)), layers
@@ -92,14 +88,10 @@ test_that("fb_get_environment() works", {
   expect_equal(dim(env_value), c(1505, 3))
   expect_equal(round(env_value[["annual_tot_prec"]][[1]]), 2620)
   
-  # Different CRS
+  # Different CRS (sf points)
   rob <- "+proj=robin +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs"
   
   layers_prj <- terra::project(layers, rob)
-  
-  env_value <- fb_get_environment(
-    suppressWarnings(sf::st_centroid(site_locations)), layers_prj
-  )
   
   expect_silent(
     env_value <- fb_get_environment(
@@ -111,4 +103,6 @@ test_that("fb_get_environment() works", {
   expect_named(env_value, c("site", "annual_mean_temp", "annual_tot_prec"))
   expect_equal(dim(env_value), c(1505, 3))
   expect_equal(env_value[["annual_mean_temp"]][[1]], 6.3, tolerance = 0.01)
+  
+  # 'sf' polygons
 })

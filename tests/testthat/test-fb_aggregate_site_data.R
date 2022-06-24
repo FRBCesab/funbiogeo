@@ -75,7 +75,7 @@ test_that("fb_aggregate_site_data() errors with wrong input", {
 
 test_that("fb_aggregate_site_data() works", {
   
-  # No reprojection
+  # No reprojection point data
   expect_silent(
     ras <- fb_aggregate_site_data(
       suppressWarnings(sf::st_centroid(sf::st_set_crs(site_locations, 4326))),
@@ -94,11 +94,6 @@ test_that("fb_aggregate_site_data() works", {
   
   tavg_prj <- terra::project(tavg, rob)
   
-  ras <- fb_aggregate_site_data(
-    suppressWarnings(sf::st_centroid(site_locations)), site_species[, 1:3],
-    tavg_prj
-  )
-  
   expect_silent(
     ras <- fb_aggregate_site_data(
       suppressWarnings(sf::st_centroid(site_locations)), site_species[, 1:3],
@@ -108,4 +103,7 @@ test_that("fb_aggregate_site_data() works", {
   
   expect_s4_class(ras, "SpatRaster")
   expect_named(ras, c("sp_001", "sp_002"))
+  
+  
+  # Polygon spatial data
 })
