@@ -2,6 +2,7 @@
 
 export(fb_aggregate_site_data)
 export(fb_count_sites_by_species)
+export(fb_count_species_by_sites)
 export(fb_count_species_by_trait)
 export(fb_count_traits_by_species)
 export(fb_cwm)
