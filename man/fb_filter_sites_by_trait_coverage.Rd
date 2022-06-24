@@ -12,11 +12,11 @@ fb_filter_sites_by_trait_coverage(
 }
 \arguments{
 \item{site_species}{a \code{data.frame} with sites in rows and species in columns.
-The first column should be named \code{"site"} and contain site names. The other
-columns should be named according to species names.}
+\strong{NOTE}: the first column should be named \strong{\code{"site"}} and indicate site
+names. The other columns should be named according to species names.}
 
 \item{species_traits}{a \code{data.frame} with species in rows and
-traits as columns. The first column should be named \code{"species"}
+traits as columns. \strong{NOTE}: The first column should be named \strong{\code{"species"}}
 and contain species names. The other columns should be named according
 to trait names.}
 

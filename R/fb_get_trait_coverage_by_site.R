@@ -8,11 +8,11 @@
 #' all their traits specified.
 #' 
 #' @param site_species a `data.frame` with sites in rows and species in columns.
-#' The first column should be named `"site"` and contain site names. The other
-#' columns should be named according to species names.
+#' **NOTE**: the first column should be named **`"site"`** and indicate site
+#' names. The other columns should be named according to species names.
 #' 
 #' @param species_traits a `data.frame` with species in rows and
-#' traits as columns. The first column should be named `"species"`
+#' traits as columns. **NOTE**: The first column should be named **`"species"`**
 #' and contain species names. The other columns should be named according
 #' to trait names.
 #'

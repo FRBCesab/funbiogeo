@@ -7,7 +7,9 @@
 fb_get_environment(site_locations, environment_raster)
 }
 \arguments{
-\item{site_locations}{an \code{sf} object with all sites.}
+\item{site_locations}{an \code{sf} object with the spatial geometries of sites.
+\strong{NOTE}: the first column should be named \strong{\code{"site"}}
+and indicate site names.}
 
 \item{environment_raster}{a \code{SpatRaster} object (package \code{terra}).
 A single or multi-layers environmental raster.}

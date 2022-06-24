@@ -82,9 +82,9 @@ knitr::kable(head(species_traits, 4),
              align     = c("r", "r", "r", "r", "r", "r"))
 ```
 
-The first column `species` contains species names, while the next 6 columns
-contain the trait values for all species. Note that the species names are 
-anonymized because the IUCN data
+The first column **`"species"`** contains species names, while the next 6
+columns contain the trait values for all species. Note that the species names
+are anonymized because the IUCN data
 [cannot be redistributed](https://www.iucnredlist.org/terms/terms-of-use#4.%20No%20Reposting%20or%20Redistribution).
 
 Let's look at a summary of the trait dataset:
@@ -96,12 +96,17 @@ summary(species_traits)
 From there we can see that there are 149 included species and some missing trait
 values. For example, there we don't have body mass for 26 species.
 
+Note that to use your own species by traits `data.frame`, it should follow
+similar structure with the first column being named **`"species"`** and the
+other ones containing traits.
+
 
 ### Site x Species
 
 This object contains species occurrences/abundance/coverage at sites  
-of the study area. It is a `data.frame`. The first column contain site names
-while the other columns contains the distribution of species across sites.
+of the study area. It is a `data.frame`. The first column, **`"site"`**,
+contains site names while the other columns contains the abundance of each
+species across sites.
 
 Note that here we are talking about sites in an abstract way.
 These can be plots, assemblages, of whatever set of species
@@ -119,6 +124,9 @@ knitr::kable(head(site_species[ , 1:4], 10),
 The example dataset contains the occurrence of the 149 above-mentioned species
 across 1,505 sites (grid cells of 0.5° x 0.5° resolution).
 
+Note that to use your own site by species `data.frame`, it should follow similar
+structure with the first column being named **`"sites"`** and the other ones
+containing presence information of species across sites.
 
 ### Site x Locations
 
@@ -131,10 +139,14 @@ the Coordinate Reference System (CRS) of this object.
 
 The package `funbiogeo` comes with the example dataset `site_locations` defining
 the location of the 1,505 sites (grid cells of 0.5° x 0.5° resolution).
+It contains the names of the site in its first column **`"site"`**:
 
 ```{r preview-sites-locs}
 site_locations
 ```
+
+Note that to use your own site locations object, it should follow similar
+structure with the first column being named **`"sites"`**.
 
 
 ## Visualizing the data (diagnostic plots)

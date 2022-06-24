@@ -11,7 +11,7 @@ fb_filter_traits_by_species_coverage(
 }
 \arguments{
 \item{species_traits}{a \code{data.frame} with species in rows and
-traits as columns. The first column should be named \code{"species"}
+traits as columns. \strong{NOTE}: The first column should be named \strong{\code{"species"}}
 and contain species names. The other columns should be named according
 to trait names.}
 

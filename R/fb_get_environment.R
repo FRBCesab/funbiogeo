@@ -1,6 +1,8 @@
 #' Extract average raster values at sites locations
 #'
-#' @param site_locations an `sf` object with all sites.
+#' @param site_locations an `sf` object with the spatial geometries of sites.
+#'                       **NOTE**: the first column should be named **`"site"`**
+#'                       and indicate site names.
 #' 
 #' @param environment_raster a `SpatRaster` object (package `terra`).
 #'   A single or multi-layers environmental raster.
