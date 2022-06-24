@@ -71,7 +71,7 @@ test_that("fb_count_species_by_site() successfully works", {
   expect_type(test_coverage$"coverage", "double")
   expect_equal(test_coverage$"site"[1], 2)
   expect_equal(test_coverage$"n_species"[1], 2)
-  expect_equal(test_coverage$"coverage"[1], 0.5)
+  expect_equal(test_coverage$"coverage"[1], 1.0)
   
   # Test for a species with all NA ----
   
@@ -84,7 +84,7 @@ test_that("fb_count_species_by_site() successfully works", {
   
   expect_equal(test_coverage$"site"[2], 2)
   expect_equal(test_coverage$"n_species"[2], 1)
-  expect_equal(test_coverage$"coverage"[2], 0.25)
+  expect_equal(test_coverage$"coverage"[2], 0.5)
   
   # Test for a site without any species (NA) ----
   
@@ -97,7 +97,7 @@ test_that("fb_count_species_by_site() successfully works", {
   
   expect_equal(test_coverage$"site"[1], 2)
   expect_equal(test_coverage$"n_species"[1], 2)
-  expect_equal(test_coverage$"coverage"[1], 0.5)
+  expect_equal(test_coverage$"coverage"[1], 1)
   
   # Test for all sites without any species (0 and NA) ----
   
