@@ -105,5 +105,22 @@ test_that("fb_aggregate_site_data() works", {
   expect_named(ras, c("sp_001", "sp_002"))
   
   
-  # Polygon spatial data
+  ## Polygon spatial data
+  # Regular
+  expect_silent(
+    ras <- fb_aggregate_site_data(site_locations, site_species[, 1:3], tavg)
+  )
+  
+  expect_s4_class(ras, "SpatRaster")
+  expect_named(ras, c("sp_001", "sp_002"))
+  expect_equal(dim(ras), c(290, 405, 2))
+  expect_equal(ras[][1816], 1, tolerance = 0.000001)
+  
+  # Projected Raster
+  expect_silent(
+    ras <- fb_aggregate_site_data(site_locations, site_species[, 1:3], tavg_prj)
+  )
+  
+  expect_s4_class(ras, "SpatRaster")
+  expect_named(ras, c("sp_001", "sp_002"))
 })
