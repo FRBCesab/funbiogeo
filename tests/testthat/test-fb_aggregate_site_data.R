@@ -92,6 +92,11 @@ test_that("fb_aggregate_site_data() works", {
   
   tavg_prj <- terra::project(tavg, rob)
   
+  ras <- fb_aggregate_site_data(
+    suppressWarnings(sf::st_centroid(site_locations)), site_species[, 1:3],
+    tavg_prj
+  )
+  
   expect_silent(
     ras <- fb_aggregate_site_data(
       suppressWarnings(sf::st_centroid(site_locations)), site_species[, 1:3],

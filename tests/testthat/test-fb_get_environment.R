@@ -73,6 +73,10 @@ test_that("fb_get_environment() errors with wrong input type", {
 
 test_that("fb_get_environment() works", {
   
+  env_value <- fb_get_environment(
+    suppressWarnings(sf::st_centroid(site_locations)), layers
+  )
+  
   # Regular input
   expect_silent(
     env_value <- fb_get_environment(
@@ -89,6 +93,10 @@ test_that("fb_get_environment() works", {
   rob <- "+proj=robin +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs"
   
   layers_prj <- terra::project(layers, rob)
+  
+  env_value <- fb_get_environment(
+    suppressWarnings(sf::st_centroid(site_locations)), layers_prj
+  )
   
   expect_silent(
     env_value <- fb_get_environment(
