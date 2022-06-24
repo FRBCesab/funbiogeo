@@ -167,36 +167,34 @@ check_site_locations <- function(site_locations) {
 #' @param threshold `numeric(1)` threshold argument to be check
 #' @param type `character(1)` name of the type of the threshold which is going
 #'             to be reused in error messages
-#' @param name `character(1)` name of the argument to be used
-#'
-#' @return
 #'
 #' @noRd
 check_threshold_proportion = function(
-    threshold, type = c("trait", "site", "species"), name = "threshold"
+    threshold, type = c("trait", "site", "species")
 ) {
   type <- match.arg(type)
   
   # Check missing --------------------------------------------------------------
   if (missing(threshold)) {
     stop(
-      "Argument '", name, "' (", type, " coverage) is required", call. = FALSE
+      "Argument '", deparse(substitute(threshold)), "' (", type,
+      " coverage) is required", call. = FALSE
     )
   }
   
   # Check object type ----------------------------------------------------------
   if (!is.numeric(threshold)) {
     stop(
-      "Argument '", name, "' (", type, " coverage proportion) must be numeric",
-      call. = FALSE
+      "Argument '", deparse(substitute(threshold)), "' (", type,
+      " coverage proportion) must be numeric", call. = FALSE
     )
   }
   
   # Check values ---------------------------------------------------------------
   if (threshold < 0 | threshold > 1) {
     stop(
-      "Argument '", name, "' (", type, " coverage proportion) should be a ",
-      "numeric value >= 0 and <= 1",
+      "Argument '", deparse(substitute(threshold)), "' (", type,
+      " coverage proportion) should be a numeric value >= 0 and <= 1",
       call. = FALSE
     )
   }

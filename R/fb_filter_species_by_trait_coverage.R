@@ -28,9 +28,7 @@ fb_filter_species_by_trait_coverage <- function(
   
   # Check inputs
   check_species_traits(species_traits)
-  check_threshold_proportion(
-    threshold_traits_proportion, "trait", "threshold_traits_proportion"
-  )
+  check_threshold_proportion(threshold_traits_proportion, "trait")
   
   
   # Check for absence of variability in traits ----

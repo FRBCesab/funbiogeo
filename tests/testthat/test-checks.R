@@ -236,7 +236,7 @@ test_that("check_threshold_proportion() works", {
   # Missing threshold
   expect_error(
     check_threshold_proportion(),
-    "Argument 'threshold' (trait coverage) is required",
+    "Argument '' (trait coverage) is required",
     fixed = TRUE
   )
   
@@ -250,7 +250,7 @@ test_that("check_threshold_proportion() works", {
   # Threshold below 0
   expect_error(
     check_threshold_proportion(-1),
-    paste0("Argument 'threshold' (trait coverage proportion) should be ",
+    paste0("Argument '-1' (trait coverage proportion) should be ",
            "a numeric value >= 0 and <= 1"),
     fixed = TRUE
   )
@@ -258,7 +258,7 @@ test_that("check_threshold_proportion() works", {
   # Threshold above 1
   expect_error(
     check_threshold_proportion(2),
-    paste0("Argument 'threshold' (trait coverage proportion) should be ",
+    paste0("Argument '2' (trait coverage proportion) should be ",
            "a numeric value >= 0 and <= 1"),
     fixed = TRUE
   )
