@@ -7,6 +7,8 @@ tavg_file <- system.file("extdata", "annual_mean_temp.tif",
                          package = "funbiogeo")
 tavg <- terra::rast(tavg_file)
 
+# Force CRS to be EPSG:4326 (works with old and new GDAL versions)
+suppressWarnings(sf::st_crs(site_locations) <- 4326)
 
 # Test: Missing Input ----------------------------------------------------------
 
@@ -76,7 +78,8 @@ test_that("fb_aggregate_site_data() works", {
   # No reprojection
   expect_silent(
     ras <- fb_aggregate_site_data(
-      sf::st_set_crs(site_locations, 4326), site_species[, 1:3], tavg
+      suppressWarnings(sf::st_centroid(sf::st_set_crs(site_locations, 4326))),
+      site_species[, 1:3], tavg
     )
   )
   
@@ -91,9 +94,15 @@ test_that("fb_aggregate_site_data() works", {
   
   tavg_prj <- terra::project(tavg, rob)
   
+  ras <- fb_aggregate_site_data(
+    suppressWarnings(sf::st_centroid(site_locations)), site_species[, 1:3],
+    tavg_prj
+  )
+  
   expect_silent(
     ras <- fb_aggregate_site_data(
-      site_locations, site_species[, 1:3], tavg_prj
+      suppressWarnings(sf::st_centroid(site_locations)), site_species[, 1:3],
+      tavg_prj
     )
   )
   

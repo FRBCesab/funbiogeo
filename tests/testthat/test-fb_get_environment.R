@@ -11,6 +11,9 @@ tavg   <- system.file("extdata", "annual_mean_temp.tif",
                       package = "funbiogeo")
 layers <- terra::rast(c(tavg, prec))
 
+# Force CRS to be EPSG:4326 (works with old and new GDAL versions)
+suppressWarnings(sf::st_crs(site_locations) <- 4326)
+
 
 # Test: Missing input ----------------------------------------------------------
 
@@ -73,23 +76,39 @@ test_that("fb_get_environment() errors with wrong input type", {
 
 test_that("fb_get_environment() works", {
   
+  env_value <- fb_get_environment(
+    suppressWarnings(sf::st_centroid(site_locations)), layers
+  )
+  
   # Regular input
-  expect_silent(env_value <- fb_get_environment(site_locations, layers))
+  expect_silent(
+    env_value <- fb_get_environment(
+      suppressWarnings(sf::st_centroid(site_locations)), layers
+    )
+  )
   
   expect_s3_class(env_value, "data.frame")
   expect_named(env_value, c("site", "annual_mean_temp", "annual_tot_prec"))
   expect_equal(dim(env_value), c(1505, 3))
-  expect_equal(round(env_value[["annual_tot_prec"]][[1]]), 2480)
+  expect_equal(round(env_value[["annual_tot_prec"]][[1]]), 2620)
   
   # Different CRS
   rob <- "+proj=robin +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs"
   
   layers_prj <- terra::project(layers, rob)
   
-  expect_silent(env_value <- fb_get_environment(site_locations, layers_prj))
+  env_value <- fb_get_environment(
+    suppressWarnings(sf::st_centroid(site_locations)), layers_prj
+  )
+  
+  expect_silent(
+    env_value <- fb_get_environment(
+      suppressWarnings(sf::st_centroid(site_locations)), layers_prj
+    )
+  )
   
   expect_s3_class(env_value, "data.frame")
   expect_named(env_value, c("site", "annual_mean_temp", "annual_tot_prec"))
   expect_equal(dim(env_value), c(1505, 3))
-  expect_equal(env_value[["annual_mean_temp"]][[1]], 6.6, tolerance = 0.01)
+  expect_equal(env_value[["annual_mean_temp"]][[1]], 6.3, tolerance = 0.01)
 })
