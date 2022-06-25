@@ -13,6 +13,7 @@
 
 check_site_species <- function(site_species) {
   
+  
   # Check missing --------------------------------------------------------------
   
   if (missing(site_species)) {
@@ -22,6 +23,7 @@ check_site_species <- function(site_species) {
     )
   }
 
+  
   # Check object type ----------------------------------------------------------
   
   if (!is.data.frame(site_species)) {
@@ -48,8 +50,6 @@ check_site_species <- function(site_species) {
       stop("The site x species object must contain the 'site' column", 
            call. = FALSE)
     }
-    
-    
   }
   
   
@@ -79,6 +79,7 @@ check_site_species <- function(site_species) {
 
 check_species_traits <- function(species_traits) {
   
+  
   # Check missing --------------------------------------------------------------
   
   if (missing(species_traits)) {
@@ -87,6 +88,7 @@ check_species_traits <- function(species_traits) {
       call. = FALSE
     )
   }
+  
   
   # Check object type ----------------------------------------------------------
   
@@ -114,7 +116,6 @@ check_species_traits <- function(species_traits) {
       stop("The species x traits object must contain the 'species' column",
            call. = FALSE)
     }
-    
   }
   
   invisible(NULL)
@@ -124,15 +125,17 @@ check_species_traits <- function(species_traits) {
 
 #' Check site x locations object format
 #'
-#' Errors if the object is not an `sf` object and returns NULL otherwise.
+#' @description
+#' Errors if the object is not an `sf` object and returns `NULL` otherwise.
 #' 
 #' @param site_locations an `sf` object with all sites.
 #'
-#' @return `NULL` if the object passes the test, errors otherwise 
+#' @return `NULL` if the object passes the test, errors otherwise.
 #' 
 #' @noRd
 
 check_site_locations <- function(site_locations) {
+  
   
   # Check missing --------------------------------------------------------------
   
@@ -142,6 +145,7 @@ check_site_locations <- function(site_locations) {
       call. = FALSE
     )
   }
+  
   
   # Check object type ----------------------------------------------------------
   
@@ -158,23 +162,33 @@ check_site_locations <- function(site_locations) {
   invisible(NULL)
 }
 
+
+
 #' Check given threshold
 #' 
+#' @description
 #' This function will error if threshold is missing or if it is not numeric
 #' or if it's below 0 or above 1.
 #' It will remain silent otherwise.
 #'
-#' @param threshold `numeric(1)` threshold argument to be check
-#' @param type `character(1)` name of the type of the threshold which is going
-#'             to be reused in error messages
+#' @param threshold a `numeric` of length 1. The threshold argument to be 
+#'   checked.
+#' 
+#' @param type a `character` of length 1. The name of the type of the 
+#'   threshold which is going to be reused in error messages.
 #'
 #' @noRd
-check_threshold_proportion = function(
+
+check_threshold_proportion <- function(
     threshold, type = c("trait", "site", "species")
 ) {
+  
+  
   type <- match.arg(type)
   
+  
   # Check missing --------------------------------------------------------------
+  
   if (missing(threshold)) {
     stop(
       "Argument '", deparse(substitute(threshold)), "' (", type,
@@ -182,7 +196,9 @@ check_threshold_proportion = function(
     )
   }
   
+  
   # Check object type ----------------------------------------------------------
+  
   if (!is.numeric(threshold)) {
     stop(
       "Argument '", deparse(substitute(threshold)), "' (", type,
@@ -190,7 +206,9 @@ check_threshold_proportion = function(
     )
   }
   
+  
   # Check values ---------------------------------------------------------------
+  
   if (threshold < 0 | threshold > 1) {
     stop(
       "Argument '", deparse(substitute(threshold)), "' (", type,
@@ -199,5 +217,5 @@ check_threshold_proportion = function(
     )
   }
   
-  return(invisible(NULL))
+  invisible(NULL)
 }
