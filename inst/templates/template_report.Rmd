@@ -1,0 +1,18 @@
+---
+title: {{title}}
+author: {{author}}
+date: `r format(Sys.Date(), "%Y-%m-%d")`
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  fig.width  = 7,
+  fig.height = 7,
+  dpi        = 100,
+  out.width  = "100%",
+  echo       = FALSE,
+  eval       = TRUE
+)
+```
+
+This is a first draft of the template report to summarize user data.
