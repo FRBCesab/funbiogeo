@@ -74,18 +74,6 @@ test_that("fb_filter_sites_by_species_coverage() errors with wrong inputs", {
     "Coverage threshold should be a numeric value >= 0 and <= 1",
     fixed = TRUE
   )
-  
-  
-  # Check for site without species ----
-  
-  expect_message(
-    test_empty_sites <- fb_filter_sites_by_species_coverage(
-      site_species3, threshold_species_proportion = 0
-    ),
-    paste0("Some sites have no present species. ", 
-           "Maybe you would like to remove them."),
-    fixed = TRUE
-  )
 })
 
 # Well-formed inputs -----------------------------------------------------------
@@ -110,12 +98,9 @@ test_that("fb_filter_sites_by_species_coverage() successully works", {
   expect_equal(test_coverage$"sp2"[1], 1)
   
   # Test for one site without any species
-  expect_message(
-    test_coverage <- fb_filter_sites_by_species_coverage(site_species3, 0.5),
-    paste0("Some sites have no present species. ", 
-           "Maybe you would like to remove them."),
-    fixed = TRUE
-  )
+  expect_silent({
+    test_coverage <- fb_filter_sites_by_species_coverage(site_species3, 0.5)
+  })
   
   expect_equal(ncol(test_coverage), 3)
   

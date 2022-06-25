@@ -84,24 +84,6 @@ test_that("fb_filter_traits_by_species_coverage() errors with wrong inputs", {
     fixed = TRUE
   )
   
-  
-  # Check for only NA for some traits
-  expect_message(
-    fb_filter_traits_by_species_coverage(species_traits2, 
-                                         threshold_species_proportion = 0),
-    "Some traits have only NA values. Maybe you would like to remove them.",
-    fixed = TRUE
-  )
-  
-  expect_message(
-    fb_filter_traits_by_species_coverage(
-      species_traits4, threshold_species_proportion = 0
-    ),
-    paste0("Some traits have no variability (one single value). ",
-           "Maybe you would like to remove them."),
-    fixed = TRUE
-  )
-  
   expect_message(
     test_coverage <- fb_filter_traits_by_species_coverage(
       species_traits3, threshold_species_proportion = 1
@@ -137,9 +119,9 @@ test_that("fb_filter_traits_by_species_coverage() successully works", {
   expect_equal(test_coverage$"t2"[1], 2.2)
   
   # Test for one trait with all NA
-  expect_message(
+  expect_silent({
     test_coverage <- fb_filter_traits_by_species_coverage(species_traits2, 0.75)
-  )
+  })
   
   expect_equal(ncol(test_coverage), 2)
   
