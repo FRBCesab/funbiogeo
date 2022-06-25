@@ -32,30 +32,6 @@ fb_filter_traits_by_species_coverage <- function(
   check_species_traits(species_traits)
   check_threshold_proportion(threshold_species_proportion, "species")
   
-  # Check for absence of variability in traits ----
-  
-  n_modalities  <- unlist(
-    lapply(
-      colnames(species_traits)[-1], function(x) {
-        length(unique(species_traits[[x]][!is.na(species_traits[[x]])]))
-      }
-    )
-  )
-  
-  only_na_traits <- colnames(species_traits)[-1][which(n_modalities == 0)]
-  
-  if (length(only_na_traits) > 0) {
-    message("Some traits have only NA values. ", 
-            "Maybe you would like to remove them.")
-  }
-  
-  unique_traits <- colnames(species_traits)[-1][which(n_modalities == 1)]
-  
-  if (length(unique_traits) > 0) {
-    message("Some traits have no variability (one single value). ", 
-            "Maybe you would like to remove them.")
-  }
-  
   
   # Get species coverage for each trait ----
   

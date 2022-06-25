@@ -73,18 +73,6 @@ test_that("fb_filter_species_by_site_coverage() errors with wrong inputs", {
     "Coverage threshold should be a numeric value >= 0 and <= 1",
     fixed = TRUE
   )
-  
-  
-  # Check for species absent from all sites ----
-  
-  expect_message(
-    test_absent_species <- fb_filter_species_by_site_coverage(
-      site_species2, threshold_sites_proportion = 0
-    ),
-    paste0("Some species are absent from the study area. ", 
-           "Maybe you would like to remove them."),
-    fixed = TRUE
-  )
 })
 
 # Well-formed inputs -----------------------------------------------------------
@@ -109,12 +97,9 @@ test_that("fb_filter_species_by_site_coverage() successully works", {
   expect_equal(test_coverage$"sp2"[1], 1)
   
   # Test for one species with all NA
-  expect_message(
-    test_coverage <- fb_filter_species_by_site_coverage(site_species2, 0.5),
-    paste0("Some species are absent from the study area. ",
-           "Maybe you would like to remove them."),
-    fixed = TRUE
-  )
+  expect_silent({
+    test_coverage <- fb_filter_species_by_site_coverage(site_species2, 0.5)
+  })
   
   expect_equal(ncol(test_coverage), 2)
   
