@@ -1,7 +1,35 @@
 ---
-title: {{title}}
-author: {{author}}
-date: `r format(Sys.Date(), "%Y-%m-%d")`
+title: "{{title}}"
+author: "{{author}}"
+date: "`r format(Sys.Date(), '%Y-%m-%d')`"
+output:
+  html_document: 
+    toc: true
+    toc_float: true
+    number_sections: true
+    fig_width: 7
+    fig_height: 7
+    fig_caption: true
+    df_print: kable
+    keep_md: false
+  pdf_document:
+    latex_engine: xelatex
+    keep_tex: false
+    toc: true
+    number_sections: true
+    fig_width: 7
+    fig_height: 7
+    fig_caption: true
+    df_print: kable
+    keep_md: false
+  word_document:
+    toc: true
+    number_sections: true
+    fig_width: 7
+    fig_height: 7
+    fig_caption: true
+    df_print: kable
+    keep_md: false
 ---
 
 ```{r setup, include=FALSE}
@@ -15,4 +43,20 @@ knitr::opts_chunk$set(
 )
 ```
 
+\
+
 This is a first draft of the template report to summarize user data.
+
+\
+
+# Title 1
+
+## Subtitle 1.1
+
+## Subtitle 1.2
+
+# Title 2
+
+## Subtitle 2.1
+
+## Subtitle 2.2
