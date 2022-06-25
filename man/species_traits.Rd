@@ -25,11 +25,11 @@ species_traits
 This dataset contains values for six functional traits of Western Europe
 mammals species. These values were extracted from the \strong{PanTHERIA} database
 (Jones 2009), a database on World mammals traits available at:
-https://esapubs.org/archive/ecol/E090/184/metadata.htm.
+\url{https://esapubs.org/archive/ecol/E090/184/metadata.htm}.
 In respect to the IUCN license, species names have been anonymized.
 
-See https://github.com/frbcesab/eumammals for a complete description of the
-workflow used to create this dataset.
+See \url{https://github.com/frbcesab/eumammals} for a complete description
+of the workflow used to create this dataset.
 
 This dataset shows the format of the argument \code{species_traits} used in
 several functions of \code{funbiogeo}.

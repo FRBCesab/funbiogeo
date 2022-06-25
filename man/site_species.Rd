@@ -14,16 +14,16 @@ site_species
 \description{
 This dataset contains the presence/absence of mammals species in Western
 Europe. This dataset is derived from IUCN range maps downloaded at:
-https://www.iucnredlist.org/resources/spatial-data-download. In respect to
-the license, species names have been anonymized.
+\url{https://www.iucnredlist.org/resources/spatial-data-download}. In
+respect to the license, species names have been anonymized.
 
-See https://github.com/frbcesab/eumammals for a complete description of the
-workflow used to create this dataset.
+See \url{https://github.com/frbcesab/eumammals} for a complete description
+of the workflow used to create this dataset.
 
 This dataset shows the format of the argument \code{site_species} used in
 several functions of \code{funbiogeo}.
 
-Note that sites labels (\code{cell}) is the first column of this dataset.
+Note that sites labels (\code{site}) is the first column of this dataset.
 }
 \examples{
 data("site_species")

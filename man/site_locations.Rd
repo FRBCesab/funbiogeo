@@ -16,13 +16,13 @@ This dataset contains spatial coordinates (grid cells of 0.5° x 0.5°
 horizontal resolution) of sites of Western Europe where mammals species
 presence/absence (see \code{site_species} dataset) has been sampled.
 
-See https://github.com/frbcesab/eumammals for a complete description of the
-workflow used to create this dataset.
+See \url{https://github.com/frbcesab/eumammals} for a complete description
+of the workflow used to create this dataset.
 
 This dataset shows the format of the argument \code{site_locations} used in
 several functions of \code{funbiogeo}.
 
-The variable \code{cell} corresponds to the sites labels.
+The variable \code{site} corresponds to the sites labels.
 }
 \examples{
 data("site_locations")

@@ -5,13 +5,13 @@
 #' horizontal resolution) of sites of Western Europe where mammals species 
 #' presence/absence (see `site_species` dataset) has been sampled.
 #' 
-#' See https://github.com/frbcesab/eumammals for a complete description of the
-#' workflow used to create this dataset.
+#' See \url{https://github.com/frbcesab/eumammals} for a complete description 
+#' of the workflow used to create this dataset.
 #' 
 #' This dataset shows the format of the argument `site_locations` used in 
 #' several functions of `funbiogeo`.
 #' 
-#' The variable `cell` corresponds to the sites labels.
+#' The variable `site` corresponds to the sites labels.
 #'   
 #' @format An `sf` object with 1,505 rows (grid cells) with a WGS84 (EPSG:4236)
 #'   Coordinate Reference System.
@@ -31,16 +31,16 @@
 #' @description
 #' This dataset contains the presence/absence of mammals species in Western
 #' Europe. This dataset is derived from IUCN range maps downloaded at:
-#' https://www.iucnredlist.org/resources/spatial-data-download. In respect to
-#' the license, species names have been anonymized.
+#' \url{https://www.iucnredlist.org/resources/spatial-data-download}. In 
+#' respect to the license, species names have been anonymized.
 #' 
-#' See https://github.com/frbcesab/eumammals for a complete description of the
-#' workflow used to create this dataset.
+#' See \url{https://github.com/frbcesab/eumammals} for a complete description 
+#' of the workflow used to create this dataset.
 #' 
 #' This dataset shows the format of the argument `site_species` used in 
 #' several functions of `funbiogeo`.
 #' 
-#' Note that sites labels (`cell`) is the first column of this dataset.
+#' Note that sites labels (`site`) is the first column of this dataset.
 #'   
 #' @format A `data.frame` with 1,505 rows (sites) and 150 columns (1 column for 
 #' site label and 149 for species occurrence).
@@ -65,11 +65,11 @@
 #' This dataset contains values for six functional traits of Western Europe
 #' mammals species. These values were extracted from the **PanTHERIA** database
 #' (Jones 2009), a database on World mammals traits available at: 
-#' https://esapubs.org/archive/ecol/E090/184/metadata.htm.
+#' \url{https://esapubs.org/archive/ecol/E090/184/metadata.htm}.
 #' In respect to the IUCN license, species names have been anonymized.
 #' 
-#' See https://github.com/frbcesab/eumammals for a complete description of the
-#' workflow used to create this dataset.
+#' See \url{https://github.com/frbcesab/eumammals} for a complete description 
+#' of the workflow used to create this dataset.
 #' 
 #' This dataset shows the format of the argument `species_traits` used in 
 #' several functions of `funbiogeo`.
