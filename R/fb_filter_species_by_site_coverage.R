@@ -31,12 +31,7 @@ fb_filter_species_by_site_coverage <- function(
   ## Check inputs ----
   
   check_site_species(site_species)
-  
-  if (!is.numeric(threshold_sites_proportion) | 
-      threshold_sites_proportion > 1 | threshold_sites_proportion < 0) {
-    stop("Coverage threshold should be a numeric value >= 0 and <= 1",
-         call. = FALSE)
-  }
+  check_threshold_proportion(threshold_sites_proportion, "site")
 
   
   # Get sites coverage for each species ----
