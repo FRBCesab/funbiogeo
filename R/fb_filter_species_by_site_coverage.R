@@ -37,20 +37,7 @@ fb_filter_species_by_site_coverage <- function(
     stop("Coverage threshold should be a numeric value >= 0 and <= 1",
          call. = FALSE)
   }
-  
-  
-  # Check for missing species ----
-  
-  unknown_species <- apply(site_species[ , -1], 2, function(x)
-    length(unique(x[!is.na(x) & x > 0])))
-  
-  unknown_species <- names(unknown_species)[which(unknown_species == 0)]
-  
-  if (length(unknown_species) > 0) {
-    message("Some species are absent from the study area. ", 
-            "Maybe you would like to remove them.")
-  }
-  
+
   
   # Get sites coverage for each species ----
   
