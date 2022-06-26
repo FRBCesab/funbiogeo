@@ -36,7 +36,8 @@ Imports:
     terra,
     tidyr,
     tidyselect,
-    utils
+    utils,
+    xfun
 Suggests:
     ggridges,
     knitr,
