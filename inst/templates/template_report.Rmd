@@ -2,16 +2,15 @@
 title: "{{title}}"
 date: "`r format(Sys.Date(), '%Y-%m-%d')`"
 output:
-  html_document: 
+  bookdown::html_document2: 
     toc: true
     toc_float: true
     number_sections: true
     fig_width: 7
     fig_height: 7
     fig_caption: true
-    df_print: kable
     keep_md: false
-  pdf_document:
+  bookdown::pdf_document2:
     latex_engine: xelatex
     keep_tex: false
     toc: true
@@ -19,15 +18,13 @@ output:
     fig_width: 7
     fig_height: 7
     fig_caption: true
-    df_print: kable
     keep_md: false
-  word_document:
+  bookdown::word_document2:
     toc: true
     number_sections: true
     fig_width: 7
     fig_height: 7
     fig_caption: true
-    df_print: kable
     keep_md: false
 ---
 
@@ -42,20 +39,49 @@ knitr::opts_chunk$set(
 )
 ```
 
-\
-
-This is a first draft of the template report to summarize user data.
 
 \
 
-# Title 1
 
-## Subtitle 1.1
 
-## Subtitle 1.2
+```{r rename-data}
+# site_species   <- {{site_species}}
+species_traits <- {{species_traits}}
+# site_locations <- {{site_locations}}
+```
 
-# Title 2
 
-## Subtitle 2.1
+# Introduction {-}
 
-## Subtitle 2.2
+Cupidatat nostrud occaecat labore exercitation eu nulla eiusmod veniam eu esse 
+nulla commodo fugiat. Proident tempor veniam aliquip exercitation Lorem 
+adipisicing labore non officia veniam ipsum amet. Cupidatat et dolor cupidatat 
+amet elit labore commodo. Duis reprehenderit duis ullamco fugiat deserunt. 
+
+Irure esse non id ea anim dolor non ullamco sit. Aliquip aliquip nisi consequat 
+eu labore cillum incididunt aliquip magna dolor deserunt quis labore.
+
+
+
+# Data description
+
+## Species x traits data
+
+The species x traits data consists in `r nrow(species_traits)` species and 
+`r ncol(species_traits) - 1` traits (Table \@ref(tab:species-traits) and
+Figure \@ref(fig:n-species-by-traits)).
+
+
+\
+
+
+```{r species-traits, results='asis'}
+knitr::kable(species_traits, row.names = FALSE, 
+             caption = "Species x traits data", longtable = TRUE)
+```
+
+
+
+```{r n-species-by-traits, fig.cap='Number of species by trait'}
+fb_plot_number_species_by_trait(species_traits)
+```
