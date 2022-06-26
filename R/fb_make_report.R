@@ -58,11 +58,6 @@ fb_make_report <- function(path = ".", filename = NULL, title = NULL,
   }
   
   
-  # Check data names ----
-  
-  check_object_name(species_traits_name)
-  
-  
   # Create file name and title ----
   
   if (is.null(title) && !is.null(filename)) {
@@ -92,6 +87,11 @@ fb_make_report <- function(path = ".", filename = NULL, title = NULL,
     stop("The file '", path, "' already exists. If you want to replace it, ", 
          "use 'overwrite = TRUE'.", call. = FALSE)
   }
+  
+  
+  # Check data names ----
+  
+  check_object_name(species_traits_name)
   
   
   # Copy template ----
