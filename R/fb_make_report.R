@@ -69,7 +69,7 @@ fb_make_report <- function(path = ".", filename = NULL, title = NULL,
   if (is.null(filename)) {
     filename <- "funbiogeo_report"
   } else {
-    filename <- gsub("\\.Rmd$", "", filename)
+    filename <- gsub("\\.Rmd$", "", filename, ignore.case = TRUE)
   }
   
   filename <- paste0(filename, ".Rmd")
