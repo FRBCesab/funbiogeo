@@ -12,6 +12,13 @@ dir.create(path2, showWarnings = FALSE)
 
 filename <- file.path(path2, "funbiogeo_report.Rmd")
 
+# Fake datasets ----
+
+sp_tr <- data.frame(
+  species = paste0("sp", 1:4),
+  t1      = c(NA, 2.5, 100, 400),
+  t2      = c(2.2, 5.0, 200, 200)
+)
 
 # Test for errors ----
 
@@ -34,6 +41,23 @@ test_that("fb_make_report() errors", {
            "exists. If you want to replace it, use 'overwrite = TRUE'."),
     fixed = TRUE) 
   
+  # Wrong species_traits_name ----
+  
+  expect_error(
+    fb_make_report(path = path2, overwrite = TRUE),
+    "The argument 'species_traits_name' is required",
+    fixed = TRUE) 
+  
+  expect_error(
+    fb_make_report(path = path2, overwrite = TRUE, species_traits_name = sp_tr),
+    "The argument 'species_traits_name' must be a character of length 1",
+    fixed = TRUE) 
+  
+  expect_error(
+    fb_make_report(path = path2, overwrite = TRUE, 
+                   species_traits_name = rep("sp_tr", 2)),
+    "The argument 'species_traits_name' must be a character of length 1",
+    fixed = TRUE) 
 })
 
 
@@ -48,7 +72,7 @@ test_that("fb_make_report() overwrite option", {
   invisible(file.create(filename)) # Create empty file
   
   expect_silent(
-    fb_make_report(path = path2, overwrite = TRUE)
+    fb_make_report(path = path2, species_traits_name = "sp_tr", overwrite = TRUE)
   )
   
   content <- readLines(filename)
@@ -67,7 +91,7 @@ test_that("fb_make_report() filename and title", {
   invisible(file.remove(filename))
   
   expect_silent(
-    fb_make_report(path = path2)
+    fb_make_report(path = path2, species_traits_name = "sp_tr")
   )
   
   expect_true(file.exists(filename))
@@ -84,7 +108,8 @@ test_that("fb_make_report() filename and title", {
   file_name <- "my_report.Rmd"
   
   expect_silent(
-    fb_make_report(path = path2, filename = file_name)
+    fb_make_report(path = path2, species_traits_name = "sp_tr", 
+                   filename = file_name)
   )
   
   expect_true(file.exists(file.path(path2, file_name)))
@@ -101,7 +126,8 @@ test_that("fb_make_report() filename and title", {
   file_name <- "my_report.Rmd"
   
   expect_silent(
-    fb_make_report(path = path2, filename = tolower(file_name))
+    fb_make_report(path = path2, species_traits_name = "sp_tr", 
+                   filename = tolower(file_name))
   )
   
   expect_true(file.exists(file.path(path2, file_name)))
@@ -118,7 +144,8 @@ test_that("fb_make_report() filename and title", {
   file_name <- "my_report"
   
   expect_silent(
-    fb_make_report(path = path2, filename = file_name)
+    fb_make_report(path = path2, species_traits_name = "sp_tr", 
+                   filename = file_name)
   )
   
   expect_true(file.exists(file.path(path2, paste0(file_name, ".Rmd"))))
@@ -136,7 +163,7 @@ test_that("fb_make_report() filename and title", {
   expected_filename <- file.path(path2, "my_beautiful_title.Rmd")
     
   expect_silent(
-    fb_make_report(path = path2, title = title)
+    fb_make_report(path = path2, species_traits_name = "sp_tr", title = title)
   )
   
   expect_true(file.exists(expected_filename))
@@ -154,7 +181,7 @@ test_that("fb_make_report() filename and title", {
   expected_filename <- file.path(path2, "report_my_beautiful_title.Rmd")
   
   expect_silent(
-    fb_make_report(path = path2, title = title)
+    fb_make_report(path = path2, species_traits_name = "sp_tr", title = title)
   )
   
   expect_true(file.exists(expected_filename))
@@ -172,7 +199,8 @@ test_that("fb_make_report() filename and title", {
   file_name <- "report_made_by_funbiogeo.Rmd"
   
   expect_silent(
-    fb_make_report(path = path2, title = title, filename = file_name)
+    fb_make_report(path = path2, species_traits_name = "sp_tr", 
+                   title = title, filename = file_name)
   )
   
   expect_true(file.exists(file.path(path2, file_name)))
@@ -193,7 +221,7 @@ test_that("fb_make_report() authorship", {
   # No author provided ----
   
   expect_silent(
-    fb_make_report(path = path2, overwrite = TRUE)
+    fb_make_report(path = path2, species_traits_name = "sp_tr", overwrite = TRUE)
   )
   
   expect_true(file.exists(filename))
@@ -208,7 +236,8 @@ test_that("fb_make_report() authorship", {
   # Single author provided ----
   
   expect_silent(
-    fb_make_report(path = path2, overwrite = TRUE, author = "Jane Doe")
+    fb_make_report(path = path2, species_traits_name = "sp_tr", 
+                   overwrite = TRUE, author = "Jane Doe")
   )
   
   expect_true(file.exists(filename))
@@ -221,7 +250,8 @@ test_that("fb_make_report() authorship", {
   # Multiple authors provided ----
   
   expect_silent(
-    fb_make_report(path = path2, overwrite = TRUE, author = "Doe J. and Doe J.")
+    fb_make_report(path = path2, species_traits_name = "sp_tr", 
+                   overwrite = TRUE, author = "Doe J. and Doe J.")
   )
   
   expect_true(file.exists(filename))
@@ -234,7 +264,7 @@ test_that("fb_make_report() authorship", {
   # Multiple authors provided ----
   
   expect_silent(
-    fb_make_report(path = path2, overwrite = TRUE, 
+    fb_make_report(path = path2, species_traits_name = "sp_tr", overwrite = TRUE, 
                    author = c("Doe J.", "Doe J."))
   )
   
@@ -247,16 +277,38 @@ test_that("fb_make_report() authorship", {
 
 
 
+# Test for data names ----
+
+test_that("fb_make_report() data names", {
+
+  # Species x traits dataset ----
+  
+  expect_silent(
+    fb_make_report(path = path2, species_traits_name = "sp_tr", overwrite = TRUE)
+  )
+  
+  expect_true(file.exists(filename))
+  
+  content <- readLines(filename)
+  
+  expect_equal(length(grep("species_traits <- sp_tr", content)), 1)
+  
+  invisible(file.remove(filename))
+})
+  
+  
+
 # Test for outputs ----
 
 test_that("fb_make_report() output", {
   
   expect_invisible(
-    fb_make_report(path = path2, overwrite = TRUE)
+    fb_make_report(path = path2, species_traits_name = "sp_tr", overwrite = TRUE)
   )
   
   expect_silent(
-    res <- fb_make_report(path = path2, overwrite = TRUE)
+    res <- fb_make_report(path = path2, species_traits_name = "sp_tr", 
+                          overwrite = TRUE)
   )
   
   expect_null(res)

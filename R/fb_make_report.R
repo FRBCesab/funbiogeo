@@ -4,9 +4,9 @@
 #' Creates an R Markdown (`.Rmd`) report from a template to explore and 
 #' summarize users data. User can modify this report and use the function
 #' [rmarkdown::render()] to convert this `.Rmd` in different formats:
-#' - HTML document (`output_format = "html_document"`);
-#' - PDF document (`output_format = "pdf_document"`);
-#' - WORD document (`output_format = "word_document"`);
+#' - HTML document (`output_format = "bookdown::html_document2"`);
+#' - PDF document (`output_format = "bookdown::pdf_document2"`);
+#' - WORD document (`output_format = "bookdown::word_document2"`);
 #' - HTML, PDF and WORD documents (`output_format = "all"`).
 #' 
 #' @param path a `character` of length 1. The directory in which the `.Rmd` 
@@ -38,12 +38,20 @@
 #' # Create temporary folder ----
 #' temp_path <- tempdir()
 #' 
+#' # Load data ----
+#' data("species_traits")
+#' 
 #' # Create report ----
-#' fb_make_report(path = temp_path, author = "Casajus N. and Grenie M.")
+#' fb_make_report(path = temp_path, author = "Casajus N. and Grenie M.",
+#'                species_traits_name = "species_traits")
 #' 
 #' \dontrun{
 #' # Open Rmd file ----
 #' utils::file.edit(file.path(temp_path, "funbiogeo_report.Rmd"))
+#' 
+#' # Render Rmd file ----
+#' rmarkdown::render(file.path(temp_path, "funbiogeo_report.Rmd"), 
+#'                   output_format = "all")
 #' }
 
 fb_make_report <- function(path = ".", filename = NULL, title = NULL, 
