@@ -21,6 +21,10 @@
 #'   
 #' @param author a `character` of length 1. The author(s) of the report. 
 #'   If `NULL` (default) no author will be added.
+#'   
+#' @param species_traits_name a `character` of length 1. The **name** of the 
+#'   species x traits dataset (not the object). Note that before rendering the 
+#'   report this dataset must be loaded.
 #' 
 #' @param overwrite a logical. If this file is already present and 
 #'   `overwrite = TRUE`, it will be erased and replaced by the template.
@@ -43,7 +47,8 @@
 #' }
 
 fb_make_report <- function(path = ".", filename = NULL, title = NULL, 
-                           author = NULL, overwrite = FALSE) {
+                           author = NULL, species_traits_name, 
+                           overwrite = FALSE) {
   
   
   # Check path ----
@@ -51,6 +56,11 @@ fb_make_report <- function(path = ".", filename = NULL, title = NULL,
   if (!dir.exists(path)) {
     stop("The path '", path, "' does not exist", call. = FALSE)
   }
+  
+  
+  # Check data names ----
+  
+  check_object_name(species_traits_name)
   
   
   # Create file name and title ----
@@ -110,6 +120,12 @@ fb_make_report <- function(path = ".", filename = NULL, title = NULL,
   }
   
   xfun::gsub_file(path, "\"{{title}}\"", paste0("\"", title, "\""), 
+                  fixed = TRUE)
+  
+  
+  # Replace data names ----
+  
+  xfun::gsub_file(path, "{{species_traits}}", species_traits_name, 
                   fixed = TRUE)
   
   invisible(NULL)

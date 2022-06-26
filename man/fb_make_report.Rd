@@ -9,6 +9,7 @@ fb_make_report(
   filename = NULL,
   title = NULL,
   author = NULL,
+  species_traits_name,
   overwrite = FALSE
 )
 }
@@ -25,6 +26,10 @@ If \code{NULL} (default) the title will be \verb{funbiogeo Report}.}
 
 \item{author}{a \code{character} of length 1. The author(s) of the report.
 If \code{NULL} (default) no author will be added.}
+
+\item{species_traits_name}{a \code{character} of length 1. The \strong{name} of the
+species x traits dataset (not the object). Note that before rendering the
+report this dataset must be loaded.}
 
 \item{overwrite}{a logical. If this file is already present and
 \code{overwrite = TRUE}, it will be erased and replaced by the template.
