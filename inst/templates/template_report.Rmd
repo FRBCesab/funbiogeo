@@ -45,10 +45,11 @@ knitr::opts_chunk$set(
 
 
 ```{r rename-data}
-# site_species   <- {{site_species}}
+site_species   <- {{site_species}}
 species_traits <- {{species_traits}}
-# site_locations <- {{site_locations}}
+site_locations <- {{site_locations}}
 ```
+
 
 
 # Introduction {-}
@@ -76,7 +77,7 @@ Figure \@ref(fig:n-species-by-traits)).
 
 
 ```{r species-traits, results='asis'}
-knitr::kable(species_traits, row.names = FALSE, 
+knitr::kable(head(species_traits, 10), row.names = FALSE, 
              caption = "Species x traits data", longtable = TRUE)
 ```
 
@@ -84,4 +85,34 @@ knitr::kable(species_traits, row.names = FALSE,
 
 ```{r n-species-by-traits, fig.cap='Number of species by trait'}
 fb_plot_number_species_by_trait(species_traits)
+```
+
+
+
+## Sites x species data
+
+The sites x species data consists in `r nrow(site_species)` sites and 
+`r ncol(species_traits) - 1` species (Table \@ref(tab:site-species)).
+
+
+\
+
+
+```{r site-species, results='asis'}
+knitr::kable(head(site_species[ , 1:6], 10), row.names = FALSE, 
+             caption = "Sites x species data", longtable = TRUE)
+```
+
+
+
+## Sites x locations data
+
+The sites x locations data consists in `r nrow(site_locations)` sites.
+
+
+\
+
+
+```{r site-locations}
+print(site_locations)
 ```

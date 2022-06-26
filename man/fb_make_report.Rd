@@ -10,6 +10,8 @@ fb_make_report(
   title = NULL,
   author = NULL,
   species_traits_name,
+  site_species_name,
+  site_locations_name,
   overwrite = FALSE
 )
 }
@@ -29,6 +31,14 @@ If \code{NULL} (default) no author will be added.}
 
 \item{species_traits_name}{a \code{character} of length 1. The \strong{name} of the
 species x traits dataset (not the object). Note that before rendering the
+report this dataset must be loaded.}
+
+\item{site_species_name}{a \code{character} of length 1. The \strong{name} of the
+sites x species dataset (not the object). Note that before rendering the
+report this dataset must be loaded.}
+
+\item{site_locations_name}{a \code{character} of length 1. The \strong{name} of the
+sites x locations dataset (not the object). Note that before rendering the
 report this dataset must be loaded.}
 
 \item{overwrite}{a logical. If this file is already present and
@@ -55,10 +65,15 @@ temp_path <- tempdir()
 
 # Load data ----
 data("species_traits")
+data("site_species")
+data("site_locations")
 
 # Create report ----
-fb_make_report(path = temp_path, author = "Casajus N. and Grenie M.",
-               species_traits_name = "species_traits")
+fb_make_report(path                = temp_path, 
+               author              = "Casajus N. and Grenie M.",
+               species_traits_name = "species_traits",
+               site_species_name   = "site_species",
+               site_locations_name = "site_locations")
 
 \dontrun{
 # Open Rmd file ----

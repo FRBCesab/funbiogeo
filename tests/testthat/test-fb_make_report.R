@@ -16,9 +16,19 @@ filename <- file.path(path2, "funbiogeo_report.Rmd")
 
 sp_tr <- data.frame(
   species = paste0("sp", 1:4),
-  t1      = c(NA, 2.5, 100, 400),
-  t2      = c(2.2, 5.0, 200, 200)
+  t1      = c(0.01, 0.05, 0.05, 0.10),
+  t2      = c( 100,  100,  200,  400),
+  t3      = c( "A",  "A",  "B",  "C")
 )
+
+st_sp <- data.frame(
+  site = 1:4,
+  sp1  = c( 0, 1, 0, 1),
+  sp2  = c( 1, 1, 0, 0)
+)
+
+st_loc <- site_locations[1:4, ]
+
 
 # Test for errors ----
 
@@ -58,6 +68,55 @@ test_that("fb_make_report() errors", {
                    species_traits_name = rep("sp_tr", 2)),
     "The argument 'species_traits_name' must be a character of length 1",
     fixed = TRUE) 
+  
+  
+  # Wrong site_species_name ----
+  
+  expect_error(
+    fb_make_report(path = path2, overwrite = TRUE,
+                   species_traits_name = "sp_tr"),
+    "The argument 'site_species_name' is required",
+    fixed = TRUE) 
+  
+  expect_error(
+    fb_make_report(path = path2, overwrite = TRUE, 
+                   species_traits_name = "sp_tr",
+                   site_species_name = st_sp),
+    "The argument 'site_species_name' must be a character of length 1",
+    fixed = TRUE) 
+  
+  expect_error(
+    fb_make_report(path = path2, overwrite = TRUE,
+                   species_traits_name = "sp_tr",
+                   site_species_name = rep(st_sp, 2)),
+    "The argument 'site_species_name' must be a character of length 1",
+    fixed = TRUE)
+  
+  
+  # Wrong site_species_name ----
+  
+  expect_error(
+    fb_make_report(path = path2, overwrite = TRUE,
+                   species_traits_name = "sp_tr",
+                   site_species_name = "st_sp"),
+    "The argument 'site_locations_name' is required",
+    fixed = TRUE) 
+  
+  expect_error(
+    fb_make_report(path = path2, overwrite = TRUE, 
+                   species_traits_name = "sp_tr",
+                   site_species_name = "st_sp",
+                   site_locations_name = st_loc),
+    "The argument 'site_locations_name' must be a character of length 1",
+    fixed = TRUE) 
+  
+  expect_error(
+    fb_make_report(path = path2, overwrite = TRUE,
+                   species_traits_name = "sp_tr",
+                   site_species_name = "st_sp",
+                   site_locations_name = rep(st_loc, 2)),
+    "The argument 'site_locations_name' must be a character of length 1",
+    fixed = TRUE)
 })
 
 
@@ -72,7 +131,10 @@ test_that("fb_make_report() overwrite option", {
   invisible(file.create(filename)) # Create empty file
   
   expect_silent(
-    fb_make_report(path = path2, species_traits_name = "sp_tr", overwrite = TRUE)
+    fb_make_report(path = path2, , overwrite = TRUE, 
+                   species_traits_name = "sp_tr", 
+                   site_species_name = "st_sp", 
+                   site_locations_name = "st_loc")
   )
   
   content <- readLines(filename)
@@ -91,7 +153,10 @@ test_that("fb_make_report() filename and title", {
   invisible(file.remove(filename))
   
   expect_silent(
-    fb_make_report(path = path2, species_traits_name = "sp_tr")
+    fb_make_report(path = path2,
+                   species_traits_name = "sp_tr", 
+                   site_species_name = "st_sp", 
+                   site_locations_name = "st_loc")
   )
   
   expect_true(file.exists(filename))
@@ -108,7 +173,10 @@ test_that("fb_make_report() filename and title", {
   file_name <- "my_report.Rmd"
   
   expect_silent(
-    fb_make_report(path = path2, species_traits_name = "sp_tr", 
+    fb_make_report(path = path2, 
+                   species_traits_name = "sp_tr", 
+                   site_species_name = "st_sp", 
+                   site_locations_name = "st_loc",
                    filename = file_name)
   )
   
@@ -126,7 +194,10 @@ test_that("fb_make_report() filename and title", {
   file_name <- "my_report.Rmd"
   
   expect_silent(
-    fb_make_report(path = path2, species_traits_name = "sp_tr", 
+    fb_make_report(path = path2, 
+                   species_traits_name = "sp_tr", 
+                   site_species_name = "st_sp", 
+                   site_locations_name = "st_loc", 
                    filename = tolower(file_name))
   )
   
@@ -144,7 +215,10 @@ test_that("fb_make_report() filename and title", {
   file_name <- "my_report"
   
   expect_silent(
-    fb_make_report(path = path2, species_traits_name = "sp_tr", 
+    fb_make_report(path = path2, 
+                   species_traits_name = "sp_tr", 
+                   site_species_name = "st_sp", 
+                   site_locations_name = "st_loc", 
                    filename = file_name)
   )
   
@@ -163,7 +237,11 @@ test_that("fb_make_report() filename and title", {
   expected_filename <- file.path(path2, "my_beautiful_title.Rmd")
     
   expect_silent(
-    fb_make_report(path = path2, species_traits_name = "sp_tr", title = title)
+    fb_make_report(path = path2, 
+                   species_traits_name = "sp_tr", 
+                   site_species_name = "st_sp", 
+                   site_locations_name = "st_loc", 
+                   title = title)
   )
   
   expect_true(file.exists(expected_filename))
@@ -181,7 +259,11 @@ test_that("fb_make_report() filename and title", {
   expected_filename <- file.path(path2, "report_my_beautiful_title.Rmd")
   
   expect_silent(
-    fb_make_report(path = path2, species_traits_name = "sp_tr", title = title)
+    fb_make_report(path = path2, 
+                   species_traits_name = "sp_tr", 
+                   site_species_name = "st_sp", 
+                   site_locations_name = "st_loc", 
+                   title = title)
   )
   
   expect_true(file.exists(expected_filename))
@@ -199,7 +281,10 @@ test_that("fb_make_report() filename and title", {
   file_name <- "report_made_by_funbiogeo.Rmd"
   
   expect_silent(
-    fb_make_report(path = path2, species_traits_name = "sp_tr", 
+    fb_make_report(path = path2, 
+                   species_traits_name = "sp_tr", 
+                   site_species_name = "st_sp", 
+                   site_locations_name = "st_loc", 
                    title = title, filename = file_name)
   )
   
@@ -221,7 +306,11 @@ test_that("fb_make_report() authorship", {
   # No author provided ----
   
   expect_silent(
-    fb_make_report(path = path2, species_traits_name = "sp_tr", overwrite = TRUE)
+    fb_make_report(path = path2, 
+                   species_traits_name = "sp_tr", 
+                   site_species_name = "st_sp", 
+                   site_locations_name = "st_loc", 
+                   overwrite = TRUE)
   )
   
   expect_true(file.exists(filename))
@@ -236,7 +325,10 @@ test_that("fb_make_report() authorship", {
   # Single author provided ----
   
   expect_silent(
-    fb_make_report(path = path2, species_traits_name = "sp_tr", 
+    fb_make_report(path = path2, 
+                   species_traits_name = "sp_tr", 
+                   site_species_name = "st_sp", 
+                   site_locations_name = "st_loc", 
                    overwrite = TRUE, author = "Jane Doe")
   )
   
@@ -250,7 +342,10 @@ test_that("fb_make_report() authorship", {
   # Multiple authors provided ----
   
   expect_silent(
-    fb_make_report(path = path2, species_traits_name = "sp_tr", 
+    fb_make_report(path = path2, 
+                   species_traits_name = "sp_tr", 
+                   site_species_name = "st_sp", 
+                   site_locations_name = "st_loc", 
                    overwrite = TRUE, author = "Doe J. and Doe J.")
   )
   
@@ -264,7 +359,11 @@ test_that("fb_make_report() authorship", {
   # Multiple authors provided ----
   
   expect_silent(
-    fb_make_report(path = path2, species_traits_name = "sp_tr", overwrite = TRUE, 
+    fb_make_report(path = path2, 
+                   species_traits_name = "sp_tr", 
+                   site_species_name = "st_sp", 
+                   site_locations_name = "st_loc", 
+                   overwrite = TRUE, 
                    author = c("Doe J.", "Doe J."))
   )
   
@@ -281,17 +380,23 @@ test_that("fb_make_report() authorship", {
 
 test_that("fb_make_report() data names", {
 
-  # Species x traits dataset ----
+  # Dataset names ----
   
   expect_silent(
-    fb_make_report(path = path2, species_traits_name = "sp_tr", overwrite = TRUE)
+    fb_make_report(path = path2, 
+                   species_traits_name = "sp_tr", 
+                   site_species_name = "st_sp", 
+                   site_locations_name = "st_loc", 
+                   overwrite = TRUE)
   )
   
   expect_true(file.exists(filename))
   
   content <- readLines(filename)
   
-  expect_equal(length(grep("species_traits <- sp_tr", content)), 1)
+  expect_equal(length(grep("species_traits <- sp_tr",  content)), 1)
+  expect_equal(length(grep("site_species   <- st_sp",  content)), 1)
+  expect_equal(length(grep("site_locations <- st_loc", content)), 1)
   
   invisible(file.remove(filename))
 })
@@ -303,11 +408,18 @@ test_that("fb_make_report() data names", {
 test_that("fb_make_report() output", {
   
   expect_invisible(
-    fb_make_report(path = path2, species_traits_name = "sp_tr", overwrite = TRUE)
+    fb_make_report(path = path2, 
+                   species_traits_name = "sp_tr", 
+                   site_species_name = "st_sp", 
+                   site_locations_name = "st_loc", 
+                   overwrite = TRUE)
   )
   
   expect_silent(
-    res <- fb_make_report(path = path2, species_traits_name = "sp_tr", 
+    res <- fb_make_report(path = path2, 
+                          species_traits_name = "sp_tr", 
+                          site_species_name = "st_sp", 
+                          site_locations_name = "st_loc", 
                           overwrite = TRUE)
   )
   
