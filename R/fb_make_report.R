@@ -73,14 +73,14 @@ fb_make_report <- function(path = ".", filename = NULL, title = NULL,
                            overwrite = FALSE) {
   
   
-  # Check path ----
+  # Check path -----------------------------------------------------------------
   
   if (!dir.exists(path)) {
     stop("The path '", path, "' does not exist", call. = FALSE)
   }
   
   
-  # Create file name and title ----
+  # Create file name and title ---------------------------------------------
   
   if (is.null(title) && !is.null(filename)) {
     title <- gsub("\\.Rmd$", "", filename, ignore.case = TRUE)
@@ -103,7 +103,7 @@ fb_make_report <- function(path = ".", filename = NULL, title = NULL,
   path     <- file.path(path, filename)
   
   
-  # If file exists ----
+  # If file exists -------------------------------------------------------------
   
   if (file.exists(path) && !overwrite) {
     stop("The file '", path, "' already exists. If you want to replace it, ", 
@@ -111,22 +111,25 @@ fb_make_report <- function(path = ".", filename = NULL, title = NULL,
   }
   
   
-  # Check data names ----
+  # Check data names -----------------------------------------------------------
   
   check_object_name(species_traits_name)
   check_object_name(site_species_name)
   check_object_name(site_locations_name)
   
   
-  # Copy template ----
+  # Copy template --------------------------------------------------------------
   
   invisible(
-    file.copy(system.file(file.path("templates", "template_report.Rmd"), 
-                          package = "funbiogeo"), path, overwrite = TRUE
-  ))
+    file.copy(
+      system.file(
+        file.path("templates", "template_report.Rmd"), package = "funbiogeo"),
+      path, overwrite = TRUE
+    )
+  )
   
   
-  # Replace default values (mustaches) ----
+  # Replace default values (mustaches) -----------------------------------------
   
   if (is.null(title)) {
     title <- "funbiogeo Report"
@@ -147,7 +150,7 @@ fb_make_report <- function(path = ".", filename = NULL, title = NULL,
                   fixed = TRUE)
   
   
-  # Replace data names ----
+  # Replace data names ---------------------------------------------------------
   
   xfun::gsub_file(path, "{{species_traits}}", species_traits_name, 
                   fixed = TRUE)
@@ -157,6 +160,7 @@ fb_make_report <- function(path = ".", filename = NULL, title = NULL,
   
   xfun::gsub_file(path, "{{site_locations}}", site_locations_name, 
                   fixed = TRUE)
+  
   
   invisible(NULL)
 }
