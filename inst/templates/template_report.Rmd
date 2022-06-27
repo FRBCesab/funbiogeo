@@ -116,5 +116,5 @@ The sites x locations data consists in `r nrow(site_locations)` sites.
 
 
 ```{r site-locations}
-print(site_locations)
+head(site_locations)
 ```
