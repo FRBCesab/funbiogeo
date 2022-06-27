@@ -2,7 +2,7 @@
 % Please edit documentation in R/fb_format_species_traits.R
 \name{fb_format_species_traits}
 \alias{fb_format_species_traits}
-\title{Format species x traits object}
+\title{Format species x traits Object from Long Data}
 \usage{
 fb_format_species_traits(data_long, species, traits)
 }

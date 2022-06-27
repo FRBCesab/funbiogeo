@@ -1,4 +1,4 @@
-#' Compute sites coverage for each species
+#' Count Number of Sites Occupied by Species
 #' 
 #' @description
 #' For each species computes the percentage of sites where the species is 

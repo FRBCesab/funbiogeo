@@ -2,7 +2,7 @@
 % Please edit documentation in R/fb_get_trait_coverage_by_site.R
 \name{fb_get_trait_coverage_by_site}
 \alias{fb_get_trait_coverage_by_site}
-\title{Compute traits coverage}
+\title{Compute Trait Coverage For Each Site Weighted by Abundance}
 \usage{
 fb_get_trait_coverage_by_site(site_species, species_traits)
 }

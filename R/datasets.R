@@ -1,6 +1,5 @@
-#' Sites x Locations of Western Europe mammals occurrences
+#' Sites x Locations of Western Europe Mammals
 #' 
-#' @description
 #' This dataset contains spatial coordinates (grid cells of 0.5° x 0.5° 
 #' horizontal resolution) of sites of Western Europe where mammals species 
 #' presence/absence (see `site_species` dataset) has been sampled.
@@ -26,9 +25,8 @@
 
 
 
-#' Sites x Species of Western Europe mammals occurrences
+#' Sites x Species of Western Europe Mammals
 #' 
-#' @description
 #' This dataset contains the presence/absence of mammals species in Western
 #' Europe. This dataset is derived from IUCN range maps downloaded at:
 #' \url{https://www.iucnredlist.org/resources/spatial-data-download}. In 
@@ -59,9 +57,8 @@
 
 
 
-#' Species x Traits of Western Europe mammals
+#' Species x Traits of Western Europe Mammals
 #' 
-#' @description
 #' This dataset contains values for six functional traits of Western Europe
 #' mammals species. These values were extracted from the **PanTHERIA** database
 #' (Jones 2009), a database on World mammals traits available at: 

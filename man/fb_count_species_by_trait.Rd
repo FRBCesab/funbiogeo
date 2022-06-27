@@ -2,7 +2,7 @@
 % Please edit documentation in R/fb_count_species_by_trait.R
 \name{fb_count_species_by_trait}
 \alias{fb_count_species_by_trait}
-\title{Compute species coverage for each trait}
+\title{Count Number of Species for Each Trait}
 \usage{
 fb_count_species_by_trait(species_traits)
 }

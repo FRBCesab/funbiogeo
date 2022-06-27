@@ -1,4 +1,4 @@
-#' Extract average raster values at sites locations
+#' Extract Raster Values at Location of Sites
 #'
 #' @param site_locations an `sf` object with the spatial geometries of sites.
 #'                       **NOTE**: the first column should be named **`"site"`**

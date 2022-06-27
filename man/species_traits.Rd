@@ -3,7 +3,7 @@
 \docType{data}
 \name{species_traits}
 \alias{species_traits}
-\title{Species x Traits of Western Europe mammals}
+\title{Species x Traits of Western Europe Mammals}
 \format{
 A matrix with 149 rows (species) and the following seven columns:
 \describe{
@@ -27,7 +27,8 @@ mammals species. These values were extracted from the \strong{PanTHERIA} databas
 (Jones 2009), a database on World mammals traits available at:
 \url{https://esapubs.org/archive/ecol/E090/184/metadata.htm}.
 In respect to the IUCN license, species names have been anonymized.
-
+}
+\details{
 See \url{https://github.com/frbcesab/eumammals} for a complete description
 of the workflow used to create this dataset.
 

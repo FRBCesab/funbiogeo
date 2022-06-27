@@ -2,7 +2,7 @@
 % Please edit documentation in R/fb_format_site_locations.R
 \name{fb_format_site_locations}
 \alias{fb_format_site_locations}
-\title{Format site x locations object}
+\title{Format site x locations Object from Long Data}
 \usage{
 fb_format_site_locations(
   input_data,

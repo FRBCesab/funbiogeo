@@ -2,7 +2,7 @@
 % Please edit documentation in R/fb_plot_trait_combination_frequencies.R
 \name{fb_plot_trait_combination_frequencies}
 \alias{fb_plot_trait_combination_frequencies}
-\title{Plotè Present/Missing Trait Combinations Frequencies}
+\title{Plot Present and Missing Trait Combinations Frequencies}
 \usage{
 fb_plot_trait_combination_frequencies(
   species_traits,

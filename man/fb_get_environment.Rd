@@ -2,7 +2,7 @@
 % Please edit documentation in R/fb_get_environment.R
 \name{fb_get_environment}
 \alias{fb_get_environment}
-\title{Extract average raster values at sites locations}
+\title{Extract Raster Values at Location of Sites}
 \usage{
 fb_get_environment(site_locations, environment_raster)
 }
@@ -19,7 +19,7 @@ A \code{data.frame} with average environmental values (columns) per site
 (rows), with the first column being \code{"site"} indicating site names.
 }
 \description{
-Extract average raster values at sites locations
+Extract Raster Values at Location of Sites
 }
 \examples{
 library("funbiogeo")

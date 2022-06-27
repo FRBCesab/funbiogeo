@@ -1,4 +1,4 @@
-#' Format species x traits object
+#' Format species x traits Object from Long Data
 #' 
 #' @description
 #' ...

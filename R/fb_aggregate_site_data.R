@@ -1,4 +1,4 @@
-#' Aggregate site data along coarser grid
+#' Aggregate Site Data Along Coarser Spatial Grid
 #'
 #' This function helps aggregating site data along a coarser grid.
 #' The idea is that you have any type of data at the site scale

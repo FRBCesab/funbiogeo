@@ -1,4 +1,4 @@
-#' Format site x species object
+#' Format site x species Object from Long Data
 #' 
 #' @description
 #' ...

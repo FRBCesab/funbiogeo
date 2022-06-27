@@ -2,7 +2,7 @@
 % Please edit documentation in R/fb_count_species_by_site.R
 \name{fb_count_species_by_site}
 \alias{fb_count_species_by_site}
-\title{Compute species coverage for each site}
+\title{Count Number of Species per Site}
 \usage{
 fb_count_species_by_site(site_species)
 }

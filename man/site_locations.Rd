@@ -3,7 +3,7 @@
 \docType{data}
 \name{site_locations}
 \alias{site_locations}
-\title{Sites x Locations of Western Europe mammals occurrences}
+\title{Sites x Locations of Western Europe Mammals}
 \format{
 An \code{sf} object with 1,505 rows (grid cells) with a WGS84 (EPSG:4236)
 Coordinate Reference System.
@@ -15,7 +15,8 @@ site_locations
 This dataset contains spatial coordinates (grid cells of 0.5° x 0.5°
 horizontal resolution) of sites of Western Europe where mammals species
 presence/absence (see \code{site_species} dataset) has been sampled.
-
+}
+\details{
 See \url{https://github.com/frbcesab/eumammals} for a complete description
 of the workflow used to create this dataset.
 

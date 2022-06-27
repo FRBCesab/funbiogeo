@@ -3,7 +3,7 @@
 \docType{data}
 \name{site_species}
 \alias{site_species}
-\title{Sites x Species of Western Europe mammals occurrences}
+\title{Sites x Species of Western Europe Mammals}
 \format{
 A \code{data.frame} with 1,505 rows (sites) and 150 columns (1 column for
 site label and 149 for species occurrence).
@@ -16,7 +16,8 @@ This dataset contains the presence/absence of mammals species in Western
 Europe. This dataset is derived from IUCN range maps downloaded at:
 \url{https://www.iucnredlist.org/resources/spatial-data-download}. In
 respect to the license, species names have been anonymized.
-
+}
+\details{
 See \url{https://github.com/frbcesab/eumammals} for a complete description
 of the workflow used to create this dataset.
 

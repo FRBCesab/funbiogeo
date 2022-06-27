@@ -2,7 +2,7 @@
 % Please edit documentation in R/fb_aggregate_site_data.R
 \name{fb_aggregate_site_data}
 \alias{fb_aggregate_site_data}
-\title{Aggregate site data along coarser grid}
+\title{Aggregate Site Data Along Coarser Spatial Grid}
 \usage{
 fb_aggregate_site_data(site_locations, site_data, agg_grid, fun = mean)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fb_format_site_species.R
 \name{fb_format_site_species}
 \alias{fb_format_site_species}
-\title{Format site x species object}
+\title{Format site x species Object from Long Data}
 \usage{
 fb_format_site_species(data, site, species, value, na_to_zero = TRUE)
 }

@@ -1,4 +1,4 @@
-#' Compute species coverage for each site
+#' Count Number of Species per Site
 #' 
 #' @description
 #' For each site computes the proportion of species present (distribution value

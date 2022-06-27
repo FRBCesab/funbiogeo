@@ -1,4 +1,4 @@
-#' Compute traits coverage for each species
+#' Compute Number of Known Trait(s) per Species
 #' 
 #' @description
 #' For each species computes the percentage of traits without `NA` (missing 

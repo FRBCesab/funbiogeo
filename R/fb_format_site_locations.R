@@ -1,4 +1,4 @@
-#' Format site x locations object
+#' Format site x locations Object from Long Data
 #' 
 #' Convert a flat data.frame with site coordinates into a proper `sf` object
 #' that can then be use by other functions. This function assumes that

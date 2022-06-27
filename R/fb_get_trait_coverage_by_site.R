@@ -1,4 +1,4 @@
-#' Compute traits coverage
+#' Compute Trait Coverage For Each Site Weighted by Abundance
 #' 
 #' @description
 #' Compute traits coverage for all sites, i.e., the percentage of total 

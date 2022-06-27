@@ -2,7 +2,7 @@
 % Please edit documentation in R/fb_plot_site_environment.R
 \name{fb_plot_site_environment}
 \alias{fb_plot_site_environment}
-\title{Plot Sites' Position in Environmental Space}
+\title{Plot Position of Sites in Environmental Space}
 \usage{
 fb_plot_site_environment(
   site_locations,
