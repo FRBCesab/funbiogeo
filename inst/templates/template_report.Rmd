@@ -37,6 +37,8 @@ knitr::opts_chunk$set(
   echo       = FALSE,
   eval       = TRUE
 )
+
+library("funbiogeo")
 ```
 
 
