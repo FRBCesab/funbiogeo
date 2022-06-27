@@ -130,8 +130,8 @@ test_that("fb_make_report() overwrite option", {
   invisible(file.remove(filename))
   invisible(file.create(filename)) # Create empty file
   
-  expect_silent(
-    fb_make_report(path = path2, , overwrite = TRUE, 
+  expect_message(
+    fb_make_report(path = path2, overwrite = TRUE, 
                    species_traits_name = "sp_tr", 
                    site_species_name = "st_sp", 
                    site_locations_name = "st_loc")
@@ -152,7 +152,7 @@ test_that("fb_make_report() filename and title", {
   
   invisible(file.remove(filename))
   
-  expect_silent(
+  expect_message(
     fb_make_report(path = path2,
                    species_traits_name = "sp_tr", 
                    site_species_name = "st_sp", 
@@ -172,7 +172,7 @@ test_that("fb_make_report() filename and title", {
   
   file_name <- "my_report.Rmd"
   
-  expect_silent(
+  expect_message(
     fb_make_report(path = path2, 
                    species_traits_name = "sp_tr", 
                    site_species_name = "st_sp", 
@@ -193,7 +193,7 @@ test_that("fb_make_report() filename and title", {
   
   file_name <- "my_report.Rmd"
   
-  expect_silent(
+  expect_message(
     fb_make_report(path = path2, 
                    species_traits_name = "sp_tr", 
                    site_species_name = "st_sp", 
@@ -214,7 +214,7 @@ test_that("fb_make_report() filename and title", {
   
   file_name <- "my_report"
   
-  expect_silent(
+  expect_message(
     fb_make_report(path = path2, 
                    species_traits_name = "sp_tr", 
                    site_species_name = "st_sp", 
@@ -236,7 +236,7 @@ test_that("fb_make_report() filename and title", {
   title <- "My Beautiful Title"
   expected_filename <- file.path(path2, "my_beautiful_title.Rmd")
     
-  expect_silent(
+  expect_message(
     fb_make_report(path = path2, 
                    species_traits_name = "sp_tr", 
                    site_species_name = "st_sp", 
@@ -258,7 +258,7 @@ test_that("fb_make_report() filename and title", {
   title <- "Report: My      Beautiful Title"
   expected_filename <- file.path(path2, "report_my_beautiful_title.Rmd")
   
-  expect_silent(
+  expect_message(
     fb_make_report(path = path2, 
                    species_traits_name = "sp_tr", 
                    site_species_name = "st_sp", 
@@ -280,7 +280,7 @@ test_that("fb_make_report() filename and title", {
   title    <- "My Beautiful Report"
   file_name <- "report_made_by_funbiogeo.Rmd"
   
-  expect_silent(
+  expect_message(
     fb_make_report(path = path2, 
                    species_traits_name = "sp_tr", 
                    site_species_name = "st_sp", 
@@ -305,7 +305,7 @@ test_that("fb_make_report() authorship", {
   
   # No author provided ----
   
-  expect_silent(
+  expect_message(
     fb_make_report(path = path2, 
                    species_traits_name = "sp_tr", 
                    site_species_name = "st_sp", 
@@ -324,7 +324,7 @@ test_that("fb_make_report() authorship", {
   
   # Single author provided ----
   
-  expect_silent(
+  expect_message(
     fb_make_report(path = path2, 
                    species_traits_name = "sp_tr", 
                    site_species_name = "st_sp", 
@@ -341,7 +341,7 @@ test_that("fb_make_report() authorship", {
   
   # Multiple authors provided ----
   
-  expect_silent(
+  expect_message(
     fb_make_report(path = path2, 
                    species_traits_name = "sp_tr", 
                    site_species_name = "st_sp", 
@@ -358,7 +358,7 @@ test_that("fb_make_report() authorship", {
   
   # Multiple authors provided ----
   
-  expect_silent(
+  expect_message(
     fb_make_report(path = path2, 
                    species_traits_name = "sp_tr", 
                    site_species_name = "st_sp", 
@@ -382,7 +382,7 @@ test_that("fb_make_report() data names", {
 
   # Dataset names ----
   
-  expect_silent(
+  expect_message(
     fb_make_report(path = path2, 
                    species_traits_name = "sp_tr", 
                    site_species_name = "st_sp", 
@@ -401,7 +401,22 @@ test_that("fb_make_report() data names", {
   invisible(file.remove(filename))
 })
   
-  
+
+# Test for message ----
+
+test_that("fb_make_report() output", { 
+
+  expect_message(
+    fb_make_report(path = path2, 
+                   species_traits_name = "sp_tr", 
+                   site_species_name = "st_sp", 
+                   site_locations_name = "st_loc", 
+                   overwrite = TRUE)#,
+    # paste0("The file '", file.path(path2, filename), "' was created!\nOpen",
+    #        " it then use knitr::knit() or rmarkdown::render() to render it.")
+  ) 
+
+})
 
 # Test for outputs ----
 
@@ -415,7 +430,7 @@ test_that("fb_make_report() output", {
                    overwrite = TRUE)
   )
   
-  expect_silent(
+  expect_message(
     res <- fb_make_report(path = path2, 
                           species_traits_name = "sp_tr", 
                           site_species_name = "st_sp", 
