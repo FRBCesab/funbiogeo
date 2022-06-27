@@ -32,4 +32,5 @@ tavg <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")
 
 layers <- terra::rast(c(tavg, prec))
 
+fb_get_environment(head(site_locations), layers)
 }
