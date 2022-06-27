@@ -75,6 +75,8 @@ fb_make_report <- function(path = ".", filename = NULL, title = NULL,
                            site_species_name, site_locations_name,
                            overwrite = FALSE, open = TRUE) {
   
+  open <- open && rlang::is_interactive()
+  
   
   # Check path -----------------------------------------------------------------
   
