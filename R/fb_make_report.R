@@ -128,7 +128,7 @@ fb_make_report <- function(path = ".", filename = NULL, title = NULL,
     )
   )
   
-  
+  message("The file ", path, "was created!\nOpen it then use knitr::knit() or rmarkdown::render() to render it.")
   # Replace default values (mustaches) -----------------------------------------
   
   if (is.null(title)) {
