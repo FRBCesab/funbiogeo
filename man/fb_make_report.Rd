@@ -12,7 +12,8 @@ fb_make_report(
   species_traits_name,
   site_species_name,
   site_locations_name,
-  overwrite = FALSE
+  overwrite = FALSE,
+  open = TRUE
 )
 }
 \arguments{
@@ -44,6 +45,9 @@ report this dataset must be loaded.}
 \item{overwrite}{a logical. If this file is already present and
 \code{overwrite = TRUE}, it will be erased and replaced by the template.
 Default is \code{FALSE}.}
+
+\item{open}{a logical. If \code{TRUE} (default), this file will be opened on the
+text editor.}
 }
 \value{
 No return value.
@@ -73,7 +77,7 @@ fb_make_report(path                = temp_path,
                author              = "Casajus N. and Grenie M.",
                species_traits_name = "species_traits",
                site_species_name   = "site_species",
-               site_locations_name = "site_locations")
+               site_locations_name = "site_locations", open = FALSE)
 
 \dontrun{
 # Open Rmd file ----

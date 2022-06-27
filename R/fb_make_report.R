@@ -38,6 +38,9 @@
 #'   `overwrite = TRUE`, it will be erased and replaced by the template.
 #'   Default is `FALSE`.
 #' 
+#' @param open a logical. If `TRUE` (default), this file will be opened on the
+#'   text editor.
+#'   
 #' @return No return value.
 #'
 #' @export
@@ -56,7 +59,7 @@
 #'                author              = "Casajus N. and Grenie M.",
 #'                species_traits_name = "species_traits",
 #'                site_species_name   = "site_species",
-#'                site_locations_name = "site_locations")
+#'                site_locations_name = "site_locations", open = FALSE)
 #' 
 #' \dontrun{
 #' # Open Rmd file ----
@@ -70,7 +73,7 @@
 fb_make_report <- function(path = ".", filename = NULL, title = NULL, 
                            author = NULL, species_traits_name, 
                            site_species_name, site_locations_name,
-                           overwrite = FALSE) {
+                           overwrite = FALSE, open = TRUE) {
   
   
   # Check path -----------------------------------------------------------------
@@ -164,6 +167,12 @@ fb_make_report <- function(path = ".", filename = NULL, title = NULL,
   xfun::gsub_file(path, "{{site_locations}}", site_locations_name, 
                   fixed = TRUE)
   
+  
+  # Open file in text editor ---------------------------------------------------
+  
+  if (open) {
+    open_file(path)
+  }
   
   invisible(NULL)
 }
