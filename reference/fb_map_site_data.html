@@ -75,7 +75,7 @@ the customization.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">fb_map_site_data</span><span class="op">(</span><span class="va">site_locations</span>, <span class="va">site_data</span>, <span class="va">selected_col</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fb_map_site_data</span><span class="op">(</span><span class="va">site_locations</span>, <span class="va">site_data</span>, <span class="va">selected_col</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -104,16 +104,16 @@ the column <code>"site"</code> to merge with the <code>site_locations</code> arg
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">site_rich</span> <span class="op">&lt;-</span> <span class="fu"><a href="fb_count_species_by_site.html">fb_count_species_by_site</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Map of Species Richness</span></span>
-<span class="r-in"><span class="va">rich_map</span> <span class="op">&lt;-</span> <span class="fu">fb_map_site_data</span><span class="op">(</span><span class="va">site_locations</span>, <span class="va">site_rich</span>, <span class="st">"n_species"</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">rich_map</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">site_rich</span> <span class="op">&lt;-</span> <span class="fu"><a href="fb_count_species_by_site.html">fb_count_species_by_site</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Map of Species Richness</span></span></span>
+<span class="r-in"><span><span class="va">rich_map</span> <span class="op">&lt;-</span> <span class="fu">fb_map_site_data</span><span class="op">(</span><span class="va">site_locations</span>, <span class="va">site_rich</span>, <span class="st">"n_species"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">rich_map</span></span></span>
 <span class="r-plt img"><img src="fb_map_site_data-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Customize the map</span></span>
-<span class="r-in"><span class="va">rich_map</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html" class="external-link">scale_fill_viridis_c</a></span><span class="op">(</span><span class="st">"Species Richness"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Customize the map</span></span></span>
+<span class="r-in"><span><span class="va">rich_map</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html" class="external-link">scale_fill_viridis_c</a></span><span class="op">(</span><span class="st">"Species Richness"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="fb_map_site_data-2.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>

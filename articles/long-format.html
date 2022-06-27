@@ -95,17 +95,17 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/frbcesab/funbiogeo" class="external-link">funbiogeo</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/frbcesab/funbiogeo" class="external-link">funbiogeo</a></span><span class="op">)</span></span></code></pre></div>
 <p>If your data are not split into three tables you can use the functions <code>fb_format_*()</code> to create these specific objects. These functions take a long table as input, where one row corresponds to the occurrence/abundance/coverage f one species at one site and output a tidy object. Similarly, if your data is in a long format some variables are repeated across the table (e.g. sites coordinates, species traits).</p>
 <p>For example, the raw data used to generate the internal data of <code>funbiogeo</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Path to example raw dataset ----</span>
-<span class="va">filename</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span>
-  <span class="st">"extdata"</span>, <span class="st">"raw_mammals_data.csv"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span>
-<span class="op">)</span>
-
-<span class="co">## Read CSV file ----</span>
-<span class="va">all_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="va">filename</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## Path to example raw dataset ----</span></span>
+<span><span class="va">filename</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
+<span>  <span class="st">"extdata"</span>, <span class="st">"raw_mammals_data.csv"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## Read CSV file ----</span></span>
+<span><span class="va">all_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="va">filename</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <caption>Long table example</caption>
 <colgroup>
@@ -272,199 +272,199 @@
 </h2>
 <p>The function <code><a href="../reference/fb_format_species_traits.html">fb_format_species_traits()</a></code> extracts species traits values from this long table to create the species x traits dataset. Note that one species must have one unique trait value (no trait variation across sites allowed).</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Format species x traits data ----</span>
-<span class="va">species_traits</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_species_traits.html">fb_format_species_traits</a></span><span class="op">(</span>
-  data    <span class="op">=</span> <span class="va">all_data</span>, 
-  species <span class="op">=</span> <span class="st">"species"</span>, 
-  traits  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"adult_body_mass"</span>, <span class="st">"gestation_length"</span>, <span class="st">"litter_size"</span>,
-              <span class="st">"max_longevity"</span>, <span class="st">"sexual_maturity_age"</span>, <span class="st">"diet_breadth"</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="co">## Preview ----</span>
-<span class="va">species_traits</span>
-<span class="co">#&gt;    species adult_body_mass gestation_length litter_size max_longevity</span>
-<span class="co">#&gt; 1   sp_001       461900.76           235.00        1.25        324.00</span>
-<span class="co">#&gt; 2   sp_002           21.11            19.89        5.64         48.00</span>
-<span class="co">#&gt; 3   sp_005           31.60            24.50        4.94         48.00</span>
-<span class="co">#&gt; 4   sp_006           21.90            23.68        5.16         52.80</span>
-<span class="co">#&gt; 5   sp_010            8.31               NA        1.73        252.00</span>
-<span class="co">#&gt; 6   sp_013        31756.51            63.50        4.98        354.00</span>
-<span class="co">#&gt; 7   sp_016        22502.01           196.00        1.79        204.00</span>
-<span class="co">#&gt; 8   sp_017       240867.13           235.61        1.09        321.60</span>
-<span class="co">#&gt; 9   sp_022            9.89            29.00        4.04         38.40</span>
-<span class="co">#&gt; 10  sp_026        57224.61           230.00        1.00        300.00</span>
-<span class="co">#&gt; 11  sp_032           10.72               NA        1.50        186.00</span>
-<span class="co">#&gt; 12  sp_033          777.95            36.98        4.64        168.00</span>
-<span class="co">#&gt; 13  sp_034              NA               NA          NA            NA</span>
-<span class="co">#&gt; 14  sp_035           94.16            34.98        5.01            NA</span>
-<span class="co">#&gt; 15  sp_038          128.09            28.19        5.17        108.00</span>
-<span class="co">#&gt; 16  sp_039        12792.49           161.73        2.84        216.00</span>
-<span class="co">#&gt; 17  sp_048         3816.43            41.99        2.14        144.00</span>
-<span class="co">#&gt; 18  sp_050         3105.42            50.10        3.16            NA</span>
-<span class="co">#&gt; 19  sp_051        19300.00            66.99        2.30        321.60</span>
-<span class="co">#&gt; 20  sp_055         1675.00            29.86        3.78        217.20</span>
-<span class="co">#&gt; 21  sp_056         1299.99            30.63        3.49        204.00</span>
-<span class="co">#&gt; 22  sp_057        11884.03            48.60        3.11        194.40</span>
-<span class="co">#&gt; 23  sp_059            6.99            21.00        4.92         60.00</span>
-<span class="co">#&gt; 24  sp_060           35.87            20.72        4.65         39.60</span>
-<span class="co">#&gt; 25  sp_061           26.90            21.00        4.99         36.00</span>
-<span class="co">#&gt; 26  sp_071           33.10            21.51        5.62         21.60</span>
-<span class="co">#&gt; 27  sp_073           17.74            21.00        2.46            NA</span>
-<span class="co">#&gt; 28  sp_077        13499.94           214.24        0.98            NA</span>
-<span class="co">#&gt; 29  sp_078           19.30            19.60        5.54         72.00</span>
-<span class="co">#&gt; 30  sp_081           29.19            24.97        4.30         72.00</span>
-<span class="co">#&gt; 31  sp_082          284.50            66.35        6.74         85.23</span>
-<span class="co">#&gt; 32  sp_084           78.45            36.49        5.07        120.00</span>
-<span class="co">#&gt; 33  sp_085          975.55            41.49        8.48        168.00</span>
-<span class="co">#&gt; 34  sp_086           20.73            19.74        4.31         58.80</span>
-<span class="co">#&gt; 35  sp_087           36.43               NA        5.01            NA</span>
-<span class="co">#&gt; 36  sp_091            9.47               NA        1.00        252.00</span>
-<span class="co">#&gt; 37  sp_093            5.30               NA          NA            NA</span>
-<span class="co">#&gt; 38  sp_095           15.16               NA        1.00        234.00</span>
-<span class="co">#&gt; 39  sp_096            7.63            55.14        1.21        336.00</span>
-<span class="co">#&gt; 40  sp_098           25.59            73.00        1.50        264.00</span>
-<span class="co">#&gt; 41  sp_099              NA               NA          NA            NA</span>
-<span class="co">#&gt; 42  sp_100            7.25               NA        0.99        180.00</span>
-<span class="co">#&gt; 43  sp_104           12.47               NA        1.73            NA</span>
-<span class="co">#&gt; 44  sp_105           28.48            72.24        1.33        144.00</span>
-<span class="co">#&gt; 45  sp_106         4214.99            61.84        6.36        168.00</span>
-<span class="co">#&gt; 46  sp_110            7.44               NA        1.73         96.00</span>
-<span class="co">#&gt; 47  sp_111            5.30            44.00        1.37        200.40</span>
-<span class="co">#&gt; 48  sp_112              NA               NA          NA            NA</span>
-<span class="co">#&gt; 49  sp_113            8.19            65.12        1.22        360.00</span>
-<span class="co">#&gt; 50  sp_114            6.75               NA          NA        180.00</span>
-<span class="co">#&gt; 51  sp_118       109088.50           222.50        2.00        242.40</span>
-<span class="co">#&gt; 52  sp_119          282.89            21.74        8.99            NA</span>
-<span class="co">#&gt; 53  sp_120          142.68            23.45        5.88         50.40</span>
-<span class="co">#&gt; 54  sp_123           22.59            91.24        0.98        360.00</span>
-<span class="co">#&gt; 55  sp_124            4.57            75.51        1.00        252.00</span>
-<span class="co">#&gt; 56  sp_129          333.00            38.00        4.50        144.00</span>
-<span class="co">#&gt; 57  sp_130            8.92            31.50        5.29         48.00</span>
-<span class="co">#&gt; 58  sp_133            9.18            21.50        6.56         24.00</span>
-<span class="co">#&gt; 59  sp_134            9.32            23.99        4.94         13.50</span>
-<span class="co">#&gt; 60  sp_137            4.32            23.81        6.04         24.00</span>
-<span class="co">#&gt; 61  sp_141        84471.54           115.20        4.52        252.00</span>
-<span class="co">#&gt; 62  sp_144           87.53            30.41        3.89         84.00</span>
-<span class="co">#&gt; 63  sp_147       196287.50           227.56        2.24        600.00</span>
-<span class="co">#&gt; 64  sp_148           15.42            52.14        1.50        144.00</span>
-<span class="co">#&gt; 65  sp_149         4820.36            52.50        4.59        180.00</span>
-<span class="co">#&gt;    sexual_maturity_age diet_breadth</span>
-<span class="co">#&gt; 1               668.20            1</span>
-<span class="co">#&gt; 2                76.04           NA</span>
-<span class="co">#&gt; 3                43.27           NA</span>
-<span class="co">#&gt; 4                57.93            4</span>
-<span class="co">#&gt; 5                   NA            1</span>
-<span class="co">#&gt; 6               679.37            1</span>
-<span class="co">#&gt; 7               400.97           NA</span>
-<span class="co">#&gt; 8               659.91            5</span>
-<span class="co">#&gt; 9                66.88            2</span>
-<span class="co">#&gt; 10              543.28            2</span>
-<span class="co">#&gt; 11                  NA            1</span>
-<span class="co">#&gt; 12              265.80            8</span>
-<span class="co">#&gt; 13                  NA           NA</span>
-<span class="co">#&gt; 14              352.43           NA</span>
-<span class="co">#&gt; 15              339.31           NA</span>
-<span class="co">#&gt; 16              756.60            1</span>
-<span class="co">#&gt; 17              210.95           NA</span>
-<span class="co">#&gt; 18                  NA           NA</span>
-<span class="co">#&gt; 19              739.52            1</span>
-<span class="co">#&gt; 20              742.46            1</span>
-<span class="co">#&gt; 21              508.47            1</span>
-<span class="co">#&gt; 22              420.91            1</span>
-<span class="co">#&gt; 23               37.37           NA</span>
-<span class="co">#&gt; 24               38.27           NA</span>
-<span class="co">#&gt; 25               28.19           NA</span>
-<span class="co">#&gt; 26               44.86           NA</span>
-<span class="co">#&gt; 27              101.87           NA</span>
-<span class="co">#&gt; 28              295.12            2</span>
-<span class="co">#&gt; 29               64.71            1</span>
-<span class="co">#&gt; 30              346.11            8</span>
-<span class="co">#&gt; 31               93.09            1</span>
-<span class="co">#&gt; 32              169.99            1</span>
-<span class="co">#&gt; 33              308.50            1</span>
-<span class="co">#&gt; 34               40.91            5</span>
-<span class="co">#&gt; 35                  NA           NA</span>
-<span class="co">#&gt; 36                  NA            1</span>
-<span class="co">#&gt; 37                  NA           NA</span>
-<span class="co">#&gt; 38                  NA            1</span>
-<span class="co">#&gt; 39              371.23            2</span>
-<span class="co">#&gt; 40              399.60            1</span>
-<span class="co">#&gt; 41                  NA           NA</span>
-<span class="co">#&gt; 42                  NA            1</span>
-<span class="co">#&gt; 43                  NA           NA</span>
-<span class="co">#&gt; 44              415.81            1</span>
-<span class="co">#&gt; 45              326.63            6</span>
-<span class="co">#&gt; 46              105.22           NA</span>
-<span class="co">#&gt; 47              248.48            1</span>
-<span class="co">#&gt; 48                  NA           NA</span>
-<span class="co">#&gt; 49              338.33            1</span>
-<span class="co">#&gt; 50                  NA           NA</span>
-<span class="co">#&gt; 51              758.71            3</span>
-<span class="co">#&gt; 52               55.23            1</span>
-<span class="co">#&gt; 53              115.29            5</span>
-<span class="co">#&gt; 54              827.69            1</span>
-<span class="co">#&gt; 55              447.26            1</span>
-<span class="co">#&gt; 56              360.85            5</span>
-<span class="co">#&gt; 57              377.57           NA</span>
-<span class="co">#&gt; 58              312.90            5</span>
-<span class="co">#&gt; 59              278.42            1</span>
-<span class="co">#&gt; 60              353.38            5</span>
-<span class="co">#&gt; 61              350.76            5</span>
-<span class="co">#&gt; 62              335.48            1</span>
-<span class="co">#&gt; 63             1327.95            6</span>
-<span class="co">#&gt; 64              371.23            1</span>
-<span class="co">#&gt; 65              321.07            1</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## Format species x traits data ----</span></span>
+<span><span class="va">species_traits</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_species_traits.html">fb_format_species_traits</a></span><span class="op">(</span></span>
+<span>  data    <span class="op">=</span> <span class="va">all_data</span>, </span>
+<span>  species <span class="op">=</span> <span class="st">"species"</span>, </span>
+<span>  traits  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"adult_body_mass"</span>, <span class="st">"gestation_length"</span>, <span class="st">"litter_size"</span>,</span>
+<span>              <span class="st">"max_longevity"</span>, <span class="st">"sexual_maturity_age"</span>, <span class="st">"diet_breadth"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## Preview ----</span></span>
+<span><span class="va">species_traits</span></span>
+<span><span class="co">#&gt;    species adult_body_mass gestation_length litter_size max_longevity</span></span>
+<span><span class="co">#&gt; 1   sp_001       461900.76           235.00        1.25        324.00</span></span>
+<span><span class="co">#&gt; 2   sp_002           21.11            19.89        5.64         48.00</span></span>
+<span><span class="co">#&gt; 3   sp_005           31.60            24.50        4.94         48.00</span></span>
+<span><span class="co">#&gt; 4   sp_006           21.90            23.68        5.16         52.80</span></span>
+<span><span class="co">#&gt; 5   sp_010            8.31               NA        1.73        252.00</span></span>
+<span><span class="co">#&gt; 6   sp_013        31756.51            63.50        4.98        354.00</span></span>
+<span><span class="co">#&gt; 7   sp_016        22502.01           196.00        1.79        204.00</span></span>
+<span><span class="co">#&gt; 8   sp_017       240867.13           235.61        1.09        321.60</span></span>
+<span><span class="co">#&gt; 9   sp_022            9.89            29.00        4.04         38.40</span></span>
+<span><span class="co">#&gt; 10  sp_026        57224.61           230.00        1.00        300.00</span></span>
+<span><span class="co">#&gt; 11  sp_032           10.72               NA        1.50        186.00</span></span>
+<span><span class="co">#&gt; 12  sp_033          777.95            36.98        4.64        168.00</span></span>
+<span><span class="co">#&gt; 13  sp_034              NA               NA          NA            NA</span></span>
+<span><span class="co">#&gt; 14  sp_035           94.16            34.98        5.01            NA</span></span>
+<span><span class="co">#&gt; 15  sp_038          128.09            28.19        5.17        108.00</span></span>
+<span><span class="co">#&gt; 16  sp_039        12792.49           161.73        2.84        216.00</span></span>
+<span><span class="co">#&gt; 17  sp_048         3816.43            41.99        2.14        144.00</span></span>
+<span><span class="co">#&gt; 18  sp_050         3105.42            50.10        3.16            NA</span></span>
+<span><span class="co">#&gt; 19  sp_051        19300.00            66.99        2.30        321.60</span></span>
+<span><span class="co">#&gt; 20  sp_055         1675.00            29.86        3.78        217.20</span></span>
+<span><span class="co">#&gt; 21  sp_056         1299.99            30.63        3.49        204.00</span></span>
+<span><span class="co">#&gt; 22  sp_057        11884.03            48.60        3.11        194.40</span></span>
+<span><span class="co">#&gt; 23  sp_059            6.99            21.00        4.92         60.00</span></span>
+<span><span class="co">#&gt; 24  sp_060           35.87            20.72        4.65         39.60</span></span>
+<span><span class="co">#&gt; 25  sp_061           26.90            21.00        4.99         36.00</span></span>
+<span><span class="co">#&gt; 26  sp_071           33.10            21.51        5.62         21.60</span></span>
+<span><span class="co">#&gt; 27  sp_073           17.74            21.00        2.46            NA</span></span>
+<span><span class="co">#&gt; 28  sp_077        13499.94           214.24        0.98            NA</span></span>
+<span><span class="co">#&gt; 29  sp_078           19.30            19.60        5.54         72.00</span></span>
+<span><span class="co">#&gt; 30  sp_081           29.19            24.97        4.30         72.00</span></span>
+<span><span class="co">#&gt; 31  sp_082          284.50            66.35        6.74         85.23</span></span>
+<span><span class="co">#&gt; 32  sp_084           78.45            36.49        5.07        120.00</span></span>
+<span><span class="co">#&gt; 33  sp_085          975.55            41.49        8.48        168.00</span></span>
+<span><span class="co">#&gt; 34  sp_086           20.73            19.74        4.31         58.80</span></span>
+<span><span class="co">#&gt; 35  sp_087           36.43               NA        5.01            NA</span></span>
+<span><span class="co">#&gt; 36  sp_091            9.47               NA        1.00        252.00</span></span>
+<span><span class="co">#&gt; 37  sp_093            5.30               NA          NA            NA</span></span>
+<span><span class="co">#&gt; 38  sp_095           15.16               NA        1.00        234.00</span></span>
+<span><span class="co">#&gt; 39  sp_096            7.63            55.14        1.21        336.00</span></span>
+<span><span class="co">#&gt; 40  sp_098           25.59            73.00        1.50        264.00</span></span>
+<span><span class="co">#&gt; 41  sp_099              NA               NA          NA            NA</span></span>
+<span><span class="co">#&gt; 42  sp_100            7.25               NA        0.99        180.00</span></span>
+<span><span class="co">#&gt; 43  sp_104           12.47               NA        1.73            NA</span></span>
+<span><span class="co">#&gt; 44  sp_105           28.48            72.24        1.33        144.00</span></span>
+<span><span class="co">#&gt; 45  sp_106         4214.99            61.84        6.36        168.00</span></span>
+<span><span class="co">#&gt; 46  sp_110            7.44               NA        1.73         96.00</span></span>
+<span><span class="co">#&gt; 47  sp_111            5.30            44.00        1.37        200.40</span></span>
+<span><span class="co">#&gt; 48  sp_112              NA               NA          NA            NA</span></span>
+<span><span class="co">#&gt; 49  sp_113            8.19            65.12        1.22        360.00</span></span>
+<span><span class="co">#&gt; 50  sp_114            6.75               NA          NA        180.00</span></span>
+<span><span class="co">#&gt; 51  sp_118       109088.50           222.50        2.00        242.40</span></span>
+<span><span class="co">#&gt; 52  sp_119          282.89            21.74        8.99            NA</span></span>
+<span><span class="co">#&gt; 53  sp_120          142.68            23.45        5.88         50.40</span></span>
+<span><span class="co">#&gt; 54  sp_123           22.59            91.24        0.98        360.00</span></span>
+<span><span class="co">#&gt; 55  sp_124            4.57            75.51        1.00        252.00</span></span>
+<span><span class="co">#&gt; 56  sp_129          333.00            38.00        4.50        144.00</span></span>
+<span><span class="co">#&gt; 57  sp_130            8.92            31.50        5.29         48.00</span></span>
+<span><span class="co">#&gt; 58  sp_133            9.18            21.50        6.56         24.00</span></span>
+<span><span class="co">#&gt; 59  sp_134            9.32            23.99        4.94         13.50</span></span>
+<span><span class="co">#&gt; 60  sp_137            4.32            23.81        6.04         24.00</span></span>
+<span><span class="co">#&gt; 61  sp_141        84471.54           115.20        4.52        252.00</span></span>
+<span><span class="co">#&gt; 62  sp_144           87.53            30.41        3.89         84.00</span></span>
+<span><span class="co">#&gt; 63  sp_147       196287.50           227.56        2.24        600.00</span></span>
+<span><span class="co">#&gt; 64  sp_148           15.42            52.14        1.50        144.00</span></span>
+<span><span class="co">#&gt; 65  sp_149         4820.36            52.50        4.59        180.00</span></span>
+<span><span class="co">#&gt;    sexual_maturity_age diet_breadth</span></span>
+<span><span class="co">#&gt; 1               668.20            1</span></span>
+<span><span class="co">#&gt; 2                76.04           NA</span></span>
+<span><span class="co">#&gt; 3                43.27           NA</span></span>
+<span><span class="co">#&gt; 4                57.93            4</span></span>
+<span><span class="co">#&gt; 5                   NA            1</span></span>
+<span><span class="co">#&gt; 6               679.37            1</span></span>
+<span><span class="co">#&gt; 7               400.97           NA</span></span>
+<span><span class="co">#&gt; 8               659.91            5</span></span>
+<span><span class="co">#&gt; 9                66.88            2</span></span>
+<span><span class="co">#&gt; 10              543.28            2</span></span>
+<span><span class="co">#&gt; 11                  NA            1</span></span>
+<span><span class="co">#&gt; 12              265.80            8</span></span>
+<span><span class="co">#&gt; 13                  NA           NA</span></span>
+<span><span class="co">#&gt; 14              352.43           NA</span></span>
+<span><span class="co">#&gt; 15              339.31           NA</span></span>
+<span><span class="co">#&gt; 16              756.60            1</span></span>
+<span><span class="co">#&gt; 17              210.95           NA</span></span>
+<span><span class="co">#&gt; 18                  NA           NA</span></span>
+<span><span class="co">#&gt; 19              739.52            1</span></span>
+<span><span class="co">#&gt; 20              742.46            1</span></span>
+<span><span class="co">#&gt; 21              508.47            1</span></span>
+<span><span class="co">#&gt; 22              420.91            1</span></span>
+<span><span class="co">#&gt; 23               37.37           NA</span></span>
+<span><span class="co">#&gt; 24               38.27           NA</span></span>
+<span><span class="co">#&gt; 25               28.19           NA</span></span>
+<span><span class="co">#&gt; 26               44.86           NA</span></span>
+<span><span class="co">#&gt; 27              101.87           NA</span></span>
+<span><span class="co">#&gt; 28              295.12            2</span></span>
+<span><span class="co">#&gt; 29               64.71            1</span></span>
+<span><span class="co">#&gt; 30              346.11            8</span></span>
+<span><span class="co">#&gt; 31               93.09            1</span></span>
+<span><span class="co">#&gt; 32              169.99            1</span></span>
+<span><span class="co">#&gt; 33              308.50            1</span></span>
+<span><span class="co">#&gt; 34               40.91            5</span></span>
+<span><span class="co">#&gt; 35                  NA           NA</span></span>
+<span><span class="co">#&gt; 36                  NA            1</span></span>
+<span><span class="co">#&gt; 37                  NA           NA</span></span>
+<span><span class="co">#&gt; 38                  NA            1</span></span>
+<span><span class="co">#&gt; 39              371.23            2</span></span>
+<span><span class="co">#&gt; 40              399.60            1</span></span>
+<span><span class="co">#&gt; 41                  NA           NA</span></span>
+<span><span class="co">#&gt; 42                  NA            1</span></span>
+<span><span class="co">#&gt; 43                  NA           NA</span></span>
+<span><span class="co">#&gt; 44              415.81            1</span></span>
+<span><span class="co">#&gt; 45              326.63            6</span></span>
+<span><span class="co">#&gt; 46              105.22           NA</span></span>
+<span><span class="co">#&gt; 47              248.48            1</span></span>
+<span><span class="co">#&gt; 48                  NA           NA</span></span>
+<span><span class="co">#&gt; 49              338.33            1</span></span>
+<span><span class="co">#&gt; 50                  NA           NA</span></span>
+<span><span class="co">#&gt; 51              758.71            3</span></span>
+<span><span class="co">#&gt; 52               55.23            1</span></span>
+<span><span class="co">#&gt; 53              115.29            5</span></span>
+<span><span class="co">#&gt; 54              827.69            1</span></span>
+<span><span class="co">#&gt; 55              447.26            1</span></span>
+<span><span class="co">#&gt; 56              360.85            5</span></span>
+<span><span class="co">#&gt; 57              377.57           NA</span></span>
+<span><span class="co">#&gt; 58              312.90            5</span></span>
+<span><span class="co">#&gt; 59              278.42            1</span></span>
+<span><span class="co">#&gt; 60              353.38            5</span></span>
+<span><span class="co">#&gt; 61              350.76            5</span></span>
+<span><span class="co">#&gt; 62              335.48            1</span></span>
+<span><span class="co">#&gt; 63             1327.95            6</span></span>
+<span><span class="co">#&gt; 64              371.23            1</span></span>
+<span><span class="co">#&gt; 65              321.07            1</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="formatting-site-x-species-data">Formatting site x species data<a class="anchor" aria-label="anchor" href="#formatting-site-x-species-data"></a>
 </h2>
 <p>The function <code><a href="../reference/fb_format_site_species.html">fb_format_site_species()</a></code> extracts species occurrence/abundance/coverage from this long table to create the site x species dataset. Note that one species must have been observed one time at one site (the package <code>funbiogeo</code> does not yet consider temporal survey).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Format site x species data ----</span>
-<span class="va">site_species</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_site_species.html">fb_format_site_species</a></span><span class="op">(</span>data       <span class="op">=</span> <span class="va">all_data</span>, 
-                                       site       <span class="op">=</span> <span class="st">"site"</span>, 
-                                       species    <span class="op">=</span> <span class="st">"species"</span>, 
-                                       value      <span class="op">=</span> <span class="st">"count"</span>,
-                                       na_to_zero <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="co">## Preview ----</span>
-<span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span>
-<span class="co">#&gt; [1] 32 66</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>
-<span class="co">#&gt;      site sp_006 sp_033 sp_078 sp_001 sp_002 sp_005 sp_010 sp_013 sp_016</span>
-<span class="co">#&gt; 1  fb_100      1      1      1      0      0      0      0      0      0</span>
-<span class="co">#&gt; 2 fb_1000      1      0      1      1      1      1      1      1      1</span>
-<span class="co">#&gt; 3 fb_1001      1      0      1      1      1      1      1      1      1</span>
-<span class="co">#&gt; 4 fb_1002      1      0      1      1      1      1      1      1      1</span>
-<span class="co">#&gt; 5 fb_1007      1      1      1      0      0      0      0      0      0</span>
-<span class="co">#&gt; 6 fb_1008      1      1      1      0      0      0      0      0      0</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## Format site x species data ----</span></span>
+<span><span class="va">site_species</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_site_species.html">fb_format_site_species</a></span><span class="op">(</span>data       <span class="op">=</span> <span class="va">all_data</span>, </span>
+<span>                                       site       <span class="op">=</span> <span class="st">"site"</span>, </span>
+<span>                                       species    <span class="op">=</span> <span class="st">"species"</span>, </span>
+<span>                                       value      <span class="op">=</span> <span class="st">"count"</span>,</span>
+<span>                                       na_to_zero <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## Preview ----</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 32 66</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></span>
+<span><span class="co">#&gt;      site sp_006 sp_033 sp_078 sp_001 sp_002 sp_005 sp_010 sp_013 sp_016</span></span>
+<span><span class="co">#&gt; 1  fb_100      1      1      1      0      0      0      0      0      0</span></span>
+<span><span class="co">#&gt; 2 fb_1000      1      0      1      1      1      1      1      1      1</span></span>
+<span><span class="co">#&gt; 3 fb_1001      1      0      1      1      1      1      1      1      1</span></span>
+<span><span class="co">#&gt; 4 fb_1002      1      0      1      1      1      1      1      1      1</span></span>
+<span><span class="co">#&gt; 5 fb_1007      1      1      1      0      0      0      0      0      0</span></span>
+<span><span class="co">#&gt; 6 fb_1008      1      1      1      0      0      0      0      0      0</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="formatting-site-x-locations-data">Formatting site x locations data<a class="anchor" aria-label="anchor" href="#formatting-site-x-locations-data"></a>
 </h2>
 <p>The function <code><a href="../reference/fb_format_site_locations.html">fb_format_site_locations()</a></code> extracts sites coordinates from this long table to create the site x locations dataset. Note that one site must have one unique longitude x latitude value.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">## Format site x locations data ----</span>
-<span class="va">site_locations</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_site_locations.html">fb_format_site_locations</a></span><span class="op">(</span>input_data <span class="op">=</span>  <span class="va">all_data</span>, 
-                                           site       <span class="op">=</span> <span class="st">"site"</span>, 
-                                           longitude  <span class="op">=</span> <span class="st">"longitude"</span>, 
-                                           latitude   <span class="op">=</span> <span class="st">"latitude"</span>,
-                                           na_rm      <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-
-<span class="co">## Preview ----</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">site_locations</span><span class="op">)</span>
-<span class="co">#&gt; Simple feature collection with 6 features and 1 field</span>
-<span class="co">#&gt; Geometry type: POINT</span>
-<span class="co">#&gt; Dimension:     XY</span>
-<span class="co">#&gt; Bounding box:  xmin: 52.09736 ymin: -9.728179 xmax: 59.09736 ymax: 21.27182</span>
-<span class="co">#&gt; Geodetic CRS:  WGS 84</span>
-<span class="co">#&gt;        site                   geometry</span>
-<span class="co">#&gt; 1    fb_100  POINT (59.09736 5.771821)</span>
-<span class="co">#&gt; 4   fb_1000  POINT (52.59736 20.27182)</span>
-<span class="co">#&gt; 54  fb_1001  POINT (52.59736 20.77182)</span>
-<span class="co">#&gt; 103 fb_1002  POINT (52.59736 21.27182)</span>
-<span class="co">#&gt; 152 fb_1007 POINT (52.09736 -9.728179)</span>
-<span class="co">#&gt; 174 fb_1008 POINT (52.09736 -9.228179)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">## Format site x locations data ----</span></span>
+<span><span class="va">site_locations</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_site_locations.html">fb_format_site_locations</a></span><span class="op">(</span>input_data <span class="op">=</span>  <span class="va">all_data</span>, </span>
+<span>                                           site       <span class="op">=</span> <span class="st">"site"</span>, </span>
+<span>                                           longitude  <span class="op">=</span> <span class="st">"longitude"</span>, </span>
+<span>                                           latitude   <span class="op">=</span> <span class="st">"latitude"</span>,</span>
+<span>                                           na_rm      <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## Preview ----</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">site_locations</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Simple feature collection with 6 features and 1 field</span></span>
+<span><span class="co">#&gt; Geometry type: POINT</span></span>
+<span><span class="co">#&gt; Dimension:     XY</span></span>
+<span><span class="co">#&gt; Bounding box:  xmin: 52.09736 ymin: -9.728179 xmax: 59.09736 ymax: 21.27182</span></span>
+<span><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
+<span><span class="co">#&gt;        site                   geometry</span></span>
+<span><span class="co">#&gt; 1    fb_100  POINT (59.09736 5.771821)</span></span>
+<span><span class="co">#&gt; 4   fb_1000  POINT (52.59736 20.27182)</span></span>
+<span><span class="co">#&gt; 54  fb_1001  POINT (52.59736 20.77182)</span></span>
+<span><span class="co">#&gt; 103 fb_1002  POINT (52.59736 21.27182)</span></span>
+<span><span class="co">#&gt; 152 fb_1007 POINT (52.09736 -9.728179)</span></span>
+<span><span class="co">#&gt; 174 fb_1008 POINT (52.09736 -9.228179)</span></span></code></pre></div>
 </div>
   </div>
 
