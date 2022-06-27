@@ -30,6 +30,7 @@ Depends:
 Imports:
     ggplot2,
     rlang,
+    rstudioapi,
     scales,
     sf,
     stats,
