@@ -32,3 +32,6 @@ reference:
   contents:
     - starts_with("fb_map")
     - starts_with("fb_plot")
+- title: Creating an R Markdown report
+  contents:
+    - fb_make_report

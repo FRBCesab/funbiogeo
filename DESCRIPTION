@@ -36,7 +36,8 @@ Imports:
     terra,
     tidyr,
     tidyselect,
-    utils
+    utils,
+    xfun
 Suggests:
     ggridges,
     knitr,
@@ -45,6 +46,7 @@ Suggests:
     raster,
     rgdal,
     rmarkdown,
+    rstudioapi,
     testthat (>= 3.0.0)
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.0
