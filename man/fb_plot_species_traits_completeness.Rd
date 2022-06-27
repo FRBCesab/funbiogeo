@@ -2,7 +2,7 @@
 % Please edit documentation in R/fb_plot_species_traits_completeness.R
 \name{fb_plot_species_traits_completeness}
 \alias{fb_plot_species_traits_completeness}
-\title{Show Species by Trait Completeness}
+\title{Plot Trait Coverage per Species for each Trait}
 \usage{
 fb_plot_species_traits_completeness(species_traits)
 }

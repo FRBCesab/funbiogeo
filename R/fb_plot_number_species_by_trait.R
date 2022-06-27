@@ -1,4 +1,4 @@
-#' Show Number of Species per Trait
+#' Plot Number of Species per Trait
 #'
 #' Display a lollipop graph showing the number and proportion of species
 #' with non-NA trait for each trait ranked in decreasing order.

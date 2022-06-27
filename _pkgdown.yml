@@ -12,8 +12,8 @@ reference:
 - title: Coverage functions
   desc: >
     Count species, traits, sites by trait/species coverage (proportion of
-    species with known traits/present). Also filter datasets based on their
-    coverages.
+    species with known traits/present).
+    Also filter datasets based on their coverages.
   contents:
     - starts_with("fb_count")
     - starts_with("fb_get_trait")
@@ -33,6 +33,6 @@ reference:
     - starts_with("fb_map")
     - starts_with("fb_plot")
     - fb_table_trait_summary
-- title: Creating an R Markdown report
+- title: Pre-analysis R Markdown report
   contents:
     - fb_make_report

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fb_map_raster.R
 \name{fb_map_raster}
 \alias{fb_map_raster}
-\title{Map a raster layer}
+\title{Map a Single Raster Layer}
 \usage{
 fb_map_raster(x, ...)
 }
@@ -16,7 +16,7 @@ layer}
 A \code{ggplot} object.
 }
 \description{
-Map a raster layer
+Map a Single Raster Layer
 }
 \examples{
 library(ggplot2)

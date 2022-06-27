@@ -1,4 +1,4 @@
-#' Summary Table about traits
+#' Summary Table on Traits (Missingness, Range, etc.)
 #' 
 #' This function outputs a `data.frame` that summarises the species by trait
 #' table to have many information in a glance. This can then return a data.frame

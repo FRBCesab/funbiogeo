@@ -1,4 +1,4 @@
-#' Plot Sites per Traits Completeness
+#' Plot Trait Coverage per Site for each Trait
 #'
 #' @inheritParams fb_get_trait_coverage_by_site
 #'

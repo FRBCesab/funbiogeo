@@ -2,7 +2,7 @@
 % Please edit documentation in R/fb_make_report.R
 \name{fb_make_report}
 \alias{fb_make_report}
-\title{Create an R Markdown report}
+\title{Create an R Markdown Report on Site/Species/Trait Coverage with Plots}
 \usage{
 fb_make_report(
   path = ".",
@@ -59,22 +59,22 @@ summarize users data. User can modify this report and use the function
 \itemize{
 \item HTML document (\code{output_format = "bookdown::html_document2"});
 \item PDF document (\code{output_format = "bookdown::pdf_document2"});
-\item WORD document (\code{output_format = "bookdown::word_document2"});
-\item HTML, PDF and WORD documents (\code{output_format = "all"}).
+\item Word document (\code{output_format = "bookdown::word_document2"});
+\item HTML, PDF and Word documents (\code{output_format = "all"}).
 }
 }
 \examples{
-# Create temporary folder ----
+# Create temporary folder
 temp_path <- tempdir()
 
-# Load data ----
+# Load data
 data("species_traits")
 data("site_species")
 data("site_locations")
 
-# Create report ----
+# Create report
 fb_make_report(path                = temp_path, 
-               author              = "Casajus N. and Grenie M.",
+               author              = "Casajus N. and Grenié M.",
                species_traits_name = "species_traits",
                site_species_name   = "site_species",
                site_locations_name = "site_locations", open = FALSE)

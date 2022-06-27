@@ -1,4 +1,4 @@
-#' Distribution of Trait Coverages across all sites
+#' Plot Distribution of Trait Coverages across all Sites
 #'
 #' @inheritParams fb_get_trait_coverage_by_site
 #'

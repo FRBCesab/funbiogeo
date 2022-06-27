@@ -2,7 +2,7 @@
 % Please edit documentation in R/fb_plot_site_traits_completeness.R
 \name{fb_plot_site_traits_completeness}
 \alias{fb_plot_site_traits_completeness}
-\title{Plot Sites per Traits Completeness}
+\title{Plot Trait Coverage per Site for each Trait}
 \usage{
 fb_plot_site_traits_completeness(site_species, species_traits)
 }
@@ -20,7 +20,7 @@ to trait names.}
 a ggplot2 object
 }
 \description{
-Plot Sites per Traits Completeness
+Plot Trait Coverage per Site for each Trait
 }
 \examples{
 fb_plot_site_traits_completeness(site_species, species_traits)

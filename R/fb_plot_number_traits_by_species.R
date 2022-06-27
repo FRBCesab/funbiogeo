@@ -1,4 +1,4 @@
-#' Show Number of Traits per Species
+#' Plot Number of Traits per Species
 #' 
 #' Display a graph showing the number (and proportion) of species having
 #' at least 0, 1, etc. number of traits. It provides a lollipop graph to examine

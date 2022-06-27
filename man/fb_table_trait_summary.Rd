@@ -2,7 +2,7 @@
 % Please edit documentation in R/fb_table_trait_summary.R
 \name{fb_table_trait_summary}
 \alias{fb_table_trait_summary}
-\title{Summary Table about traits}
+\title{Summary Table on Traits (Missingness, Range, etc.)}
 \usage{
 fb_table_trait_summary(species_traits, kable = FALSE)
 }

@@ -1,13 +1,12 @@
-#' Create an R Markdown report
+#' Create an R Markdown Report on Site/Species/Trait Coverage with Plots
 #'
-#' @description 
 #' Creates an R Markdown (`.Rmd`) report from a template to explore and 
 #' summarize users data. User can modify this report and use the function
 #' [rmarkdown::render()] to convert this `.Rmd` in different formats:
 #' - HTML document (`output_format = "bookdown::html_document2"`);
 #' - PDF document (`output_format = "bookdown::pdf_document2"`);
-#' - WORD document (`output_format = "bookdown::word_document2"`);
-#' - HTML, PDF and WORD documents (`output_format = "all"`).
+#' - Word document (`output_format = "bookdown::word_document2"`);
+#' - HTML, PDF and Word documents (`output_format = "all"`).
 #' 
 #' @param path a `character` of length 1. The directory in which the `.Rmd` 
 #'   file will be created. This directory must exist.
@@ -46,17 +45,17 @@
 #' @export
 #'
 #' @examples
-#' # Create temporary folder ----
+#' # Create temporary folder
 #' temp_path <- tempdir()
 #' 
-#' # Load data ----
+#' # Load data
 #' data("species_traits")
 #' data("site_species")
 #' data("site_locations")
 #' 
-#' # Create report ----
+#' # Create report
 #' fb_make_report(path                = temp_path, 
-#'                author              = "Casajus N. and Grenie M.",
+#'                author              = "Casajus N. and Grenié M.",
 #'                species_traits_name = "species_traits",
 #'                site_species_name   = "site_species",
 #'                site_locations_name = "site_locations", open = FALSE)
@@ -76,7 +75,6 @@ fb_make_report <- function(path = ".", filename = NULL, title = NULL,
                            overwrite = FALSE, open = TRUE) {
   
   open <- open && rlang::is_interactive()
-  
   
   # Check path -----------------------------------------------------------------
   

@@ -1,4 +1,4 @@
-#' Plot Sites in Environmental Space
+#' Plot Sites' Position in Environmental Space
 #' 
 #' Plot a figure showing the average environmental space of given sites compared
 #' to a full environmental vector. For the sake of simplicity only represents

@@ -2,7 +2,7 @@
 % Please edit documentation in R/fb_plot_number_traits_by_species.R
 \name{fb_plot_number_traits_by_species}
 \alias{fb_plot_number_traits_by_species}
-\title{Show Number of Traits per Species}
+\title{Plot Number of Traits per Species}
 \usage{
 fb_plot_number_traits_by_species(
   species_traits,

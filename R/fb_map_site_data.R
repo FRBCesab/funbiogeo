@@ -1,4 +1,4 @@
-#' Make a map of arbitrary site data
+#' Map Arbitrary Site Data
 #'
 #' From the site-locations data and a dataset organized by site, plot a map of
 #' this information.

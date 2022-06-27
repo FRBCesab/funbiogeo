@@ -2,7 +2,7 @@
 % Please edit documentation in R/fb_map_site_data.R
 \name{fb_map_site_data}
 \alias{fb_map_site_data}
-\title{Make a map of arbitrary site data}
+\title{Map Arbitrary Site Data}
 \usage{
 fb_map_site_data(site_locations, site_data, selected_col)
 }

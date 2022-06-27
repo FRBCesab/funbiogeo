@@ -1,4 +1,4 @@
-#' Show Species by Trait Completeness
+#' Plot Trait Coverage per Species for each Trait
 #'
 #' Display a binary heatmap visualizing the species x traits matrix with colors
 #' displaying present and missing traits. Traits are ordered from the most to

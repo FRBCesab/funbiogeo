@@ -1,4 +1,4 @@
-#' Show Present/Missing Trait Combinations Frequencies
+#' Plotè Present/Missing Trait Combinations Frequencies
 #'
 #' Display a figure of Present/Missing Trait Combinations where one square is
 #' represents one trait. The y-axis gives the frequency of the row

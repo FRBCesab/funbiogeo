@@ -2,7 +2,7 @@
 % Please edit documentation in R/fb_plot_distribution_site_trait_coverage.R
 \name{fb_plot_distribution_site_trait_coverage}
 \alias{fb_plot_distribution_site_trait_coverage}
-\title{Distribution of Trait Coverages across all sites}
+\title{Plot Distribution of Trait Coverages across all Sites}
 \usage{
 fb_plot_distribution_site_trait_coverage(site_species, species_traits)
 }
@@ -20,7 +20,7 @@ to trait names.}
 a 'ggplot2' object
 }
 \description{
-Distribution of Trait Coverages across all sites
+Plot Distribution of Trait Coverages across all Sites
 }
 \examples{
 fb_plot_distribution_site_trait_coverage(site_species, species_traits)

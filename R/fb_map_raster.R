@@ -1,4 +1,4 @@
-#' Map a raster layer
+#' Map a Single Raster Layer
 #' 
 #' @param x a `SpatRaster` object (package `terra`). A raster of one single 
 #' layer
