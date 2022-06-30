@@ -1,12 +1,21 @@
 #' Plot Number of Sites by Species
+#' 
+#' Represent all species in each function of the number of sites they occupy.
+#' The species are ordered from the ones that occupy the least number of sites
+#' from the ones that occupy the most.
+#' The number of site is indicated at the bottom x-axis, while the top x-axis
+#' represents the proportion of occupied sites.
+#' The left y-axis label species names and their rank by increasing prevalence.
+#' The user can supplied a threshold of sites to see how many species occupy
+#' more or less than the given proportion of sites.
 #'
 #' @inheritParams fb_filter_species_by_site_coverage
 #'
-#' @return
+#' @return a `ggplot2` object
+#' @importFrom rlang .data
 #' @export
 #'
 #' @examples
-#' 
 #' fb_plot_number_sites_by_species(site_species, 0.4)
 fb_plot_number_sites_by_species <- function(
     site_species, threshold_sites_proportion = NULL
@@ -22,24 +31,56 @@ fb_plot_number_sites_by_species <- function(
   # Get the numbers
   number_sites_by_species <- fb_count_sites_by_species(site_species)
   
+  # Construct y-axis breaks
+  # Under 25 observation, label everyone of them
+  # Otherwise label 30 of them
+  
+  if (nrow(number_sites_by_species) <= 30) {
+    
+    species_y_breaks  <- number_sites_by_species$species
+    species_y_numbers <- seq(1, nrow(number_sites_by_species))
+    species_y_prop    <- species_y_numbers/nrow(number_sites_by_species) * 100
+    
+  } else {
+    
+    message(
+      "There are more than 30 species, the y-axis will label the position ",
+      "of 30 evenly spaced species (along their prevalence)"
+    )
+    
+    species_y_breaks  <- number_sites_by_species$species[
+      seq(1, nrow(number_sites_by_species), length.out = 30)
+    ]
+    species_y_numbers <- match(
+      species_y_breaks, rev(number_sites_by_species$species)
+    )
+    species_y_prop    <- round(
+      species_y_numbers/nrow(number_sites_by_species) * 100, 1
+    )
+  }
+  
+  number_sites_by_species$species <- factor(
+    number_sites_by_species$species,
+    levels = rev(number_sites_by_species$species)
+  )
+    
   # Actual plot
   given_plot <- ggplot2::ggplot(
-    number_sites_by_species, ggplot2::aes(.data$n_sites)
+    number_sites_by_species, ggplot2::aes(.data$n_sites, .data$species)
   ) +
-    ggplot2::geom_density(
-      ggplot2::aes(y = ggplot2::after_stat(count))
-    ) +
+    ggplot2::geom_point() +
     ggplot2::scale_x_continuous(
-      "Number of Sites",
+      "Number of Occupied Sites",
       sec.axis = ggplot2::sec_axis(
-        trans = ~./nrow(site_species), "Proportion of Sites",
+        trans = ~./nrow(site_species), "Proportion of Occupied Sites",
         labels = scales::label_percent()
       )
     ) +
-    ggplot2::scale_y_continuous(
-      "Proportion of Species", labels = scales::label_percent(),
-      sec.axis = ggplot2::sec_axis(
-        trans = ~.*ncol(site_species), "Number of Species"
+    ggplot2::scale_y_discrete(
+      "Species Rank (Least to Most prevalent) and Identity",
+      breaks = species_y_breaks,
+      labels = paste0(
+        species_y_numbers, " (", species_y_breaks, ")"
       )
     ) +
     ggplot2::theme_bw()
@@ -52,12 +93,12 @@ fb_plot_number_sites_by_species <- function(
       ) +
       ggplot2::annotate(
         "text", x = threshold_sites_proportion * nrow(site_species),
-        y = max(number_sites_by_species[["n_site"]]), hjust = 1.1,
+        y = Inf, hjust = 1.1, vjust = 1.5,
         color = "darkred",
         label = paste0(
           "(n = ", round(threshold_sites_proportion * nrow(site_species)),
           ")\n(p = ",
-          round(threshold_sites_proportion, 1), "%)"
+          round(threshold_sites_proportion * 100, 1), "%)"
         )
       )
   }  
