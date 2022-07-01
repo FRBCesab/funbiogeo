@@ -23,7 +23,12 @@ plotting functions available in `funbiogeo`, how to use them and how to
 interpret them.
 
 ```{r setup}
-library(funbiogeo)
+library("funbiogeo")
+library("sf")
+
+data("site_locations")
+data("site_species")
+data("species_traits")
 ```
 
 
@@ -83,13 +88,20 @@ trait coverage across all sites is 82.1%. We see that the distribution however
 is rather wide, with some sites showing a coverage of around 90% (the large
 bump), while some sites are close to 62% coverage.
 
-This plot considers the distribution of species across sites instead of focusing only on the species by traits `data.frame`. This maybe useful to realize, for example, that the traits of a species occurring very rarely are missing this wouldn't necessarily translate in low site-level trait coverage.
+This plot considers the distribution of species across sites instead of focusing
+only on the species by traits `data.frame`. This maybe useful to realize, for
+example, that the traits of a species occurring very rarely are missing this
+wouldn't necessarily translate in low site-level trait coverage.
 
 
 ### Plot Number of Species per Trait `fb_plot_number_species_by_trait()`
 
-One of the first way to look at the species by traits `data.frame` is to look at number of species with non-missing trait values for each trait.
-The `fb_plot_number_species_by_trait()` function does exactly that. Its first argument `species_traits`, the species by traits `data.frame`, is necessary while the second one `threshold_species_proportion`, a target proportion of species coverage, is optional.
+One of the first way to look at the species by traits `data.frame` is to look at
+number of species with non-missing trait values for each trait. The
+`fb_plot_number_species_by_trait()` function does exactly that. Its first
+argument `species_traits`, the species by traits `data.frame`, is necessary
+while the second one `threshold_species_proportion`, a target proportion of
+species coverage, is optional.
 
 ```{r plot-species-coverage-trait}
 fb_plot_number_species_by_trait(species_traits)
@@ -103,26 +115,63 @@ of species written on top. With this figure we see that 82.6% of the species
 have a non-missing adult body mass in the species by trait `data.frame`, while
 only 54.4% have a non-missing maximum longevity.
 
-Adding the second argument `threshold_species_proportion` displays a vertical bar at the target proportion to easily target traits covering a certain proportion of species. Let's say we want to see traits available for at least 70% of the species:
+Adding the second argument `threshold_species_proportion` displays a vertical
+bar at the target proportion to easily target traits covering a certain
+proportion of species. Let's say we want to see traits available for at least
+70% of the species:
 
 ```{r plot-species-coverage-trait-thresh}
 fb_plot_number_species_by_trait(species_traits, 0.7)
 ```
 
 The red dashed vertical line shows the corresponding species coverage with
-labels indicating the proportion and corresponding number of species (104).
+labels indicating the proportion and corresponding number of species (n = 104).
 
-### Plot XXX `fb_plot_number_traits_by_species()`
+### Plot Number of Trait per Species `fb_plot_number_traits_by_species()`
 
-Small definition.
-Needed arguments
+You can also represent the number of trait available per species. Representing
+it for each species would be quite difficult to read, so we decided instead to
+represent the number of species with a given number of traits. Also, because
+most trait ecologists are interested in multiple traits, we considered nested
+proportions of traits: considering the number of species covered by at least one
+trait, at least two, etc.
 
-Example:
+To represent such a plot you can use the function
+`fb_plot_number_traits_by_species()`, it uses two arguments. The first
+`species_traits` is the species by traits `data.frame`. The second argument is
+`threshold_species_proportion` which is optional and corresponds to a certain
+threshold proportion of species, so that a line can be added to the plot.
 
-```{r}
+Using it on the included dataset gives:
+
+```{r plot-n-traits-species}
+fb_plot_number_traits_by_species(species_traits)
 ```
 
-Interpretation.
+The x-axis represents the number of species concerned (bottom x-axis displays
+the actual number of species, while top x-axis displays the corresponding
+proportion of species). The y-axis shows the number of each traits. Note that
+the categories are nested: the set of species with at least 1 trait contains the
+set of species with at least 2 traits, and so on and so forth. By definition all
+species have at least 0 traits, but we show that in the plot as a reference to
+see how the proportion decreases with increasing number of traits. The
+proportion is shown as text above each dot representing it. So for example,
+there are 62.4% species with at least 4 traits.
+
+This plot does not give us if this proportion of species corresponds to the same
+trait combination but it's a first indication.
+
+Let's say we're interested in combinations of traits with at least 50% species
+covered. We can use the second argument to show it:
+
+```{r plot-n-traits-species-thresh}
+fb_plot_number_traits_by_species(species_traits, 0.5)
+```
+
+Adding this argument displays a vertical bar at the target proportion of species
+to easily target number of traits covering a certain proportion of species. The
+red dashed vertical line shows the corresponding species coverage with labels
+indicating the proportion and corresponding number of species (n = 74).
 
 ### Plot XXX `fb_plot_site_environment()`
 
