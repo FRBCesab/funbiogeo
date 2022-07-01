@@ -18,9 +18,14 @@ knitr::opts_chunk$set(
 propose good default plots to inspect and represent your data, (2) provide easy
 plotting methods for complex objects (automatically display maps from spatial
 objects), and (3) provide plotting methods for computed functional diversity
-metrics in other packages. This vignette is here to explain in detail all
+metrics in other packages. This vignette is here to explain in details all
 plotting functions available in `funbiogeo`, how to use them and how to
 interpret them.
+
+```{r setup}
+library(funbiogeo)
+```
+
 
 ## Naming Convention
 
@@ -30,12 +35,168 @@ functions are prefixed with `fb_`. Second all plotting functions begin with
 either `fb_plot_*()`, when they are regular plots, or `fb_map_*()` when they
 plot maps.
 
+The function names in `funbiogeo` are generally long to be as specific and clear
+as possible. So in case of doubt re-read the function name, and what it should
+represent should be clear from the name.
+
+
 ## Regular Plots
+
+In this section we will describe what we call "regular plots" we are on all
+plots of non-spatial objects. Whether density plots, bivariate plots, or types.
+We made this distinction because maps have their own specific challenges. All
+the default regular plots proposed in `funbiogeo` are quite specific to the
+data. In each of the section below we'll summarize what the plots is about, what
+are the needed arguments, and how to interpret the output.
+
+### Distribution of Trait Coverages `fb_plot_distribution_site_trait_coverage()`
+
+### Plot XXX `fb_plot_number_species_by_trait()`
+
+Small definition.
+Needed arguments
+
+Example:
+
+```{r}
+```
+
+Interpretation.
+
+### Plot XXX `fb_plot_number_traits_by_species()`
+
+Small definition.
+Needed arguments
+
+Example:
+
+```{r}
+```
+
+Interpretation.
+
+### Plot XXX `fb_plot_site_environment()`
+
+Small definition.
+Needed arguments
+
+Example:
+
+```{r}
+```
+
+Interpretation.
+
+### Plot XXX `fb_plot_site_traits_completeness()`
+
+Small definition.
+Needed arguments
+
+Example:
+
+```{r}
+```
+
+Interpretation.
+
+### Plot XXX `fb_plot_species_traits_completeness()`
+
+Small definition.
+Needed arguments
+
+Example:
+
+```{r}
+```
+
+Interpretation.
+
+### Plot XXX `fb_plot_trait_combination_frequencies()`
+
+Small definition.
+Needed arguments
+
+Example:
+
+```{r}
+```
+
+Interpretation.
+
+### Plot XXX `fb_plot_trait_correlation()`
+
+Small definition.
+Needed arguments
+
+Example:
+
+```{r}
+```
+
+Interpretation.
+
 
 ## Maps
 
+Map functions in `funbiogeo` are here to provide good default visualization
+leveraging the spatial information of sites. We know that producing map in R
+is challenging. That's why we provide these helper functions.
+Of course, these functions are all basics and you either have to customize them
+by adding ggplot2 commands to the returned plots, or to look at their code to
+produce similar plots of you own but more custom.
+
+For example, the functions do not display background maps because it would be
+too complex to accommodate for all use cases between quite localized sites up to
+global level analyses.
 
 
-```{r setup}
-library(funbiogeo)
+### Mapping Site Trait Coverages `fb_map_site_traits_completeness()`
+
+This function is a specific function that maps the trait coverage (proportion of
+species, weighted by relative abundance if relevant, with known trait values) of
+each site for all traits.
+
+It takes three arguments: `site_locations` (spatial locations of sites),
+`site_species` (site by species data.frame), and `species_traits` (species by
+traits data.frame).
+
+If we use the included dataset in `funbiogeo` it gives:
+
+```{r map-trait-complete}
+fb_map_site_traits_completeness(site_locations, site_species, species_traits)
 ```
+
+It displays maps of the sites, colored by their trait coverage. Each facet
+represents a different trait while the `all_traits` facet consider all traits
+together.
+
+From this plot we can see that on average the South of Western Europe is less
+covered by traits than the North of Western Europe. It may be an indication of
+higher species richness in the South compared to the North which makes achieving
+high coverages more difficult. Furthermore, we can see that a site in the
+Netherlands has 0% coverage of diet breadth. This is most likely the sign of
+sign of low species richness with an absence of diet breadth for those species.
+
+### Mapping Arbitrary Site Data `fb_map_site_data()`
+
+Small definition.
+Needed arguments
+
+Example:
+
+```{r}
+```
+
+Interpretation.
+
+### Mapping Site Rasters `fb_map_raster()`
+
+Small definition.
+Needed arguments
+
+Example:
+
+```{r}
+```
+
+Interpretation.
