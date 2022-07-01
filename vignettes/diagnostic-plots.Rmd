@@ -255,7 +255,7 @@ From this plot we see that a significant proportion of species have missing
 traits and that even the most non-missing traits, adult body mass, is only known
 for 82.6% of the species.
 
-### Plot Trait Combinations `fb_plot_trait_combination_frequencies()`
+### Display Trait Combinations `fb_plot_trait_combination_frequencies()`
 
 Looking at the coverage for each species continuously maybe impractical or
 difficult. For example, when trying to display thousands of species or when the
@@ -296,17 +296,33 @@ fb_plot_trait_combination_frequencies(species_traits, order_by = "complete")
 The most complete combinations are shown at the bottom, while the combinations
 with most missing traits are at the top.
 
-### Plot XXX `fb_plot_trait_correlation()`
+### Show Trait Correlations `fb_plot_trait_correlation()`
 
-Small definition.
-Needed arguments
+Most of the plot functions in `funbiogeo` show traits independently of one
+another. However, for functional biogeography analyses, trait correlations maybe
+very relevant. This is exactly what is done by `fb_plot_trait_correlation()`. It
+takes as first needed argument `species_traits`,  the species by traits
+`data.frame`. The other arguments are optional and will be passed to
+`stats::cor()`.
 
-Example:
+Note that the function only works with **numerical traits** and with **complete
+observations**. It silently removes any species that has any `NA`.
 
-```{r}
+With the included dataset as an example:
+
+```{r plot-trait-corr}
+fb_plot_trait_correlation(species_traits)
 ```
 
-Interpretation.
+Both x- and y-axes represent the different traits. At their intersection are
+shown squared that are colored in function of their correlation coefficient
+(purple means close to -1 correlation while brown means close to 1, white means
+close to 0). The correlation coefficients are also displayed in the middle of
+this square.
+
+With this visualization we can see that adult body mass and gestation length are
+quite highly correlated (cor = 0.7), while diet breadth is correlated with no
+other trait.
 
 
 ## Maps
