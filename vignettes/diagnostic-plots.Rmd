@@ -208,17 +208,29 @@ This figure can show us that the first six sites are actually lower in
 temperature and higher in annual precipitation than most other places in our
 environmental raster.
 
-### Plot XXX `fb_plot_site_traits_completeness()`
+### Plot Trait Coverage across All Sites `fb_plot_site_traits_completeness()`
 
-Small definition.
-Needed arguments
+To select appropriate sites and traits, we can visualize the trait coverage per
+site and per trait. This is exactly what is done by
+`fb_plot_site_traits_completeness()` which takes `site_species`, the site by
+species `data.frame`, and `species_traits`, the species by traits `data.frame`,
+as arguments.
 
-Example:
+We use it with the included dataset as an example:
 
 ```{r}
+fb_plot_site_traits_completeness(site_species, species_traits)
 ```
 
-Interpretation.
+The plot shows the trait along the x-axis (and their average coverage across all
+sites in their labels) and sites along the y-axis. Each thin horizontal line
+represents a site. The color indicates the coverage for the trait in each
+column. Note that for readability reasons the color scale has been discretized
+from 0 to 100% coverage. Traits are ranked in decreasing average coverage. The
+last column `all_traits` contains the coverage for all traits taken together.
+
+With this figure we can see that all sites have over 80% coverage with both
+adult body mass and litter size.
 
 ### Plot XXX `fb_plot_species_traits_completeness()`
 
