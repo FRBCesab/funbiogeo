@@ -173,17 +173,40 @@ to easily target number of traits covering a certain proportion of species. The
 red dashed vertical line shows the corresponding species coverage with labels
 indicating the proportion and corresponding number of species (n = 74).
 
-### Plot XXX `fb_plot_site_environment()`
+### Plot Sites Environmental Position `fb_plot_site_environment()`
 
-Small definition.
-Needed arguments
+To see if our sites are biased environmentally it can be nice to situate them
+along environmental variables compared to a full region. For the sake of
+simplicity we can focus on two variables against which to compare our sites to a
+region. That is what the `fb_plot_site_environment()` function. It has four
+arguments the first of which `site_locations`, the locations of sites as an `sf`
+object, `environment_raster` a
+[`terra`](http://cran.r-project.org/package=terra) raster object, the next two
+arguments are `first_layer` and `second_layer` which are the names of the two
+variables to be extracted from `environment_raster` to make our plot.
 
-Example:
+From the included dataset we can represent the first 6 sites along annual
+precipitation and mean annual temperature over the full region:
 
 ```{r}
+# Create the environmental rasters
+prec <- system.file("extdata", "annual_tot_prec.tif", package = "funbiogeo")
+tavg <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")
+
+layers <- terra::rast(c(tavg, prec))
+
+# Make plot (show environmental position of 6 first sites)
+fb_plot_site_environment(head(site_locations), layers)
 ```
 
-Interpretation.
+The plot shows the first selected layer as the x-axis and the second one as the
+y-axis. The environmental position of the sites are displayed using the big blue
+dots, while the light gray pixels are all the environmental variables extracted
+from the provided environmental raster.
+
+This figure can show us that the first six sites are actually lower in
+temperature and higher in annual precipitation than most other places in our
+environmental raster.
 
 ### Plot XXX `fb_plot_site_traits_completeness()`
 
