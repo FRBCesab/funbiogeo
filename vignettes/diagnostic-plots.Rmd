@@ -413,12 +413,19 @@ fb_map_site_data(site_locations, site_cat, "set")
 
 ### Mapping Site Rasters `fb_map_raster()`
 
-Small definition.
-Needed arguments
+Mapping rasters can be quite cumbersome with R. `funbiogeo` provides a generic
+function to map them with `fb_map_raster()`. It only needs as first argument a
+`terra` `SpatRaster` object. It can be very useful when visualizing
+environmental layers for example. The function will display the raster in
+provided projection.
 
 Example:
 
 ```{r}
-```
+# Getting the raster
+tavg <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")
+tavg <- terra::rast(tavg)
 
-Interpretation.
+# Mapping the raster
+fb_map_raster(tavg)
+```
