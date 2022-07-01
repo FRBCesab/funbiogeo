@@ -338,6 +338,10 @@ For example, the functions do not display background maps because it would be
 too complex to accommodate for all use cases between quite localized sites up to
 global level analyses.
 
+Note that all maps are always in the Coordinate Reference System of the provided
+`site_locations` object. You can also tweak that by adding a custom
+`ggplot2::coord_sf()` call.
+
 
 ### Mapping Site Trait Coverages `fb_map_site_traits_completeness()`
 
@@ -368,15 +372,44 @@ sign of low species richness with an absence of diet breadth for those species.
 
 ### Mapping Arbitrary Site Data `fb_map_site_data()`
 
-Small definition.
-Needed arguments
+To be the most flexible possible, `funbiogeo` provides a function to mapping
+arbitrary site data whether quantitative or qualitative with the
+`fb_map_site_data()` function. The first argument it takes is `site_locations`,
+the spatial locations of sites as an `sf` object, the second argument is
+`site_data` which is a `data.frame` containing a `"site"` column and data in
+additional column, the third and last required argument is `selected_col` which
+should be the name of column provided in `site_data` that is going to be used as
+a variable to display. All three arguments are required.
 
-Example:
+For example, if we want to get a map of species richness of the included dataset
+we can do the following:
 
-```{r}
+```{r map-site-data-sr}
+# Compute Species Richness
+site_rich <- fb_count_species_by_site(site_species)
+
+# Map of Species Richness
+rich_map <- fb_map_site_data(site_locations, site_rich, "n_species")
+rich_map
 ```
 
-Interpretation.
+From this map, we can for example see that the Northern part of our dataset is
+less species-rich than the center or the South.
+
+Now imagine we want to display the category of sites which be "Testing" or
+"Training", depending on which set they belong to. We can use the following to
+display the map:
+
+```{r map-site-data-cat}
+# Generate categories
+site_cat <- data.frame(
+  site = site_species$site,
+  set  = sample(c("Testing", "Training"), nrow(site_species), replace = TRUE)
+)
+
+# Display them
+fb_map_site_data(site_locations, site_cat, "set")
+```
 
 ### Mapping Site Rasters `fb_map_raster()`
 
