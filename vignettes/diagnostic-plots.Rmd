@@ -208,7 +208,7 @@ This figure can show us that the first six sites are actually lower in
 temperature and higher in annual precipitation than most other places in our
 environmental raster.
 
-### Plot Trait Coverage across All Sites `fb_plot_site_traits_completeness()`
+### Plot Trait Coverage for All Sites `fb_plot_site_traits_completeness()`
 
 To select appropriate sites and traits, we can visualize the trait coverage per
 site and per trait. This is exactly what is done by
@@ -216,9 +216,9 @@ site and per trait. This is exactly what is done by
 species `data.frame`, and `species_traits`, the species by traits `data.frame`,
 as arguments.
 
-We use it with the included dataset as an example:
+We can use it with the included dataset as an example:
 
-```{r}
+```{r plot-site-trait-complete}
 fb_plot_site_traits_completeness(site_species, species_traits)
 ```
 
@@ -232,29 +232,69 @@ last column `all_traits` contains the coverage for all traits taken together.
 With this figure we can see that all sites have over 80% coverage with both
 adult body mass and litter size.
 
-### Plot XXX `fb_plot_species_traits_completeness()`
+### Plot Trait Coverage per Species `fb_plot_species_traits_completeness()`
 
-Small definition.
-Needed arguments
+To select appropriate traits, we can visualize the trait coverage per species
+per trait. This is done by `fb_plot_species_traits_completeness()` which takes
+has `species_traits`, the species by traits `data.frame`, for sole argument.
 
-Example:
+We can use it with the included dataset as an example:
 
-```{r}
+```{r plot-species-trait-complete}
+fb_plot_species_traits_completeness(species_traits)
 ```
 
-Interpretation.
+This figure visualizes directly the species by trait `data.frame`. The x-axis
+displays the different traits, ranked from left to right in decreasing coverage
+order (as indicated in the x-axis labels). The last column `all_traits`
+considers all traits taken together. The y-axis represents species in decreasing
+coverage order from bottom to top. Each cell thus represents the trait of a
+species, it is blue if the trait is known and red if it is missing.
 
-### Plot XXX `fb_plot_trait_combination_frequencies()`
+From this plot we see that a significant proportion of species have missing
+traits and that even the most non-missing traits, adult body mass, is only known
+for 82.6% of the species.
 
-Small definition.
-Needed arguments
+### Plot Trait Combinations `fb_plot_trait_combination_frequencies()`
 
-Example:
+Looking at the coverage for each species continuously maybe impractical or
+difficult. For example, when trying to display thousands of species or when the
+trait coverage varies widely across trait. One way to reduce the size of the
+analyze (and thus visualized) dataset is instead to count at which frequency
+appear the combinations of present/missing traits.
 
-```{r}
+This is done by `fb_plot_trait_combination_frequencies()` which takes two
+arguments: `species_traits`, the species by traits `data.frame`, and `order_by`
+(equals to either `"number"`, the default option, or `"complete"`), which
+influences the order of the plot (more details below).
+
+We can use it with the included dataset as an example:
+
+```{r plot-trait-comb-freq}
+fb_plot_trait_combination_frequencies(species_traits)
 ```
 
-Interpretation.
+The x-axis represents individual traits ranked in alphabetical order from left
+to right. The y axis represents different combinations. The labels on the y-axis
+indicate both the number and the frequency of each combination. When the cell is
+blue it means that the trait is present and when it is red it means the trait is
+missing. By default the combinations are ordered by increasing number from top
+to bottom, with the most numerous combinations of trait presences at the very
+bottom of the graph.
+
+With this graph we can see that we have exactly 53 species (35.6% of the total
+number of species provided) have all their traits present, while 21 species
+(14.1%) have not a single trait in the dataset.
+
+If we change `order_by` to `"complete"`, the combinations are ordered instead by
+the number of trait presents among them:
+
+```{r plot-trait-comb-freq-order}
+fb_plot_trait_combination_frequencies(species_traits, order_by = "complete")
+```
+
+The most complete combinations are shown at the bottom, while the combinations
+with most missing traits are at the top.
 
 ### Plot XXX `fb_plot_trait_correlation()`
 
