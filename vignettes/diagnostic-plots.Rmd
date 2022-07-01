@@ -49,9 +49,44 @@ the default regular plots proposed in `funbiogeo` are quite specific to the
 data. In each of the section below we'll summarize what the plots is about, what
 are the needed arguments, and how to interpret the output.
 
-### Distribution of Trait Coverages `fb_plot_distribution_site_trait_coverage()`
+The function are all described in their specific subsections in alphabetical
+order.
 
-### Plot XXX `fb_plot_number_species_by_trait()`
+### Distribution of Trait Coverages across Sites
+#`fb_plot_distribution_site_trait_coverage()`
+
+Visualizing the trait coverage of all sites can help isolate which traits may
+show consistently low coverage. Also this can help notice if some groups of
+sites have higher coverage for certain traits than for others.
+
+You can plot this using the `fb_plot_distribution_site_trait_coverage()`
+function. It takes two arguments: `site_species` the site by species
+`data.frame` and `species_traits` the species by traits `data.frame`. Note that
+internally the function uses
+[`ggridges`](https://cran.r-project.org/package=ggridges) to plot the
+distributions. This package is thus needed to run this function.
+
+Example:
+
+```{r plot-dist-site-cov}
+fb_plot_distribution_site_trait_coverage(site_species, species_traits)
+```
+
+We see the distribution of species coverage per site (along the x-axis) for each
+trait (along the y-axis) and with all traits taken together (shown at the top of
+the top on the line `all_traits`). The proportions on the y-axis labels are the
+average coverage observed for this trait. So for example, considering only adult
+body mass as a trait would mean that we would achieve an average coverage of
+95.3%, meaning that on average across all sites 95.3% of species are covered. We
+can compare this case when considering the trait *max_longevity* which
+corresponds to the maximum longevity of the species. We see that the average
+trait coverage across all sites is 82.1%. We see that the distribution however
+is rather wide, with some sites showing a coverage of around 90% (the large
+bump), while some sites are close to 62% coverage.
+
+This plot considers the distribution of species across sites instead of focusing only on the species by traits `data.frame`. This maybe useful to realize, for example, that the traits of a species occurring very rarely are missing this wouldn't necessarily translate in low site-level trait coverage.
+
+### Plot Number of Species per Trait `fb_plot_number_species_by_trait()`
 
 Small definition.
 Needed arguments
