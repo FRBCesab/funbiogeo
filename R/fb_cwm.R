@@ -20,7 +20,8 @@
 #' data("site_species")
 #' data("species_traits")
 #' 
-#' cover <- fb_cwm(head(site_species), species_traits)
+#' site_cwm <- fb_cwm(head(site_species), species_traits)
+#' head(site_cwm)
 
 fb_cwm <- function(site_species, species_traits) {
   

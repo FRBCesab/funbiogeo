@@ -25,7 +25,11 @@
 #' @export
 #'
 #' @examples
+#' # Get a data.frame back
 #' fb_table_trait_summary(species_traits)
+#' 
+#' # Get a kable (to use in Rmd documents)
+#' fb_table_trait_summary(species_traits, TRUE)
 fb_table_trait_summary <- function(species_traits, kable = FALSE) {
   
   # Checks ---------------------------------------------------------------------

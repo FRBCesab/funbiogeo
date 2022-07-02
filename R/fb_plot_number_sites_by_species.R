@@ -16,6 +16,9 @@
 #' @export
 #'
 #' @examples
+#' fb_plot_number_sites_by_species(site_species)
+#' 
+#' # Add a vertical cutoff line (40% of sites)
 #' fb_plot_number_sites_by_species(site_species, 0.4)
 fb_plot_number_sites_by_species <- function(
     site_species, threshold_sites_proportion = NULL

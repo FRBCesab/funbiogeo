@@ -73,11 +73,14 @@ data("site_species")
 data("site_locations")
 
 # Create report
-fb_make_report(path                = temp_path, 
-               author              = "Casajus N. and Grenié M.",
-               species_traits_name = "species_traits",
-               site_species_name   = "site_species",
-               site_locations_name = "site_locations", open = FALSE)
+fb_make_report(
+  path                = temp_path, 
+  author              = "Casajus N. and Grenié M.",
+  species_traits_name = "species_traits",
+  site_species_name   = "site_species",
+  site_locations_name = "site_locations",
+  open = FALSE
+)
 
 \dontrun{
 # Open Rmd file ----

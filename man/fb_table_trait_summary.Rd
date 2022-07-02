@@ -38,5 +38,9 @@ or a nicely formatted \code{\link[knitr:kable]{knitr::kable()}} for inclusion in
 document.
 }
 \examples{
+# Get a data.frame back
 fb_table_trait_summary(species_traits)
+
+# Get a kable (to use in Rmd documents)
+fb_table_trait_summary(species_traits, TRUE)
 }

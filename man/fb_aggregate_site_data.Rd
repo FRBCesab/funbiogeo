@@ -44,4 +44,5 @@ tavg <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")
 tavg <- terra::rast(tavg)
 
 ## Rasterize 3 first species counts ----
+fb_aggregate_site_data(site_locations, site_species[, 1:4], tavg, fun = sum)
 }

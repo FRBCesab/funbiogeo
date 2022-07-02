@@ -15,6 +15,7 @@
 #' @examples
 #' # Ordered by number by default
 #' fb_plot_trait_combination_frequencies(species_traits)
+#' 
 #' # Order by present traits
 #' fb_plot_trait_combination_frequencies(species_traits, "complete")
 #'

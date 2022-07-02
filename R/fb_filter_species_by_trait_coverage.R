@@ -18,9 +18,14 @@
 #' 
 #' data("species_traits")
 #' 
-#' species_traits <- fb_filter_species_by_trait_coverage(
+#' # Filter species that have at least 60% of the traits described
+#' new_species_traits <- fb_filter_species_by_trait_coverage(
 #'   species_traits,
-#'   threshold_traits_proportion = 0.6)
+#'   threshold_traits_proportion = 0.6
+#' )
+#' 
+#' # There are now only 93 species
+#' nrow(new_species_traits)
 
 fb_filter_species_by_trait_coverage <- function(
     species_traits, threshold_traits_proportion = 0

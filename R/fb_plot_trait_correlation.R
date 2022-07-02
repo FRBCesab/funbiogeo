@@ -17,6 +17,9 @@
 #'
 #' @examples
 #' fb_plot_trait_correlation(species_traits)
+#' 
+#' # Plot Spearman's correlation
+#' fb_plot_trait_correlation(species_traits, method = "spearman")
 fb_plot_trait_correlation <- function(species_traits, ...) {
   
   # Checks ---------------------------------------------------------------------

@@ -31,5 +31,8 @@ The user can supplied a threshold of sites to see how many species occupy
 more or less than the given proportion of sites.
 }
 \examples{
+fb_plot_number_sites_by_species(site_species)
+
+# Add a vertical cutoff line (40\% of sites)
 fb_plot_number_sites_by_species(site_species, 0.4)
 }

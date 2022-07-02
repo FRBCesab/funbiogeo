@@ -19,9 +19,14 @@
 #' 
 #' data("species_traits")
 #' 
-#' species_traits <- fb_filter_traits_by_species_coverage(
+#' # Filter traits that have at least 60% non-missing values
+#' new_species_traits <- fb_filter_traits_by_species_coverage(
 #'   species_traits,
-#'   threshold_species_proportion = 0.6)
+#'   threshold_species_proportion = 0.6
+#' )
+#' 
+#' # There are now only 2 traits
+#' ncol(new_species_traits)
 
 fb_filter_traits_by_species_coverage <- function(
     species_traits, 

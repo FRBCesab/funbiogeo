@@ -28,8 +28,9 @@
 #' data("site_species")
 #' data("species_traits")
 #' 
-#' cover <- fb_get_trait_coverage_by_site(site_species, species_traits)
-
+#' site_trait_cov <- fb_get_trait_coverage_by_site(site_species, species_traits)
+#' 
+#' head(site_trait_cov)
 fb_get_trait_coverage_by_site <- function(site_species, species_traits) {
   
   

@@ -35,7 +35,7 @@
 #' tavg <- terra::rast(tavg)
 #' 
 #' ## Rasterize 3 first species counts ----
-# FIXME (finish examples)
+#' fb_aggregate_site_data(site_locations, site_species[, 1:4], tavg, fun = sum)
 
 fb_aggregate_site_data <- function(site_locations, site_data, agg_grid,
                                    fun = mean) {

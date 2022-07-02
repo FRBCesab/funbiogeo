@@ -19,7 +19,21 @@
 #' data("site_species")
 #' data("species_traits")
 #' 
-#' cover <- fb_filter_sites_by_trait_coverage(site_species, species_traits)
+#' # Filter all the sites where all species have known traits
+#' new_site_species <- fb_filter_sites_by_trait_coverage(
+#'   site_species, species_traits
+#' )
+#' 
+#' # There is only one such site
+#' nrow(new_site_species)
+#' 
+#' # Filter sites where at least 80% of species have known traits
+#' new_site_species_2 <- fb_filter_sites_by_trait_coverage(
+#'   site_species, species_traits, threshold_traits_proportion = 0.8
+#' )
+#' 
+#' # There are now four sites
+#' nrow(new_site_species_2)
 
 fb_filter_sites_by_trait_coverage <- function(
     site_species, species_traits, threshold_traits_proportion = 1

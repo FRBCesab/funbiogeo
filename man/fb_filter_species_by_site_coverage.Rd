@@ -31,7 +31,14 @@ library("funbiogeo")
 
 data("site_species")
 
-site_species <- fb_filter_species_by_site_coverage(
+# Filter species present in at least 10\% of the sites
+new_site_species <- fb_filter_species_by_site_coverage(
   site_species,
-  threshold_sites_proportion = 0.1)
+  threshold_sites_proportion = 0.1
+)
+
+new_site_species[1:3, 1:4]
+
+# There are now only 84 species (instead of 149)
+ncol(new_site_species)
 }

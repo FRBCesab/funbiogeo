@@ -20,6 +20,7 @@
 #' data("site_species")
 #' 
 #' species_coverage_by_site <- fb_count_species_by_site(site_species)
+#' head(species_coverage_by_site)
 
 fb_count_species_by_site <- function(site_species) {
   

@@ -18,9 +18,14 @@
 #' 
 #' data("site_species")
 #' 
-#' site_species <- fb_filter_sites_by_species_coverage(
+#' # Get sites with more than 40% of the species
+#' new_site_species <- fb_filter_sites_by_species_coverage(
 #'   site_species,
-#'   threshold_species_proportion = 0.01)
+#'   threshold_species_proportion = 0.4
+#' )
+#' # There are now only 148 sites
+#' dim(new_site_species)
+#' new_site_species[1:3, 1:4]
 
 fb_filter_sites_by_species_coverage <- function(
     site_species, threshold_species_proportion = 0

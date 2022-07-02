@@ -27,4 +27,7 @@ Use the \code{...} argument to pass options to the \code{cor()} function.
 }
 \examples{
 fb_plot_trait_correlation(species_traits)
+
+# Plot Spearman's correlation
+fb_plot_trait_correlation(species_traits, method = "spearman")
 }
