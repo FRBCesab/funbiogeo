@@ -76,7 +76,7 @@ fb_plot_trait_combination_frequencies = function(
     ggplot2::scale_y_discrete(
       "Number and Proportion of Species",
       labels = paste0(
-        "n = ", unique_combinations$comb_count," \t(",
+        "n = ", unique_combinations$comb_count," (",
         round(unique_combinations$comb_count / nrow(species_traits) * 100, 1),
         "%)"
       )
