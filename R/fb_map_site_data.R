@@ -13,6 +13,7 @@
 #' @return a `ggplot` object.
 #' 
 #' @importFrom rlang .data
+#' @import sf
 #' @export
 #'
 #' @examples
@@ -62,8 +63,10 @@ fb_map_site_data <- function(site_locations, site_data, selected_col) {
   if (inherits(sf::st_geometry(full_data), "sfc_POLYGON") |
       inherits(sf::st_geometry(full_data), "sfc_MULTIPOLYGON")) {
     
-    ggplot2::ggplot(full_data, ggplot2::aes(fill = .data[[selected_col]])) +
-      ggplot2::geom_sf() +
+    ggplot2::ggplot(
+      full_data, ggplot2::aes(fill = .data[[selected_col]])
+    ) +
+      ggplot2::geom_sf(color = NA) +
       ggplot2::theme_bw()
 
   } else {

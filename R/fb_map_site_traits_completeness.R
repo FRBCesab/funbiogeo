@@ -7,6 +7,7 @@
 #' @export
 #'
 #' @importFrom rlang .data
+#' @import sf
 #' @examples
 #' fb_map_site_traits_completeness(site_locations, site_species, species_traits)
 fb_map_site_traits_completeness <- function(
@@ -43,7 +44,7 @@ fb_map_site_traits_completeness <- function(
     base_plot <- ggplot2::ggplot(
       site_locations_cov, ggplot2::aes(fill = .data$coverage_value)
     ) +
-      ggplot2::geom_sf() +
+      ggplot2::geom_sf(colour = NA) +
       ggplot2::scale_fill_viridis_c(
         "Trait Coverage", labels = scales::label_percent()
       )

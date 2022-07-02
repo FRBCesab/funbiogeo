@@ -22,6 +22,7 @@
 #'   
 #' @return A `SpatRaster` object with as many layers as columns in `site_data`.
 #' 
+#' @import sf
 #' @export
 #'
 #' @examples
