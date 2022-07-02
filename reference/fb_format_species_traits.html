@@ -126,139 +126,21 @@ first column names <code>"species"</code> containing the species names</p>
 <span class="r-in"><span>            <span class="st">"max_longevity"</span>, <span class="st">"sexual_maturity_age"</span>, <span class="st">"diet_breadth"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">species_traits</span> <span class="op">&lt;-</span> <span class="fu">fb_format_species_traits</span><span class="op">(</span><span class="va">all_data</span>, <span class="st">"species"</span>, <span class="va">traits</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">species_traits</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    species adult_body_mass gestation_length litter_size max_longevity</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   sp_001       461900.76           235.00        1.25        324.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   sp_002           21.11            19.89        5.64         48.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3   sp_005           31.60            24.50        4.94         48.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   sp_006           21.90            23.68        5.16         52.80</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   sp_010            8.31               NA        1.73        252.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   sp_013        31756.51            63.50        4.98        354.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7   sp_016        22502.01           196.00        1.79        204.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8   sp_017       240867.13           235.61        1.09        321.60</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9   sp_022            9.89            29.00        4.04         38.40</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10  sp_026        57224.61           230.00        1.00        300.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11  sp_032           10.72               NA        1.50        186.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12  sp_033          777.95            36.98        4.64        168.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13  sp_034              NA               NA          NA            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14  sp_035           94.16            34.98        5.01            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15  sp_038          128.09            28.19        5.17        108.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16  sp_039        12792.49           161.73        2.84        216.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17  sp_048         3816.43            41.99        2.14        144.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18  sp_050         3105.42            50.10        3.16            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19  sp_051        19300.00            66.99        2.30        321.60</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20  sp_055         1675.00            29.86        3.78        217.20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21  sp_056         1299.99            30.63        3.49        204.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22  sp_057        11884.03            48.60        3.11        194.40</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23  sp_059            6.99            21.00        4.92         60.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24  sp_060           35.87            20.72        4.65         39.60</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25  sp_061           26.90            21.00        4.99         36.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26  sp_071           33.10            21.51        5.62         21.60</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27  sp_073           17.74            21.00        2.46            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28  sp_077        13499.94           214.24        0.98            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29  sp_078           19.30            19.60        5.54         72.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30  sp_081           29.19            24.97        4.30         72.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31  sp_082          284.50            66.35        6.74         85.23</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32  sp_084           78.45            36.49        5.07        120.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33  sp_085          975.55            41.49        8.48        168.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34  sp_086           20.73            19.74        4.31         58.80</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35  sp_087           36.43               NA        5.01            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36  sp_091            9.47               NA        1.00        252.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37  sp_093            5.30               NA          NA            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38  sp_095           15.16               NA        1.00        234.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39  sp_096            7.63            55.14        1.21        336.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40  sp_098           25.59            73.00        1.50        264.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41  sp_099              NA               NA          NA            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42  sp_100            7.25               NA        0.99        180.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43  sp_104           12.47               NA        1.73            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44  sp_105           28.48            72.24        1.33        144.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45  sp_106         4214.99            61.84        6.36        168.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46  sp_110            7.44               NA        1.73         96.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47  sp_111            5.30            44.00        1.37        200.40</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48  sp_112              NA               NA          NA            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49  sp_113            8.19            65.12        1.22        360.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50  sp_114            6.75               NA          NA        180.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 51  sp_118       109088.50           222.50        2.00        242.40</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52  sp_119          282.89            21.74        8.99            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 53  sp_120          142.68            23.45        5.88         50.40</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54  sp_123           22.59            91.24        0.98        360.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 55  sp_124            4.57            75.51        1.00        252.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 56  sp_129          333.00            38.00        4.50        144.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57  sp_130            8.92            31.50        5.29         48.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 58  sp_133            9.18            21.50        6.56         24.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 59  sp_134            9.32            23.99        4.94         13.50</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60  sp_137            4.32            23.81        6.04         24.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61  sp_141        84471.54           115.20        4.52        252.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62  sp_144           87.53            30.41        3.89         84.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 63  sp_147       196287.50           227.56        2.24        600.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 64  sp_148           15.42            52.14        1.50        144.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 65  sp_149         4820.36            52.50        4.59        180.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    sexual_maturity_age diet_breadth</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1               668.20            1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                76.04           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                43.27           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                57.93            4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                   NA            1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6               679.37            1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7               400.97           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8               659.91            5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9                66.88            2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10              543.28            2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11                  NA            1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12              265.80            8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13                  NA           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14              352.43           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15              339.31           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16              756.60            1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17              210.95           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18                  NA           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19              739.52            1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20              742.46            1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21              508.47            1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22              420.91            1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23               37.37           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24               38.27           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25               28.19           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26               44.86           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27              101.87           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28              295.12            2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29               64.71            1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30              346.11            8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31               93.09            1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32              169.99            1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33              308.50            1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34               40.91            5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35                  NA           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36                  NA            1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37                  NA           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38                  NA            1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39              371.23            2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40              399.60            1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41                  NA           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42                  NA            1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43                  NA           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44              415.81            1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45              326.63            6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46              105.22           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47              248.48            1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48                  NA           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49              338.33            1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50                  NA           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 51              758.71            3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52               55.23            1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 53              115.29            5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54              827.69            1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 55              447.26            1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 56              360.85            5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57              377.57           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 58              312.90            5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 59              278.42            1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60              353.38            5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61              350.76            5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62              335.48            1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 63             1327.95            6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 64              371.23            1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 65              321.07            1</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   species adult_body_mass gestation_length litter_size max_longevity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  sp_001       461900.76           235.00        1.25         324.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  sp_002           21.11            19.89        5.64          48.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  sp_005           31.60            24.50        4.94          48.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  sp_006           21.90            23.68        5.16          52.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  sp_010            8.31               NA        1.73         252.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  sp_013        31756.51            63.50        4.98         354.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   sexual_maturity_age diet_breadth</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1              668.20            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2               76.04           NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3               43.27           NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4               57.93            4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                  NA            1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6              679.37            1</span>
 </code></pre></div>
     </div>
   </div>
