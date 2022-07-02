@@ -129,7 +129,17 @@ multiple points in one cell. Default is <code>mean</code>.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Rasterize 3 first species counts ----</span></span></span>
 <span class="r-in"><span><span class="fu">fb_aggregate_site_data</span><span class="op">(</span><span class="va">site_locations</span>, <span class="va">site_species</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, <span class="va">tavg</span>, fun <span class="op">=</span> <span class="va">sum</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in UseMethod("st_transform"):</span> no applicable method for 'st_transform' applied to an object of class "data.frame"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> class       : SpatRaster </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> dimensions  : 290, 405, 3  (nrow, ncol, nlyr)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> resolution  : 0.08333333, 0.08333333  (x, y)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> extent      : -10.5, 23.25, 35.83333, 60  (xmin, xmax, ymin, ymax)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> coord. ref. : lon/lat WGS 84 (EPSG:4326) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sources     : memory  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               memory  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               memory  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> names       : sp_001, sp_002, sp_003 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> min values  :      0,      0,      0 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> max values  :      1,      1,      1 </span>
 </code></pre></div>
     </div>
   </div>
