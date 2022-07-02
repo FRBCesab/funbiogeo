@@ -37,5 +37,5 @@ all_data <- read.csv(filename)
 head(all_data)
 
 site_species <- fb_format_site_species(all_data, "site", "species", "count")
-head(site_species)
+site_species[1:3, 1:4]
 }

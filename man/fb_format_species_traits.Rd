@@ -34,5 +34,5 @@ traits <- c("adult_body_mass", "gestation_length", "litter_size",
             "max_longevity", "sexual_maturity_age", "diet_breadth")
 
 species_traits <- fb_format_species_traits(all_data, "species", traits)
-species_traits
+head(species_traits)
 }
