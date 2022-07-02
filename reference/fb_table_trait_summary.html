@@ -114,7 +114,8 @@ deviation</p></li>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">fb_table_trait_summary</span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Get a data.frame back</span></span></span>
+<span class="r-in"><span><span class="fu">fb_table_trait_summary</span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            trait_name trait_type number_non_missing proportion_non_missing</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1     adult_body_mass    numeric                123                   83 %</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    gestation_length    numeric                 88                   59 %</span>
@@ -129,6 +130,19 @@ deviation</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4        12-600    171.28ற117.18              NA          &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 25.37-1542.25    392.01ற314.88              NA          &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6           1-8        2.46ற1.98              NA          &lt;NA&gt;</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Get a kable (to use in Rmd documents)</span></span></span>
+<span class="r-in"><span><span class="fu">fb_table_trait_summary</span><span class="op">(</span><span class="va">species_traits</span>, <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |Trait Name          |Nature of Trait | Number of Non-Missing Values|Proportion of Non-Missing Values |Range of Trait |Trait Mean ற SD  | Number of Distinct Values|List of Distinct Values |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |:-------------------|:---------------|----------------------------:|:--------------------------------|:--------------|:----------------|-------------------------:|:-----------------------|</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |adult_body_mass     |numeric         |                          123|83 %                             |2.26-675876.7  |18809.7ற79086.68 |                        NA|NA                      |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |gestation_length    |numeric         |                           88|59 %                             |19.5-265.99    |69.93ற63.58      |                        NA|NA                      |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |litter_size         |numeric         |                          114|77 %                             |0.98-8.99      |3.37ற2.03        |                        NA|NA                      |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |max_longevity       |numeric         |                           81|54 %                             |12-600         |171.28ற117.18    |                        NA|NA                      |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |sexual_maturity_age |numeric         |                           84|56 %                             |25.37-1542.25  |392.01ற314.88    |                        NA|NA                      |</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> |diet_breadth        |numeric         |                           83|56 %                             |1-8            |2.46ற1.98        |                        NA|NA                      |</span>
 </code></pre></div>
     </div>
   </div>

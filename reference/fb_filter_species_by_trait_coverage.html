@@ -107,9 +107,15 @@ The percentage of traits coverage threshold.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"species_traits"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">species_traits</span> <span class="op">&lt;-</span> <span class="fu">fb_filter_species_by_trait_coverage</span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="co"># Filter species that have at least 60% of the traits described</span></span></span>
+<span class="r-in"><span><span class="va">new_species_traits</span> <span class="op">&lt;-</span> <span class="fu">fb_filter_species_by_trait_coverage</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">species_traits</span>,</span></span>
-<span class="r-in"><span>  threshold_traits_proportion <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  threshold_traits_proportion <span class="op">=</span> <span class="fl">0.6</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># There are now only 93 species</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">new_species_traits</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 93</span>
 </code></pre></div>
     </div>
   </div>

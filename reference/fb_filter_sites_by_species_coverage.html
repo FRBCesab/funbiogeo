@@ -106,9 +106,19 @@ The percentage of species coverage threshold.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"site_species"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">site_species</span> <span class="op">&lt;-</span> <span class="fu">fb_filter_sites_by_species_coverage</span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="co"># Get sites with more than 40% of the species</span></span></span>
+<span class="r-in"><span><span class="va">new_site_species</span> <span class="op">&lt;-</span> <span class="fu">fb_filter_sites_by_species_coverage</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">site_species</span>,</span></span>
-<span class="r-in"><span>  threshold_species_proportion <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  threshold_species_proportion <span class="op">=</span> <span class="fl">0.4</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># There are now only 148 sites</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">new_site_species</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 148 150</span>
+<span class="r-in"><span><span class="va">new_site_species</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     site sp_001 sp_002 sp_003</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 673  673      0      1      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 674  674      0      1      0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 675  675      0      1      0</span>
 </code></pre></div>
     </div>
   </div>

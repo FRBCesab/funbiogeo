@@ -109,9 +109,21 @@ than <code>threshold_sites_proportion</code>.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"site_species"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">site_species</span> <span class="op">&lt;-</span> <span class="fu">fb_filter_species_by_site_coverage</span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="co"># Filter species present in at least 10% of the sites</span></span></span>
+<span class="r-in"><span><span class="va">new_site_species</span> <span class="op">&lt;-</span> <span class="fu">fb_filter_species_by_site_coverage</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">site_species</span>,</span></span>
-<span class="r-in"><span>  threshold_sites_proportion <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  threshold_sites_proportion <span class="op">=</span> <span class="fl">0.1</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">new_site_species</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   site sp_078 sp_006 sp_119</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    1      1      1      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    2      1      1      1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    3      1      1      1</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># There are now only 84 species (instead of 149)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">new_site_species</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 84</span>
 </code></pre></div>
     </div>
   </div>
