@@ -18,7 +18,7 @@
 #' @importFrom rlang .data
 #' @export
 fb_plot_number_species_by_trait <- function(
-    species_traits, threshold_species_proportion = NULL
+  species_traits, threshold_species_proportion = NULL
 ) {
   
   # Make dataset long
@@ -63,21 +63,30 @@ fb_plot_number_species_by_trait <- function(
     ggplot2::labs(y = "Trait Name") +
     ggplot2::theme_bw()
   
+  
+  # Add threshold line underneath other layers
   if (!is.null(threshold_species_proportion)) {
-    given_plot <- given_plot +
-      ggplot2::geom_vline(
-        xintercept = threshold_species_proportion * nrow(species_traits),
-        linetype = 2, size = 1.2, color = "darkred"
-      ) +
-      ggplot2::annotate(
-        "text", x = threshold_species_proportion * nrow(species_traits),
-        y = 0.95, hjust = 1.1, color = "darkred",
-        label = paste0(
-          "(n = ", round(threshold_species_proportion * nrow(species_traits)),
-          ")\n(p = ",
-          prettyNum(threshold_species_proportion, digits = 3), "%)"
+    
+    given_plot$layers <- append(
+      given_plot$layers,
+      list(
+        ggplot2::geom_vline(
+          xintercept = threshold_species_proportion * nrow(species_traits),
+          linetype = 2, size = 1.2, color = "darkred"
+        ),
+        ggplot2::annotate(
+          "text", x = threshold_species_proportion * nrow(species_traits),
+          y = 0.95, hjust = 1.1, color = "darkred",
+          label = paste0(
+            "(n = ", round(threshold_species_proportion * nrow(species_traits)),
+            ")\n(p = ",
+            round(threshold_species_proportion * 100, digits = 1), "%)"
+          )
         )
-      )
+      ),
+      after = 1
+    )
+    
   }  
   
   return(given_plot)

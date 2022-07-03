@@ -21,7 +21,7 @@
 #' # Add a vertical cutoff line (40% of sites)
 #' fb_plot_number_sites_by_species(site_species, 0.4)
 fb_plot_number_sites_by_species <- function(
-    site_species, threshold_sites_proportion = NULL
+  site_species, threshold_sites_proportion = NULL
 ) {
   
   # Check ----------------------------------------------------------------------
@@ -66,7 +66,7 @@ fb_plot_number_sites_by_species <- function(
     number_sites_by_species$species,
     levels = rev(number_sites_by_species$species)
   )
-    
+  
   # Actual plot
   given_plot <- ggplot2::ggplot(
     number_sites_by_species, ggplot2::aes(.data$n_sites, .data$species)
@@ -88,22 +88,28 @@ fb_plot_number_sites_by_species <- function(
     ) +
     ggplot2::theme_bw()
   
+  # Add threshold line underneath other layers
   if (!is.null(threshold_sites_proportion)) {
-    given_plot <- given_plot +
-      ggplot2::geom_vline(
-        xintercept = threshold_sites_proportion * nrow(site_species),
-        linetype = 2, size = 1.2, color = "darkred"
-      ) +
-      ggplot2::annotate(
-        "text", x = threshold_sites_proportion * nrow(site_species),
-        y = Inf, hjust = 1.1, vjust = 1.5,
-        color = "darkred",
-        label = paste0(
-          "(n = ", round(threshold_sites_proportion * nrow(site_species)),
-          ")\n(p = ",
-          round(threshold_sites_proportion * 100, 1), "%)"
+    given_plot$layers <- append(
+      list(
+        ggplot2::geom_vline(
+          xintercept = threshold_sites_proportion * nrow(site_species),
+          linetype = 2, size = 1.2, color = "darkred"
+        ),
+        ggplot2::annotate(
+          "text", x = threshold_sites_proportion * nrow(site_species),
+          y = Inf, hjust = 1.1, vjust = 1.5,
+          color = "darkred",
+          label = paste0(
+            "(n = ", round(threshold_sites_proportion * nrow(site_species)),
+            ")\n(p = ",
+            round(threshold_sites_proportion * 100, 1), "%)"
+          )
         )
-      )
+      ),
+      given_plot$layers,
+      after = 1
+    )
   }  
   
   return(given_plot)
