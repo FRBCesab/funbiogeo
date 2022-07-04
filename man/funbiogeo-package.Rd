@@ -17,12 +17,11 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Nicolas Casajus \email{nicolas.casajus@fondationbiodiversite.fr} (\href{https://orcid.org/0000-0002-5537-5294}{ORCID})
+\strong{Maintainer}: Nicolas Casajus \email{nicolas.casajus@fondationbiodiversite.fr} (\href{https://orcid.org/0000-0002-5537-5294}{ORCID}) [copyright holder]
 
 Authors:
 \itemize{
-  \item Matthias Grénié \email{matthias.grenie@idiv.de}
-  \item Kévin Cazelles \email{kevin.cazelles@gmail.com}
+  \item Matthias Grenie \email{matthias.grenie@idiv.de} (\href{https://orcid.org/0000-0002-4659-7522}{ORCID})
 }
 
 }
