@@ -33,7 +33,7 @@
 
 fb_format_species_traits <- function(data_long, species, traits) {
   
-  ## Check inputs ----
+  ## Check 'data' argument -----------------------------------------------------
   
   if (missing(data_long)) {
     stop("Argument 'data_long' is required", call. = FALSE)
@@ -53,6 +53,8 @@ fb_format_species_traits <- function(data_long, species, traits) {
          call. = FALSE)
   }
   
+  
+  ## Check 'species' column ----------------------------------------------------
   
   if (missing(species)) {
     stop("Argument 'species' is required", call. = FALSE)
@@ -74,6 +76,8 @@ fb_format_species_traits <- function(data_long, species, traits) {
   }
   
   
+  ## Check 'traits' argument ---------------------------------------------------
+  
   if (missing(traits)) {
     stop("Argument 'traits' is required", call. = FALSE)
   }
@@ -88,19 +92,19 @@ fb_format_species_traits <- function(data_long, species, traits) {
   }
 
   
-  ## Select columns ----
+  ## Select columns ------------------------------------------------------------
   
   data_long <- data_long[ , c(species, traits)]
   
   
-  ## Replace non-alphanumeric characters ----
+  ## Replace non-alphanumeric characters ---------------------------------------
 
   data_long[ , species] <- gsub("\\s|[[:punct:]]", "_", data_long[ , species])
   data_long[ , species] <- gsub("_{1,}", "_", data_long[ , species])
   data_long[ , species] <- gsub("^_|_$", "", data_long[ , species])
   
   
-  ## Get unique traits values per species ----
+  ## Get unique traits values per species --------------------------------------
   
   trait_values <- vector("list", length(traits))
   names(trait_values) <- traits
@@ -108,7 +112,7 @@ fb_format_species_traits <- function(data_long, species, traits) {
   for (trait in traits) {
     
     trait_values[[trait]] <- tapply(data_long[ , trait], data_long[ , species], 
-                                     function(x) unique(x))
+                                    function(x) unique(x))
     
     if (length(unique(unlist(lapply(trait_values[[trait]], length)))) > 1) {
       stop("Some species have non-unique trait values", call. = FALSE)
@@ -117,10 +121,14 @@ fb_format_species_traits <- function(data_long, species, traits) {
   
   trait_values_df <- data.frame(trait_values)
   
-  # Add the 'species' column
+  
+  ## Add the 'species' column --------------------------------------------------
+  
   trait_values_df[["species"]] <- row.names(trait_values_df)
   row.names(trait_values_df) <- NULL
   
-  # Reorder columns to have species column first
-  trait_values_df[, c(ncol(trait_values_df), seq(ncol(trait_values_df) - 1))]
+  
+  ## Reorder columns to have species column first ------------------------------
+  
+  trait_values_df[ , c(ncol(trait_values_df), seq(ncol(trait_values_df) - 1))]
 }

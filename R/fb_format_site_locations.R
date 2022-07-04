@@ -143,12 +143,14 @@ fb_format_site_locations <- function(
   }
   
   
+  ## Check 'na_rm' argument ----------------------------------------------------
+  
   if (!is.logical(na_rm)) {
     stop("Argument 'na_rm' must be TRUE or FALSE", call. = FALSE)
   }
   
   
-  # Check provided CRS ---------------------------------------------------------
+  ## Check provided CRS --------------------------------------------------------
   
   if (is.character(crs) | !inherits(crs, "crs")) {
     # Try to coerce provided argument into a CRS, specific error otherwise
@@ -169,19 +171,20 @@ fb_format_site_locations <- function(
     }
   }
   
-  # Select columns -------------------------------------------------------------
+  
+  ## Select columns ------------------------------------------------------------
   
   input_data <- input_data[ , c(site, longitude, latitude)]
   
   
-  # Replace non-alphanumeric characters ----------------------------------------
+  ## Replace non-alphanumeric characters ---------------------------------------
   
   input_data[ , site] <- gsub("\\s|[[:punct:]]", "_", input_data[ , site])
   input_data[ , site] <- gsub("_{1,}", "_",           input_data[ , site])
   input_data[ , site] <- gsub("^_|_$", "",            input_data[ , site])
   
   
-  # Remove sites with NA -------------------------------------------------------
+  ## Remove sites with NA ------------------------------------------------------
   
   if (na_rm) {
     input_data <- input_data[!is.na(input_data[ , longitude]), ]
@@ -189,12 +192,12 @@ fb_format_site_locations <- function(
   }
   
   
-  # Keep unique sites only -----------------------------------------------------
+  ## Keep unique sites only ----------------------------------------------------
   
   input_data <- input_data[!duplicated(input_data), ]
   
   
-  # Convert to 'sf' object -----------------------------------------------------
+  ## Convert to 'sf' object ----------------------------------------------------
   
   sf::st_as_sf(input_data, coords = c(latitude, longitude), crs = crs)
 }

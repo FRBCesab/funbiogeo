@@ -37,7 +37,7 @@
 fb_format_site_species <- function(data, site, species, value, 
                                     na_to_zero = TRUE) {
   
-  ## Check inputs ----
+  ## Check 'data' argument -----------------------------------------------------
   
   if (missing(data)) {
     stop("Argument 'data' is required", call. = FALSE)
@@ -57,6 +57,8 @@ fb_format_site_species <- function(data, site, species, value,
          call. = FALSE)
   }
   
+  
+  ## Check 'site' column -------------------------------------------------------
   
   if (missing(site)) {
     stop("Argument 'site' is required", call. = FALSE)
@@ -78,6 +80,8 @@ fb_format_site_species <- function(data, site, species, value,
   }
   
   
+  ## Check 'species' column ----------------------------------------------------
+  
   if (missing(species)) {
     stop("Argument 'species' is required", call. = FALSE)
   }
@@ -97,6 +101,8 @@ fb_format_site_species <- function(data, site, species, value,
          call. = FALSE)
   }
   
+  
+  ## Check 'value' column ------------------------------------------------------
   
   if (missing(value)) {
     stop("Argument 'value' is required", call. = FALSE)
@@ -123,17 +129,19 @@ fb_format_site_species <- function(data, site, species, value,
   }
   
   
+  ## Check 'na_to_zero' column -------------------------------------------------
+  
   if (!is.logical(na_to_zero)) {
     stop("Argument 'na_to_zero' must be TRUE or FALSE", call. = FALSE)
   }
 
   
-  ## Select columns ----
+  ## Select columns ------------------------------------------------------------
   
   data <- data[ , c(site, species, value)]
   
   
-  ## Replace non-alphanumeric characters ----
+  ## Replace non-alphanumeric characters ---------------------------------------
   
   data[ , site] <- gsub("\\s|[[:punct:]]", "_", data[ , site])
   data[ , site] <- gsub("_{1,}", "_", data[ , site])
@@ -144,25 +152,24 @@ fb_format_site_species <- function(data, site, species, value,
   data[ , species] <- gsub("^_|_$", "", data[ , species])
   
   
-  ## From long to wider format ----
+  ## From long to wider format -------------------------------------------------
   
   data_wider <- tidyr::pivot_wider(data, 
                                    names_from  = tidyselect::all_of(species), 
                                    values_from = tidyselect::all_of(value))
   
-  
-  ## Cleanup ----
-  
   data_wider <- as.data.frame(data_wider)
   
   
-  ## Replace NA by 0 ----
+  ## Replace NA by 0 -----------------------------------------------------------
   
   if (na_to_zero) {
     
     # Make a list of columns where to replace NA values by 0
-    col_list <- colnames(data_wider)[-1]
+    
+    col_list   <- colnames(data_wider)[-1]
     vect_value <- as.list(rep_len(0, length(col_list)))
+    
     names(vect_value) <- col_list
     
     data_wider <- tidyr::replace_na(data_wider, vect_value)
