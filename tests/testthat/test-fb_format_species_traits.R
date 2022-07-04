@@ -9,32 +9,32 @@ test_that("fb_format_species_traits() works", {
   
   expect_error(
     fb_format_species_traits(),
-    "Argument 'data_long' is required",
+    "Argument 'data' is required",
     fixed = TRUE
   )
   
   expect_error(
     fb_format_species_traits(all_data[ , 1]),
-    "Argument 'data_long' must be a data.frame",
+    "Argument 'data' must be a data.frame",
     fixed = TRUE
   )
   
   expect_error(
     fb_format_species_traits(as.list(all_data)),
-    "Argument 'data_long' must be a data.frame",
+    "Argument 'data' must be a data.frame",
     fixed = TRUE
   )
   
   expect_error(
     fb_format_species_traits(data.frame(all_data[ , 
                                                 -c(seq_len(ncol(all_data)))])),
-    "Argument 'data_long' must be a data.frame with at least one column",
+    "Argument 'data' must be a data.frame with at least one column",
     fixed = TRUE
   )
   
   expect_error(
     fb_format_species_traits(all_data[-c(seq_len(nrow(all_data))), ]),
-    "Argument 'data_long' must be a data.frame with at least one row",
+    "Argument 'data' must be a data.frame with at least one row",
     fixed = TRUE
   )
   
@@ -73,7 +73,7 @@ test_that("fb_format_species_traits() works", {
   
   expect_error(
     fb_format_species_traits(all_data, "location"),
-    "The column 'location' is absent from 'data_long'",
+    "The column 'location' is absent from 'data'",
     fixed = TRUE
   )
   
@@ -111,7 +111,7 @@ test_that("fb_format_species_traits() works", {
                                                     "max_longevity",
                                                     "sexual_maturity_age",
                                                     "diet_breadth")),
-    "Some traits columns are absent from 'data_long'",
+    "Some traits columns are absent from 'data'",
     fixed = TRUE
   )
   

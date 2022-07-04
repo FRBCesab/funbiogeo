@@ -2,10 +2,10 @@
 % Please edit documentation in R/fb_format_site_locations.R
 \name{fb_format_site_locations}
 \alias{fb_format_site_locations}
-\title{Format site x locations Object from Long Data}
+\title{Extract site x locations information from long format data}
 \usage{
 fb_format_site_locations(
-  input_data,
+  data,
   site,
   longitude,
   latitude,
@@ -14,7 +14,7 @@ fb_format_site_locations(
 )
 }
 \arguments{
-\item{input_data}{a \code{data.frame} in a long format (see example).}
+\item{data}{a \code{data.frame} in a long format (see example).}
 
 \item{site}{a \code{character} of length 1. Name of the column with site labels.}
 
@@ -38,8 +38,8 @@ coordinates. Default is \code{FALSE}.}
 An \code{sf} object with a \code{site} column specifying site coordinates.
 }
 \description{
-Convert a flat data.frame with site coordinates into a proper \code{sf} object
-that can then be use by other functions. This function assumes that
+Convert a flat \code{data.frame} with site coordinates into a proper \code{sf} object
+that can then be used by other functions. This function assumes that
 the coordinates are given in WGS84 (longitude vs. latitude). The function
 automatically removes repeated coordinates from the input dataset.
 }

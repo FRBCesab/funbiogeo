@@ -2,24 +2,26 @@
 % Please edit documentation in R/fb_format_species_traits.R
 \name{fb_format_species_traits}
 \alias{fb_format_species_traits}
-\title{Format species x traits Object from Long Data}
+\title{Extract species x traits information from long format data}
 \usage{
-fb_format_species_traits(data_long, species, traits)
+fb_format_species_traits(data, species, traits)
 }
 \arguments{
-\item{data_long}{a \code{data.frame} in a long format (see example).}
+\item{data}{a \code{data.frame} in a long format (see example).}
 
-\item{species}{a character of length 1. Name of the column with species
+\item{species}{a \code{character} of length 1. Name of the column with species
 names.}
 
-\item{traits}{a character of length >= 1. Name(s) of trait column(s).}
+\item{traits}{a \code{character} of length >= 1. Name(s) of trait column(s).}
 }
 \value{
 A \code{data.frame} with species in rows and traits in columns, with the
-first column names \code{"species"} containing the species names
+first column names \code{"species"} containing the species names.
 }
 \description{
-...
+Convert a flat \code{data.frame} with traits values for different species
+into a proper \code{data.frame} object that can then be used by other functions.
+The final output contains species in rows and traits in columns.
 }
 \examples{
 library("funbiogeo")
