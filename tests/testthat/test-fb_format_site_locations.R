@@ -10,7 +10,7 @@ all_data <- read.csv(filename)
 test_that("fb_format_site_locations() errors with missing input", {
   expect_error(
     fb_format_site_locations(),
-    "Argument 'input_data' is required",
+    "Argument 'data' is required",
     fixed = TRUE
   )
   
@@ -36,24 +36,24 @@ test_that("fb_format_site_locations() errors with missing input", {
 # Test: Missing cols in input --------------------------------------------------
 test_that("fb_format_site_locations() errors with columns missing in input", {
   
-  # site column in input_data
+  # site column in data
   expect_error(
     fb_format_site_locations(all_data, "location"),
-    "The column 'location' is absent from 'input_data'",
+    "The column 'location' is absent from 'data'",
     fixed = TRUE
   )
   
-  # longitude column in input_data
+  # longitude column in data
   expect_error(
     fb_format_site_locations(all_data, "site", "x_utm"),
-    "The column 'x_utm' is absent from 'input_data'",
+    "The column 'x_utm' is absent from 'data'",
     fixed = TRUE
   )
   
-  # latitude column in input_data
+  # latitude column in data
   expect_error(
     fb_format_site_locations(all_data, "site", "longitude", "y_utm"),
-    "The column 'y_utm' is absent from 'input_data'",
+    "The column 'y_utm' is absent from 'data'",
     fixed = TRUE
   )
   
@@ -64,28 +64,28 @@ test_that("fb_format_site_locations() errors with columns missing in input", {
 # Test: Wrong input type -------------------------------------------------------
 test_that("fb_format_site_locations() errors with wrong input type", {
   
-  # Argument 'input_data'
+  # Argument 'data'
   expect_error(
     fb_format_site_locations(all_data[ , 1]),
-    "Argument 'input_data' must be a data.frame",
+    "Argument 'data' must be a data.frame",
     fixed = TRUE
   )
   
   expect_error(
     fb_format_site_locations(as.list(all_data)),
-    "Argument 'input_data' must be a data.frame",
+    "Argument 'data' must be a data.frame",
     fixed = TRUE
   )
   
   expect_error(
     fb_format_site_locations(data.frame(all_data[ , 1])),
-    "Argument 'input_data' must be a data.frame with at least two columns",
+    "Argument 'data' must be a data.frame with at least two columns",
     fixed = TRUE
   )
   
   expect_error(
     fb_format_site_locations(all_data[-c(seq_len(nrow(all_data))), ]),
-    "Argument 'input_data' must be a data.frame with at least one row",
+    "Argument 'data' must be a data.frame with at least one row",
     fixed = TRUE
   )
   

@@ -5,7 +5,7 @@
 \title{Extract site x locations information from long format data}
 \usage{
 fb_format_site_locations(
-  input_data,
+  data,
   site,
   longitude,
   latitude,
@@ -14,7 +14,7 @@ fb_format_site_locations(
 )
 }
 \arguments{
-\item{input_data}{a \code{data.frame} in a long format (see example).}
+\item{data}{a \code{data.frame} in a long format (see example).}
 
 \item{site}{a \code{character} of length 1. Name of the column with site labels.}
 

@@ -5,7 +5,7 @@
 #' the coordinates are given in WGS84 (longitude vs. latitude). The function
 #' automatically removes repeated coordinates from the input dataset.
 #'
-#' @param input_data a `data.frame` in a long format (see example).
+#' @param data a `data.frame` in a long format (see example).
 #' 
 #' @param site a `character` of length 1. Name of the column with site labels.
 #' 
@@ -44,27 +44,27 @@
 #' head(site_locations)
 
 fb_format_site_locations <- function(
-  input_data, site, longitude, latitude,
+  data, site, longitude, latitude,
   crs = sf::st_crs(4326), na_rm = FALSE
 ) {
   
-  ## Check 'input_data' --------------------------------------------------------
+  ## Check 'data' --------------------------------------------------------
   
-  if (missing(input_data)) {
-    stop("Argument 'input_data' is required", call. = FALSE)
+  if (missing(data)) {
+    stop("Argument 'data' is required", call. = FALSE)
   }
   
-  if (!is.data.frame(input_data)) {
-    stop("Argument 'input_data' must be a data.frame", call. = FALSE)
+  if (!is.data.frame(data)) {
+    stop("Argument 'data' must be a data.frame", call. = FALSE)
   }
   
-  if (ncol(input_data) < 2) {
-    stop("Argument 'input_data' must be a data.frame with at least two columns",
+  if (ncol(data) < 2) {
+    stop("Argument 'data' must be a data.frame with at least two columns",
          call. = FALSE)
   }
   
-  if (nrow(input_data) == 0) {
-    stop("Argument 'input_data' must be a data.frame with at least one row",
+  if (nrow(data) == 0) {
+    stop("Argument 'data' must be a data.frame with at least one row",
          call. = FALSE)
   }
   
@@ -85,8 +85,8 @@ fb_format_site_locations <- function(
          call. = FALSE)
   }
   
-  if (!(site %in% colnames(input_data))) {
-    stop(paste0("The column '", site, "' is absent from 'input_data'"), 
+  if (!(site %in% colnames(data))) {
+    stop(paste0("The column '", site, "' is absent from 'data'"), 
          call. = FALSE)
   }
   
@@ -107,12 +107,12 @@ fb_format_site_locations <- function(
          call. = FALSE)
   }
   
-  if (!(longitude %in% colnames(input_data))) {
-    stop(paste0("The column '", longitude, "' is absent from 'input_data'"), 
+  if (!(longitude %in% colnames(data))) {
+    stop(paste0("The column '", longitude, "' is absent from 'data'"), 
          call. = FALSE)
   }
   
-  if (!is.numeric(input_data[ , longitude])) {
+  if (!is.numeric(data[ , longitude])) {
     stop(paste0("The column '", longitude, "' is must be a numeric"), 
          call. = FALSE)
   }
@@ -132,12 +132,12 @@ fb_format_site_locations <- function(
          call. = FALSE)
   }
   
-  if (!(latitude %in% colnames(input_data))) {
-    stop(paste0("The column '", latitude, "' is absent from 'input_data'"), 
+  if (!(latitude %in% colnames(data))) {
+    stop(paste0("The column '", latitude, "' is absent from 'data'"), 
          call. = FALSE)
   }
   
-  if (!is.numeric(input_data[ , latitude])) {
+  if (!is.numeric(data[ , latitude])) {
     stop(paste0("The column '", latitude, "' is must be a numeric"), 
          call. = FALSE)
   }
@@ -174,30 +174,30 @@ fb_format_site_locations <- function(
   
   ## Select columns ------------------------------------------------------------
   
-  input_data <- input_data[ , c(site, longitude, latitude)]
+  data <- data[ , c(site, longitude, latitude)]
   
   
   ## Replace non-alphanumeric characters ---------------------------------------
   
-  input_data[ , site] <- gsub("\\s|[[:punct:]]", "_", input_data[ , site])
-  input_data[ , site] <- gsub("_{1,}", "_",           input_data[ , site])
-  input_data[ , site] <- gsub("^_|_$", "",            input_data[ , site])
+  data[ , site] <- gsub("\\s|[[:punct:]]", "_", data[ , site])
+  data[ , site] <- gsub("_{1,}", "_",           data[ , site])
+  data[ , site] <- gsub("^_|_$", "",            data[ , site])
   
   
   ## Remove sites with NA ------------------------------------------------------
   
   if (na_rm) {
-    input_data <- input_data[!is.na(input_data[ , longitude]), ]
-    input_data <- input_data[!is.na(input_data[ , latitude]), ]
+    data <- data[!is.na(data[ , longitude]), ]
+    data <- data[!is.na(data[ , latitude]), ]
   }
   
   
   ## Keep unique sites only ----------------------------------------------------
   
-  input_data <- input_data[!duplicated(input_data), ]
+  data <- data[!duplicated(data), ]
   
   
   ## Convert to 'sf' object ----------------------------------------------------
   
-  sf::st_as_sf(input_data, coords = c(latitude, longitude), crs = crs)
+  sf::st_as_sf(data, coords = c(latitude, longitude), crs = crs)
 }

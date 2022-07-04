@@ -4,10 +4,10 @@
 \alias{fb_format_species_traits}
 \title{Extract species x traits information from long format data}
 \usage{
-fb_format_species_traits(data_long, species, traits)
+fb_format_species_traits(data, species, traits)
 }
 \arguments{
-\item{data_long}{a \code{data.frame} in a long format (see example).}
+\item{data}{a \code{data.frame} in a long format (see example).}
 
 \item{species}{a \code{character} of length 1. Name of the column with species
 names.}

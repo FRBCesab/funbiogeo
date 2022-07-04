@@ -4,7 +4,7 @@
 #' into a proper `data.frame` object that can then be used by other functions.
 #' The final output contains species in rows and traits in columns.
 #'
-#' @param data_long a `data.frame` in a long format (see example).
+#' @param data a `data.frame` in a long format (see example).
 #' 
 #' @param species a `character` of length 1. Name of the column with species 
 #'   names.
@@ -31,25 +31,25 @@
 #' species_traits <- fb_format_species_traits(all_data, "species", traits)
 #' head(species_traits)
 
-fb_format_species_traits <- function(data_long, species, traits) {
+fb_format_species_traits <- function(data, species, traits) {
   
   ## Check 'data' argument -----------------------------------------------------
   
-  if (missing(data_long)) {
-    stop("Argument 'data_long' is required", call. = FALSE)
+  if (missing(data)) {
+    stop("Argument 'data' is required", call. = FALSE)
   }
   
-  if (!is.data.frame(data_long)) {
-    stop("Argument 'data_long' must be a data.frame", call. = FALSE)
+  if (!is.data.frame(data)) {
+    stop("Argument 'data' must be a data.frame", call. = FALSE)
   }
   
-  if (ncol(data_long) == 0) {
-    stop("Argument 'data_long' must be a data.frame with at least one column",
+  if (ncol(data) == 0) {
+    stop("Argument 'data' must be a data.frame with at least one column",
          call. = FALSE)
   }
   
-  if (nrow(data_long) == 0) {
-    stop("Argument 'data_long' must be a data.frame with at least one row",
+  if (nrow(data) == 0) {
+    stop("Argument 'data' must be a data.frame with at least one row",
          call. = FALSE)
   }
   
@@ -70,8 +70,8 @@ fb_format_species_traits <- function(data_long, species, traits) {
          call. = FALSE)
   }
   
-  if (!(species %in% colnames(data_long))) {
-    stop(paste0("The column '", species, "' is absent from 'data_long'"), 
+  if (!(species %in% colnames(data))) {
+    stop(paste0("The column '", species, "' is absent from 'data'"), 
          call. = FALSE)
   }
   
@@ -87,21 +87,21 @@ fb_format_species_traits <- function(data_long, species, traits) {
          call. = FALSE)
   }
   
-  if (any(!(traits %in% colnames(data_long)))) {
-    stop("Some traits columns are absent from 'data_long'", call. = FALSE)
+  if (any(!(traits %in% colnames(data)))) {
+    stop("Some traits columns are absent from 'data'", call. = FALSE)
   }
 
   
   ## Select columns ------------------------------------------------------------
   
-  data_long <- data_long[ , c(species, traits)]
+  data <- data[ , c(species, traits)]
   
   
   ## Replace non-alphanumeric characters ---------------------------------------
 
-  data_long[ , species] <- gsub("\\s|[[:punct:]]", "_", data_long[ , species])
-  data_long[ , species] <- gsub("_{1,}", "_", data_long[ , species])
-  data_long[ , species] <- gsub("^_|_$", "", data_long[ , species])
+  data[ , species] <- gsub("\\s|[[:punct:]]", "_", data[ , species])
+  data[ , species] <- gsub("_{1,}", "_", data[ , species])
+  data[ , species] <- gsub("^_|_$", "", data[ , species])
   
   
   ## Get unique traits values per species --------------------------------------
@@ -111,7 +111,7 @@ fb_format_species_traits <- function(data_long, species, traits) {
   
   for (trait in traits) {
     
-    trait_values[[trait]] <- tapply(data_long[ , trait], data_long[ , species], 
+    trait_values[[trait]] <- tapply(data[ , trait], data[ , species], 
                                     function(x) unique(x))
     
     if (length(unique(unlist(lapply(trait_values[[trait]], length)))) > 1) {

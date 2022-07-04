@@ -94,7 +94,7 @@ one unique longitude x latitude value.
 
 ```{r 'format-sites-locs'}
 ## Format site x locations data ----
-site_locations <- fb_format_site_locations(input_data =  all_data, 
+site_locations <- fb_format_site_locations(data       =  all_data, 
                                            site       = "site", 
                                            longitude  = "longitude", 
                                            latitude   = "latitude",
