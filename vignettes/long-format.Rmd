@@ -34,9 +34,8 @@ The `funbiogeo`package requires that information is structured in three differen
 
 
 
-In `funbiogeo` these three datasets **must be** in a wide format (variables are 
-spread across columns), but sometimes information is structured in a long format 
-(one column for several variables).
+In `funbiogeo` these three datasets **must be** in a wide format (=where one row hosts several variables across columns), but sometimes information is structured in a long format 
+(=one observation per row, also called [**tidy** format](https://r4ds.had.co.nz/tidy-data.html)).
 
 
 For instance, the following dataset illustrates the wider format 
