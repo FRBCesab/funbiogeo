@@ -71,7 +71,11 @@ fb_plot_number_traits_by_species <- function(
     ) +
     ggplot2::scale_y_continuous(
       breaks = seq(0, to = max(number_trait_per_species$n_trait), by = 1),
-      labels = function(x) paste0("\u2265", x, " trait(s)")
+      labels = function(x) ifelse(
+        x <= 1, paste0("\u2265", x, " trait"),
+        ifelse(x < ncol(species_traits) - 1, paste0("\u2265", x, " traits"),
+               paste0(x, " traits"))
+      )
     ) +
     ggplot2::theme_bw()
   
