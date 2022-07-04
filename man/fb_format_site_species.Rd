@@ -2,30 +2,32 @@
 % Please edit documentation in R/fb_format_site_species.R
 \name{fb_format_site_species}
 \alias{fb_format_site_species}
-\title{Format site x species Object from Long Data}
+\title{Extract site x species information from long format data}
 \usage{
 fb_format_site_species(data, site, species, value, na_to_zero = TRUE)
 }
 \arguments{
 \item{data}{a \code{data.frame} in a long format (see example).}
 
-\item{site}{a character of length 1. Name of the column with site labels.}
+\item{site}{a \code{character} of length 1. Name of the column with site labels.}
 
-\item{species}{a character of length 1. Name of the column with species
+\item{species}{a \code{character} of length 1. Name of the column with species
 names.}
 
-\item{value}{a character of length 1. Name of the column with species
+\item{value}{a \code{character} of length 1. Name of the column with species
 occurrence/abundance.}
 
-\item{na_to_zero}{a logical value. If \code{TRUE} (default) NA are replaced by
+\item{na_to_zero}{a logical value. If \code{TRUE} (default) \code{NA} are replaced by
 \code{0}.}
 }
 \value{
-A data.frame with sites in rows and species in columns. The first
+A \code{data.frame} with sites in rows and species in columns. The first
 column is named \code{"site"} and contains the name of the sites.
 }
 \description{
-...
+Convert a flat \code{data.frame} with species occurrence/abundance at site level
+into a proper \code{data.frame} object that can then be used by other functions.
+The final output contains sites in rows and species in columns.
 }
 \examples{
 library("funbiogeo")

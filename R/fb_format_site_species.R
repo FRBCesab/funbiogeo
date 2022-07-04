@@ -1,22 +1,23 @@
-#' Format site x species Object from Long Data
+#' Extract site x species information from long format data
 #' 
-#' @description
-#' ...
+#' Convert a flat `data.frame` with species occurrence/abundance at site level 
+#' into a proper `data.frame` object that can then be used by other functions.
+#' The final output contains sites in rows and species in columns.
 #'
 #' @param data a `data.frame` in a long format (see example).
 #' 
-#' @param site a character of length 1. Name of the column with site labels.
+#' @param site a `character` of length 1. Name of the column with site labels.
 #' 
-#' @param species a character of length 1. Name of the column with species 
+#' @param species a `character` of length 1. Name of the column with species 
 #'   names.
 #' 
-#' @param value a character of length 1. Name of the column with species 
+#' @param value a `character` of length 1. Name of the column with species 
 #'   occurrence/abundance.
 #'   
-#' @param na_to_zero a logical value. If `TRUE` (default) NA are replaced by 
+#' @param na_to_zero a logical value. If `TRUE` (default) `NA` are replaced by 
 #'   `0`.
 #'
-#' @return A data.frame with sites in rows and species in columns. The first
+#' @return A `data.frame` with sites in rows and species in columns. The first
 #'   column is named `"site"` and contains the name of the sites.
 #' 
 #' @export

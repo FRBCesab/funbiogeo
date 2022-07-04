@@ -1,17 +1,18 @@
-#' Format species x traits Object from Long Data
+#' Extract species x traits information from long format data
 #' 
-#' @description
-#' ...
+#' Convert a flat `data.frame` with traits values for different species
+#' into a proper `data.frame` object that can then be used by other functions.
+#' The final output contains species in rows and traits in columns.
 #'
 #' @param data_long a `data.frame` in a long format (see example).
 #' 
-#' @param species a character of length 1. Name of the column with species 
+#' @param species a `character` of length 1. Name of the column with species 
 #'   names.
 #' 
-#' @param traits a character of length >= 1. Name(s) of trait column(s).
+#' @param traits a `character` of length >= 1. Name(s) of trait column(s).
 #'
 #' @return A `data.frame` with species in rows and traits in columns, with the
-#'   first column names `"species"` containing the species names
+#'   first column names `"species"` containing the species names.
 #' 
 #' @export
 #'
