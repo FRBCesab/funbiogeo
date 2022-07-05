@@ -23,6 +23,11 @@ jobs:
 
       - uses: r-lib/actions/setup-renv@v2
       
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::rcmdcheck
+          needs: check
+      
       - name: Install rmarkdown, remotes, and the local package
         run: |
           install.packages("remotes")
