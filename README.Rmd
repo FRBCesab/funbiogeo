@@ -11,6 +11,8 @@ knitr::opts_chunk$set(
   fig.path  = "man/figures/README-",
   out.width = "100%"
 )
+
+pkgload::load_all()
 ```
 
 
@@ -94,8 +96,6 @@ The package contains default example data named `species_traits`,
 `site_species`, and `site_locations`. You can for example visualize to completeness of your trait dataset using the `fb_plot_species_traits_completeness()` function:
 
 ```{r plot-sp-tr-complete}
-library("funbiogeo")
-
 fb_plot_species_traits_completeness(species_traits)
 ```
 
