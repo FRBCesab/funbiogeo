@@ -74,7 +74,8 @@ fb_plot_species_traits_completeness <- function(species_traits) {
     ggplot2::geom_tile(
       ggplot2::aes_q(fill = ~has_trait)) +
     ggplot2::scale_x_discrete(
-      "Trait", labels = number_species_per_trait$trait_label
+      "Trait", labels = number_species_per_trait$trait_label,
+      guide = ggplot2::guide_axis(n.dodge = 2)
     ) +
     ggplot2::scale_y_discrete("Species", labels = NULL) +
     ggplot2::scale_fill_brewer(
@@ -83,5 +84,8 @@ fb_plot_species_traits_completeness <- function(species_traits) {
     ) +
     ggplot2::coord_cartesian(expand = FALSE) +
     ggplot2::theme_bw() +
-    ggplot2::theme(axis.ticks.y = ggplot2::element_blank())
+    ggplot2::theme(
+      axis.ticks.y = ggplot2::element_blank(),
+      legend.position = "top"
+    )
 }

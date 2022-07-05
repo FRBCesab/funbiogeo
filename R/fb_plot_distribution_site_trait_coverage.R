@@ -84,9 +84,7 @@ fb_plot_distribution_site_trait_coverage <- function(
   avg_coverage[["cov_label"]] <- 
     with(
       avg_coverage,
-      paste0(
-        coverage_name, "\n(", prettyNum(avg_coverage * 100, digits = 3), "%)"
-      )
+      paste0(coverage_name, "\n(", round(avg_coverage * 100, digits = 1), "%)")
     )
   
   avg_coverage <- avg_coverage[, c("cov_label", "coverage_name")]

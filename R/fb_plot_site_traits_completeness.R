@@ -63,7 +63,7 @@ fb_plot_site_traits_completeness <- function(site_species, species_traits) {
     with(
       avg_coverage,
       paste0(
-        coverage_name, "\n(", prettyNum(avg_coverage * 100, digits = 3), "%)"
+        coverage_name, "\n(", round(avg_coverage * 100, 1), "%)"
       )
     )
   
@@ -78,7 +78,9 @@ fb_plot_site_traits_completeness <- function(site_species, species_traits) {
     ggplot2::geom_tile() +
     ggplot2::coord_cartesian(expand = FALSE) +
     ggplot2::labs(x = "Trait Name", y = "Sites") +
-    ggplot2::scale_x_discrete(labels = avg_coverage) +
+    ggplot2::scale_x_discrete(
+      labels = avg_coverage, guide = ggplot2::guide_axis(n.dodge = 2)
+    ) +
     ggplot2::scale_fill_viridis_b(
       n.breaks = 10,
       "Trait Coverage\n(Prop. of species)",

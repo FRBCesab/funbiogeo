@@ -94,7 +94,9 @@ fb_plot_trait_combination_frequencies = function(
       "Trait", palette = "Set1",
       labels = c(`TRUE` = "Present", `FALSE` = "Missing")
     ) +
-    ggplot2::labs(x = "Trait Name") +
+    ggplot2::scale_x_discrete(
+      "Trait Name", guide = ggplot2::guide_axis(n.dodge = 2)
+    ) +
     ggplot2::coord_cartesian(expand = FALSE) +
     ggplot2::theme_bw() +
     ggplot2::theme(legend.position = "top")
