@@ -100,41 +100,73 @@
 <p>It is aimed at first-timers of functional biogeography as well as more experienced users who want to obtain quick and easy exploratory plots.</p>
 </div>
 <div class="section level2">
+<h2 id="main-features">Main Features<a class="anchor" aria-label="anchor" href="#main-features"></a>
+</h2>
+<p><code>funbiogeo</code> offers:</p>
+<ul>
+<li>Standardized functions to filter and select your data for further analyses,</li>
+<li>Pleasing default diagnostic plots to visualize the structure of your data,</li>
+<li>Extensive documentation (multiple vignettes, well-documented functions, real-life example dataset) to guide you through functional biogeography analyses,</li>
+<li>Nice default plotting functions using outputs from functional diversity packages (<code>betapart</code>, <code>fundiversity</code>, <code>hillR</code>, <code>mFD</code>, etc.),</li>
+<li>Automated standardized report that provide analyses and plots of your data,</li>
+<li>Functions to easily “upscale” your data to coarser spatial resolutions.</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
+</h2>
+<p>For the moment <code>funbiogeo</code> doesn’t offer a companion paper. But if you happen to use it in your paper you can cite the package through:</p>
+<blockquote><p>Casajus N, Grenie M (2022). <em>funbiogeo: Functional Biogeography Analyses</em>. R package version 0.0.0.9000, <a href="https://github.com/frbcesab/funbiogeo" class="external-link uri">https://github.com/frbcesab/funbiogeo</a>.</p></blockquote>
+<p>or the BibTeX version:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="sc">@</span>Manual{,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    title <span class="ot">=</span> {funbiogeo<span class="sc">:</span> Functional Biogeography Analyses},</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    author <span class="ot">=</span> {Nicolas Casajus and Matthias Grenie},</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    note <span class="ot">=</span> {R package version <span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">0.9000</span>},</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    url <span class="ot">=</span> {https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>frbcesab<span class="sc">/</span>funbiogeo},</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
+</div>
+<div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p>For the moment <code>funbiogeo</code> is not on CRAN but you can install the development version from GitHub as follow:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("remotes")  # Run this line if 'remotes' pkg is not installed</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"FRBCesab/funbiogeo"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="getting-started">Getting started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
+<h2 id="first-steps">First steps<a class="anchor" aria-label="anchor" href="#first-steps"></a>
 </h2>
-<p>Please refer to the <a href="https://frbcesab.github.io/funbiogeo/" class="external-link">“Getting started” vignette</a>.</p>
+<p>This section will show you some useful functions from <code>funbiogeo</code>. For a longer introduction please refer to the <a href="https://frbcesab.github.io/funbiogeo/" class="external-link">“Get started” vignette</a>.</p>
+<p>The package contains default example data named <code>species_traits</code>, <code>site_species</code>, and <code>site_locations</code>. You can for example visualize to completeness of your trait dataset using the <code><a href="reference/fb_plot_species_traits_completeness.html">fb_plot_species_traits_completeness()</a></code> function:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/fb_plot_species_traits_completeness.html">fb_plot_species_traits_completeness</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-plot-sp-tr-complete-1.png" width="100%"></p>
+<p>One other useful visualization is to see the trait coverage of each trait across all sites, using the function <code><a href="reference/fb_map_site_traits_completeness.html">fb_map_site_traits_completeness()</a></code>:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/fb_map_site_traits_completeness.html">fb_map_site_traits_completeness</a></span><span class="op">(</span><span class="va">site_locations</span>, <span class="va">site_species</span>, <span class="va">species_traits</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-plot-site-tr-complete-1.png" width="100%"></p>
+<p>See more features of <code>funbiogeo</code> in the <a href="https://frbcesab.github.io/funbiogeo/articles/" class="external-link">vignettes of the package</a></p>
 </div>
 <div class="section level2">
-<h2 id="related-packages">Related packages<a class="anchor" aria-label="anchor" href="#related-packages"></a>
+<h2 id="longer-documentation-form">Longer Documentation form<a class="anchor" aria-label="anchor" href="#longer-documentation-form"></a>
 </h2>
-<p>To understand better our working philosophy you can refer to our <a href="https://github.com/FRBCesab/funbiogeo/wiki/Design-Principles" class="external-link">Design principles wiki page</a>.</p>
-<p><code>funbiogeo</code> relies on other packages to provide critical features:</p>
+<p><code>funbiogeo</code> provides four vignettes to explain its functioning:</p>
 <ul>
-<li>
-<a href="https://github.com/Bisaloo/fundiversity" class="external-link"><code>fundiversity</code></a> computes functional diversity indices.</li>
-<li>
-<a href="https://github.com/Rekyt/funrar" class="external-link"><code>funrar</code></a> computes functional originality indices.</li>
-<li>
-<a href="https://github.com/CmlMagneville/mFD" class="external-link"><code>mFD</code></a> computes functional diversity indices.</li>
+<li>A <a href="https://frbcesab.github.io/funbiogeo/articles/funbiogeo.html" class="external-link">“Get started” vignette</a> that describes its core features and guide you through a typical analysis.</li>
+<li>A <a href="https://frbcesab.github.io/funbiogeo/articles/diagnostic-plots.html" class="external-link">vignette on all diagnostic plots</a> provided in the package, which details how to use each plotting function and how to interpret their output.</li>
+<li>A <a href="https://frbcesab.github.io/funbiogeo/articles/long-format.html" class="external-link">vignette on formatting your data</a> to the needs of <code>funbiogeo</code>, which shows you the use of specific functions.</li>
+<li>And a <a href="https://frbcesab.github.io/funbiogeo/articles/upscaling.html" class="external-link">specific vignette on upscaling</a> which explains how to aggregate automatically your data to coarser grain and use it in further analyses.</li>
 </ul>
-</div>
-<div class="section level2">
-<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
-</h2>
-<p>Violle C, Reich, PB Pacala SW, <em>et al.</em> (2014) The emergence and promise of functional biogeography. <em>Proceedings of the National Academy of Sciences</em>, <strong>111</strong>, 13690–13696. DOI: <a href="https://doi.org/10.1073/pnas.1415442111" class="external-link">10.1073/pnas.1415442111</a></p>
 </div>
 <div class="section level2">
 <h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
 </h2>
 <p>Please note that the <code>funbiogeo</code> project is released with a <a href="https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html" class="external-link">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
+</div>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<p>Violle C, Reich, PB Pacala SW, <em>et al.</em> (2014) The emergence and promise of functional biogeography. <em>Proceedings of the National Academy of Sciences</em>, <strong>111</strong>, 13690–13696. DOI: <a href="https://doi.org/10.1073/pnas.1415442111" class="external-link">10.1073/pnas.1415442111</a></p>
 </div>
 </div>
   </div>
