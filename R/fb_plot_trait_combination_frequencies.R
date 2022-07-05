@@ -8,7 +8,8 @@
 #' @param order_by {`character(1)` either `"number"` or `"complete`}\cr{}
 #'                 If `"number"` order rows by frequency so that most
 #'                 frequent rows are at the bottom.
-#'                 Otherwise order rows to  show table by present traits
+#'                 Otherwise order rows to order table by the number of
+#'                 non-missing traits then by the frequency of combinations
 #'
 #' @return a `ggplot2` object
 #' 
@@ -39,6 +40,13 @@ fb_plot_trait_combination_frequencies = function(
     comb_count ~ ., cbind(combinations, comb_count = 1), FUN = sum
   )
   
+  # Count number of present traits
+  number_traits <- rowSums(
+    unique_combinations[, seq(1, ncol(unique_combinations) - 1), drop = FALSE]
+  )
+  
+  unique_combinations$n_present <- number_traits
+  
   # Order dataset based on 'order_by' argument
   if (order_by == "number") {
     
@@ -49,12 +57,12 @@ fb_plot_trait_combination_frequencies = function(
     
   } else {
     
-    # Order rows columns with TRUE values first
+    
+    
+    # Order rows columns with most non-missing traits first then by count
     unique_combinations <- unique_combinations[
-      do.call(
-        function(...) order(..., decreasing = TRUE),
-        unique_combinations[, -ncol(unique_combinations)]
-      ),
+      order(unique_combinations$n_present, unique_combinations$comb_count,
+            decreasing = TRUE),
     ]
     
   }
@@ -64,8 +72,8 @@ fb_plot_trait_combination_frequencies = function(
   
   # Make table longer
   unique_comb_long <- tidyr::pivot_longer(
-    unique_combinations, !c("comb_count", "row_order"), names_to = "trait_name",
-    values_to = "trait_value"
+    unique_combinations, !c("comb_count", "row_order", "n_present"),
+    names_to = "trait_name", values_to = "trait_value"
   )
   
   ggplot2::ggplot(

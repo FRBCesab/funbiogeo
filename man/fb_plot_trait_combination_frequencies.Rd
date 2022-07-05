@@ -18,7 +18,8 @@ to trait names.}
 \item{order_by}{{\code{character(1)} either \code{"number"} or \verb{"complete}}\cr{}
 If \code{"number"} order rows by frequency so that most
 frequent rows are at the bottom.
-Otherwise order rows to  show table by present traits}
+Otherwise order rows to order table by the number of
+non-missing traits then by the frequency of combinations}
 }
 \value{
 a \code{ggplot2} object
