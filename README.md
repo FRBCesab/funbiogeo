@@ -51,7 +51,7 @@ experienced users who want to obtain quick and easy exploratory plots.
 For the moment `funbiogeo` doesn’t offer a companion paper. But if you
 happen to use it in your paper you can cite the package through:
 
-> Casajus N, Grenie M (2022). *funbiogeo: Functional Biogeography
+> Casajus N, Grenié M (2022). *funbiogeo: Functional Biogeography
 > Analyses*. R package version 0.0.0.9000,
 > <https://github.com/frbcesab/funbiogeo>.
 
@@ -59,7 +59,7 @@ or the BibTeX version:
 
     @Manual{,
         title = {funbiogeo: Functional Biogeography Analyses},
-        author = {Nicolas Casajus and Matthias Grenie},
+        author = {Nicolas Casajus and Matthias Grenié},
         note = {R package version 0.0.0.9000},
         url = {https://github.com/frbcesab/funbiogeo},
       }
