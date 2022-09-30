@@ -86,7 +86,7 @@ fb_make_report <- function(path = ".", filename = NULL, title = NULL,
   }
   
   
-  # Create file name and title ---------------------------------------------
+  # Create file name and title -------------------------------------------------
   
   if (is.null(title) && !is.null(filename)) {
     title <- gsub("\\.Rmd$", "", filename, ignore.case = TRUE)
