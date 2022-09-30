@@ -101,10 +101,7 @@ fb_plot_distribution_site_trait_coverage <- function(
     all_coverage,
     ggplot2::aes(.data$coverage_value, .data$coverage_name)
   ) +
-    ggridges::stat_density_ridges(
-      quantile_lines = TRUE, quantile_fun = mean, scale = 0.98,
-      vline_linetype = 2
-    ) +
+    ggridges::stat_density_ridges(scale = 0.98) +
     ggplot2::scale_x_continuous(
       "Average Trait Coverage per Site", labels = scales::label_percent()
     ) +
