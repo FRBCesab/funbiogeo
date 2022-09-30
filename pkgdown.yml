@@ -1,10 +1,10 @@
 pandoc: 2.14.2
-pkgdown: 2.0.5
+pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
   diagnostic-plots: diagnostic-plots.html
   funbiogeo: funbiogeo.html
   long-format: long-format.html
   upscaling: upscaling.html
-last_built: 2022-07-07T16:27Z
+last_built: 2022-09-30T14:59Z
 
