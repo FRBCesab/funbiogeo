@@ -1,5 +1,14 @@
 #' Plot Trait Coverage per Site for each Trait
 #'
+#' Display a binary heatmap visualizing the site x traits matrix with colors
+#' displaying the proportion of occurring species with known trait values.
+#' Traits are ordered from the most to the least known (left to right).
+#' Sites are ordered from the ones with highest to lowest overall trait coverage
+#' (bottom to top). The site average proportion of species with known trait
+#' for each trait (across all sites) is shown in the x-axis labels.
+#' An additional column at the very right of the plot named `"all_traits"`
+#' shows a summary considering traits together.
+#' 
 #' @inheritParams fb_get_trait_coverage_by_site
 #'
 #' @return a ggplot2 object

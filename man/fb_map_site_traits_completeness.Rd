@@ -24,7 +24,10 @@ to trait names.}
 a 'ggplot2' object
 }
 \description{
-Map Trait Coverage Per Site
+Returns a \code{ggplot2} map of sites colored by trait coverage (proportion
+of species having a known trait value). By default shows one plot for each
+trait and add an additional facet named \code{"all_traits"} considering the
+trait coverage with all traits taken together.
 }
 \examples{
 fb_map_site_traits_completeness(site_locations, site_species, species_traits)

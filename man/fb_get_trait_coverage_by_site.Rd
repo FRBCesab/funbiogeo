@@ -22,11 +22,14 @@ two columns: \code{site}, the site label, and \code{trait_coverage}, the percent
 total abundance/presence of species that have traits data.
 }
 \description{
-Compute traits coverage for all sites, i.e., the percentage of total
+Compute trait coverage for all sites, i.e., the percentage of total
 abundance/presence of species that have traits data compared to total
 species.
 This function assumes that all species provided in the traits dataset have
-all their traits specified.
+all their traits specified (meaning that all species have either known or
+\code{NA} values reported as their traits).
+\strong{NB}: this function returns trait coverage using all traits
+provided in the input \code{species_traits} data.frame.
 }
 \examples{
 library("funbiogeo")

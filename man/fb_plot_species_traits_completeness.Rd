@@ -22,6 +22,8 @@ the least known (left to right).
 Species are ordered from the ones with most to the ones with least traits
 (bottom to top). The proportion of species with non-missing traits is shown
 on the x-axis labels.
+An additional column at the very right of the plot named \code{"all_traits"}
+shows a summary considering if all other traits are known.
 }
 \examples{
 data(species_traits)

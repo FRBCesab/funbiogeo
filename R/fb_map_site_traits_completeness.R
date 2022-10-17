@@ -1,5 +1,10 @@
 #' Map Trait Coverage Per Site
-#'
+#' 
+#' Returns a `ggplot2` map of sites colored by trait coverage (proportion 
+#' of species having a known trait value). By default shows one plot for each
+#' trait and add an additional facet named `"all_traits"` considering the
+#' trait coverage with all traits taken together.
+#' 
 #' @inheritParams fb_get_environment 
 #' @inheritParams fb_get_trait_coverage_by_site
 #'

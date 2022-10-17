@@ -1,11 +1,13 @@
 #' Compute Trait Coverage For Each Site Weighted by Abundance
 #' 
-#' @description
-#' Compute traits coverage for all sites, i.e., the percentage of total 
+#' Compute trait coverage for all sites, i.e., the percentage of total 
 #' abundance/presence of species that have traits data compared to total
 #' species.
 #' This function assumes that all species provided in the traits dataset have
-#' all their traits specified.
+#' all their traits specified (meaning that all species have either known or
+#' `NA` values reported as their traits).
+#'  **NB**: this function returns trait coverage using all traits
+#' provided in the input `species_traits` data.frame.
 #' 
 #' @param site_species a `data.frame` with sites in rows and species in columns.
 #' **NOTE**: the first column should be named **`"site"`** and indicate site

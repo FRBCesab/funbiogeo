@@ -1,10 +1,20 @@
 #' Compute Trait Coverage per Site for All Traits
-#'
+#' 
+#' Compute trait coverage for all sites, i.e., the percentage of total 
+#' abundance/presence of species that have traits data compared to total
+#' species. This function assumes that all species provided in the traits dataset have
+#' all their traits specified (meaning that all species have either known or
+#' `NA` values reported as their traits).
+#' The coverage of each trait separately is returned as well as all traits taken
+#' together.
+#' 
 #' @inheritParams fb_get_trait_coverage_by_site
 #'
 #' @return a data.frame with a column with sites and one column per provided
 #'   trait giving its coverage (percent species per site, weighted by abundance
-#'   that have trait data)
+#'   that have trait data), and an additional column named `all_traits`
+#'   considering the coverage of all traits taken together.
+#'   
 #' @export
 #'
 #' @examples

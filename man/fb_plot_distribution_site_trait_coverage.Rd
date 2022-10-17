@@ -20,7 +20,13 @@ to trait names.}
 a 'ggplot2' object
 }
 \description{
-Plot Distribution of Trait Coverages across all Sites
+Plots the distributions of trait coverage across site, i.e. the proportion of
+species weighted by abundance with known trait values, for each trait
+separately and all traits taken together.
+The trait distributions are ordered from the lowest to the highest average
+trait coverage (top to bottom). The top always displays a distribution named
+\code{"all_traits"} that contains the distribution of coverage all traits taken
+together.
 }
 \examples{
 fb_plot_distribution_site_trait_coverage(site_species, species_traits)

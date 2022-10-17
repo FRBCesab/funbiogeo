@@ -21,7 +21,7 @@ Useful links:
 
 Authors:
 \itemize{
-  \item Matthias Grenie \email{matthias.grenie@idiv.de} (\href{https://orcid.org/0000-0002-4659-7522}{ORCID})
+  \item Matthias Grenié \email{matthias.grenie@idiv.de} (\href{https://orcid.org/0000-0002-4659-7522}{ORCID})
 }
 
 }

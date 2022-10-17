@@ -1,5 +1,13 @@
 #' Plot Distribution of Trait Coverages across all Sites
-#'
+#' 
+#' Plots the distributions of trait coverage across site, i.e. the proportion of
+#' species weighted by abundance with known trait values, for each trait
+#' separately and all traits taken together.
+#' The trait distributions are ordered from the lowest to the highest average
+#' trait coverage (top to bottom). The top always displays a distribution named
+#' `"all_traits"` that contains the distribution of coverage all traits taken
+#' together.
+#' 
 #' @inheritParams fb_get_trait_coverage_by_site
 #'
 #' @return a 'ggplot2' object
