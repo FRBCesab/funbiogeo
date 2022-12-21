@@ -8,7 +8,7 @@
 #' `"all_traits"` that contains the distribution of coverage all traits taken
 #' together.
 #' 
-#' @inheritParams fb_get_trait_coverage_by_site
+#' @inheritParams fb_get_all_trait_coverages_by_site
 #'
 #' @return a 'ggplot2' object
 #'
@@ -18,16 +18,22 @@
 #' @importFrom rlang .data
 #' @export
 fb_plot_distribution_site_trait_coverage <- function(
-    site_species, species_traits
+    site_species, species_traits, all_traits = TRUE
 ) {
   
   # Checks
   check_site_species(site_species)
   check_species_traits(species_traits)
   
+  full_coverage <- data.frame(site = rownames(site_species))
+  
   # Computing Trait Coverage per Site
-  full_coverage <- fb_get_trait_coverage_by_site(site_species, species_traits)
-  colnames(full_coverage)[2] <- "all_traits"
+  if (all_traits) {
+    full_coverage <- fb_get_trait_coverage_by_site(
+      site_species, species_traits
+    )
+    colnames(full_coverage)[2] <- "all_traits"
+  }
   
   trait_coverage <- lapply(
     colnames(species_traits)[-1],
