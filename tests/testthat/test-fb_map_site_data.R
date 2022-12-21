@@ -40,6 +40,12 @@ test_that("fb_map_site_data() errors with wrong input", {
     fixed = TRUE
   )
   
+  expect_error(
+    res <- fb_map_site_data(site_locations, data.frame(site = "a", b = 1), 1),
+    "Argument 'selected_col' must be a character",
+    fixed = TRUE
+  )
+  
   # Specified 'selected_col' not in provided 'site_data'
   expect_error(
     res <- fb_map_site_data(site_locations, data.frame(site = "a", b = 1), "a"),
