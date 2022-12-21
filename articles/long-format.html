@@ -99,17 +99,26 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/frbcesab/funbiogeo" class="external-link">funbiogeo</a></span><span class="op">)</span></span></code></pre></div>
-<p>The <code>funbiogeo</code>package requires that information is structured in three different datasets:</p>
+<p>The <code>funbiogeo</code>package requires that information is
+structured in three different datasets:</p>
 <ul>
-<li>the <strong>species x traits</strong> <code>data.frame</code> (<code>species_traits</code> in <code>funbiogeo</code>)</li>
-<li>the <strong>site x species</strong> <code>data.frame</code> (<code>site_species</code> in <code>funbiogeo</code>)</li>
-<li>the <strong>site x locations</strong> object (<code>site_locations</code> in <code>funbiogeo</code>)</li>
+<li>the <strong>species x traits</strong> <code>data.frame</code>
+(<code>species_traits</code> in <code>funbiogeo</code>)</li>
+<li>the <strong>site x species</strong> <code>data.frame</code>
+(<code>site_species</code> in <code>funbiogeo</code>)</li>
+<li>the <strong>site x locations</strong> object
+(<code>site_locations</code> in <code>funbiogeo</code>)</li>
 </ul>
 <div class="section level2">
 <h2 id="wide-vs-long-format">Wide vs long format<a class="anchor" aria-label="anchor" href="#wide-vs-long-format"></a>
 </h2>
-<p>In <code>funbiogeo</code> these three datasets <strong>must be</strong> in a wide format (=where one row hosts several variables across columns), but sometimes information is structured in a long format (=one observation per row, also called <a href="https://r4ds.had.co.nz/tidy-data.html" class="external-link"><strong>tidy</strong> format</a>).</p>
-<p>For instance, the following dataset illustrates the wider format (the presence/absence of all species is spread across columns).</p>
+<p>In <code>funbiogeo</code> these three datasets <strong>must
+be</strong> in a wide format (=where one row hosts several variables
+across columns), but sometimes information is structured in a long
+format (=one observation per row, also called <a href="https://r4ds.had.co.nz/tidy-data.html" class="external-link"><strong>tidy</strong>
+format</a>).</p>
+<p>For instance, the following dataset illustrates the wider format (the
+presence/absence of all species is spread across columns).</p>
 <table class="table">
 <caption>Wide format dataset (used in <code>funbiogeo</code>)</caption>
 <thead><tr class="header">
@@ -143,7 +152,9 @@
 </tr>
 </tbody>
 </table>
-<p>The following dataset illustrates the long format (the column <code>species</code> contains the name of the species and the column <code>occurrence</code> contains the presence/absence of species).</p>
+<p>The following dataset illustrates the long format (the column
+<code>species</code> contains the name of the species and the column
+<code>occurrence</code> contains the presence/absence of species).</p>
 <table class="table">
 <caption>Long format dataset</caption>
 <thead><tr class="header">
@@ -218,21 +229,35 @@
 <div class="section level2">
 <h2 id="the-fb_format_-functions">The <code>fb_format_*()</code> functions<a class="anchor" aria-label="anchor" href="#the-fb_format_-functions"></a>
 </h2>
-<p>If your data are not split into these three wider datasets, you can use the functions <code>fb_format_*()</code> to create these specific objects from a long format dataset.</p>
+<p>If your data are not split into these three wider datasets, you can
+use the functions <code>fb_format_*()</code> to create these specific
+objects from a long format dataset.</p>
 <ul>
-<li>The function <code><a href="../reference/fb_format_site_locations.html">fb_format_site_locations()</a></code> allows to extract the <strong>site x locations</strong> information from the long format data</li>
+<li>The function <code><a href="../reference/fb_format_site_locations.html">fb_format_site_locations()</a></code> allows to
+extract the <strong>site x locations</strong> information from the long
+format data</li>
 <li>
-<code><a href="../reference/fb_format_site_species.html">fb_format_site_species()</a></code> allows to extract the <strong>site x species</strong> information from the long format data</li>
+<code><a href="../reference/fb_format_site_species.html">fb_format_site_species()</a></code> allows to extract the
+<strong>site x species</strong> information from the long format
+data</li>
 <li>
-<code><a href="../reference/fb_format_species_traits.html">fb_format_species_traits()</a></code> allows to extract the <strong>species x traits</strong> information from the long format data</li>
+<code><a href="../reference/fb_format_species_traits.html">fb_format_species_traits()</a></code> allows to extract the
+<strong>species x traits</strong> information from the long format
+data</li>
 </ul>
-<p>All these functions take a long dataset as input (argument <code>data</code>), where one row corresponds to the occurrence/abundance/coverage of one species at one site and output a wider object.</p>
+<p>All these functions take a long dataset as input (argument
+<code>data</code>), where one row corresponds to the
+occurrence/abundance/coverage of one species at one site and output a
+wider object.</p>
 </div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
-<p><code>funbiogeo</code> provides a small excerpt of long format data to show how to use the functions. This data sits at <code>system.file("extdata", "raw_mammals_data.csv", package = "funbiogeo")</code></p>
-<p>Let’s import the long format dataset provided by <code>funbiogeo</code>:</p>
+<p><code>funbiogeo</code> provides a small excerpt of long format data
+to show how to use the functions. This data sits at
+<code>system.file("extdata", "raw_mammals_data.csv", package = "funbiogeo")</code></p>
+<p>Let’s import the long format dataset provided by
+<code>funbiogeo</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Define the path to long format dataset ----</span></span>
 <span></span>
@@ -406,7 +431,10 @@
 <div class="section level3">
 <h3 id="extracting-species-x-traits-data">Extracting species x traits data<a class="anchor" aria-label="anchor" href="#extracting-species-x-traits-data"></a>
 </h3>
-<p>The function <code><a href="../reference/fb_format_species_traits.html">fb_format_species_traits()</a></code> extracts species traits values from this long table to create the species x traits dataset. Note that one species must have one unique trait value (no trait variation across sites is allowed).</p>
+<p>The function <code><a href="../reference/fb_format_species_traits.html">fb_format_species_traits()</a></code> extracts species
+traits values from this long table to create the species x traits
+dataset. Note that one species must have one unique trait value (no
+trait variation across sites is allowed).</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Extract species x traits data ----</span></span>
 <span></span>
@@ -446,7 +474,11 @@
 <div class="section level3">
 <h3 id="extracting-site-x-species-data">Extracting site x species data<a class="anchor" aria-label="anchor" href="#extracting-site-x-species-data"></a>
 </h3>
-<p>The function <code><a href="../reference/fb_format_site_species.html">fb_format_site_species()</a></code> extracts species occurrence/abundance/coverage from this long table to create the site x species dataset. Note that one species must have been observed one time at one site (the package <code>funbiogeo</code> does not yet consider temporal survey).</p>
+<p>The function <code><a href="../reference/fb_format_site_species.html">fb_format_site_species()</a></code> extracts species
+occurrence/abundance/coverage from this long table to create the site x
+species dataset. Note that one species must have been observed one time
+at one site (the package <code>funbiogeo</code> does not yet consider
+temporal survey).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Format site x species data ----</span></span>
 <span></span>
@@ -475,7 +507,9 @@
 <div class="section level3">
 <h3 id="extracting-site-x-locations-data">Extracting site x locations data<a class="anchor" aria-label="anchor" href="#extracting-site-x-locations-data"></a>
 </h3>
-<p>The function <code><a href="../reference/fb_format_site_locations.html">fb_format_site_locations()</a></code> extracts sites coordinates from this long table to create the site x locations dataset. Note that one site must have one unique longitude x latitude value.</p>
+<p>The function <code><a href="../reference/fb_format_site_locations.html">fb_format_site_locations()</a></code> extracts sites
+coordinates from this long table to create the site x locations dataset.
+Note that one site must have one unique longitude x latitude value.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Format site x locations data ----</span></span>
 <span></span>
@@ -500,7 +534,8 @@
 <span><span class="co">#&gt; 103 fb_1002  POINT (52.59736 21.27182)</span></span>
 <span><span class="co">#&gt; 152 fb_1007 POINT (52.09736 -9.728179)</span></span>
 <span><span class="co">#&gt; 174 fb_1008 POINT (52.09736 -9.228179)</span></span></code></pre></div>
-<p>Once your data are in the good format, you can <a href="https://frbcesab.github.io/funbiogeo/articles/funbiogeo.html" class="external-link">get started</a> with <code>funbiogeo</code>.</p>
+<p>Once your data are in the good format, you can <a href="https://frbcesab.github.io/funbiogeo/articles/funbiogeo.html" class="external-link">get
+started</a> with <code>funbiogeo</code>.</p>
 </div>
 </div>
   </div>
@@ -522,7 +557,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

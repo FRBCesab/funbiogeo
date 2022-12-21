@@ -97,22 +97,38 @@
 
     
     
-<p>The aim of the <code>funbiogeo</code>package is to help users streamline the workflows in <strong>fun</strong>ctional <strong>biogeo</strong>graphy <span class="citation">(Violle et al. 2014)</span>. It helps filter sites, species, and traits based on their trait coverages. It also provide default diagnostic plots and standard tables summarizing input data. This vignette aims to be an introduction to the most commonly used functions.</p>
-<p>The vignette will be a worked through a real world example using the internal dataset provided by <code>funbiogeo</code>.</p>
+<p>The aim of the <code>funbiogeo</code>package is to help users
+streamline the workflows in <strong>fun</strong>ctional
+<strong>biogeo</strong>graphy <span class="citation">(Violle et al.
+2014)</span>. It helps filter sites, species, and traits based on their
+trait coverages. It also provide default diagnostic plots and standard
+tables summarizing input data. This vignette aims to be an introduction
+to the most commonly used functions.</p>
+<p>The vignette will be a worked through a real world example using the
+internal dataset provided by <code>funbiogeo</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/frbcesab/funbiogeo" class="external-link">"funbiogeo"</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org" class="external-link">"ggplot2"</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="provided-data">Provided data<a class="anchor" aria-label="anchor" href="#provided-data"></a>
 </h2>
-<p>We are interested in mapping the functional traits of mammals of Europe. We used range maps data <a href="https://www.iucnredlist.org/resources/spatial-data-download" class="external-link">from the IUCN</a> and trait data from the <a href="https://esapubs.org/archive/ecol/E090/184/" class="external-link">PanTHERIA database</a> <span class="citation">(Jones et al. 2009)</span>. The initial extraction is available on <a href="https://github.com/FRBCesab/eumammals" class="external-link">GitHub</a>.</p>
-<p>The package <code>funbiogeo</code> requires three different datasets to proceed with the analyses:</p>
+<p>We are interested in mapping the functional traits of mammals of
+Europe. We used range maps data <a href="https://www.iucnredlist.org/resources/spatial-data-download" class="external-link">from
+the IUCN</a> and trait data from the <a href="https://esapubs.org/archive/ecol/E090/184/" class="external-link">PanTHERIA database</a>
+<span class="citation">(Jones et al. 2009)</span>. The initial
+extraction is available on <a href="https://github.com/FRBCesab/eumammals" class="external-link">GitHub</a>.</p>
+<p>The package <code>funbiogeo</code> requires three different datasets
+to proceed with the analyses:</p>
 <ul>
-<li>the <strong>species x traits</strong> <code>data.frame</code> (<code>species_traits</code> in <code>funbiogeo</code>)</li>
-<li>the <strong>site x species</strong> <code>data.frame</code> (<code>site_species</code> in <code>funbiogeo</code>)</li>
-<li>the <strong>site x locations</strong> object (<code>site_locations</code> in <code>funbiogeo</code>)</li>
+<li>the <strong>species x traits</strong> <code>data.frame</code>
+(<code>species_traits</code> in <code>funbiogeo</code>)</li>
+<li>the <strong>site x species</strong> <code>data.frame</code>
+(<code>site_species</code> in <code>funbiogeo</code>)</li>
+<li>the <strong>site x locations</strong> object
+(<code>site_locations</code> in <code>funbiogeo</code>)</li>
 </ul>
-<p>You can load the example data using <code>data(..., package = "funbiogeo")</code> call:</p>
+<p>You can load the example data using
+<code>data(..., package = "funbiogeo")</code> call:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"site_species"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"site_locations"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></span>
@@ -120,9 +136,17 @@
 <div class="section level3">
 <h3 id="species-x-traits">Species x Traits<a class="anchor" aria-label="anchor" href="#species-x-traits"></a>
 </h3>
-<p>This object contains traits values for studied species. It should be a <code>data.frame</code>. The first column should contain species names and the other columns contain trait values.</p>
-<p>Note that we’ll be talking about <strong>species</strong> throughout this vignette and in the arguments of <code>funbiogeo</code>, but the package doesn’t make any assumption on the biological level. It can be individuals, populations, strains, species, genera, families, etc. The important fact is that you should have trait data for the level at which you want to work.</p>
-<p>Let’s examine the <code>species_traits</code> data included in the package:</p>
+<p>This object contains traits values for studied species. It should be
+a <code>data.frame</code>. The first column should contain species names
+and the other columns contain trait values.</p>
+<p>Note that we’ll be talking about <strong>species</strong> throughout
+this vignette and in the arguments of <code>funbiogeo</code>, but the
+package doesn’t make any assumption on the biological level. It can be
+individuals, populations, strains, species, genera, families, etc. The
+important fact is that you should have trait data for the level at which
+you want to work.</p>
+<p>Let’s examine the <code>species_traits</code> data included in the
+package:</p>
 <table class="table">
 <caption>First lines of species x traits dataset</caption>
 <colgroup>
@@ -182,7 +206,11 @@
 </tr>
 </tbody>
 </table>
-<p>The first column <strong><code>"species"</code></strong> contains species names, while the next 6 columns contain the trait values for all species. Note that the species names are anonymized because the IUCN data <a href="https://www.iucnredlist.org/terms/terms-of-use#4.%20No%20Reposting%20or%20Redistribution" class="external-link">cannot be redistributed</a>.</p>
+<p>The first column <strong><code>"species"</code></strong> contains
+species names, while the next 6 columns contain the trait values for all
+species. Note that the species names are anonymized because the IUCN
+data <a href="https://www.iucnredlist.org/terms/terms-of-use#4.%20No%20Reposting%20or%20Redistribution" class="external-link">cannot
+be redistributed</a>.</p>
 <p>Let’s look at a summary of the trait dataset:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span></span>
@@ -202,16 +230,27 @@
 <span><span class="co">#&gt;  3rd Qu.:252.0   3rd Qu.: 549.05     3rd Qu.:4.000  </span></span>
 <span><span class="co">#&gt;  Max.   :600.0   Max.   :1542.25     Max.   :8.000  </span></span>
 <span><span class="co">#&gt;  NA's   :68      NA's   :65          NA's   :66</span></span></code></pre></div>
-<p>From there we can see that there are 149 included species and some missing trait values. For example, there we don’t have body mass for 26 species.</p>
-<p>Note that to use your own species by traits <code>data.frame</code>, it should follow similar structure with the first column being named <strong><code>"species"</code></strong> and the other ones containing traits.</p>
+<p>From there we can see that there are 149 included species and some
+missing trait values. For example, there we don’t have body mass for 26
+species.</p>
+<p>Note that to use your own species by traits <code>data.frame</code>,
+it should follow similar structure with the first column being named
+<strong><code>"species"</code></strong> and the other ones containing
+traits.</p>
 </div>
 <div class="section level3">
 <h3 id="site-x-species">Site x Species<a class="anchor" aria-label="anchor" href="#site-x-species"></a>
 </h3>
-<p>This object contains species occurrences/abundance/coverage at sites<br>
-of the study area. It is a <code>data.frame</code>. The first column, <strong><code>"site"</code></strong>, contains site names while the other columns contains the abundance of each species across sites.</p>
-<p>Note that here we are talking about sites in an abstract way. These can be plots, assemblages, of whatever set of species you’re interested in.</p>
-<p>The package <code>funbiogeo</code> comes with the example dataset <code>site_species</code>. Let’s look at it:</p>
+<p>This object contains species occurrences/abundance/coverage at
+sites<br>
+of the study area. It is a <code>data.frame</code>. The first column,
+<strong><code>"site"</code></strong>, contains site names while the
+other columns contains the abundance of each species across sites.</p>
+<p>Note that here we are talking about sites in an abstract way. These
+can be plots, assemblages, of whatever set of species you’re interested
+in.</p>
+<p>The package <code>funbiogeo</code> comes with the example dataset
+<code>site_species</code>. Let’s look at it:</p>
 <table class="table">
 <caption>Format of site x species dataset</caption>
 <thead><tr class="header">
@@ -283,14 +322,27 @@ of the study area. It is a <code>data.frame</code>. The first column, <strong><c
 </tr>
 </tbody>
 </table>
-<p>The example dataset contains the occurrence of the 149 above-mentioned species across 1,505 sites (grid cells of 0.5° x 0.5° resolution).</p>
-<p>Note that to use your own site by species <code>data.frame</code>, it should follow similar structure with the first column being named <strong><code>"sites"</code></strong> and the other ones containing presence information of species across sites.</p>
+<p>The example dataset contains the occurrence of the 149
+above-mentioned species across 1,505 sites (grid cells of 0.5° x 0.5°
+resolution).</p>
+<p>Note that to use your own site by species <code>data.frame</code>, it
+should follow similar structure with the first column being named
+<strong><code>"sites"</code></strong> and the other ones containing
+presence information of species across sites.</p>
 </div>
 <div class="section level3">
 <h3 id="site-x-locations">Site x Locations<a class="anchor" aria-label="anchor" href="#site-x-locations"></a>
 </h3>
-<p>This object contains the geographical location of the sites. It should be an <code>sf</code> object from the <a href="https://cran.r-project.org/package=sf" class="external-link"><code>sf</code> package</a>. The sites can have arbitrary shapes: points, regular polygons, irregular polygons, or even line transects! To make sure that your data is well plotted you should specify the Coordinate Reference System (CRS) of this object.</p>
-<p>The package <code>funbiogeo</code> comes with the example dataset <code>site_locations</code> defining the location of the 1,505 sites (grid cells of 0.5° x 0.5° resolution). It contains the names of the site in its first column <strong><code>"site"</code></strong>:</p>
+<p>This object contains the geographical location of the sites. It
+should be an <code>sf</code> object from the <a href="https://cran.r-project.org/package=sf" class="external-link"><code>sf</code>
+package</a>. The sites can have arbitrary shapes: points, regular
+polygons, irregular polygons, or even line transects! To make sure that
+your data is well plotted you should specify the Coordinate Reference
+System (CRS) of this object.</p>
+<p>The package <code>funbiogeo</code> comes with the example dataset
+<code>site_locations</code> defining the location of the 1,505 sites
+(grid cells of 0.5° x 0.5° resolution). It contains the names of the
+site in its first column <strong><code>"site"</code></strong>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">site_locations</span></span>
 <span><span class="co">#&gt; Simple feature collection with 1505 features and 1 field</span></span>
@@ -310,23 +362,41 @@ of the study area. It is a <code>data.frame</code>. The first column, <strong><c
 <span><span class="co">#&gt; 8     8 POLYGON ((9.521821 59.84736...</span></span>
 <span><span class="co">#&gt; 9     9 POLYGON ((10.02182 59.84736...</span></span>
 <span><span class="co">#&gt; 10   10 POLYGON ((10.52182 59.84736...</span></span></code></pre></div>
-<p>Note that to use your own site locations object, it should follow similar structure with the first column being named <strong><code>"sites"</code></strong>.</p>
+<p>Note that to use your own site locations object, it should follow
+similar structure with the first column being named
+<strong><code>"sites"</code></strong>.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="visualizing-the-data-diagnostic-plots">Visualizing the data (diagnostic plots)<a class="anchor" aria-label="anchor" href="#visualizing-the-data-diagnostic-plots"></a>
 </h2>
-<p><code>funbiogeo</code> provides many functions to display the data to help the user select specific traits, species, and/or sites. We are going to detail some of them in this section. We call them <em>diagnostic plots</em> because they help us to have an overview of our dataset <strong>prior</strong> to the analyses.</p>
+<p><code>funbiogeo</code> provides many functions to display the data to
+help the user select specific traits, species, and/or sites. We are
+going to detail some of them in this section. We call them
+<em>diagnostic plots</em> because they help us to have an overview of
+our dataset <strong>prior</strong> to the analyses.</p>
 <div class="section level3">
 <h3 id="trait-completeness-per-species">Trait completeness per species<a class="anchor" aria-label="anchor" href="#trait-completeness-per-species"></a>
 </h3>
-<p>A first way to visualize our <code>data.frame</code> is to look at the proportion of species with non-missing traits using the <code><a href="../reference/fb_plot_number_species_by_trait.html">fb_plot_number_species_by_trait()</a></code> function. It takes the species by trait <code>data.frame</code> as input.</p>
+<p>A first way to visualize our <code>data.frame</code> is to look at
+the proportion of species with non-missing traits using the
+<code><a href="../reference/fb_plot_number_species_by_trait.html">fb_plot_number_species_by_trait()</a></code> function. It takes the
+species by trait <code>data.frame</code> as input.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_species_by_trait.html">fb_plot_number_species_by_trait</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span></span></code></pre></div>
 <p><img src="funbiogeo_files/figure-html/fig-plot-sp-by-trait-1.png" width="100%"></p>
-<p>This plot shows us the number of species (along the x-axis) in function of the trait name (along the y-axis). The number of concerned species is shown at the bottom of the plot while the corresponding proportion of species (compared to all the species included in the trait dataset) is indicated as a secondary x-axis at the top. The proportion of species concerned is shown at the right of each point. For example, in our example dataset, 82.6% species have a non-NA adult body mass.</p>
-<p>The function also include a way to provide a target proportion of species as the second argument. It will display the proportion as a dark red dashed line.</p>
-<p>For example, if we want to visualize which traits cover more than 75% of the species:</p>
+<p>This plot shows us the number of species (along the x-axis) in
+function of the trait name (along the y-axis). The number of concerned
+species is shown at the bottom of the plot while the corresponding
+proportion of species (compared to all the species included in the trait
+dataset) is indicated as a secondary x-axis at the top. The proportion
+of species concerned is shown at the right of each point. For example,
+in our example dataset, 82.6% species have a non-NA adult body mass.</p>
+<p>The function also include a way to provide a target proportion of
+species as the second argument. It will display the proportion as a dark
+red dashed line.</p>
+<p>For example, if we want to visualize which traits cover more than 75%
+of the species:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_species_by_trait.html">fb_plot_number_species_by_trait</a></span><span class="op">(</span><span class="va">species_traits</span>, <span class="fl">0.75</span><span class="op">)</span></span></code></pre></div>
 <p><img src="funbiogeo_files/figure-html/fig-plot-sp-by-trait-prop-1.png" width="100%"></p>
@@ -335,21 +405,34 @@ of the study area. It is a <code>data.frame</code>. The first column, <strong><c
 <div class="section level3">
 <h3 id="number-of-traits-per-species">Number of Traits per Species<a class="anchor" aria-label="anchor" href="#number-of-traits-per-species"></a>
 </h3>
-<p>Another way to filter the data would be to select certain species that have at least a certain number of traits. This can be visualized using the <code><a href="../reference/fb_plot_number_traits_by_species.html">fb_plot_number_traits_by_species()</a></code> function. Similarly to the above-mentioned function, it takes the species x traits <code>data.frame</code> as the first argument:</p>
+<p>Another way to filter the data would be to select certain species
+that have at least a certain number of traits. This can be visualized
+using the <code><a href="../reference/fb_plot_number_traits_by_species.html">fb_plot_number_traits_by_species()</a></code> function.
+Similarly to the above-mentioned function, it takes the species x traits
+<code>data.frame</code> as the first argument:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_traits_by_species.html">fb_plot_number_traits_by_species</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span></span></code></pre></div>
 <p><img src="funbiogeo_files/figure-html/fig-plot-trait-by-sp-1.png" width="100%"></p>
-<p>The plot shows the number (bottom axis) and the proportion (top axis) of species covered by a specific number of traits (0 to 6 in our example).</p>
+<p>The plot shows the number (bottom axis) and the proportion (top axis)
+of species covered by a specific number of traits (0 to 6 in our
+example).</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="filtering-the-data">Filtering the data<a class="anchor" aria-label="anchor" href="#filtering-the-data"></a>
 </h2>
-<p>Now that we displayed the diagnostic plots, we can decide thresholds and filter our data for our following analyses.</p>
+<p>Now that we displayed the diagnostic plots, we can decide thresholds
+and filter our data for our following analyses.</p>
 <div class="section level3">
 <h3 id="filter-trait-by-species-coverage">Filter trait by species coverage<a class="anchor" aria-label="anchor" href="#filter-trait-by-species-coverage"></a>
 </h3>
-<p>We want to select the traits that cover at least 75% of the species. To do that we can use the <code><a href="../reference/fb_filter_traits_by_species_coverage.html">fb_filter_traits_by_species_coverage()</a></code> function. The function takes the species by traits <code>data.frame</code> and outputs the same dataset but with the traits filtered (so with less columns). The second argument <code>threshold_species_proportion</code> is the threshold proportion of species covered:</p>
+<p>We want to select the traits that cover at least 75% of the species.
+To do that we can use the
+<code><a href="../reference/fb_filter_traits_by_species_coverage.html">fb_filter_traits_by_species_coverage()</a></code> function. The
+function takes the species by traits <code>data.frame</code> and outputs
+the same dataset but with the traits filtered (so with less columns).
+The second argument <code>threshold_species_proportion</code> is the
+threshold proportion of species covered:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Initial dimension of the input data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span></span>
@@ -376,7 +459,13 @@ of the study area. It is a <code>data.frame</code>. The first column, <strong><c
 <div class="section level3">
 <h3 id="filter-species-by-trait-coverage">Filter species by trait coverage<a class="anchor" aria-label="anchor" href="#filter-species-by-trait-coverage"></a>
 </h3>
-<p>Similarly you could filter species by their trait coverage. For example we would like to make sure that the species we filtered previously so that they show at least one of the two traits selected above. We can use the function <code><a href="../reference/fb_filter_species_by_trait_coverage.html">fb_filter_species_by_trait_coverage()</a></code> with the species x traits <code>data.frame</code> as the first argument and the second argument the proportion of traits covered by species.</p>
+<p>Similarly you could filter species by their trait coverage. For
+example we would like to make sure that the species we filtered
+previously so that they show at least one of the two traits selected
+above. We can use the function
+<code><a href="../reference/fb_filter_species_by_trait_coverage.html">fb_filter_species_by_trait_coverage()</a></code> with the species x
+traits <code>data.frame</code> as the first argument and the second
+argument the proportion of traits covered by species.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Filter species with at least 50% of included (two traits)</span></span>
 <span><span class="co"># at least one trait</span></span>
@@ -395,12 +484,21 @@ of the study area. It is a <code>data.frame</code>. The first column, <strong><c
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">red_sp_traits_2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 127   3</span></span></code></pre></div>
-<p>We thus have selected 2 traits that cover at least 75% of the species and 127 species which have known values for these two traits.</p>
+<p>We thus have selected 2 traits that cover at least 75% of the species
+and 127 species which have known values for these two traits.</p>
 </div>
 <div class="section level3">
 <h3 id="filter-sites-by-trait-coverage">Filter sites by trait coverage<a class="anchor" aria-label="anchor" href="#filter-sites-by-trait-coverage"></a>
 </h3>
-<p>Now that we have filtered our traits and species of interest we need to filter the sites. Similarly to above the function is <code><a href="../reference/fb_filter_sites_by_trait_coverage.html">fb_filter_sites_by_trait_coverage()</a></code> it takes as two first arguments the site x species <code>data.frame</code> and the species x traits <code>data.frame</code>. The third argument is <code>threshold_traits_proportion</code> that indicates the percent coverage of traits to filter each site. Note that this coverage is weighted by the occurrence, abundance, or cover depending on the content of the site x species <code>data.frame</code>.</p>
+<p>Now that we have filtered our traits and species of interest we need
+to filter the sites. Similarly to above the function is
+<code><a href="../reference/fb_filter_sites_by_trait_coverage.html">fb_filter_sites_by_trait_coverage()</a></code> it takes as two first
+arguments the site x species <code>data.frame</code> and the species x
+traits <code>data.frame</code>. The third argument is
+<code>threshold_traits_proportion</code> that indicates the percent
+coverage of traits to filter each site. Note that this coverage is
+weighted by the occurrence, abundance, or cover depending on the content
+of the site x species <code>data.frame</code>.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Initial site x species data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span></span>
@@ -427,12 +525,22 @@ of the study area. It is a <code>data.frame</code>. The first column, <strong><c
 <div class="section level2">
 <h2 id="computing-functional-diversity-metrics">Computing Functional Diversity metrics<a class="anchor" aria-label="anchor" href="#computing-functional-diversity-metrics"></a>
 </h2>
-<p>Now that <code>funbiogeo</code> helped us filter our data we can use them to proceed with our analyses. We can for example compute functional diversity indices. This where you should use your preferred packages to compute functional diversity indices like <a href="https://cran.r-project.org/package=mFD" class="external-link"><code>mFD</code></a>, <a href="https://cran.r-project.org/package=betapart" class="external-link"><code>betapart</code></a>, or <a href="https://cran.r-project.org/package=hypervolume" class="external-link"><code>hypervolume</code></a>.</p>
-<p>For the sake of the example we included a single function in <code>funbiogeo</code> to compute Community-Weighted Mean <span class="citation">(CWM, Garnier et al. 2004)</span> named <code><a href="../reference/fb_cwm.html">fb_cwm()</a></code>. The CWM is the abundance-weighted average trait per site. We’ll be using it in the following section but feel free to use any other functional diversity package.</p>
+<p>Now that <code>funbiogeo</code> helped us filter our data we can use
+them to proceed with our analyses. We can for example compute functional
+diversity indices. This where you should use your preferred packages to
+compute functional diversity indices like <a href="https://cran.r-project.org/package=mFD" class="external-link"><code>mFD</code></a>, <a href="https://cran.r-project.org/package=betapart" class="external-link"><code>betapart</code></a>,
+or <a href="https://cran.r-project.org/package=hypervolume" class="external-link"><code>hypervolume</code></a>.</p>
+<p>For the sake of the example we included a single function in
+<code>funbiogeo</code> to compute Community-Weighted Mean <span class="citation">(CWM, Garnier et al. 2004)</span> named
+<code><a href="../reference/fb_cwm.html">fb_cwm()</a></code>. The CWM is the abundance-weighted average trait
+per site. We’ll be using it in the following section but feel free to
+use any other functional diversity package.</p>
 <div class="section level3">
 <h3 id="community-weighted-mean-cwm">Community-Weighted Mean (CWM)<a class="anchor" aria-label="anchor" href="#community-weighted-mean-cwm"></a>
 </h3>
-<p>To compute the CWM you can use the <code><a href="../reference/fb_cwm.html">fb_cwm()</a></code> function, it takes the site x species <code>data.frame</code> and species x traits <code>data.frame</code> as arguments.</p>
+<p>To compute the CWM you can use the <code><a href="../reference/fb_cwm.html">fb_cwm()</a></code> function, it
+takes the site x species <code>data.frame</code> and species x traits
+<code>data.frame</code> as arguments.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cwm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_cwm.html">fb_cwm</a></span><span class="op">(</span><span class="va">filt_sites</span>, <span class="va">red_sp_traits_2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Some species had NA trait values, removing them from CWM computation</span></span>
@@ -445,7 +553,11 @@ of the study area. It is a <code>data.frame</code>. The first column, <strong><c
 <span><span class="co">#&gt; 4    4 adult_body_mass 39912.54</span></span>
 <span><span class="co">#&gt; 5    5 adult_body_mass 41389.44</span></span>
 <span><span class="co">#&gt; 6    6 adult_body_mass 39912.37</span></span></code></pre></div>
-<p>It outputs a <code>data.frame</code> with 3 columns: <code>site</code> the first one shows the site name as provided in the input site x species <code>data.frame</code>, <code>trait</code> which indicates the trait name on which the CWM is computed, and <code>cwm</code> which shows the value of the CWM.</p>
+<p>It outputs a <code>data.frame</code> with 3 columns:
+<code>site</code> the first one shows the site name as provided in the
+input site x species <code>data.frame</code>, <code>trait</code> which
+indicates the trait name on which the CWM is computed, and
+<code>cwm</code> which shows the value of the CWM.</p>
 </div>
 </div>
 <div class="section level2">
@@ -507,13 +619,24 @@ of the study area. It is a <code>data.frame</code>. The first column, <strong><c
 </h2>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-Garnier_Plant_2004" class="csl-entry">
-Garnier, Eric, Jacques Cortez, Georges Billès, Marie-Laure Navas, Catherine Roumet, Max Debussche, Gérard Laurent, et al. 2004. <span>“Plant <span>Functional Markers Capture Ecosystem Properties During Secondary Succession</span>.”</span> <em>Ecology</em> 85 (9): 2630–37. <a href="https://doi.org/10.1890/03-0799" class="external-link">https://doi.org/10.1890/03-0799</a>.
+Garnier, Eric, Jacques Cortez, Georges Billès, Marie-Laure Navas,
+Catherine Roumet, Max Debussche, Gérard Laurent, et al. 2004.
+<span>“Plant <span>Functional Markers Capture Ecosystem Properties
+During Secondary Succession</span>.”</span> <em>Ecology</em> 85 (9):
+2630–37. <a href="https://doi.org/10.1890/03-0799" class="external-link">https://doi.org/10.1890/03-0799</a>.
 </div>
 <div id="ref-Jones_PanTHERIA_2009" class="csl-entry">
-Jones, Kate E., Jon Bielby, Marcel Cardillo, Susanne A. Fritz, Justin O’Dell, C. David L. Orme, Kamran Safi, et al. 2009. <span>“<span>PanTHERIA</span>: A Species-Level Database of Life History, Ecology, and Geography of Extant and Recently Extinct Mammals.”</span> <em>Ecology</em> 90 (9): 2648–48. <a href="https://doi.org/10.1890/08-1494.1" class="external-link">https://doi.org/10.1890/08-1494.1</a>.
+Jones, Kate E., Jon Bielby, Marcel Cardillo, Susanne A. Fritz, Justin
+O’Dell, C. David L. Orme, Kamran Safi, et al. 2009.
+<span>“<span>PanTHERIA</span>: A Species-Level Database of Life History,
+Ecology, and Geography of Extant and Recently Extinct Mammals.”</span>
+<em>Ecology</em> 90 (9): 2648–48. <a href="https://doi.org/10.1890/08-1494.1" class="external-link">https://doi.org/10.1890/08-1494.1</a>.
 </div>
 <div id="ref-Violle_emergence_2014" class="csl-entry">
-Violle, Cyrille, Peter B. Reich, Stephen W. Pacala, Brian J. Enquist, and Jens Kattge. 2014. <span>“The Emergence and Promise of Functional Biogeography.”</span> <em>Proceedings of the National Academy of Sciences</em> 111 (38): 13690–96. <a href="https://doi.org/10.1073/pnas.1415442111" class="external-link">https://doi.org/10.1073/pnas.1415442111</a>.
+Violle, Cyrille, Peter B. Reich, Stephen W. Pacala, Brian J. Enquist,
+and Jens Kattge. 2014. <span>“The Emergence and Promise of Functional
+Biogeography.”</span> <em>Proceedings of the National Academy of
+Sciences</em> 111 (38): 13690–96. <a href="https://doi.org/10.1073/pnas.1415442111" class="external-link">https://doi.org/10.1073/pnas.1415442111</a>.
 </div>
 </div>
 </div>
@@ -536,7 +659,7 @@ Violle, Cyrille, Peter B. Reich, Stephen W. Pacala, Brian J. Enquist, and Jens K
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
