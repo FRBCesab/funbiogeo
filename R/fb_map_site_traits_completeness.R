@@ -6,7 +6,7 @@
 #' trait coverage with all traits taken together.
 #' 
 #' @inheritParams fb_get_environment 
-#' @inheritParams fb_get_trait_coverage_by_site
+#' @inheritParams fb_get_all_trait_coverages_by_site
 #'
 #' @return a 'ggplot2' object
 #' @export
@@ -16,7 +16,7 @@
 #' @examples
 #' fb_map_site_traits_completeness(site_locations, site_species, species_traits)
 fb_map_site_traits_completeness <- function(
-    site_locations, site_species, species_traits
+    site_locations, site_species, species_traits, all_traits = TRUE
 ) {
   
   # Checks
@@ -25,7 +25,7 @@ fb_map_site_traits_completeness <- function(
   check_species_traits(species_traits)
   
   all_coverages <- fb_get_all_trait_coverages_by_site(
-    site_species, species_traits
+    site_species, species_traits, all_traits = all_traits
   )
   
   # Make coverage df long
@@ -34,9 +34,14 @@ fb_map_site_traits_completeness <- function(
     values_to = "coverage_value"
   )
   
+  if (all_traits) {
+    levels_order <- c("all_traits", colnames(all_coverages)[-c(1, 2)])
+  } else {
+    levels_order <- c(colnames(all_coverages)[-c(1, 2)])
+  }
+  
   all_coverages_long[["coverage_name"]] <- 
-    factor(all_coverages_long[["coverage_name"]],
-           levels = c("all_traits", colnames(all_coverages)[-c(1, 2)]))
+    factor(all_coverages_long[["coverage_name"]], levels = levels_order)
   
   # Combine Trait Coverage with Location
   site_locations_cov <- merge(site_locations, all_coverages_long, by = "site")

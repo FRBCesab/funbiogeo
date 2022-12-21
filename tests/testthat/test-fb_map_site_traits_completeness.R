@@ -34,4 +34,14 @@ test_that("fb_map_site_traits_completeness() works", {
   )
   
   expect_s3_class(res, "ggplot")
+  
+  
+  # without all traits
+  expect_silent(
+    res <- fb_map_site_traits_completeness(
+      site_lines, site_species, species_traits, FALSE
+    )
+  )
+  
+  expect_s3_class(res, "ggplot")
 })
