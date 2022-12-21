@@ -9,7 +9,7 @@
 #' An additional column at the very right of the plot named `"all_traits"`
 #' shows a summary considering traits together.
 #' 
-#' @inheritParams fb_get_trait_coverage_by_site
+#' @inheritParams fb_get_all_trait_coverages_by_site
 #'
 #' @return a ggplot2 object
 #'
@@ -18,14 +18,16 @@
 #' 
 #' @importFrom rlang .data
 #' @export
-fb_plot_site_traits_completeness <- function(site_species, species_traits) {
+fb_plot_site_traits_completeness <- function(
+    site_species, species_traits, all_traits = TRUE
+) {
   
   # Checks
   check_site_species(site_species)
   check_species_traits(species_traits)
   
   all_coverage <- fb_get_all_trait_coverages_by_site(
-    site_species, species_traits
+    site_species, species_traits, all_traits = all_traits
   )
   
   all_coverage <- tidyr::pivot_longer(

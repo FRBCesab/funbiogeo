@@ -4,7 +4,12 @@
 \alias{fb_map_site_traits_completeness}
 \title{Map Trait Coverage Per Site}
 \usage{
-fb_map_site_traits_completeness(site_locations, site_species, species_traits)
+fb_map_site_traits_completeness(
+  site_locations,
+  site_species,
+  species_traits,
+  all_traits = TRUE
+)
 }
 \arguments{
 \item{site_locations}{an \code{sf} object with the spatial geometries of sites.
@@ -19,6 +24,10 @@ names. The other columns should be named according to species names.}
 traits as columns. \strong{NOTE}: The first column should be named \strong{\code{"species"}}
 and contain species names. The other columns should be named according
 to trait names.}
+
+\item{all_traits}{a logical (default = \code{TRUE}) which tell if the coverage
+considering all provided traits should be provided in an additional column
+\code{all_traits}}
 }
 \value{
 a 'ggplot2' object

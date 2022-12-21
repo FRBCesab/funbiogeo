@@ -2,9 +2,13 @@
 % Please edit documentation in R/fb_get_all_trait_coverages_by_site.R
 \name{fb_get_all_trait_coverages_by_site}
 \alias{fb_get_all_trait_coverages_by_site}
-\title{Compute Trait Coverage per Site for All Traits}
+\title{Compute Trait Coverage per Site for Each Trait}
 \usage{
-fb_get_all_trait_coverages_by_site(site_species, species_traits)
+fb_get_all_trait_coverages_by_site(
+  site_species,
+  species_traits,
+  all_traits = TRUE
+)
 }
 \arguments{
 \item{site_species}{a \code{data.frame} with sites in rows and species in columns.
@@ -15,12 +19,17 @@ names. The other columns should be named according to species names.}
 traits as columns. \strong{NOTE}: The first column should be named \strong{\code{"species"}}
 and contain species names. The other columns should be named according
 to trait names.}
+
+\item{all_traits}{a logical (default = \code{TRUE}) which tell if the coverage
+considering all provided traits should be provided in an additional column
+\code{all_traits}}
 }
 \value{
 a data.frame with a column with sites and one column per provided
 trait giving its coverage (percent species per site, weighted by abundance
-that have trait data), and an additional column named \code{all_traits}
-considering the coverage of all traits taken together.
+that have trait data), and, when argument \code{all_traits = TRUE},
+an additional column named \code{all_traits} considering the coverage of all
+traits taken together.
 }
 \description{
 Compute trait coverage for all sites, i.e., the percentage of total
@@ -29,7 +38,7 @@ species. This function assumes that all species provided in the traits dataset h
 all their traits specified (meaning that all species have either known or
 \code{NA} values reported as their traits).
 The coverage of each trait separately is returned as well as all traits taken
-together.
+together if wanted.
 }
 \examples{
 site_trait_cov <- fb_get_all_trait_coverages_by_site(

@@ -9,7 +9,7 @@
 #' An additional column at the very right of the plot named `"all_traits"`
 #' shows a summary considering if all other traits are known.
 #'
-#' @inheritParams fb_get_trait_coverage_by_site
+#' @inheritParams fb_get_all_trait_coverages_by_site
 #'
 #' @return a `ggplot2` object
 #'
@@ -18,7 +18,9 @@
 #' fb_plot_species_traits_completeness(species_traits)
 #' 
 #' @export
-fb_plot_species_traits_completeness <- function(species_traits) {
+fb_plot_species_traits_completeness <- function(
+    species_traits, all_traits = TRUE
+) {
   
   # Make dataset long
   species_traits_long <- tidyr::pivot_longer(
@@ -37,10 +39,19 @@ fb_plot_species_traits_completeness <- function(species_traits) {
   all_traits <- sum(number_trait_per_species$n_traits == max_traits)
   
   # Add "All Traits" in number of species per trait
+  all_traits_df <- NULL
+  
+  if (all_traits) {
+    all_traits_df <- data.frame(
+      trait     = "all_traits",
+      n_species = all_traits,
+      coverage  = all_traits/nrow(species_traits)
+    )
+  }
+  
   number_species_per_trait <- rbind(
     number_species_per_trait,
-    data.frame(trait = "all_traits", n_species = all_traits,
-               coverage = all_traits/nrow(species_traits))
+    all_traits_df
   )
   
   # Label with name of trait and proportion of species
