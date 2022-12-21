@@ -4,7 +4,11 @@
 \alias{fb_plot_site_traits_completeness}
 \title{Plot Trait Coverage per Site for each Trait}
 \usage{
-fb_plot_site_traits_completeness(site_species, species_traits)
+fb_plot_site_traits_completeness(
+  site_species,
+  species_traits,
+  all_traits = TRUE
+)
 }
 \arguments{
 \item{site_species}{a \code{data.frame} with sites in rows and species in columns.
@@ -15,6 +19,10 @@ names. The other columns should be named according to species names.}
 traits as columns. \strong{NOTE}: The first column should be named \strong{\code{"species"}}
 and contain species names. The other columns should be named according
 to trait names.}
+
+\item{all_traits}{a logical (default = \code{TRUE}) which tell if the coverage
+considering all provided traits should be provided in an additional column
+\code{all_traits}}
 }
 \value{
 a ggplot2 object
