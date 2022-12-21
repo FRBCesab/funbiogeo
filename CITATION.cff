@@ -1,5 +1,5 @@
 # -----------------------------------------------------------
-# CITATION file created with {cffr} R package, v0.3.0
+# CITATION file created with {cffr} R package, v0.4.0
 # See also: https://docs.ropensci.org/cffr/
 # -----------------------------------------------------------
  
@@ -36,12 +36,12 @@ references:
 - type: software
   title: 'R: A Language and Environment for Statistical Computing'
   notes: Depends
+  url: https://www.R-project.org/
   authors:
   - name: R Core Team
   location:
     name: Vienna, Austria
   year: '2022'
-  url: https://www.R-project.org/
   institution:
     name: R Foundation for Statistical Computing
   version: '>= 3.5.0'
@@ -49,6 +49,8 @@ references:
   title: ggplot2
   abstract: 'ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics'
   notes: Imports
+  url: https://ggplot2.tidyverse.org
+  repository: https://CRAN.R-project.org/package=ggplot2
   authors:
   - family-names: Wickham
     given-names: Hadley
@@ -78,11 +80,12 @@ references:
     given-names: Dewey
     orcid: https://orcid.org/0000-0002-9415-4582
   year: '2022'
-  url: https://CRAN.R-project.org/package=ggplot2
 - type: software
   title: rlang
   abstract: 'rlang: Functions for Base Types and Core R and ''Tidyverse'' Features'
   notes: Imports
+  url: https://rlang.r-lib.org
+  repository: https://CRAN.R-project.org/package=rlang
   authors:
   - family-names: Henry
     given-names: Lionel
@@ -91,11 +94,12 @@ references:
     given-names: Hadley
     email: hadley@rstudio.com
   year: '2022'
-  url: https://CRAN.R-project.org/package=rlang
 - type: software
   title: scales
   abstract: 'scales: Scale Functions for Visualization'
   notes: Imports
+  url: https://scales.r-lib.org
+  repository: https://CRAN.R-project.org/package=scales
   authors:
   - family-names: Wickham
     given-names: Hadley
@@ -103,18 +107,18 @@ references:
   - family-names: Seidel
     given-names: Dana
   year: '2022'
-  url: https://CRAN.R-project.org/package=scales
 - type: software
   title: sf
   abstract: 'sf: Simple Features for R'
   notes: Imports
+  url: https://r-spatial.github.io/sf/
+  repository: https://CRAN.R-project.org/package=sf
   authors:
   - family-names: Pebesma
     given-names: Edzer
     email: edzer.pebesma@uni-muenster.de
     orcid: https://orcid.org/0000-0001-8049-7069
   year: '2022'
-  url: https://CRAN.R-project.org/package=sf
 - type: software
   title: stats
   abstract: 'R: A Language and Environment for Statistical Computing'
@@ -124,24 +128,26 @@ references:
   location:
     name: Vienna, Austria
   year: '2022'
-  url: https://www.R-project.org/
   institution:
     name: R Foundation for Statistical Computing
 - type: software
   title: terra
   abstract: 'terra: Spatial Data Analysis'
   notes: Imports
+  url: https://rspatial.org/terra/
+  repository: https://CRAN.R-project.org/package=terra
   authors:
   - family-names: Hijmans
     given-names: Robert J.
     email: r.hijmans@gmail.com
     orcid: https://orcid.org/0000-0001-5872-2872
   year: '2022'
-  url: https://CRAN.R-project.org/package=terra
 - type: software
   title: tidyr
   abstract: 'tidyr: Tidy Messy Data'
   notes: Imports
+  url: https://tidyr.tidyverse.org
+  repository: https://CRAN.R-project.org/package=tidyr
   authors:
   - family-names: Wickham
     given-names: Hadley
@@ -149,11 +155,12 @@ references:
   - family-names: Girlich
     given-names: Maximilian
   year: '2022'
-  url: https://CRAN.R-project.org/package=tidyr
 - type: software
   title: tidyselect
   abstract: 'tidyselect: Select from a Set of Strings'
   notes: Imports
+  url: https://tidyselect.r-lib.org
+  repository: https://CRAN.R-project.org/package=tidyselect
   authors:
   - family-names: Henry
     given-names: Lionel
@@ -162,7 +169,6 @@ references:
     given-names: Hadley
     email: hadley@rstudio.com
   year: '2022'
-  url: https://CRAN.R-project.org/package=tidyselect
 - type: software
   title: utils
   abstract: 'R: A Language and Environment for Statistical Computing'
@@ -172,46 +178,50 @@ references:
   location:
     name: Vienna, Austria
   year: '2022'
-  url: https://www.R-project.org/
   institution:
     name: R Foundation for Statistical Computing
 - type: software
   title: xfun
   abstract: 'xfun: Supporting Functions for Packages Maintained by ''Yihui Xie'''
   notes: Imports
+  url: https://github.com/yihui/xfun
+  repository: https://CRAN.R-project.org/package=xfun
   authors:
   - family-names: Xie
     given-names: Yihui
     email: xie@yihui.name
     orcid: https://orcid.org/0000-0003-0645-5666
   year: '2022'
-  url: https://CRAN.R-project.org/package=xfun
 - type: software
   title: ggridges
   abstract: 'ggridges: Ridgeline Plots in ''ggplot2'''
   notes: Suggests
+  url: https://wilkelab.org/ggridges/
+  repository: https://CRAN.R-project.org/package=ggridges
   authors:
   - family-names: Wilke
     given-names: Claus O.
     email: wilke@austin.utexas.edu
     orcid: https://orcid.org/0000-0002-7470-9261
   year: '2022'
-  url: https://CRAN.R-project.org/package=ggridges
 - type: software
   title: knitr
   abstract: 'knitr: A General-Purpose Package for Dynamic Report Generation in R'
   notes: Suggests
+  url: https://yihui.org/knitr/
+  repository: https://CRAN.R-project.org/package=knitr
   authors:
   - family-names: Xie
     given-names: Yihui
     email: xie@yihui.name
     orcid: https://orcid.org/0000-0003-0645-5666
   year: '2022'
-  url: https://CRAN.R-project.org/package=knitr
 - type: software
   title: mockery
   abstract: 'mockery: Mocking Library for R'
   notes: Suggests
+  url: https://github.com/r-lib/mockery
+  repository: https://CRAN.R-project.org/package=mockery
   authors:
   - family-names: Finkelstein
     given-names: Noam
@@ -223,33 +233,36 @@ references:
     given-names: Hadley
     email: hadley@rstudio.com
   year: '2022'
-  url: https://CRAN.R-project.org/package=mockery
 - type: software
   title: patchwork
   abstract: 'patchwork: The Composer of Plots'
   notes: Suggests
+  url: https://patchwork.data-imaginist.com
+  repository: https://CRAN.R-project.org/package=patchwork
   authors:
   - family-names: Pedersen
     given-names: Thomas Lin
     email: thomasp85@gmail.com
     orcid: https://orcid.org/0000-0002-5147-4711
   year: '2022'
-  url: https://CRAN.R-project.org/package=patchwork
 - type: software
   title: raster
   abstract: 'raster: Geographic Data Analysis and Modeling'
   notes: Suggests
+  url: https://rspatial.org/raster
+  repository: https://CRAN.R-project.org/package=raster
   authors:
   - family-names: Hijmans
     given-names: Robert J.
     email: r.hijmans@gmail.com
     orcid: https://orcid.org/0000-0001-5872-2872
   year: '2022'
-  url: https://CRAN.R-project.org/package=raster
 - type: software
   title: rgdal
   abstract: 'rgdal: Bindings for the ''Geospatial'' Data Abstraction Library'
   notes: Suggests
+  url: https://gdal.org
+  repository: https://CRAN.R-project.org/package=rgdal
   authors:
   - family-names: Bivand
     given-names: Roger
@@ -260,11 +273,12 @@ references:
   - family-names: Rowlingson
     given-names: Barry
   year: '2022'
-  url: https://CRAN.R-project.org/package=rgdal
 - type: software
   title: rmarkdown
   abstract: 'rmarkdown: Dynamic Documents for R'
   notes: Suggests
+  url: https://pkgs.rstudio.com/rmarkdown/
+  repository: https://CRAN.R-project.org/package=rmarkdown
   authors:
   - family-names: Allaire
     given-names: JJ
@@ -299,11 +313,12 @@ references:
     email: rich@rstudio.com
     orcid: https://orcid.org/0000-0003-3925-190X
   year: '2022'
-  url: https://CRAN.R-project.org/package=rmarkdown
 - type: software
   title: rstudioapi
   abstract: 'rstudioapi: Safely Access the RStudio API'
   notes: Suggests
+  url: https://rstudio.github.io/rstudioapi/
+  repository: https://CRAN.R-project.org/package=rstudioapi
   authors:
   - family-names: Ushey
     given-names: Kevin
@@ -318,15 +333,15 @@ references:
     given-names: Gary
     email: gary@rstudio.com
   year: '2022'
-  url: https://CRAN.R-project.org/package=rstudioapi
 - type: software
   title: testthat
   abstract: 'testthat: Unit Testing for R'
   notes: Suggests
+  url: https://testthat.r-lib.org
+  repository: https://CRAN.R-project.org/package=testthat
   authors:
   - family-names: Wickham
     given-names: Hadley
     email: hadley@rstudio.com
   year: '2022'
-  url: https://CRAN.R-project.org/package=testthat
   version: '>= 3.0.0'
