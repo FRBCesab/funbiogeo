@@ -66,7 +66,7 @@ fb_get_trait_combination_coverage = function(
   }
   
   if (n_comb > 1e4) {
-    stop("More than 10,000 combinations detected. Function will not proceed.",
+    stop("More than 10,000 combinations detected. Function will not proceed.\n",
          "Use argument 'comb_size' to provide target combination size(s)")
   }
   

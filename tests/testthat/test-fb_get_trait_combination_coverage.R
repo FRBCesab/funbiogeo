@@ -14,6 +14,25 @@ test_that("fb_get_trait_combination_coverage() errors with wrong inputs", {
     fixed = TRUE
   )
   
+  trait_mat = as.data.frame(
+    matrix(
+      rnorm(200), ncol = 100,
+      dimnames = list(
+        species = paste0("sp", 1:2), traits = paste0("t", 1:100))
+    )
+  )
+  
+  trait_mat[["species"]] = "a"
+  
+  expect_error(
+    fb_get_trait_combination_coverage(site_species, trait_mat),
+    paste0(
+      "More than 10,000 combinations detected. Function will not proceed.\n",
+      "Use argument 'comb_size' to provide target combination size(s)"
+    ),
+    fixed = TRUE
+  )
+  
 })
 
 
