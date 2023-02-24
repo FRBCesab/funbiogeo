@@ -23,4 +23,12 @@ test_that("fb_plot_species_traits_completeness works", {
     given_plot <- fb_plot_species_traits_completeness(example_traits, FALSE)
   )
   
+  # Test that function works with single trait
+  
+  expect_silent(
+    given_plot <- fb_plot_species_traits_completeness(
+      example_traits[, 1:2], FALSE
+    )
+  )
+  
 })

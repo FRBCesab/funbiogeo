@@ -29,7 +29,7 @@ fb_count_traits_by_species <- function(species_traits) {
   
   
   # Compute traits coverage by species
-  traits_coverage <- apply(species_traits[ , -1], 1, function(x)
+  traits_coverage <- apply(species_traits[ , -1, drop = FALSE], 1, function(x)
     sum(!is.na(x)))
   
   traits_coverage <- data.frame(

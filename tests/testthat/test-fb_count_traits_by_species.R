@@ -94,4 +94,22 @@ test_that("fb_count_traits_by_species() successfully works", {
   expect_equal(test_coverage$"species"[4], "sp1")
   expect_equal(test_coverage$"n_traits"[4], 0)
   expect_equal(test_coverage$"coverage"[4], 0)
+  
+  
+  # Test for an input dataset with a single trait ------------------------------
+  
+  expect_silent({
+    test_coverage <- fb_count_traits_by_species(species_traits[,1:2])
+  })
+  
+  expect_equal(nrow(test_coverage), nrow(species_traits2))
+  expect_equal(ncol(test_coverage), 3)
+  
+  expect_equal(test_coverage$"species"[3], "sp4")
+  expect_equal(test_coverage$"n_traits"[3], 1)
+  expect_equal(test_coverage$"coverage"[3], 1)
+  expect_equal(test_coverage$"species"[4], "sp1")
+  expect_equal(test_coverage$"n_traits"[4], 0)
+  expect_equal(test_coverage$"coverage"[4], 0)
+  
 })
