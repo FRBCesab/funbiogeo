@@ -25,7 +25,7 @@ fb_plot_species_traits_completeness <- function(
   # Make dataset long
   species_traits_long <- tidyr::pivot_longer(
       species_traits, -"species", names_to = "trait_name",
-      values_to = "trait_value"
+      values_to = "trait_value", values_transform = as.character
     )
   
   # Count Number of Species per Trait
