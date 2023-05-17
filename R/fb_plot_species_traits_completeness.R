@@ -92,7 +92,7 @@ fb_plot_species_traits_completeness <- function(
   
   
   # Convert number of species with all traits into comparable row
-  all_traits_df <- NULL
+  all_traits_df <- list(number_species_per_trait[[1]][0,])
   
   if (all_traits) {
     

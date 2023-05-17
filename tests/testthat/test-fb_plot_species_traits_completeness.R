@@ -8,7 +8,7 @@ test_that("fb_plot_species_traits_completeness works", {
   # Without 'all_traits' added
   expect_silent(
     given_plot <- fb_plot_species_traits_completeness(
-      species_traits, all_traits =  FALSE
+      species_traits, all_traits = FALSE
     )
   )
   
