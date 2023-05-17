@@ -14,7 +14,7 @@
 #' fb_plot_number_species_by_trait(species_traits)
 #' 
 #' # Add a vertical cutoff line (12.5% of species)
-#' fb_plot_number_species_by_trait(species_traits, 1/8)
+#' fb_plot_number_species_by_trait(species_traits, NULL, 1/8)
 #' 
 #' @importFrom rlang .data
 #' @export

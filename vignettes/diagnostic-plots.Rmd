@@ -121,7 +121,7 @@ proportion of species. Let's say we want to see traits available for at least
 70% of the species:
 
 ```{r plot-species-coverage-trait-thresh}
-fb_plot_number_species_by_trait(species_traits, 0.7)
+fb_plot_number_species_by_trait(species_traits, threshold_species_proportion = 0.7)
 ```
 
 The red dashed vertical line shows the corresponding species coverage with
@@ -165,7 +165,7 @@ Let's say we're interested in combinations of traits with at least 50% species
 covered. We can use the second argument to show it:
 
 ```{r plot-n-traits-species-thresh}
-fb_plot_number_traits_by_species(species_traits, 0.5)
+fb_plot_number_traits_by_species(species_traits, threshold_species_proportion = 0.5)
 ```
 
 Adding this argument displays a vertical bar at the target proportion of species

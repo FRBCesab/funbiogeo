@@ -76,7 +76,7 @@ fb_get_trait_combination_coverage = function(
   all_combinations = lapply(
     target_combs,
     function(x) {
-      combn(traits, x, simplify = FALSE)
+      utils::combn(traits, x, simplify = FALSE)
     }
   )
   

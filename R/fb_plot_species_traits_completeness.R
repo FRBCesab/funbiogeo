@@ -10,7 +10,9 @@
 #' shows a summary considering if all other traits are known.
 #'
 #' @inheritParams fb_get_all_trait_coverages_by_site
-#' @inheritParams check_species_categories
+#' @param species_categories 2-columns `data.frame` giving species categories
+#'   `NULL` by default, with the first column describing the species name, and
+#'   the second column giving their corresponding categories
 #'
 #' @return a `ggplot2` object
 #'
