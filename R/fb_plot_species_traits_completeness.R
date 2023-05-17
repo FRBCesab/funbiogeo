@@ -10,9 +10,7 @@
 #' shows a summary considering if all other traits are known.
 #'
 #' @inheritParams fb_get_all_trait_coverages_by_site
-#' @param species_categories 2-columns `data.frame` giving species categories
-#'   `NULL` by default, with the first column describing the species name, and
-#'   the second column giving their corresponding categories
+#' @inheritParams check_species_categories
 #'
 #' @return a `ggplot2` object
 #'
@@ -25,20 +23,13 @@ fb_plot_species_traits_completeness <- function(
     species_traits, species_categories = NULL, all_traits = TRUE
 ) {
   
-  # Check 'species_categories' input
-  if (
-    !is.null(species_categories) &
-    (!is.data.frame(species_categories) | sum(ncol(species_categories)) != 2)
-  ) {
-    stop("'species_categories' isn't a two-column data.frame", call. = FALSE)
-  }
-  
+  check_species_categories(species_categories)
   
   # Make dataset long to get all trait values by rows
   species_traits_long <- tidyr::pivot_longer(
-      species_traits, -"species", names_to = "trait",
-      values_to = "trait_value", values_transform = as.character
-    )
+    species_traits, -"species", names_to = "trait",
+    values_to = "trait_value", values_transform = as.character
+  )
   
   
   # Split species by categories (even when there are none)
@@ -85,7 +76,19 @@ fb_plot_species_traits_completeness <- function(
       
       with(x, sum(n_traits == n_max_trait))
       
-    })
+    }
+  )
+  
+  
+  # Rename list if they don't have names (e.g., no categories specified)
+  if (is.null(names(number_trait_per_species))) {
+    names(number_trait_per_species) <- seq_len(
+      length(number_trait_per_species)
+    )
+    names(number_species_per_trait) <- seq_len(
+      length(number_species_per_trait)
+    )
+  }
   
   
   # Convert number of species with all traits into comparable row
@@ -100,16 +103,14 @@ fb_plot_species_traits_completeness <- function(
           n_species = x,
           coverage  = x/nrow(y)
         )
-      }, all_traits_list, species_traits_categories, SIMPLIFY = FALSE,
-      USE.NAMES = FALSE
+      }, all_traits_list, species_traits_categories, SIMPLIFY = FALSE
     )
     
   }
   
   # Add number of species with all traits known per category
   number_species_per_trait <- mapply(
-    rbind, number_species_per_trait, all_traits_df, SIMPLIFY = FALSE,
-    USE.NAMES = FALSE
+    rbind, number_species_per_trait, all_traits_df, SIMPLIFY = FALSE
   )
   
   # Label with name of trait and proportion of species
@@ -126,15 +127,6 @@ fb_plot_species_traits_completeness <- function(
   
   
   # Add all traits in long table
-  if (is.null(names(number_trait_per_species))) {
-    names(number_trait_per_species) <- seq_len(
-      length(number_trait_per_species)
-    )
-    names(number_species_per_trait) <- seq_len(
-      length(number_species_per_trait)
-    )
-  }
-  
   all_traits_subset <- lapply(
     names(number_trait_per_species), function(x) {
       
@@ -162,7 +154,7 @@ fb_plot_species_traits_completeness <- function(
   
   # Add column for value
   species_traits_long_categories$has_trait <- ifelse(
-        !is.na(species_traits_long_categories$trait_value), TRUE, FALSE
+    !is.na(species_traits_long_categories$trait_value), TRUE, FALSE
   )
   
   # Merge all datasets before plotting
@@ -221,7 +213,7 @@ fb_plot_species_traits_completeness <- function(
   
   # Clean environment for clean ggplot2 object
   rm(all_traits, all_traits_df, all_traits_list, all_traits_subset,
-     common_colnames, n_max_trait, species_categories,
+     common_colnames, n_max_trait,
      species_traits_categories, species_traits, species_traits_long)
   
   
