@@ -35,21 +35,12 @@ fb_plot_species_traits_completeness <- function(
   
   
   # Split species by categories (even when there are none)
-  species_traits_categories <- list(species_traits)
+  species_traits_categories <- split_species_categories(
+    species_traits, species_categories
+  )
   species_traits_long_categories <- species_traits_long
   
   if (!is.null(species_categories)) {
-    # Conditional loop to split trait dataset across provided categories
-    
-    species_traits_categories <- merge(
-      species_traits, species_categories, by.x = colnames(species_traits)[1],
-      by.y = colnames(species_categories)[1]
-    )
-    
-    species_traits_categories <- split(
-      species_traits_categories[, -ncol(species_traits_categories)],
-      species_traits_categories[, ncol(species_traits_categories)]
-    )
     
     species_traits_long_categories <- merge(
       species_traits_long, species_categories,

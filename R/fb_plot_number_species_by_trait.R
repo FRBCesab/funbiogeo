@@ -25,22 +25,9 @@ fb_plot_number_species_by_trait <- function(
   # Checks
   check_species_categories(species_categories)
   
-  species_traits_categories <- list(species_traits)
-  
-  if (!is.null(species_categories)) {
-    
-    species_traits_categories <- merge(
-      species_traits, species_categories, by = colnames(species_categories)[1]
-    )
-    
-    species_traits_categories <- split(
-      species_traits_categories[
-        , -ncol(species_traits_categories), drop = FALSE
-      ],
-      species_traits_categories[, ncol(species_traits_categories)]
-    )
-    
-  }
+  species_traits_categories <- split_species_categories(
+    species_traits, species_categories
+  )
   
   n_species <- nrow(species_traits)
   
@@ -59,9 +46,9 @@ fb_plot_number_species_by_trait <- function(
     }
   )
   
+  
+  # Manage conditional faceting
   if (is.null(species_categories)) {
-    
-    number_species_per_trait <- do.call(rbind, number_species_per_trait)
     
     category_facet <- NULL
     
@@ -79,14 +66,14 @@ fb_plot_number_species_by_trait <- function(
       }
     )
     
-    number_species_per_trait <- do.call(rbind, number_species_per_trait)
-    
     category_facet <- ggplot2::facet_wrap(
       ggplot2::vars(
         !!rlang::sym(colnames(species_categories)[[2]])), scales = "free"
     )
     
   }
+  
+  number_species_per_trait <- do.call(rbind, number_species_per_trait)
   
   
   # Clean environment
