@@ -57,6 +57,7 @@ test_that("fb_plot_number_traits_by_species works", {
                  category = example_traits$species)
     )
   )
+  
 })
 
 test_that("fb_plot_number_traits_by_species() fails gracefully", {
