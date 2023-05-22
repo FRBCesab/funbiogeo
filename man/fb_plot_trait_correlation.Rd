@@ -4,13 +4,17 @@
 \alias{fb_plot_trait_correlation}
 \title{Plot Trait Correlation Matrix}
 \usage{
-fb_plot_trait_correlation(species_traits, ...)
+fb_plot_trait_correlation(species_traits, species_categories = NULL, ...)
 }
 \arguments{
 \item{species_traits}{a \code{data.frame} with species in rows and
 traits as columns. \strong{NOTE}: The first column should be named \strong{\code{"species"}}
 and contain species names. The other columns should be named according
 to trait names.}
+
+\item{species_categories}{2-columns \code{data.frame} giving species categories
+\code{NULL} by default, with the first column describing the species name, and
+the second column giving their corresponding categories}
 
 \item{...}{Additional options passed to \code{\link[stats:cor]{stats::cor()}}}
 }
