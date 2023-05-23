@@ -4,13 +4,21 @@
 \alias{fb_plot_species_traits_completeness}
 \title{Plot Trait Coverage per Species for each Trait}
 \usage{
-fb_plot_species_traits_completeness(species_traits, all_traits = TRUE)
+fb_plot_species_traits_completeness(
+  species_traits,
+  species_categories = NULL,
+  all_traits = TRUE
+)
 }
 \arguments{
 \item{species_traits}{a \code{data.frame} with species in rows and
 traits as columns. \strong{NOTE}: The first column should be named \strong{\code{"species"}}
 and contain species names. The other columns should be named according
 to trait names.}
+
+\item{species_categories}{2-columns \code{data.frame} giving species categories
+\code{NULL} by default, with the first column describing the species name, and
+the second column giving their corresponding categories}
 
 \item{all_traits}{a logical (default = \code{TRUE}) which tell if the coverage
 considering all provided traits should be provided in an additional column

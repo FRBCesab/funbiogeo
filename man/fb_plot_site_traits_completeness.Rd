@@ -7,6 +7,7 @@
 fb_plot_site_traits_completeness(
   site_species,
   species_traits,
+  species_categories = NULL,
   all_traits = TRUE
 )
 }
@@ -19,6 +20,10 @@ names. The other columns should be named according to species names.}
 traits as columns. \strong{NOTE}: The first column should be named \strong{\code{"species"}}
 and contain species names. The other columns should be named according
 to trait names.}
+
+\item{species_categories}{2-columns \code{data.frame} giving species categories
+\code{NULL} by default, with the first column describing the species name, and
+the second column giving their corresponding categories}
 
 \item{all_traits}{a logical (default = \code{TRUE}) which tell if the coverage
 considering all provided traits should be provided in an additional column

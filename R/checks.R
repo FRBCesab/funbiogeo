@@ -253,3 +253,25 @@ check_object_name <- function(object) {
   
   invisible(NULL)
 }
+
+#' Check 'species_categories' input
+#' 
+#' @description
+#' This function will error if the provided input doesn't contain exactly 2
+#' columns and isn't a data.frame
+#'
+#' @param species_categories 2-columns `data.frame` giving species categories
+#'   `NULL` by default, with the first column describing the species name, and
+#'   the second column giving their corresponding categories
+#'
+#' @noRd
+check_species_categories <- function(species_categories) {
+  
+  if (
+    !is.null(species_categories) &
+    (!is.data.frame(species_categories) | sum(ncol(species_categories)) != 2)
+  ) {
+    stop("'species_categories' isn't a two-column data.frame", call. = FALSE)
+  }
+  
+}

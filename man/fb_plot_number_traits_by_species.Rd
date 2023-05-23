@@ -6,6 +6,7 @@
 \usage{
 fb_plot_number_traits_by_species(
   species_traits,
+  species_categories = NULL,
   threshold_species_proportion = NULL
 )
 }
@@ -14,6 +15,10 @@ fb_plot_number_traits_by_species(
 traits as columns. \strong{NOTE}: The first column should be named \strong{\code{"species"}}
 and contain species names. The other columns should be named according
 to trait names.}
+
+\item{species_categories}{2-columns \code{data.frame} giving species categories
+\code{NULL} by default, with the first column describing the species name, and
+the second column giving their corresponding categories}
 
 \item{threshold_species_proportion}{\code{numeric(1)} [default = \code{NULL}]\cr{}
 between 0 and 1. The percentage of species coverage threshold.}
@@ -33,6 +38,8 @@ data(species_traits)
 fb_plot_number_traits_by_species(species_traits)
 
 # Add a vertical cutoff line (33\% of the species)
-fb_plot_number_traits_by_species(species_traits, 1/3)
+fb_plot_number_traits_by_species(
+  species_traits, threshold_species_proportion = 1/3
+ )
 
 }

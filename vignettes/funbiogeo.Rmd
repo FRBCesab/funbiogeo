@@ -181,7 +181,7 @@ For example, if we want to visualize which traits cover more than 75%
 of the species:
 
 ```{r fig-plot-sp-by-trait-prop}
-fb_plot_number_species_by_trait(species_traits, 0.75)
+fb_plot_number_species_by_trait(species_traits, threshold_species_proportion = 0.75)
 ```
 
 The top number shows the corresponding number of species.

@@ -8,7 +8,7 @@
 #' Use the `...` argument to pass options to the `cor()` function.
 #'
 #' @inheritParams fb_get_trait_coverage_by_site 
-#' 
+#' @inheritParams fb_plot_species_traits_completeness
 #' @param ... Additional options passed to [stats::cor()]
 #'
 #' @return a `ggplot` object
@@ -20,11 +20,14 @@
 #' 
 #' # Plot Spearman's correlation
 #' fb_plot_trait_correlation(species_traits, method = "spearman")
-fb_plot_trait_correlation <- function(species_traits, ...) {
+fb_plot_trait_correlation <- function(
+    species_traits, species_categories = NULL, ...
+) {
   
   # Checks ---------------------------------------------------------------------
   
   check_species_traits(species_traits)
+  check_species_categories(species_categories)
   
   # Keep only numeric columns
   trait_type <- vapply(species_traits[, -1, drop = FALSE], typeof, character(1))
@@ -42,23 +45,68 @@ fb_plot_trait_correlation <- function(species_traits, ...) {
   
   # Subset Traits --------------------------------------------------------------
   
-  trait_subset <- species_traits[, -1, drop = FALSE][
-    , numerical_traits, drop = FALSE
+  trait_subset <- species_traits[
+    , c(
+      colnames(species_traits)[1], colnames(species_traits)[-1][numerical_traits]
+    ), drop = FALSE
   ]
+  
+  species_traits_categories <- split_species_categories(
+    trait_subset, species_categories
+  )
   
   
   # Compute correlation --------------------------------------------------------
   
-  trait_cor <-  as.data.frame(
-    stats::cor(trait_subset, use = "complete.obs", ...)
-  )
+  trait_cor <-  lapply(species_traits_categories, function(x, ...) {
+    
+    individual_cor <- as.data.frame(
+      stats::cor(
+        x[,-1, drop = FALSE], use = "complete.obs", ...
+      )
+    )
+    
+    individual_cor[["first_trait"]] <- rownames(individual_cor)
+    
+    tidyr::pivot_longer(
+      individual_cor, -"first_trait", names_to = "second_trait",
+      values_to = "trait_cor"
+    )
+    
+  })
   
-  trait_cor[["first_trait"]] <- rownames(trait_cor)
   
-  trait_cor <- tidyr::pivot_longer(
-    trait_cor, -"first_trait", names_to = "second_trait",
-    values_to = "trait_cor"
-  )
+  # Manage conditional faceting
+  if (is.null(species_categories)) {
+    
+    category_facet <- NULL
+    
+  } else {
+    
+    trait_cor <- lapply(
+      names(trait_cor),
+      function(x) {
+        
+        single_category <- trait_cor[[x]]
+        
+        single_category[[colnames(species_categories)[2]]] <- x
+        
+        return(single_category)
+      }
+    )
+    
+    category_facet <- ggplot2::facet_wrap(
+      ggplot2::vars(
+        !!rlang::sym(colnames(species_categories)[[2]])), scales = "free"
+    )
+    
+  }
+  
+  trait_cor <- do.call(rbind, trait_cor)
+  
+  
+  # Clean environment
+  rm(species_traits, species_categories, species_traits_categories)
   
   
   # Actual Figure --------------------------------------------------------------
@@ -71,6 +119,7 @@ fb_plot_trait_correlation <- function(species_traits, ...) {
     ggplot2::geom_text(
       ggplot2::aes(label = round(.data$trait_cor, digits = 2))
     ) +
+    category_facet +
     # Re-order traits to have a matrix corresponding to what we compute
     ggplot2::scale_x_discrete(
       limits = unique(trait_cor$first_trait)

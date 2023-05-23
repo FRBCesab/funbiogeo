@@ -55,9 +55,10 @@ fb_get_environment <- function(site_locations, environment_raster) {
   
   ## Extract values ------------------------------------------------------------
   
-  env_values <- terra::extract(x = environment_raster, 
-                               y = terra::vect(site_locations), 
-                               fun = mean, na.rm = TRUE, df = TRUE)
+  env_values <- terra::extract(
+    x = environment_raster, y = terra::vect(site_locations), 
+    fun = mean, na.rm = TRUE
+  )
   
   
   ## Add sites ID --------------------------------------------------------------
