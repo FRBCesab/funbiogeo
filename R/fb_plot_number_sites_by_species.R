@@ -94,7 +94,7 @@ fb_plot_number_sites_by_species <- function(
       list(
         ggplot2::geom_vline(
           xintercept = threshold_sites_proportion * nrow(site_species),
-          linetype = 2, size = 1.2, color = "darkred"
+          linetype = 2, linewidth = 1.2, color = "darkred"
         ),
         ggplot2::annotate(
           "text", x = threshold_sites_proportion * nrow(site_species),

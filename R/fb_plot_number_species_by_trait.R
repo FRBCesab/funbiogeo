@@ -85,7 +85,7 @@ fb_plot_number_species_by_trait <- function(
     vline_annotation <- list(
         ggplot2::geom_vline(
           xintercept = threshold_species_proportion * n_species,
-          linetype = 2, size = 1.2, color = "darkred"
+          linetype = 2, linewidth = 1.2, color = "darkred"
         ),
         ggplot2::annotate(
           "text", x = threshold_species_proportion * n_species,
