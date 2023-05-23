@@ -121,7 +121,7 @@ fb_format_species_categories <- function(data, species, category) {
     length(unique(x)))
   
   if (any(n_cat_per_sp > 1)) {
-    stop("Some species have multiple categories", call. = FALSE)
+    stop("Some species have non-unique category values", call. = FALSE)
   }
   
   data <- data[which(!duplicated(data[ , species])), ]
