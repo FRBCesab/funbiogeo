@@ -89,6 +89,7 @@ shows a summary considering traits together.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fb_plot_site_traits_completeness</span><span class="op">(</span></span>
 <span>  <span class="va">site_species</span>,</span>
 <span>  <span class="va">species_traits</span>,</span>
+<span>  species_categories <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  all_traits <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -106,6 +107,12 @@ names. The other columns should be named according to species names.</p></dd>
 traits as columns. <strong>NOTE</strong>: The first column should be named <strong><code>"species"</code></strong>
 and contain species names. The other columns should be named according
 to trait names.</p></dd>
+
+
+<dt>species_categories</dt>
+<dd><p>2-columns <code>data.frame</code> giving species categories
+<code>NULL</code> by default, with the first column describing the species name, and
+the second column giving their corresponding categories</p></dd>
 
 
 <dt>all_traits</dt>
