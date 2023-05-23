@@ -18,7 +18,7 @@
 #' fb_plot_trait_combination_frequencies(species_traits)
 #' 
 #' # Order by present traits
-#' fb_plot_trait_combination_frequencies(species_traits, "complete")
+#' fb_plot_trait_combination_frequencies(species_traits, NULL, "complete")
 #'
 #' @export
 #' @importFrom rlang .data
