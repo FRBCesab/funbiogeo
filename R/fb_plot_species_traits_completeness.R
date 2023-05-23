@@ -20,6 +20,7 @@
 #' data(species_traits)
 #' fb_plot_species_traits_completeness(species_traits)
 #' 
+#' @importFrom rlang .data
 #' @export
 fb_plot_species_traits_completeness <- function(
     species_traits, species_categories = NULL, all_traits = TRUE
@@ -213,17 +214,16 @@ fb_plot_species_traits_completeness <- function(
   # Plot Species x Trait completeness
   ggplot2::ggplot(
     species_traits_long_categories,
-    ggplot2::aes_q(
-      ~factor(
-        trait_label, levels = unique(number_species_per_trait$trait_label)
+    ggplot2::aes(
+      factor(
+        .data$trait_label, levels = unique(number_species_per_trait$trait_label)
       ),
-      ~factor(
-        species, levels = unique(number_trait_per_species$species)
+      factor(
+        .data$species, levels = unique(number_trait_per_species$species)
       )
     )
   ) +
-    ggplot2::geom_tile(
-      ggplot2::aes_q(fill = ~has_trait)) +
+    ggplot2::geom_tile(ggplot2::aes(fill = .data$has_trait)) +
     category_facet +
     ggplot2::scale_x_discrete(
       "Trait", guide = ggplot2::guide_axis(n.dodge = 2)
