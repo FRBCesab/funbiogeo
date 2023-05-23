@@ -98,3 +98,35 @@
 #' head(species_traits)
 
 "species_traits"
+
+
+
+#' Species x Categories of Western Europe Mammals
+#' 
+#' This dataset contains the order of mammals species in Western
+#' Europe. This dataset is derived from IUCN range maps downloaded at:
+#' \url{https://www.iucnredlist.org/resources/spatial-data-download}. In 
+#' respect to the license, species names have been anonymized.
+#' 
+#' See \url{https://github.com/frbcesab/eumammals} for a complete description 
+#' of the workflow used to create this dataset.
+#' 
+#' This dataset shows the format of the argument `species_categories` used in 
+#' several functions of `funbiogeo`.
+#' 
+#' Note that species names (`species`) is the first column of this dataset.
+#'   
+#' @format A `data.frame` with 149 rows (species) and 2 columns (1 column for 
+#' species name and 1 for the order).
+#' 
+#' @references 
+#' IUCN (2021) The IUCN Red List of Threatened Species. Version 2021-2.
+#' Downloaded on 2021/10/11.
+#' 
+#' @examples 
+#' data("species_categories")
+#' class(species_categories)
+#' dim(species_categories)
+#' species_categories[1:6, ]
+
+"species_categories"
