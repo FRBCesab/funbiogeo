@@ -38,9 +38,7 @@
 
 fb_map_raster <- function(x, ...) {
   
-  
-  ## Check inputs ----
-  
+  # Checks
   if (missing(x)) {
     stop("Argument 'x' is required", call. = FALSE)
   }
@@ -56,13 +54,12 @@ fb_map_raster <- function(x, ...) {
   }
   
   
-  ## Fortify raster ----
+  # Fortify raster
   
   x <- terra::as.data.frame(x, xy = TRUE)
   
   
-  ## Plot ----
-  
+  # Plot
   ggplot2::ggplot(x) + 
     ggplot2::geom_raster(
       ggplot2::aes(x = .data$x, y = .data$y, fill = .data[[colnames(x)[3]]])
