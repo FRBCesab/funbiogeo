@@ -70,6 +70,10 @@ fb_plot_site_environment = function(
   site_environment <- fb_get_environment(site_locations, environment_raster)
   
   
+  # Clean environment
+  rm(site_locations)
+  
+  
   # Actual plot
   ggplot2::ggplot(
     site_environment, ggplot2::aes(.data[[first_layer]], .data[[second_layer]])

@@ -110,6 +110,10 @@ fb_plot_distribution_site_trait_coverage <- function(
          "Please run \"install.packages('ggridges')\"", call. = FALSE)
   }
   
+  # Clean environment
+  rm(all_traits, coverage_order, full_coverage, site_order, site_species,
+     species_traits, trait_coverage)
+  
   # Figure
   ggplot2::ggplot(
     all_coverage,

@@ -57,7 +57,11 @@ fb_map_site_data <- function(site_locations, site_data, selected_col) {
     stop("Provided 'selected_col' should be in 'site_data'")
   }
   
+  # Merge data
   full_data <- merge(site_locations, site_data, by = "site")
+  
+  # Clean environment
+  rm(site_data, site_locations)
   
   # Make plot
   if (inherits(sf::st_geometry(full_data), "sfc_POLYGON") |

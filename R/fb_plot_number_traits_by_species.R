@@ -29,6 +29,7 @@ fb_plot_number_traits_by_species <- function(
   check_species_categories(species_categories)
   
   n_species <- nrow(species_traits)
+  n_traits <- ncol(species_traits) - 1
   
   # Split trait along list
   species_traits_categories <- split_species_categories(
@@ -87,7 +88,7 @@ fb_plot_number_traits_by_species <- function(
   
   
   # Clean environment
-  rm(species_traits, species_traits_categories)
+  rm(species_traits, species_traits_categories, species_categories)
   
   
   # Actual plot
@@ -120,8 +121,9 @@ fb_plot_number_traits_by_species <- function(
       breaks = seq(0, to = max_n_trait, by = 1),
       labels = function(x) ifelse(
         x <= 1, paste0("\u2265", x, " trait"),
-        ifelse(x < ncol(species_traits) - 1, paste0("\u2265", x, " traits"),
-               paste0(x, " traits"))
+        ifelse(
+          x < n_traits, paste0("\u2265", x, " traits"), paste0(x, " traits")
+        )
       )
     ) +
     ggplot2::theme_bw()
@@ -134,7 +136,7 @@ fb_plot_number_traits_by_species <- function(
       list(
         ggplot2::geom_vline(
           xintercept = threshold_species_proportion * nrow(species_traits),
-          linetype = 2, size = 1.2, color = "darkred"
+          linetype = 2, linewidth = 1.2, color = "darkred"
         ),
         ggplot2::annotate(
           "text", x = threshold_species_proportion * nrow(species_traits),

@@ -45,6 +45,12 @@ fb_map_site_traits_completeness <- function(
   
   # Combine Trait Coverage with Location
   site_locations_cov <- merge(site_locations, all_coverages_long, by = "site")
+
+  
+  # Clean environment
+  rm(all_coverages, all_coverages_long, all_traits, levels_order,
+     site_locations, site_species, species_traits)
+  
   
   # Make the Map
   if(inherits(sf::st_geometry(site_locations_cov), "sfc_POLYGON") |
