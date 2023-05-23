@@ -33,6 +33,7 @@ fb_plot_number_sites_by_species <- function(
   
   # Get the numbers
   number_sites_by_species <- fb_count_sites_by_species(site_species)
+  n_species <- nrow(site_species)
   
   # Construct y-axis breaks
   # Under 25 observation, label everyone of them
@@ -67,6 +68,9 @@ fb_plot_number_sites_by_species <- function(
     levels = rev(number_sites_by_species$species)
   )
   
+  # Clean environment
+  rm(site_species)
+  
   # Actual plot
   given_plot <- ggplot2::ggplot(
     number_sites_by_species, ggplot2::aes(.data$n_sites, .data$species)
@@ -75,16 +79,14 @@ fb_plot_number_sites_by_species <- function(
     ggplot2::scale_x_continuous(
       "Number of Occupied Sites",
       sec.axis = ggplot2::sec_axis(
-        trans = ~./nrow(site_species), "Proportion of Occupied Sites",
+        trans = ~./n_species, "Proportion of Occupied Sites",
         labels = scales::label_percent()
       )
     ) +
     ggplot2::scale_y_discrete(
       "Species Rank (Least to Most prevalent) and Identity",
       breaks = species_y_breaks,
-      labels = paste0(
-        species_y_numbers, " (", species_y_breaks, ")"
-      )
+      labels = paste0(species_y_numbers, " (", species_y_breaks, ")")
     ) +
     ggplot2::theme_bw()
   

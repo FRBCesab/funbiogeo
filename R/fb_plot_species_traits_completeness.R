@@ -207,8 +207,8 @@ fb_plot_species_traits_completeness <- function(
   
   # Clean environment for clean ggplot2 object
   rm(all_traits, all_traits_df, all_traits_list, all_traits_subset,
-     common_colnames, n_max_trait,
-     species_traits_categories, species_traits, species_traits_long)
+     common_colnames, n_max_trait, species_traits_categories, species_traits,
+     species_traits_long)
   
   
   # Plot Species x Trait completeness

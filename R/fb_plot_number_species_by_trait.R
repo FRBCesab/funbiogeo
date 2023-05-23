@@ -77,9 +77,10 @@ fb_plot_number_species_by_trait <- function(
   
   
   # Clean environment
-  rm(species_traits, species_categories)
+  rm(species_traits, species_categories, species_traits_categories)
   
-  # Add threshold line underneath other layers
+  
+  # Conditional threshold line
   if (!is.null(threshold_species_proportion)) {
     
     vline_annotation <- list(
