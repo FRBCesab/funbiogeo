@@ -10,7 +10,7 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment  = "#>"
 )
 ```
 
@@ -18,9 +18,16 @@ knitr::opts_chunk$set(
 propose good default plots to inspect and represent your data, (2) provide easy
 plotting methods for complex objects (automatically display maps from spatial
 objects), and (3) provide plotting methods for computed functional diversity
-metrics in other packages. This vignette is here to explain in details all
+metrics in other packages. This vignette explains in details all
 plotting functions available in `funbiogeo`, how to use them and how to
 interpret them.
+
+Some of these plotting functions can deal with species categorization, i.e. 
+displaying information by each category of species (family, order, endemism status, etc.).
+
+```{r child="man/rmdchunks/_table-plot-functions.Rmd"}
+```
+
 
 ```{r setup}
 library("funbiogeo")
@@ -47,8 +54,8 @@ represent should be clear from the name.
 
 ## Regular Plots
 
-In this section we will describe what we call "regular plots" we are on all
-plots of non-spatial objects. Whether density plots, bivariate plots, or types.
+In this section we will describe what we call "regular plots", i.e.
+plots of non-spatial objects (density plots, bivariate plots, lollipop charts, heatmaps, etc.).
 We made this distinction because maps have their own specific challenges. All
 the default regular plots proposed in `funbiogeo` are quite specific to the
 data. In each of the section below we'll summarize what the plots is about, what
@@ -57,7 +64,7 @@ are the needed arguments, and how to interpret the output.
 The function are all described in their specific subsections in alphabetical
 order.
 
-### Distribution of Trait Coverages across Sites `fb_plot_distribution_site_trait_coverage()`
+### Distribution of trait coverages across sites
 
 Visualizing the trait coverage of all sites can help isolate which traits may
 show consistently low coverage. Also this can help notice if some groups of
@@ -94,7 +101,7 @@ example, that the traits of a species occurring very rarely are missing this
 wouldn't necessarily translate in low site-level trait coverage.
 
 
-### Plot Number of Species per Trait `fb_plot_number_species_by_trait()`
+### Plotting the number of species per trait
 
 One of the first way to look at the species by traits `data.frame` is to look at
 number of species with non-missing trait values for each trait. The
@@ -110,7 +117,7 @@ fb_plot_number_species_by_trait(species_traits)
 The function outputs a lollipop chart. On the bottom x-axis there is the number
 of species covered by the given trait (the top x-axis represents the proportion
 of species, which is directly proportional). The y-axis represents each trait.
-The dot represent the actual coverage observed with the corresponding proportion
+The dot represents the actual coverage observed with the corresponding proportion
 of species written on top. With this figure we see that 82.6% of the species
 have a non-missing adult body mass in the species by trait `data.frame`, while
 only 54.4% have a non-missing maximum longevity.
@@ -127,9 +134,10 @@ fb_plot_number_species_by_trait(species_traits, threshold_species_proportion = 0
 The red dashed vertical line shows the corresponding species coverage with
 labels indicating the proportion and corresponding number of species (n = 104).
 
-### Plot Number of Trait per Species `fb_plot_number_traits_by_species()`
 
-You can also represent the number of trait available per species. Representing
+### Plotting the number of traits per species
+
+You can also represent the number of traits available per species. Representing
 it for each species would be quite difficult to read, so we decided instead to
 represent the number of species with a given number of traits. Also, because
 most trait ecologists are interested in multiple traits, we considered nested
@@ -153,13 +161,13 @@ the actual number of species, while top x-axis displays the corresponding
 proportion of species). The y-axis shows the number of each traits. Note that
 the categories are nested: the set of species with at least 1 trait contains the
 set of species with at least 2 traits, and so on and so forth. By definition all
-species have at least 0 traits, but we show that in the plot as a reference to
+species have at least 0 trait, but we show that in the plot as a reference to
 see how the proportion decreases with increasing number of traits. The
 proportion is shown as text above each dot representing it. So for example,
 there are 62.4% species with at least 4 traits.
 
 This plot does not give us if this proportion of species corresponds to the same
-trait combination but it's a first indication.
+traits combination but it's a first indication.
 
 Let's say we're interested in combinations of traits with at least 50% species
 covered. We can use the second argument to show it:
@@ -173,19 +181,19 @@ to easily target number of traits covering a certain proportion of species. The
 red dashed vertical line shows the corresponding species coverage with labels
 indicating the proportion and corresponding number of species (n = 74).
 
-### Plot Sites Environmental Position `fb_plot_site_environment()`
+### Plotting environmental position of sites
 
-To see if our sites are biased environmentally it can be nice to situate them
+To see if our sites are biased environmentally it can be nice to locate them
 along environmental variables compared to a full region. For the sake of
 simplicity we can focus on two variables against which to compare our sites to a
-region. That is what the `fb_plot_site_environment()` function. It has four
-arguments the first of which `site_locations`, the locations of sites as an `sf`
-object, `environment_raster` a
+region. That is what the `fb_plot_site_environment()` function does. It has four
+arguments: the first one, `site_locations`, provides the locations of sites as an `sf`
+object, `environment_raster` is a
 [`terra`](http://cran.r-project.org/package=terra) raster object, the next two
 arguments are `first_layer` and `second_layer` which are the names of the two
 variables to be extracted from `environment_raster` to make our plot.
 
-From the included dataset we can represent the first 6 sites along annual
+From the included dataset we can represent the first 6 sites along total annual
 precipitation and mean annual temperature over the full region:
 
 ```{r}
@@ -206,9 +214,10 @@ from the provided environmental raster.
 
 This figure can show us that the first six sites are actually lower in
 temperature and higher in annual precipitation than most other places in our
-environmental raster.
+environmental rasters.
 
-### Plot Trait Coverage for All Sites `fb_plot_site_traits_completeness()`
+
+### Plotting trait coverage for all sites
 
 To select appropriate sites and traits, we can visualize the trait coverage per
 site and per trait. This is exactly what is done by
@@ -232,11 +241,12 @@ last column `all_traits` contains the coverage for all traits taken together.
 With this figure we can see that all sites have over 80% coverage with both
 adult body mass and litter size.
 
-### Plot Trait Coverage per Species `fb_plot_species_traits_completeness()`
 
-To select appropriate traits, we can visualize the trait coverage per species
-per trait. This is done by `fb_plot_species_traits_completeness()` which takes
-has `species_traits`, the species by traits `data.frame`, for sole argument.
+### Plotting trait coverage per species
+
+To select appropriate traits, we can visualize the trait coverage per species. 
+This is done by `fb_plot_species_traits_completeness()` which takes
+`species_traits`, the species by traits `data.frame`, for sole argument.
 
 We can use it with the included dataset as an example:
 
@@ -248,19 +258,20 @@ This figure visualizes directly the species by trait `data.frame`. The x-axis
 displays the different traits, ranked from left to right in decreasing coverage
 order (as indicated in the x-axis labels). The last column `all_traits`
 considers all traits taken together. The y-axis represents species in decreasing
-coverage order from bottom to top. Each cell thus represents the trait of a
-species, it is blue if the trait is known and red if it is missing.
+coverage order from bottom to top. Each cell thus represents the trait for a
+species: blue if the trait is known and red if it is missing.
 
 From this plot we see that a significant proportion of species have missing
 traits and that even the most non-missing traits, adult body mass, is only known
 for 82.6% of the species.
 
-### Display Trait Combinations `fb_plot_trait_combination_frequencies()`
 
-Looking at the coverage for each species continuously maybe impractical or
+### Displaying traits combinations
+
+Looking at the traits coverage for each species continuously maybe impractical or
 difficult. For example, when trying to display thousands of species or when the
-trait coverage varies widely across trait. One way to reduce the size of the
-analyze (and thus visualized) dataset is instead to count at which frequency
+traits coverage varies widely across species. One way to reduce the size of the
+analyzed (and thus visualized) dataset is instead to count at which frequency
 appear the combinations of present/missing traits.
 
 This is done by `fb_plot_trait_combination_frequencies()` which takes two
@@ -275,7 +286,7 @@ fb_plot_trait_combination_frequencies(species_traits)
 ```
 
 The x-axis represents individual traits ranked in alphabetical order from left
-to right. The y axis represents different combinations. The labels on the y-axis
+to right. The y-axis represents different combinations. The labels on the y-axis
 indicate both the number and the frequency of each combination. When the cell is
 blue it means that the trait is present and when it is red it means the trait is
 missing. By default the combinations are ordered by increasing number from top
@@ -296,10 +307,11 @@ fb_plot_trait_combination_frequencies(species_traits, order_by = "complete")
 The most complete combinations are shown at the bottom, while the combinations
 with most missing traits are at the top.
 
-### Show Trait Correlations `fb_plot_trait_correlation()`
+
+### Displaying traits correlations
 
 Most of the plot functions in `funbiogeo` show traits independently of one
-another. However, for functional biogeography analyses, trait correlations maybe
+another. However, for functional biogeography analyses, traits correlations maybe
 very relevant. This is exactly what is done by `fb_plot_trait_correlation()`. It
 takes as first needed argument `species_traits`,  the species by traits
 `data.frame`. The other arguments are optional and will be passed to
@@ -331,8 +343,8 @@ Map functions in `funbiogeo` are here to provide good default visualization
 leveraging the spatial information of sites. We know that producing map in R
 is challenging. That's why we provide these helper functions.
 Of course, these functions are all basics and you either have to customize them
-by adding ggplot2 commands to the returned plots, or to look at their code to
-produce similar plots of you own but more custom.
+by adding `ggplot2` commands to the returned plots, or to look at their code to
+produce similar plots in the way you want.
 
 For example, the functions do not display background maps because it would be
 too complex to accommodate for all use cases between quite localized sites up to
@@ -343,15 +355,16 @@ Note that all maps are always in the Coordinate Reference System of the provided
 `ggplot2::coord_sf()` call.
 
 
-### Mapping Site Trait Coverages `fb_map_site_traits_completeness()`
+### Mapping traits coverage of sites
 
-This function is a specific function that maps the trait coverage (proportion of
+The function `fb_map_site_traits_completeness()` is a specific function that 
+maps the trait coverage (proportion of
 species, weighted by relative abundance if relevant, with known trait values) of
 each site for all traits.
 
 It takes three arguments: `site_locations` (spatial locations of sites),
-`site_species` (site by species data.frame), and `species_traits` (species by
-traits data.frame).
+`site_species` (site by species `data.frame`), and `species_traits` (species by
+traits `data.frame`).
 
 If we use the included dataset in `funbiogeo` it gives:
 
@@ -370,14 +383,15 @@ high coverages more difficult. Furthermore, we can see that a site in the
 Netherlands has 0% coverage of diet breadth. This is most likely the sign of
 sign of low species richness with an absence of diet breadth for those species.
 
-### Mapping Arbitrary Site Data `fb_map_site_data()`
 
-To be the most flexible possible, `funbiogeo` provides a function to mapping
+### Mapping arbitrary site data
+
+To be the most flexible possible, `funbiogeo` provides a function to map
 arbitrary site data whether quantitative or qualitative with the
 `fb_map_site_data()` function. The first argument it takes is `site_locations`,
 the spatial locations of sites as an `sf` object, the second argument is
 `site_data` which is a `data.frame` containing a `"site"` column and data in
-additional column, the third and last required argument is `selected_col` which
+additional columns, the third and last required argument is `selected_col` which
 should be the name of column provided in `site_data` that is going to be used as
 a variable to display. All three arguments are required.
 
@@ -389,8 +403,7 @@ we can do the following:
 site_rich <- fb_count_species_by_site(site_species)
 
 # Map of Species Richness
-rich_map <- fb_map_site_data(site_locations, site_rich, "n_species")
-rich_map
+fb_map_site_data(site_locations, site_rich, "n_species")
 ```
 
 From this map, we can for example see that the Northern part of our dataset is
@@ -411,15 +424,15 @@ site_cat <- data.frame(
 fb_map_site_data(site_locations, site_cat, "set")
 ```
 
-### Mapping Site Rasters `fb_map_raster()`
+### Mapping site rasters
 
 Mapping rasters can be quite cumbersome with R. `funbiogeo` provides a generic
 function to map them with `fb_map_raster()`. It only needs as first argument a
 `terra` `SpatRaster` object. It can be very useful when visualizing
-environmental layers for example. The function will display the raster in
+environmental layers for example. The function will display the raster in the
 provided projection.
 
-Example:
+For example:
 
 ```{r}
 # Getting the raster
@@ -429,3 +442,6 @@ tavg <- terra::rast(tavg)
 # Mapping the raster
 fb_map_raster(tavg)
 ```
+
+
+
