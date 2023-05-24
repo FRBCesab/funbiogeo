@@ -133,7 +133,7 @@ The threshold bar helps us get a sense of how many species are present in at lea
 
 ### Plotting the number of species per trait
 
-One of the first way to look at the species by traits `data.frame` is to look at
+One way to look at the species by traits `data.frame` is to look at
 number of species with non-missing trait values for each trait. The
 `fb_plot_number_species_by_trait()` function does exactly that. Its first
 argument `species_traits`, the species by traits `data.frame`, is necessary
