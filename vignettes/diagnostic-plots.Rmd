@@ -129,6 +129,7 @@ Let's say we want to see the species present in at least 40% of the sites:
 fb_plot_number_sites_by_species(site_species, threshold_sites_proportion = 0.4)
 ```
 
+The threshold bar helps us get a sense of how many species are present in at least 40% of the sites. It also displays the corresponding number of sites.
 
 ### Plotting the number of species per trait
 
