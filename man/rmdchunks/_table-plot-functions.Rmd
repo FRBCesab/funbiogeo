@@ -1,15 +1,14 @@
-| Function name                                | Species category | Site x locations | Site x species | Species x traits | Additional input |
-| :------------------------------------------- | :--------------: | :--------------: | :------------: | :--------------: | :--------------: |
-| `fb_plot_distribution_site_trait_coverage()` |        ❌        |        ❌        |       ✅       |        ✅        |        ❌        |
-| `fb_plot_number_sites_by_species()`          |        ❌        |        ❌        |       ✅       |        ❌        |        ❌        |
-| `fb_plot_number_species_by_trait()`          |        ✅        |        ❌        |       ❌       |        ✅        |        ❌        |
-| `fb_plot_number_traits_by_species()`         |        ✅        |        ❌        |       ❌       |        ✅        |        ❌        |
-| `fb_plot_site_environment()`                 |        ❌        |        ✅        |       ❌       |        ❌        |        ✅        |
-| `fb_plot_site_traits_completeness()`         |        ✅        |        ❌        |       ✅       |        ✅        |        ❌        |
-| `fb_plot_species_traits_completeness()`      |        ✅        |        ❌        |       ❌       |        ✅        |        ❌        |
-| `fb_plot_trait_combination_frequencies()`    |        ✅        |        ❌        |       ❌       |        ✅        |        ❌        |
-| `fb_plot_trait_correlation()`                |        ✅        |        ❌        |       ❌       |        ✅        |        ❌        |
-| `fb_map_raster()`                            |        ❌        |        ❌        |       ❌       |        ❌        |        ✅        |
-| `fb_map_site_data()`                         |        ❌        |        ✅        |       ❌       |        ❌        |        ✅        |
-| `fb_map_site_traits_completeness()`          |        ❌        |        ✅        |       ✅       |        ✅        |        ❌        |
-
+| Function name                                | Site x species | Species x traits | Site x locations | Species category | Additional input |
+| :------------------------------------------- |:-------------: | :--------------: | :--------------: | :--------------: | :--------------: |
+| `fb_plot_distribution_site_trait_coverage()` |        ✅       |        ✅         |        ❌         |         ❌        |         ❌        |
+| `fb_plot_number_sites_by_species()`          |        ✅       |        ❌         |        ❌         |         ❌        |         ❌        |
+| `fb_plot_number_species_by_trait()`          |        ❌       |        ✅         |        ❌         |         ✅        |         ❌        |
+| `fb_plot_number_traits_by_species()`         |        ❌       |        ✅         |        ❌         |         ✅        |         ❌        |
+| `fb_plot_site_environment()`                 |        ❌       |        ❌         |        ✅         |         ❌        |         ✅        |
+| `fb_plot_site_traits_completeness()`         |        ✅       |        ✅         |        ❌         |         ✅        |         ❌        |
+| `fb_plot_species_traits_completeness()`      |        ❌       |        ✅         |        ❌         |         ✅        |         ❌        |
+| `fb_plot_trait_combination_frequencies()`    |        ❌       |        ✅         |        ❌         |         ✅        |         ❌        |
+| `fb_plot_trait_correlation()`                |        ❌       |        ✅         |        ❌         |         ✅        |         ❌        |
+| `fb_map_raster()`                            |        ❌       |        ❌         |        ❌         |         ❌        |         ✅        |
+| `fb_map_site_data()`                         |        ❌       |        ❌         |        ✅         |         ❌        |         ✅        |
+| `fb_map_site_traits_completeness()`          |        ✅       |        ✅         |        ✅         |         ❌        |         ❌        |
