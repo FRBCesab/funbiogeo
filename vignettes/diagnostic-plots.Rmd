@@ -22,8 +22,8 @@ metrics in other packages. This vignette explains in detail all
 plotting functions available in `funbiogeo`, how to use them and how to
 interpret them.
 
-Some of these plotting functions can deal with species categorization, i.e. 
-displaying information by each category of species (family, order, endemism status, etc.).
+Some of these plotting functions use different data inputs and some of them can deal with species categorization, i.e. 
+displaying information by each category of species (family, order, endemism status, etc.). We detail the needed inputs in the table below:
 
 ```{r child="../man/rmdchunks/_table-plot-functions.Rmd"}
 ```
