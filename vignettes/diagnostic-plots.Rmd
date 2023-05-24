@@ -191,7 +191,7 @@ the actual number of species, while top x-axis displays the corresponding
 proportion of species). The y-axis shows the number of each traits. Note that
 the categories are nested: the set of species with at least 1 trait contains the
 set of species with at least 2 traits, and so on and so forth. By definition all
-species have at least 0 trait, but we show that in the plot as a reference to
+species have 0 or more known traits, but we show that in the plot as a reference to
 see how the proportion decreases with increasing number of traits. The
 proportion is shown as text above each dot representing it. So for example,
 there are 62.4% species with at least 4 traits.
