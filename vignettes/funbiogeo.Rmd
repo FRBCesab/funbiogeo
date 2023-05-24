@@ -366,8 +366,11 @@ filt_traits <- filt_traits[, -1]
 rownames(filt_sites) <- filt_sites$site
 filt_sites <- filt_sites[, -1]
 
+# Scale traits
+filt_traits <- scale(filt_traits)
+
 # Compute Functional Richness
-fric <- fundiversity::fd_fric(filt_sites, filt_traits)
+fric <- fundiversity::fd_fric(filt_traits, filt_sites)
 
 head(fric)
 ```
@@ -375,60 +378,125 @@ head(fric)
 We now have a table with Functional Richness computed for all of our sites.
 
 
-## Putting Functional Diversity on the map
+## Putting variables on the map
 
-### Map of environment
+### Map of environmental raster
+
+If we want to display the environment associated with our sites of interest, we
+can leverage environmental raster layers, like the mean annual temperature.
+Fortunately, we have access to an example raster of mean annual temperature
+through `funbiogeo`. The package provides a helper function display a raster
+layer easily (without any assumption about the projection) named
+`fb_map_raster()`:
 
 ```{r map-tavg, dev = 'png'}
-## Read raster ----
+# Read raster
 tavg <- system.file(
   "extdata", "annual_mean_temp.tif", package = "funbiogeo"
 )
 tavg <- terra::rast(tavg)
 
-## Map of raster ----
-fb_map_raster(tavg)
-```
-
-
-```{r map-tavg-custom}
+# Map raster
 fb_map_raster(tavg) + 
   scale_fill_distiller("Temperature", palette = "Spectral") +
   theme(legend.position = "bottom") + 
   ggtitle("Mean annual temperature in Pennsylvania")
 ```
 
+We can also combine that with the annual precipitation information available
+as an example
 
 ```{r composition-map, dev = 'png'}
 library("patchwork")
 
-## Read raster ----
+# Read raster ------------------------------------------------------------------
 tavg <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")
 tavg <- terra::rast(tavg)
 
 prec <- system.file("extdata", "annual_tot_prec.tif", package = "funbiogeo")
 prec <- terra::rast(prec)
 
-## Individual Maps ----
-x <- fb_map_raster(tavg, legend.position = "none") + 
+# Individual Maps --------------------------------------------------------------
+map_temperature <- fb_map_raster(tavg, legend.position = "none") + 
   scale_fill_distiller("Temperature", palette = "Spectral")
 
-y <- fb_map_raster(prec) + 
+map_precipitation <- fb_map_raster(prec) + 
   scale_fill_distiller("Precipitation", direction = 1)
 
-## Arrangement ----
-figure <- x / y
+# Plot composition -------------------------------------------------------------
 
-figure + 
+(map_temperature / map_precipitation) + 
   plot_annotation(title = "Pennsylvania", 
                   theme = theme(plot.title = element_text(face = "bold"))) & 
   theme_classic() &
   theme(text = element_text(family = "mono"))
 ```
 
+This function allows the visualization of a raster in a simple fashion, but it
+doesn't tell us anything about the environmental variable at the sites.
+In the next section we will follow the example of mapping an environmental
+variable.
 
-### Map of indices
+### Map of average environmental variable in site
 
-CWM/FRic
+To get the average environmental variable in the site we can use the
+`fb_get_environment()` function, it takes as arguments the site-locations object
+and an environmental raster from the `terra` package.
+By default, it takes the average of the raster values per site.
+
+```{r get-environment}
+site_mat <- fb_get_environment(site_locations, tavg)
+
+head(site_mat)
+```
+
+The variable names in columns are based on the names of the provided raster.
+To put these values on the map we can use the `fb_map_site_data()` function,
+which allows mapping arbitrary site-level variables. It takes three needed
+arguments: the first of which, `site_locations`, which is the `sf` object
+describing sites' geographic locations; the second argument is `site_data`,
+which is a `data.frame` giving additional data indexed by site; and
+`selected_col`, which is a character giving the name of the column to plot from
+the `site_data` argument.
+
+We can thus plot the mean annual temperature of sites through the following
+commands:
+
+```{r map-avg-environment}
+fb_map_site_data(site_locations, site_mat, "annual_mean_temp") +
+  labs(title = "Mean Annual Temperature per Site")
+```
+
+### Map of functional diversity indices
+
+We can leverage the same functions to map our functional diversity indices.
+For example, with the body mass CWM:
+
+```{r map-cwm-body-mass}
+body_mass_cwm <- subset(cwm, trait == "adult_body_mass")
+
+fb_map_site_data(site_locations, body_mass_cwm, "cwm") +
+  scale_fill_viridis_c(trans = "log10") +
+  labs(title = "Mammals Body Mass CWM")
+```
+
+We can do similarly for functional richness:
+
+```{r map-fric}
+fb_map_site_data(site_locations, fric, "FRic") +
+  scale_fill_viridis_c(option = "magma") +
+  labs(title = "Mammals Functional Richness")
+```
+
+
+## Conclusion
+
+This concludes our tutorial to introduce `funbiogeo`. The packages contains many
+more features, especially diagnostic plots, which are explained in detail in
+[a dedicated vignette](diagnostic-plots.Rmd).
+There is also a specific vignette about [transforming raw data from long to wide format](long-format.Rmd).
+Finally, if you're interested in learning about up-scaling your sites, you can
+refer to [the specific vignette](upscaling.Rmd)
+
 
 ## References
