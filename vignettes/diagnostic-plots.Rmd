@@ -317,7 +317,7 @@ fb_plot_trait_combination_frequencies(species_traits)
 
 The x-axis represents individual traits ranked in alphabetical order from left
 to right. The y-axis represents different combinations. The labels on the y-axis
-indicate both the number and the frequency of each combination. When the cell is
+show both the number and the frequency of each combination. When the cell is
 blue it means that the trait is present, when it is red it means the trait is
 missing. By default the combinations are ordered by increasing number from top
 to bottom, with the most numerous combinations of trait presences at the very
