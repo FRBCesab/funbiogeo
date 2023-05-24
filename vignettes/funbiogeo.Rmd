@@ -27,8 +27,7 @@ It also provide default diagnostic plots and standard tables summarizing input
 data. This vignette aims to be an introduction to the most commonly used
 functions.
 
-The vignette will be a worked through a real world example using the internal
-dataset provided by `funbiogeo`.
+The vignette is a worked through real world example of a functional biogeography workflow using the internal dataset on European mammals provided in `funbiogeo`.
 
 ```{r setup}
 library("funbiogeo")
@@ -43,23 +42,24 @@ We used range maps data
 and trait data from the
 [PanTHERIA database](https://esapubs.org/archive/ecol/E090/184/)
 [@Jones_PanTHERIA_2009].
-The initial extraction is available
+The initial extraction scripts are available
 on [GitHub](https://github.com/FRBCesab/eumammals).
 
-The package `funbiogeo` requires three different datasets to proceed with the 
-analyses:
+The functions in `funbiogeo` mostly leverage three different objects:
 
-- the **species x traits** `data.frame` (`species_traits` in `funbiogeo`)
-- the **site x species** `data.frame` (`site_species` in `funbiogeo`)
-- the **site x locations** object (`site_locations` in `funbiogeo`)
+- the **species x traits** `data.frame`, which describes the traits (in columns) of the species (in rows) (`species_traits` dataset in `funbiogeo`);
+- the **site x species** `data.frame`, which describes the presence/absence, the abundance, or the cover of species (in columns) across sites (in rows) (`site_species` dataset in `funbiogeo`);
+- the **site x locations** object, which describes the physical location of sites through an `sf` object (`site_locations` dataset in `funbiogeo`).
 
-You can load the example data using `data(..., package = "funbiogeo")` call:
+You can load the example data using the `data(..., package = "funbiogeo")` call:
 
 ```{r load-datasets}
 data("site_species", package = "funbiogeo")
 data("site_locations", package = "funbiogeo")
 data("species_traits", package = "funbiogeo")
 ```
+
+In the following sections we'll describe in detail these three provided datasets in the package.
 
 
 ### Species x Traits
