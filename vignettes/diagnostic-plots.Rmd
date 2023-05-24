@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 propose good default plots to inspect and represent your data, (2) provide easy
 plotting methods for complex objects (automatically display maps from spatial
 objects), and (3) provide plotting methods for computed functional diversity
-metrics in other packages. This vignette explains in details all
+metrics in other packages. This vignette explains in detail all
 plotting functions available in `funbiogeo`, how to use them and how to
 interpret them.
 
