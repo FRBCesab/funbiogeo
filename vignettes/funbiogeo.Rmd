@@ -337,10 +337,42 @@ cwm <- fb_cwm(filt_sites, red_sp_traits_2)
 head(cwm)
 ```
 
-It outputs a `data.frame` with 3 columns: `site` the first one shows the site
+It outputs a `data.frame` with 3 columns: the first one, `site`, shows the site
 name as provided in the input site x species `data.frame`, `trait`
 which indicates the trait name on which the CWM is computed,
 and `cwm` which shows the value of the CWM.
+
+
+### Compute functional diversity indices
+
+We can also integrate our filtered datasets in other functional diversity computation pipeline. We'll show an example by computing functional richness
+with `fundiversity`.
+
+```{r computing-fric}
+## To install 'fundiversity' uncomment the following line
+# install.packages("fundiversity")
+
+# Functional richness in 'fundiversity' requires all the traits to be known
+# so we need to filter the traits
+filt_traits <- subset(
+  red_sp_traits, !is.na(adult_body_mass), !is.na(litter_size)
+)
+
+# We need to transform species and site names as row names for species-traits
+# and site-species data.frames, as required by 'fundiversity'
+rownames(filt_traits) <- filt_traits$species
+filt_traits <- filt_traits[, -1]
+
+rownames(filt_sites) <- filt_sites$site
+filt_sites <- filt_sites[, -1]
+
+# Compute Functional Richness
+fric <- fundiversity::fd_fric(filt_sites, filt_traits)
+
+head(fric)
+```
+
+We now have a table with Functional Richness computed for all of our sites.
 
 
 ## Putting Functional Diversity on the map
@@ -397,5 +429,6 @@ figure +
 
 ### Map of indices
 
+CWM/FRic
 
 ## References
