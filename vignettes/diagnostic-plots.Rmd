@@ -386,8 +386,7 @@ Note that all maps are always in the Coordinate Reference System of the provided
 
 ### Mapping traits coverage of sites
 
-The function `fb_map_site_traits_completeness()` is a specific function that 
-maps the trait coverage (proportion of
+The function `fb_map_site_traits_completeness()` maps the trait coverage (proportion of
 species, weighted by relative abundance if relevant, with known trait values) of
 each site for all traits.
 
