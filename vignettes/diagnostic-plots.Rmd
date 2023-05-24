@@ -421,7 +421,7 @@ arbitrary site data whether quantitative or qualitative with the
 the spatial locations of sites as an `sf` object, the second argument is
 `site_data` which is a `data.frame` containing a `"site"` column and data in
 additional columns, the third and last required argument is `selected_col` which
-should be the name of column provided in `site_data` that is going to be used as
+should be the name of the column provided in the `site_data` `data.frame` that is going to be used as
 a variable to display. All three arguments are required.
 
 For example, if we want to get a map of species richness of the included dataset
