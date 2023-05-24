@@ -197,7 +197,7 @@ proportion is shown as text above each dot representing it. So for example,
 there are 62.4% species with at least 4 traits.
 
 This plot does not tell us if all species with at least 4 traits share the same
-traits combination but it's a first indication.
+trait combination (they are multiple 4 trait combinations), but it's a first indication.
 
 Let's say we're interested in combinations of traits with at least 50% species
 covered. We can use the second argument to show it:
