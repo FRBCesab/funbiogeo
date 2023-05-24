@@ -18,9 +18,9 @@ knitr::opts_chunk$set(
 
 The `funbiogeo`package requires that information is structured in three different datasets:
 
-- the **species x traits** `data.frame` (`species_traits` in `funbiogeo`)
-- the **site x species** `data.frame` (`site_species` in `funbiogeo`)
-- the **site x locations** object (`site_locations` in `funbiogeo`)
+- the **species x traits** `data.frame` (`species_traits` in `funbiogeo`), which contains trait values for several traits (in columns) for several species (in rows).
+- the **site x species** `data.frame` (`site_species` in `funbiogeo`), which contains the presence/absence, abundance, or cover information for species (in columns) by sites (in rows).
+- the **site x locations** object (`site_locations` in `funbiogeo`), which contains the physical locations of the sites of interest
 
 Optionally, an additional dataset can be provided:
 
