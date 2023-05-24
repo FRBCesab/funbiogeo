@@ -167,7 +167,7 @@ labels indicating the proportion and corresponding number of species (n = 104).
 
 ### Plotting the number of traits per species
 
-You can also represent the number of traits available per species. Representing
+You can also display the number of traits available per species. Showing
 it for each species would be quite difficult to read, so we decided instead to
 represent the number of species with a given number of traits. Also, because
 most trait ecologists are interested in multiple traits, we considered nested
