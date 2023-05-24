@@ -348,7 +348,7 @@ and `cwm` which shows the value of the CWM.
 We can also integrate our filtered datasets in other functional diversity computation pipeline. We'll show an example by computing functional richness
 with `fundiversity`.
 
-```{r computing-fric, eval = requireNamespace("fundiversity")}
+```{r computing-fric, eval = require("fundiversity")}
 ## To install 'fundiversity' uncomment the following line
 # install.packages("fundiversity")
 
