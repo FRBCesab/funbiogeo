@@ -23,7 +23,7 @@ plotting functions available in `funbiogeo`, how to use them and how to
 interpret them.
 
 Some of these plotting functions use different data inputs and some of them can deal with species categorization, i.e. 
-displaying information by each category of species (family, order, endemism status, etc.). We detail the needed inputs in the table below:
+displaying information by each category of species (family, order, endemism status, etc.). We detail the standard needed inputs in the table below, the "Additional input" column represents needed input that are not the other standard tables specified by the other columns.
 
 ```{r child="../man/rmdchunks/_table-plot-functions.Rmd"}
 ```
