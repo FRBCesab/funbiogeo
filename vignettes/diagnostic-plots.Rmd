@@ -123,7 +123,7 @@ Adding the second argument `threshold_sites_proportion` displays a vertical
 bar at the target proportion of sites to see how many species occupy more or less than 
 the given proportion of sites.
 
-Let's say we want to see the species present at at least 40% of the sites:
+Let's say we want to see the species present in at least 40% of the sites:
 
 ```{r plot-sites-coverage-species-thresh}
 fb_plot_number_sites_by_species(site_species, threshold_sites_proportion = 0.4)
