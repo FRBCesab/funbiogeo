@@ -24,7 +24,7 @@ The `funbiogeo`package requires that information is structured in three differen
 
 Optionally, an additional dataset can be provided:
 
-- a **species x categories** `data.frame` (`species_categories` in `funbiogeo`)
+- a **species x categories** `data.frame` (`species_categories` in `funbiogeo`), which contains two-columns: one for species, one for potential categorization of species (whether it's taxonomic classes, specific diets, or any arbitrary classification)
 
 
 
