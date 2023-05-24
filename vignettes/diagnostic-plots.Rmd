@@ -169,7 +169,7 @@ labels indicating the proportion and corresponding number of species (n = 104).
 
 You can also display the number of traits available per species. Showing
 it for each species would be quite difficult to read, so we decided instead to
-represent the number of species with a given number of traits. Also, because
+represent the number of species having given number of known traits. Also, because
 most trait ecologists are interested in multiple traits, we considered nested
 proportions of traits: considering the number of species covered by at least one
 trait, at least two, etc.
