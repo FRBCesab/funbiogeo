@@ -482,7 +482,7 @@ fb_map_site_data(site_locations, body_mass_cwm, "cwm") +
 
 We can do similarly for functional richness:
 
-```{r map-fric}
+```{r map-fric, eval = require("fundiversity")}
 fb_map_site_data(site_locations, fric, "FRic") +
   scale_fill_viridis_c(option = "magma") +
   labs(title = "Mammals Functional Richness")
