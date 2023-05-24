@@ -114,7 +114,7 @@ proportion of sites coverage, is optional.
 fb_plot_number_sites_by_species(site_species)
 ```
 
-The function outputs a dotchart. The number of sites is indicated at the 
+The function outputs a dotchart. The number of occupied sites per species is indicated at the 
 bottom x-axis, while the top x-axis represents the proportion of occupied sites. 
 The left y-axis label species names (in parenthesis) and their rank by increasing 
 prevalence. With this figure we see that 82.6% of the species
