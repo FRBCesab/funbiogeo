@@ -2,7 +2,7 @@
 title: "Formatting your data"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Formatting your data from raw data}
+  %\VignetteIndexEntry{Formatting your data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,17 +16,21 @@ knitr::opts_chunk$set(
 ```
 
 
+The `funbiogeo`package requires that information is structured in three different datasets:
+
+- the **species x traits** `data.frame` (`species_traits` in `funbiogeo`), which contains trait values for several traits (in columns) for several species (in rows).
+- the **site x species** `data.frame` (`site_species` in `funbiogeo`), which contains the presence/absence, abundance, or cover information for species (in columns) by sites (in rows).
+- the **site x locations** object (`site_locations` in `funbiogeo`), which contains the physical locations of the sites of interest
+
+Optionally, an additional dataset can be provided:
+
+- a **species x categories** `data.frame` (`species_categories` in `funbiogeo`), which contains two-columns: one for species, one for potential categorization of species (whether it's taxonomic classes, specific diets, or any arbitrary classification)
+
+
 
 ```{r setup}
 library(funbiogeo)
 ```
-
-
-The `funbiogeo`package requires that information is structured in three different datasets:
-
-- the **species x traits** `data.frame` (`species_traits` in `funbiogeo`)
-- the **site x species** `data.frame` (`site_species` in `funbiogeo`)
-- the **site x locations** object (`site_locations` in `funbiogeo`)
 
 
 
@@ -34,8 +38,8 @@ The `funbiogeo`package requires that information is structured in three differen
 
 
 
-In `funbiogeo` these three datasets **must be** in a wide format (=where one row hosts several variables across columns), but sometimes information is structured in a long format 
-(=one observation per row, also called [**tidy** format](https://r4ds.had.co.nz/tidy-data.html)).
+In `funbiogeo` these datasets **must be** in a wide format (where one row hosts several variables across columns), but sometimes information is structured in a long format 
+(one observation per row, also called [**tidy format**](https://r4ds.had.co.nz/tidy-data.html)).
 
 
 For instance, the following dataset illustrates the wider format 
@@ -74,16 +78,18 @@ knitr::kable(long_data, caption = "Long format dataset",
 
 
 
-If your data are not split into these three wider datasets, you can use the 
+If your data are not split into these wider datasets, you can use the 
 functions `fb_format_*()` to create these specific objects from a long format 
 dataset.
 
-- The function `fb_format_site_locations()` allows to extract the 
+- `fb_format_site_locations()` allows to extract the 
 **site x locations** information from the long format data
 - `fb_format_site_species()` allows to extract the 
 **site x species** information from the long format data
 - `fb_format_species_traits()` allows to extract the 
 **species x traits** information from the long format data
+- `fb_format_species_categories()` allows to extract the 
+**species x categories** information from the long format data
 
 All these functions take a long dataset as input (argument `data`), where one 
 row corresponds to the occurrence/abundance/coverage of one species at one site 
@@ -94,18 +100,16 @@ and output a wider object.
 ## Usage
 
 `funbiogeo` provides a small excerpt of long format data to show how to use the functions.
-This data sits at `system.file("extdata", "raw_mammals_data.csv", package = "funbiogeo")`
+This data sits at `system.file("extdata", "raw_mammals_data.csv", package = "funbiogeo")`.
 
 Let's import the long format dataset provided by `funbiogeo`:
 
 ```{r 'load-raw-dataset'}
-## Define the path to long format dataset ----
-
+# Define the path to long format dataset ----
 file_name <- system.file("extdata", "raw_mammals_data.csv", package = "funbiogeo")
 
 
-## Read the file ----
-
+# Read the file ----
 all_data <- read.csv(file_name)
 ```
 
@@ -125,8 +129,7 @@ this long table to create the species x traits dataset. Note that one species
 must have one unique trait value (no trait variation across sites is allowed).
 
 ```{r 'format-species-traits'}
-## Extract species x traits data ----
-
+# Extract species x traits data ----
 species_traits <- fb_format_species_traits(
   data    = all_data, 
   species = "species", 
@@ -134,8 +137,7 @@ species_traits <- fb_format_species_traits(
               "max_longevity", "sexual_maturity_age", "diet_breadth")
 )
 
-## Preview ----
-
+# Preview ----
 head(species_traits, 10)
 ```
 
@@ -149,8 +151,7 @@ site x species dataset. Note that one species must have been observed one time
 at one site (the package `funbiogeo` does not yet consider temporal survey).
 
 ```{r 'format-sites-species'}
-## Format site x species data ----
-
+# Format site x species data ----
 site_species <- fb_format_site_species(data       = all_data, 
                                        site       = "site", 
                                        species    = "species", 
@@ -158,8 +159,7 @@ site_species <- fb_format_site_species(data       = all_data,
                                        na_to_zero = TRUE
 )
 
-## Preview ----
-
+# Preview ----
 head(site_species[ , 1:8], 10)
 ```
 
@@ -173,18 +173,38 @@ one unique longitude x latitude value.
 
 
 ```{r 'format-sites-locs'}
-## Format site x locations data ----
-
+# Format site x locations data ----
 site_locations <- fb_format_site_locations(data       =  all_data, 
                                            site       = "site", 
                                            longitude  = "longitude", 
                                            latitude   = "latitude",
                                            na_rm      = FALSE)
 
-## Preview ----
-
+# Preview ----
 head(site_locations)
 ```
+
+
+### Extracting species x categories data
+
+The function `fb_format_species_categories()` extracts species values for one 
+supra-category (optional) from this long table to create the species x 
+categories dataset. This category (e.g. order, family, endemism status, conservation status, etc.)
+can be later by several functions in `funbiogeo` to aggregate metrics at this
+level.
+
+```{r 'format-species-categories'}
+# Extract species x categories data ----
+species_categories <- fb_format_species_categories(data     = all_data, 
+                                                   species  = "species",
+                                                   category = "order"
+)
+
+# Preview ----
+head(species_categories, 10)
+```
+
+
 
 
 Once your data are in the good format, you can 

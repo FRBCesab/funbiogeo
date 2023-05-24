@@ -196,9 +196,9 @@ test_that("fb_format_site_species() works", {
   expect_equal(nrow(site_species), 32L)
   expect_equal(ncol(site_species), 66L)
   expect_true("site" %in% colnames(site_species))
-  expect_equal(site_species[2, 3], 0L)
+  expect_equal(site_species[1, 3], 0L)
   
   site_species <- fb_format_site_species(all_data, "site", "species", "count",
                                            na_to_zero = FALSE)
-  expect_equal(site_species[2, 3], NA_real_)
+  expect_equal(site_species[1, 3], NA_real_)
 })

@@ -4,6 +4,7 @@ reference:
     - species_traits
     - site_species
     - site_locations
+    - species_categories
 - title: Formatting Functions
   desc: >
     Transform your raw dataset to the expected format by `funbiogeo`
