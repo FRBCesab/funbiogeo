@@ -104,8 +104,9 @@ streamline the workflows in <strong>fun</strong>ctional
 trait coverages. It also provide default diagnostic plots and standard
 tables summarizing input data. This vignette aims to be an introduction
 to the most commonly used functions.</p>
-<p>The vignette will be a worked through a real world example using the
-internal dataset provided by <code>funbiogeo</code>.</p>
+<p>The vignette is a worked through real world example of a functional
+biogeography workflow using the internal dataset on European mammals
+provided in <code>funbiogeo</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/frbcesab/funbiogeo" class="external-link">"funbiogeo"</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org" class="external-link">"ggplot2"</a></span><span class="op">)</span></span></code></pre></div>
@@ -116,29 +117,36 @@ internal dataset provided by <code>funbiogeo</code>.</p>
 Europe. We used range maps data <a href="https://www.iucnredlist.org/resources/spatial-data-download" class="external-link">from
 the IUCN</a> and trait data from the <a href="https://esapubs.org/archive/ecol/E090/184/" class="external-link">PanTHERIA database</a>
 <span class="citation">(Jones et al. 2009)</span>. The initial
-extraction is available on <a href="https://github.com/FRBCesab/eumammals" class="external-link">GitHub</a>.</p>
-<p>The package <code>funbiogeo</code> requires three different datasets
-to proceed with the analyses:</p>
+extraction scripts are available on <a href="https://github.com/FRBCesab/eumammals" class="external-link">GitHub</a>.</p>
+<p>The functions in <code>funbiogeo</code> mostly leverage three
+different objects:</p>
 <ul>
-<li>the <strong>species x traits</strong> <code>data.frame</code>
-(<code>species_traits</code> in <code>funbiogeo</code>)</li>
-<li>the <strong>site x species</strong> <code>data.frame</code>
-(<code>site_species</code> in <code>funbiogeo</code>)</li>
-<li>the <strong>site x locations</strong> object
-(<code>site_locations</code> in <code>funbiogeo</code>)</li>
+<li>the <strong>species x traits</strong> <code>data.frame</code>, which
+describes the traits (in columns) of the species (in rows)
+(<code>species_traits</code> dataset in <code>funbiogeo</code>);</li>
+<li>the <strong>site x species</strong> <code>data.frame</code>, which
+describes the presence/absence, the abundance, or the cover of species
+(in columns) across sites (in rows) (<code>site_species</code> dataset
+in <code>funbiogeo</code>);</li>
+<li>the <strong>site x locations</strong> object, which describes the
+physical location of sites through an <code>sf</code> object
+(<code>site_locations</code> dataset in <code>funbiogeo</code>).</li>
 </ul>
-<p>You can load the example data using
+<p>You can load the example data using the
 <code>data(..., package = "funbiogeo")</code> call:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"site_species"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"site_locations"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"species_traits"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></span></code></pre></div>
+<p>In the following sections we’ll describe in detail these three
+provided datasets in the package.</p>
 <div class="section level3">
 <h3 id="species-x-traits">Species x Traits<a class="anchor" aria-label="anchor" href="#species-x-traits"></a>
 </h3>
-<p>This object contains traits values for studied species. It should be
-a <code>data.frame</code>. The first column should contain species names
-and the other columns contain trait values.</p>
+<p>This object contains traits values for multiple traits (as columns)
+for studied species (as rows). It should be a <code>data.frame</code>.
+The first column should contain species names and the other columns
+contain trait values.</p>
 <p>Note that we’ll be talking about <strong>species</strong> throughout
 this vignette and in the arguments of <code>funbiogeo</code>, but the
 package doesn’t make any assumption on the biological level. It can be
@@ -207,7 +215,7 @@ package:</p>
 </tbody>
 </table>
 <p>The first column <strong><code>"species"</code></strong> contains
-species names, while the next 6 columns contain the trait values for all
+species names, while the next 6 columns contain different traits for all
 species. Note that the species names are anonymized because the IUCN
 data <a href="https://www.iucnredlist.org/terms/terms-of-use#4.%20No%20Reposting%20or%20Redistribution" class="external-link">cannot
 be redistributed</a>.</p>
@@ -231,8 +239,8 @@ be redistributed</a>.</p>
 <span><span class="co">#&gt;  Max.   :600.0   Max.   :1542.25     Max.   :8.000  </span></span>
 <span><span class="co">#&gt;  NA's   :68      NA's   :65          NA's   :66</span></span></code></pre></div>
 <p>From there we can see that there are 149 included species and some
-missing trait values. For example, there we don’t have body mass for 26
-species.</p>
+missing trait values. For example, we don’t have body mass information
+for 26 species.</p>
 <p>Note that to use your own species by traits <code>data.frame</code>,
 it should follow similar structure with the first column being named
 <strong><code>"species"</code></strong> and the other ones containing
@@ -247,10 +255,10 @@ of the study area. It is a <code>data.frame</code>. The first column,
 <strong><code>"site"</code></strong>, contains site names while the
 other columns contains the abundance of each species across sites.</p>
 <p>Note that here we are talking about sites in an abstract way. These
-can be plots, assemblages, of whatever set of species you’re interested
-in.</p>
-<p>The package <code>funbiogeo</code> comes with the example dataset
-<code>site_species</code>. Let’s look at it:</p>
+can be plots, assemblages, of whatever collections of species you’re
+interested in.</p>
+<p>The package <code>funbiogeo</code> comes with the example dataset on
+European mammals <code>site_species</code>. Let’s look at it:</p>
 <table class="table">
 <caption>Format of site x species dataset</caption>
 <thead><tr class="header">
@@ -322,9 +330,8 @@ in.</p>
 </tr>
 </tbody>
 </table>
-<p>The example dataset contains the occurrence of the 149
-above-mentioned species across 1,505 sites (grid cells of 0.5° x 0.5°
-resolution).</p>
+<p>The example dataset contains the occurrence of the 149 mammal species
+across 1,505 sites (grid cells of 0.5° x 0.5° resolution).</p>
 <p>Note that to use your own site by species <code>data.frame</code>, it
 should follow similar structure with the first column being named
 <strong><code>"sites"</code></strong> and the other ones containing
@@ -335,14 +342,16 @@ presence information of species across sites.</p>
 </h3>
 <p>This object contains the geographical location of the sites. It
 should be an <code>sf</code> object from the <a href="https://cran.r-project.org/package=sf" class="external-link"><code>sf</code>
-package</a>. The sites can have arbitrary shapes: points, regular
+package</a>. These are spatial R objects that describe geographical
+locations. The sites can have arbitrary shapes: points, regular
 polygons, irregular polygons, or even line transects! To make sure that
 your data is well plotted you should specify the Coordinate Reference
 System (CRS) of this object.</p>
 <p>The package <code>funbiogeo</code> comes with the example dataset
 <code>site_locations</code> defining the location of the 1,505 sites
-(grid cells of 0.5° x 0.5° resolution). It contains the names of the
-site in its first column <strong><code>"site"</code></strong>:</p>
+(grid cells of 0.5° x 0.5° resolution) as polygons. It contains the
+names of the site in its first column
+<strong><code>"site"</code></strong>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">site_locations</span></span>
 <span><span class="co">#&gt; Simple feature collection with 1505 features and 1 field</span></span>
@@ -363,8 +372,8 @@ site in its first column <strong><code>"site"</code></strong>:</p>
 <span><span class="co">#&gt; 9     9 POLYGON ((10.02182 59.84736...</span></span>
 <span><span class="co">#&gt; 10   10 POLYGON ((10.52182 59.84736...</span></span></code></pre></div>
 <p>Note that to use your own site locations object, it should follow
-similar structure with the first column being named
-<strong><code>"sites"</code></strong>.</p>
+similar structure, being an <code>sf</code> object with the first column
+being named <strong><code>"sites"</code></strong>.</p>
 </div>
 </div>
 <div class="section level2">
@@ -372,9 +381,10 @@ similar structure with the first column being named
 </h2>
 <p><code>funbiogeo</code> provides many functions to display the data to
 help the user select specific traits, species, and/or sites. We are
-going to detail some of them in this section. We call them
-<em>diagnostic plots</em> because they help us to have an overview of
-our dataset <strong>prior</strong> to the analyses.</p>
+going to detail some of them in this section (see the full list in the
+<a href="diagnostic-plots.Rmd">diagnostic plots vignette</a>. We call
+them <em>diagnostic plots</em> because they help us to have an overview
+of our dataset <strong>prior</strong> to the analyses.</p>
 <div class="section level3">
 <h3 id="trait-completeness-per-species">Trait completeness per species<a class="anchor" aria-label="anchor" href="#trait-completeness-per-species"></a>
 </h3>
@@ -413,8 +423,8 @@ Similarly to the above-mentioned function, it takes the species x traits
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_traits_by_species.html">fb_plot_number_traits_by_species</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span></span></code></pre></div>
 <p><img src="funbiogeo_files/figure-html/fig-plot-trait-by-sp-1.png" width="100%"></p>
-<p>The plot shows the number (bottom axis) and the proportion (top axis)
-of species covered by a specific number of traits (0 to 6 in our
+<p>The plot shows the number (bottom x-axis) and the proportion (top
+x-axis) of species covered by a specific number of traits (0 to 6 in our
 example).</p>
 </div>
 </div>
@@ -426,8 +436,8 @@ and filter our data for our following analyses.</p>
 <div class="section level3">
 <h3 id="filter-trait-by-species-coverage">Filter trait by species coverage<a class="anchor" aria-label="anchor" href="#filter-trait-by-species-coverage"></a>
 </h3>
-<p>We want to select the traits that cover at least 75% of the species.
-To do that we can use the
+<p>We want to select the traits that are available for at least 75% of
+the species. To do so we can use the
 <code><a href="../reference/fb_filter_traits_by_species_coverage.html">fb_filter_traits_by_species_coverage()</a></code> function. The
 function takes the species by traits <code>data.frame</code> and outputs
 the same dataset but with the traits filtered (so with less columns).
@@ -455,6 +465,9 @@ threshold proportion of species covered:</p>
 <span><span class="co">#&gt; 4  sp_004              NA          NA</span></span>
 <span><span class="co">#&gt; 5  sp_005           31.60        4.94</span></span>
 <span><span class="co">#&gt; 6  sp_006           21.90        5.16</span></span></code></pre></div>
+<p>The function outputs a filtered species-traits dataset retaining only
+traits covering at least 75% of the species. In the end this keep two
+traits: body mass and litter size.</p>
 </div>
 <div class="section level3">
 <h3 id="filter-species-by-trait-coverage">Filter species by trait coverage<a class="anchor" aria-label="anchor" href="#filter-species-by-trait-coverage"></a>
@@ -462,7 +475,8 @@ threshold proportion of species covered:</p>
 <p>Similarly you could filter species by their trait coverage. For
 example we would like to make sure that the species we filtered
 previously so that they show at least one of the two traits selected
-above. We can use the function
+above and thus exclude species for which neither of the traits are
+available. We can use the function
 <code><a href="../reference/fb_filter_species_by_trait_coverage.html">fb_filter_species_by_trait_coverage()</a></code> with the species x
 traits <code>data.frame</code> as the first argument and the second
 argument the proportion of traits covered by species.</p>
@@ -484,14 +498,16 @@ argument the proportion of traits covered by species.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">red_sp_traits_2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 127   3</span></span></code></pre></div>
-<p>We thus have selected 2 traits that cover at least 75% of the species
-and 127 species which have known values for these two traits.</p>
+<p>We thus have selected 2 traits that cover at least 75% of the initial
+species list and 127 species which have known values for these two
+traits.</p>
 </div>
 <div class="section level3">
 <h3 id="filter-sites-by-trait-coverage">Filter sites by trait coverage<a class="anchor" aria-label="anchor" href="#filter-sites-by-trait-coverage"></a>
 </h3>
 <p>Now that we have filtered our traits and species of interest we need
-to filter the sites. Similarly to above the function is
+to filter the sites, that contain enough species for which the traits
+are available. Similarly to above the function is
 <code><a href="../reference/fb_filter_sites_by_trait_coverage.html">fb_filter_sites_by_trait_coverage()</a></code> it takes as two first
 arguments the site x species <code>data.frame</code> and the species x
 traits <code>data.frame</code>. The third argument is
@@ -499,6 +515,8 @@ traits <code>data.frame</code>. The third argument is
 coverage of traits to filter each site. Note that this coverage is
 weighted by the occurrence, abundance, or cover depending on the content
 of the site x species <code>data.frame</code>.</p>
+<p>Let’s say here we’re interested in sites for which our species with
+available traits represent at least 90% of the species present:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Initial site x species data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span></span>
@@ -519,30 +537,41 @@ of the site x species <code>data.frame</code>.</p>
 <span><span class="co">#&gt; 2    2      1      0      0</span></span>
 <span><span class="co">#&gt; 3    3      1      0      0</span></span>
 <span><span class="co">#&gt; 4    4      1      0      0</span></span></code></pre></div>
-<p>Now we selected 1,268 sites out of 1,505.</p>
+<p>The output of the function is a site x species
+<code>data.frame</code> with selected sites and species. Now we selected
+1,268 sites out of 1,505, for our 2 traits and 127 species.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="computing-functional-diversity-metrics">Computing Functional Diversity metrics<a class="anchor" aria-label="anchor" href="#computing-functional-diversity-metrics"></a>
 </h2>
-<p>Now that <code>funbiogeo</code> helped us filter our data we can use
-them to proceed with our analyses. We can for example compute functional
-diversity indices. This where you should use your preferred packages to
-compute functional diversity indices like <a href="https://cran.r-project.org/package=mFD" class="external-link"><code>mFD</code></a>, <a href="https://cran.r-project.org/package=betapart" class="external-link"><code>betapart</code></a>,
+<p>The <code>funbiogeo</code> functions helped us filter our data
+appropriately with enough available trait information for species and
+sites.</p>
+<p>We can use the filtered datasets to proceed with our analyses using
+other readily available tools for functional diversity indices. This
+where you should use your preferred packages to compute functional
+diversity indices like <a href="https://cran.r-project.org/package=fundiversity" class="external-link"><code>fundiversity</code></a>,
+<a href="https://cran.r-project.org/package=betapart" class="external-link"><code>betapart</code></a>,
 or <a href="https://cran.r-project.org/package=hypervolume" class="external-link"><code>hypervolume</code></a>.</p>
-<p>For the sake of the example we included a single function in
+<p>For the sake of the example we included a function in
 <code>funbiogeo</code> to compute Community-Weighted Mean <span class="citation">(CWM, Garnier et al. 2004)</span> named
 <code><a href="../reference/fb_cwm.html">fb_cwm()</a></code>. The CWM is the abundance-weighted average trait
-per site. We’ll be using it in the following section but feel free to
-use any other functional diversity package.</p>
+per site. We’ll be using it in the following section we’ll then show
+another example computing functional diversity indices using the
+<code>fundiversity</code> package.</p>
 <div class="section level3">
 <h3 id="community-weighted-mean-cwm">Community-Weighted Mean (CWM)<a class="anchor" aria-label="anchor" href="#community-weighted-mean-cwm"></a>
 </h3>
-<p>To compute the CWM you can use the <code><a href="../reference/fb_cwm.html">fb_cwm()</a></code> function, it
-takes the site x species <code>data.frame</code> and species x traits
-<code>data.frame</code> as arguments.</p>
+<p>We’re interested to look at the spatial distribution of the average
+body mass and litter size of European mammals. To do so, we can compute
+the community-weighted mean of both traits. We’ll use the
+<code><a href="../reference/fb_cwm.html">fb_cwm()</a></code> function to do so, it takes the site x species
+<code>data.frame</code> and species x traits <code>data.frame</code> as
+arguments.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cwm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_cwm.html">fb_cwm</a></span><span class="op">(</span><span class="va">filt_sites</span>, <span class="va">red_sp_traits_2</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># Note that we're reusing our filtered data to compute CWM</span></span>
+<span><span class="va">cwm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_cwm.html">fb_cwm</a></span><span class="op">(</span><span class="va">filt_sites</span>, <span class="va">red_sp_traits_2</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Some species had NA trait values, removing them from CWM computation</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">cwm</span><span class="op">)</span></span>
@@ -553,66 +582,169 @@ takes the site x species <code>data.frame</code> and species x traits
 <span><span class="co">#&gt; 4    4 adult_body_mass 39912.54</span></span>
 <span><span class="co">#&gt; 5    5 adult_body_mass 41389.44</span></span>
 <span><span class="co">#&gt; 6    6 adult_body_mass 39912.37</span></span></code></pre></div>
-<p>It outputs a <code>data.frame</code> with 3 columns:
-<code>site</code> the first one shows the site name as provided in the
-input site x species <code>data.frame</code>, <code>trait</code> which
-indicates the trait name on which the CWM is computed, and
-<code>cwm</code> which shows the value of the CWM.</p>
+<p>It outputs a <code>data.frame</code> with 3 columns: the first one,
+<code>site</code>, shows the site name as provided in the input site x
+species <code>data.frame</code>, <code>trait</code> which indicates the
+trait name on which the CWM is computed, and <code>cwm</code> which
+shows the value of the CWM.</p>
+</div>
+<div class="section level3">
+<h3 id="compute-functional-diversity-indices">Compute functional diversity indices<a class="anchor" aria-label="anchor" href="#compute-functional-diversity-indices"></a>
+</h3>
+<p>We can also integrate our filtered datasets in other functional
+diversity computation pipeline. We’ll show an example by computing
+functional richness with <code>fundiversity</code>.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## To install 'fundiversity' uncomment the following line</span></span>
+<span><span class="co"># install.packages("fundiversity")</span></span>
+<span></span>
+<span><span class="co"># Functional richness in 'fundiversity' requires all the traits to be known</span></span>
+<span><span class="co"># so we need to filter the traits</span></span>
+<span><span class="va">filt_traits</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span></span>
+<span>  <span class="va">red_sp_traits</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">adult_body_mass</span><span class="op">)</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">litter_size</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># We need to transform species and site names as row names for species-traits</span></span>
+<span><span class="co"># and site-species data.frames, as required by 'fundiversity'</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">filt_traits</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">filt_traits</span><span class="op">$</span><span class="va">species</span></span>
+<span><span class="va">filt_traits</span> <span class="op">&lt;-</span> <span class="va">filt_traits</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">filt_sites</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">filt_sites</span><span class="op">$</span><span class="va">site</span></span>
+<span><span class="va">filt_sites</span> <span class="op">&lt;-</span> <span class="va">filt_sites</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co"># Scale traits</span></span>
+<span><span class="va">filt_traits</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html" class="external-link">scale</a></span><span class="op">(</span><span class="va">filt_traits</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Compute Functional Richness</span></span>
+<span><span class="va">fric</span> <span class="op">&lt;-</span> <span class="fu">fundiversity</span><span class="fu">::</span><span class="fu">fd_fric</span><span class="op">(</span><span class="va">filt_traits</span>, <span class="va">filt_sites</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">fric</span><span class="op">)</span></span></code></pre></div>
+<p>We now have a table with Functional Richness computed for all of our
+sites.</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="putting-functional-diversity-on-the-map">Putting Functional Diversity on the map<a class="anchor" aria-label="anchor" href="#putting-functional-diversity-on-the-map"></a>
+<h2 id="putting-variables-on-the-map">Putting variables on the map<a class="anchor" aria-label="anchor" href="#putting-variables-on-the-map"></a>
 </h2>
 <div class="section level3">
-<h3 id="map-of-environment">Map of environment<a class="anchor" aria-label="anchor" href="#map-of-environment"></a>
+<h3 id="map-of-environmental-raster">Map of environmental raster<a class="anchor" aria-label="anchor" href="#map-of-environmental-raster"></a>
 </h3>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## Read raster ----</span></span>
+<p>If we want to display the environment associated with our sites of
+interest, we can leverage environmental raster layers, like the mean
+annual temperature. Fortunately, we have access to an example raster of
+mean annual temperature through <code>funbiogeo</code>. The package
+provides a helper function display a raster layer easily (without any
+assumption about the projection) named <code><a href="../reference/fb_map_raster.html">fb_map_raster()</a></code>:</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Read raster</span></span>
 <span><span class="va">tavg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
 <span>  <span class="st">"extdata"</span>, <span class="st">"annual_mean_temp.tif"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">tavg</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">tavg</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co">## Map of raster ----</span></span>
-<span><span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">tavg</span><span class="op">)</span></span></code></pre></div>
-<p><img src="funbiogeo_files/figure-html/map-tavg-1.png" width="100%"></p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">tavg</span><span class="op">)</span> <span class="op">+</span> </span>
+<span><span class="co"># Map raster</span></span>
+<span><span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">tavg</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_distiller</a></span><span class="op">(</span><span class="st">"Temperature"</span>, palette <span class="op">=</span> <span class="st">"Spectral"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Mean annual temperature in Pennsylvania"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="funbiogeo_files/figure-html/map-tavg-custom-1.png" width="100%"></p>
+<p><img src="funbiogeo_files/figure-html/map-tavg-1.png" width="100%"></p>
+<p>We can also combine that with the annual precipitation information
+available as an example</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://patchwork.data-imaginist.com" class="external-link">"patchwork"</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="co">## Read raster ----</span></span>
+<span><span class="co"># Read raster ------------------------------------------------------------------</span></span>
 <span><span class="va">tavg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"annual_mean_temp.tif"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></span>
 <span><span class="va">tavg</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">tavg</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">prec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"annual_tot_prec.tif"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></span>
 <span><span class="va">prec</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">prec</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co">## Individual Maps ----</span></span>
-<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">tavg</span>, legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span> </span>
+<span><span class="co"># Individual Maps --------------------------------------------------------------</span></span>
+<span><span class="va">map_temperature</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">tavg</span>, legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_distiller</a></span><span class="op">(</span><span class="st">"Temperature"</span>, palette <span class="op">=</span> <span class="st">"Spectral"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">prec</span><span class="op">)</span> <span class="op">+</span> </span>
+<span><span class="va">map_precipitation</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">prec</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_distiller</a></span><span class="op">(</span><span class="st">"Precipitation"</span>, direction <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co">## Arrangement ----</span></span>
-<span><span class="va">figure</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">/</span> <span class="va">y</span></span>
+<span><span class="co"># Plot composition -------------------------------------------------------------</span></span>
 <span></span>
-<span><span class="va">figure</span> <span class="op">+</span> </span>
+<span><span class="op">(</span><span class="va">map_temperature</span> <span class="op">/</span> <span class="va">map_precipitation</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://patchwork.data-imaginist.com/reference/plot_annotation.html" class="external-link">plot_annotation</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Pennsylvania"</span>, </span>
 <span>                  theme <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>face <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">&amp;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">&amp;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>family <span class="op">=</span> <span class="st">"mono"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="funbiogeo_files/figure-html/composition-map-1.png" width="100%"></p>
+<p>This function allows the visualization of a raster in a simple
+fashion, but it doesn’t tell us anything about the environmental
+variable at the sites. In the next section we will follow the example of
+mapping an environmental variable.</p>
 </div>
 <div class="section level3">
-<h3 id="map-of-indices">Map of indices<a class="anchor" aria-label="anchor" href="#map-of-indices"></a>
+<h3 id="map-of-average-environmental-variable-in-site">Map of average environmental variable in site<a class="anchor" aria-label="anchor" href="#map-of-average-environmental-variable-in-site"></a>
 </h3>
+<p>To get the average environmental variable in the site we can use the
+<code><a href="../reference/fb_get_environment.html">fb_get_environment()</a></code> function, it takes as arguments the
+site-locations object and an environmental raster from the
+<code>terra</code> package. By default, it takes the average of the
+raster values per site.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">site_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_get_environment.html">fb_get_environment</a></span><span class="op">(</span><span class="va">site_locations</span>, <span class="va">tavg</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">site_mat</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   site annual_mean_temp</span></span>
+<span><span class="co">#&gt; 1    1        6.6755822</span></span>
+<span><span class="co">#&gt; 2    2        1.6836227</span></span>
+<span><span class="co">#&gt; 3    3        0.6628264</span></span>
+<span><span class="co">#&gt; 4    4        1.4940648</span></span>
+<span><span class="co">#&gt; 5    5        2.6325313</span></span>
+<span><span class="co">#&gt; 6    6        3.0806597</span></span></code></pre></div>
+<p>The variable names in columns are based on the names of the provided
+raster. To put these values on the map we can use the
+<code><a href="../reference/fb_map_site_data.html">fb_map_site_data()</a></code> function, which allows mapping arbitrary
+site-level variables. It takes three needed arguments: the first of
+which, <code>site_locations</code>, which is the <code>sf</code> object
+describing sites’ geographic locations; the second argument is
+<code>site_data</code>, which is a <code>data.frame</code> giving
+additional data indexed by site; and <code>selected_col</code>, which is
+a character giving the name of the column to plot from the
+<code>site_data</code> argument.</p>
+<p>We can thus plot the mean annual temperature of sites through the
+following commands:</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_map_site_data.html">fb_map_site_data</a></span><span class="op">(</span><span class="va">site_locations</span>, <span class="va">site_mat</span>, <span class="st">"annual_mean_temp"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Mean Annual Temperature per Site"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="funbiogeo_files/figure-html/map-avg-environment-1.png" width="100%"></p>
 </div>
+<div class="section level3">
+<h3 id="map-of-functional-diversity-indices">Map of functional diversity indices<a class="anchor" aria-label="anchor" href="#map-of-functional-diversity-indices"></a>
+</h3>
+<p>We can leverage the same functions to map our functional diversity
+indices. For example, with the body mass CWM:</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">body_mass_cwm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">cwm</span>, <span class="va">trait</span> <span class="op">==</span> <span class="st">"adult_body_mass"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/fb_map_site_data.html">fb_map_site_data</a></span><span class="op">(</span><span class="va">site_locations</span>, <span class="va">body_mass_cwm</span>, <span class="st">"cwm"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html" class="external-link">scale_fill_viridis_c</a></span><span class="op">(</span>trans <span class="op">=</span> <span class="st">"log10"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Mammals Body Mass CWM"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="funbiogeo_files/figure-html/map-cwm-body-mass-1.png" width="100%"></p>
+<p>We can do similarly for functional richness:</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_map_site_data.html">fb_map_site_data</a></span><span class="op">(</span><span class="va">site_locations</span>, <span class="va">fric</span>, <span class="st">"FRic"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html" class="external-link">scale_fill_viridis_c</a></span><span class="op">(</span>option <span class="op">=</span> <span class="st">"magma"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Mammals Functional Richness"</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="conclusion">Conclusion<a class="anchor" aria-label="anchor" href="#conclusion"></a>
+</h2>
+<p>This concludes our tutorial to introduce <code>funbiogeo</code>. The
+packages contains many more features, especially diagnostic plots, which
+are explained in detail in <a href="diagnostic-plots.Rmd">a dedicated
+vignette</a>. There is also a specific vignette about <a href="long-format.Rmd">transforming raw data from long to wide
+format</a>. Finally, if you’re interested in learning about up-scaling
+your sites, you can refer to <a href="upscaling.Rmd">the specific
+vignette</a></p>
 </div>
 <div class="section level2 unnumbered">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
