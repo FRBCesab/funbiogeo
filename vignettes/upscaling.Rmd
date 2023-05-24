@@ -1,8 +1,8 @@
 ---
-title: "Upscaling Your Data with funbiogeo"
+title: "Upscaling your data"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Upscaling Your Data with funbiogeo}
+  %\VignetteIndexEntry{Upscaling your data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -10,34 +10,83 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>",
-  eval = FALSE
+  comment  = "#>"
 )
 ```
 
+
+`funbiogeo` provides an easy way to upscale your site data to a coarser resolution.
+The idea is that you have any type of data at the site level (diversity metrics, 
+environmental data, etc.) but you would like to work on it at a coarser scale, 
+or you want to visualize it at that coarser scale. You may want to use the function
+`fb_aggregate_site_data()`.
+
+
 ```{r setup}
-library(funbiogeo)
+library("funbiogeo")
 ```
 
-The aims of this vignette is to provide explanation on upscaling.
+Let's import our site by locations object.
 
-```{r upscale-richness}
-## Upscale to grid ----
-ras_richness <- fb_aggregate_site_data(site_locations = site_locations, 
-                                       site_data      = rich_env, 
-                                       agg_grid       = tavg)
 
-ras_richness
+```{r import-site-locations}
+data("site_locations")
+
+site_locations
 ```
 
-```{r map-richness, dev = 'png'}
-fb_map_raster(ras_richness[[1]])
+These sites are a collection of regular spatial polygons at a resolution of 0.5°.
+
+For each site, we want to compute the species richness. 
+
+
+```{r compute-richness}
+# Import site x species data ----
+data("site_species")
+
+# Compute species richness ----
+species_richness <- fb_count_species_by_site(site_species)
+
+head(species_richness)
 ```
 
-```{r map-richness-custom, dev = 'png'}
-fb_map_raster(ras_richness[[1]]) + 
-  scale_fill_distiller("Number of species", palette = "Spectral") +
-  theme(legend.position = "bottom") + 
-  ggtitle("Trees species richness in Pennsylvania")
+Before going any further let's map these original values with the function
+`fb_map_site_data()`.
+
+
+```{r map-original-richness, dev='png'}
+fb_map_site_data(site_locations, species_richness, "n_species")
 ```
 
+Now, let's say that our next analyses require to work at a coarser resolution. We need to
+aggregate site data on a new spatial grid (object `SpatRaster` from the 
+[`terra`](http://cran.r-project.org/package=terra) package). Let's import this coarser raster.
+
+
+```{r import-grid}
+# Import study area grid ----
+grd <- system.file("extdata", "grid_area.tif", package = "funbiogeo")
+grd <- terra::rast(grd)
+
+grd
+```
+
+We will aggregate the site data (resolution of 0.5°) to this raster (resolution of 0.83°) 
+with the function `fb_aggregate_site_data()`.
+
+
+```{r upscaled-richness}
+# Upscale to grid ----
+upscaled_richness <- fb_aggregate_site_data(
+  site_locations = site_locations,
+  site_data      = species_richness[ , 1:2],
+  agg_grid       = grd,
+  fun            = max
+)
+
+upscaled_richness
+```
+
+```{r map-upscaled-richness, dev='png'}
+fb_map_raster(upscaled_richness)
+```
