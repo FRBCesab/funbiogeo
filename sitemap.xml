@@ -73,6 +73,9 @@
     <loc>/reference/fb_format_site_species.html</loc>
   </url>
   <url>
+    <loc>/reference/fb_format_species_categories.html</loc>
+  </url>
+  <url>
     <loc>/reference/fb_format_species_traits.html</loc>
   </url>
   <url>
@@ -140,6 +143,9 @@
   </url>
   <url>
     <loc>/reference/site_species.html</loc>
+  </url>
+  <url>
+    <loc>/reference/species_categories.html</loc>
   </url>
   <url>
     <loc>/reference/species_traits.html</loc>
