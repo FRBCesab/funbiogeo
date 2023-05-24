@@ -106,12 +106,10 @@ fb_format_species_categories <- function(data, species, category) {
   
   ## Replace non-alphanumeric characters ---------------------------------------
   
-  data[ , species] <- gsub("\\s|[[:punct:]]", "_", data[ , species])
-  data[ , species] <- gsub("_{1,}", "_", data[ , species])
+  data[ , species] <- gsub("\\s|[[:punct:]]|_{1,}", "_", data[ , species])
   data[ , species] <- gsub("^_|_$", "", data[ , species])
   
-  data[ , category] <- gsub("\\s|[[:punct:]]", "_", data[ , category])
-  data[ , category] <- gsub("_{1,}", "_", data[ , category])
+  data[ , category] <- gsub("\\s|[[:punct:]]|_{1,}", "_", data[ , category])
   data[ , category] <- gsub("^_|_$", "", data[ , category])
   
   
