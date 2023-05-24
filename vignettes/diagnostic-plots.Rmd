@@ -471,5 +471,3 @@ tavg <- terra::rast(tavg)
 fb_map_raster(tavg)
 ```
 
-
-
