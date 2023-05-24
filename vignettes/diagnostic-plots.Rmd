@@ -196,7 +196,7 @@ see how the proportion decreases with increasing number of traits. The
 proportion is shown as text above each dot representing it. So for example,
 there are 62.4% species with at least 4 traits.
 
-This plot does not give us if this proportion of species corresponds to the same
+This plot does not tell us if all species with at least 4 traits share the same
 traits combination but it's a first indication.
 
 Let's say we're interested in combinations of traits with at least 50% species
