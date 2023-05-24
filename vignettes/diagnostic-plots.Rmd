@@ -25,7 +25,7 @@ interpret them.
 Some of these plotting functions can deal with species categorization, i.e. 
 displaying information by each category of species (family, order, endemism status, etc.).
 
-```{r child="man/rmdchunks/_table-plot-functions.Rmd"}
+```{r child="../man/rmdchunks/_table-plot-functions.Rmd"}
 ```
 
 
@@ -64,6 +64,7 @@ are the needed arguments, and how to interpret the output.
 The function are all described in their specific subsections in alphabetical
 order.
 
+
 ### Distribution of trait coverages across sites
 
 Visualizing the trait coverage of all sites can help isolate which traits may
@@ -99,6 +100,36 @@ This plot considers the distribution of species across sites instead of focusing
 only on the species by traits `data.frame`. This maybe useful to realize, for
 example, that the traits of a species occurring very rarely are missing this
 wouldn't necessarily translate in low site-level trait coverage.
+
+
+### Plotting the number of sites by species
+
+The function `fb_plot_number_sites_by_species()` allows to explore the site by 
+species `data.frame`. It shows the number (and proportion) of sites occupied by
+each species. Its first argument `site_species`, the site by species `data.frame` 
+is necessary while the second one `threshold_sites_proportion`, a target 
+proportion of sites coverage, is optional.
+
+```{r plot-sites-coverage-species}
+fb_plot_number_sites_by_species(site_species)
+```
+
+The function outputs a dotchart. The number of sites is indicated at the 
+bottom x-axis, while the top x-axis represents the proportion of occupied sites. 
+The left y-axis label species names (in parenthesis) and their rank by increasing 
+prevalence. With this figure we see that 82.6% of the species
+have a non-missing adult body mass in the species by trait `data.frame`, while
+only 54.4% have a non-missing maximum longevity.
+
+Adding the second argument `threshold_sites_proportion` displays a vertical
+bar at the target proportion of sites to see how many species occupy more or less than 
+the given proportion of sites.
+
+Let's say we want to see the species present at at least 40% of the sites:
+
+```{r plot-sites-coverage-species-thresh}
+fb_plot_number_sites_by_species(site_species, threshold_sites_proportion = 0.4)
+```
 
 
 ### Plotting the number of species per trait
