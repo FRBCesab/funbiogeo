@@ -340,7 +340,7 @@ with most missing traits are at the top.
 ### Displaying traits correlations
 
 Most of the plot functions in `funbiogeo` show traits independently of one
-another. However, for functional biogeography analyses, traits correlations maybe
+another. However, for functional biogeography analyses, trait correlations maybe
 very relevant. This is exactly what is done by `fb_plot_trait_correlation()`. It
 takes as first needed argument `species_traits`,  the species by traits
 `data.frame`. The other arguments are optional and will be passed to
