@@ -616,9 +616,21 @@ functional richness with <code>fundiversity</code>.</p>
 <span><span class="va">filt_traits</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html" class="external-link">scale</a></span><span class="op">(</span><span class="va">filt_traits</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Compute Functional Richness</span></span>
-<span><span class="va">fric</span> <span class="op">&lt;-</span> <span class="fu">fundiversity</span><span class="fu">::</span><span class="fu">fd_fric</span><span class="op">(</span><span class="va">filt_traits</span>, <span class="va">filt_sites</span><span class="op">)</span></span>
+<span><span class="va">fric</span> <span class="op">&lt;-</span> <span class="fu">fundiversity</span><span class="fu">::</span><span class="fu"><a href="https://funecology.github.io/fundiversity/reference/fd_fric.html" class="external-link">fd_fric</a></span><span class="op">(</span><span class="va">filt_traits</span>, <span class="va">filt_sites</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Removed 13 species with missing trait(s)</span></span>
+<span><span class="co">#&gt; Differing number of species between trait dataset and site-species matrix</span></span>
+<span><span class="co">#&gt; Taking subset of species</span></span>
+<span><span class="co">#&gt; Warning in fundiversity::fd_fric(filt_traits, filt_sites): Some sites had less</span></span>
+<span><span class="co">#&gt; species than traits so returned FRic is 'NA'</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">fric</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">fric</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   site     FRic</span></span>
+<span><span class="co">#&gt; 1    1 11.37721</span></span>
+<span><span class="co">#&gt; 2    2 11.37721</span></span>
+<span><span class="co">#&gt; 3    3 11.37721</span></span>
+<span><span class="co">#&gt; 4    4 11.37721</span></span>
+<span><span class="co">#&gt; 5    5 11.37721</span></span>
+<span><span class="co">#&gt; 6    6 11.37721</span></span></code></pre></div>
 <p>We now have a table with Functional Richness computed for all of our
 sites.</p>
 </div>
@@ -733,6 +745,7 @@ indices. For example, with the body mass CWM:</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_map_site_data.html">fb_map_site_data</a></span><span class="op">(</span><span class="va">site_locations</span>, <span class="va">fric</span>, <span class="st">"FRic"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html" class="external-link">scale_fill_viridis_c</a></span><span class="op">(</span>option <span class="op">=</span> <span class="st">"magma"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Mammals Functional Richness"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="funbiogeo_files/figure-html/map-fric-1.png" width="100%"></p>
 </div>
 </div>
 <div class="section level2">
