@@ -5,13 +5,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Upscaling Your Data with funbiogeo • funbiogeo</title>
+<title>Upscaling your data • funbiogeo</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Upscaling Your Data with funbiogeo">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Upscaling your data">
 <meta property="og:description" content="funbiogeo">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -59,7 +59,7 @@
       <a href="../articles/long-format.html">Formatting your data</a>
     </li>
     <li>
-      <a href="../articles/upscaling.html">Upscaling Your Data with funbiogeo</a>
+      <a href="../articles/upscaling.html">Upscaling your data</a>
     </li>
   </ul>
 </li>
@@ -87,7 +87,7 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Upscaling Your Data with funbiogeo</h1>
+      <h1 data-toc-skip>Upscaling your data</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/frbcesab/funbiogeo/blob/HEAD/vignettes/upscaling.Rmd" class="external-link"><code>vignettes/upscaling.Rmd</code></a></small>
@@ -97,28 +97,345 @@
 
     
     
+<p><code>funbiogeo</code> provides an easy way to upscale your site data
+to a coarser resolution. The idea is that you have any type of data at
+the site level (diversity metrics, environmental data, as well as
+site-species data) that you would like to work or visualize at a coarser
+scale. The aggregation process can look daunting at first and be quite
+difficult to run. We explain in this vignette, how to do so through the
+<code><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data()</a></code> function. We’ll detail three use
+cases: the first through aggregating arbitrary site-level data, the
+second focused on aggregating the site x species object, and the last
+aggregating functional diversity metrics.</p>
+<div class="section level2">
+<h2 id="aggregating-arbitrary-site-data">Aggregating arbitrary site-data<a class="anchor" aria-label="anchor" href="#aggregating-arbitrary-site-data"></a>
+</h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/frbcesab/funbiogeo" class="external-link">funbiogeo</a></span><span class="op">)</span></span></code></pre></div>
-<p>The aims of this vignette is to provide explanation on upscaling.</p>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/frbcesab/funbiogeo" class="external-link">"funbiogeo"</a></span><span class="op">)</span></span></code></pre></div>
+<p>Let’s import our site by locations object, which describes the
+geographical locations of sites.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## Upscale to grid ----</span></span>
-<span><span class="va">ras_richness</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data</a></span><span class="op">(</span>site_locations <span class="op">=</span> <span class="va">site_locations</span>, </span>
-<span>                                       site_data      <span class="op">=</span> <span class="va">rich_env</span>, </span>
-<span>                                       agg_grid       <span class="op">=</span> <span class="va">tavg</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"site_locations"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">ras_richness</span></span></code></pre></div>
+<span><span class="va">site_locations</span></span>
+<span><span class="co">#&gt; Simple feature collection with 1505 features and 1 field</span></span>
+<span><span class="co">#&gt; Geometry type: POLYGON</span></span>
+<span><span class="co">#&gt; Dimension:     XY</span></span>
+<span><span class="co">#&gt; Bounding box:  xmin: -9.978179 ymin: 35.84736 xmax: 23.02182 ymax: 59.84736</span></span>
+<span><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
+<span><span class="co">#&gt; First 10 features:</span></span>
+<span><span class="co">#&gt;    site                           geom</span></span>
+<span><span class="co">#&gt; 1     1 POLYGON ((5.521821 59.84736...</span></span>
+<span><span class="co">#&gt; 2     2 POLYGON ((6.521821 59.84736...</span></span>
+<span><span class="co">#&gt; 3     3 POLYGON ((7.021821 59.84736...</span></span>
+<span><span class="co">#&gt; 4     4 POLYGON ((7.521821 59.84736...</span></span>
+<span><span class="co">#&gt; 5     5 POLYGON ((8.021821 59.84736...</span></span>
+<span><span class="co">#&gt; 6     6 POLYGON ((8.521821 59.84736...</span></span>
+<span><span class="co">#&gt; 7     7 POLYGON ((9.021821 59.84736...</span></span>
+<span><span class="co">#&gt; 8     8 POLYGON ((9.521821 59.84736...</span></span>
+<span><span class="co">#&gt; 9     9 POLYGON ((10.02182 59.84736...</span></span>
+<span><span class="co">#&gt; 10   10 POLYGON ((10.52182 59.84736...</span></span></code></pre></div>
+<p>These sites are a collection of regular spatial polygons at a
+resolution of 0.5° over Western Europe.</p>
+<p>For each site, we want to compute the species richness.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">ras_richness</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Import site x species data ----</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"site_species"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Compute species richness ----</span></span>
+<span><span class="va">species_richness</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_count_species_by_site.html">fb_count_species_by_site</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">species_richness</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   site n_species  coverage</span></span>
+<span><span class="co">#&gt; 1  980        68 0.4563758</span></span>
+<span><span class="co">#&gt; 2 1022        68 0.4563758</span></span>
+<span><span class="co">#&gt; 3  931        67 0.4496644</span></span>
+<span><span class="co">#&gt; 4  975        67 0.4496644</span></span>
+<span><span class="co">#&gt; 5  933        66 0.4429530</span></span>
+<span><span class="co">#&gt; 6  966        66 0.4429530</span></span></code></pre></div>
+<p>Before going any further let’s map these original values with the
+function <code><a href="../reference/fb_map_site_data.html">fb_map_site_data()</a></code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">ras_richness</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_distiller</a></span><span class="op">(</span><span class="st">"Number of species"</span>, palette <span class="op">=</span> <span class="st">"Spectral"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Trees species richness in Pennsylvania"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_map_site_data.html">fb_map_site_data</a></span><span class="op">(</span><span class="va">site_locations</span>, <span class="va">species_richness</span>, <span class="st">"n_species"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="upscaling_files/figure-html/map-original-richness-1.png" width="700"></p>
+<p>Now, let’s say that our next analyses require to work at a coarser
+resolution. We need to aggregate site data on a new spatial grid (object
+<code>SpatRaster</code> from the <a href="http://cran.r-project.org/package=terra" class="external-link"><code>terra</code></a>
+package). Let’s import this coarser raster.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Import study area grid ----</span></span>
+<span><span class="va">coarser_grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"grid_area.tif"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></span>
+<span><span class="va">coarser_grid</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">coarser_grid</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">coarser_grid</span></span>
+<span><span class="co">#&gt; class       : SpatRaster </span></span>
+<span><span class="co">#&gt; dimensions  : 29, 41, 1  (nrow, ncol, nlyr)</span></span>
+<span><span class="co">#&gt; resolution  : 0.8333333, 0.8333333  (x, y)</span></span>
+<span><span class="co">#&gt; extent      : -10.5, 23.66667, 35.83333, 60  (xmin, xmax, ymin, ymax)</span></span>
+<span><span class="co">#&gt; coord. ref. : lon/lat WGS 84 (EPSG:4326) </span></span>
+<span><span class="co">#&gt; source      : grid_area.tif </span></span>
+<span><span class="co">#&gt; name        : value </span></span>
+<span><span class="co">#&gt; min value   :     1 </span></span>
+<span><span class="co">#&gt; max value   :     1</span></span></code></pre></div>
+<p>We will aggregate the site data (resolution of 0.5°) to this new
+coarser raster (resolution of 0.83°) with the function
+<code><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data()</a></code>. This function requires the
+following arguments:</p>
+<ul>
+<li>
+<code>site_locations</code>: the site x locations object</li>
+<li>
+<code>site_data</code>: a <code>matrix</code> or
+<code>data.frame</code> containing values per sites to aggregate on the
+provided grid <code>agg_grid</code>. Can have one or several columns
+(variables to aggregate). The first column must contain sites names as
+provided in the example dataset <code>site_locations</code>
+</li>
+<li>
+<code>agg_grid</code>: a <code>SpatRaster</code> object (package
+<code>terra</code>). A raster of one single layer, that defines the grid
+along which to aggregate</li>
+<li>
+<code>fun</code>: the function used to aggregate sites values when
+there are multiple sites in one cell</li>
+</ul>
+<p>Let’s aggregate our species richness values on this grid.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Upscale to grid ----</span></span>
+<span><span class="va">upscaled_richness</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data</a></span><span class="op">(</span></span>
+<span>  site_locations <span class="op">=</span> <span class="va">site_locations</span>,</span>
+<span>  site_data      <span class="op">=</span> <span class="va">species_richness</span><span class="op">[</span> , <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>,</span>
+<span>  agg_grid       <span class="op">=</span> <span class="va">coarser_grid</span>,</span>
+<span>  fun            <span class="op">=</span> <span class="va">mean</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">upscaled_richness</span></span>
+<span><span class="co">#&gt; class       : SpatRaster </span></span>
+<span><span class="co">#&gt; dimensions  : 29, 41, 1  (nrow, ncol, nlyr)</span></span>
+<span><span class="co">#&gt; resolution  : 0.8333333, 0.8333333  (x, y)</span></span>
+<span><span class="co">#&gt; extent      : -10.5, 23.66667, 35.83333, 60  (xmin, xmax, ymin, ymax)</span></span>
+<span><span class="co">#&gt; coord. ref. : lon/lat WGS 84 (EPSG:4326) </span></span>
+<span><span class="co">#&gt; source(s)   : memory</span></span>
+<span><span class="co">#&gt; name        : n_species </span></span>
+<span><span class="co">#&gt; min value   :         3 </span></span>
+<span><span class="co">#&gt; max value   :        68</span></span></code></pre></div>
+<p>The result of this function is a <code>SpatRaster</code> where the
+cells contain the average values of species richness aggregated over the
+coarser grid.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">upscaled_richness</span><span class="op">)</span></span></code></pre></div>
+<p><img src="upscaling_files/figure-html/map-upscaled-richness-1.png" width="700"></p>
+</div>
+<div class="section level2">
+<h2 id="aggregating-site-species-data-to-a-coarser-spatial-scale">Aggregating site-species data to a coarser spatial scale<a class="anchor" aria-label="anchor" href="#aggregating-site-species-data-to-a-coarser-spatial-scale"></a>
+</h2>
+<p>Now that we’ve learned how to aggregate arbitrary data at the site
+scale over a spatial scale. We’re going to use our provided example
+named <code>site_species</code> on Western European mammals at a
+resolution of 0.5° to get new sites from a grid with pixels of 0.83° of
+resolution.</p>
+<p>As shown in the part above, we’ll need three objects:
+<code>site_species</code>, which describes the species present across
+sites; <code>site_locations</code>, which gives the spatial locations of
+sites; and <code>agg_grid</code> which is a <code>SpatRaster</code>
+object defining the coarser grid.</p>
+<p>We’ll use the previously defined object to run our example. To
+aggregate the presence-absence of species within each pixel of the new
+grid, we’ll use the <code><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max()</a></code> function (as the <code>fun</code>
+argument). As such, coarser pixels which contains a mix of presence and
+absence of certain species, we’ll be considered as having the species
+present.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">site_species_agg</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data</a></span><span class="op">(</span></span>
+<span>  <span class="va">site_locations</span>,</span>
+<span>  <span class="va">site_species</span>,</span>
+<span>  agg_grid <span class="op">=</span> <span class="va">coarser_grid</span>,</span>
+<span>  fun <span class="op">=</span> <span class="va">max</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>The return object is a <code>SpatRaster</code> as well but can be
+transformed easily in a data.frame to follow back with the regular
+analyses provided in <code>funbiogeo</code>. The new object contains one
+layer for each aggregated variable, i.e. here, one per species.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">site_species_agg</span></span>
+<span><span class="co">#&gt; class       : SpatRaster </span></span>
+<span><span class="co">#&gt; dimensions  : 29, 41, 149  (nrow, ncol, nlyr)</span></span>
+<span><span class="co">#&gt; resolution  : 0.8333333, 0.8333333  (x, y)</span></span>
+<span><span class="co">#&gt; extent      : -10.5, 23.66667, 35.83333, 60  (xmin, xmax, ymin, ymax)</span></span>
+<span><span class="co">#&gt; coord. ref. : lon/lat WGS 84 (EPSG:4326) </span></span>
+<span><span class="co">#&gt; source(s)   : memory</span></span>
+<span><span class="co">#&gt; names       : sp_001, sp_002, sp_003, sp_004, sp_005, sp_006, ... </span></span>
+<span><span class="co">#&gt; min values  :      0,      0,      0,      0,      0,      0, ... </span></span>
+<span><span class="co">#&gt; max values  :      1,      1,      1,      0,      1,      1, ...</span></span></code></pre></div>
+<p>We can visualize both maps for a single species to see the
+difference:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org" class="external-link">"ggplot2"</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">single_species</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html" class="external-link">merge</a></span><span class="op">(</span></span>
+<span>  <span class="va">site_locations</span>, <span class="va">site_species</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>, by <span class="op">=</span> <span class="st">"site"</span>, all <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">finer_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">single_species</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">sp_001</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"Presence of sp_001"</span>, title <span class="op">=</span> <span class="st">"Original resolution (0.5°)"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">coarser_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">site_species_agg</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html" class="external-link">scale_fill_binned</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Coarser resolution (0.83°)"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="va">finer_map</span>, <span class="va">coarser_map</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<p><img src="upscaling_files/figure-html/plot-map-upsacale-site-species-1.png" width="700"></p>
+<div class="section level3">
+<h3 id="obtaining-back-a-site-x-species-data-frame">Obtaining back a site x species <code>data.frame</code><a class="anchor" aria-label="anchor" href="#obtaining-back-a-site-x-species-data-frame"></a>
+</h3>
+<p>Now we obtained a raster of aggregated site-species presences.
+However, the other functions of <code>funbiogeo</code> don’t play well
+with raster data. They need data.frames to work well. We can do this
+through the specific function <code><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame()</a></code> in
+<code>terra</code> (make sure to check the dedicated help page that
+specifies all the additional arguments with
+<code><a href="https://rdrr.io/pkg/terra/man/as.data.frame.html" class="external-link">?terra::as.data.frame</a></code>).</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Use the 'cells = TRUE' argument to index results with a new cell column</span></span>
+<span><span class="co"># corresponding to the ID of the coarser grid pixels</span></span>
+<span><span class="va">site_species_agg_df</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">site_species_agg</span>, cells <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">site_species_agg_df</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span>
+<span><span class="co">#&gt;    cell sp_001 sp_002 sp_003</span></span>
+<span><span class="co">#&gt; 20   20      1      0      0</span></span>
+<span><span class="co">#&gt; 21   21      1      0      0</span></span>
+<span><span class="co">#&gt; 22   22      1      0      0</span></span>
+<span><span class="co">#&gt; 23   23      1      0      0</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">site_species_agg_df</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"site"</span></span></code></pre></div>
+<p>With this, we’re ready to reuse all of <code>funbiogeo</code>
+functions to work on these coarser data. You can proceed similarly to
+aggregate the ancillary site-related data, to use them in the rest of
+the analyses.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="aggregating-site-functional-diversity-data">Aggregating site-functional diversity data<a class="anchor" aria-label="anchor" href="#aggregating-site-functional-diversity-data"></a>
+</h2>
+<p>Because <code>funbiogeo</code> focuses on the functional biogeography
+workflow, we’ll explore in this section how to aggregate the results for
+a functional biogeography function. First, we’ll show the example with
+the CWM of body mass then we’ll show an example with the functional
+diversity using the <code>fundiversity</code> package.</p>
+<div class="section level3">
+<h3 id="coarser-cwm-of-body-mass">Coarser CWM of body mass<a class="anchor" aria-label="anchor" href="#coarser-cwm-of-body-mass"></a>
+</h3>
+<p>To compute the CWM we’ll use the internal function
+<code><a href="../reference/fb_cwm.html">fb_cwm()</a></code>.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">site_cwm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_cwm.html">fb_cwm</a></span><span class="op">(</span><span class="va">site_species</span>, <span class="va">species_traits</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Some species had NA trait values, removing them from CWM computation</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">site_cwm</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   site           trait      cwm</span></span>
+<span><span class="co">#&gt; 1    1 adult_body_mass 31974.15</span></span>
+<span><span class="co">#&gt; 2    2 adult_body_mass 39911.51</span></span>
+<span><span class="co">#&gt; 3    3 adult_body_mass 39912.54</span></span>
+<span><span class="co">#&gt; 4    4 adult_body_mass 39912.54</span></span>
+<span><span class="co">#&gt; 5    5 adult_body_mass 41389.44</span></span>
+<span><span class="co">#&gt; 6    6 adult_body_mass 39912.37</span></span></code></pre></div>
+<p>Now we can aggregate the CWM of body mass at coarser scale using
+<code><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data()</a></code> as done in the previous
+section:</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">site_cwm</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"adult_body_mass"</span></span>
+<span></span>
+<span><span class="va">upscaled_cwm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data</a></span><span class="op">(</span></span>
+<span>  <span class="va">site_locations</span>,</span>
+<span>  <span class="va">site_cwm</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">]</span>,</span>
+<span>  <span class="va">coarser_grid</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">upscaled_cwm</span></span>
+<span><span class="co">#&gt; class       : SpatRaster </span></span>
+<span><span class="co">#&gt; dimensions  : 29, 41, 1  (nrow, ncol, nlyr)</span></span>
+<span><span class="co">#&gt; resolution  : 0.8333333, 0.8333333  (x, y)</span></span>
+<span><span class="co">#&gt; extent      : -10.5, 23.66667, 35.83333, 60  (xmin, xmax, ymin, ymax)</span></span>
+<span><span class="co">#&gt; coord. ref. : lon/lat WGS 84 (EPSG:4326) </span></span>
+<span><span class="co">#&gt; source(s)   : memory</span></span>
+<span><span class="co">#&gt; name        : adult_body_mass </span></span>
+<span><span class="co">#&gt; min value   :        27.83333 </span></span>
+<span><span class="co">#&gt; max value   :     41389.43359</span></span></code></pre></div>
+<p>We can then map the CWM using the <code><a href="../reference/fb_map_raster.html">fb_map_raster()</a></code>
+function:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">upscaled_cwm</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html" class="external-link">scale_fill_continuous</a></span><span class="op">(</span>trans <span class="op">=</span> <span class="st">"log10"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="upscaling_files/figure-html/map-upscaled-cwm-1.png" width="700"></p>
+</div>
+<div class="section level3">
+<h3 id="coarser-fric-through-fundiversity">Coarser FRic through <code>fundiversity</code><a class="anchor" aria-label="anchor" href="#coarser-fric-through-fundiversity"></a>
+</h3>
+<p>In a similar fashion as in the <a href="funbiogeo.Rmd">introduction
+vignette to <code>funbiogeo</code></a> in this section we’ll compute the
+Functional Richness using two traits across our example dataset.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Get all species for which we have both adult body mass and litter size</span></span>
+<span><span class="va">subset_traits</span> <span class="op">&lt;-</span> <span class="va">species_traits</span><span class="op">[</span></span>
+<span>  , <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"species"</span>, <span class="st">"adult_body_mass"</span>, <span class="st">"litter_size"</span><span class="op">)</span></span>
+<span><span class="op">]</span></span>
+<span><span class="va">subset_traits</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span></span>
+<span>  <span class="va">subset_traits</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">adult_body_mass</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">litter_size</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Transform trait data</span></span>
+<span><span class="va">subset_traits</span><span class="op">[[</span><span class="st">"adult_body_mass"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/scale.html" class="external-link">scale</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log10</a></span><span class="op">(</span><span class="va">subset_traits</span><span class="op">[[</span><span class="st">"adult_body_mass"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">subset_traits</span><span class="op">[[</span><span class="st">"litter_size"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/scale.html" class="external-link">scale</a></span><span class="op">(</span><span class="va">subset_traits</span><span class="op">[[</span><span class="st">"litter_size"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Filter site for which we have trait information for than 80% of species</span></span>
+<span><span class="va">subset_site</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_filter_sites_by_trait_coverage.html">fb_filter_sites_by_trait_coverage</a></span><span class="op">(</span></span>
+<span>  <span class="va">site_species</span>, <span class="va">subset_traits</span>, <span class="fl">0.8</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">subset_site</span> <span class="op">&lt;-</span> <span class="va">subset_site</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"site"</span>, <span class="va">subset_traits</span><span class="op">$</span><span class="va">species</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co"># Remove first column and convert in rownames</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">subset_traits</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">subset_traits</span><span class="op">[[</span><span class="st">"species"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="va">subset_traits</span> <span class="op">&lt;-</span> <span class="va">subset_traits</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">subset_site</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">subset_site</span><span class="op">[[</span><span class="st">"site"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="va">subset_site</span> <span class="op">&lt;-</span> <span class="va">subset_site</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co"># Compute FRic</span></span>
+<span><span class="va">site_fric</span> <span class="op">&lt;-</span> <span class="fu">fundiversity</span><span class="fu">::</span><span class="fu"><a href="https://funecology.github.io/fundiversity/reference/fd_fric.html" class="external-link">fd_fric</a></span><span class="op">(</span></span>
+<span>  <span class="va">subset_traits</span>, <span class="va">subset_site</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in fundiversity::fd_fric(subset_traits, subset_site): Some sites had</span></span>
+<span><span class="co">#&gt; less species than traits so returned FRic is 'NA'</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">site_fric</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   site     FRic</span></span>
+<span><span class="co">#&gt; 1    1 8.502155</span></span>
+<span><span class="co">#&gt; 2    2 8.502155</span></span>
+<span><span class="co">#&gt; 3    3 8.502155</span></span>
+<span><span class="co">#&gt; 4    4 8.502155</span></span>
+<span><span class="co">#&gt; 5    5 8.502155</span></span>
+<span><span class="co">#&gt; 6    6 8.502155</span></span></code></pre></div>
+<p>We can now follow a similar upscaling process as in the previous
+sections</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">agg_fric</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data</a></span><span class="op">(</span><span class="va">site_locations</span>, <span class="va">site_fric</span>, <span class="va">coarser_grid</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">agg_fric</span><span class="op">)</span></span></code></pre></div>
+<p><img src="upscaling_files/figure-html/upscale-fric-1.png" width="700"></p>
+</div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-      </div>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
+</div>
 
 </div>
 
