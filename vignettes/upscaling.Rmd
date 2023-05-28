@@ -17,9 +17,16 @@ knitr::opts_chunk$set(
 
 `funbiogeo` provides an easy way to upscale your site data to a coarser resolution.
 The idea is that you have any type of data at the site level (diversity metrics, 
-environmental data, as well as site-species data) but you would like to work on it at a coarser scale, 
-or you want to visualize it at that coarser scale. You may want to use the function
-`fb_aggregate_site_data()`.
+environmental data, as well as site-species data) that you would like to work or
+visualize at a coarser scale. The aggregation process can look daunting at first
+and be quite difficult to run.
+We explain in this vignette, how to do so through the `fb_aggregate_site_data()`
+function. We'll detail three use cases: the first through aggregating arbitrary
+site-level data, the second focused on aggregating the site x species object,
+and the last aggregating functional diversity metrics.
+
+
+## Aggregating arbitrary site-data
 
 
 ```{r setup}
@@ -38,7 +45,6 @@ site_locations
 These sites are a collection of regular spatial polygons at a resolution of 0.5° over Western Europe.
 
 For each site, we want to compute the species richness. 
-
 
 ```{r compute-richness}
 # Import site x species data ----
@@ -100,3 +106,8 @@ The result of this function is a `SpatRaster` where the cells contain the aggreg
 ```{r map-upscaled-richness, dev='png'}
 fb_map_raster(upscaled_richness)
 ```
+
+
+## Aggregating site-species data to a coarser spatial scale
+
+## Aggregating site-functional diversity data
