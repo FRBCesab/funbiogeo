@@ -1,8 +1,8 @@
 ---
-title: "Upscaling Your Data with funbiogeo"
+title: "Upscaling your data"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Upscaling Your Data with funbiogeo}
+  %\VignetteIndexEntry{Upscaling your data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -10,34 +10,274 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>",
-  eval = FALSE
+  comment  = "#>"
 )
 ```
 
+
+`funbiogeo` provides an easy way to upscale your site data to a coarser resolution.
+The idea is that you have any type of data at the site level (diversity metrics, 
+environmental data, as well as site-species data) that you would like to work or
+visualize at a coarser scale. The aggregation process can look daunting at first
+and be quite difficult to run.
+We explain in this vignette, how to do so through the `fb_aggregate_site_data()`
+function. We'll detail three use cases: the first through aggregating arbitrary
+site-level data, the second focused on aggregating the site x species object,
+and the last aggregating functional diversity metrics.
+
+
+## Aggregating arbitrary site-data
+
+
 ```{r setup}
-library(funbiogeo)
+library("funbiogeo")
 ```
 
-The aims of this vignette is to provide explanation on upscaling.
+Let's import our site by locations object, which describes the geographical locations of sites.
 
-```{r upscale-richness}
-## Upscale to grid ----
-ras_richness <- fb_aggregate_site_data(site_locations = site_locations, 
-                                       site_data      = rich_env, 
-                                       agg_grid       = tavg)
 
-ras_richness
+```{r import-site-locations}
+data("site_locations")
+
+site_locations
 ```
 
-```{r map-richness, dev = 'png'}
-fb_map_raster(ras_richness[[1]])
+These sites are a collection of regular spatial polygons at a resolution of 0.5° over Western Europe.
+
+For each site, we want to compute the species richness. 
+
+```{r compute-richness}
+# Import site x species data ----
+data("site_species")
+
+# Compute species richness ----
+species_richness <- fb_count_species_by_site(site_species)
+
+head(species_richness)
 ```
 
-```{r map-richness-custom, dev = 'png'}
-fb_map_raster(ras_richness[[1]]) + 
-  scale_fill_distiller("Number of species", palette = "Spectral") +
-  theme(legend.position = "bottom") + 
-  ggtitle("Trees species richness in Pennsylvania")
+Before going any further let's map these original values with the function
+`fb_map_site_data()`.
+
+
+```{r map-original-richness, dev='png'}
+fb_map_site_data(site_locations, species_richness, "n_species")
 ```
 
+Now, let's say that our next analyses require to work at a coarser resolution. We need to
+aggregate site data on a new spatial grid (object `SpatRaster` from the 
+[`terra`](http://cran.r-project.org/package=terra) package). Let's import this coarser raster.
+
+
+```{r import-grid}
+# Import study area grid ----
+coarser_grid <- system.file("extdata", "grid_area.tif", package = "funbiogeo")
+coarser_grid <- terra::rast(coarser_grid)
+
+coarser_grid
+```
+
+We will aggregate the site data (resolution of 0.5°) to this new coarser raster (resolution of 0.83°) 
+with the function `fb_aggregate_site_data()`. This function requires the following arguments:
+
+- `site_locations`: the site x locations object
+- `site_data`: a `matrix` or `data.frame` containing values per sites to aggregate on the provided grid `agg_grid`. Can have one or several columns (variables to aggregate). The first column must contain sites names as provided in the example dataset `site_locations`
+- `agg_grid`: a `SpatRaster` object (package `terra`). A raster of one single layer, that defines the grid along which to aggregate
+- `fun`: the function used to aggregate sites values when there are multiple sites in one cell
+
+Let's aggregate our species richness values on this grid.
+
+
+```{r upscaled-richness}
+# Upscale to grid ----
+upscaled_richness <- fb_aggregate_site_data(
+  site_locations = site_locations,
+  site_data      = species_richness[ , 1:2],
+  agg_grid       = coarser_grid,
+  fun            = mean
+)
+
+upscaled_richness
+```
+
+The result of this function is a `SpatRaster` where the cells contain the
+average values of species richness aggregated over the coarser grid.
+
+
+```{r map-upscaled-richness, dev='png'}
+fb_map_raster(upscaled_richness)
+```
+
+
+## Aggregating site-species data to a coarser spatial scale
+
+Now that we've learned how to aggregate arbitrary data at the site scale over a
+spatial scale. We're going to use our provided example named `site_species` on
+Western European mammals at a resolution of 0.5° to get new sites from a grid
+with pixels of 0.83° of resolution.
+
+As shown in the part above, we'll need three objects: `site_species`, which
+describes the species present across sites; `site_locations`, which gives the
+spatial locations of sites; and `agg_grid` which is a `SpatRaster` object
+defining the coarser grid.
+
+We'll use the previously defined object to run our example. To aggregate 
+the presence-absence of species within each pixel of the new grid, we'll use
+the `max()` function (as the `fun` argument). As such, coarser pixels which
+contains a mix of presence and absence of certain species, we'll be considered
+as having the species present.
+
+```{r upscale-site-species}
+site_species_agg <- fb_aggregate_site_data(
+  site_locations,
+  site_species,
+  agg_grid = coarser_grid,
+  fun = max
+)
+```
+
+The return object is a `SpatRaster` as well but can be transformed easily in a
+data.frame to follow back with the regular analyses provided in `funbiogeo`.
+The new object contains one layer for each aggregated variable, i.e. here, one
+per species.
+
+```{r show-upscale-site-species}
+site_species_agg
+```
+
+We can visualize both maps for a single species to see the difference:
+
+```{r plot-map-upsacale-site-species}
+library("ggplot2")
+
+single_species <- merge(
+  site_locations, site_species[, 1:2], by = "site", all = TRUE
+)
+
+finer_map <- ggplot(single_species) +
+  geom_sf(aes(fill = as.factor(sp_001))) +
+  labs(fill = "Presence of sp_001", title = "Original resolution (0.5°)")
+
+coarser_map <- fb_map_raster(site_species_agg[[1]]) +
+  scale_fill_binned(breaks = c(0, 0.5, 1)) +
+  labs(title = "Coarser resolution (0.83°)")
+
+patchwork::wrap_plots(finer_map, coarser_map, nrow = 1)
+```
+
+
+### Obtaining back a site x species `data.frame`
+
+Now we obtained a raster of aggregated site-species presences. However, the 
+other functions of `funbiogeo` don't play well with raster data. They need
+data.frames to work well. We can do this through the specific function
+`as.data.frame()` in `terra` (make sure to check the dedicated help page that
+specifies all the additional arguments with `?terra::as.data.frame`).
+
+```{r upscaled-site-species-df}
+# Use the 'cells = TRUE' argument to index results with a new cell column
+# corresponding to the ID of the coarser grid pixels
+site_species_agg_df <- terra::as.data.frame(site_species_agg, cells = TRUE)
+
+site_species_agg_df[1:4, 1:4]
+
+colnames(site_species_agg_df)[1] <- "site"
+```
+
+With this, we're ready to reuse all of `funbiogeo` functions to work on these
+coarser data. You can proceed similarly to aggregate the ancillary site-related
+data, to use them in the rest of the analyses.
+
+
+## Aggregating site-functional diversity data
+
+Because `funbiogeo` focuses on the functional biogeography workflow, we'll
+explore in this section how to aggregate the results for a functional
+biogeography function. First, we'll show the example with the CWM of body mass
+then we'll show an example with the functional diversity using the `fundiversity`
+package.
+
+### Coarser CWM of body mass
+
+To compute the CWM we'll use the internal function `fb_cwm()`.
+
+```{r cwm-body-mass}
+site_cwm <- fb_cwm(site_species, species_traits[, 1:2])
+
+head(site_cwm)
+```
+
+Now we can aggregate the CWM of body mass at coarser scale using
+`fb_aggregate_site_data()` as done in the previous section:
+
+```{r upscaled-cwm}
+colnames(site_cwm)[3] <- "adult_body_mass"
+
+upscaled_cwm <- fb_aggregate_site_data(
+  site_locations,
+  site_cwm[, c(1, 3)],
+  coarser_grid
+)
+
+upscaled_cwm
+```
+
+We can then map the CWM using the `fb_map_raster()` function:
+
+```{r map-upscaled-cwm}
+fb_map_raster(upscaled_cwm) +
+  scale_fill_continuous(trans = "log10")
+```
+
+
+### Coarser FRic through `fundiversity`
+
+In a similar fashion as in the
+[introduction vignette to `funbiogeo`](funbiogeo.Rmd) in this section we'll
+compute the Functional Richness using two traits across our example dataset.
+
+```{r compute-fric, eval = require("fundiversity")}
+# Get all species for which we have both adult body mass and litter size
+subset_traits <- species_traits[
+  , c("species", "adult_body_mass", "litter_size")
+]
+subset_traits <- subset(
+  subset_traits, !is.na(adult_body_mass) & !is.na(litter_size)
+)
+
+# Transform trait data
+subset_traits[["adult_body_mass"]] <- as.numeric(
+  scale(log10(subset_traits[["adult_body_mass"]]))
+)
+
+subset_traits[["litter_size"]] <- as.numeric(
+  scale(subset_traits[["litter_size"]])
+)
+
+# Filter site for which we have trait information for than 80% of species
+subset_site <- fb_filter_sites_by_trait_coverage(
+  site_species, subset_traits, 0.8
+)
+subset_site <- subset_site[, c("site", subset_traits$species)]
+
+# Remove first column and convert in rownames
+rownames(subset_traits) <- subset_traits[["species"]]
+subset_traits <- subset_traits[, -1]
+rownames(subset_site) <- subset_site[["site"]]
+subset_site <- subset_site[, -1]
+
+# Compute FRic
+site_fric <- fundiversity::fd_fric(
+  subset_traits, subset_site
+)
+
+head(site_fric)
+```
+
+We can now follow a similar upscaling process as in the previous sections
+
+```{r upscale-fric, eval = require("fundiversity")}
+agg_fric <- fb_aggregate_site_data(site_locations, site_fric, coarser_grid)
+
+fb_map_raster(agg_fric)
+```
