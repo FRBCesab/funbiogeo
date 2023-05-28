@@ -193,7 +193,7 @@ data, to use them in the rest of the analyses.
 Because `funbiogeo` focuses on the functional biogeography workflow, we'll
 explore in this section how to aggregate the results for a functional
 biogeography function. First, we'll show the example with the CWM of body mass
-then we'll show an example with the functional diversity using the `mFD`
+then we'll show an example with the functional diversity using the `fundiversity`
 package.
 
 ### Coarser CWM of body mass
@@ -229,6 +229,54 @@ fb_map_raster(upscaled_cwm) +
 ```
 
 
-### Coarser FRic through `mFD`
+### Coarser FRic through `fundiversity`
 
-x
+In a similar fashion as in the
+[introduction vignette to `funbiogeo`](funbiogeo.Rmd) in this section we'll
+compute the Functional Richness using two traits across our example dataset.
+
+```{r compute-fric}
+# Get all species for which we have both adult body mass and litter size
+subset_traits <- species_traits[
+  , c("species", "adult_body_mass", "litter_size")
+]
+subset_traits <- subset(
+  subset_traits, !is.na(adult_body_mass) & !is.na(litter_size)
+)
+
+# Transform trait data
+subset_traits[["adult_body_mass"]] <- as.numeric(
+  scale(log10(subset_traits[["adult_body_mass"]]))
+)
+
+subset_traits[["litter_size"]] <- as.numeric(
+  scale(subset_traits[["litter_size"]])
+)
+
+# Filter site for which we have trait information for than 80% of species
+subset_site <- fb_filter_sites_by_trait_coverage(
+  site_species, subset_traits, 0.8
+)
+subset_site <- subset_site[, c("site", subset_traits$species)]
+
+# Remove first column and convert in rownames
+rownames(subset_traits) <- subset_traits[["species"]]
+subset_traits <- subset_traits[, -1]
+rownames(subset_site) <- subset_site[["site"]]
+subset_site <- subset_site[, -1]
+
+# Compute FRic
+site_fric <- fundiversity::fd_fric(
+  subset_traits, subset_site
+)
+
+head(site_fric)
+```
+
+We can now follow a similar upscaling process as in the previous sections
+
+```{r upscale-fric}
+agg_fric <- fb_aggregate_site_data(site_locations, site_fric, coarser_grid)
+
+fb_map_raster(agg_fric)
+```
