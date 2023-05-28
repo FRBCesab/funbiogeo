@@ -150,10 +150,11 @@ We can visualize both maps for a single species to see the difference:
 ```{r plot-map-upsacale-site-species}
 library("ggplot2")
 
-finer_map <- site_locations %>%
-  full_join(site_species %>%
-              select(1:2), by = "site") %>%
-  ggplot() +
+single_species <- merge(
+  site_locations, site_species[, 1:2], by = "site", all = TRUE
+)
+
+finer_map <- ggplot(single_species) +
   geom_sf(aes(fill = as.factor(sp_001))) +
   labs(fill = "Presence of sp_001", title = "Original resolution (0.5°)")
 
@@ -235,7 +236,7 @@ In a similar fashion as in the
 [introduction vignette to `funbiogeo`](funbiogeo.Rmd) in this section we'll
 compute the Functional Richness using two traits across our example dataset.
 
-```{r compute-fric}
+```{r compute-fric, eval = require("fundiversity")}
 # Get all species for which we have both adult body mass and litter size
 subset_traits <- species_traits[
   , c("species", "adult_body_mass", "litter_size")
@@ -275,7 +276,7 @@ head(site_fric)
 
 We can now follow a similar upscaling process as in the previous sections
 
-```{r upscale-fric}
+```{r upscale-fric, eval = require("fundiversity")}
 agg_fric <- fb_aggregate_site_data(site_locations, site_fric, coarser_grid)
 
 fb_map_raster(agg_fric)
