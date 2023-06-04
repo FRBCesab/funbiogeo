@@ -11,7 +11,8 @@
 status](https://www.r-pkg.org/badges/version/funbiogeo)](https://CRAN.R-project.org/package=funbiogeo)
 [![License: GPL
 v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
-[![LifeCycle](https://img.shields.io/badge/lifecycle-experimental-orange)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![Lifecycle:
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
 [![Project Status:
 Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 <!-- badges: end -->
@@ -31,20 +32,19 @@ experienced users who want to obtain quick and easy exploratory plots.
 
 `funbiogeo` offers:
 
--   Standardized functions to filter and select your data for further
-    analyses,
--   Pleasing default diagnostic plots to visualize the structure of your
-    data,
--   Extensive documentation (multiple vignettes, well-documented
-    functions, real-life example dataset) to guide you through
-    functional biogeography analyses,
--   Nice default plotting functions using outputs from functional
-    diversity packages (`betapart`, `fundiversity`, `hillR`, `mFD`,
-    etc.),
--   Automated standardized report that provide analyses and plots of
-    your data,
--   Functions to easily “upscale” your data to coarser spatial
-    resolutions.
+- Standardized functions to filter and select your data for further
+  analyses,
+- Pleasing default diagnostic plots to visualize the structure of your
+  data,
+- Extensive documentation (multiple vignettes, well-documented
+  functions, real-life example dataset) to guide you through functional
+  biogeography analyses,
+- Nice default plotting functions using outputs from functional
+  diversity packages (`betapart`, `fundiversity`, `hillR`, `mFD`, etc.),
+- Automated standardized report that provide analyses and plots of your
+  data,
+- Functions to easily “upscale” your data to coarser spatial
+  resolutions.
 
 ## Citation
 
@@ -108,22 +108,22 @@ package](https://frbcesab.github.io/funbiogeo/articles/)
 
 `funbiogeo` provides four vignettes to explain its functioning:
 
--   A [“Get started”
-    vignette](https://frbcesab.github.io/funbiogeo/articles/funbiogeo.html)
-    that describes its core features and guide you through a typical
-    analysis.
--   A [vignette on all diagnostic
-    plots](https://frbcesab.github.io/funbiogeo/articles/diagnostic-plots.html)
-    provided in the package, which details how to use each plotting
-    function and how to interpret their output.
--   A [vignette on formatting your
-    data](https://frbcesab.github.io/funbiogeo/articles/long-format.html)
-    to the needs of `funbiogeo`, which shows you the use of specific
-    functions.
--   And a [specific vignette on
-    upscaling](https://frbcesab.github.io/funbiogeo/articles/upscaling.html)
-    which explains how to aggregate automatically your data to coarser
-    grain and use it in further analyses.
+- A [“Get started”
+  vignette](https://frbcesab.github.io/funbiogeo/articles/funbiogeo.html)
+  that describes its core features and guide you through a typical
+  analysis.
+- A [vignette on all diagnostic
+  plots](https://frbcesab.github.io/funbiogeo/articles/diagnostic-plots.html)
+  provided in the package, which details how to use each plotting
+  function and how to interpret their output.
+- A [vignette on formatting your
+  data](https://frbcesab.github.io/funbiogeo/articles/long-format.html)
+  to the needs of `funbiogeo`, which shows you the use of specific
+  functions.
+- And a [specific vignette on
+  upscaling](https://frbcesab.github.io/funbiogeo/articles/upscaling.html)
+  which explains how to aggregate automatically your data to coarser
+  grain and use it in further analyses.
 
 ## Code of Conduct
 
