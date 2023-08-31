@@ -58,8 +58,10 @@ fb_plot_site_traits_completeness <- function(
   )
   
   all_coverage <- lapply(
-    all_coverage,
-    function(single_coverage) {
+    names(all_coverage),
+    function(cat_name) {
+      
+      single_coverage <- all_coverage[[cat_name]]
       
       single_coverage <- tidyr::pivot_longer(
         single_coverage, -"site", names_to = "coverage_name",
@@ -93,17 +95,30 @@ fb_plot_site_traits_completeness <- function(
         ]
       )
       
+      single_coverage[[category_name]] <- cat_name
+      single_coverage[["coverage_name"]] <- as.character(
+        single_coverage[["coverage_name"]]
+      )
+      single_coverage[["site"]] <- as.character(
+        single_coverage[["site"]]
+      )
+      
       return(single_coverage)
     }
   )
   
+  names(all_coverage) <- names(site_species_categories)
+  
   
   # Get average coverage
   avg_coverage <- lapply(
-    all_coverage,
-    function(x) {
+    names(all_coverage),
+    function(cat_name) {
+      
+      single_coverage <- all_coverage[[cat_name]]
+      
       avg_coverage <- by(
-        x, x$coverage_name,
+        single_coverage, single_coverage$coverage_name,
         function(y) mean(y$coverage_value, na.rm = TRUE)
       )
       
@@ -118,43 +133,17 @@ fb_plot_site_traits_completeness <- function(
           )
         )
       
-      avg_coverage <- avg_coverage[, c("cov_label", "coverage_name")]
-      avg_coverage <- t(utils::unstack(avg_coverage))
+      avg_coverage[[category_name]] <- cat_name
+      
+      return(avg_coverage)
     }
   )
   
+  names(avg_coverage) <- names(all_coverage)
   
-  # Add categories back into data.frame
-  all_coverage <- lapply(
-    names(all_coverage),
-    function(x) {
-      
-      given_coverage <- all_coverage[[x]]
-      
-      given_coverage[category_name] <- x
-        
-      return(given_coverage)
-    }
-  )
+  all_coverage <- do.call(rbind, c(all_coverage, make.row.names = FALSE))
   
-  all_coverage <- do.call(rbind, all_coverage)
-  
-  avg_coverage <- lapply(
-    names(avg_coverage),
-    function(x) {
-      
-      given_coverage <- data.frame(
-        coverage_name = colnames(avg_coverage[[x]]),
-        avg_coverage = as.character(avg_coverage[[x]])
-      )
-      
-      given_coverage[category_name] <- x
-      
-      return(given_coverage)
-    }
-  )
-  
-  avg_coverage <- do.call(rbind, avg_coverage)
+  avg_coverage <- do.call(rbind, c(avg_coverage, make.row.names = FALSE))
   
   
   # Manage conditional faceting
@@ -172,19 +161,44 @@ fb_plot_site_traits_completeness <- function(
   }
   
   all_coverage <- merge(
-    all_coverage, avg_coverage, by = c("coverage_name", category_name)
+    avg_coverage, all_coverage, by = c("coverage_name", category_name)
   )
   
   # Clean environment
-  rm(all_traits, avg_coverage, site_species, site_species_categories,
+  rm(avg_coverage, site_species, site_species_categories,
      species_categories, species_split, species_traits)
+  
+  
+  # Reorder table based on alphabetical category, decreasing coverage,
+  # and alphabetical category
+  all_coverage <- all_coverage[
+    order(
+      all_coverage[[category_name]],
+      all_coverage$avg_coverage,
+      all_coverage$coverage_name,
+      decreasing = c(FALSE, TRUE, FALSE), method = "radix"
+    ),
+  ]
+  
+  # Move 'all_traits' at the bottom
+  if (all_traits) {
+    
+    no_all <- which(all_coverage[["coverage_name"]] != "all_traits")
+    
+    only_all <- which(all_coverage[["coverage_name"]] == "all_traits")
+    
+    all_coverage <- all_coverage[c(no_all, only_all),]
+  }
+  
+  browser()
+  
   
   # Actual Plot
   ggplot2::ggplot(
     all_coverage,
     ggplot2::aes(
-      interaction(.data$avg_coverage, .data[[category_name]], sep = "__"), .data$site,
-      fill = .data$coverage_value
+      interaction(.data[[category_name]], .data$cov_label, sep = "__"),
+      .data$site, fill = .data$coverage_value
     )
   ) +
     ggplot2::geom_tile() +
@@ -192,7 +206,7 @@ fb_plot_site_traits_completeness <- function(
     ggplot2::coord_cartesian(expand = FALSE) +
     ggplot2::labs(x = "Trait Name", y = "Sites") +
     ggplot2::scale_x_discrete(
-      labels = function(x) unlist(strsplit(x, "__.+$")),
+      labels = function(x) unlist(strsplit(x, "^.+__")),
       guide = ggplot2::guide_axis(n.dodge = 2)
     ) +
     ggplot2::scale_fill_viridis_b(
