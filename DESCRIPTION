@@ -40,8 +40,6 @@ Suggests:
     knitr,
     mockery,
     patchwork,
-    raster,
-    rgdal,
     rmarkdown,
     rstudioapi,
     testthat (>= 3.0.0)
