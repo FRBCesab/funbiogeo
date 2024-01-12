@@ -50,6 +50,8 @@ fb_plot_site_traits_completeness <- function(
     function(x) site_species[, c("site", x), drop = FALSE]
   )
   
+  
+  # Compute site-level trait coverage for all traits
   all_coverage <- lapply(
     site_species_categories,
     function(x) fb_get_all_trait_coverages_by_site(
@@ -98,10 +100,11 @@ fb_plot_site_traits_completeness <- function(
   )
   
   
-  # Get average coverage
+  # Compute average trait coverage across all sites for each trait
   avg_coverage <- lapply(
     all_coverage,
     function(x) {
+      
       avg_coverage <- by(
         x, x$coverage_name,
         function(y) mean(y$coverage_value, na.rm = TRUE)
@@ -118,13 +121,21 @@ fb_plot_site_traits_completeness <- function(
           )
         )
       
-      avg_coverage <- avg_coverage[, c("cov_label", "coverage_name")]
-      avg_coverage <- t(utils::unstack(avg_coverage))
+      # Re-order to make sure of coverage is decreasing
+      avg_coverage <- avg_coverage[
+        order(avg_coverage$avg_coverage, decreasing = TRUE),
+      ]
+      
+      # Transform into factor to keep order
+      avg_coverage$cov_label <- factor(
+        avg_coverage$cov_label, levels = avg_coverage$cov_label
+      )
+      
+      return(avg_coverage)
     }
   )
   
-  
-  # Add categories back into data.frame
+  # Add species categories back into final data.frame
   all_coverage <- lapply(
     names(all_coverage),
     function(x) {
@@ -143,10 +154,7 @@ fb_plot_site_traits_completeness <- function(
     names(avg_coverage),
     function(x) {
       
-      given_coverage <- data.frame(
-        coverage_name = colnames(avg_coverage[[x]]),
-        avg_coverage = as.character(avg_coverage[[x]])
-      )
+      given_coverage <- avg_coverage[[x]]
       
       given_coverage[category_name] <- x
       
@@ -183,8 +191,8 @@ fb_plot_site_traits_completeness <- function(
   ggplot2::ggplot(
     all_coverage,
     ggplot2::aes(
-      interaction(.data$avg_coverage, .data[[category_name]], sep = "__"), .data$site,
-      fill = .data$coverage_value
+      interaction(.data$cov_label, .data[[category_name]], sep = "__"),
+      .data$site, fill = .data$coverage_value
     )
   ) +
     ggplot2::geom_tile() +
