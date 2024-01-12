@@ -70,7 +70,7 @@ test_that("fb_get_environment() errors with wrong input type", {
   
   # Wrong environmental raster type
   expect_error(
-    fb_get_environment(site_locations, raster::stack(c(tavg, prec))),
+    fb_get_environment(site_locations, data.frame(c(tavg, prec))),
     "The raster layer must be a 'SpatRaster' object (package `terra`)",
     fixed = TRUE
   )
