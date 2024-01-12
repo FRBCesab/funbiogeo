@@ -56,7 +56,7 @@ test_that("fb_aggregate_site_data() errors with wrong input", {
   )
   
   # Wrong 'agg_grid' argument
-  grid_test <- raster::raster(tavg_file)
+  grid_test <- data.frame(tavg_file)
   
   expect_error(
     fb_aggregate_site_data(site_locations, site_species, grid_test),
