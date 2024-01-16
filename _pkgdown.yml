@@ -5,35 +5,50 @@ reference:
     - site_species
     - site_locations
     - species_categories
+
 - title: Formatting Functions
+
   desc: >
     Transform your raw dataset to the expected format by `funbiogeo`
   contents:
     - starts_with("fb_format")
+
 - title: Coverage functions
   desc: >
     Count species, traits, sites by trait/species coverage (proportion of
     species with known traits/present).
     Also filter datasets based on their coverages.
+- subtitle: Count functions
   contents:
     - starts_with("fb_count")
+- subtitle: Trait coverage functions
+  contents:
     - starts_with("fb_get_trait")
     - starts_with("fb_get_all")
+- subtitle: Filtering functions
+  contents:
     - starts_with("fb_filter")
+
 - title: Functional Diversity Functions
   contents:
     - fb_cwm
+
 - title: Upscaling functions
   desc: >
     Aggregate your site data over a coarser spatial grid
   contents:
     - fb_get_environment
     - fb_aggregate_site_data
+
 - title: Visualization & Summary functions
+- subtitle: Maps
   contents:
-    - starts_with("fb_map")
-    - starts_with("fb_plot")
-    - fb_table_trait_summary
+  - starts_with("fb_map")
+- subtitle: Regular plots and summary
+  contents:
+  - starts_with("fb_plot")
+  - fb_table_trait_summary
+
 - title: Pre-analysis R Markdown report
   contents:
     - fb_make_report
