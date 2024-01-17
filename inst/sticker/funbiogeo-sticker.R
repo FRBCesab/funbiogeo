@@ -81,7 +81,7 @@ hexSticker::sticker(
 
   subplot   = p,
   package   = "funbiogeo",
-  filename  = here::here("man", "figures", "funbiogeo-sticker.png"),
+  filename  = here::here("man", "figures", "logo.png"),
   dpi       = 2400,
 
   p_size    = 140.0,         # Title
