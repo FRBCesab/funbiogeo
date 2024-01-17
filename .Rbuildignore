@@ -14,3 +14,4 @@
 ^inst/extdata/raw_mammals_data_full.csv$
 ^inst/misc$
 ^CITATION\.cff$
+^CONTRIBUTING\.md$

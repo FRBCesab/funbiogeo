@@ -13,10 +13,22 @@ status](https://www.r-pkg.org/badges/version/funbiogeo)](https://CRAN.R-project.
 v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 <!-- badges: end -->
 
+<p align="left">
+• <a href="#overview">Overview</a><br> •
+<a href="#features">Features</a><br> •
+<a href="#installation">Installation</a><br> •
+<a href="#first-steps">First steps</a><br> •
+<a href="#long-form-documentations">Long-form documentations</a><br> •
+<a href="#citation">Citation</a><br> •
+<a href="#contributing">Contributing</a><br> •
+<a href="#acknowledgments">Acknowledgments</a><br> •
+<a href="#references">References</a>
+</p>
+
 ## Overview
 
 The package `funbiogeo` aims to help users with analyses in functional
-biogeography (Violle et al. 2014) by loading and combining data,
+biogeography (Violle *et al.* 2014) by loading and combining data,
 computing trait coverage, as well as computing functional diversity
 indices, drawing maps, correlating them with the environment, and
 upscaling assemblages.
@@ -24,7 +36,7 @@ upscaling assemblages.
 It is aimed at first-timers of functional biogeography as well as more
 experienced users who want to obtain quick and easy exploratory plots.
 
-## Main Features
+## Features
 
 `funbiogeo` offers:
 
@@ -41,24 +53,6 @@ experienced users who want to obtain quick and easy exploratory plots.
   data,
 - Functions to easily “upscale” your data to coarser spatial
   resolutions.
-
-## Citation
-
-For the moment `funbiogeo` doesn’t offer a companion paper. But if you
-happen to use it in your paper you can cite the package through:
-
-> Casajus N, Grenié M (2022). *funbiogeo: Functional Biogeography
-> Analyses*. R package version 0.0.0.9000,
-> <https://github.com/frbcesab/funbiogeo>.
-
-or the BibTeX version:
-
-    @Manual{,
-        title = {funbiogeo: Functional Biogeography Analyses},
-        author = {Nicolas Casajus and Matthias Grenié},
-        note = {R package version 0.0.0.9000},
-        url = {https://github.com/frbcesab/funbiogeo},
-      }
 
 ## Installation
 
@@ -100,7 +94,7 @@ fb_map_site_traits_completeness(site_locations, site_species, species_traits)
 See more features of `funbiogeo` in the [vignettes of the
 package](https://frbcesab.github.io/funbiogeo/articles/)
 
-## Longer Documentation form
+## Long-form documentations
 
 `funbiogeo` provides four vignettes to explain its functioning:
 
@@ -121,12 +115,41 @@ package](https://frbcesab.github.io/funbiogeo/articles/)
   which explains how to aggregate automatically your data to coarser
   grain and use it in further analyses.
 
-## Code of Conduct
+## Citation
+
+For the moment `funbiogeo` doesn’t offer a companion paper. But if you
+happen to use it in your paper you can cite the package through:
+
+> Casajus N & Grenié M (2024). *funbiogeo: Functional Biogeography
+> Analyses*. R package version 0.0.0.9000,
+> <https://github.com/frbcesab/funbiogeo>.
+
+You can also run:
+
+``` r
+citation("funbiogeo")
+```
+
+## Contributing
+
+All types of contributions are encouraged and valued. For more
+information, check out our [Contributor
+Guidelines](https://github.com/FRBCesab/funbiogeo/blob/main/CONTRIBUTING.md).
 
 Please note that the `funbiogeo` project is released with a [Contributor
 Code of
-Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
+Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms.
+
+## Acknowledgments
+
+This package has been developed for the
+[FRB-CESAB](https://www.fondationbiodiversite.fr/en/about-the-foundation/le-cesab/)
+working group
+[FREE](https://www.fondationbiodiversite.fr/en/the-frb-in-action/programs-and-projects/le-cesab/free/)
+that aims to advance the concept of functional rarity and examine the
+causes and consequences of functional rarity from local to global
+scales.
 
 ## References
 
