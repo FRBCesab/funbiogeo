@@ -26,18 +26,31 @@ pkgload::load_all()
 [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 <!-- badges: end -->
 
+
+
+<p align="left">
+  • <a href="#overview">Overview</a><br>
+  • <a href="#features">Features</a><br>
+  • <a href="#installation">Installation</a><br>
+  • <a href="#first-steps">First steps</a><br>
+  • <a href="#long-form-documentations">Long-form documentations</a><br>
+  • <a href="#citation">Citation</a><br>
+  • <a href="#contributing">Contributing</a><br>
+  • <a href="#acknowledgments">Acknowledgments</a><br>
+  • <a href="#references">References</a>
+</p>
+
+
+
 ## Overview
 
-The package `funbiogeo` aims to help users with analyses in functional
-biogeography (Violle et al. 2014) by loading and combining data, computing
-trait coverage, as well as computing functional diversity indices, drawing maps,
-correlating them with the environment, and upscaling assemblages.
+The package `funbiogeo` aims to help users with analyses in functional biogeography (Violle _et al._ 2014) by loading and combining data, computing trait coverage, as well as computing functional diversity indices, drawing maps, correlating them with the environment, and upscaling assemblages.
 
-It is aimed at first-timers of functional biogeography as well as more
-experienced users who want to obtain quick and easy exploratory plots.
+It is aimed at first-timers of functional biogeography as well as more experienced users who want to obtain quick and easy exploratory plots.
 
 
-## Main Features
+
+## Features
 
 `funbiogeo` offers:
 
@@ -52,26 +65,6 @@ experienced users who want to obtain quick and easy exploratory plots.
 * Functions to easily "upscale" your data to coarser spatial resolutions.
 
 
-## Citation
-
-For the moment `funbiogeo` doesn't offer a companion paper. But if you happen
-to use it in your paper you can cite the package through:
-
-> Casajus N, Grenié M (2022). _funbiogeo: Functional Biogeography Analyses_.
-  R package version 0.0.0.9000, <https://github.com/frbcesab/funbiogeo>.
-
-or the BibTeX version:
-
-```
-@Manual{,
-    title = {funbiogeo: Functional Biogeography Analyses},
-    author = {Nicolas Casajus and Matthias Grenié},
-    note = {R package version 0.0.0.9000},
-    url = {https://github.com/frbcesab/funbiogeo},
-  }
-
-```
-
 
 ## Installation
 
@@ -84,21 +77,18 @@ remotes::install_github("FRBCesab/funbiogeo")
 ```
 
 
+
 ## First steps
 
-This section will show you some useful functions from `funbiogeo`.
-For a longer introduction please refer to the
-["Get started" vignette](https://frbcesab.github.io/funbiogeo/).
+This section will show you some useful functions from `funbiogeo`. For a longer introduction please refer to the ["Get started" vignette](https://frbcesab.github.io/funbiogeo/).
 
-The package contains default example data named `species_traits`,
-`site_species`, and `site_locations`. You can for example visualize to completeness of your trait dataset using the `fb_plot_species_traits_completeness()` function:
+The package contains default example data named `species_traits`, `site_species`, and `site_locations`. You can for example visualize to completeness of your trait dataset using the `fb_plot_species_traits_completeness()` function:
 
 ```{r plot-sp-tr-complete}
 fb_plot_species_traits_completeness(species_traits)
 ```
 
-One other useful visualization is to see the trait coverage of each trait across
-all sites, using the function `fb_map_site_traits_completeness()`:
+One other useful visualization is to see the trait coverage of each trait across all sites, using the function `fb_map_site_traits_completeness()`:
 
 ```{r plot-site-tr-complete}
 fb_map_site_traits_completeness(site_locations, site_species, species_traits)
@@ -107,7 +97,8 @@ fb_map_site_traits_completeness(site_locations, site_species, species_traits)
 See more features of `funbiogeo` in the [vignettes of the package](https://frbcesab.github.io/funbiogeo/articles/)
 
 
-## Longer Documentation form
+
+## Long-form documentations
 
 `funbiogeo` provides four vignettes to explain its functioning:
 
@@ -123,16 +114,35 @@ See more features of `funbiogeo` in the [vignettes of the package](https://frbce
   use it in further analyses.
 
 
-## Code of Conduct
 
-Please note that the `funbiogeo` project is released with a 
-[Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html). 
-By contributing to this project, you agree to abide by its terms.
+## Citation
+
+For the moment `funbiogeo` doesn't offer a companion paper. But if you happen to use it in your paper you can cite the package through:
+
+> Casajus N & Grenié M (2024). _funbiogeo: Functional Biogeography Analyses_. R package version 0.0.0.9000, <https://github.com/frbcesab/funbiogeo>.
+
+You can also run:
+
+```{r eval=FALSE}
+citation("funbiogeo")
+```
+
+
+
+## Contributing
+
+All types of contributions are encouraged and valued. For more information, check out our [Contributor Guidelines](https://github.com/FRBCesab/funbiogeo/blob/main/CONTRIBUTING.md).
+
+Please note that the `funbiogeo` project is released with a [Contributor Code of Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+
+
+
+## Acknowledgments
+
+This package has been developed for the [FRB-CESAB](https://www.fondationbiodiversite.fr/en/about-the-foundation/le-cesab/) working group [FREE](https://www.fondationbiodiversite.fr/en/the-frb-in-action/programs-and-projects/le-cesab/free/) that aims to advance the concept of functional rarity and examine the causes and consequences of functional rarity from local to global scales.
+
 
 
 ## References
 
-Violle C, Reich, PB Pacala SW, _et al._ (2014) 
-The emergence and promise of functional biogeography. 
-*Proceedings of the National Academy of Sciences*, **111**, 13690--13696. 
-DOI: [10.1073/pnas.1415442111](https://doi.org/10.1073/pnas.1415442111)
+Violle C, Reich, PB Pacala SW, _et al._ (2014) The emergence and promise of functional biogeography. *Proceedings of the National Academy of Sciences*, **111**, 13690--13696. DOI: [10.1073/pnas.1415442111](https://doi.org/10.1073/pnas.1415442111)
