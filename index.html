@@ -91,14 +91,17 @@
 </div>
 <!-- badges: start -->
 
+<p align="left">
+• <a href="#overview">Overview</a><br> • <a href="#features">Features</a><br> • <a href="#installation">Installation</a><br> • <a href="#first-steps">First steps</a><br> • <a href="#long-form-documentations">Long-form documentations</a><br> • <a href="#citation">Citation</a><br> • <a href="#contributing">Contributing</a><br> • <a href="#acknowledgments">Acknowledgments</a><br> • <a href="#references">References</a>
+</p>
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>The package <code>funbiogeo</code> aims to help users with analyses in functional biogeography (Violle et al. 2014) by loading and combining data, computing trait coverage, as well as computing functional diversity indices, drawing maps, correlating them with the environment, and upscaling assemblages.</p>
+<p>The package <code>funbiogeo</code> aims to help users with analyses in functional biogeography (Violle <em>et al.</em> 2014) by loading and combining data, computing trait coverage, as well as computing functional diversity indices, drawing maps, correlating them with the environment, and upscaling assemblages.</p>
 <p>It is aimed at first-timers of functional biogeography as well as more experienced users who want to obtain quick and easy exploratory plots.</p>
 </div>
 <div class="section level2">
-<h2 id="main-features">Main Features<a class="anchor" aria-label="anchor" href="#main-features"></a>
+<h2 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
 </h2>
 <p><code>funbiogeo</code> offers:</p>
 <ul>
@@ -111,25 +114,10 @@
 </ul>
 </div>
 <div class="section level2">
-<h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
-</h2>
-<p>For the moment <code>funbiogeo</code> doesn’t offer a companion paper. But if you happen to use it in your paper you can cite the package through:</p>
-<blockquote>
-<p>Casajus N, Grenié M (2022). <em>funbiogeo: Functional Biogeography Analyses</em>. R package version 0.0.0.9000, <a href="https://github.com/frbcesab/funbiogeo" class="external-link uri">https://github.com/frbcesab/funbiogeo</a>.</p>
-</blockquote>
-<p>or the BibTeX version:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="sc">@</span>Manual{,</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    title <span class="ot">=</span> {funbiogeo<span class="sc">:</span> Functional Biogeography Analyses},</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    author <span class="ot">=</span> {Nicolas Casajus and Matthias Grenié},</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    note <span class="ot">=</span> {R package version <span class="dv">0</span>.<span class="dv">0</span>.<span class="fl">0.9000</span>},</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    url <span class="ot">=</span> {https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>frbcesab<span class="sc">/</span>funbiogeo},</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
-</div>
-<div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p>For the moment <code>funbiogeo</code> is not on CRAN but you can install the development version from GitHub as follow:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("remotes")  # Run this line if 'remotes' pkg is not installed</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"FRBCesab/funbiogeo"</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -138,17 +126,17 @@
 </h2>
 <p>This section will show you some useful functions from <code>funbiogeo</code>. For a longer introduction please refer to the <a href="https://frbcesab.github.io/funbiogeo/">“Get started” vignette</a>.</p>
 <p>The package contains default example data named <code>species_traits</code>, <code>site_species</code>, and <code>site_locations</code>. You can for example visualize to completeness of your trait dataset using the <code><a href="reference/fb_plot_species_traits_completeness.html">fb_plot_species_traits_completeness()</a></code> function:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/fb_plot_species_traits_completeness.html">fb_plot_species_traits_completeness</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-plot-sp-tr-complete-1.png" width="100%"></p>
 <p>One other useful visualization is to see the trait coverage of each trait across all sites, using the function <code><a href="reference/fb_map_site_traits_completeness.html">fb_map_site_traits_completeness()</a></code>:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/fb_map_site_traits_completeness.html">fb_map_site_traits_completeness</a></span><span class="op">(</span><span class="va">site_locations</span>, <span class="va">site_species</span>, <span class="va">species_traits</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-plot-site-tr-complete-1.png" width="100%"></p>
 <p>See more features of <code>funbiogeo</code> in the <a href="https://frbcesab.github.io/funbiogeo/articles/">vignettes of the package</a></p>
 </div>
 <div class="section level2">
-<h2 id="longer-documentation-form">Longer Documentation form<a class="anchor" aria-label="anchor" href="#longer-documentation-form"></a>
+<h2 id="long-form-documentations">Long-form documentations<a class="anchor" aria-label="anchor" href="#long-form-documentations"></a>
 </h2>
 <p><code>funbiogeo</code> provides four vignettes to explain its functioning:</p>
 <ul>
@@ -159,9 +147,26 @@
 </ul>
 </div>
 <div class="section level2">
-<h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
+<h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
-<p>Please note that the <code>funbiogeo</code> project is released with a <a href="https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html" class="external-link">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
+<p>For the moment <code>funbiogeo</code> doesn’t offer a companion paper. But if you happen to use it in your paper you can cite the package through:</p>
+<blockquote>
+<p>Casajus N &amp; Grenié M (2024). <em>funbiogeo: Functional Biogeography Analyses</em>. R package version 0.0.0.9000, <a href="https://github.com/frbcesab/funbiogeo" class="external-link uri">https://github.com/frbcesab/funbiogeo</a>.</p>
+</blockquote>
+<p>You can also run:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"funbiogeo"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
+</h2>
+<p>All types of contributions are encouraged and valued. For more information, check out our <a href="https://github.com/FRBCesab/funbiogeo/blob/main/CONTRIBUTING.md" class="external-link">Contributor Guidelines</a>.</p>
+<p>Please note that the <code>funbiogeo</code> project is released with a <a href="https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html" class="external-link">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
+</div>
+<div class="section level2">
+<h2 id="acknowledgments">Acknowledgments<a class="anchor" aria-label="anchor" href="#acknowledgments"></a>
+</h2>
+<p>This package has been developed for the <a href="https://www.fondationbiodiversite.fr/en/about-the-foundation/le-cesab/" class="external-link">FRB-CESAB</a> working group <a href="https://www.fondationbiodiversite.fr/en/the-frb-in-action/programs-and-projects/le-cesab/free/" class="external-link">FREE</a> that aims to advance the concept of functional rarity and examine the causes and consequences of functional rarity from local to global scales.</p>
 </div>
 <div class="section level2">
 <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
@@ -188,6 +193,7 @@
 <div class="community">
 <h2 data-toc-skip>Community</h2>
 <ul class="list-unstyled">
+<li><a href="CONTRIBUTING.html">Contributing guide</a></li>
 <li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
 </ul>
 </div>
