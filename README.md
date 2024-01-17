@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# funbiogeo <img src="man/figures/funbiogeo-sticker.png" align="right" style="float:right; height:120px;"/>
+# funbiogeo <img src="man/figures/logo.png" align="right" style="float:right; height:120px;"/>
 
 <!-- badges: start -->
 

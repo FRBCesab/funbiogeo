@@ -1,3 +1,10 @@
+url: https://frbcesab.github.io/funbiogeo
+
+template:
+  bootstrap: 5
+  bslib:
+    primary: "#2b4370"
+
 reference:
 - title: Included Datasets
   contents:
