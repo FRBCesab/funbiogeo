@@ -17,7 +17,7 @@ Description: Helps users with analyses in functional biogeogeography by loading
     and combining data, computing trait coverage, as well as computing 
     functional diversity indices, drawing maps, correlating them with the 
     environment, and upscaling assemblages.
-URL: https://github.com/frbcesab/funbiogeo
+URL: https://frbcesab.github.io/funbiogeo/, https://github.com/frbcesab/funbiogeo
 BugReports: https://github.com/frbcesab/funbiogeo/issues
 License: GPL (>= 2)
 Encoding: UTF-8
