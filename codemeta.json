@@ -252,7 +252,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "2276.375KB",
+  "fileSize": "2276.511KB",
   "releaseNotes": "https://github.com/frbcesab/funbiogeo/blob/master/NEWS.md",
   "readme": "https://github.com/FRBCesab/funbiogeo/blob/main/README.md",
   "contIntegration": ["https://github.com/FRBCesab/funbiogeo/actions", "https://codecov.io/gh/FRBCesab/funbiogeo"],
