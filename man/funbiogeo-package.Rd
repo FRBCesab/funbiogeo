@@ -6,11 +6,14 @@
 \alias{funbiogeo-package}
 \title{funbiogeo: Functional Biogeography Analyses}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 Helps users with analyses in functional biogeogeography by loading and combining data, computing trait coverage, as well as computing functional diversity indices, drawing maps, correlating them with the environment, and upscaling assemblages.
 }
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://frbcesab.github.io/funbiogeo/}
   \item \url{https://github.com/frbcesab/funbiogeo}
   \item Report bugs at \url{https://github.com/frbcesab/funbiogeo/issues}
 }
