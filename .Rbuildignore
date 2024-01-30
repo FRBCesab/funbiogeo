@@ -15,3 +15,4 @@
 ^inst/misc$
 ^CITATION\.cff$
 ^CONTRIBUTING\.md$
+^codemeta\.json$
