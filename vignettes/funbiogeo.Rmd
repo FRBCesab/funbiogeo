@@ -400,7 +400,7 @@ tavg <- terra::rast(tavg)
 fb_map_raster(tavg) + 
   scale_fill_distiller("Temperature", palette = "Spectral") +
   theme(legend.position = "bottom") + 
-  ggtitle("Mean annual temperature in Pennsylvania")
+  ggtitle("Mean annual temperature in Europe")
 ```
 
 We can also combine that with the annual precipitation information available
@@ -426,7 +426,7 @@ map_precipitation <- fb_map_raster(prec) +
 # Plot composition -------------------------------------------------------------
 
 (map_temperature / map_precipitation) + 
-  plot_annotation(title = "Pennsylvania", 
+  plot_annotation(title = "Europe", 
                   theme = theme(plot.title = element_text(face = "bold"))) & 
   theme_classic() &
   theme(text = element_text(family = "mono"))
