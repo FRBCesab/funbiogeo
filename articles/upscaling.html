@@ -160,7 +160,7 @@ package). Let’s import this coarser raster.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Import study area grid ----</span></span>
 <span><span class="va">coarser_grid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"grid_area.tif"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></span>
-<span><span class="va">coarser_grid</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">coarser_grid</span><span class="op">)</span></span>
+<span><span class="va">coarser_grid</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">coarser_grid</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">coarser_grid</span></span>
 <span><span class="co">#&gt; class       : SpatRaster </span></span>
@@ -295,11 +295,11 @@ with raster data. They need data.frames to work well. We can do this
 through the specific function <code><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame()</a></code> in
 <code>terra</code> (make sure to check the dedicated help page that
 specifies all the additional arguments with
-<code><a href="https://rdrr.io/pkg/terra/man/as.data.frame.html" class="external-link">?terra::as.data.frame</a></code>).</p>
+<code><a href="https://rspatial.github.io/terra/reference/as.data.frame.html" class="external-link">?terra::as.data.frame</a></code>).</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Use the 'cells = TRUE' argument to index results with a new cell column</span></span>
 <span><span class="co"># corresponding to the ID of the coarser grid pixels</span></span>
-<span><span class="va">site_species_agg_df</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/terra/man/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">site_species_agg</span>, cells <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">site_species_agg_df</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">site_species_agg</span>, cells <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">site_species_agg_df</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span>
 <span><span class="co">#&gt;    cell sp_001 sp_002 sp_003</span></span>
