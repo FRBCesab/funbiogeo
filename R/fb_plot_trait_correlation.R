@@ -30,17 +30,18 @@ fb_plot_trait_correlation <- function(
   check_species_categories(species_categories)
   
   # Keep only numeric columns
-  trait_type <- vapply(species_traits[, -1, drop = FALSE], typeof, character(1))
-  
-  numerical_traits <- trait_type %in% c("double", "integer")
+  numerical_traits <- vapply(
+    species_traits[, -1, drop = FALSE], is.numeric, logical(1)
+  )
   
   if (!any(numerical_traits)) {
-    stop("No numerical traits found, cannot plot trait correlations")
+    stop("No numerical traits found, cannot plot trait correlations",
+         call. = FALSE)
   }
   
   if (!all(numerical_traits)) {
     message("Non-numerical traits found, only keeping numerical traits ",
-            "to show trait correlation")
+            "to display trait correlations")
   }
   
   # Subset Traits --------------------------------------------------------------
