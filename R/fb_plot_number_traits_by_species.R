@@ -44,17 +44,24 @@ fb_plot_number_traits_by_species <- function(
   number_trait_per_species <- lapply(
     number_trait_per_species,
     function(x) {
-      number_category <- by(x, x$n_traits, function(y) c(n = nrow(y)))
       
-      number_category <- utils::stack(number_category)
-      number_category$n_traits <- as.numeric(as.character(number_category$ind))
+      # List all possible number of traits
+      trait_list <- seq(0, n_traits)
+      names(trait_list) <- trait_list
       
-      # Compute number to show at least 0 or more, etc.
-      number_category[["at_least"]] <- rev(
-        cumsum(rev(number_category$values))
+      # Count number of species with at least given number of traits
+      n_sp_over_at_least <- colSums(outer(x$n_traits, trait_list, FUN = ">="))
+      
+      # Convert to data.frame and tidy up
+      n_sp_over_at_least <- utils::stack(n_sp_over_at_least)
+      n_sp_over_at_least$n_traits <- as.numeric(
+        as.character(n_sp_over_at_least$ind)
       )
+      n_sp_over_at_least$at_least <- n_sp_over_at_least$values
       
-      return(number_category)
+      n_sp_over_at_least = n_sp_over_at_least[, c("n_traits", "at_least")]
+      
+      return(n_sp_over_at_least)
     }
   )
   
