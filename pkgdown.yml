@@ -1,4 +1,4 @@
-pandoc: 2.19.2
+pandoc: 3.1.11
 pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
@@ -6,7 +6,7 @@ articles:
   funbiogeo: funbiogeo.html
   long-format: long-format.html
   upscaling: upscaling.html
-last_built: 2024-02-20T09:46Z
+last_built: 2024-04-05T09:11Z
 urls:
   reference: https://frbcesab.github.io/funbiogeo/reference
   article: https://frbcesab.github.io/funbiogeo/articles
