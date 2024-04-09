@@ -211,7 +211,6 @@ fb_plot_species_traits_completeness <- function(
      common_colnames, n_max_trait, species_traits_categories, species_traits,
      species_traits_long)
   
-  
   # Plot Species x Trait completeness
   ggplot2::ggplot(
     species_traits_long_categories,
@@ -230,8 +229,9 @@ fb_plot_species_traits_completeness <- function(
       "Trait", guide = ggplot2::guide_axis(n.dodge = 2)
     ) +
     ggplot2::scale_y_discrete("Species", labels = NULL) +
-    ggplot2::scale_fill_brewer(
-      "Known Trait?", palette = "Set1",
+    ggplot2::scale_fill_manual(
+      "Known Trait?",
+      values = c(`FALSE` = "#E41A1C", `TRUE` = "#377EB8"),
       labels = c(`FALSE` = "No", `TRUE` = "Yes")
     ) +
     ggplot2::coord_cartesian(expand = FALSE) +
