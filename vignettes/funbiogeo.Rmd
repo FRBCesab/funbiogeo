@@ -355,7 +355,7 @@ with `fundiversity`.
 # Functional richness in 'fundiversity' requires all the traits to be known
 # so we need to filter the traits
 filt_traits <- subset(
-  red_sp_traits, !is.na(adult_body_mass), !is.na(litter_size)
+  red_sp_traits, !is.na(adult_body_mass) & !is.na(litter_size)
 )
 
 # We need to transform species and site names as row names for species-traits
