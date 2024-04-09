@@ -596,7 +596,7 @@ functional richness with <code>fundiversity</code>.</p>
 <span><span class="co"># Functional richness in 'fundiversity' requires all the traits to be known</span></span>
 <span><span class="co"># so we need to filter the traits</span></span>
 <span><span class="va">filt_traits</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span></span>
-<span>  <span class="va">red_sp_traits</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">adult_body_mass</span><span class="op">)</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">litter_size</span><span class="op">)</span></span>
+<span>  <span class="va">red_sp_traits</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">adult_body_mass</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">litter_size</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># We need to transform species and site names as row names for species-traits</span></span>
@@ -612,7 +612,6 @@ functional richness with <code>fundiversity</code>.</p>
 <span></span>
 <span><span class="co"># Compute Functional Richness</span></span>
 <span><span class="va">fric</span> <span class="op">&lt;-</span> <span class="fu">fundiversity</span><span class="fu">::</span><span class="fu"><a href="https://funecology.github.io/fundiversity/reference/fd_fric.html" class="external-link">fd_fric</a></span><span class="op">(</span><span class="va">filt_traits</span>, <span class="va">filt_sites</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Removed 13 species with missing trait(s)</span></span>
 <span><span class="co">#&gt; Differing number of species between trait dataset and site-species matrix</span></span>
 <span><span class="co">#&gt; Taking subset of species</span></span>
 <span><span class="co">#&gt; Warning in fundiversity::fd_fric(filt_traits, filt_sites): Some sites had less</span></span>
@@ -620,12 +619,12 @@ functional richness with <code>fundiversity</code>.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">fric</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   site     FRic</span></span>
-<span><span class="co">#&gt; 1    1 11.37721</span></span>
-<span><span class="co">#&gt; 2    2 11.37721</span></span>
-<span><span class="co">#&gt; 3    3 11.37721</span></span>
-<span><span class="co">#&gt; 4    4 11.37721</span></span>
-<span><span class="co">#&gt; 5    5 11.37721</span></span>
-<span><span class="co">#&gt; 6    6 11.37721</span></span></code></pre></div>
+<span><span class="co">#&gt; 1    1 10.78778</span></span>
+<span><span class="co">#&gt; 2    2 10.78778</span></span>
+<span><span class="co">#&gt; 3    3 10.78778</span></span>
+<span><span class="co">#&gt; 4    4 10.78778</span></span>
+<span><span class="co">#&gt; 5    5 10.78778</span></span>
+<span><span class="co">#&gt; 6    6 10.78778</span></span></code></pre></div>
 <p>We now have a table with Functional Richness computed for all of our
 sites.</p>
 </div>
