@@ -27,7 +27,7 @@
 #' my_map <- fb_map_raster(tavg) + 
 #'   scale_fill_distiller("Temperature", palette = "Spectral") +
 #'   theme(legend.position = "bottom") + 
-#'   ggtitle("Mean annual temperature in Pennsylvania")
+#'   ggtitle("Mean annual temperature in Western Europe")
 #' 
 #' my_map
 #' 

@@ -50,7 +50,6 @@ fb_plot_site_traits_completeness <- function(
     function(x) site_species[, c("site", x), drop = FALSE]
   )
   
-  
   # Compute site-level trait coverage for all traits
   all_coverage <- lapply(
     site_species_categories,
