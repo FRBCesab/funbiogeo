@@ -16,7 +16,7 @@ pkgload::load_all()
 ```
 
 
-# funbiogeo <img src="man/figures/logo.png" align="right" style="float:right; height:120px;"/>
+# funbiogeo - Streamlining functional biogeography analyses <img src="man/figures/logo.png" align="right" style="float:right; height:120px;"/>
 
 
 <!-- badges: start -->
