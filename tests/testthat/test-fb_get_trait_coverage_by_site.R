@@ -31,6 +31,12 @@ species_traits_na <- data.frame(
   t1      = c(1.1, 2.5, NA, NA)
 )
 
+# Data with only missing data
+species_traits_only_na <- data.frame(
+  species = paste0("sp", 1:4),
+  t1      = NA
+)
+
 # Occurrence matrix
 occ_dat <- data.frame(
   site = letters[1:5],
@@ -175,6 +181,14 @@ test_that("fb_get_trait_coverage_by_site() works with occurrence matrices", {
   
   expect_equal(test_coverage[["trait_coverage"]][[1]], 2/3)
   
+  # with species for which we have no traits
+  expect_silent(
+    test_coverage <- fb_get_trait_coverage_by_site(
+      occ_dat, species_traits_only_na
+    )
+  )
+  
+  expect_equal(test_coverage[["trait_coverage"]][[1]], 0)
 })
 
 

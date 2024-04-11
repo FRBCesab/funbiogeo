@@ -40,40 +40,41 @@ fb_get_trait_coverage_by_site <- function(site_species, species_traits) {
   check_site_species(site_species)
   check_species_traits(species_traits)
   
-  # Remove missing trait data
-  species_traits <- species_traits[stats::complete.cases(species_traits),]
+  # Get species in common between both matrices
+  species <- list_common_species(
+    colnames(site_species), species_traits[["species"]]
+  )
   
-  # Get species in common between both matrices ----
+  # Take species with NA into account
+  species_with_na <- species_traits[["species"]][
+    !stats::complete.cases(species_traits)
+  ]
+  species_with_na <- intersect(species_with_na, species)
   
-  species <- list_common_species(colnames(site_species), 
-                                 species_traits[["species"]])
+  # Subset data with common species
+  species_traits <- species_traits[
+    species_traits[["species"]] %in% species,, drop = FALSE
+  ]
   
   
-  # Subset data with common species ----
-  
-  species_traits <- species_traits[species_traits[["species"]] %in% species, ,
-                                   drop = FALSE]
-  
-  
-  # Count all species (presence/abundance) per site ----
-  
+  # Count all species (presence/abundance) per site
   site_total_abundance <- rowSums(
     site_species[ , -1, drop = FALSE], na.rm = TRUE
   )
   
   
-  # Count species with traits per site -----
+  # Count species with traits per site
+  if (length(species_with_na) != 0) site_species[, species_with_na] <- 0
+  site_cover_abundance <- rowSums(
+    site_species[, species, drop = FALSE], na.rm = TRUE
+  )
   
-  site_cover_abundance <- rowSums(site_species[ , species, drop = FALSE], 
-                                  na.rm = TRUE)
   
-  # Compute trait coverage ----
-  
+  # Compute trait coverage
   trait_coverage <- site_cover_abundance / site_total_abundance
   
   
-  # Transforming into tidy format ----
-  
+  # Transforming into tidy format
   data.frame(site             = site_species[["site"]], 
              trait_coverage   = trait_coverage,
              stringsAsFactors = FALSE)
