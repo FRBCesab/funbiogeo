@@ -3,28 +3,25 @@
 \docType{data}
 \name{site_species}
 \alias{site_species}
-\title{Sites x Species of Western Europe Mammals}
+\title{Sites x Species data}
 \format{
-A \code{data.frame} with 1,505 rows (sites) and 150 columns (1 column for
-site label and 149 for species occurrence).
+A \code{data.frame} with 4,723 rows (sites) and 27 columns (1 column for
+site label and 26 for species occurrence).
 }
 \usage{
 site_species
 }
 \description{
-This dataset contains the presence/absence of mammals species in Western
-Europe. This dataset is derived from IUCN range maps downloaded at:
-\url{https://www.iucnredlist.org/resources/spatial-data-download}. In
-respect to the license, species names have been anonymized.
-}
-\details{
-See \url{https://github.com/frbcesab/eumammals} for a complete description
-of the workflow used to create this dataset.
+This dataset is derived from the WOODIV database (available at:
+\url{https://www.nature.com/articles/s41597-021-00873-3}). It contains the
+presence/absence of the 26 tree species (members of the Rosaceae family)
+occurring in Portugal, Spain, France, and Italy (Mediterranean part). The
+presence/absence is available at 4,723 sites (grid cells of 10 x 10 km
+horizontal resolution). Sites coordinates are provided in \code{site_locations}.
 
 This dataset shows the format of the argument \code{site_species} used in
-several functions of \code{funbiogeo}.
-
-Note that sites labels (\code{site}) is the first column of this dataset.
+several functions of \code{funbiogeo}. Note that site labels must be the first
+column and must be named \code{site}.
 }
 \examples{
 data("site_species")
@@ -33,7 +30,9 @@ dim(site_species)
 site_species[1:6, 1:6]
 }
 \references{
-IUCN (2021) The IUCN Red List of Threatened Species. Version 2021-2.
-Downloaded on 2021/10/11.
+Monnet AC, Cilleros K, Médail F \emph{et al.} (2021) WOODIV, a database of
+occurrences, functional traits, and phylogenetic data for all
+Euro-Mediterranean trees. \strong{Scientific Data}, 8, 89.
+DOI: \href{https://doi.org/10.1038/s41597-021-00873-3}{10.1038/s41597-021-00873-3}
 }
 \keyword{datasets}

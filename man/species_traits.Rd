@@ -3,39 +3,31 @@
 \docType{data}
 \name{species_traits}
 \alias{species_traits}
-\title{Species x Traits of Western Europe Mammals}
+\title{Species x Traits data}
 \format{
-A matrix with 149 rows (species) and the following seven columns:
+A \code{data.frame} with 26 rows (species) and the following five columns:
 \describe{
 \item{species}{species name corresponding to the columns of \code{site_species}}
-\item{adult_body_mass}{adult body mass (in grams)}
-\item{gestation_length}{length of time of non-inactive fetal growth
-(in days)}
-\item{litter_size}{number of offspring born per litter per female}
-\item{max_longevity}{maximum adult age (in months)}
-\item{sexual_maturity_age}{age when individuals are first physically
-capable of reproducing (in days)}
-\item{diet_breadth}{number of dietary categories eaten}
+\item{plant_height}{adult plant height (in \eqn{m})}
+\item{seed_mass}{seed mass (in \eqn{g})}
+\item{sla}{specific leaf area, i.e. the ratio between leaf area and dry
+mass (in \eqn{m^{2}\cdot kg^{−1}})}
+\item{wood_density}{wood density, i.e. stem specific density
+(in \eqn{kg\cdot dm^{–3}})}
 }
 }
 \usage{
 species_traits
 }
 \description{
-This dataset contains values for six functional traits of Western Europe
-mammals species. These values were extracted from the \strong{PanTHERIA} database
-(Jones 2009), a database on World mammals traits available at:
-\url{https://esapubs.org/archive/ecol/E090/184/metadata.htm}.
-In respect to the IUCN license, species names have been anonymized.
-}
-\details{
-See \url{https://github.com/frbcesab/eumammals} for a complete description
-of the workflow used to create this dataset.
+This dataset is derived from the WOODIV database (available at:
+\url{https://www.nature.com/articles/s41597-021-00873-3}). It contains the
+values of four functional traits for 26 tree species (members of the Rosaceae
+family) occurring in Portugal, Spain, France, and Italy (Mediterranean part).
 
 This dataset shows the format of the argument \code{species_traits} used in
-several functions of \code{funbiogeo}.
-
-Note that species names (\code{species}) is the first column of this dataset.
+several functions of \code{funbiogeo}. Note that species names must be
+the first column and must be named \code{species}.
 }
 \examples{
 data("species_traits")
@@ -44,8 +36,9 @@ dim(species_traits)
 head(species_traits)
 }
 \references{
-Jones KE \emph{et al.} (2009) PanTHERIA: A species-level database of life
-history, ecology, and geography of extant and recently extinct mammals.
-\emph{Ecology}, \strong{90}, 2648. DOI: 10.1890/08-1494.1.
+Monnet AC, Cilleros K, Médail F \emph{et al.} (2021) WOODIV, a database of
+occurrences, functional traits, and phylogenetic data for all
+Euro-Mediterranean trees. \strong{Scientific Data}, 8, 89.
+DOI: \href{https://doi.org/10.1038/s41597-021-00873-3}{10.1038/s41597-021-00873-3}
 }
 \keyword{datasets}

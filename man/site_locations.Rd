@@ -3,32 +3,37 @@
 \docType{data}
 \name{site_locations}
 \alias{site_locations}
-\title{Sites x Locations of Western Europe Mammals}
+\title{Sites x Locations data}
 \format{
-An \code{sf} object with 1,505 rows (grid cells) with a WGS84 (EPSG:4236)
-Coordinate Reference System.
+An \code{sf} \code{POLYGON} object with 4,723 rows (grid cells) defined in the
+ETRS89-extended / LAEA Europe Coordinate Reference System (EPSG:3035).
 }
 \usage{
 site_locations
 }
 \description{
-This dataset contains spatial coordinates (grid cells of 0.5° x 0.5°
-horizontal resolution) of sites of Western Europe where mammals species
-presence/absence (see \code{site_species} dataset) has been sampled.
-}
-\details{
-See \url{https://github.com/frbcesab/eumammals} for a complete description
-of the workflow used to create this dataset.
+This dataset is derived from the WOODIV database (available at:
+\url{https://www.nature.com/articles/s41597-021-00873-3}). It contains the
+spatial coordinates of sites (grid cells of 10 x 10 km  horizontal
+resolution) sampled in Portugal, Spain, France, and Italy (Mediterranean
+part) for which at least one of the 26 tree species (members of the Rosaceae
+family) occurs.
 
 This dataset shows the format of the argument \code{site_locations} used in
-several functions of \code{funbiogeo}.
-
-The variable \code{site} corresponds to the sites labels.
+several functions of \code{funbiogeo}. The variable \code{site} corresponds to the
+site labels (must match the same column in \code{site_species}) and the variable
+\code{country} will be used as a site grouping factor.
 }
 \examples{
 data("site_locations")
 class(site_locations)
 dim(site_locations)
 head(site_locations)
+}
+\references{
+Monnet AC, Cilleros K, Médail F \emph{et al.} (2021) WOODIV, a database of
+occurrences, functional traits, and phylogenetic data for all
+Euro-Mediterranean trees. \strong{Scientific Data}, 8, 89.
+DOI: \href{https://doi.org/10.1038/s41597-021-00873-3}{10.1038/s41597-021-00873-3}
 }
 \keyword{datasets}

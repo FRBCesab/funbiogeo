@@ -3,28 +3,24 @@
 \docType{data}
 \name{species_categories}
 \alias{species_categories}
-\title{Species x Categories of Western Europe Mammals}
+\title{Species x Categories data}
 \format{
-A \code{data.frame} with 149 rows (species) and 2 columns (1 column for
-species name and 1 for the order).
+A \code{data.frame} with 26 rows (species) and 3 columns (\code{species},
+\code{genus}, \code{binomial}).
 }
 \usage{
 species_categories
 }
 \description{
-This dataset contains the order of mammals species in Western
-Europe. This dataset is derived from IUCN range maps downloaded at:
-\url{https://www.iucnredlist.org/resources/spatial-data-download}. In
-respect to the license, species names have been anonymized.
-}
-\details{
-See \url{https://github.com/frbcesab/eumammals} for a complete description
-of the workflow used to create this dataset.
+This dataset is derived from the WOODIV database (available at:
+\url{https://www.nature.com/articles/s41597-021-00873-3}). It contains the
+genus (and binomial name) of the 26 tree species (members of the Rosaceae
+family) occurring in Portugal, Spain, France, and Italy (Mediterranean part).
+The genus will be used as a species grouping factor.
 
 This dataset shows the format of the argument \code{species_categories} used in
-several functions of \code{funbiogeo}.
-
-Note that species names (\code{species}) is the first column of this dataset.
+several functions of \code{funbiogeo}. Note that species names must be
+the first column and must be named \code{species}.
 }
 \examples{
 data("species_categories")
@@ -33,7 +29,9 @@ dim(species_categories)
 species_categories[1:6, ]
 }
 \references{
-IUCN (2021) The IUCN Red List of Threatened Species. Version 2021-2.
-Downloaded on 2021/10/11.
+Monnet AC, Cilleros K, Médail F \emph{et al.} (2021) WOODIV, a database of
+occurrences, functional traits, and phylogenetic data for all
+Euro-Mediterranean trees. \strong{Scientific Data}, 8, 89.
+DOI: \href{https://doi.org/10.1038/s41597-021-00873-3}{10.1038/s41597-021-00873-3}
 }
 \keyword{datasets}
