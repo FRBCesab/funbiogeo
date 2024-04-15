@@ -112,9 +112,8 @@ fb_map_raster(upscaled_richness)
 ## Aggregating site-species data to a coarser spatial scale
 
 Now that we've learned how to aggregate arbitrary data at the site scale over a
-spatial scale. We're going to use our provided example named `site_species` on
-Western European mammals at a resolution of 0.5° to get new sites from a grid
-with pixels of 0.83° of resolution.
+spatial scale. We're going to use our provided example named `site_species` at a 
+resolution of 10 x 10 km to get new sites from a grid with pixels of 0.83° of resolution.
 
 As shown in the part above, we'll need three objects: `site_species`, which
 describes the species present across sites; `site_locations`, which gives the

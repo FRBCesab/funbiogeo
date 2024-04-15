@@ -100,7 +100,7 @@ and output a wider object.
 ## Usage
 
 `funbiogeo` provides a small excerpt of long format data to show how to use the functions.
-This data sits at `system.file("extdata", "raw_mammals_data.csv", package = "funbiogeo")`.
+This data sits at `system.file("extdata", "funbiogeo_raw_data.csv", package = "funbiogeo")`.
 
 Let's import the long format dataset provided by `funbiogeo`:
 

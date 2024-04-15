@@ -117,7 +117,7 @@ knitr::kable(
 )
 ```
 
-The example dataset contains the occurrence of the 26 mammal species
+The example dataset contains the occurrence of the 26 Rosaceae tree species
 across 4,723 sites (grid cells of 10 x 10 km resolution).
 
 Note that to use your own site by species `data.frame`, it should follow similar
@@ -315,8 +315,8 @@ diversity indices using the `fundiversity` package.
 
 ### Community-Weighted Mean (CWM)
 
-We're interested to look at the spatial distribution of the average body mass
-and litter size of European mammals. To do so, we can compute the
+We're interested to look at the spatial distribution of the average plant height
+and seed mass of Rosaceae tree species. To do so, we can compute the
 community-weighted mean of both traits. We'll use the `fb_cwm()` function to do
 so, it takes the site x species `data.frame` and species x traits `data.frame`
 as arguments.
