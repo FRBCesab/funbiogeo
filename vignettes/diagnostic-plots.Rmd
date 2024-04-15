@@ -92,14 +92,14 @@ fb_plot_distribution_site_trait_coverage(site_species, species_traits)
 We see the distribution of species coverage per site (along the x-axis) for each
 trait (along the y-axis) and with all traits taken together (shown at the top of
 the top on the line `all_traits`). The proportions on the y-axis labels are the
-average coverage observed for this trait. So for example, considering only adult
+average coverage observed for this trait. ~~So for example, considering only adult
 body mass as a trait would mean that we would achieve an average coverage of
 95.3%, meaning that on average across all sites 95.3% of species are covered. We
 can compare this to the trait *max_longevity* which
 corresponds to the maximum longevity of the species. We see that the average
 trait coverage across all sites is 82.1%. We see that the distribution however
 is rather wide, with some sites showing a coverage of around 90% (the large
-bump), while some sites are close to 62% coverage.
+bump), while some sites are close to 62% coverage.~~
 
 This plot considers the distribution of species across sites instead of focusing
 only on the species by traits `data.frame`. This maybe useful to realize, for
@@ -153,9 +153,9 @@ The function outputs a lollipop chart. On the bottom x-axis there is the number
 of species covered by the given trait (the top x-axis represents the proportion
 of species, which is directly proportional). The y-axis represents each trait.
 The dot represents the actual coverage observed with the corresponding proportion
-of species written on top. With this figure we see that 82.6% of the species
+of species written on top. ~~With this figure we see that 82.6% of the species
 have a non-missing adult body mass in the species by trait `data.frame`, while
-only 54.4% have a non-missing maximum longevity.
+only 54.4% have a non-missing maximum longevity.~~
 
 Adding the second argument `threshold_species_proportion` displays a vertical
 bar at the target proportion to easily target traits covering a certain
@@ -167,7 +167,7 @@ fb_plot_number_species_by_trait(species_traits, threshold_species_proportion = 0
 ```
 
 The red dashed vertical line shows the corresponding species coverage with
-labels indicating the proportion and corresponding number of species (n = 104).
+labels indicating the proportion and corresponding number of species ~~(n = 104).~~
 
 
 ### Plotting the number of traits per species
@@ -198,8 +198,8 @@ the categories are nested: the set of species with at least 1 trait contains the
 set of species with at least 2 traits, and so on and so forth. By definition all
 species have 0 or more known traits, but we show that in the plot as a reference to
 see how the proportion decreases with increasing number of traits. The
-proportion is shown as text above each dot representing it. So for example,
-there are 62.4% species with at least 4 traits.
+proportion is shown as text above each dot representing it. ~~So for example,
+there are 62.4% species with at least 4 traits.~~
 
 This plot does not tell us if all species with at least 4 traits share the same
 trait combination (there are multiple 4 trait combinations), but it's a first indication.
@@ -214,7 +214,7 @@ fb_plot_number_traits_by_species(species_traits, threshold_species_proportion = 
 Adding this argument displays a vertical bar at the target proportion of species
 to easily target number of traits covering a certain proportion of species. The
 red dashed vertical line shows the corresponding species coverage with labels
-indicating the proportion and corresponding number of species (n = 74).
+indicating the proportion and corresponding number of species ~~(n = 74).~~
 
 ### Plotting environmental position of sites
 
@@ -247,9 +247,9 @@ y-axis. The environmental position of the sites are displayed using the big blue
 dots, while the light gray pixels are all the environmental variables extracted
 from the provided environmental raster.
 
-This figure can show us that the first six sites are actually lower in
+~~This figure can show us that the first six sites are actually lower in
 temperature and higher in annual precipitation than most other places in our
-environmental rasters.
+environmental rasters.~~
 
 
 ### Plotting trait coverage for all sites
@@ -273,8 +273,8 @@ column. Note that for readability reasons the color scale has been discretized
 from 0 to 100% coverage. Traits are ranked in decreasing average coverage. The
 last column `all_traits` contains the coverage for all traits taken together.
 
-With this figure we can see that all sites have over 80% coverage with both
-adult body mass and litter size.
+~~With this figure we can see that all sites have over 80% coverage with both
+adult body mass and litter size.~~
 
 
 ### Plotting trait coverage per species
@@ -296,9 +296,9 @@ considers all traits taken together. The y-axis represents species in decreasing
 coverage order from bottom to top. Each cell thus represents the trait for a
 species: blue if the trait is known and red if it is missing.
 
-From this plot we see that a significant proportion of species have missing
+~~From this plot we see that a significant proportion of species have missing
 traits and that even the most non-missing traits, adult body mass, is only known
-for 82.6% of the species.
+for 82.6% of the species.~~
 
 
 ### Displaying traits combinations
@@ -328,9 +328,9 @@ missing. By default the combinations are ordered by increasing number from top
 to bottom, with the most numerous combinations of trait presences at the very
 bottom of the graph.
 
-With this graph we can see that we have exactly 53 species (35.6% of the total
+~~With this graph we can see that we have exactly 53 species (35.6% of the total
 number of species provided) have all their traits present, while 21 species
-(14.1%) have not a single trait in the dataset.
+(14.1%) have not a single trait in the dataset.~~
 
 If we change `order_by` to `"complete"`, the combinations are ordered instead by
 the number of trait presents among them:
@@ -367,9 +367,9 @@ shown squared that are colored in function of their correlation coefficient
 close to 0). The correlation coefficients are also displayed in the middle of
 this square.
 
-With this visualization we can see that adult body mass and gestation length are
+~~With this visualization we can see that adult body mass and gestation length are
 quite highly correlated (cor = 0.7), while diet breadth is correlated with no
-other trait.
+other trait.~~
 
 
 ## Maps
@@ -410,12 +410,12 @@ It displays maps of the sites, colored by their trait coverage. Each facet
 represents a different trait while the `all_traits` facet consider all traits
 together.
 
-From this plot we can see that on average the South of Western Europe is less
+~~From this plot we can see that on average the South of Western Europe is less
 covered by traits than the North of Western Europe. It may be an indication of
 higher species richness in the South compared to the North which makes achieving
 high coverages more difficult. Furthermore, we can see that a site in the
 Netherlands has 0% coverage of diet breadth. This is most likely the sign of
-sign of low species richness with an absence of diet breadth for those species.
+sign of low species richness with an absence of diet breadth for those species.~~
 
 
 ### Mapping arbitrary site data
