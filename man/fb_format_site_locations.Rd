@@ -46,7 +46,7 @@ automatically removes repeated coordinates from the input dataset.
 \examples{
 library("funbiogeo")
 
-filename <- system.file("extdata", "raw_mammals_data.csv", 
+filename <- system.file("extdata", "funbiogeo_raw_data.csv", 
                         package = "funbiogeo")
 all_data <- read.csv(filename)
 

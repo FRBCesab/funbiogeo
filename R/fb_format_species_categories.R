@@ -22,14 +22,14 @@
 #' @examples
 #' library("funbiogeo")
 #' 
-#' filename <- system.file("extdata", "raw_mammals_data.csv", 
+#' filename <- system.file("extdata", "funbiogeo_raw_data.csv", 
 #'                         package = "funbiogeo")
 #' all_data <- read.csv(filename)
 #' 
 #' head(all_data)
 #' 
 #' species_categories <- fb_format_species_categories(all_data, "species", 
-#'                                                    "order")
+#'                                                    "genus")
 #' species_categories[1:6, ]
 
 fb_format_species_categories <- function(data, species, category) {
