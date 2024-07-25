@@ -1,156 +1,54 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/404.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/CONTRIBUTING.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/articles/diagnostic-plots.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/articles/funbiogeo.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/articles/long-format.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/articles/upscaling.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/index.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/fb_aggregate_site_data.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/fb_count_sites_by_species.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/fb_count_species_by_site.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/fb_count_species_by_trait.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/fb_count_traits_by_species.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/fb_cwm.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/fb_filter_sites_by_species_coverage.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/fb_filter_sites_by_trait_coverage.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/fb_filter_species_by_site_coverage.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/fb_filter_species_by_trait_coverage.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/fb_filter_traits_by_species_coverage.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/fb_format_site_locations.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/fb_format_site_species.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/fb_format_species_categories.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/fb_format_species_traits.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/fb_get_all_trait_coverages_by_site.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/fb_get_environment.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/fb_get_trait_combination_coverage.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/fb_get_trait_coverage_by_site.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/fb_make_report.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/fb_map_raster.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/fb_map_site_data.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/fb_map_site_traits_completeness.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/fb_plot_distribution_site_trait_coverage.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/fb_plot_number_sites_by_species.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/fb_plot_number_species_by_trait.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/fb_plot_number_traits_by_species.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/fb_plot_site_environment.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/fb_plot_site_traits_completeness.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/fb_plot_species_traits_completeness.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/fb_plot_trait_combination_frequencies.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/fb_plot_trait_correlation.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/fb_table_trait_summary.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/funbiogeo-package.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/site_locations.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/site_species.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/species_categories.html</loc>
-  </url>
-  <url>
-    <loc>https://frbcesab.github.io/funbiogeo/reference/species_traits.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://frbcesab.github.io/funbiogeo/404.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/CONTRIBUTING.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/LICENSE.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/articles/diagnostic-plots.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/articles/funbiogeo.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/articles/index.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/articles/long-format.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/articles/upscaling.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/authors.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/index.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/news/index.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/fb_aggregate_site_data.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/fb_count_sites_by_species.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/fb_count_species_by_site.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/fb_count_species_by_trait.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/fb_count_traits_by_species.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/fb_cwm.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/fb_filter_sites_by_species_coverage.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/fb_filter_sites_by_trait_coverage.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/fb_filter_species_by_site_coverage.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/fb_filter_species_by_trait_coverage.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/fb_filter_traits_by_species_coverage.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/fb_format_site_locations.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/fb_format_site_species.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/fb_format_species_categories.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/fb_format_species_traits.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/fb_get_all_trait_coverages_by_site.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/fb_get_environment.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/fb_get_trait_combination_coverage.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/fb_get_trait_coverage_by_site.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/fb_make_report.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/fb_map_raster.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/fb_map_site_data.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/fb_map_site_traits_completeness.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/fb_plot_distribution_site_trait_coverage.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/fb_plot_number_sites_by_species.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/fb_plot_number_species_by_trait.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/fb_plot_number_traits_by_species.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/fb_plot_site_environment.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/fb_plot_site_traits_completeness.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/fb_plot_species_traits_completeness.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/fb_plot_trait_combination_frequencies.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/fb_plot_trait_correlation.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/fb_table_trait_summary.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/funbiogeo-package.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/index.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/site_locations.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/site_species.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/species_categories.html</loc></url>
+<url><loc>https://frbcesab.github.io/funbiogeo/reference/species_traits.html</loc></url>
 </urlset>
+

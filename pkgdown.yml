@@ -1,13 +1,12 @@
 pandoc: 3.1.11
-pkgdown: 2.0.7
+pkgdown: 2.1.0
 pkgdown_sha: ~
 articles:
   diagnostic-plots: diagnostic-plots.html
   funbiogeo: funbiogeo.html
   long-format: long-format.html
   upscaling: upscaling.html
-last_built: 2024-04-11T08:26Z
+last_built: 2024-07-25T14:16Z
 urls:
   reference: https://frbcesab.github.io/funbiogeo/reference
   article: https://frbcesab.github.io/funbiogeo/articles
-
