@@ -473,6 +473,26 @@ missing traits and that even the most non-missing traits, adult body
 mass, is only known for 82.6% of the species.</p>
 </div>
 <div class="section level3">
+<h3 id="plotting-number-of-species-with-missing-traits">Plotting number of species with missing traits<a class="anchor" aria-label="anchor" href="#plotting-number-of-species-with-missing-traits"></a>
+</h3>
+<p>Maybe you’re rather interested in plotting the number of species with
+known (or missing) traits in your dataset. This plot is an alternative
+to the one from the previous section. It can be done through
+<code><a href="../reference/fb_plot_species_traits_missingness.html">fb_plot_species_traits_missingness()</a></code> which takes
+<code>species_traits</code>, the species by traits
+<code>data.frame</code>, for argument as well as <code>all_traits</code>
+to know if an additional row should be used to display a summary for all
+traits taken together.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_species_traits_missingness.html">fb_plot_species_traits_missingness</a></span><span class="op">(</span><span class="va">species_traits</span>, all_traits <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p><img src="diagnostic-plots_files/figure-html/plot-species-traits-missingness-1.png" width="700"></p>
+<p>The plot displays the number of species with known and missing
+traits. It shows each trait in separate line as a proportional bar chart
+with the total numbers included within each bar.</p>
+<p>Here we see that 53 species have all of their traits known while 96
+don’t. Adult body mass is known for 123 species and missing for 26.</p>
+</div>
+<div class="section level3">
 <h3 id="displaying-traits-combinations">Displaying traits combinations<a class="anchor" aria-label="anchor" href="#displaying-traits-combinations"></a>
 </h3>
 <p>Looking at the traits coverage for each species continuously maybe
@@ -488,7 +508,7 @@ either <code>"number"</code>, the default option, or
 <code>"complete"</code>), which influences the order of the plot (more
 details below).</p>
 <p>We can use it with the included dataset as an example:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_trait_combination_frequencies.html">fb_plot_trait_combination_frequencies</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span></span></code></pre></div>
 <p><img src="diagnostic-plots_files/figure-html/plot-trait-comb-freq-1.png" width="700"></p>
 <p>The x-axis represents individual traits ranked in alphabetical order
@@ -505,7 +525,7 @@ while 21 species (14.1%) have not a single trait in the dataset.</p>
 <p>If we change <code>order_by</code> to <code>"complete"</code>, the
 combinations are ordered instead by the number of trait presents among
 them:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_trait_combination_frequencies.html">fb_plot_trait_combination_frequencies</a></span><span class="op">(</span><span class="va">species_traits</span>, order_by <span class="op">=</span> <span class="st">"complete"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="diagnostic-plots_files/figure-html/plot-trait-comb-freq-order-1.png" width="700"></p>
 <p>The most complete combinations are shown at the bottom, while the
@@ -525,7 +545,7 @@ passed to <code><a href="https://rdrr.io/r/stats/cor.html" class="external-link"
 traits</strong> and with <strong>complete observations</strong>. It
 silently removes any species that has any <code>NA</code>.</p>
 <p>With the included dataset as an example:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_trait_correlation.html">fb_plot_trait_correlation</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span></span></code></pre></div>
 <p><img src="diagnostic-plots_files/figure-html/plot-trait-corr-1.png" width="700"></p>
 <p>Both x- and y-axes represent the different traits. At their
@@ -566,7 +586,7 @@ locations of sites), <code>site_species</code> (site by species
 traits <code>data.frame</code>).</p>
 <p>If we use the included dataset in <code>funbiogeo</code> it
 gives:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_map_site_traits_completeness.html">fb_map_site_traits_completeness</a></span><span class="op">(</span><span class="va">site_locations</span>, <span class="va">site_species</span>, <span class="va">species_traits</span><span class="op">)</span></span></code></pre></div>
 <p><img src="diagnostic-plots_files/figure-html/map-trait-complete-1.png" width="700"></p>
 <p>It displays maps of the sites, colored by their trait coverage. Each
@@ -596,7 +616,7 @@ that is going to be used as a variable to display. All three arguments
 are required.</p>
 <p>For example, if we want to get a map of species richness of the
 included dataset we can do the following:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Compute Species Richness</span></span>
 <span><span class="va">site_rich</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_count_species_by_site.html">fb_count_species_by_site</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span></span>
 <span></span>
@@ -608,7 +628,7 @@ dataset is less species-rich than the center or the South.</p>
 <p>Now imagine we want to display the category of sites which be
 “Testing” or “Training”, depending on which set they belong to. We can
 use the following to display the map:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Generate categories</span></span>
 <span><span class="va">site_cat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  site <span class="op">=</span> <span class="va">site_species</span><span class="op">$</span><span class="va">site</span>,</span>
@@ -629,7 +649,7 @@ use the following to display the map:</p>
 when visualizing environmental layers for example. The function will
 display the raster in the provided projection.</p>
 <p>For example:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Getting the raster</span></span>
 <span><span class="va">tavg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"annual_mean_temp.tif"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></span>
 <span><span class="va">tavg</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">tavg</span><span class="op">)</span></span>
