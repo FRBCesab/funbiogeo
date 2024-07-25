@@ -19,49 +19,21 @@
 #' fb_plot_number_sites_by_species(site_species)
 #' 
 #' # Add a vertical cutoff line (40% of sites)
-#' fb_plot_number_sites_by_species(site_species, threshold = 0.4)
+#' fb_plot_number_sites_by_species(site_species, 0.4)
 fb_plot_number_sites_by_species <- function(
-  site_species, species_categories = NULL, threshold_sites_proportion = NULL
+  site_species, threshold_sites_proportion = NULL
 ) {
   
   # Check ----------------------------------------------------------------------
   check_site_species(site_species)
-  check_species_categories(species_categories)
-  
   
   if (!is.null(threshold_sites_proportion)) {
     check_threshold_proportion(threshold_sites_proportion, "site")
   }
   
-  
-  # Splitting species by category
-  species_split <- list(single_cat = species_traits[["species"]])
-  category_name <- "single_cat"
-  
-  if (!is.null(species_categories)) {
-    
-    category_name <- colnames(species_categories)[2]
-    
-    species_split <- split(
-      species_categories[, 1], species_categories[, 2]
-    )
-    
-  }
-  
-  
-  # Split sites according to species' categories
-  site_species_categories <- lapply(
-    species_split,
-    function(x) site_species[, c("site", x), drop = FALSE]
-  )
-  
   # Get the numbers
-  number_sites_by_species <- lapply(
-    site_species_categories, fb_count_sites_by_species
-  )
-  n_species <- lapply(site_species_categories, nrow)
-  
-  
+  number_sites_by_species <- fb_count_sites_by_species(site_species)
+  n_species <- nrow(site_species)
   
   # Construct y-axis breaks
   # Under 25 observation, label everyone of them
@@ -95,20 +67,6 @@ fb_plot_number_sites_by_species <- function(
     number_sites_by_species$species,
     levels = rev(number_sites_by_species$species)
   )
-  
-  # Manage conditional faceting
-  if (is.null(species_categories)) {
-    
-    category_facet <- NULL
-    
-  } else {
-    
-    category_facet <- ggplot2::facet_wrap(
-      ggplot2::vars(
-        !!rlang::sym(category_name)), scales = "free"
-    )
-    
-  }
   
   # Clean environment
   rm(site_species)
