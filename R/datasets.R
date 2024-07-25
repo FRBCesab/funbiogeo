@@ -1,4 +1,4 @@
-#' Sites x Locations data
+#' Sites x Locations example data
 #' 
 #' @description
 #' This dataset is derived from the WOODIV database (available at:
@@ -32,7 +32,7 @@
 
 
 
-#' Sites x Species data
+#' Sites x Species example data
 #' 
 #' @description
 #' This dataset is derived from the WOODIV database (available at:
@@ -65,7 +65,7 @@
 
 
 
-#' Species x Traits data
+#' Species x Traits example data
 #' 
 #' @description
 #' This dataset is derived from the WOODIV database (available at:
@@ -104,12 +104,12 @@
 
 
 
-#' Species x Categories data
+#' Species x Categories example data
 #' 
 #' @description
 #' This dataset is derived from the WOODIV database (available at:
 #' \url{https://www.nature.com/articles/s41597-021-00873-3}). It contains the 
-#' genus (and binomial name) of the 26 tree species (members of the Rosaceae
+#' genus (and binomial names) of the 26 tree species (members of the Rosaceae
 #' family) occurring in Portugal, Spain, France, and Italy (Mediterranean part).
 #' The genus will be used as a species grouping factor.
 #' 
