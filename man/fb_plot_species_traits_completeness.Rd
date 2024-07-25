@@ -16,8 +16,8 @@ traits as columns. \strong{NOTE}: The first column should be named \strong{\code
 and contain species names. The other columns should be named according
 to trait names.}
 
-\item{species_categories}{2-columns \code{data.frame} giving species categories
-\code{NULL} by default, with the first column describing the species name, and
+\item{species_categories}{(default = \code{NULL}) 2-columns \code{data.frame} giving
+species categories, with the first column describing the species name, and
 the second column giving their corresponding categories}
 
 \item{all_traits}{a logical (default = \code{TRUE}) which tell if the coverage
