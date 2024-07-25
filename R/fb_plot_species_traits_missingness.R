@@ -153,8 +153,8 @@ fb_plot_species_traits_missingness <- function(
     category_facet <- NULL
   }
   
-  
   number_species_per_trait <- do.call(rbind, number_species_per_trait)
+  
   
   # Clean environment for clean ggplot2 object
   rm(all_traits, all_traits_df, all_traits_list, n_max_trait,
@@ -162,8 +162,9 @@ fb_plot_species_traits_missingness <- function(
      species_traits_long)
   
   number_species_per_trait <- tidyr::pivot_longer(
-    number_species_per_trait[, c(1, 2, 4)], -trait
+    number_species_per_trait[, c(1, 2, 5)], -trait
   )
+  
   
   # Plot Species x Trait completeness
   ggplot2::ggplot(
@@ -186,6 +187,7 @@ fb_plot_species_traits_missingness <- function(
     ggplot2::scale_y_discrete("Trait") +
     ggplot2::scale_fill_manual(
       "Known Trait?",
+      breaks = c("n_species", "missing_species"),
       values = c(`missing_species` = "#E41A1C", `n_species` = "#377EB8"),
       labels = c(`missing_species` = "No", `n_species` = "Yes")
     ) +
