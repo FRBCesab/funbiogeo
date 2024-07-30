@@ -25,8 +25,6 @@ Selects sites (rows) for which the percentage of present species
 (distribution value higher than 0 and non-NA) is higher than a threshold.
 }
 \examples{
-library("funbiogeo")
-
 # Get sites with more than 40\% of the species
 new_site_species <- fb_filter_sites_by_species_coverage(
   woodiv_site_species,

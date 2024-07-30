@@ -44,15 +44,17 @@ the coordinates are given in WGS84 (longitude vs. latitude). The function
 automatically removes repeated coordinates from the input dataset.
 }
 \examples{
-library("funbiogeo")
-
-filename <- system.file("extdata", "funbiogeo_raw_data.csv", 
-                        package = "funbiogeo")
+filename <- system.file(
+    "extdata", "funbiogeo_raw_data.csv",
+    package = "funbiogeo"
+)
 all_data <- read.csv(filename)
 
 head(all_data)
 
-site_locations <- fb_format_site_locations(all_data, "site", "longitude", 
-                                           "latitude")
+site_locations <- fb_format_site_locations(
+    all_data, "site", "longitude",
+    "latitude"
+)
 head(site_locations)
 }

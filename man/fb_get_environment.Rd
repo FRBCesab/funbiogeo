@@ -22,10 +22,6 @@ A \code{data.frame} with average environmental values (columns) per site
 Extract Raster Values at Location of Sites
 }
 \examples{
-library("funbiogeo")
-
-data("site_locations")
-
 ## Import climate rasters ----
 prec <- system.file("extdata", "annual_tot_prec.tif", package = "funbiogeo")
 tavg <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")

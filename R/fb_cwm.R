@@ -15,8 +15,6 @@
 #' @export
 #'
 #' @examples
-#' library("funbiogeo")
-#' 
 #' site_cwm <- fb_cwm(head(woodiv_site_species), woodiv_traits)
 #' head(site_cwm)
 

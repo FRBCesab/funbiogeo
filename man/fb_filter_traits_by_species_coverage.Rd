@@ -27,8 +27,6 @@ Selects traits (columns) for which the percentage of species without
 \code{NA} (missing trait values) is higher than a threshold.
 }
 \examples{
-library("funbiogeo")
-
 # Filter traits that have at least 60\% non-missing values
 new_species_traits <- fb_filter_traits_by_species_coverage(
   woodiv_traits,

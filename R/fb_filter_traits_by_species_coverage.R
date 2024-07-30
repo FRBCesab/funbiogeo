@@ -15,8 +15,6 @@
 #' @export
 #'
 #' @examples
-#' library("funbiogeo")
-#' 
 #' # Filter traits that have at least 60% non-missing values
 #' new_species_traits <- fb_filter_traits_by_species_coverage(
 #'   woodiv_traits,

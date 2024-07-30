@@ -31,8 +31,6 @@ It will remove species that either have \code{NA} values in the \code{site_speci
 input or \code{NA} values as their trait.
 }
 \examples{
-library("funbiogeo")
-
 site_cwm <- fb_cwm(head(woodiv_site_species), woodiv_traits)
 head(site_cwm)
 }

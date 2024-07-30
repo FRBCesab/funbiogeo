@@ -14,8 +14,6 @@
 #' @export
 #'
 #' @examples
-#' library("funbiogeo")
-#' 
 #' # Filter all the sites where all species have known traits
 #' new_site_species <- fb_filter_sites_by_trait_coverage(
 #'   woodiv_site_species, woodiv_traits

@@ -15,8 +15,6 @@
 #' @export
 #'
 #' @examples
-#' library("funbiogeo")
-#' 
 #' trait_coverage_by_species <- fb_count_traits_by_species(woodiv_traits)
 #' head(trait_coverage_by_species)
 

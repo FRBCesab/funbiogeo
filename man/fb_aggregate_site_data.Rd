@@ -34,8 +34,6 @@ on it at a coarser scale, or you want to visualize it at that scale.
 This function helps you do exactly that.
 }
 \examples{
-library("funbiogeo")
-
 ## Import grid ----
 tavg <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")
 tavg <- terra::rast(tavg)

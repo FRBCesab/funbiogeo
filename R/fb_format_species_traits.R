@@ -17,10 +17,9 @@
 #' @export
 #'
 #' @examples
-#' library("funbiogeo")
-#' 
-#' filename <- system.file("extdata", "funbiogeo_raw_data.csv", 
-#'                         package = "funbiogeo")
+#' filename <- system.file(
+#'   "extdata", "funbiogeo_raw_data.csv", package = "funbiogeo"
+#' )
 #' all_data <- read.csv(filename)
 #' 
 #' head(all_data)

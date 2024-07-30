@@ -14,8 +14,6 @@
 #' @export
 #'
 #' @examples
-#' library("funbiogeo")
-#' 
 #' # Filter species that have at least 60% of the traits described
 #' new_species_traits <- fb_filter_species_by_trait_coverage(
 #'   woodiv_traits,

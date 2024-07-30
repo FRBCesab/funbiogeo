@@ -14,8 +14,6 @@
 #' @export
 #'
 #' @examples
-#' library("funbiogeo")
-#' 
 #' site_coverage_by_species <- fb_count_sites_by_species(woodiv_site_species)
 #' head(site_coverage_by_species)
 

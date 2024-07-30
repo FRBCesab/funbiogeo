@@ -26,8 +26,6 @@
 #' @export
 #'
 #' @examples
-#' library("funbiogeo")
-#' 
 #' ## Import grid ----
 #' tavg <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")
 #' tavg <- terra::rast(tavg)

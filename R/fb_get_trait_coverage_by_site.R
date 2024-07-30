@@ -25,8 +25,6 @@
 #' @export
 #'
 #' @examples
-#' library("funbiogeo")
-#' 
 #' site_trait_cov <- fb_get_trait_coverage_by_site(
 #'     woodiv_site_species, woodiv_traits
 #' )

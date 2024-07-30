@@ -14,8 +14,6 @@
 #' @export
 #'
 #' @examples
-#' library("funbiogeo")
-#' 
 #' # Get sites with more than 40% of the species
 #' new_site_species <- fb_filter_sites_by_species_coverage(
 #'   woodiv_site_species,
