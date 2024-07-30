@@ -23,12 +23,11 @@
 #' DOI: [10.1038/s41597-021-00873-3](https://doi.org/10.1038/s41597-021-00873-3)
 #' 
 #' @examples 
-#' data("site_locations")
-#' class(site_locations)
-#' dim(site_locations)
-#' head(site_locations)
-
-"site_locations"
+#' data("woodiv_locations")
+#' class(woodiv_locations)
+#' dim(woodiv_locations)
+#' head(woodiv_locations)
+"woodiv_locations"
 
 
 
@@ -56,12 +55,11 @@
 #' DOI: [10.1038/s41597-021-00873-3](https://doi.org/10.1038/s41597-021-00873-3)
 #' 
 #' @examples 
-#' data("site_species")
-#' class(site_species)
-#' dim(site_species)
-#' site_species[1:6, 1:6]
-
-"site_species"
+#' data("woodiv_site_species")
+#' class(woodiv_site_species)
+#' dim(woodiv_site_species)
+#' woodiv_site_species[1:6, 1:6]
+"woodiv_site_species"
 
 
 
@@ -95,12 +93,11 @@
 #' DOI: [10.1038/s41597-021-00873-3](https://doi.org/10.1038/s41597-021-00873-3)
 #' 
 #' @examples 
-#' data("species_traits")
-#' class(species_traits)
-#' dim(species_traits)
-#' head(species_traits)
-
-"species_traits"
+#' data("woodiv_traits")
+#' class(woodiv_traits)
+#' dim(woodiv_traits)
+#' head(woodiv_traits)
+"woodiv_traits"
 
 
 
@@ -127,9 +124,8 @@
 #' DOI: [10.1038/s41597-021-00873-3](https://doi.org/10.1038/s41597-021-00873-3)
 #' 
 #' @examples 
-#' data("species_categories")
-#' class(species_categories)
-#' dim(species_categories)
-#' species_categories[1:6, ]
-
-"species_categories"
+#' data("woodiv_categories")
+#' class(woodiv_categories)
+#' dim(woodiv_categories)
+#' woodiv_categories[1:6, ]
+"woodiv_categories"
