@@ -301,6 +301,29 @@ traits and that even the most non-missing traits, adult body mass, is only known
 for 82.6% of the species.~~
 
 
+
+### Plotting number of species with missing traits
+
+Maybe you're rather interested in plotting the number of species with known
+(or missing) traits in your dataset. This plot is an alternative to the one
+from the previous section. It can be done through
+`fb_plot_species_traits_missingness()` which takes
+`species_traits`, the species by traits `data.frame`, for argument as well as
+`all_traits` to know if an additional row should be used to display a summary
+for all traits taken together.
+
+```{r plot-species-traits-missingness}
+fb_plot_species_traits_missingness(species_traits, all_traits = TRUE)
+```
+
+The plot displays the number of species with known and missing traits. It shows
+each trait in separate line as a proportional bar chart with the total numbers
+included within each bar.
+
+Here we see that 53 species have all of their traits known while 96 don't.
+Adult body mass is known for 123 species and missing for 26.
+
+
 ### Displaying traits combinations
 
 Looking at the traits coverage for each species continuously maybe impractical or

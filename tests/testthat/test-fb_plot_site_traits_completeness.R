@@ -33,4 +33,5 @@ test_that("fb_plot_site_traits_completeness works", {
       )
     )
   )
+  
 })

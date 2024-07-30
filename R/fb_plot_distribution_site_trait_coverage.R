@@ -9,6 +9,7 @@
 #' together.
 #' 
 #' @inheritParams fb_get_all_trait_coverages_by_site
+#' @inheritParams fb_plot_species_traits_completeness
 #'
 #' @return a 'ggplot2' object
 #'
@@ -18,92 +19,115 @@
 #' @importFrom rlang .data
 #' @export
 fb_plot_distribution_site_trait_coverage <- function(
-    site_species, species_traits, all_traits = TRUE
+    site_species, species_traits, species_categories = NULL, all_traits = TRUE
 ) {
   
   # Checks
   check_site_species(site_species)
   check_species_traits(species_traits)
+  check_species_categories(species_categories)
   
   full_coverage <- data.frame(site = rownames(site_species))
   
-  # Computing Trait Coverage per Site
-  if (all_traits) {
-    full_coverage <- fb_get_trait_coverage_by_site(
-      site_species, species_traits
+  
+  # Split species by category
+  species_split <- list(single_cat = species_traits[["species"]])
+  category_name <- "single_cat"
+  
+  if (!is.null(species_categories)) {
+    
+    category_name <- colnames(species_categories)[2]
+    
+    species_split <- split(
+      species_categories[, 1], species_categories[, 2]
     )
-    colnames(full_coverage)[2] <- "all_traits"
+    
   }
   
-  trait_coverage <- lapply(
-    colnames(species_traits)[-1],
+  # Split sites according to species categories
+  site_species_categories <- lapply(
+    species_split,
+    function(x) site_species[, c("site", x), drop = FALSE]
+  )
+  
+  # Computing Trait Coverage per Site per category
+  site_categories_coverage <- lapply(
+    site_species_categories,
     function(x) {
-      
-      trait_cov2 <- fb_get_trait_coverage_by_site(
-        site_species, species_traits[, c("species", x)]
+      site_cat_coverage <- fb_get_all_trait_coverages_by_site(
+        x, species_traits, all_traits = all_traits
       )
       
-      colnames(trait_cov2)[2] <- x
-      
-      return(trait_cov2)
-    })
-  
-  # Combine Trait Coverages
-  trait_coverage <- Reduce(
-    function(...) merge(..., by = "site", all.x = TRUE), trait_coverage
+      tidyr::pivot_longer(
+        site_cat_coverage, -"site", names_to = "coverage_name",
+        values_to = "coverage_value"
+      )
+    }
   )
   
-  all_coverage <- merge(full_coverage, trait_coverage, by = "site")
-  all_coverage <- tidyr::pivot_longer(
-    all_coverage, -"site", names_to = "coverage_name",
-    values_to = "coverage_value"
-  )
-  
-  site_order <- by(
-    all_coverage, all_coverage$site, function(x) mean(x$coverage_value)
-  )
-  site_order <- utils::stack(site_order)
-  
-  coverage_order <- by(
-    all_coverage, all_coverage$coverage_name, function(x) mean(x$coverage_value)
-  )
-  coverage_order <- utils::stack(coverage_order)
-  
-  # Reorder sites and traits by average coverage
-  all_coverage$site <- factor(
-    all_coverage$site,
-    levels = site_order[["ind"]][
-      order(site_order[["values"]], decreasing = TRUE)
-    ]
-  )
-  
-  all_coverage$coverage_name <- factor(
-    all_coverage$coverage_name,
-    levels = coverage_order[["ind"]][
-      order(coverage_order[["values"]], decreasing = TRUE)
-    ]
-  )
-  
-  
-  # Get average coverage per trait
-  avg_coverage <- by(
-    all_coverage, all_coverage$coverage_name,
-    function(x) mean(x$coverage_value)
-  )
-  
-  avg_coverage <- utils::stack(avg_coverage)
-  colnames(avg_coverage) <- c("avg_coverage", "coverage_name")
-  
-  # Produce label per trait with average coverage
-  avg_coverage[["cov_label"]] <- 
-    with(
-      avg_coverage,
-      paste0(coverage_name, "\n(", round(avg_coverage * 100, digits = 1), "%)")
+  # Get average coverage per trait across all sites per category
+  avg_coverage <- lapply(
+    site_categories_coverage,
+    function(single_category) {
+      site_avg_coverage <- by(
+      single_category, list(coverage_name = single_category[["coverage_name"]]),
+      \(y) mean(y$coverage_value, na.rm = TRUE)
     )
+      site_avg_coverage <- utils::stack(site_avg_coverage)
+      colnames(site_avg_coverage) <- c("avg_coverage", "coverage_name")
+      
+      return(site_avg_coverage)
+      
+    }
+  )
   
-  avg_coverage <- avg_coverage[, c("cov_label", "coverage_name")]
-  avg_coverage <- t(utils::unstack(avg_coverage))
+  # Get categories as a specific column
+  avg_coverage <- lapply(
+    names(avg_coverage),
+    function(single_category_name) {
+      
+      single_category <- avg_coverage[[single_category_name]]
+      single_category[[category_name]] <- single_category_name
+      
+      single_category[, c(3, 2, 1)]
+      
+    }
+  )
+  avg_coverage <- do.call(rbind, avg_coverage)
   
+  # Get order of coverage overall
+  grand_avg_coverage <- utils::stack(
+    by(avg_coverage, avg_coverage$coverage_name,
+       \(x) mean(x$avg_coverage, na.rm =TRUE))
+  )
+  
+  # Order coverage categories per decreasing coverage
+  avg_coverage$coverage_name <- factor(
+    avg_coverage$coverage_name,
+    levels = grand_avg_coverage$ind[
+      order(grand_avg_coverage$values, decreasing = TRUE)
+    ]
+  )
+  
+  # Simplify categories
+  site_categories_coverage <- lapply(
+    names(site_categories_coverage),
+    function(x) {
+      
+      given_coverage <- site_categories_coverage[[x]]
+      
+      given_coverage[category_name] <- x
+      
+      return(given_coverage)
+    }
+  )
+  
+  site_categories_coverage <- do.call(rbind, site_categories_coverage)
+  
+  site_categories_coverage$coverage_name <- factor(
+    site_categories_coverage$coverage_name,
+    levels = levels(avg_coverage$coverage_name)
+  )
   
   if (!is_ggridges_installed()) {
     stop("This function requires 'ggridges' to work\n",
@@ -111,18 +135,33 @@ fb_plot_distribution_site_trait_coverage <- function(
   }
   
   # Clean environment
-  rm(all_traits, coverage_order, full_coverage, site_order, site_species,
-     species_traits, trait_coverage)
+  rm(all_traits, site_species, species_traits, grand_avg_coverage)
+  
+  
+  if (is.null(species_categories)) {
+    
+    category_facet <- NULL
+    
+  } else {
+    
+    category_facet <- ggplot2::facet_wrap(
+      ggplot2::vars(
+        !!rlang::sym(category_name))
+    )
+    
+  }
+  
   
   # Figure
   ggplot2::ggplot(
-    all_coverage,
+    site_categories_coverage,
     ggplot2::aes(.data$coverage_value, .data$coverage_name)
   ) +
     ggridges::stat_density_ridges(scale = 0.98) +
+    category_facet + 
     ggplot2::scale_x_continuous(
       "Average Trait Coverage per Site", labels = scales::label_percent()
     ) +
-    ggplot2::scale_y_discrete("Trait Name", labels = avg_coverage) +
+    ggplot2::scale_y_discrete("Trait Name") +
     ggplot2::theme_bw()
 }

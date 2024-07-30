@@ -10,18 +10,19 @@
 #' shows a summary considering if all other traits are known.
 #'
 #' @inheritParams fb_get_all_trait_coverages_by_site
-#' @param species_categories (default = `NULL`) 2-columns `data.frame` giving
-#'   species categories, with the first column describing the species name, and
+#' @param species_categories 2-columns `data.frame` giving species categories
+#'   `NULL` by default, with the first column describing the species name, and
 #'   the second column giving their corresponding categories
 #'
 #' @return a `ggplot2` object
 #'
 #' @examples
-#' fb_plot_species_traits_completeness(woodiv_traits)
+#' data(species_traits)
+#' fb_plot_species_traits_missingness(species_traits)
 #' 
 #' @importFrom rlang .data
 #' @export
-fb_plot_species_traits_completeness <- function(
+fb_plot_species_traits_missingness <- function(
     species_traits, species_categories = NULL, all_traits = TRUE
 ) {
   
@@ -49,10 +50,19 @@ fb_plot_species_traits_completeness <- function(
     
   }
   
-  
   # Count Number of Species per Trait (per category class)
   number_species_per_trait <- lapply(
-    species_traits_categories, fb_count_species_by_trait
+    species_traits_categories,
+    function(categorical_df) {
+      coverage_df <- fb_count_species_by_trait(categorical_df)
+      
+      coverage_df[["total_species"]] <- coverage_df[["n_species"]] /
+        coverage_df[["coverage"]]
+      coverage_df[["missing_species"]] <- coverage_df[["total_species"]] -
+        coverage_df[["n_species"]]
+      
+      return(coverage_df)
+    }
   )
   
   # Get Combination for All Traits (per category class)
@@ -83,7 +93,6 @@ fb_plot_species_traits_completeness <- function(
     )
   }
   
-  
   # Convert number of species with all traits into comparable row
   all_traits_df <- list(number_species_per_trait[[1]][0,])
   
@@ -94,7 +103,9 @@ fb_plot_species_traits_completeness <- function(
         data.frame(
           trait     = "all_traits",
           n_species = x,
-          coverage  = x/nrow(y)
+          coverage  = x/nrow(y),
+          total_species = nrow(y),
+          missing_species = nrow(y) - x
         )
       }, all_traits_list, species_traits_categories, SIMPLIFY = FALSE
     )
@@ -118,81 +129,6 @@ fb_plot_species_traits_completeness <- function(
     }
   )
   
-  
-  # Add all traits in long table
-  all_traits_subset <- lapply(
-    names(number_trait_per_species), function(x) {
-      
-      single_category <- number_trait_per_species[[x]]
-      
-      output_df <- data.frame(
-        species = single_category$species, trait = "all_traits",
-        trait_value = ifelse(single_category$n_traits == n_max_trait, TRUE, NA)
-      )
-      
-      if (!is.null(species_categories)) {
-        output_df[[colnames(species_categories)[2]]] <- x
-      }
-      
-      return(output_df)
-    }
-  )
-  
-  all_traits_subset <- do.call(rbind, all_traits_subset)
-  
-  species_traits_long_categories <- rbind(
-    species_traits_long_categories, all_traits_subset
-  )
-  
-  
-  # Add column for value
-  species_traits_long_categories$has_trait <- ifelse(
-    !is.na(species_traits_long_categories$trait_value) &
-      !(species_traits_long_categories$trait_value == "NaN"), TRUE, FALSE
-  )
-  
-  # Merge all datasets before plotting
-  number_species_per_trait <- lapply(
-    names(number_species_per_trait),
-    function(x) {
-      
-      single_category <- number_species_per_trait[[x]]
-      
-      if (!is.null(species_categories)) {
-        single_category[[colnames(species_categories)[2]]] <- x
-      }
-      
-      return(single_category)
-    }
-  )
-  number_species_per_trait <- do.call(rbind, number_species_per_trait)
-  
-  number_trait_per_species <- lapply(
-    names(number_trait_per_species),
-    function(x) {
-      
-      single_category <- number_trait_per_species[[x]]
-      
-      if (!is.null(species_categories)) {
-        single_category[[colnames(species_categories)[2]]] <- x
-      }
-      
-      return(single_category)
-    }
-  )
-  number_trait_per_species <- do.call(rbind, number_trait_per_species)
-  
-  
-  # Merge full dataset
-  common_colnames <- intersect(
-    colnames(species_traits_long_categories), colnames(number_species_per_trait)
-  )
-  
-  species_traits_long_categories <- merge(
-    species_traits_long_categories, number_species_per_trait,
-    by.x = common_colnames, by.y = common_colnames
-  )
-  
   # Conditional facet
   if (!is.null(species_categories)) {
     
@@ -201,42 +137,63 @@ fb_plot_species_traits_completeness <- function(
         !!rlang::sym(colnames(species_categories)[[2]])), scales = "free"
     )
     
+    number_species_per_trait <- lapply(
+      names(number_species_per_trait),
+      function(x) {
+        
+        single_category <- number_species_per_trait[[x]]
+        
+        single_category[[colnames(species_categories)[2]]] <- x
+        
+        return(single_category)
+      }
+    )
+    
   } else {
     category_facet <- NULL
   }
   
+  number_species_per_trait <- do.call(rbind, number_species_per_trait)
+  
+  
   # Clean environment for clean ggplot2 object
-  rm(all_traits, all_traits_df, all_traits_list, all_traits_subset,
-     common_colnames, n_max_trait, species_traits_categories, species_traits,
+  rm(all_traits, all_traits_df, all_traits_list, n_max_trait,
+     number_trait_per_species, species_traits, species_traits_categories,
      species_traits_long)
+  
+  number_species_per_trait <- tidyr::pivot_longer(
+    number_species_per_trait[, c(1, 2, 5)], -trait
+  )
+  
   
   # Plot Species x Trait completeness
   ggplot2::ggplot(
-    species_traits_long_categories,
+    number_species_per_trait,
     ggplot2::aes(
+      .data$value,
       factor(
-        .data$trait_label, levels = unique(number_species_per_trait$trait_label)
+        .data$trait, levels = unique(.data$trait)
       ),
-      factor(
-        .data$species, levels = unique(number_trait_per_species$species)
-      )
+      fill = .data$name
     )
   ) +
-    ggplot2::geom_tile(ggplot2::aes(fill = .data$has_trait)) +
-    category_facet +
-    ggplot2::scale_x_discrete(
-      "Trait", guide = ggplot2::guide_axis(n.dodge = 2)
+    ggplot2::geom_col(position = "fill") +
+    ggplot2::geom_text(
+      ggplot2::aes(label = .data$value),
+      position = ggplot2::position_fill(vjust = 0.5), color = "white"
     ) +
-    ggplot2::scale_y_discrete("Species", labels = NULL) +
+    category_facet +
+    ggplot2::scale_x_continuous("Proportion of species", labels = scales::label_percent()) +
+    ggplot2::scale_y_discrete("Trait") +
     ggplot2::scale_fill_manual(
       "Known Trait?",
-      values = c(`FALSE` = "#E41A1C", `TRUE` = "#377EB8"),
-      labels = c(`FALSE` = "No", `TRUE` = "Yes")
+      breaks = c("n_species", "missing_species"),
+      values = c(`missing_species` = "#E41A1C", `n_species` = "#377EB8"),
+      labels = c(`missing_species` = "No", `n_species` = "Yes")
     ) +
-    ggplot2::coord_cartesian(expand = FALSE) +
     ggplot2::theme_bw() +
     ggplot2::theme(
-      axis.ticks.y = ggplot2::element_blank(),
       legend.position = "top"
     )
+  
 }

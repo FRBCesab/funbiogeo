@@ -120,10 +120,21 @@ fb_plot_site_traits_completeness <- function(
           )
         )
       
-      # Re-order to make sure of coverage is decreasing
+      # Re-order by coverage to make sure of coverage is decreasing
       avg_coverage <- avg_coverage[
         order(avg_coverage$avg_coverage, decreasing = TRUE),
       ]
+      
+      # Take 'all_traits' into account to make sure it's the last column
+      if (all_traits) {
+        all_traits_position = which(avg_coverage$coverage_name == "all_traits")
+        
+        avg_coverage <- rbind(
+          avg_coverage[avg_coverage$coverage_name != "all_traits",],
+          avg_coverage[avg_coverage$coverage_name == "all_traits",]
+        )
+        
+      }
       
       # Transform into factor to keep order
       avg_coverage$cov_label <- factor(
