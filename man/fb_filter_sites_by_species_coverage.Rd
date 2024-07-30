@@ -27,11 +27,9 @@ Selects sites (rows) for which the percentage of present species
 \examples{
 library("funbiogeo")
 
-data("site_species")
-
 # Get sites with more than 40\% of the species
 new_site_species <- fb_filter_sites_by_species_coverage(
-  site_species,
+  woodiv_site_species,
   threshold_species_proportion = 0.4
 )
 # There are now only 148 sites

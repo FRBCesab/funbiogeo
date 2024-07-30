@@ -23,7 +23,7 @@
 #' 
 #' layers <- terra::rast(c(tavg, prec))
 #' 
-#' fb_get_environment(head(site_locations), layers)
+#' fb_get_environment(head(woodiv_locations), layers)
 
 fb_get_environment <- function(site_locations, environment_raster) {
   

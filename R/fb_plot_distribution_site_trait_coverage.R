@@ -13,7 +13,7 @@
 #' @return a 'ggplot2' object
 #'
 #' @examples
-#' fb_plot_distribution_site_trait_coverage(site_species, species_traits)
+#' fb_plot_distribution_site_trait_coverage(woodiv_site_species, woodiv_traits)
 #' 
 #' @importFrom rlang .data
 #' @export

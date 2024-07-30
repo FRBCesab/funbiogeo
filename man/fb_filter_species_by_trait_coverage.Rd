@@ -28,11 +28,9 @@ Selects species (rows) for which the percentage of traits without
 \examples{
 library("funbiogeo")
 
-data("species_traits")
-
 # Filter species that have at least 60\% of the traits described
 new_species_traits <- fb_filter_species_by_trait_coverage(
-  species_traits,
+  woodiv_traits,
   threshold_traits_proportion = 0.6
 )
 
