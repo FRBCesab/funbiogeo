@@ -43,6 +43,6 @@ An additional column at the very right of the plot named \code{"all_traits"}
 shows a summary considering traits together.
 }
 \examples{
-fb_plot_site_traits_completeness(site_species, species_traits)
+fb_plot_site_traits_completeness(woodiv_site_species, woodiv_traits)
 
 }

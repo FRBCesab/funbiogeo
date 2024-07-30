@@ -25,10 +25,6 @@ For each trait computes the percentage of species without \code{NA} (missing
 trait values).
 }
 \examples{
-library("funbiogeo")
-
-data("species_traits")
-
-species_coverage_by_trait <- fb_count_species_by_trait(species_traits)
+species_coverage_by_trait <- fb_count_species_by_trait(woodiv_traits)
 head(species_coverage_by_trait)
 }

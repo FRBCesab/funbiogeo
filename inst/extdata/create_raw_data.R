@@ -18,14 +18,14 @@ long_format <- merge(long_format, species_traits, by = "species", all = FALSE)
 
 
 data("site_locations")
-site_locations <- data.frame(sf::st_drop_geometry(site_locations), sf::st_coordinates(sf::st_centroid(site_locations)))
-site_locations <- site_locations[ , 1:3]
-colnames(site_locations) <- c("site", "longitude", "latitude")
+site_coords    <- as.data.frame(sf::st_coordinates(sf::st_centroid(site_locations)))
+colnames(site_coords) <- c("longitude", "latitude")
+site_locations <- data.frame(sf::st_drop_geometry(site_locations), site_coords)
 
 long_format <- merge(site_locations, long_format, by = "site", all = FALSE)
 
 long_format <- long_format[with(long_format, order(site, species)), ]
 rownames(long_format) <- NULL
 
-write.csv(long_format, here::here("inst", "extdata", "raw_mammals_data.csv"),
+write.csv(long_format, here::here("inst", "extdata", "funbiogeo_raw_data.csv"),
           row.names = FALSE)

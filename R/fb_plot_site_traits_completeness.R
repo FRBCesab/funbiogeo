@@ -15,7 +15,7 @@
 #' @return a ggplot2 object
 #'
 #' @examples
-#' fb_plot_site_traits_completeness(site_species, species_traits)
+#' fb_plot_site_traits_completeness(woodiv_site_species, woodiv_traits)
 #' 
 #' @importFrom rlang .data
 #' @export

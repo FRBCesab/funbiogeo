@@ -17,8 +17,7 @@
 #' @return a `ggplot2` object
 #'
 #' @examples
-#' data(species_traits)
-#' fb_plot_species_traits_completeness(species_traits)
+#' fb_plot_species_traits_completeness(woodiv_traits)
 #' 
 #' @importFrom rlang .data
 #' @export

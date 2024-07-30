@@ -31,11 +31,9 @@ Display a lollipop graph showing the number and proportion of species
 with non-NA trait for each trait ranked in decreasing order.
 }
 \examples{
-data(species_traits)
-
-fb_plot_number_species_by_trait(species_traits)
+fb_plot_number_species_by_trait(woodiv_traits)
 
 # Add a vertical cutoff line (12.5\% of species)
-fb_plot_number_species_by_trait(species_traits, NULL, 1/8)
+fb_plot_number_species_by_trait(woodiv_traits, NULL, 1/8)
 
 }

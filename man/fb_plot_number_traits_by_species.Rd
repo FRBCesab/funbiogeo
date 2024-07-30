@@ -33,13 +33,11 @@ which number of trait cover a certain proportion of the species.
 This plot doesn't show which traits are concerned.
 }
 \examples{
-data(species_traits)
-
-fb_plot_number_traits_by_species(species_traits)
+fb_plot_number_traits_by_species(woodiv_traits)
 
 # Add a vertical cutoff line (33\% of the species)
 fb_plot_number_traits_by_species(
-  species_traits, threshold_species_proportion = 1/3
- )
+    woodiv_traits, threshold_species_proportion = 1/3
+)
 
 }

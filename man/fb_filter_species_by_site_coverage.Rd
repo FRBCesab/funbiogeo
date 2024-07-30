@@ -27,13 +27,9 @@ species is present (distribution value higher than 0 and non-NA) is higher
 than a threshold.
 }
 \examples{
-library("funbiogeo")
-
-data("site_species")
-
 # Filter species present in at least 10\% of the sites
 new_site_species <- fb_filter_species_by_site_coverage(
-  site_species,
+  woodiv_site_species,
   threshold_sites_proportion = 0.1
 )
 

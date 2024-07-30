@@ -1,6 +1,6 @@
 test_that("fb_format_species_traits() works", {
   
-  filename <- system.file("extdata", "raw_mammals_data.csv", 
+  filename <- system.file("extdata", "funbiogeo_raw_data.csv", 
                           package = "funbiogeo")
   all_data <- read.csv(filename)
   
@@ -120,30 +120,26 @@ test_that("fb_format_species_traits() works", {
   
   all_data_test <- all_data
   all_data_test <- rbind(all_data_test[1, ], all_data_test)
-  all_data_test[1, "adult_body_mass"] <- 9999
+  all_data_test[1, "plant_height"] <- 9999
   
   expect_error(
-    fb_format_species_traits(all_data_test, "species", c("adult_body_mass", 
-                                                         "gestation_length",
-                                                         "litter_size",
-                                                         "max_longevity",
-                                                         "sexual_maturity_age",
-                                                         "diet_breadth")),
+    fb_format_species_traits(all_data_test, "species", c("plant_height", 
+                                                         "seed_mass",
+                                                         "sla",
+                                                         "wood_density")),
     "Some species have non-unique trait values",
     fixed = TRUE
   )
   
   all_data_test <- all_data
   all_data_test <- rbind(all_data_test[1, ], all_data_test)
-  all_data_test[1, "adult_body_mass"] <- NA
+  all_data_test[1, "plant_height"] <- NA
   
   expect_error(
-    fb_format_species_traits(all_data_test, "species", c("adult_body_mass", 
-                                                         "gestation_length",
-                                                         "litter_size",
-                                                         "max_longevity",
-                                                         "sexual_maturity_age",
-                                                         "diet_breadth")),
+    fb_format_species_traits(all_data_test, "species", c("plant_height", 
+                                                         "seed_mass",
+                                                         "sla",
+                                                         "wood_density")),
     "Some species have non-unique trait values",
     fixed = TRUE
   )
@@ -153,12 +149,14 @@ test_that("fb_format_species_traits() works", {
   
   species_traits <- fb_format_species_traits(
     all_data, "species",
-    c("adult_body_mass", "gestation_length", "litter_size", "max_longevity",
-      "sexual_maturity_age", "diet_breadth")
+    c("plant_height", 
+      "seed_mass",
+      "sla",
+      "wood_density")
   )
   expect_true(is.data.frame(species_traits))
-  expect_equal(nrow(species_traits), 65L)
-  expect_equal(ncol(species_traits), 7L)
+  expect_equal(nrow(species_traits), 26L)
+  expect_equal(ncol(species_traits), 5L)
   expect_true("species" %in% colnames(species_traits))
   expect_equal(species_traits[1, 3], 235, tolerance = 7)
 })

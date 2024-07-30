@@ -35,8 +35,6 @@ the figure along two environmental axes. The average environmental value are
 extracted for each site.
 }
 \examples{
-data("site_locations")
-
 # Import climate rasters
 prec <- system.file("extdata", "annual_tot_prec.tif", package = "funbiogeo")
 tavg <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")
@@ -44,5 +42,5 @@ tavg <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")
 layers <- terra::rast(c(tavg, prec))
 
 # Make plot (show environmental position of 6 first sites)
-fb_plot_site_environment(head(site_locations), layers)
+fb_plot_site_environment(head(woodiv_locations), layers)
 }

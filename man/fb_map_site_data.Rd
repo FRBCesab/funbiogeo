@@ -26,10 +26,10 @@ The returned plot is as little customized as possible to let the user do
 the customization.
 }
 \examples{
-site_rich <- fb_count_species_by_site(site_species)
+site_rich <- fb_count_species_by_site(woodiv_site_species)
 
 # Map of Species Richness
-rich_map <- fb_map_site_data(site_locations, site_rich, "n_species")
+rich_map <- fb_map_site_data(woodiv_locations, site_rich, "n_species")
 rich_map
 
 # Customize the map

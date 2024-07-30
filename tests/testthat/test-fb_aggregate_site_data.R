@@ -86,9 +86,9 @@ test_that("fb_aggregate_site_data() works", {
   )
   
   expect_s4_class(ras, "SpatRaster")
-  expect_named(ras, c("sp_001", "sp_002"))
-  expect_equal(dim(ras), c(290, 405, 2))
-  expect_equal(ras[][1816], 1, tolerance = 0.000001)
+  expect_named(ras, c("country", "CGRA", "CLAC"))
+  expect_equal(dim(ras), c(290, 405, 3))
+  expect_equal(ras[][82006], 0, tolerance = 0.000001)
   
   
   # Projected raster
@@ -101,7 +101,7 @@ test_that("fb_aggregate_site_data() works", {
   )
   
   expect_s4_class(ras, "SpatRaster")
-  expect_named(ras, c("sp_001", "sp_002"))
+  expect_named(ras, c("country", "CGRA", "CLAC"))
   
   
   ## Polygon spatial data
@@ -111,9 +111,9 @@ test_that("fb_aggregate_site_data() works", {
   )
   
   expect_s4_class(ras, "SpatRaster")
-  expect_named(ras, c("sp_001", "sp_002"))
-  expect_equal(dim(ras), c(290, 405, 2))
-  expect_equal(ras[][1816], 1, tolerance = 0.000001)
+  expect_named(ras, c("country", "CGRA", "CLAC"))
+  expect_equal(dim(ras), c(290, 405, 3))
+  expect_equal(ras[][82006], 0, tolerance = 0.000001)
   
   # Projected Raster
   expect_silent(
@@ -121,7 +121,7 @@ test_that("fb_aggregate_site_data() works", {
   )
   
   expect_s4_class(ras, "SpatRaster")
-  expect_named(ras, c("sp_001", "sp_002"))
+  expect_named(ras, c("country", "CGRA", "CLAC"))
   
   
   ## Multiline spatial data
@@ -131,8 +131,8 @@ test_that("fb_aggregate_site_data() works", {
   )
   
   expect_s4_class(ras, "SpatRaster")
-  expect_named(ras, c("sp_001", "sp_002"))
-  expect_equal(dim(ras), c(290, 405, 2))
+  expect_named(ras, c("country", "CGRA", "CLAC"))
+  expect_equal(dim(ras), c(290, 405, 3))
   
   # Projected Raster
   expect_silent(
@@ -140,5 +140,5 @@ test_that("fb_aggregate_site_data() works", {
   )
   
   expect_s4_class(ras, "SpatRaster")
-  expect_named(ras, c("sp_001", "sp_002"))
+  expect_named(ras, c("country", "CGRA", "CLAC"))
 })

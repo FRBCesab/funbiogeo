@@ -24,7 +24,7 @@
 #'
 #' @examples
 #' site_trait_cov <- fb_get_all_trait_coverages_by_site(
-#'   site_species, species_traits
+#'   woodiv_site_species, woodiv_traits
 #' )
 #' 
 #' head(site_trait_cov)

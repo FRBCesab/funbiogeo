@@ -14,7 +14,9 @@
 #' @importFrom rlang .data
 #' @import sf
 #' @examples
-#' fb_map_site_traits_completeness(site_locations, site_species, species_traits)
+#' fb_map_site_traits_completeness(
+#'     woodiv_locations, woodiv_site_species, woodiv_traits
+#' )
 fb_map_site_traits_completeness <- function(
     site_locations, site_species, species_traits, all_traits = TRUE
 ) {
