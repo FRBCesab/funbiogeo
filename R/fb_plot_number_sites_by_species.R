@@ -79,7 +79,7 @@ fb_plot_number_sites_by_species <- function(
     ggplot2::scale_x_continuous(
       "Number of Occupied Sites",
       sec.axis = ggplot2::sec_axis(
-        trans = ~./n_species, "Proportion of Occupied Sites",
+        transform = ~./n_species, "Proportion of Occupied Sites",
         labels = scales::label_percent()
       )
     ) +

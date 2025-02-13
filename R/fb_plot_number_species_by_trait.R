@@ -122,7 +122,7 @@ fb_plot_number_species_by_trait <- function(
     ggplot2::scale_x_continuous(
       "Number of Species",
       sec.axis = ggplot2::sec_axis(
-        trans = ~./n_species, "Proportion of Species",
+        transform = ~./n_species, "Proportion of Species",
         labels = scales::label_percent()
       ),
       # Add a tiny bit of space so that proportion can be shown
