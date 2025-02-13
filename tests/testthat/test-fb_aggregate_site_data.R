@@ -1,6 +1,9 @@
 # Initial data -----------------------------------------------------------------
-data("site_locations")
-data("site_species")
+data("woodiv_locations")
+data("woodiv_site_species")
+
+site_locations <- woodiv_locations
+site_species   <- woodiv_site_species
 
 # Get proper raster file
 tavg_file <- system.file("extdata", "annual_mean_temp.tif", 

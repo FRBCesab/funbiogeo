@@ -1,3 +1,8 @@
+data("woodiv_site_species")
+data("woodiv_locations")
+site_species   <- woodiv_site_species
+site_locations <- woodiv_locations
+
 # Initial data -----------------------------------------------------------------
 
 site_rich <- fb_count_species_by_site(site_species)

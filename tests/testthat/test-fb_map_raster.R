@@ -1,10 +1,9 @@
+data("woodiv_locations")
+site_locations   <- woodiv_locations
+
 test_that("fb_map_raster() works", {
   
   library("terra")
-  
-  # Initial data ----
-  
-  data("site_locations")
   
   prec   <- system.file("extdata", "annual_tot_prec.tif", 
                         package = "funbiogeo")

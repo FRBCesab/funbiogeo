@@ -1,3 +1,9 @@
+data("woodiv_site_species")
+data("woodiv_traits")
+
+site_species   <- woodiv_site_species
+species_traits <- woodiv_traits
+
 test_that("fb_get_all_trait_coverages_by_site() errors with wrong arguments", {
   
   # Missing Arguments

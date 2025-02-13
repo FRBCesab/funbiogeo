@@ -1,8 +1,8 @@
 # Initial data -----------------------------------------------------------------
 
 # Site x locations object
-data("site_locations")
-
+data("woodiv_locations")
+site_locations <- woodiv_locations
 
 # Environmental rasters
 prec   <- system.file("extdata", "annual_tot_prec.tif", 

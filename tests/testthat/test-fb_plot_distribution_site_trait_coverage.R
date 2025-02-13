@@ -1,3 +1,8 @@
+data("woodiv_site_species")
+data("woodiv_traits")
+site_species   <- woodiv_site_species
+species_traits <- woodiv_traits
+
 test_that("fb_plot_distribution_site_trait_coverage() works", {
   expect_silent(
     suppressMessages(
