@@ -93,7 +93,7 @@ fb_plot_number_traits_by_species <- function(
   
   
   # Clean environment
-  rm(species_traits, species_traits_categories, species_categories)
+  # rm(species_traits, species_traits_categories, species_categories)
   
   
   # Actual plot

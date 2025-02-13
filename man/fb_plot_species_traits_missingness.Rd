@@ -38,7 +38,7 @@ An additional column at the very right of the plot named \code{"all_traits"}
 shows a summary considering if all other traits are known.
 }
 \examples{
-data(species_traits)
-fb_plot_species_traits_missingness(species_traits)
+data(woodiv_traits)
+fb_plot_species_traits_missingness(woodiv_traits)
 
 }

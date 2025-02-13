@@ -50,9 +50,9 @@ The functions in `funbiogeo` mostly leverage three different objects:
 You can load the example data using the `data(..., package = "funbiogeo")` call:
 
 ```{r load-datasets}
-data("site_species",   package = "funbiogeo")
-data("site_locations", package = "funbiogeo")
-data("species_traits", package = "funbiogeo")
+data("woodiv_site_species",   package = "funbiogeo")
+data("woodiv_locations", package = "funbiogeo")
+data("woodiv_traits", package = "funbiogeo")
 ```
 
 In the following sections we'll describe in detail these three provided datasets in the package.
@@ -74,7 +74,7 @@ Let's examine the `species_traits` data included in the package:
 
 ```{r preview-species-traits, echo = FALSE}
 knitr::kable(
-  head(species_traits, 4), 
+  head(woodiv_traits, 4), 
   caption   = "Format of species x traits dataset", 
   align     = c("c", rep("r", 4))
 )
@@ -86,7 +86,7 @@ columns contain different traits for all species.
 Let's look at a summary of the trait dataset:
 
 ```{r summary-trait-dataset}
-summary(species_traits)
+summary(woodiv_traits)
 ```
 
 Note that to use your own species by traits `data.frame`, it should follow
@@ -111,7 +111,7 @@ Let's look at it:
 
 ```{r preview-sites-species, echo = FALSE}
 knitr::kable(
-  head(site_species[ , 1:6], 10), 
+  head(woodiv_site_species[ , 1:6], 10), 
   caption   = "Format of site x species dataset", 
   align     = rep("c", 6)
 )
@@ -140,7 +140,7 @@ the location of the 4,723 sites (grid cells of 10 x 10 km resolution) as
 polygons. It contains the names of the site in its first column **`"site"`**:
 
 ```{r preview-sites-locs}
-site_locations
+woodiv_locations
 ```
 
 Note that to use your own site locations object, it should follow similar
@@ -162,7 +162,7 @@ with non-missing traits using the `fb_plot_number_species_by_trait()` function.
 It takes the species by trait `data.frame` as input.
 
 ```{r fig-plot-sp-by-trait}
-fb_plot_number_species_by_trait(species_traits)
+fb_plot_number_species_by_trait(woodiv_traits)
 ```
 
 This plot shows us the number of species (along the x-axis) in function of 
@@ -180,7 +180,7 @@ For example, if we want to visualize which traits cover more than 75%
 of the species:
 
 ```{r fig-plot-sp-by-trait-prop}
-fb_plot_number_species_by_trait(species_traits, threshold_species_proportion = 0.75)
+fb_plot_number_species_by_trait(woodiv_traits, threshold_species_proportion = 0.75)
 ```
 
 The top number shows the corresponding number of species.
@@ -194,7 +194,7 @@ have at least a certain number of traits. This can be visualized using the
 function, it takes the species x traits `data.frame` as the first argument:
 
 ```{r fig-plot-trait-by-sp}
-fb_plot_number_traits_by_species(species_traits)
+fb_plot_number_traits_by_species(woodiv_traits)
 ```
 
 The plot shows the number (bottom x-axis) and the proportion (top x-axis) of
@@ -215,11 +215,11 @@ The function takes the species by traits `data.frame` and outputs the same datas
 
 ```{r filter-traits-by-species}
 # Initial dimension of the input data
-dim(species_traits)
+dim(woodiv_traits)
 
 # Filter traits 
 red_sp_traits <- fb_filter_traits_by_species_coverage(
-  species_traits, threshold_species_proportion =  0.75
+  woodiv_traits, threshold_species_proportion =  0.75
 )
 
 dim(red_sp_traits)
@@ -276,11 +276,11 @@ traits represent at least 90% of the species present:
 
 ```{r filter-trait-coverage}
 # Initial site x species data
-dim(site_species)
+dim(woodiv_site_species)
 
 # Filter sites with at least 90% species covered
 filt_sites <- fb_filter_sites_by_trait_coverage(
-  site_species, red_sp_traits_2, threshold_traits_proportion = 0.9
+  woodiv_site_species, red_sp_traits_2, threshold_traits_proportion = 0.9
 )
 
 # Filtered sites
@@ -436,7 +436,7 @@ and an environmental raster from the `terra` package.
 By default, it takes the average of the raster values per site.
 
 ```{r get-environment}
-site_mat <- fb_get_environment(site_locations, tavg)
+site_mat <- fb_get_environment(woodiv_locations, tavg)
 
 head(site_mat)
 ```
@@ -454,7 +454,7 @@ We can thus plot the mean annual temperature of sites through the following
 commands:
 
 ```{r map-avg-environment}
-fb_map_site_data(site_locations, site_mat, "annual_mean_temp") +
+fb_map_site_data(woodiv_locations, site_mat, "annual_mean_temp") +
   labs(title = "Mean Annual Temperature per Site")
 ```
 
@@ -466,7 +466,7 @@ For example, with the body mass CWM:
 ```{r map-cwm-body-mass}
 body_mass_cwm <- subset(cwm, trait == "plant_height")
 
-fb_map_site_data(site_locations, body_mass_cwm, "cwm") +
+fb_map_site_data(woodiv_locations, body_mass_cwm, "cwm") +
   scale_fill_viridis_c(trans = "log10") +
   labs(title = "Mammals Body Mass CWM")
 ```
@@ -474,7 +474,7 @@ fb_map_site_data(site_locations, body_mass_cwm, "cwm") +
 We can do similarly for functional richness:
 
 ```{r map-fric, eval = require("fundiversity")}
-fb_map_site_data(site_locations, fric, "FRic") +
+fb_map_site_data(woodiv_locations, fric, "FRic") +
   scale_fill_viridis_c(option = "magma") +
   labs(title = "Mammals Functional Richness")
 ```

@@ -69,7 +69,7 @@ fb_plot_number_sites_by_species <- function(
   )
   
   # Clean environment
-  rm(site_species)
+  # rm(site_species)
   
   # Actual plot
   given_plot <- ggplot2::ggplot(
