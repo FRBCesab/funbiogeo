@@ -28,9 +28,9 @@ displaying information by each category of species (family, order, endemism stat
 ```{r child="../man/rmdchunks/_table-plot-functions.Rmd"}
 ```
 
-Table: A table of available plotting functions in `funbiogeo` ordered
-alphabetically with their required arguments. The "Additional input" column
-reflects the need for other argument that are not of the standard object type.
+Table: Plotting functions in `funbiogeo` ordered alphabetically with their
+required ✳️, optional 🟩, and absent ➖ input datasets. The "Additional input" 
+column reflects the need for other arguments.
 
 Let's first load the package and example datasets included in the `funbiogeo`.
 
