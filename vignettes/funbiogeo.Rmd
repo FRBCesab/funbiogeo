@@ -305,18 +305,25 @@ and species. Now we selected 1,268 sites out of 1,505, for our 2 traits and 127 
 ## Computing Functional Diversity metrics
 
 The `funbiogeo` functions helped us filter our data appropriately with enough
-available trait information for species and sites.
+available trait information for species and sites. The goal of `funbiogeo` is to
+help you analyzing functional trait data and computing functional diversity
+indices. These indices capture the diversity of trait values in a set of species,
+if you're interested in an introduction to functional diversity indices and how
+to analyze them, it's out of scope of this vignette, but you can refer to 
+Mammola et al. [-@Mammola_Concepts_2021]. The paper provides a general workflow
+to work with trait data.
 
-We can use the filtered datasets to proceed with our analyses using other
-readily available tools for functional diversity indices.
+`funbiogeo` doesn't aim to substitute to all these amazing tools that compute
+a diversity of indices with different properties and formulas.,
+however, we can use the filtered datasets to proceed with our analyses
 This is where you should use your preferred packages to compute functional
 diversity indices like [`mFD`](https://cran.r-project.org/package=mFD) or
 [`funrar`](https://cran.r-project.org/package=funrar). If you're new to the
-world of functional diversity metrics, we suggest reading 
-[`mFD` introductory vignette](https://cmlmagneville.github.io/mFD/articles/mFD_general_workflow.html). It underlines the different steps to compute functional diversity metrics.
-
-`funbiogeo` doesn't aim to substitute to all these amazing tools that compute
-a diversity of indices with different properties and formulas.
+world of functional diversity analyses, we suggest reading 
+[`mFD` introductory vignette](https://cmlmagneville.github.io/mFD/articles/mFD_general_workflow.html).
+It underlines the different steps to compute functional diversity metrics.
+If you're interest in computing functional rarity indices with `funrar` you can
+also refer to [its tutorial](https://rekyt.github.io/funrar/articles/funrar.html).
 
 For the sake of the example, we included a function in `funbiogeo`
 to compute Community-Weighted Mean [CWM, @Garnier_Plant_2004] named `fb_cwm()`.
@@ -402,12 +409,17 @@ tavg <- terra::rast(tavg)
 # Map raster
 fb_map_raster(tavg) + 
   scale_fill_distiller("Temperature", palette = "Spectral") +
-  theme(legend.position = "bottom") + 
-  ggtitle("Mean annual temperature in Europe")
+  labs(title = "Mean annual temperature in Europe") +
+  theme(legend.position = "bottom")
 ```
 
-We can also combine that with the annual precipitation information available
-as an example.
+All of the plots produced by `funbiogeo` are `ggplot2` objects and can thus be
+customized using the `ggplot2` syntax, to learn about it check the
+[`ggplot2` introductory vignette](https://ggplot2.tidyverse.org/articles/ggplot2.html).
+
+Leveraging the `patchwork` package, that allows to combine different `ggplot2`
+objects, we can have side-by-side, the map of mean annual temperature and the
+one on annual total precipitation:
 
 ```{r composition-map, dev = 'png'}
 library("patchwork")
@@ -439,6 +451,7 @@ This function allows the visualization of a raster in a simple fashion, but it
 doesn't tell us anything about the environmental variable at the sites.
 In the next section we will follow the example of mapping an environmental
 variable.
+
 
 ### Map of average environmental variable in site
 
@@ -497,8 +510,10 @@ fb_map_site_data(site_locations, fric, "FRic") +
 This concludes our tutorial to introduce `funbiogeo`. The package contains many
 more features, especially diagnostic plots, which are explained in detail in
 [a dedicated vignette](diagnostic-plots.Rmd).
-There is also a specific vignette about [transforming raw data from long to wide format](long-format.Rmd).
-Finally, if you're interested in learning about upscaling your sites, you can
+There is also a specific vignette about
+[transforming raw data from long to wide format](long-format.Rmd).
+Finally, if you're interested in learning about up-scaling your sites, which
+means aggregating your sites at coarser scales,you can
 refer to [the specific vignette](upscaling.Rmd)
 
 
