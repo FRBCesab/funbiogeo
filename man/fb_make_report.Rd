@@ -67,18 +67,13 @@ summarize users data. User can modify this report and use the function
 # Create temporary folder
 temp_path <- tempdir()
 
-# Load data
-data("species_traits")
-data("site_species")
-data("site_locations")
-
 # Create report
 fb_make_report(
   path                = temp_path, 
   author              = "Casajus N. and Grenié M.",
-  species_traits_name = "species_traits",
-  site_species_name   = "site_species",
-  site_locations_name = "site_locations",
+  species_traits_name = "woodiv_traits",
+  site_species_name   = "woodiv_site_species",
+  site_locations_name = "woodiv_locations",
   open = FALSE
 )
 
@@ -87,7 +82,9 @@ fb_make_report(
 utils::file.edit(file.path(temp_path, "funbiogeo_report.Rmd"))
 
 # Render Rmd file ----
-rmarkdown::render(file.path(temp_path, "funbiogeo_report.Rmd"), 
-                  output_format = "all")
+rmarkdown::render(
+    file.path(temp_path, "funbiogeo_report.Rmd"),
+    output_format = "all"
+)
 }
 }

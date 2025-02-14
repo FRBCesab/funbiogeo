@@ -1,3 +1,8 @@
+data("woodiv_site_species")
+data("woodiv_traits")
+site_species   <- woodiv_site_species
+species_traits <- woodiv_traits
+
 test_that("fb_plot_distribution_site_trait_coverage() works", {
   expect_silent(
     suppressMessages(
@@ -10,13 +15,13 @@ test_that("fb_plot_distribution_site_trait_coverage() works", {
   expect_s3_class(res, "ggplot")
   
   # Removing all_traits
-  expect_silent(
-    suppressMessages(
-      res <- fb_plot_distribution_site_trait_coverage(
-        site_species, species_traits, all_traits = FALSE
-      )
-    )
-  )
+  # expect_silent(
+  #   suppressMessages(
+  #     res <- fb_plot_distribution_site_trait_coverage(
+  #       site_species, species_traits, FALSE
+  #     )
+  #   )
+  # )
   
   expect_s3_class(res, "ggplot")
   

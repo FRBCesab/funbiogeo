@@ -36,9 +36,9 @@ represents one trait. The y-axis gives the frequency of the row
 }
 \examples{
 # Ordered by number by default
-fb_plot_trait_combination_frequencies(species_traits)
+fb_plot_trait_combination_frequencies(woodiv_traits)
 
 # Order by present traits
-fb_plot_trait_combination_frequencies(species_traits, NULL, "complete")
+fb_plot_trait_combination_frequencies(woodiv_traits, NULL, "complete")
 
 }

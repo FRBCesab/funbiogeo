@@ -21,29 +21,26 @@ knitr::opts_chunk$set(
 )
 ```
 
-The aim of the `funbiogeo`package is to help users streamline the workflows in **fun**ctional **biogeo**graphy [@Violle_emergence_2014].
+The aim of the `funbiogeo` package is to help users streamline the workflows in 
+**fun**ctional **biogeo**graphy [@Violle_emergence_2014].
 It helps filter sites, species, and traits based on their trait coverages.
 It also provide default diagnostic plots and standard tables summarizing input
 data. This vignette aims to be an introduction to the most commonly used
 functions.
 
-The vignette is a worked through real world example of a functional biogeography workflow using the internal dataset on European mammals provided in `funbiogeo`.
+The vignette is a worked through real world example of a functional biogeography 
+workflow using the internal dataset provided in `funbiogeo` and derived from the
+WOODIV database [@Monnet_2021].
 
 ```{r setup}
 library("funbiogeo")
 library("ggplot2")
+library("sf")
 ```
 
 ## Provided data
 
-We are interested in mapping the functional traits of mammals of Europe.
-We used range maps data
-[from the IUCN](https://www.iucnredlist.org/resources/spatial-data-download)
-and trait data from the
-[PanTHERIA database](https://esapubs.org/archive/ecol/E090/184/)
-[@Jones_PanTHERIA_2009].
-The initial extraction scripts are available
-on [GitHub](https://github.com/FRBCesab/eumammals).
+We are interested in mapping the functional traits of 26 Rosacean tree species of Western European Mediterranean regions.
 
 The functions in `funbiogeo` mostly leverage three different objects:
 
@@ -54,9 +51,9 @@ The functions in `funbiogeo` mostly leverage three different objects:
 You can load the example data using the `data(..., package = "funbiogeo")` call:
 
 ```{r load-datasets}
-data("site_species", package = "funbiogeo")
-data("site_locations", package = "funbiogeo")
-data("species_traits", package = "funbiogeo")
+data("woodiv_site_species", package = "funbiogeo")
+data("woodiv_locations", package = "funbiogeo")
+data("woodiv_traits", package = "funbiogeo")
 ```
 
 In the following sections we'll describe in detail these three provided datasets in the package.
@@ -78,25 +75,20 @@ Let's examine the `species_traits` data included in the package:
 
 ```{r preview-species-traits, echo = FALSE}
 knitr::kable(
-  head(species_traits, 4), 
-  caption   = "First lines of species x traits dataset", 
-  align     = c("r", "r", "r", "r", "r", "r")
+  head(woodiv_traits, 4), 
+  caption   = "Format of species x traits dataset", 
+  align     = c("c", rep("r", 4))
 )
 ```
 
-The first column **`"species"`** contains species names, while the next 6
-columns contain different traits for all species. Note that the species names
-are anonymized because the IUCN data
-[cannot be redistributed](https://www.iucnredlist.org/terms/terms-of-use#4.%20No%20Reposting%20or%20Redistribution).
+The first column **`"species"`** contains species names, while the next four
+columns contain different traits for all species. 
 
 Let's look at a summary of the trait dataset:
 
 ```{r summary-trait-dataset}
-summary(species_traits)
+summary(woodiv_traits)
 ```
-
-From there we can see that there are 149 included species and some missing trait
-values. For example, we don't have body mass information for 26 species.
 
 Note that to use your own species by traits `data.frame`, it should follow
 similar structure with the first column being named **`"species"`** and the
@@ -114,20 +106,20 @@ Note that here we are talking about sites in an abstract way.
 These can be plots, assemblages, of whatever collections of species you're
 interested in.
 
-The package `funbiogeo` comes with the example dataset on European mammals
+The package `funbiogeo` comes with the example dataset on Rosacean tree species of Western European Mediterranean regions
 `site_species`.
 Let's look at it:
 
 ```{r preview-sites-species, echo = FALSE}
 knitr::kable(
-  head(site_species[ , 1:4], 10), 
+  head(woodiv_site_species[ , 1:6], 10), 
   caption   = "Format of site x species dataset", 
-  align     = c("c", "c", "c", "c")
+  align     = rep("c", 6)
 )
 ```
 
-The example dataset contains the occurrence of the 149 mammal species
-across 1,505 sites (grid cells of 0.5° x 0.5° resolution).
+The example dataset contains the occurrence of the 26 Rosaceae tree species
+across 4,723 sites (grid cells of 10 x 10 km resolution).
 
 Note that to use your own site by species `data.frame`, it should follow similar
 structure with the first column being named **`"sites"`** and the other ones
@@ -145,11 +137,11 @@ line transects! To make sure that your data is well plotted you should specify
 the Coordinate Reference System (CRS) of this object.
 
 The package `funbiogeo` comes with the example dataset `site_locations` defining
-the location of the 1,505 sites (grid cells of 0.5° x 0.5° resolution) as
+the location of the 4,723 sites (grid cells of 10 x 10 km resolution) as
 polygons. It contains the names of the site in its first column **`"site"`**:
 
 ```{r preview-sites-locs}
-site_locations
+head(woodiv_locations)
 ```
 
 Note that to use your own site locations object, it should follow similar
@@ -171,7 +163,7 @@ with non-missing traits using the `fb_plot_number_species_by_trait()` function.
 It takes the species by trait `data.frame` as input.
 
 ```{r fig-plot-sp-by-trait}
-fb_plot_number_species_by_trait(species_traits)
+fb_plot_number_species_by_trait(woodiv_traits)
 ```
 
 This plot shows us the number of species (along the x-axis) in function of 
@@ -179,17 +171,17 @@ the trait name (along the y-axis). The number of concerned species is shown at
 the bottom of the plot while the corresponding proportion of species
 (compared to all the species included in the trait dataset) is indicated as
 a secondary x-axis at the top. The proportion of species concerned is shown at
-the right of each point. For example, in our example dataset, 82.6% species have
-a non-NA adult body mass.
+the right of each point. ~~For example, in our example dataset, 82.6% species have
+a non-NA adult body mass~~.
 
-The function also include a way to provide a target proportion of species as
+The function also includes a way to provide a target proportion of species as
 the second argument. It will display the proportion as a dark red dashed line.
 
 For example, if we want to visualize which traits cover more than 75%
 of the species:
 
 ```{r fig-plot-sp-by-trait-prop}
-fb_plot_number_species_by_trait(species_traits, threshold_species_proportion = 0.75)
+fb_plot_number_species_by_trait(woodiv_traits, threshold_species_proportion = 0.75)
 ```
 
 The top number shows the corresponding number of species.
@@ -203,11 +195,11 @@ have at least a certain number of traits. This can be visualized using the
 function, it takes the species x traits `data.frame` as the first argument:
 
 ```{r fig-plot-trait-by-sp}
-fb_plot_number_traits_by_species(species_traits)
+fb_plot_number_traits_by_species(woodiv_traits)
 ```
 
 The plot shows the number (bottom x-axis) and the proportion (top x-axis) of
-species covered by a specific number of traits (0 to 6 in our example).
+species covered by a specific number of traits (0 to 4 in our example).
 
   
 ## Filtering the data
@@ -224,11 +216,11 @@ The function takes the species by traits `data.frame` and outputs the same datas
 
 ```{r filter-traits-by-species}
 # Initial dimension of the input data
-dim(species_traits)
+dim(woodiv_traits)
 
 # Filter traits 
 red_sp_traits <- fb_filter_traits_by_species_coverage(
-  species_traits, threshold_species_proportion =  0.75
+  woodiv_traits, threshold_species_proportion =  0.75
 )
 
 dim(red_sp_traits)
@@ -238,8 +230,8 @@ head(red_sp_traits)
 ```
 
 The function outputs a filtered species-traits dataset retaining only traits
-covering at least 75% of the species. In the end this keep two traits: body mass
-and litter size.
+covering at least 75% of the species. ~~In the end this keep two traits: body mass
+and litter size~~.
 
 
 ### Filter species by trait coverage
@@ -264,8 +256,8 @@ head(red_sp_traits_2)
 dim(red_sp_traits_2)
 ```
 
-We thus have selected 2 traits that cover at least 75% of the initial species
-list and 127 species which have known values for these two traits.
+~~We thus have selected 2 traits that cover at least 75% of the initial species
+list and 127 species which have known values for these two traits.~~
 
 
 ### Filter sites by trait coverage
@@ -285,11 +277,11 @@ traits represent at least 90% of the species present:
 
 ```{r filter-trait-coverage}
 # Initial site x species data
-dim(site_species)
+dim(woodiv_site_species)
 
 # Filter sites with at least 90% species covered
 filt_sites <- fb_filter_sites_by_trait_coverage(
-  site_species, red_sp_traits_2, threshold_traits_proportion = 0.9
+  woodiv_site_species, red_sp_traits_2, threshold_traits_proportion = 0.9
 )
 
 # Filtered sites
@@ -298,8 +290,8 @@ dim(filt_sites)
 filt_sites[1:4, 1:4]
 ```
 
-The output of the function is a site x species `data.frame` with selected sites
-and species. Now we selected 1,268 sites out of 1,505, for our 2 traits and 127 species.
+~~The output of the function is a site x species `data.frame` with selected sites
+and species. Now we selected 1,268 sites out of 1,505, for our 2 traits and 127 species.~~
 
 
 ## Computing Functional Diversity metrics
@@ -324,8 +316,8 @@ diversity indices using the `fundiversity` package.
 
 ### Community-Weighted Mean (CWM)
 
-We're interested to look at the spatial distribution of the average body mass
-and litter size of European mammals. To do so, we can compute the
+We're interested to look at the spatial distribution of the average plant height
+and seed mass of Rosaceae tree species. To do so, we can compute the
 community-weighted mean of both traits. We'll use the `fb_cwm()` function to do
 so, it takes the site x species `data.frame` and species x traits `data.frame`
 as arguments.
@@ -355,7 +347,7 @@ with `fundiversity`.
 # Functional richness in 'fundiversity' requires all the traits to be known
 # so we need to filter the traits
 filt_traits <- subset(
-  red_sp_traits, !is.na(adult_body_mass) & !is.na(litter_size)
+  red_sp_traits, !is.na(plant_height) & !is.na(seed_mass)
 )
 
 # We need to transform species and site names as row names for species-traits
@@ -445,7 +437,7 @@ and an environmental raster from the `terra` package.
 By default, it takes the average of the raster values per site.
 
 ```{r get-environment}
-site_mat <- fb_get_environment(site_locations, tavg)
+site_mat <- fb_get_environment(woodiv_locations, tavg)
 
 head(site_mat)
 ```
@@ -463,7 +455,7 @@ We can thus plot the mean annual temperature of sites through the following
 commands:
 
 ```{r map-avg-environment}
-fb_map_site_data(site_locations, site_mat, "annual_mean_temp") +
+fb_map_site_data(woodiv_locations, site_mat, "annual_mean_temp") +
   labs(title = "Mean Annual Temperature per Site")
 ```
 
@@ -473,19 +465,19 @@ We can leverage the same functions to map our functional diversity indices.
 For example, with the body mass CWM:
 
 ```{r map-cwm-body-mass}
-body_mass_cwm <- subset(cwm, trait == "adult_body_mass")
+body_mass_cwm <- subset(cwm, trait == "plant_height")
 
-fb_map_site_data(site_locations, body_mass_cwm, "cwm") +
+fb_map_site_data(woodiv_locations, body_mass_cwm, "cwm") +
   scale_fill_viridis_c(trans = "log10") +
-  labs(title = "Mammals Body Mass CWM")
+  labs(title = "Tree height CWM")
 ```
 
 We can do similarly for functional richness:
 
 ```{r map-fric, eval = require("fundiversity")}
-fb_map_site_data(site_locations, fric, "FRic") +
+fb_map_site_data(woodiv_locations, fric, "FRic") +
   scale_fill_viridis_c(option = "magma") +
-  labs(title = "Mammals Functional Richness")
+  labs(title = "Tree Functional Richness")
 ```
 
 

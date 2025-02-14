@@ -1,6 +1,6 @@
 test_that("fb_format_species_categories() works", {
   
-  filename <- system.file("extdata", "raw_mammals_data.csv", 
+  filename <- system.file("extdata", "woodiv_raw_data.csv", 
                           package = "funbiogeo")
   all_data <- read.csv(filename)
   
@@ -120,10 +120,10 @@ test_that("fb_format_species_categories() works", {
   # Non-unique categories per species ----
   
   test_data <- all_data
-  test_data[2, 2] <- "Carnivora"
+  test_data[1, "genus"] <- "Pyrus"
 
   expect_error(
-    fb_format_species_categories(test_data, "species", "order"),
+    fb_format_species_categories(test_data, "species", "genus"),
     "Some species have non-unique category values",
     fixed = TRUE
   )
@@ -131,11 +131,11 @@ test_that("fb_format_species_categories() works", {
   # Working ----
   
   species_categories <- fb_format_species_categories(
-    all_data, "species", "order"
+    all_data, "species", "genus"
   )
   expect_true(is.data.frame(species_categories))
-  expect_equal(nrow(species_categories), 65L)
+  expect_equal(nrow(species_categories), 24L)
   expect_equal(ncol(species_categories), 2L)
   expect_true("species" %in% colnames(species_categories))
-  expect_equal(species_categories[1, 2],"Cetartiodactyla")
+  expect_equal(species_categories[1, 2], "Juniperus")
 })

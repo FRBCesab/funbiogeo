@@ -39,5 +39,7 @@ trait and add an additional facet named \code{"all_traits"} considering the
 trait coverage with all traits taken together.
 }
 \examples{
-fb_map_site_traits_completeness(site_locations, site_species, species_traits)
+fb_map_site_traits_completeness(
+    woodiv_locations, woodiv_site_species, woodiv_traits
+)
 }

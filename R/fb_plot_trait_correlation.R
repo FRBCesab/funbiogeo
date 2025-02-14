@@ -16,10 +16,10 @@
 #' @export
 #'
 #' @examples
-#' fb_plot_trait_correlation(species_traits)
+#' fb_plot_trait_correlation(woodiv_traits)
 #' 
 #' # Plot Spearman's correlation
-#' fb_plot_trait_correlation(species_traits, method = "spearman")
+#' fb_plot_trait_correlation(woodiv_traits, method = "spearman")
 fb_plot_trait_correlation <- function(
     species_traits, species_categories = NULL, ...
 ) {

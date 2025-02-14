@@ -16,10 +16,10 @@
 #' @export
 #'
 #' @examples
-#' fb_plot_number_sites_by_species(site_species)
+#' fb_plot_number_sites_by_species(woodiv_site_species)
 #' 
 #' # Add a vertical cutoff line (40% of sites)
-#' fb_plot_number_sites_by_species(site_species, 0.4)
+#' fb_plot_number_sites_by_species(woodiv_site_species, 0.4)
 fb_plot_number_sites_by_species <- function(
   site_species, threshold_sites_proportion = NULL
 ) {
@@ -69,7 +69,7 @@ fb_plot_number_sites_by_species <- function(
   )
   
   # Clean environment
-  rm(site_species)
+  # rm(site_species)
   
   # Actual plot
   given_plot <- ggplot2::ggplot(
@@ -79,7 +79,7 @@ fb_plot_number_sites_by_species <- function(
     ggplot2::scale_x_continuous(
       "Number of Occupied Sites",
       sec.axis = ggplot2::sec_axis(
-        trans = ~./n_species, "Proportion of Occupied Sites",
+        transform = ~./n_species, "Proportion of Occupied Sites",
         labels = scales::label_percent()
       )
     ) +

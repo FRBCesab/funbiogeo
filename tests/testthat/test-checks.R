@@ -188,9 +188,9 @@ test_that("check_species_traits() works", {
 
 test_that("check_site_locations() works", {
   
-  data("site_locations")
+  data("woodiv_locations")
   
-  sites_sf <- site_locations
+  sites_sf <- woodiv_locations
   
   # Wrong input ----
   

@@ -38,9 +38,9 @@ Let's first load the package and example datasets included in the `funbiogeo`.
 library("funbiogeo")
 library("sf")
 
-data("site_locations")
-data("site_species")
-data("species_traits")
+data("woodiv_locations")
+data("woodiv_site_species")
+data("woodiv_traits")
 ```
 
 
@@ -86,20 +86,16 @@ distributions. This package is thus needed to run this function.
 Example:
 
 ```{r plot-dist-site-cov}
-fb_plot_distribution_site_trait_coverage(site_species, species_traits)
+fb_plot_distribution_site_trait_coverage(woodiv_site_species, woodiv_traits)
 ```
 
 We see the distribution of species coverage per site (along the x-axis) for each
 trait (along the y-axis) and with all traits taken together (shown at the top of
 the top on the line `all_traits`). The proportions on the y-axis labels are the
-average coverage observed for this trait. So for example, considering only adult
-body mass as a trait would mean that we would achieve an average coverage of
-95.3%, meaning that on average across all sites 95.3% of species are covered. We
-can compare this to the trait *max_longevity* which
-corresponds to the maximum longevity of the species. We see that the average
-trait coverage across all sites is 82.1%. We see that the distribution however
-is rather wide, with some sites showing a coverage of around 90% (the large
-bump), while some sites are close to 62% coverage.
+average coverage observed for this trait. We see that we have very similar
+average coverage for all sites (average number of species for which we have
+not NA trait data), whatever the trait we consider, which is about 100%
+of species.
 
 This plot considers the distribution of species across sites instead of focusing
 only on the species by traits `data.frame`. This maybe useful to realize, for
@@ -116,7 +112,7 @@ is necessary while the second one `threshold_sites_proportion`, a target
 proportion of sites coverage, is optional.
 
 ```{r plot-sites-coverage-species}
-fb_plot_number_sites_by_species(site_species)
+fb_plot_number_sites_by_species(woodiv_site_species)
 ```
 
 The function outputs a dotchart. The number of occupied sites per species is indicated at the 
@@ -131,7 +127,7 @@ the given proportion of sites.
 Let's say we want to see the species present in at least 40% of the sites:
 
 ```{r plot-sites-coverage-species-thresh}
-fb_plot_number_sites_by_species(site_species, threshold_sites_proportion = 0.4)
+fb_plot_number_sites_by_species(woodiv_site_species, threshold_sites_proportion = 0.4)
 ```
 
 The threshold bar helps us get a sense of how many species are present in at least 40% of the sites. It also displays the corresponding number of sites.
@@ -146,28 +142,28 @@ while the second one `threshold_species_proportion`, a target proportion of
 species coverage, is optional.
 
 ```{r plot-species-coverage-trait}
-fb_plot_number_species_by_trait(species_traits)
+fb_plot_number_species_by_trait(woodiv_traits)
 ```
 
 The function outputs a lollipop chart. On the bottom x-axis there is the number
 of species covered by the given trait (the top x-axis represents the proportion
 of species, which is directly proportional). The y-axis represents each trait.
 The dot represents the actual coverage observed with the corresponding proportion
-of species written on top. With this figure we see that 82.6% of the species
-have a non-missing adult body mass in the species by trait `data.frame`, while
-only 54.4% have a non-missing maximum longevity.
+of species written on top. With this figure we see that 70.8% of the species
+have a non-missing SLA in the species by trait `data.frame`, while
+only 100% have a non-missing plant height.
 
 Adding the second argument `threshold_species_proportion` displays a vertical
 bar at the target proportion to easily target traits covering a certain
 proportion of species. Let's say we want to see traits available for at least
-70% of the species:
+90% of the species:
 
 ```{r plot-species-coverage-trait-thresh}
-fb_plot_number_species_by_trait(species_traits, threshold_species_proportion = 0.7)
+fb_plot_number_species_by_trait(woodiv_traits, threshold_species_proportion = 0.9)
 ```
 
 The red dashed vertical line shows the corresponding species coverage with
-labels indicating the proportion and corresponding number of species (n = 104).
+labels indicating the proportion and corresponding number of species (n = 22).
 
 
 ### Plotting the number of traits per species
@@ -188,7 +184,7 @@ threshold proportion of species, so that a line can be added to the plot.
 Using it on the included dataset gives:
 
 ```{r plot-n-traits-species}
-fb_plot_number_traits_by_species(species_traits)
+fb_plot_number_traits_by_species(woodiv_traits)
 ```
 
 The x-axis represents the number of species concerned (bottom x-axis displays
@@ -199,22 +195,22 @@ set of species with at least 2 traits, and so on and so forth. By definition all
 species have 0 or more known traits, but we show that in the plot as a reference to
 see how the proportion decreases with increasing number of traits. The
 proportion is shown as text above each dot representing it. So for example,
-there are 62.4% species with at least 4 traits.
+there are 79.2% species with at least 3 non-missing traits.
 
-This plot does not tell us if all species with at least 4 traits share the same
-trait combination (there are multiple 4 trait combinations), but it's a first indication.
+This plot does not tell us if all species with at least 3 traits share the same
+trait combination (there are multiple 3 trait combinations), but it's a first indication.
 
 Let's say we're interested in combinations of traits with at least 50% species
 covered. We can use the second argument to show it:
 
 ```{r plot-n-traits-species-thresh}
-fb_plot_number_traits_by_species(species_traits, threshold_species_proportion = 0.5)
+fb_plot_number_traits_by_species(woodiv_traits, threshold_species_proportion = 0.5)
 ```
 
 Adding this argument displays a vertical bar at the target proportion of species
 to easily target number of traits covering a certain proportion of species. The
 red dashed vertical line shows the corresponding species coverage with labels
-indicating the proportion and corresponding number of species (n = 74).
+indicating the proportion and corresponding number of species (n = 12)
 
 ### Plotting environmental position of sites
 
@@ -239,7 +235,7 @@ tavg <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")
 layers <- terra::rast(c(tavg, prec))
 
 # Make plot (show environmental position of 6 first sites)
-fb_plot_site_environment(head(site_locations), layers)
+fb_plot_site_environment(head(woodiv_locations), layers)
 ```
 
 The plot shows the first selected layer as the x-axis and the second one as the
@@ -247,9 +243,9 @@ y-axis. The environmental position of the sites are displayed using the big blue
 dots, while the light gray pixels are all the environmental variables extracted
 from the provided environmental raster.
 
-This figure can show us that the first six sites are actually lower in
-temperature and higher in annual precipitation than most other places in our
-environmental rasters.
+This figure can show us that the first six sites are actually higher in
+temperature and lower in annual precipitation than most other places in our
+environmental rasters, with one site has higher precipitation than others.
 
 
 ### Plotting trait coverage for all sites
@@ -263,7 +259,7 @@ as arguments.
 We can use it with the included dataset as an example:
 
 ```{r plot-site-trait-complete}
-fb_plot_site_traits_completeness(site_species, species_traits)
+fb_plot_site_traits_completeness(woodiv_site_species, woodiv_traits)
 ```
 
 The plot shows the trait along the x-axis (and their average coverage across all
@@ -273,8 +269,7 @@ column. Note that for readability reasons the color scale has been discretized
 from 0 to 100% coverage. Traits are ranked in decreasing average coverage. The
 last column `all_traits` contains the coverage for all traits taken together.
 
-With this figure we can see that all sites have over 80% coverage with both
-adult body mass and litter size.
+With this figure we can see that all sites have over 95% coverage for all traits.
 
 
 ### Plotting trait coverage per species
@@ -286,7 +281,7 @@ This is done by `fb_plot_species_traits_completeness()` which takes
 We can use it with the included dataset as an example:
 
 ```{r plot-species-trait-complete}
-fb_plot_species_traits_completeness(species_traits)
+fb_plot_species_traits_completeness(woodiv_traits)
 ```
 
 This figure visualizes directly the species by trait `data.frame`. The x-axis
@@ -296,10 +291,9 @@ considers all traits taken together. The y-axis represents species in decreasing
 coverage order from bottom to top. Each cell thus represents the trait for a
 species: blue if the trait is known and red if it is missing.
 
-From this plot we see that a significant proportion of species have missing
-traits and that even the most non-missing traits, adult body mass, is only known
-for 82.6% of the species.
-
+From this plot we see that a small proportion of species have missing
+traits and but taken all together means that we know perfectly only 58.3% of the
+species.
 
 
 ### Plotting number of species with missing traits
@@ -313,15 +307,15 @@ from the previous section. It can be done through
 for all traits taken together.
 
 ```{r plot-species-traits-missingness}
-fb_plot_species_traits_missingness(species_traits, all_traits = TRUE)
+fb_plot_species_traits_missingness(woodiv_traits, all_traits = TRUE)
 ```
 
 The plot displays the number of species with known and missing traits. It shows
 each trait in separate line as a proportional bar chart with the total numbers
 included within each bar.
 
-Here we see that 53 species have all of their traits known while 96 don't.
-Adult body mass is known for 123 species and missing for 26.
+~~Here we see that 53 species have all of their traits known while 96 don't.
+Adult body mass is known for 123 species and missing for 26.~~
 
 
 ### Displaying traits combinations
@@ -340,7 +334,7 @@ influences the order of the plot (more details below).
 We can use it with the included dataset as an example:
 
 ```{r plot-trait-comb-freq}
-fb_plot_trait_combination_frequencies(species_traits)
+fb_plot_trait_combination_frequencies(woodiv_traits)
 ```
 
 The x-axis represents individual traits ranked in alphabetical order from left
@@ -351,15 +345,15 @@ missing. By default the combinations are ordered by increasing number from top
 to bottom, with the most numerous combinations of trait presences at the very
 bottom of the graph.
 
-With this graph we can see that we have exactly 53 species (35.6% of the total
-number of species provided) have all their traits present, while 21 species
-(14.1%) have not a single trait in the dataset.
+With this graph we can see that we have exactly 14 species (58.3% of the total
+number of species provided) with all their traits that are non-missing, while 1 species
+has a missing seed mass and a missing wood density.
 
 If we change `order_by` to `"complete"`, the combinations are ordered instead by
 the number of trait presents among them:
 
 ```{r plot-trait-comb-freq-order}
-fb_plot_trait_combination_frequencies(species_traits, order_by = "complete")
+fb_plot_trait_combination_frequencies(woodiv_traits, order_by = "complete")
 ```
 
 The most complete combinations are shown at the bottom, while the combinations
@@ -381,7 +375,7 @@ observations**. It silently removes any species that has any `NA`.
 With the included dataset as an example:
 
 ```{r plot-trait-corr}
-fb_plot_trait_correlation(species_traits)
+fb_plot_trait_correlation(woodiv_traits)
 ```
 
 Both x- and y-axes represent the different traits. At their intersection are
@@ -390,9 +384,8 @@ shown squared that are colored in function of their correlation coefficient
 close to 0). The correlation coefficients are also displayed in the middle of
 this square.
 
-With this visualization we can see that adult body mass and gestation length are
-quite highly correlated (cor = 0.7), while diet breadth is correlated with no
-other trait.
+With this visualization we can see that our traits are mostly unorrelated, there
+is a slight negative correlation of plant and wood density (cor = -0.2).
 
 
 ## Maps
@@ -426,19 +419,17 @@ traits `data.frame`).
 If we use the included dataset in `funbiogeo` it gives:
 
 ```{r map-trait-complete}
-fb_map_site_traits_completeness(site_locations, site_species, species_traits)
+fb_map_site_traits_completeness(woodiv_locations, woodiv_site_species, woodiv_traits)
 ```
 
 It displays maps of the sites, colored by their trait coverage. Each facet
 represents a different trait while the `all_traits` facet consider all traits
 together.
 
-From this plot we can see that on average the South of Western Europe is less
-covered by traits than the North of Western Europe. It may be an indication of
-higher species richness in the South compared to the North which makes achieving
-high coverages more difficult. Furthermore, we can see that a site in the
-Netherlands has 0% coverage of diet breadth. This is most likely the sign of
-sign of low species richness with an absence of diet breadth for those species.
+From this plot we can see that on average the center of Spain shows lower 
+average trait coverage. It may be an indication of higher species richness in
+Spain compares to other places which makes achieving high coverages more
+difficult. 
 
 
 ### Mapping arbitrary site data
@@ -457,14 +448,14 @@ we can do the following:
 
 ```{r map-site-data-sr}
 # Compute Species Richness
-site_rich <- fb_count_species_by_site(site_species)
+site_rich <- fb_count_species_by_site(woodiv_site_species)
 
 # Map of Species Richness
-fb_map_site_data(site_locations, site_rich, "n_species")
+fb_map_site_data(woodiv_locations, site_rich, "n_species")
 ```
 
-From this map, we can for example see that the Northern part of our dataset is
-less species-rich than the center or the South.
+From this map, we can for example see that the French part of our dataset is
+the most species-rich compared to the other places.
 
 Now imagine we want to display the category of sites which be "Testing" or
 "Training", depending on which set they belong to. We can use the following to
@@ -473,12 +464,12 @@ display the map:
 ```{r map-site-data-cat}
 # Generate categories
 site_cat <- data.frame(
-  site = site_species$site,
-  set  = sample(c("Testing", "Training"), nrow(site_species), replace = TRUE)
+  site = woodiv_site_species$"site",
+  set  = sample(c("Testing", "Training"), nrow(woodiv_site_species), replace = TRUE)
 )
 
 # Display them
-fb_map_site_data(site_locations, site_cat, "set")
+fb_map_site_data(woodiv_locations, site_cat, "set")
 ```
 
 ### Mapping site rasters
@@ -493,8 +484,8 @@ For example:
 
 ```{r}
 # Getting the raster
-tavg <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")
-tavg <- terra::rast(tavg)
+raw <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")
+tavg <- terra::rast(raw)
 
 # Mapping the raster
 fb_map_raster(tavg)

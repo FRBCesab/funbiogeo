@@ -27,6 +27,10 @@ st_sp <- data.frame(
   sp2  = c( 1, 1, 0, 0)
 )
 
+data("woodiv_locations")
+site_locations <- woodiv_locations
+
+
 st_loc <- site_locations[1:4, ]
 
 
