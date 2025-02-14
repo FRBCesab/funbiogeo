@@ -1,13 +1,13 @@
 ---
-title: "Upscaling your data"
+title: "Upscaling your data: aggregating at coarser scales"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Upscaling your data}
+  %\VignetteIndexEntry{Upscaling your data: aggregating at coarser scales}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r options, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment  = "#>"
@@ -20,10 +20,12 @@ The idea is that you have any type of data at the site level (diversity metrics,
 environmental data, as well as site-species data) that you would like to work or
 visualize at a coarser scale. The aggregation process can look daunting at first
 and be quite difficult to run.
-We explain in this vignette, how to do so through the `fb_aggregate_site_data()`
-function. We'll detail three use cases: the first through aggregating arbitrary
-site-level data, the second focused on aggregating the site x species object,
-and the last aggregating functional diversity metrics.
+We explain in details, throughout this vignette, how to do so with the
+`fb_aggregate_site_data()` function. We'll detail three use cases:
+
+1. the first through aggregating arbitrary
+2. site-level data, the second focused on aggregating the site x species object,
+3. and the last aggregating functional diversity indices.
 
 
 ## Aggregating arbitrary site-data
@@ -34,7 +36,8 @@ library("funbiogeo")
 library("sf")
 ```
 
-Let's import our site by locations object, which describes the geographical locations of sites.
+Let's import our site by locations object, which describes the geographical
+locations of sites.
 
 
 ```{r import-site-locations}
@@ -43,48 +46,66 @@ data("woodiv_locations")
 woodiv_locations
 ```
 
-These sites are a collection of regular spatial polygons at a resolution of 10 x 10 km over Western Europe.
+These sites are a collection of regular spatial polygons at a resolution of
+10 km x 10 km over South Western Europe. Our site by locations object is an `sf`
+object, which means it's a spatial object coupled with a data.frame.
 
-For each site, we want to compute the species richness. 
+For each site, we want to compute the species richness. We can do so by counting
+the species at each site with the function `fb_count_species_by_site()`.
 
 ```{r compute-richness}
-# Import site x species data ----
+# Import site x species data
 data("woodiv_site_species")
 
-# Compute species richness ----
+# Compute species richness
 species_richness <- fb_count_species_by_site(woodiv_site_species)
 
 head(species_richness)
 ```
 
-Before going any further let's map these original values with the function
-`fb_map_site_data()`.
+Unfortunately, the `fb_count_species_by_site()` doesn't output a spatial object
+but a data.frame with three columns: the identifier of the site, the number of
+species, and the proportion of species present at a given site. Before going any
+further let's put species richness on the map with the function
+`fb_map_site_data()`. That function allows us to represent any arbitrary data
+at the site level by combining it with the site by locations object, and it
+shows a map of that data.
 
 
 ```{r map-original-richness, dev='png'}
 fb_map_site_data(woodiv_locations, species_richness, "n_species")
 ```
 
-Now, let's say that our next analyses require to work at a coarser resolution. We need to
-aggregate site data on a new spatial grid (object `SpatRaster` from the 
-[`terra`](http://cran.r-project.org/package=terra) package). Let's import this coarser raster.
+
+We would now like to aggregate our sites at a coarser scale, because 10km by
+10km is a too small resolution.
+Now, let's say that our next analyses require to work at a coarser resolution
+We need to aggregate site data on a new spatial grid (object `SpatRaster` from
+the [`terra`](http://cran.r-project.org/package=terra) package). First of all,
+we can create a coarser grid based on our locations object.
 
 
 ```{r import-grid}
-# Import study area grid ----
+# Import study area grid
 coarser_grid <- system.file("extdata", "grid_area.tif", package = "funbiogeo")
 coarser_grid <- terra::rast(coarser_grid)
 
 coarser_grid
 ```
 
-We will aggregate the site data (resolution of 0.5°) to this new coarser raster (resolution of 0.83°) 
-with the function `fb_aggregate_site_data()`. This function requires the following arguments:
+We will aggregate the site data (resolution of 10 km by 10 km) to this new
+coarser raster (resolution of 0.83°, close to 92 km by 92km)  with the function `fb_aggregate_site_data()`. This
+function requires the following arguments:
 
 - `site_locations`: the site x locations object
-- `site_data`: a `matrix` or `data.frame` containing values per sites to aggregate on the provided grid `agg_grid`. Can have one or several columns (variables to aggregate). The first column must contain sites names as provided in the example dataset `site_locations`
-- `agg_grid`: a `SpatRaster` object (package `terra`). A raster of one single layer, that defines the grid along which to aggregate
-- `fun`: the function used to aggregate sites values when there are multiple sites in one cell
+- `site_data`: a `matrix` or `data.frame` containing values per sites to
+aggregate on the provided grid `agg_grid`. Can have one or several columns
+(variables to aggregate). The first column must contain sites names as provided
+in the example dataset `site_locations`
+- `agg_grid`: a `SpatRaster` object (package `terra`). A raster of one single
+layer, that defines the grid along which to aggregate
+- `fun`: the function used to aggregate sites values when there are multiple
+sites in one cell
 
 Let's aggregate our species richness values on this grid.
 
@@ -189,7 +210,7 @@ coarser data. You can proceed similarly to aggregate the ancillary site-related
 data, to use them in the rest of the analyses.
 
 
-## Aggregating site-functional diversity data
+## Aggregating functional diversity data
 
 Because `funbiogeo` focuses on the functional biogeography workflow, we'll
 explore in this section how to aggregate the results for a functional
@@ -279,9 +300,11 @@ head(site_fric)
 We can now follow a similar upscaling process as in the previous sections
 
 ```{r upscale-fric, eval = require("fundiversity")}
-agg_fric <- fb_aggregate_site_data(woodiv_locations[ , 1, drop = FALSE], 
-                                   site_fric, 
-                                   coarser_grid)
+agg_fric <- fb_aggregate_site_data(
+  woodiv_locations[ , 1, drop = FALSE], 
+  site_fric, 
+  coarser_grid
+)
 
 fb_map_raster(agg_fric)
 ```
