@@ -1,4 +1,4 @@
-#' Sites x Locations example data
+#' Sites x Locations of some Mediterranean Conifers
 #' 
 #' @description
 #' This dataset is derived from the WOODIV database (available at:
@@ -30,7 +30,7 @@
 
 
 
-#' Sites x Species example data
+#' Sites x Species of some Mediterranean Conifers
 #' 
 #' @description
 #' This dataset is derived from the WOODIV database (available at:
@@ -62,7 +62,7 @@
 
 
 
-#' Species x Traits example data
+#' Species x Traits of some Mediterranean Conifers
 #' 
 #' @description
 #' This dataset is derived from the WOODIV database (available at:
@@ -100,7 +100,7 @@
 
 
 
-#' Species x Categories example data
+#' Species x Categories of some Mediterranean Conifers
 #' 
 #' @description
 #' This dataset is derived from the WOODIV database (available at:
