@@ -8,8 +8,8 @@
 <title>Upscaling your data • funbiogeo</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Upscaling your data">
 </head>
 <body>
@@ -81,52 +81,54 @@ aggregating functional diversity metrics.</p>
 <h2 id="aggregating-arbitrary-site-data">Aggregating arbitrary site-data<a class="anchor" aria-label="anchor" href="#aggregating-arbitrary-site-data"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://frbcesab.github.io/funbiogeo/">"funbiogeo"</a></span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://frbcesab.github.io/funbiogeo/">"funbiogeo"</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://r-spatial.github.io/sf/" class="external-link">"sf"</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Linking to GEOS 3.12.1, GDAL 3.8.4, PROJ 9.4.0; sf_use_s2() is TRUE</span></span></code></pre></div>
 <p>Let’s import our site by locations object, which describes the
 geographical locations of sites.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"site_locations"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"woodiv_locations"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">site_locations</span></span>
-<span><span class="co">#&gt; Simple feature collection with 1505 features and 1 field</span></span>
+<span><span class="va">woodiv_locations</span></span>
+<span><span class="co">#&gt; Simple feature collection with 5366 features and 2 fields</span></span>
 <span><span class="co">#&gt; Geometry type: POLYGON</span></span>
 <span><span class="co">#&gt; Dimension:     XY</span></span>
-<span><span class="co">#&gt; Bounding box:  xmin: -9.978179 ymin: 35.84736 xmax: 23.02182 ymax: 59.84736</span></span>
-<span><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
+<span><span class="co">#&gt; Bounding box:  xmin: 2630000 ymin: 1380000 xmax: 5040000 ymax: 2550000</span></span>
+<span><span class="co">#&gt; Projected CRS: ETRS89-extended / LAEA Europe</span></span>
 <span><span class="co">#&gt; First 10 features:</span></span>
-<span><span class="co">#&gt;    site                           geom</span></span>
-<span><span class="co">#&gt; 1     1 POLYGON ((5.521821 59.84736...</span></span>
-<span><span class="co">#&gt; 2     2 POLYGON ((6.521821 59.84736...</span></span>
-<span><span class="co">#&gt; 3     3 POLYGON ((7.021821 59.84736...</span></span>
-<span><span class="co">#&gt; 4     4 POLYGON ((7.521821 59.84736...</span></span>
-<span><span class="co">#&gt; 5     5 POLYGON ((8.021821 59.84736...</span></span>
-<span><span class="co">#&gt; 6     6 POLYGON ((8.521821 59.84736...</span></span>
-<span><span class="co">#&gt; 7     7 POLYGON ((9.021821 59.84736...</span></span>
-<span><span class="co">#&gt; 8     8 POLYGON ((9.521821 59.84736...</span></span>
-<span><span class="co">#&gt; 9     9 POLYGON ((10.02182 59.84736...</span></span>
-<span><span class="co">#&gt; 10   10 POLYGON ((10.52182 59.84736...</span></span></code></pre></div>
+<span><span class="co">#&gt;        site  country                       geometry</span></span>
+<span><span class="co">#&gt; 1  26351755 Portugal POLYGON ((2630000 1750000, ...</span></span>
+<span><span class="co">#&gt; 2  26351765 Portugal POLYGON ((2630000 1760000, ...</span></span>
+<span><span class="co">#&gt; 4  26351955 Portugal POLYGON ((2630000 1950000, ...</span></span>
+<span><span class="co">#&gt; 5  26351965 Portugal POLYGON ((2630000 1960000, ...</span></span>
+<span><span class="co">#&gt; 6  26451755 Portugal POLYGON ((2640000 1750000, ...</span></span>
+<span><span class="co">#&gt; 7  26451765 Portugal POLYGON ((2640000 1760000, ...</span></span>
+<span><span class="co">#&gt; 8  26451775 Portugal POLYGON ((2640000 1770000, ...</span></span>
+<span><span class="co">#&gt; 10 26451955 Portugal POLYGON ((2640000 1950000, ...</span></span>
+<span><span class="co">#&gt; 11 26451965 Portugal POLYGON ((2640000 1960000, ...</span></span>
+<span><span class="co">#&gt; 12 26451975 Portugal POLYGON ((2640000 1970000, ...</span></span></code></pre></div>
 <p>These sites are a collection of regular spatial polygons at a
-resolution of 0.5° over Western Europe.</p>
+resolution of 10 x 10 km over Western Europe.</p>
 <p>For each site, we want to compute the species richness.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Import site x species data ----</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"site_species"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"woodiv_site_species"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Compute species richness ----</span></span>
-<span><span class="va">species_richness</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_count_species_by_site.html">fb_count_species_by_site</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span></span>
+<span><span class="va">species_richness</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_count_species_by_site.html">fb_count_species_by_site</a></span><span class="op">(</span><span class="va">woodiv_site_species</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">species_richness</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   site n_species  coverage</span></span>
-<span><span class="co">#&gt; 1  980        68 0.4563758</span></span>
-<span><span class="co">#&gt; 2 1022        68 0.4563758</span></span>
-<span><span class="co">#&gt; 3  931        67 0.4496644</span></span>
-<span><span class="co">#&gt; 4  975        67 0.4496644</span></span>
-<span><span class="co">#&gt; 5  933        66 0.4429530</span></span>
-<span><span class="co">#&gt; 6  966        66 0.4429530</span></span></code></pre></div>
+<span><span class="co">#&gt;       site n_species  coverage</span></span>
+<span><span class="co">#&gt; 1 40552295        12 0.5000000</span></span>
+<span><span class="co">#&gt; 2 39252405        12 0.5000000</span></span>
+<span><span class="co">#&gt; 3 37752305        12 0.5000000</span></span>
+<span><span class="co">#&gt; 4 39852255        12 0.5000000</span></span>
+<span><span class="co">#&gt; 5 39152415        12 0.5000000</span></span>
+<span><span class="co">#&gt; 6 39552415        11 0.4583333</span></span></code></pre></div>
 <p>Before going any further let’s map these original values with the
 function <code><a href="../reference/fb_map_site_data.html">fb_map_site_data()</a></code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_map_site_data.html">fb_map_site_data</a></span><span class="op">(</span><span class="va">site_locations</span>, <span class="va">species_richness</span>, <span class="st">"n_species"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_map_site_data.html">fb_map_site_data</a></span><span class="op">(</span><span class="va">woodiv_locations</span>, <span class="va">species_richness</span>, <span class="st">"n_species"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="upscaling_files/figure-html/map-original-richness-1.png" width="700"></p>
 <p>Now, let’s say that our next analyses require to work at a coarser
 resolution. We need to aggregate site data on a new spatial grid (object
@@ -173,7 +175,7 @@ there are multiple sites in one cell</li>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Upscale to grid ----</span></span>
 <span><span class="va">upscaled_richness</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data</a></span><span class="op">(</span></span>
-<span>  site_locations <span class="op">=</span> <span class="va">site_locations</span>,</span>
+<span>  site_locations <span class="op">=</span> <span class="va">woodiv_locations</span><span class="op">[</span> , <span class="fl">1</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>,</span>
 <span>  site_data      <span class="op">=</span> <span class="va">species_richness</span><span class="op">[</span> , <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>,</span>
 <span>  agg_grid       <span class="op">=</span> <span class="va">coarser_grid</span>,</span>
 <span>  fun            <span class="op">=</span> <span class="va">mean</span></span>
@@ -188,8 +190,8 @@ there are multiple sites in one cell</li>
 <span><span class="co">#&gt; source(s)   : memory</span></span>
 <span><span class="co">#&gt; varname     : grid_area </span></span>
 <span><span class="co">#&gt; name        : n_species </span></span>
-<span><span class="co">#&gt; min value   :         3 </span></span>
-<span><span class="co">#&gt; max value   :        68</span></span></code></pre></div>
+<span><span class="co">#&gt; min value   :         1 </span></span>
+<span><span class="co">#&gt; max value   :        10</span></span></code></pre></div>
 <p>The result of this function is a <code>SpatRaster</code> where the
 cells contain the average values of species richness aggregated over the
 coarser grid.</p>
@@ -202,9 +204,8 @@ coarser grid.</p>
 </h2>
 <p>Now that we’ve learned how to aggregate arbitrary data at the site
 scale over a spatial scale. We’re going to use our provided example
-named <code>site_species</code> on Western European mammals at a
-resolution of 0.5° to get new sites from a grid with pixels of 0.83° of
-resolution.</p>
+named <code>site_species</code> at a resolution of 10 x 10 km to get new
+sites from a grid with pixels of 0.83° of resolution.</p>
 <p>As shown in the part above, we’ll need three objects:
 <code>site_species</code>, which describes the species present across
 sites; <code>site_locations</code>, which gives the spatial locations of
@@ -218,8 +219,8 @@ absence of certain species, we’ll be considered as having the species
 present.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">site_species_agg</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data</a></span><span class="op">(</span></span>
-<span>  <span class="va">site_locations</span>,</span>
-<span>  <span class="va">site_species</span>,</span>
+<span>  <span class="va">woodiv_locations</span><span class="op">[</span> , <span class="fl">1</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>,</span>
+<span>  <span class="va">woodiv_site_species</span>,</span>
 <span>  agg_grid <span class="op">=</span> <span class="va">coarser_grid</span>,</span>
 <span>  fun <span class="op">=</span> <span class="va">max</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -230,7 +231,7 @@ layer for each aggregated variable, i.e. here, one per species.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">site_species_agg</span></span>
 <span><span class="co">#&gt; class       : SpatRaster </span></span>
-<span><span class="co">#&gt; dimensions  : 29, 41, 149  (nrow, ncol, nlyr)</span></span>
+<span><span class="co">#&gt; dimensions  : 29, 41, 24  (nrow, ncol, nlyr)</span></span>
 <span><span class="co">#&gt; resolution  : 0.8333333, 0.8333333  (x, y)</span></span>
 <span><span class="co">#&gt; extent      : -10.5, 23.66667, 35.83333, 60  (xmin, xmax, ymin, ymax)</span></span>
 <span><span class="co">#&gt; coord. ref. : lon/lat WGS 84 (EPSG:4326) </span></span>
@@ -239,21 +240,21 @@ layer for each aggregated variable, i.e. here, one per species.</p>
 <span><span class="co">#&gt;               grid_area </span></span>
 <span><span class="co">#&gt;               grid_area </span></span>
 <span><span class="co">#&gt;               ...</span></span>
-<span><span class="co">#&gt; names       : sp_001, sp_002, sp_003, sp_004, sp_005, sp_006, ... </span></span>
-<span><span class="co">#&gt; min values  :      0,      0,      0,      0,      0,      0, ... </span></span>
-<span><span class="co">#&gt; max values  :      1,      1,      1,      0,      1,      1, ...</span></span></code></pre></div>
+<span><span class="co">#&gt; names       : AALB, ACEP, APIN, CLIB, CSEM, JCOM, ... </span></span>
+<span><span class="co">#&gt; min values  :    0,    0,    0,    0,    0,    0, ... </span></span>
+<span><span class="co">#&gt; max values  :    1,    1,    1,    0,    1,    1, ...</span></span></code></pre></div>
 <p>We can visualize both maps for a single species to see the
 difference:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org" class="external-link">"ggplot2"</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">single_species</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html" class="external-link">merge</a></span><span class="op">(</span></span>
-<span>  <span class="va">site_locations</span>, <span class="va">site_species</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>, by <span class="op">=</span> <span class="st">"site"</span>, all <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="va">woodiv_locations</span>, <span class="va">woodiv_site_species</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>, by <span class="op">=</span> <span class="st">"site"</span>, all <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">finer_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">single_species</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">sp_001</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"Presence of sp_001"</span>, title <span class="op">=</span> <span class="st">"Original resolution (0.5°)"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">AALB</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"Presence of AALB"</span>, title <span class="op">=</span> <span class="st">"Original resolution (10 x 10 km)"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">coarser_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">site_species_agg</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html" class="external-link">scale_fill_binned</a></span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -277,11 +278,11 @@ specifies all the additional arguments with
 <span><span class="va">site_species_agg_df</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">site_species_agg</span>, cells <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">site_species_agg_df</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span>
-<span><span class="co">#&gt;    cell sp_001 sp_002 sp_003</span></span>
-<span><span class="co">#&gt; 20   20      1      0      0</span></span>
-<span><span class="co">#&gt; 21   21      1      0      0</span></span>
-<span><span class="co">#&gt; 22   22      1      0      0</span></span>
-<span><span class="co">#&gt; 23   23      1      0      0</span></span>
+<span><span class="co">#&gt;     cell AALB ACEP APIN</span></span>
+<span><span class="co">#&gt; 755  755    0    0    0</span></span>
+<span><span class="co">#&gt; 757  757    0    0    1</span></span>
+<span><span class="co">#&gt; 758  758    1    0    0</span></span>
+<span><span class="co">#&gt; 759  759    1    0    0</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">site_species_agg_df</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"site"</span></span></code></pre></div>
 <p>With this, we’re ready to reuse all of <code>funbiogeo</code>
@@ -304,25 +305,24 @@ diversity using the <code>fundiversity</code> package.</p>
 <p>To compute the CWM we’ll use the internal function
 <code><a href="../reference/fb_cwm.html">fb_cwm()</a></code>.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">site_cwm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_cwm.html">fb_cwm</a></span><span class="op">(</span><span class="va">site_species</span>, <span class="va">species_traits</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Some species had NA trait values, removing them from CWM computation</span></span>
+<code class="sourceCode R"><span><span class="va">site_cwm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_cwm.html">fb_cwm</a></span><span class="op">(</span><span class="va">woodiv_site_species</span>, <span class="va">woodiv_traits</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">site_cwm</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   site           trait      cwm</span></span>
-<span><span class="co">#&gt; 1    1 adult_body_mass 31974.15</span></span>
-<span><span class="co">#&gt; 2    2 adult_body_mass 39911.51</span></span>
-<span><span class="co">#&gt; 3    3 adult_body_mass 39912.54</span></span>
-<span><span class="co">#&gt; 4    4 adult_body_mass 39912.54</span></span>
-<span><span class="co">#&gt; 5    5 adult_body_mass 41389.44</span></span>
-<span><span class="co">#&gt; 6    6 adult_body_mass 39912.37</span></span></code></pre></div>
+<span><span class="co">#&gt;       site        trait      cwm</span></span>
+<span><span class="co">#&gt; 1 26351755 plant_height 12.31767</span></span>
+<span><span class="co">#&gt; 2 26351765 plant_height  4.88150</span></span>
+<span><span class="co">#&gt; 3 26351955 plant_height 12.31767</span></span>
+<span><span class="co">#&gt; 4 26351965 plant_height 13.77575</span></span>
+<span><span class="co">#&gt; 5 26451755 plant_height  4.88150</span></span>
+<span><span class="co">#&gt; 6 26451765 plant_height 15.76845</span></span></code></pre></div>
 <p>Now we can aggregate the CWM of body mass at coarser scale using
 <code><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data()</a></code> as done in the previous
 section:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">site_cwm</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"adult_body_mass"</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">site_cwm</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"plant_height"</span></span>
 <span></span>
 <span><span class="va">upscaled_cwm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data</a></span><span class="op">(</span></span>
-<span>  <span class="va">site_locations</span>,</span>
+<span>  <span class="va">woodiv_locations</span><span class="op">[</span> , <span class="fl">1</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>,</span>
 <span>  <span class="va">site_cwm</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">]</span>,</span>
 <span>  <span class="va">coarser_grid</span></span>
 <span><span class="op">)</span></span>
@@ -335,9 +335,9 @@ section:</p>
 <span><span class="co">#&gt; coord. ref. : lon/lat WGS 84 (EPSG:4326) </span></span>
 <span><span class="co">#&gt; source(s)   : memory</span></span>
 <span><span class="co">#&gt; varname     : grid_area </span></span>
-<span><span class="co">#&gt; name        : adult_body_mass </span></span>
-<span><span class="co">#&gt; min value   :        27.83333 </span></span>
-<span><span class="co">#&gt; max value   :     41389.43359</span></span></code></pre></div>
+<span><span class="co">#&gt; name        : plant_height </span></span>
+<span><span class="co">#&gt; min value   :      4.88150 </span></span>
+<span><span class="co">#&gt; max value   :     42.14307</span></span></code></pre></div>
 <p>We can then map the CWM using the <code><a href="../reference/fb_map_raster.html">fb_map_raster()</a></code>
 function:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
@@ -353,31 +353,33 @@ vignette to <code>funbiogeo</code></a> in this section we’ll compute the
 Functional Richness using two traits across our example dataset.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get all species for which we have both adult body mass and litter size</span></span>
-<span><span class="va">subset_traits</span> <span class="op">&lt;-</span> <span class="va">species_traits</span><span class="op">[</span></span>
-<span>  , <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"species"</span>, <span class="st">"adult_body_mass"</span>, <span class="st">"litter_size"</span><span class="op">)</span></span>
+<span><span class="va">subset_traits</span> <span class="op">&lt;-</span> <span class="va">woodiv_traits</span><span class="op">[</span></span>
+<span>  , <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"species"</span>, <span class="st">"plant_height"</span>, <span class="st">"seed_mass"</span><span class="op">)</span></span>
 <span><span class="op">]</span></span>
 <span><span class="va">subset_traits</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span></span>
-<span>  <span class="va">subset_traits</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">adult_body_mass</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">litter_size</span><span class="op">)</span></span>
+<span>  <span class="va">subset_traits</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">plant_height</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">seed_mass</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Transform trait data</span></span>
-<span><span class="va">subset_traits</span><span class="op">[[</span><span class="st">"adult_body_mass"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/scale.html" class="external-link">scale</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log10</a></span><span class="op">(</span><span class="va">subset_traits</span><span class="op">[[</span><span class="st">"adult_body_mass"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">subset_traits</span><span class="op">[[</span><span class="st">"plant_height"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/scale.html" class="external-link">scale</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log10</a></span><span class="op">(</span><span class="va">subset_traits</span><span class="op">[[</span><span class="st">"plant_height"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">subset_traits</span><span class="op">[[</span><span class="st">"litter_size"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/scale.html" class="external-link">scale</a></span><span class="op">(</span><span class="va">subset_traits</span><span class="op">[[</span><span class="st">"litter_size"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">subset_traits</span><span class="op">[[</span><span class="st">"seed_mass"</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/scale.html" class="external-link">scale</a></span><span class="op">(</span><span class="va">subset_traits</span><span class="op">[[</span><span class="st">"seed_mass"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Filter site for which we have trait information for than 80% of species</span></span>
 <span><span class="va">subset_site</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_filter_sites_by_trait_coverage.html">fb_filter_sites_by_trait_coverage</a></span><span class="op">(</span></span>
-<span>  <span class="va">site_species</span>, <span class="va">subset_traits</span>, <span class="fl">0.8</span></span>
+<span>  <span class="va">woodiv_site_species</span>, <span class="va">subset_traits</span>, <span class="fl">0.8</span></span>
 <span><span class="op">)</span></span>
+<span></span>
 <span><span class="va">subset_site</span> <span class="op">&lt;-</span> <span class="va">subset_site</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"site"</span>, <span class="va">subset_traits</span><span class="op">$</span><span class="va">species</span><span class="op">)</span><span class="op">]</span></span>
 <span></span>
 <span><span class="co"># Remove first column and convert in rownames</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">subset_traits</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">subset_traits</span><span class="op">[[</span><span class="st">"species"</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">subset_traits</span> <span class="op">&lt;-</span> <span class="va">subset_traits</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span></span>
+<span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">subset_site</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">subset_site</span><span class="op">[[</span><span class="st">"site"</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">subset_site</span> <span class="op">&lt;-</span> <span class="va">subset_site</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span></span>
 <span></span>
@@ -389,19 +391,23 @@ Functional Richness using two traits across our example dataset.</p>
 <span><span class="co">#&gt; less species than traits so returned FRic is 'NA'</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">site_fric</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   site     FRic</span></span>
-<span><span class="co">#&gt; 1    1 8.502155</span></span>
-<span><span class="co">#&gt; 2    2 8.502155</span></span>
-<span><span class="co">#&gt; 3    3 8.502155</span></span>
-<span><span class="co">#&gt; 4    4 8.502155</span></span>
-<span><span class="co">#&gt; 5    5 8.502155</span></span>
-<span><span class="co">#&gt; 6    6 8.502155</span></span></code></pre></div>
+<span><span class="co">#&gt;       site      FRic</span></span>
+<span><span class="co">#&gt; 1 41152325 1.0964687</span></span>
+<span><span class="co">#&gt; 2 40852325 1.1380385</span></span>
+<span><span class="co">#&gt; 3 40852345 1.1523280</span></span>
+<span><span class="co">#&gt; 4 42552105 0.8201878</span></span>
+<span><span class="co">#&gt; 5 41152315 1.1380385</span></span>
+<span><span class="co">#&gt; 6 37452365        NA</span></span></code></pre></div>
 <p>We can now follow a similar upscaling process as in the previous
 sections</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">agg_fric</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data</a></span><span class="op">(</span><span class="va">site_locations</span>, <span class="va">site_fric</span>, <span class="va">coarser_grid</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">agg_fric</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data</a></span><span class="op">(</span><span class="va">woodiv_locations</span><span class="op">[</span> , <span class="fl">1</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>, </span>
+<span>                                   <span class="va">site_fric</span>, </span>
+<span>                                   <span class="va">coarser_grid</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">agg_fric</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">agg_fric</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Raster pixels are placed at uneven horizontal intervals and will be shifted</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Consider using `geom_tile()` instead.</span></span></code></pre></div>
 <p><img src="upscaling_files/figure-html/upscale-fric-1.png" width="700"></p>
 </div>
 </div>
@@ -416,7 +422,7 @@ sections</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>

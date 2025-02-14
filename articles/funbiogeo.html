@@ -8,8 +8,8 @@
 <title>Get started with funbiogeo • funbiogeo</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Get started with funbiogeo">
 </head>
 <body>
@@ -67,7 +67,7 @@
 
     
     
-<p>The aim of the <code>funbiogeo</code>package is to help users
+<p>The aim of the <code>funbiogeo</code> package is to help users
 streamline the workflows in <strong>fun</strong>ctional
 <strong>biogeo</strong>graphy <span class="citation">(Violle et al.
 2014)</span>. It helps filter sites, species, and traits based on their
@@ -75,19 +75,18 @@ trait coverages. It also provide default diagnostic plots and standard
 tables summarizing input data. This vignette aims to be an introduction
 to the most commonly used functions.</p>
 <p>The vignette is a worked through real world example of a functional
-biogeography workflow using the internal dataset on European mammals
-provided in <code>funbiogeo</code>.</p>
+biogeography workflow using the internal dataset provided in
+<code>funbiogeo</code> and derived from the WOODIV database <span class="citation">(Monnet et al. 2021)</span>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://frbcesab.github.io/funbiogeo/">"funbiogeo"</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org" class="external-link">"ggplot2"</a></span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org" class="external-link">"ggplot2"</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://r-spatial.github.io/sf/" class="external-link">"sf"</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Linking to GEOS 3.12.1, GDAL 3.8.4, PROJ 9.4.0; sf_use_s2() is TRUE</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="provided-data">Provided data<a class="anchor" aria-label="anchor" href="#provided-data"></a>
 </h2>
-<p>We are interested in mapping the functional traits of mammals of
-Europe. We used range maps data <a href="https://www.iucnredlist.org/resources/spatial-data-download" class="external-link">from
-the IUCN</a> and trait data from the <a href="https://esapubs.org/archive/ecol/E090/184/" class="external-link">PanTHERIA database</a>
-<span class="citation">(Jones et al. 2009)</span>. The initial
-extraction scripts are available on <a href="https://github.com/FRBCesab/eumammals" class="external-link">GitHub</a>.</p>
+<p>We are interested in mapping the functional traits of 26 Rosacean
+tree species of Western European Mediterranean regions.</p>
 <p>The functions in <code>funbiogeo</code> mostly leverage three
 different objects:</p>
 <ul>
@@ -105,9 +104,9 @@ physical location of sites through an <code>sf</code> object
 <p>You can load the example data using the
 <code>data(..., package = "funbiogeo")</code> call:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"site_species"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"site_locations"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"species_traits"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"woodiv_site_species"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"woodiv_locations"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"woodiv_traits"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></span></code></pre></div>
 <p>In the following sections we’ll describe in detail these three
 provided datasets in the package.</p>
 <div class="section level3">
@@ -126,91 +125,72 @@ you want to work.</p>
 <p>Let’s examine the <code>species_traits</code> data included in the
 package:</p>
 <table class="table">
-<caption>First lines of species x traits dataset</caption>
-<colgroup>
-<col width="8%">
-<col width="16%">
-<col width="17%">
-<col width="12%">
-<col width="14%">
-<col width="20%">
-<col width="13%">
-</colgroup>
+<caption>Format of species x traits dataset</caption>
 <thead><tr class="header">
-<th align="right">species</th>
-<th align="right">adult_body_mass</th>
-<th align="right">gestation_length</th>
-<th align="right">litter_size</th>
-<th align="right">max_longevity</th>
-<th align="right">sexual_maturity_age</th>
-<th align="right">diet_breadth</th>
+<th align="left"></th>
+<th align="center">species</th>
+<th align="right">plant_height</th>
+<th align="right">seed_mass</th>
+<th align="right">sla</th>
+<th align="right">wood_density</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="right">sp_001</td>
-<td align="right">461900.76</td>
-<td align="right">235.00</td>
-<td align="right">1.25</td>
-<td align="right">324</td>
-<td align="right">668.20</td>
-<td align="right">1</td>
+<td align="left">1</td>
+<td align="center">AALB</td>
+<td align="right">49.64162</td>
+<td align="right">67.86692</td>
+<td align="right">7.483978</td>
+<td align="right">0.4490821</td>
 </tr>
 <tr class="even">
-<td align="right">sp_002</td>
-<td align="right">21.11</td>
-<td align="right">19.89</td>
-<td align="right">5.64</td>
-<td align="right">48</td>
-<td align="right">76.04</td>
+<td align="left">3</td>
+<td align="center">ACEP</td>
+<td align="right">25.87500</td>
+<td align="right">64.70375</td>
+<td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
 <tr class="odd">
-<td align="right">sp_003</td>
+<td align="left">4</td>
+<td align="center">ANEB</td>
+<td align="right">15.00000</td>
 <td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
+<td align="right">3.420603</td>
 <td align="right">NA</td>
 </tr>
 <tr class="even">
-<td align="right">sp_004</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
-<td align="right">NA</td>
+<td align="left">5</td>
+<td align="center">APIN</td>
+<td align="right">27.33333</td>
+<td align="right">55.52000</td>
+<td align="right">3.420603</td>
+<td align="right">0.4586508</td>
 </tr>
 </tbody>
 </table>
 <p>The first column <strong><code>"species"</code></strong> contains
-species names, while the next 6 columns contain different traits for all
-species. Note that the species names are anonymized because the IUCN
-data <a href="https://www.iucnredlist.org/terms/terms-of-use#4.%20No%20Reposting%20or%20Redistribution" class="external-link">cannot
-be redistributed</a>.</p>
+species names, while the next four columns contain different traits for
+all species.</p>
 <p>Let’s look at a summary of the trait dataset:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span></span>
-<span><span class="co">#&gt;    species          adult_body_mass    gestation_length  litter_size   </span></span>
-<span><span class="co">#&gt;  Length:149         Min.   :     2.3   Min.   : 19.50   Min.   :0.980  </span></span>
-<span><span class="co">#&gt;  Class :character   1st Qu.:    11.2   1st Qu.: 26.61   1st Qu.:1.500  </span></span>
-<span><span class="co">#&gt;  Mode  :character   Median :    35.9   Median : 41.99   Median :3.055  </span></span>
-<span><span class="co">#&gt;                     Mean   : 18809.7   Mean   : 69.93   Mean   :3.369  </span></span>
-<span><span class="co">#&gt;                     3rd Qu.:  2573.2   3rd Qu.: 76.70   3rd Qu.:4.970  </span></span>
-<span><span class="co">#&gt;                     Max.   :675876.7   Max.   :265.99   Max.   :8.990  </span></span>
-<span><span class="co">#&gt;                     NA's   :26         NA's   :61       NA's   :35     </span></span>
-<span><span class="co">#&gt;  max_longevity   sexual_maturity_age  diet_breadth  </span></span>
-<span><span class="co">#&gt;  Min.   : 12.0   Min.   :  25.37     Min.   :1.000  </span></span>
-<span><span class="co">#&gt;  1st Qu.: 58.8   1st Qu.: 106.67     1st Qu.:1.000  </span></span>
-<span><span class="co">#&gt;  Median :180.0   Median : 348.44     Median :1.000  </span></span>
-<span><span class="co">#&gt;  Mean   :171.3   Mean   : 392.01     Mean   :2.458  </span></span>
-<span><span class="co">#&gt;  3rd Qu.:252.0   3rd Qu.: 549.05     3rd Qu.:4.000  </span></span>
-<span><span class="co">#&gt;  Max.   :600.0   Max.   :1542.25     Max.   :8.000  </span></span>
-<span><span class="co">#&gt;  NA's   :68      NA's   :65          NA's   :66</span></span></code></pre></div>
-<p>From there we can see that there are 149 included species and some
-missing trait values. For example, we don’t have body mass information
-for 26 species.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">woodiv_traits</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    species           plant_height      seed_mass            sla        </span></span>
+<span><span class="co">#&gt;  Length:24          Min.   : 1.368   Min.   :  7.608   Min.   : 0.508  </span></span>
+<span><span class="co">#&gt;  Class :character   1st Qu.: 8.776   1st Qu.: 14.926   1st Qu.: 3.421  </span></span>
+<span><span class="co">#&gt;  Mode  :character   Median :16.908   Median : 30.188   Median : 4.365  </span></span>
+<span><span class="co">#&gt;                     Mean   :18.779   Mean   : 62.245   Mean   : 4.773  </span></span>
+<span><span class="co">#&gt;                     3rd Qu.:25.531   3rd Qu.: 57.558   3rd Qu.: 5.824  </span></span>
+<span><span class="co">#&gt;                     Max.   :49.642   Max.   :626.189   Max.   :10.600  </span></span>
+<span><span class="co">#&gt;                                      NA's   :1         NA's   :7       </span></span>
+<span><span class="co">#&gt;   wood_density   </span></span>
+<span><span class="co">#&gt;  Min.   :0.2796  </span></span>
+<span><span class="co">#&gt;  1st Qu.:0.4500  </span></span>
+<span><span class="co">#&gt;  Median :0.4642  </span></span>
+<span><span class="co">#&gt;  Mean   :0.4948  </span></span>
+<span><span class="co">#&gt;  3rd Qu.:0.5300  </span></span>
+<span><span class="co">#&gt;  Max.   :0.6488  </span></span>
+<span><span class="co">#&gt;  NA's   :7</span></span></code></pre></div>
 <p>Note that to use your own species by traits <code>data.frame</code>,
 it should follow similar structure with the first column being named
 <strong><code>"species"</code></strong> and the other ones containing
@@ -228,80 +208,103 @@ other columns contains the abundance of each species across sites.</p>
 can be plots, assemblages, of whatever collections of species you’re
 interested in.</p>
 <p>The package <code>funbiogeo</code> comes with the example dataset on
-European mammals <code>site_species</code>. Let’s look at it:</p>
+Rosacean tree species of Western European Mediterranean regions
+<code>site_species</code>. Let’s look at it:</p>
 <table class="table">
 <caption>Format of site x species dataset</caption>
 <thead><tr class="header">
 <th align="center">site</th>
-<th align="center">sp_001</th>
-<th align="center">sp_002</th>
-<th align="center">sp_003</th>
+<th align="center">AALB</th>
+<th align="center">ACEP</th>
+<th align="center">APIN</th>
+<th align="center">CLIB</th>
+<th align="center">CSEM</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
+<td align="center">41152325</td>
 <td align="center">1</td>
-<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
 </tr>
 <tr class="even">
-<td align="center">2</td>
+<td align="center">40852325</td>
 <td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
 </tr>
 <tr class="odd">
-<td align="center">3</td>
+<td align="center">40852345</td>
 <td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
 </tr>
 <tr class="even">
-<td align="center">4</td>
+<td align="center">42552105</td>
 <td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
 </tr>
 <tr class="odd">
-<td align="center">5</td>
+<td align="center">41152315</td>
 <td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
 </tr>
 <tr class="even">
-<td align="center">6</td>
+<td align="center">37452365</td>
 <td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
 </tr>
 <tr class="odd">
-<td align="center">7</td>
+<td align="center">36952225</td>
 <td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
 </tr>
 <tr class="even">
-<td align="center">8</td>
+<td align="center">37152185</td>
 <td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
 </tr>
 <tr class="odd">
-<td align="center">9</td>
+<td align="center">39852335</td>
 <td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
 </tr>
 <tr class="even">
-<td align="center">10</td>
+<td align="center">39652375</td>
 <td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
 <td align="center">0</td>
 <td align="center">0</td>
 </tr>
 </tbody>
 </table>
-<p>The example dataset contains the occurrence of the 149 mammal species
-across 1,505 sites (grid cells of 0.5° x 0.5° resolution).</p>
+<p>The example dataset contains the occurrence of the 26 Rosaceae tree
+species across 4,723 sites (grid cells of 10 x 10 km resolution).</p>
 <p>Note that to use your own site by species <code>data.frame</code>, it
 should follow similar structure with the first column being named
 <strong><code>"sites"</code></strong> and the other ones containing
@@ -318,29 +321,24 @@ polygons, irregular polygons, or even line transects! To make sure that
 your data is well plotted you should specify the Coordinate Reference
 System (CRS) of this object.</p>
 <p>The package <code>funbiogeo</code> comes with the example dataset
-<code>site_locations</code> defining the location of the 1,505 sites
-(grid cells of 0.5° x 0.5° resolution) as polygons. It contains the
-names of the site in its first column
+<code>site_locations</code> defining the location of the 4,723 sites
+(grid cells of 10 x 10 km resolution) as polygons. It contains the names
+of the site in its first column
 <strong><code>"site"</code></strong>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">site_locations</span></span>
-<span><span class="co">#&gt; Simple feature collection with 1505 features and 1 field</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">woodiv_locations</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Simple feature collection with 6 features and 2 fields</span></span>
 <span><span class="co">#&gt; Geometry type: POLYGON</span></span>
 <span><span class="co">#&gt; Dimension:     XY</span></span>
-<span><span class="co">#&gt; Bounding box:  xmin: -9.978179 ymin: 35.84736 xmax: 23.02182 ymax: 59.84736</span></span>
-<span><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
-<span><span class="co">#&gt; First 10 features:</span></span>
-<span><span class="co">#&gt;    site                           geom</span></span>
-<span><span class="co">#&gt; 1     1 POLYGON ((5.521821 59.84736...</span></span>
-<span><span class="co">#&gt; 2     2 POLYGON ((6.521821 59.84736...</span></span>
-<span><span class="co">#&gt; 3     3 POLYGON ((7.021821 59.84736...</span></span>
-<span><span class="co">#&gt; 4     4 POLYGON ((7.521821 59.84736...</span></span>
-<span><span class="co">#&gt; 5     5 POLYGON ((8.021821 59.84736...</span></span>
-<span><span class="co">#&gt; 6     6 POLYGON ((8.521821 59.84736...</span></span>
-<span><span class="co">#&gt; 7     7 POLYGON ((9.021821 59.84736...</span></span>
-<span><span class="co">#&gt; 8     8 POLYGON ((9.521821 59.84736...</span></span>
-<span><span class="co">#&gt; 9     9 POLYGON ((10.02182 59.84736...</span></span>
-<span><span class="co">#&gt; 10   10 POLYGON ((10.52182 59.84736...</span></span></code></pre></div>
+<span><span class="co">#&gt; Bounding box:  xmin: 2630000 ymin: 1750000 xmax: 2650000 ymax: 1970000</span></span>
+<span><span class="co">#&gt; Projected CRS: ETRS89-extended / LAEA Europe</span></span>
+<span><span class="co">#&gt;       site  country                       geometry</span></span>
+<span><span class="co">#&gt; 1 26351755 Portugal POLYGON ((2630000 1750000, ...</span></span>
+<span><span class="co">#&gt; 2 26351765 Portugal POLYGON ((2630000 1760000, ...</span></span>
+<span><span class="co">#&gt; 4 26351955 Portugal POLYGON ((2630000 1950000, ...</span></span>
+<span><span class="co">#&gt; 5 26351965 Portugal POLYGON ((2630000 1960000, ...</span></span>
+<span><span class="co">#&gt; 6 26451755 Portugal POLYGON ((2640000 1750000, ...</span></span>
+<span><span class="co">#&gt; 7 26451765 Portugal POLYGON ((2640000 1760000, ...</span></span></code></pre></div>
 <p>Note that to use your own site locations object, it should follow
 similar structure, being an <code>sf</code> object with the first column
 being named <strong><code>"sites"</code></strong>.</p>
@@ -363,22 +361,23 @@ the proportion of species with non-missing traits using the
 <code><a href="../reference/fb_plot_number_species_by_trait.html">fb_plot_number_species_by_trait()</a></code> function. It takes the
 species by trait <code>data.frame</code> as input.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_species_by_trait.html">fb_plot_number_species_by_trait</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_species_by_trait.html">fb_plot_number_species_by_trait</a></span><span class="op">(</span><span class="va">woodiv_traits</span><span class="op">)</span></span></code></pre></div>
 <p><img src="funbiogeo_files/figure-html/fig-plot-sp-by-trait-1.png" width="100%"></p>
 <p>This plot shows us the number of species (along the x-axis) in
 function of the trait name (along the y-axis). The number of concerned
 species is shown at the bottom of the plot while the corresponding
 proportion of species (compared to all the species included in the trait
 dataset) is indicated as a secondary x-axis at the top. The proportion
-of species concerned is shown at the right of each point. For example,
-in our example dataset, 82.6% species have a non-NA adult body mass.</p>
-<p>The function also include a way to provide a target proportion of
+of species concerned is shown at the right of each point. <del>For
+example, in our example dataset, 82.6% species have a non-NA adult body
+mass</del>.</p>
+<p>The function also includes a way to provide a target proportion of
 species as the second argument. It will display the proportion as a dark
 red dashed line.</p>
 <p>For example, if we want to visualize which traits cover more than 75%
 of the species:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_species_by_trait.html">fb_plot_number_species_by_trait</a></span><span class="op">(</span><span class="va">species_traits</span>, threshold_species_proportion <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_species_by_trait.html">fb_plot_number_species_by_trait</a></span><span class="op">(</span><span class="va">woodiv_traits</span>, threshold_species_proportion <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span></span></code></pre></div>
 <p><img src="funbiogeo_files/figure-html/fig-plot-sp-by-trait-prop-1.png" width="100%"></p>
 <p>The top number shows the corresponding number of species.</p>
 </div>
@@ -391,10 +390,10 @@ using the <code><a href="../reference/fb_plot_number_traits_by_species.html">fb_
 Similarly to the above-mentioned function, it takes the species x traits
 <code>data.frame</code> as the first argument:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_traits_by_species.html">fb_plot_number_traits_by_species</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_traits_by_species.html">fb_plot_number_traits_by_species</a></span><span class="op">(</span><span class="va">woodiv_traits</span><span class="op">)</span></span></code></pre></div>
 <p><img src="funbiogeo_files/figure-html/fig-plot-trait-by-sp-1.png" width="100%"></p>
 <p>The plot shows the number (bottom x-axis) and the proportion (top
-x-axis) of species covered by a specific number of traits (0 to 6 in our
+x-axis) of species covered by a specific number of traits (0 to 4 in our
 example).</p>
 </div>
 </div>
@@ -415,29 +414,29 @@ The second argument <code>threshold_species_proportion</code> is the
 threshold proportion of species covered:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Initial dimension of the input data</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 149   7</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">woodiv_traits</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 24  5</span></span>
 <span></span>
 <span><span class="co"># Filter traits </span></span>
 <span><span class="va">red_sp_traits</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_filter_traits_by_species_coverage.html">fb_filter_traits_by_species_coverage</a></span><span class="op">(</span></span>
-<span>  <span class="va">species_traits</span>, threshold_species_proportion <span class="op">=</span>  <span class="fl">0.75</span></span>
+<span>  <span class="va">woodiv_traits</span>, threshold_species_proportion <span class="op">=</span>  <span class="fl">0.75</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">red_sp_traits</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 149   3</span></span>
+<span><span class="co">#&gt; [1] 24  3</span></span>
 <span></span>
 <span><span class="co"># The reduced data set now has fewer trait columns</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">red_sp_traits</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   species adult_body_mass litter_size</span></span>
-<span><span class="co">#&gt; 1  sp_001       461900.76        1.25</span></span>
-<span><span class="co">#&gt; 2  sp_002           21.11        5.64</span></span>
-<span><span class="co">#&gt; 3  sp_003              NA          NA</span></span>
-<span><span class="co">#&gt; 4  sp_004              NA          NA</span></span>
-<span><span class="co">#&gt; 5  sp_005           31.60        4.94</span></span>
-<span><span class="co">#&gt; 6  sp_006           21.90        5.16</span></span></code></pre></div>
+<span><span class="co">#&gt;   species plant_height seed_mass</span></span>
+<span><span class="co">#&gt; 1    AALB     49.64162 67.866923</span></span>
+<span><span class="co">#&gt; 3    ACEP     25.87500 64.703750</span></span>
+<span><span class="co">#&gt; 4    ANEB     15.00000        NA</span></span>
+<span><span class="co">#&gt; 5    APIN     27.33333 55.520000</span></span>
+<span><span class="co">#&gt; 6    CLIB     35.63636 86.872600</span></span>
+<span><span class="co">#&gt; 7    CSEM     24.69231  7.608125</span></span></code></pre></div>
 <p>The function outputs a filtered species-traits dataset retaining only
-traits covering at least 75% of the species. In the end this keep two
-traits: body mass and litter size.</p>
+traits covering at least 75% of the species. <del>In the end this keep
+two traits: body mass and litter size</del>.</p>
 </div>
 <div class="section level3">
 <h3 id="filter-species-by-trait-coverage">Filter species by trait coverage<a class="anchor" aria-label="anchor" href="#filter-species-by-trait-coverage"></a>
@@ -458,19 +457,19 @@ argument the proportion of traits covered by species.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">red_sp_traits_2</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   species adult_body_mass litter_size</span></span>
-<span><span class="co">#&gt; 1  sp_001       461900.76        1.25</span></span>
-<span><span class="co">#&gt; 2  sp_002           21.11        5.64</span></span>
-<span><span class="co">#&gt; 5  sp_005           31.60        4.94</span></span>
-<span><span class="co">#&gt; 6  sp_006           21.90        5.16</span></span>
-<span><span class="co">#&gt; 7  sp_007           18.26        5.72</span></span>
-<span><span class="co">#&gt; 9  sp_009          903.98        2.50</span></span>
+<span><span class="co">#&gt;   species plant_height seed_mass</span></span>
+<span><span class="co">#&gt; 1    AALB     49.64162 67.866923</span></span>
+<span><span class="co">#&gt; 3    ACEP     25.87500 64.703750</span></span>
+<span><span class="co">#&gt; 4    ANEB     15.00000        NA</span></span>
+<span><span class="co">#&gt; 5    APIN     27.33333 55.520000</span></span>
+<span><span class="co">#&gt; 6    CLIB     35.63636 86.872600</span></span>
+<span><span class="co">#&gt; 7    CSEM     24.69231  7.608125</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">red_sp_traits_2</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 127   3</span></span></code></pre></div>
-<p>We thus have selected 2 traits that cover at least 75% of the initial
-species list and 127 species which have known values for these two
-traits.</p>
+<span><span class="co">#&gt; [1] 24  3</span></span></code></pre></div>
+<p><del>We thus have selected 2 traits that cover at least 75% of the
+initial species list and 127 species which have known values for these
+two traits.</del></p>
 </div>
 <div class="section level3">
 <h3 id="filter-sites-by-trait-coverage">Filter sites by trait coverage<a class="anchor" aria-label="anchor" href="#filter-sites-by-trait-coverage"></a>
@@ -489,27 +488,27 @@ of the site x species <code>data.frame</code>.</p>
 available traits represent at least 90% of the species present:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Initial site x species data</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 1505  150</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">woodiv_site_species</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 5366   25</span></span>
 <span></span>
 <span><span class="co"># Filter sites with at least 90% species covered</span></span>
 <span><span class="va">filt_sites</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_filter_sites_by_trait_coverage.html">fb_filter_sites_by_trait_coverage</a></span><span class="op">(</span></span>
-<span>  <span class="va">site_species</span>, <span class="va">red_sp_traits_2</span>, threshold_traits_proportion <span class="op">=</span> <span class="fl">0.9</span></span>
+<span>  <span class="va">woodiv_site_species</span>, <span class="va">red_sp_traits_2</span>, threshold_traits_proportion <span class="op">=</span> <span class="fl">0.9</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Filtered sites</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">filt_sites</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 1268  150</span></span>
+<span><span class="co">#&gt; [1] 5364   25</span></span>
 <span></span>
 <span><span class="va">filt_sites</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span>
-<span><span class="co">#&gt;   site sp_001 sp_002 sp_003</span></span>
-<span><span class="co">#&gt; 1    1      1      0      0</span></span>
-<span><span class="co">#&gt; 2    2      1      0      0</span></span>
-<span><span class="co">#&gt; 3    3      1      0      0</span></span>
-<span><span class="co">#&gt; 4    4      1      0      0</span></span></code></pre></div>
-<p>The output of the function is a site x species
+<span><span class="co">#&gt;       site AALB ACEP APIN</span></span>
+<span><span class="co">#&gt; 1 41152325    1    0    0</span></span>
+<span><span class="co">#&gt; 2 40852325    1    0    0</span></span>
+<span><span class="co">#&gt; 3 40852345    1    0    0</span></span>
+<span><span class="co">#&gt; 4 42552105    1    0    0</span></span></code></pre></div>
+<p><del>The output of the function is a site x species
 <code>data.frame</code> with selected sites and species. Now we selected
-1,268 sites out of 1,505, for our 2 traits and 127 species.</p>
+1,268 sites out of 1,505, for our 2 traits and 127 species.</del></p>
 </div>
 </div>
 <div class="section level2">
@@ -534,8 +533,8 @@ another example computing functional diversity indices using the
 <h3 id="community-weighted-mean-cwm">Community-Weighted Mean (CWM)<a class="anchor" aria-label="anchor" href="#community-weighted-mean-cwm"></a>
 </h3>
 <p>We’re interested to look at the spatial distribution of the average
-body mass and litter size of European mammals. To do so, we can compute
-the community-weighted mean of both traits. We’ll use the
+plant height and seed mass of Rosaceae tree species. To do so, we can
+compute the community-weighted mean of both traits. We’ll use the
 <code><a href="../reference/fb_cwm.html">fb_cwm()</a></code> function to do so, it takes the site x species
 <code>data.frame</code> and species x traits <code>data.frame</code> as
 arguments.</p>
@@ -545,13 +544,13 @@ arguments.</p>
 <span><span class="co">#&gt; Some species had NA trait values, removing them from CWM computation</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">cwm</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   site           trait      cwm</span></span>
-<span><span class="co">#&gt; 1    1 adult_body_mass 31974.15</span></span>
-<span><span class="co">#&gt; 2    2 adult_body_mass 39911.51</span></span>
-<span><span class="co">#&gt; 3    3 adult_body_mass 39912.54</span></span>
-<span><span class="co">#&gt; 4    4 adult_body_mass 39912.54</span></span>
-<span><span class="co">#&gt; 5    5 adult_body_mass 41389.44</span></span>
-<span><span class="co">#&gt; 6    6 adult_body_mass 39912.37</span></span></code></pre></div>
+<span><span class="co">#&gt;       site        trait      cwm</span></span>
+<span><span class="co">#&gt; 1 26351755 plant_height 12.31767</span></span>
+<span><span class="co">#&gt; 2 26351765 plant_height  4.88150</span></span>
+<span><span class="co">#&gt; 3 26351955 plant_height 12.31767</span></span>
+<span><span class="co">#&gt; 4 26351965 plant_height 13.77575</span></span>
+<span><span class="co">#&gt; 5 26451755 plant_height  4.88150</span></span>
+<span><span class="co">#&gt; 6 26451765 plant_height 15.76845</span></span></code></pre></div>
 <p>It outputs a <code>data.frame</code> with 3 columns: the first one,
 <code>site</code>, shows the site name as provided in the input site x
 species <code>data.frame</code>, <code>trait</code> which indicates the
@@ -571,7 +570,7 @@ functional richness with <code>fundiversity</code>.</p>
 <span><span class="co"># Functional richness in 'fundiversity' requires all the traits to be known</span></span>
 <span><span class="co"># so we need to filter the traits</span></span>
 <span><span class="va">filt_traits</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span></span>
-<span>  <span class="va">red_sp_traits</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">adult_body_mass</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">litter_size</span><span class="op">)</span></span>
+<span>  <span class="va">red_sp_traits</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">plant_height</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">seed_mass</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># We need to transform species and site names as row names for species-traits</span></span>
@@ -593,13 +592,13 @@ functional richness with <code>fundiversity</code>.</p>
 <span><span class="co">#&gt; species than traits so returned FRic is 'NA'</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">fric</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   site     FRic</span></span>
-<span><span class="co">#&gt; 1    1 10.78778</span></span>
-<span><span class="co">#&gt; 2    2 10.78778</span></span>
-<span><span class="co">#&gt; 3    3 10.78778</span></span>
-<span><span class="co">#&gt; 4    4 10.78778</span></span>
-<span><span class="co">#&gt; 5    5 10.78778</span></span>
-<span><span class="co">#&gt; 6    6 10.78778</span></span></code></pre></div>
+<span><span class="co">#&gt;       site     FRic</span></span>
+<span><span class="co">#&gt; 1 41152325 1.387675</span></span>
+<span><span class="co">#&gt; 2 40852325 1.465982</span></span>
+<span><span class="co">#&gt; 3 40852345 1.485531</span></span>
+<span><span class="co">#&gt; 4 42552105 1.067421</span></span>
+<span><span class="co">#&gt; 5 41152315 1.465982</span></span>
+<span><span class="co">#&gt; 6 37452365       NA</span></span></code></pre></div>
 <p>We now have a table with Functional Richness computed for all of our
 sites.</p>
 </div>
@@ -670,16 +669,16 @@ site-locations object and an environmental raster from the
 <code>terra</code> package. By default, it takes the average of the
 raster values per site.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">site_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_get_environment.html">fb_get_environment</a></span><span class="op">(</span><span class="va">site_locations</span>, <span class="va">tavg</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">site_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_get_environment.html">fb_get_environment</a></span><span class="op">(</span><span class="va">woodiv_locations</span>, <span class="va">tavg</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">site_mat</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   site annual_mean_temp</span></span>
-<span><span class="co">#&gt; 1    1        6.6755822</span></span>
-<span><span class="co">#&gt; 2    2        1.6836227</span></span>
-<span><span class="co">#&gt; 3    3        0.6628264</span></span>
-<span><span class="co">#&gt; 4    4        1.4940648</span></span>
-<span><span class="co">#&gt; 5    5        2.6325313</span></span>
-<span><span class="co">#&gt; 6    6        3.0806597</span></span></code></pre></div>
+<span><span class="co">#&gt;       site annual_mean_temp</span></span>
+<span><span class="co">#&gt; 1 26351755              NaN</span></span>
+<span><span class="co">#&gt; 2 26351765         16.44746</span></span>
+<span><span class="co">#&gt; 3 26351955         16.08605</span></span>
+<span><span class="co">#&gt; 4 26351965              NaN</span></span>
+<span><span class="co">#&gt; 5 26451755         16.66498</span></span>
+<span><span class="co">#&gt; 6 26451765         16.39656</span></span></code></pre></div>
 <p>The variable names in columns are based on the names of the provided
 raster. To put these values on the map we can use the
 <code><a href="../reference/fb_map_site_data.html">fb_map_site_data()</a></code> function, which allows mapping arbitrary
@@ -693,7 +692,7 @@ a character giving the name of the column to plot from the
 <p>We can thus plot the mean annual temperature of sites through the
 following commands:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_map_site_data.html">fb_map_site_data</a></span><span class="op">(</span><span class="va">site_locations</span>, <span class="va">site_mat</span>, <span class="st">"annual_mean_temp"</span><span class="op">)</span> <span class="op">+</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_map_site_data.html">fb_map_site_data</a></span><span class="op">(</span><span class="va">woodiv_locations</span>, <span class="va">site_mat</span>, <span class="st">"annual_mean_temp"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Mean Annual Temperature per Site"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="funbiogeo_files/figure-html/map-avg-environment-1.png" width="100%"></p>
 </div>
@@ -703,17 +702,17 @@ following commands:</p>
 <p>We can leverage the same functions to map our functional diversity
 indices. For example, with the body mass CWM:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">body_mass_cwm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">cwm</span>, <span class="va">trait</span> <span class="op">==</span> <span class="st">"adult_body_mass"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">body_mass_cwm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">cwm</span>, <span class="va">trait</span> <span class="op">==</span> <span class="st">"plant_height"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/fb_map_site_data.html">fb_map_site_data</a></span><span class="op">(</span><span class="va">site_locations</span>, <span class="va">body_mass_cwm</span>, <span class="st">"cwm"</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="fu"><a href="../reference/fb_map_site_data.html">fb_map_site_data</a></span><span class="op">(</span><span class="va">woodiv_locations</span>, <span class="va">body_mass_cwm</span>, <span class="st">"cwm"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html" class="external-link">scale_fill_viridis_c</a></span><span class="op">(</span>trans <span class="op">=</span> <span class="st">"log10"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Mammals Body Mass CWM"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Tree height CWM"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="funbiogeo_files/figure-html/map-cwm-body-mass-1.png" width="100%"></p>
 <p>We can do similarly for functional richness:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_map_site_data.html">fb_map_site_data</a></span><span class="op">(</span><span class="va">site_locations</span>, <span class="va">fric</span>, <span class="st">"FRic"</span><span class="op">)</span> <span class="op">+</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_map_site_data.html">fb_map_site_data</a></span><span class="op">(</span><span class="va">woodiv_locations</span>, <span class="va">fric</span>, <span class="st">"FRic"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html" class="external-link">scale_fill_viridis_c</a></span><span class="op">(</span>option <span class="op">=</span> <span class="st">"magma"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Mammals Functional Richness"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Tree Functional Richness"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="funbiogeo_files/figure-html/map-fric-1.png" width="100%"></p>
 </div>
 </div>
@@ -739,12 +738,12 @@ Catherine Roumet, Max Debussche, Gérard Laurent, et al. 2004.
 During Secondary Succession</span>.”</span> <em>Ecology</em> 85 (9):
 2630–37. <a href="https://doi.org/10.1890/03-0799" class="external-link">https://doi.org/10.1890/03-0799</a>.
 </div>
-<div id="ref-Jones_PanTHERIA_2009" class="csl-entry">
-Jones, Kate E., Jon Bielby, Marcel Cardillo, Susanne A. Fritz, Justin
-O’Dell, C. David L. Orme, Kamran Safi, et al. 2009.
-<span>“<span>PanTHERIA</span>: A Species-Level Database of Life History,
-Ecology, and Geography of Extant and Recently Extinct Mammals.”</span>
-<em>Ecology</em> 90 (9): 2648–48. <a href="https://doi.org/10.1890/08-1494.1" class="external-link">https://doi.org/10.1890/08-1494.1</a>.
+<div id="ref-Monnet_2021" class="csl-entry">
+Monnet, Anne-Christine, Kévin Cilleros, Frédéric Médail, Marwan Cheikh
+Albassatneh, Juan Arroyo, Gianluigi Bacchetta, Francesca Bagnoli, et al.
+2021. <span>“<span class="nocase">WOODIV, a database of occurrences,
+functional traits, and phylogenetic data for all Euro-Mediterranean
+trees</span>.”</span> <em>Scientific Data</em> 8: 89. <a href="https://doi.org/10.1038/s41597-021-00873-3" class="external-link">https://doi.org/10.1038/s41597-021-00873-3</a>.
 </div>
 <div id="ref-Violle_emergence_2014" class="csl-entry">
 Violle, Cyrille, Peter B. Reich, Stephen W. Pacala, Brian J. Enquist,
@@ -765,7 +764,7 @@ Sciences</em> 111 (38): 13690–96. <a href="https://doi.org/10.1073/pnas.141544
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>

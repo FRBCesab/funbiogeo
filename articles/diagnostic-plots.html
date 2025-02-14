@@ -8,8 +8,8 @@
 <title>Diagnostic Plots in funbiogeo • funbiogeo</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Diagnostic Plots in funbiogeo">
 </head>
 <body>
@@ -214,11 +214,11 @@ argument that are not of the standard object type.</caption>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://frbcesab.github.io/funbiogeo/">"funbiogeo"</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://r-spatial.github.io/sf/" class="external-link">"sf"</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Linking to GEOS 3.10.2, GDAL 3.4.1, PROJ 8.2.1; sf_use_s2() is TRUE</span></span>
+<span><span class="co">#&gt; Linking to GEOS 3.12.1, GDAL 3.8.4, PROJ 9.4.0; sf_use_s2() is TRUE</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"site_locations"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"site_species"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"species_traits"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"woodiv_locations"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"woodiv_site_species"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"woodiv_traits"</span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="naming-convention">Naming Convention<a class="anchor" aria-label="anchor" href="#naming-convention"></a>
 </h2>
@@ -262,23 +262,18 @@ to plot the distributions. This package is thus needed to run this
 function.</p>
 <p>Example:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_distribution_site_trait_coverage.html">fb_plot_distribution_site_trait_coverage</a></span><span class="op">(</span><span class="va">site_species</span>, <span class="va">species_traits</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_distribution_site_trait_coverage.html">fb_plot_distribution_site_trait_coverage</a></span><span class="op">(</span><span class="va">woodiv_site_species</span>, <span class="va">woodiv_traits</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required namespace: ggridges</span></span>
-<span><span class="co">#&gt; Picking joint bandwidth of 0.00988</span></span></code></pre></div>
+<span><span class="co">#&gt; Picking joint bandwidth of 0.0445</span></span></code></pre></div>
 <p><img src="diagnostic-plots_files/figure-html/plot-dist-site-cov-1.png" width="700"></p>
 <p>We see the distribution of species coverage per site (along the
 x-axis) for each trait (along the y-axis) and with all traits taken
 together (shown at the top of the top on the line
 <code>all_traits</code>). The proportions on the y-axis labels are the
-average coverage observed for this trait. So for example, considering
-only adult body mass as a trait would mean that we would achieve an
-average coverage of 95.3%, meaning that on average across all sites
-95.3% of species are covered. We can compare this to the trait
-<em>max_longevity</em> which corresponds to the maximum longevity of the
-species. We see that the average trait coverage across all sites is
-82.1%. We see that the distribution however is rather wide, with some
-sites showing a coverage of around 90% (the large bump), while some
-sites are close to 62% coverage.</p>
+average coverage observed for this trait. We see that we have very
+similar average coverage for all sites (average number of species for
+which we have not NA trait data), whatever the trait we consider, which
+is about 100% of species.</p>
 <p>This plot considers the distribution of species across sites instead
 of focusing only on the species by traits <code>data.frame</code>. This
 maybe useful to realize, for example, that the traits of a species
@@ -296,8 +291,7 @@ is necessary while the second one
 <code>threshold_sites_proportion</code>, a target proportion of sites
 coverage, is optional.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_sites_by_species.html">fb_plot_number_sites_by_species</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span></span>
-<span><span class="co">#&gt; There are more than 30 species, the y-axis will label the position of 30 evenly spaced species (along their prevalence)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_sites_by_species.html">fb_plot_number_sites_by_species</a></span><span class="op">(</span><span class="va">woodiv_site_species</span><span class="op">)</span></span></code></pre></div>
 <p><img src="diagnostic-plots_files/figure-html/plot-sites-coverage-species-1.png" width="700"></p>
 <p>The function outputs a dotchart. The number of occupied sites per
 species is indicated at the bottom x-axis, while the top x-axis
@@ -312,8 +306,7 @@ many species occupy more or less than the given proportion of sites.</p>
 <p>Let’s say we want to see the species present in at least 40% of the
 sites:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_sites_by_species.html">fb_plot_number_sites_by_species</a></span><span class="op">(</span><span class="va">site_species</span>, threshold_sites_proportion <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span></span>
-<span><span class="co">#&gt; There are more than 30 species, the y-axis will label the position of 30 evenly spaced species (along their prevalence)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_sites_by_species.html">fb_plot_number_sites_by_species</a></span><span class="op">(</span><span class="va">woodiv_site_species</span>, threshold_sites_proportion <span class="op">=</span> <span class="fl">0.4</span><span class="op">)</span></span></code></pre></div>
 <p><img src="diagnostic-plots_files/figure-html/plot-sites-coverage-species-thresh-1.png" width="700"></p>
 <p>The threshold bar helps us get a sense of how many species are
 present in at least 40% of the sites. It also displays the corresponding
@@ -330,26 +323,26 @@ species by traits <code>data.frame</code>, is necessary while the second
 one <code>threshold_species_proportion</code>, a target proportion of
 species coverage, is optional.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_species_by_trait.html">fb_plot_number_species_by_trait</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_species_by_trait.html">fb_plot_number_species_by_trait</a></span><span class="op">(</span><span class="va">woodiv_traits</span><span class="op">)</span></span></code></pre></div>
 <p><img src="diagnostic-plots_files/figure-html/plot-species-coverage-trait-1.png" width="700"></p>
 <p>The function outputs a lollipop chart. On the bottom x-axis there is
 the number of species covered by the given trait (the top x-axis
 represents the proportion of species, which is directly proportional).
 The y-axis represents each trait. The dot represents the actual coverage
 observed with the corresponding proportion of species written on top.
-With this figure we see that 82.6% of the species have a non-missing
-adult body mass in the species by trait <code>data.frame</code>, while
-only 54.4% have a non-missing maximum longevity.</p>
+With this figure we see that 70.8% of the species have a non-missing SLA
+in the species by trait <code>data.frame</code>, while only 100% have a
+non-missing plant height.</p>
 <p>Adding the second argument <code>threshold_species_proportion</code>
 displays a vertical bar at the target proportion to easily target traits
 covering a certain proportion of species. Let’s say we want to see
-traits available for at least 70% of the species:</p>
+traits available for at least 90% of the species:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_species_by_trait.html">fb_plot_number_species_by_trait</a></span><span class="op">(</span><span class="va">species_traits</span>, threshold_species_proportion <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_species_by_trait.html">fb_plot_number_species_by_trait</a></span><span class="op">(</span><span class="va">woodiv_traits</span>, threshold_species_proportion <span class="op">=</span> <span class="fl">0.9</span><span class="op">)</span></span></code></pre></div>
 <p><img src="diagnostic-plots_files/figure-html/plot-species-coverage-trait-thresh-1.png" width="700"></p>
 <p>The red dashed vertical line shows the corresponding species coverage
 with labels indicating the proportion and corresponding number of
-species (n = 104).</p>
+species (n = 22).</p>
 </div>
 <div class="section level3">
 <h3 id="plotting-the-number-of-traits-per-species">Plotting the number of traits per species<a class="anchor" aria-label="anchor" href="#plotting-the-number-of-traits-per-species"></a>
@@ -370,7 +363,7 @@ corresponds to a certain threshold proportion of species, so that a line
 can be added to the plot.</p>
 <p>Using it on the included dataset gives:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_traits_by_species.html">fb_plot_number_traits_by_species</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_traits_by_species.html">fb_plot_number_traits_by_species</a></span><span class="op">(</span><span class="va">woodiv_traits</span><span class="op">)</span></span></code></pre></div>
 <p><img src="diagnostic-plots_files/figure-html/plot-n-traits-species-1.png" width="700"></p>
 <p>The x-axis represents the number of species concerned (bottom x-axis
 displays the actual number of species, while top x-axis displays the
@@ -381,20 +374,20 @@ traits, and so on and so forth. By definition all species have 0 or more
 known traits, but we show that in the plot as a reference to see how the
 proportion decreases with increasing number of traits. The proportion is
 shown as text above each dot representing it. So for example, there are
-62.4% species with at least 4 traits.</p>
-<p>This plot does not tell us if all species with at least 4 traits
-share the same trait combination (there are multiple 4 trait
+79.2% species with at least 3 non-missing traits.</p>
+<p>This plot does not tell us if all species with at least 3 traits
+share the same trait combination (there are multiple 3 trait
 combinations), but it’s a first indication.</p>
 <p>Let’s say we’re interested in combinations of traits with at least
 50% species covered. We can use the second argument to show it:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_traits_by_species.html">fb_plot_number_traits_by_species</a></span><span class="op">(</span><span class="va">species_traits</span>, threshold_species_proportion <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_traits_by_species.html">fb_plot_number_traits_by_species</a></span><span class="op">(</span><span class="va">woodiv_traits</span>, threshold_species_proportion <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></code></pre></div>
 <p><img src="diagnostic-plots_files/figure-html/plot-n-traits-species-thresh-1.png" width="700"></p>
 <p>Adding this argument displays a vertical bar at the target proportion
 of species to easily target number of traits covering a certain
 proportion of species. The red dashed vertical line shows the
 corresponding species coverage with labels indicating the proportion and
-corresponding number of species (n = 74).</p>
+corresponding number of species (n = 12)</p>
 </div>
 <div class="section level3">
 <h3 id="plotting-environmental-position-of-sites">Plotting environmental position of sites<a class="anchor" aria-label="anchor" href="#plotting-environmental-position-of-sites"></a>
@@ -421,8 +414,10 @@ region:</p>
 <span><span class="va">layers</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">tavg</span>, <span class="va">prec</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Make plot (show environmental position of 6 first sites)</span></span>
-<span><span class="fu"><a href="../reference/fb_plot_site_environment.html">fb_plot_site_environment</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">site_locations</span><span class="op">)</span>, <span class="va">layers</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/fb_plot_site_environment.html">fb_plot_site_environment</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">woodiv_locations</span><span class="op">)</span>, <span class="va">layers</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: Removed 49503 rows containing missing values or values outside the scale range</span></span>
+<span><span class="co">#&gt; (`geom_point()`).</span></span>
+<span><span class="co">#&gt; Warning: Removed 2 rows containing missing values or values outside the scale range</span></span>
 <span><span class="co">#&gt; (`geom_point()`).</span></span></code></pre></div>
 <p><img src="diagnostic-plots_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 <p>The plot shows the first selected layer as the x-axis and the second
@@ -430,9 +425,10 @@ one as the y-axis. The environmental position of the sites are displayed
 using the big blue dots, while the light gray pixels are all the
 environmental variables extracted from the provided environmental
 raster.</p>
-<p>This figure can show us that the first six sites are actually lower
-in temperature and higher in annual precipitation than most other places
-in our environmental rasters.</p>
+<p>This figure can show us that the first six sites are actually higher
+in temperature and lower in annual precipitation than most other places
+in our environmental rasters, with one site has higher precipitation
+than others.</p>
 </div>
 <div class="section level3">
 <h3 id="plotting-trait-coverage-for-all-sites">Plotting trait coverage for all sites<a class="anchor" aria-label="anchor" href="#plotting-trait-coverage-for-all-sites"></a>
@@ -445,7 +441,7 @@ and <code>species_traits</code>, the species by traits
 <code>data.frame</code>, as arguments.</p>
 <p>We can use it with the included dataset as an example:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_site_traits_completeness.html">fb_plot_site_traits_completeness</a></span><span class="op">(</span><span class="va">site_species</span>, <span class="va">species_traits</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_site_traits_completeness.html">fb_plot_site_traits_completeness</a></span><span class="op">(</span><span class="va">woodiv_site_species</span>, <span class="va">woodiv_traits</span><span class="op">)</span></span></code></pre></div>
 <p><img src="diagnostic-plots_files/figure-html/plot-site-trait-complete-1.png" width="700"></p>
 <p>The plot shows the trait along the x-axis (and their average coverage
 across all sites in their labels) and sites along the y-axis. Each thin
@@ -454,8 +450,8 @@ the trait in each column. Note that for readability reasons the color
 scale has been discretized from 0 to 100% coverage. Traits are ranked in
 decreasing average coverage. The last column <code>all_traits</code>
 contains the coverage for all traits taken together.</p>
-<p>With this figure we can see that all sites have over 80% coverage
-with both adult body mass and litter size.</p>
+<p>With this figure we can see that all sites have over 95% coverage for
+all traits.</p>
 </div>
 <div class="section level3">
 <h3 id="plotting-trait-coverage-per-species">Plotting trait coverage per species<a class="anchor" aria-label="anchor" href="#plotting-trait-coverage-per-species"></a>
@@ -467,7 +463,7 @@ species. This is done by
 <code>data.frame</code>, for sole argument.</p>
 <p>We can use it with the included dataset as an example:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_species_traits_completeness.html">fb_plot_species_traits_completeness</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_species_traits_completeness.html">fb_plot_species_traits_completeness</a></span><span class="op">(</span><span class="va">woodiv_traits</span><span class="op">)</span></span></code></pre></div>
 <p><img src="diagnostic-plots_files/figure-html/plot-species-trait-complete-1.png" width="700"></p>
 <p>This figure visualizes directly the species by trait
 <code>data.frame</code>. The x-axis displays the different traits,
@@ -476,9 +472,9 @@ the x-axis labels). The last column <code>all_traits</code> considers
 all traits taken together. The y-axis represents species in decreasing
 coverage order from bottom to top. Each cell thus represents the trait
 for a species: blue if the trait is known and red if it is missing.</p>
-<p>From this plot we see that a significant proportion of species have
-missing traits and that even the most non-missing traits, adult body
-mass, is only known for 82.6% of the species.</p>
+<p>From this plot we see that a small proportion of species have missing
+traits and but taken all together means that we know perfectly only
+58.3% of the species.</p>
 </div>
 <div class="section level3">
 <h3 id="plotting-number-of-species-with-missing-traits">Plotting number of species with missing traits<a class="anchor" aria-label="anchor" href="#plotting-number-of-species-with-missing-traits"></a>
@@ -492,13 +488,14 @@ to the one from the previous section. It can be done through
 to know if an additional row should be used to display a summary for all
 traits taken together.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_species_traits_missingness.html">fb_plot_species_traits_missingness</a></span><span class="op">(</span><span class="va">species_traits</span>, all_traits <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_species_traits_missingness.html">fb_plot_species_traits_missingness</a></span><span class="op">(</span><span class="va">woodiv_traits</span>, all_traits <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="diagnostic-plots_files/figure-html/plot-species-traits-missingness-1.png" width="700"></p>
 <p>The plot displays the number of species with known and missing
 traits. It shows each trait in separate line as a proportional bar chart
 with the total numbers included within each bar.</p>
-<p>Here we see that 53 species have all of their traits known while 96
-don’t. Adult body mass is known for 123 species and missing for 26.</p>
+<p><del>Here we see that 53 species have all of their traits known while
+96 don’t. Adult body mass is known for 123 species and missing for
+26.</del></p>
 </div>
 <div class="section level3">
 <h3 id="displaying-traits-combinations">Displaying traits combinations<a class="anchor" aria-label="anchor" href="#displaying-traits-combinations"></a>
@@ -517,7 +514,7 @@ either <code>"number"</code>, the default option, or
 details below).</p>
 <p>We can use it with the included dataset as an example:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_trait_combination_frequencies.html">fb_plot_trait_combination_frequencies</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_trait_combination_frequencies.html">fb_plot_trait_combination_frequencies</a></span><span class="op">(</span><span class="va">woodiv_traits</span><span class="op">)</span></span></code></pre></div>
 <p><img src="diagnostic-plots_files/figure-html/plot-trait-comb-freq-1.png" width="700"></p>
 <p>The x-axis represents individual traits ranked in alphabetical order
 from left to right. The y-axis represents different combinations. The
@@ -527,14 +524,15 @@ when it is red it means the trait is missing. By default the
 combinations are ordered by increasing number from top to bottom, with
 the most numerous combinations of trait presences at the very bottom of
 the graph.</p>
-<p>With this graph we can see that we have exactly 53 species (35.6% of
-the total number of species provided) have all their traits present,
-while 21 species (14.1%) have not a single trait in the dataset.</p>
+<p>With this graph we can see that we have exactly 14 species (58.3% of
+the total number of species provided) with all their traits that are
+non-missing, while 1 species has a missing seed mass and a missing wood
+density.</p>
 <p>If we change <code>order_by</code> to <code>"complete"</code>, the
 combinations are ordered instead by the number of trait presents among
 them:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_trait_combination_frequencies.html">fb_plot_trait_combination_frequencies</a></span><span class="op">(</span><span class="va">species_traits</span>, order_by <span class="op">=</span> <span class="st">"complete"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_trait_combination_frequencies.html">fb_plot_trait_combination_frequencies</a></span><span class="op">(</span><span class="va">woodiv_traits</span>, order_by <span class="op">=</span> <span class="st">"complete"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="diagnostic-plots_files/figure-html/plot-trait-comb-freq-order-1.png" width="700"></p>
 <p>The most complete combinations are shown at the bottom, while the
 combinations with most missing traits are at the top.</p>
@@ -554,16 +552,16 @@ traits</strong> and with <strong>complete observations</strong>. It
 silently removes any species that has any <code>NA</code>.</p>
 <p>With the included dataset as an example:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_trait_correlation.html">fb_plot_trait_correlation</a></span><span class="op">(</span><span class="va">species_traits</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_trait_correlation.html">fb_plot_trait_correlation</a></span><span class="op">(</span><span class="va">woodiv_traits</span><span class="op">)</span></span></code></pre></div>
 <p><img src="diagnostic-plots_files/figure-html/plot-trait-corr-1.png" width="700"></p>
 <p>Both x- and y-axes represent the different traits. At their
 intersection are shown squared that are colored in function of their
 correlation coefficient (purple means close to -1 correlation while
 brown means close to 1, white means close to 0). The correlation
 coefficients are also displayed in the middle of this square.</p>
-<p>With this visualization we can see that adult body mass and gestation
-length are quite highly correlated (cor = 0.7), while diet breadth is
-correlated with no other trait.</p>
+<p>With this visualization we can see that our traits are mostly
+unorrelated, there is a slight negative correlation of plant and wood
+density (cor = -0.2).</p>
 </div>
 </div>
 <div class="section level2">
@@ -595,18 +593,15 @@ traits <code>data.frame</code>).</p>
 <p>If we use the included dataset in <code>funbiogeo</code> it
 gives:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_map_site_traits_completeness.html">fb_map_site_traits_completeness</a></span><span class="op">(</span><span class="va">site_locations</span>, <span class="va">site_species</span>, <span class="va">species_traits</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_map_site_traits_completeness.html">fb_map_site_traits_completeness</a></span><span class="op">(</span><span class="va">woodiv_locations</span>, <span class="va">woodiv_site_species</span>, <span class="va">woodiv_traits</span><span class="op">)</span></span></code></pre></div>
 <p><img src="diagnostic-plots_files/figure-html/map-trait-complete-1.png" width="700"></p>
 <p>It displays maps of the sites, colored by their trait coverage. Each
 facet represents a different trait while the <code>all_traits</code>
 facet consider all traits together.</p>
-<p>From this plot we can see that on average the South of Western Europe
-is less covered by traits than the North of Western Europe. It may be an
-indication of higher species richness in the South compared to the North
-which makes achieving high coverages more difficult. Furthermore, we can
-see that a site in the Netherlands has 0% coverage of diet breadth. This
-is most likely the sign of sign of low species richness with an absence
-of diet breadth for those species.</p>
+<p>From this plot we can see that on average the center of Spain shows
+lower average trait coverage. It may be an indication of higher species
+richness in Spain compares to other places which makes achieving high
+coverages more difficult.</p>
 </div>
 <div class="section level3">
 <h3 id="mapping-arbitrary-site-data">Mapping arbitrary site data<a class="anchor" aria-label="anchor" href="#mapping-arbitrary-site-data"></a>
@@ -626,25 +621,25 @@ are required.</p>
 included dataset we can do the following:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Compute Species Richness</span></span>
-<span><span class="va">site_rich</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_count_species_by_site.html">fb_count_species_by_site</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span></span>
+<span><span class="va">site_rich</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_count_species_by_site.html">fb_count_species_by_site</a></span><span class="op">(</span><span class="va">woodiv_site_species</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Map of Species Richness</span></span>
-<span><span class="fu"><a href="../reference/fb_map_site_data.html">fb_map_site_data</a></span><span class="op">(</span><span class="va">site_locations</span>, <span class="va">site_rich</span>, <span class="st">"n_species"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/fb_map_site_data.html">fb_map_site_data</a></span><span class="op">(</span><span class="va">woodiv_locations</span>, <span class="va">site_rich</span>, <span class="st">"n_species"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="diagnostic-plots_files/figure-html/map-site-data-sr-1.png" width="700"></p>
-<p>From this map, we can for example see that the Northern part of our
-dataset is less species-rich than the center or the South.</p>
+<p>From this map, we can for example see that the French part of our
+dataset is the most species-rich compared to the other places.</p>
 <p>Now imagine we want to display the category of sites which be
 “Testing” or “Training”, depending on which set they belong to. We can
 use the following to display the map:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Generate categories</span></span>
 <span><span class="va">site_cat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  site <span class="op">=</span> <span class="va">site_species</span><span class="op">$</span><span class="va">site</span>,</span>
-<span>  set  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Testing"</span>, <span class="st">"Training"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  site <span class="op">=</span> <span class="va">woodiv_site_species</span><span class="op">$</span><span class="st">"site"</span>,</span>
+<span>  set  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Testing"</span>, <span class="st">"Training"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">woodiv_site_species</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Display them</span></span>
-<span><span class="fu"><a href="../reference/fb_map_site_data.html">fb_map_site_data</a></span><span class="op">(</span><span class="va">site_locations</span>, <span class="va">site_cat</span>, <span class="st">"set"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/fb_map_site_data.html">fb_map_site_data</a></span><span class="op">(</span><span class="va">woodiv_locations</span>, <span class="va">site_cat</span>, <span class="st">"set"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="diagnostic-plots_files/figure-html/map-site-data-cat-1.png" width="700"></p>
 </div>
 <div class="section level3">
@@ -659,8 +654,8 @@ display the raster in the provided projection.</p>
 <p>For example:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Getting the raster</span></span>
-<span><span class="va">tavg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"annual_mean_temp.tif"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></span>
-<span><span class="va">tavg</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">tavg</span><span class="op">)</span></span>
+<span><span class="va">raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"annual_mean_temp.tif"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></span>
+<span><span class="va">tavg</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">raw</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Mapping the raster</span></span>
 <span><span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">tavg</span><span class="op">)</span></span></code></pre></div>
@@ -678,7 +673,7 @@ display the raster in the provided projection.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>

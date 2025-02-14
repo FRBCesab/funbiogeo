@@ -8,8 +8,8 @@
 <title>Formatting your data • funbiogeo</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Formatting your data">
 </head>
 <body>
@@ -243,12 +243,12 @@ wider object.</p>
 </h2>
 <p><code>funbiogeo</code> provides a small excerpt of long format data
 to show how to use the functions. This data sits at
-<code>system.file("extdata", "raw_mammals_data.csv", package = "funbiogeo")</code>.</p>
+<code>system.file("extdata", "woodiv_raw_data.csv", package = "funbiogeo")</code>.</p>
 <p>Let’s import the long format dataset provided by
 <code>funbiogeo</code>:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Define the path to long format dataset ----</span></span>
-<span><span class="va">file_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"raw_mammals_data.csv"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></span>
+<span><span class="va">file_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"woodiv_raw_data.csv"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span><span class="op">)</span></span>
 <span></span>
 <span></span>
 <span><span class="co"># Read the file ----</span></span>
@@ -256,173 +256,209 @@ to show how to use the functions. This data sits at
 <table style="width:100%;" class="table">
 <caption>Long table example</caption>
 <colgroup>
-<col width="5%">
-<col width="10%">
-<col width="5%">
 <col width="6%">
 <col width="6%">
-<col width="3%">
-<col width="10%">
-<col width="11%">
+<col width="6%">
+<col width="5%">
+<col width="5%">
+<col width="4%">
+<col width="8%">
+<col width="6%">
+<col width="12%">
+<col width="5%">
+<col width="6%">
 <col width="7%">
-<col width="9%">
-<col width="13%">
-<col width="9%">
+<col width="6%">
+<col width="6%">
+<col width="7%">
 </colgroup>
 <thead><tr class="header">
+<th align="center">site</th>
+<th align="center">country</th>
+<th align="right">longitude</th>
+<th align="right">latitude</th>
 <th align="center">species</th>
-<th align="right">order</th>
-<th align="right">site</th>
-<th align="left">longitude</th>
-<th align="center">latitude</th>
-<th align="right">count</th>
-<th align="right">adult_body_mass</th>
-<th align="right">gestation_length</th>
-<th align="right">litter_size</th>
-<th align="right">max_longevity</th>
-<th align="right">sexual_maturity_age</th>
-<th align="center">diet_breadth</th>
+<th align="center">count</th>
+<th align="center">family</th>
+<th align="left">genus</th>
+<th align="right">binomial</th>
+<th align="right">endemism</th>
+<th align="right">cultivated</th>
+<th align="right">plant_height</th>
+<th align="center">seed_mass</th>
+<th align="center">sla</th>
+<th align="right">wood_density</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="center">sp_001</td>
-<td align="right">Cetartiodactyla</td>
-<td align="right">fb_103</td>
-<td align="left">7.27182</td>
-<td align="center">59.09736</td>
-<td align="right">1</td>
-<td align="right">461900.76</td>
-<td align="right">235.00</td>
-<td align="right">1.25</td>
-<td align="right">324</td>
-<td align="right">668.20</td>
+<td align="center">26351755</td>
+<td align="center">Portugal</td>
+<td align="right">2635000</td>
+<td align="right">1755000</td>
+<td align="center">JPHO</td>
 <td align="center">1</td>
+<td align="center">Cupressaceae</td>
+<td align="left">Juniperus</td>
+<td align="right">Juniperus phoenicea</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">4.88150</td>
+<td align="center">79.86000</td>
+<td align="center">4.365246</td>
+<td align="right">0.6487500</td>
 </tr>
 <tr class="even">
-<td align="center">sp_001</td>
-<td align="right">Cetartiodactyla</td>
-<td align="right">fb_1001</td>
-<td align="left">20.77182</td>
-<td align="center">52.59736</td>
-<td align="right">1</td>
-<td align="right">461900.76</td>
-<td align="right">235.00</td>
-<td align="right">1.25</td>
-<td align="right">324</td>
-<td align="right">668.20</td>
+<td align="center">26351755</td>
+<td align="center">Portugal</td>
+<td align="right">2635000</td>
+<td align="right">1755000</td>
+<td align="center">PPIR</td>
 <td align="center">1</td>
+<td align="center">Pinaceae</td>
+<td align="left">Pinus</td>
+<td align="right">Pinus pinaster</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">19.75384</td>
+<td align="center">55.83434</td>
+<td align="center">3.357539</td>
+<td align="right">0.4430277</td>
 </tr>
 <tr class="odd">
-<td align="center">sp_001</td>
-<td align="right">Cetartiodactyla</td>
-<td align="right">fb_102</td>
-<td align="left">6.77182</td>
-<td align="center">59.09736</td>
-<td align="right">1</td>
-<td align="right">461900.76</td>
-<td align="right">235.00</td>
-<td align="right">1.25</td>
-<td align="right">324</td>
-<td align="right">668.20</td>
+<td align="center">26351765</td>
+<td align="center">Portugal</td>
+<td align="right">2635000</td>
+<td align="right">1765000</td>
+<td align="center">JPHO</td>
 <td align="center">1</td>
+<td align="center">Cupressaceae</td>
+<td align="left">Juniperus</td>
+<td align="right">Juniperus phoenicea</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">4.88150</td>
+<td align="center">79.86000</td>
+<td align="center">4.365246</td>
+<td align="right">0.6487500</td>
 </tr>
 <tr class="even">
-<td align="center">sp_001</td>
-<td align="right">Cetartiodactyla</td>
-<td align="right">fb_104</td>
-<td align="left">7.77182</td>
-<td align="center">59.09736</td>
-<td align="right">1</td>
-<td align="right">461900.76</td>
-<td align="right">235.00</td>
-<td align="right">1.25</td>
-<td align="right">324</td>
-<td align="right">668.20</td>
+<td align="center">26351955</td>
+<td align="center">Portugal</td>
+<td align="right">2635000</td>
+<td align="right">1955000</td>
+<td align="center">JPHO</td>
 <td align="center">1</td>
+<td align="center">Cupressaceae</td>
+<td align="left">Juniperus</td>
+<td align="right">Juniperus phoenicea</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">4.88150</td>
+<td align="center">79.86000</td>
+<td align="center">4.365246</td>
+<td align="right">0.6487500</td>
 </tr>
 <tr class="odd">
-<td align="center">sp_001</td>
-<td align="right">Cetartiodactyla</td>
-<td align="right">fb_101</td>
-<td align="left">6.27182</td>
-<td align="center">59.09736</td>
-<td align="right">1</td>
-<td align="right">461900.76</td>
-<td align="right">235.00</td>
-<td align="right">1.25</td>
-<td align="right">324</td>
-<td align="right">668.20</td>
+<td align="center">26351955</td>
+<td align="center">Portugal</td>
+<td align="right">2635000</td>
+<td align="right">1955000</td>
+<td align="center">PPIR</td>
 <td align="center">1</td>
+<td align="center">Pinaceae</td>
+<td align="left">Pinus</td>
+<td align="right">Pinus pinaster</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">19.75384</td>
+<td align="center">55.83434</td>
+<td align="center">3.357539</td>
+<td align="right">0.4430277</td>
 </tr>
 <tr class="even">
-<td align="center">sp_001</td>
-<td align="right">Cetartiodactyla</td>
-<td align="right">fb_1000</td>
-<td align="left">20.27182</td>
-<td align="center">52.59736</td>
-<td align="right">1</td>
-<td align="right">461900.76</td>
-<td align="right">235.00</td>
-<td align="right">1.25</td>
-<td align="right">324</td>
-<td align="right">668.20</td>
+<td align="center">26351965</td>
+<td align="center">Portugal</td>
+<td align="right">2635000</td>
+<td align="right">1965000</td>
+<td align="center">JPHO</td>
 <td align="center">1</td>
+<td align="center">Cupressaceae</td>
+<td align="left">Juniperus</td>
+<td align="right">Juniperus phoenicea</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">4.88150</td>
+<td align="center">79.86000</td>
+<td align="center">4.365246</td>
+<td align="right">0.6487500</td>
 </tr>
 <tr class="odd">
-<td align="center">sp_001</td>
-<td align="right">Cetartiodactyla</td>
-<td align="right">fb_1002</td>
-<td align="left">21.27182</td>
-<td align="center">52.59736</td>
-<td align="right">1</td>
-<td align="right">461900.76</td>
-<td align="right">235.00</td>
-<td align="right">1.25</td>
-<td align="right">324</td>
-<td align="right">668.20</td>
+<td align="center">26351965</td>
+<td align="center">Portugal</td>
+<td align="right">2635000</td>
+<td align="right">1965000</td>
+<td align="center">PPIA</td>
 <td align="center">1</td>
+<td align="center">Pinaceae</td>
+<td align="left">Pinus</td>
+<td align="right">Pinus pinea</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">22.67000</td>
+<td align="center">626.18882</td>
+<td align="center">4.216176</td>
+<td align="right">0.5178617</td>
 </tr>
 <tr class="even">
-<td align="center">sp_002</td>
-<td align="right">Rodentia</td>
-<td align="right">fb_1000</td>
-<td align="left">20.27182</td>
-<td align="center">52.59736</td>
-<td align="right">1</td>
-<td align="right">21.11</td>
-<td align="right">19.89</td>
-<td align="right">5.64</td>
-<td align="right">48</td>
-<td align="right">76.04</td>
-<td align="center">NA</td>
+<td align="center">26451755</td>
+<td align="center">Portugal</td>
+<td align="right">2645000</td>
+<td align="right">1755000</td>
+<td align="center">JPHO</td>
+<td align="center">1</td>
+<td align="center">Cupressaceae</td>
+<td align="left">Juniperus</td>
+<td align="right">Juniperus phoenicea</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">4.88150</td>
+<td align="center">79.86000</td>
+<td align="center">4.365246</td>
+<td align="right">0.6487500</td>
 </tr>
 <tr class="odd">
-<td align="center">sp_002</td>
-<td align="right">Rodentia</td>
-<td align="right">fb_1002</td>
-<td align="left">21.27182</td>
-<td align="center">52.59736</td>
-<td align="right">1</td>
-<td align="right">21.11</td>
-<td align="right">19.89</td>
-<td align="right">5.64</td>
-<td align="right">48</td>
-<td align="right">76.04</td>
-<td align="center">NA</td>
+<td align="center">26451765</td>
+<td align="center">Portugal</td>
+<td align="right">2645000</td>
+<td align="right">1765000</td>
+<td align="center">JPHO</td>
+<td align="center">1</td>
+<td align="center">Cupressaceae</td>
+<td align="left">Juniperus</td>
+<td align="right">Juniperus phoenicea</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">4.88150</td>
+<td align="center">79.86000</td>
+<td align="center">4.365246</td>
+<td align="right">0.6487500</td>
 </tr>
 <tr class="even">
-<td align="center">sp_002</td>
-<td align="right">Rodentia</td>
-<td align="right">fb_1001</td>
-<td align="left">20.77182</td>
-<td align="center">52.59736</td>
+<td align="center">26451765</td>
+<td align="center">Portugal</td>
+<td align="right">2645000</td>
+<td align="right">1765000</td>
+<td align="center">PPIA</td>
+<td align="center">1</td>
+<td align="center">Pinaceae</td>
+<td align="left">Pinus</td>
+<td align="right">Pinus pinea</td>
+<td align="right">0</td>
 <td align="right">1</td>
-<td align="right">21.11</td>
-<td align="right">19.89</td>
-<td align="right">5.64</td>
-<td align="right">48</td>
-<td align="right">76.04</td>
-<td align="center">NA</td>
+<td align="right">22.67000</td>
+<td align="center">626.18882</td>
+<td align="center">4.216176</td>
+<td align="right">0.5178617</td>
 </tr>
 </tbody>
 </table>
@@ -438,34 +474,22 @@ trait variation across sites is allowed).</p>
 <span><span class="va">species_traits</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_species_traits.html">fb_format_species_traits</a></span><span class="op">(</span></span>
 <span>  data    <span class="op">=</span> <span class="va">all_data</span>, </span>
 <span>  species <span class="op">=</span> <span class="st">"species"</span>, </span>
-<span>  traits  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"adult_body_mass"</span>, <span class="st">"gestation_length"</span>, <span class="st">"litter_size"</span>,</span>
-<span>              <span class="st">"max_longevity"</span>, <span class="st">"sexual_maturity_age"</span>, <span class="st">"diet_breadth"</span><span class="op">)</span></span>
+<span>  traits  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"plant_height"</span>, <span class="st">"seed_mass"</span>, <span class="st">"sla"</span>, <span class="st">"wood_density"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Preview ----</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">species_traits</span>, <span class="fl">10</span><span class="op">)</span></span>
-<span><span class="co">#&gt;    species adult_body_mass gestation_length litter_size max_longevity</span></span>
-<span><span class="co">#&gt; 1   sp_001       461900.76           235.00        1.25         324.0</span></span>
-<span><span class="co">#&gt; 2   sp_002           21.11            19.89        5.64          48.0</span></span>
-<span><span class="co">#&gt; 3   sp_005           31.60            24.50        4.94          48.0</span></span>
-<span><span class="co">#&gt; 4   sp_006           21.90            23.68        5.16          52.8</span></span>
-<span><span class="co">#&gt; 5   sp_010            8.31               NA        1.73         252.0</span></span>
-<span><span class="co">#&gt; 6   sp_013        31756.51            63.50        4.98         354.0</span></span>
-<span><span class="co">#&gt; 7   sp_016        22502.01           196.00        1.79         204.0</span></span>
-<span><span class="co">#&gt; 8   sp_017       240867.13           235.61        1.09         321.6</span></span>
-<span><span class="co">#&gt; 9   sp_022            9.89            29.00        4.04          38.4</span></span>
-<span><span class="co">#&gt; 10  sp_026        57224.61           230.00        1.00         300.0</span></span>
-<span><span class="co">#&gt;    sexual_maturity_age diet_breadth</span></span>
-<span><span class="co">#&gt; 1               668.20            1</span></span>
-<span><span class="co">#&gt; 2                76.04           NA</span></span>
-<span><span class="co">#&gt; 3                43.27           NA</span></span>
-<span><span class="co">#&gt; 4                57.93            4</span></span>
-<span><span class="co">#&gt; 5                   NA            1</span></span>
-<span><span class="co">#&gt; 6               679.37            1</span></span>
-<span><span class="co">#&gt; 7               400.97           NA</span></span>
-<span><span class="co">#&gt; 8               659.91            5</span></span>
-<span><span class="co">#&gt; 9                66.88            2</span></span>
-<span><span class="co">#&gt; 10              543.28            2</span></span></code></pre></div>
+<span><span class="co">#&gt;    species plant_height seed_mass      sla wood_density</span></span>
+<span><span class="co">#&gt; 1     AALB    49.641622 67.866923 7.483978    0.4490821</span></span>
+<span><span class="co">#&gt; 2     ACEP    25.875000 64.703750       NA           NA</span></span>
+<span><span class="co">#&gt; 3     ANEB    15.000000        NA 3.420603           NA</span></span>
+<span><span class="co">#&gt; 4     APIN    27.333333 55.520000 3.420603    0.4586508</span></span>
+<span><span class="co">#&gt; 5     CLIB    35.636364 86.872600       NA    0.4500000</span></span>
+<span><span class="co">#&gt; 6     CSEM    24.692308  7.608125 5.824112    0.5184729</span></span>
+<span><span class="co">#&gt; 7     JCOM     6.894711 14.556875 6.877889    0.5805503</span></span>
+<span><span class="co">#&gt; 8     JDEL    12.000000 22.000000       NA           NA</span></span>
+<span><span class="co">#&gt; 9     JMAC     5.000000  8.550000       NA           NA</span></span>
+<span><span class="co">#&gt; 10    JNAV     1.367750 45.630000 3.890000           NA</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="extracting-site-x-species-data">Extracting site x species data<a class="anchor" aria-label="anchor" href="#extracting-site-x-species-data"></a>
@@ -486,17 +510,17 @@ temporal survey).</p>
 <span></span>
 <span><span class="co"># Preview ----</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">[</span> , <span class="fl">1</span><span class="op">:</span><span class="fl">8</span><span class="op">]</span>, <span class="fl">10</span><span class="op">)</span></span>
-<span><span class="co">#&gt;       site sp_001 sp_002 sp_005 sp_006 sp_010 sp_013 sp_016</span></span>
-<span><span class="co">#&gt; 1   fb_103      1      0      0      1      0      1      1</span></span>
-<span><span class="co">#&gt; 2  fb_1001      1      1      1      1      1      1      1</span></span>
-<span><span class="co">#&gt; 3   fb_102      1      0      0      1      0      1      1</span></span>
-<span><span class="co">#&gt; 4   fb_104      1      0      0      1      0      1      1</span></span>
-<span><span class="co">#&gt; 5   fb_101      1      0      0      1      0      1      1</span></span>
-<span><span class="co">#&gt; 6  fb_1000      1      1      1      1      1      1      1</span></span>
-<span><span class="co">#&gt; 7  fb_1002      1      1      1      1      1      1      1</span></span>
-<span><span class="co">#&gt; 8  fb_1022      0      0      1      1      1      0      1</span></span>
-<span><span class="co">#&gt; 9  fb_1018      0      0      1      1      1      0      0</span></span>
-<span><span class="co">#&gt; 10 fb_1024      0      0      1      1      1      0      1</span></span></code></pre></div>
+<span><span class="co">#&gt;        site JPHO PPIR PPIA JNAV JMAC JOXY JCOM</span></span>
+<span><span class="co">#&gt; 1  26351755    1    1    0    0    0    0    0</span></span>
+<span><span class="co">#&gt; 2  26351765    1    0    0    0    0    0    0</span></span>
+<span><span class="co">#&gt; 3  26351955    1    1    0    0    0    0    0</span></span>
+<span><span class="co">#&gt; 4  26351965    1    0    1    0    0    0    0</span></span>
+<span><span class="co">#&gt; 5  26451755    1    0    0    0    0    0    0</span></span>
+<span><span class="co">#&gt; 6  26451765    1    1    1    0    0    0    0</span></span>
+<span><span class="co">#&gt; 7  26451775    1    0    1    0    0    0    0</span></span>
+<span><span class="co">#&gt; 8  26451955    1    1    0    0    0    0    0</span></span>
+<span><span class="co">#&gt; 9  26451965    1    1    1    0    0    0    0</span></span>
+<span><span class="co">#&gt; 10 26451975    1    1    1    0    0    0    0</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="extracting-site-x-locations-data">Extracting site x locations data<a class="anchor" aria-label="anchor" href="#extracting-site-x-locations-data"></a>
@@ -517,15 +541,15 @@ Note that one site must have one unique longitude x latitude value.</p>
 <span><span class="co">#&gt; Simple feature collection with 6 features and 1 field</span></span>
 <span><span class="co">#&gt; Geometry type: POINT</span></span>
 <span><span class="co">#&gt; Dimension:     XY</span></span>
-<span><span class="co">#&gt; Bounding box:  xmin: 52.59736 ymin: 6.271821 xmax: 59.09736 ymax: 20.77182</span></span>
+<span><span class="co">#&gt; Bounding box:  xmin: 1755000 ymin: 2635000 xmax: 1965000 ymax: 2645000</span></span>
 <span><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
-<span><span class="co">#&gt;      site                  geometry</span></span>
-<span><span class="co">#&gt; 1  fb_103 POINT (59.09736 7.271821)</span></span>
-<span><span class="co">#&gt; 2 fb_1001 POINT (52.59736 20.77182)</span></span>
-<span><span class="co">#&gt; 3  fb_102 POINT (59.09736 6.771821)</span></span>
-<span><span class="co">#&gt; 4  fb_104 POINT (59.09736 7.771821)</span></span>
-<span><span class="co">#&gt; 5  fb_101 POINT (59.09736 6.271821)</span></span>
-<span><span class="co">#&gt; 6 fb_1000 POINT (52.59736 20.27182)</span></span></code></pre></div>
+<span><span class="co">#&gt;       site                geometry</span></span>
+<span><span class="co">#&gt; 1 26351755 POINT (1755000 2635000)</span></span>
+<span><span class="co">#&gt; 3 26351765 POINT (1765000 2635000)</span></span>
+<span><span class="co">#&gt; 4 26351955 POINT (1955000 2635000)</span></span>
+<span><span class="co">#&gt; 6 26351965 POINT (1965000 2635000)</span></span>
+<span><span class="co">#&gt; 8 26451755 POINT (1755000 2645000)</span></span>
+<span><span class="co">#&gt; 9 26451765 POINT (1765000 2645000)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="extracting-species-x-categories-data">Extracting species x categories data<a class="anchor" aria-label="anchor" href="#extracting-species-x-categories-data"></a>
@@ -540,22 +564,22 @@ level.</p>
 <code class="sourceCode R"><span><span class="co"># Extract species x categories data ----</span></span>
 <span><span class="va">species_categories</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_species_categories.html">fb_format_species_categories</a></span><span class="op">(</span>data     <span class="op">=</span> <span class="va">all_data</span>, </span>
 <span>                                                   species  <span class="op">=</span> <span class="st">"species"</span>,</span>
-<span>                                                   category <span class="op">=</span> <span class="st">"order"</span></span>
+<span>                                                   category <span class="op">=</span> <span class="st">"genus"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Preview ----</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">species_categories</span>, <span class="fl">10</span><span class="op">)</span></span>
-<span><span class="co">#&gt;     species           order</span></span>
-<span><span class="co">#&gt; 1    sp_001 Cetartiodactyla</span></span>
-<span><span class="co">#&gt; 8    sp_002        Rodentia</span></span>
-<span><span class="co">#&gt; 11   sp_005        Rodentia</span></span>
-<span><span class="co">#&gt; 27   sp_006        Rodentia</span></span>
-<span><span class="co">#&gt; 59   sp_010      Chiroptera</span></span>
-<span><span class="co">#&gt; 81   sp_013       Carnivora</span></span>
-<span><span class="co">#&gt; 89   sp_016 Cetartiodactyla</span></span>
-<span><span class="co">#&gt; 113  sp_017 Cetartiodactyla</span></span>
-<span><span class="co">#&gt; 132  sp_022    Eulipotyphla</span></span>
-<span><span class="co">#&gt; 138  sp_026 Cetartiodactyla</span></span></code></pre></div>
+<span><span class="co">#&gt;     species     genus</span></span>
+<span><span class="co">#&gt; 1      JPHO Juniperus</span></span>
+<span><span class="co">#&gt; 2      PPIR     Pinus</span></span>
+<span><span class="co">#&gt; 7      PPIA     Pinus</span></span>
+<span><span class="co">#&gt; 58     JNAV Juniperus</span></span>
+<span><span class="co">#&gt; 372    JMAC Juniperus</span></span>
+<span><span class="co">#&gt; 382    JOXY Juniperus</span></span>
+<span><span class="co">#&gt; 486    JCOM Juniperus</span></span>
+<span><span class="co">#&gt; 488    TBAC     Taxus</span></span>
+<span><span class="co">#&gt; 573    PSYL     Pinus</span></span>
+<span><span class="co">#&gt; 916    PHAL     Pinus</span></span></code></pre></div>
 <p>Once your data are in the good format, you can <a href="https://frbcesab.github.io/funbiogeo/articles/funbiogeo.html">get
 started</a> with <code>funbiogeo</code>.</p>
 </div>
@@ -571,7 +595,7 @@ started</a> with <code>funbiogeo</code>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>
