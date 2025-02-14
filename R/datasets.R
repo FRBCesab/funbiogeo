@@ -5,15 +5,14 @@
 #' \url{https://www.nature.com/articles/s41597-021-00873-3}). It contains the 
 #' spatial coordinates of sites (grid cells of 10 x 10 km  horizontal 
 #' resolution) sampled in Portugal, Spain, France, and Italy (Mediterranean 
-#' part) for which at least one of the 26 tree species (members of the Rosaceae
-#' family) occurs.
+#' part) for which at least one of the 24 Conifer tree species occurs.
 #' 
 #' This dataset shows the format of the argument `site_locations` used in 
 #' several functions of `funbiogeo`. The variable `site` corresponds to the 
 #' site labels (must match the same column in `site_species`) and the variable
 #' `country` will be used as a site grouping factor.
 #'   
-#' @format An `sf` `POLYGON` object with 4,723 rows (grid cells) defined in the
+#' @format An `sf` `POLYGON` object with 5,366 rows (grid cells) defined in the
 #'   ETRS89-extended / LAEA Europe Coordinate Reference System (EPSG:3035).
 #' 
 #' @references 
@@ -36,17 +35,17 @@
 #' @description
 #' This dataset is derived from the WOODIV database (available at:
 #' \url{https://www.nature.com/articles/s41597-021-00873-3}). It contains the 
-#' presence/absence of the 26 tree species (members of the Rosaceae family) 
-#' occurring in Portugal, Spain, France, and Italy (Mediterranean part). The 
-#' presence/absence is available at 4,723 sites (grid cells of 10 x 10 km 
-#' horizontal resolution). Sites coordinates are provided in `site_locations`.
+#' presence/absence of the 24 Conifer tree species occurring in Portugal, 
+#' Spain, France, and Italy (Mediterranean part). The presence/absence is 
+#' available at 5,366 sites (grid cells of 10 x 10 km horizontal resolution). 
+#' Sites coordinates are provided in `site_locations`.
 #' 
 #' This dataset shows the format of the argument `site_species` used in 
 #' several functions of `funbiogeo`. Note that site labels must be the first 
 #' column and must be named `site`.
 #'   
-#' @format A `data.frame` with 4,723 rows (sites) and 27 columns (1 column for 
-#' site label and 26 for species occurrence).
+#' @format A `data.frame` with 5,366 rows (sites) and 25 columns (1 column for 
+#' site label and 24 for species occurrence).
 #' 
 #' @references 
 #' Monnet AC, Cilleros K, Médail F _et al._ (2021) WOODIV, a database of 
@@ -68,14 +67,14 @@
 #' @description
 #' This dataset is derived from the WOODIV database (available at:
 #' \url{https://www.nature.com/articles/s41597-021-00873-3}). It contains the 
-#' values of four functional traits for 26 tree species (members of the Rosaceae
-#' family) occurring in Portugal, Spain, France, and Italy (Mediterranean part).
+#' values of four functional traits for 24 Conifer tree species occurring in 
+#' Portugal, Spain, France, and Italy (Mediterranean part).
 #' 
 #' This dataset shows the format of the argument `species_traits` used in 
 #' several functions of `funbiogeo`. Note that species names must be
 #' the first column and must be named `species`.
 #'   
-#' @format A `data.frame` with 26 rows (species) and the following five columns:
+#' @format A `data.frame` with 24 rows (species) and the following five columns:
 #' \describe{
 #'   \item{species}{species name corresponding to the columns of `site_species`}
 #'   \item{plant_height}{adult plant height (in \eqn{m})}
@@ -105,17 +104,17 @@
 #' 
 #' @description
 #' This dataset is derived from the WOODIV database (available at:
-#' \url{https://www.nature.com/articles/s41597-021-00873-3}). It contains the 
-#' genus (and binomial names) of the 26 tree species (members of the Rosaceae
-#' family) occurring in Portugal, Spain, France, and Italy (Mediterranean part).
-#' The genus will be used as a species grouping factor.
+#' \url{https://www.nature.com/articles/s41597-021-00873-3}). It contains 
+#' information (classification, endemism, etc.) of the 24 Conifer tree species 
+#' occurring in Portugal, Spain, France, and Italy (Mediterranean part).
+#' This information will be used as a species grouping factor.
 #' 
 #' This dataset shows the format of the argument `species_categories` used in 
 #' several functions of `funbiogeo`. Note that species names must be
 #' the first column and must be named `species`.
 #'   
-#' @format A `data.frame` with 26 rows (species) and 3 columns (`species`, 
-#' `genus`, `binomial`).
+#' @format A `data.frame` with 24 rows (species) and 6 columns (`species`, 
+#' `family`, `genus`, `binomial`, `endemism`, and `cultivated`).
 #' 
 #' @references 
 #' Monnet AC, Cilleros K, Médail F _et al._ (2021) WOODIV, a database of 

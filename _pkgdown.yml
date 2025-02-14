@@ -8,10 +8,10 @@ template:
 reference:
 - title: Included Datasets
   contents:
-    - species_traits
-    - site_species
-    - site_locations
-    - species_categories
+    - woodiv_traits
+    - woodiv_site_species
+    - woodiv_locations
+    - woodiv_categories
 
 - title: Formatting Functions
 

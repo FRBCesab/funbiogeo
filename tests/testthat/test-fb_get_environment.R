@@ -1,8 +1,8 @@
 # Initial data -----------------------------------------------------------------
 
 # Site x locations object
-data("site_locations")
-
+data("woodiv_locations")
+site_locations <- woodiv_locations
 
 # Environmental rasters
 prec   <- system.file("extdata", "annual_tot_prec.tif", 
@@ -87,8 +87,8 @@ test_that("fb_get_environment() works", {
   
   expect_s3_class(env_value, "data.frame")
   expect_named(env_value, c("site", "annual_mean_temp", "annual_tot_prec"))
-  expect_equal(dim(env_value), c(4723, 3))
-  expect_equal(round(env_value[["annual_tot_prec"]][[3]]), 692)
+  expect_equal(dim(env_value), c(5366, 3))
+  expect_equal(round(env_value[["annual_tot_prec"]][[85]]), 690)
   
   # Projected layers
   rob <- "+proj=robin +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs"
@@ -99,8 +99,8 @@ test_that("fb_get_environment() works", {
   
   expect_s3_class(env_value, "data.frame")
   expect_named(env_value, c("site", "annual_mean_temp", "annual_tot_prec"))
-  expect_equal(dim(env_value), c(4723, 3))
-  expect_equal(env_value[["annual_mean_temp"]][[1]], 15.7, tolerance = 0.01)
+  expect_equal(dim(env_value), c(5366, 3))
+  expect_equal(env_value[["annual_mean_temp"]][[85]], 16.71, tolerance = 0.01)
   
   
   ## 'sf' polygons
@@ -109,16 +109,16 @@ test_that("fb_get_environment() works", {
   
   expect_s3_class(env_value, "data.frame")
   expect_named(env_value, c("site", "annual_mean_temp", "annual_tot_prec"))
-  expect_equal(dim(env_value), c(4723, 3))
-  expect_equal(round(env_value[["annual_tot_prec"]][[1]]), 671)
+  expect_equal(dim(env_value), c(5366, 3))
+  expect_equal(round(env_value[["annual_tot_prec"]][[85]]), 688)
   
   # Projected Layer
   expect_silent(env_value <- fb_get_environment(site_locations, layers_prj))
   
   expect_s3_class(env_value, "data.frame")
   expect_named(env_value, c("site", "annual_mean_temp", "annual_tot_prec"))
-  expect_equal(dim(env_value), c(4723, 3))
-  expect_equal(env_value[["annual_mean_temp"]][[1]], 15.7, tolerance = 0.01)
+  expect_equal(dim(env_value), c(5366, 3))
+  expect_equal(env_value[["annual_mean_temp"]][[85]], 16.68, tolerance = 0.01)
   
   
   ## 'sf' line
@@ -128,7 +128,7 @@ test_that("fb_get_environment() works", {
   expect_s3_class(env_value, "data.frame")
   expect_named(env_value, c("site", "annual_mean_temp", "annual_tot_prec"))
   expect_equal(dim(env_value), c(1, 3))
-  expect_equal(env_value[["annual_mean_temp"]][[1]], 15.7, tolerance = 0.01)
+  expect_equal(env_value[["annual_mean_temp"]], 16.45, tolerance = 0.01)
   
   # Projected layer
   expect_silent(env_value <- fb_get_environment(site_lines, layers_prj))
@@ -136,5 +136,5 @@ test_that("fb_get_environment() works", {
   expect_s3_class(env_value, "data.frame")
   expect_named(env_value, c("site", "annual_mean_temp", "annual_tot_prec"))
   expect_equal(dim(env_value), c(1, 3))
-  expect_equal(env_value[["annual_mean_temp"]][[1]], 15.9, tolerance = 0.01)
+  expect_equal(env_value[["annual_mean_temp"]], 16.45, tolerance = 0.01)
 })

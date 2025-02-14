@@ -1,3 +1,9 @@
+data("woodiv_site_species")
+data("woodiv_traits")
+
+site_species   <- woodiv_site_species
+species_traits <- woodiv_traits
+
 # Errors on wrong input --------------------------------------------------------
 
 test_that("fb_get_trait_combination_coverage() errors with wrong inputs", {

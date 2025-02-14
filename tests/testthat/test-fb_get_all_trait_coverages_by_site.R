@@ -1,3 +1,9 @@
+data("woodiv_site_species")
+data("woodiv_traits")
+
+site_species   <- woodiv_site_species
+species_traits <- woodiv_traits
+
 test_that("fb_get_all_trait_coverages_by_site() errors with wrong arguments", {
   
   # Missing Arguments
@@ -59,7 +65,7 @@ test_that(
     )
     
     expect_s3_class(res, "data.frame")
-    expect_equal(dim(res), c(4723, 6))
+    expect_equal(dim(res), c(5366L, 6L))
     expect_equal(
       colnames(res), c("site", "all_traits", colnames(species_traits)[-1])
     )
@@ -94,7 +100,7 @@ test_that("fb_get_all_trait_coverages_by_site() works for edge cases", {
     )
   )
   expect_s3_class(res, "data.frame")
-  expect_equal(dim(res), c(4723, 6))
+  expect_equal(dim(res), c(5366L, 6L))
   expect_equal(
     colnames(res), c("site", "all_traits", colnames(species_traits)[-1])
   )
@@ -106,7 +112,7 @@ test_that("fb_get_all_trait_coverages_by_site() works for edge cases", {
     )
   )
   expect_s3_class(res, "data.frame")
-  expect_equal(dim(res), c(4723, 6))
+  expect_equal(dim(res), c(5366L, 6L))
   expect_equal(
     colnames(res), c("site", "all_traits", colnames(species_traits)[-1])
   )
@@ -118,7 +124,7 @@ test_that("fb_get_all_trait_coverages_by_site() works for edge cases", {
     )
   )
   expect_s3_class(res, "data.frame")
-  expect_equal(dim(res), c(4723, 6))
+  expect_equal(dim(res), c(5366L, 6L))
   expect_equal(
     colnames(res), c("site", "all_traits", colnames(species_traits)[-1])
   )

@@ -1,3 +1,6 @@
+data("woodiv_traits")
+species_traits <- woodiv_traits
+
 # Initial data -----------------------------------------------------------------
 
 sp_trait <- data.frame(

@@ -31,15 +31,16 @@ and the last aggregating functional diversity metrics.
 
 ```{r setup}
 library("funbiogeo")
+library("sf")
 ```
 
 Let's import our site by locations object, which describes the geographical locations of sites.
 
 
 ```{r import-site-locations}
-data("site_locations")
+data("woodiv_locations")
 
-site_locations
+woodiv_locations
 ```
 
 These sites are a collection of regular spatial polygons at a resolution of 10 x 10 km over Western Europe.
@@ -48,10 +49,10 @@ For each site, we want to compute the species richness.
 
 ```{r compute-richness}
 # Import site x species data ----
-data("site_species")
+data("woodiv_site_species")
 
 # Compute species richness ----
-species_richness <- fb_count_species_by_site(site_species)
+species_richness <- fb_count_species_by_site(woodiv_site_species)
 
 head(species_richness)
 ```
@@ -61,7 +62,7 @@ Before going any further let's map these original values with the function
 
 
 ```{r map-original-richness, dev='png'}
-fb_map_site_data(site_locations, species_richness, "n_species")
+fb_map_site_data(woodiv_locations, species_richness, "n_species")
 ```
 
 Now, let's say that our next analyses require to work at a coarser resolution. We need to
@@ -91,7 +92,7 @@ Let's aggregate our species richness values on this grid.
 ```{r upscaled-richness}
 # Upscale to grid ----
 upscaled_richness <- fb_aggregate_site_data(
-  site_locations = site_locations[ , 1, drop = FALSE],
+  site_locations = woodiv_locations[ , 1, drop = FALSE],
   site_data      = species_richness[ , 1:2],
   agg_grid       = coarser_grid,
   fun            = mean
@@ -128,8 +129,8 @@ as having the species present.
 
 ```{r upscale-site-species}
 site_species_agg <- fb_aggregate_site_data(
-  site_locations[ , 1, drop = FALSE],
-  site_species,
+  woodiv_locations[ , 1, drop = FALSE],
+  woodiv_site_species,
   agg_grid = coarser_grid,
   fun = max
 )
@@ -150,12 +151,12 @@ We can visualize both maps for a single species to see the difference:
 library("ggplot2")
 
 single_species <- merge(
-  site_locations, site_species[, 1:2], by = "site", all = TRUE
+  woodiv_locations, woodiv_site_species[, 1:2], by = "site", all = TRUE
 )
 
 finer_map <- ggplot(single_species) +
-  geom_sf(aes(fill = as.factor(CGRA))) +
-  labs(fill = "Presence of CGRA", title = "Original resolution (10 x 10 km)")
+  geom_sf(aes(fill = as.factor(AALB))) +
+  labs(fill = "Presence of AALB", title = "Original resolution (10 x 10 km)")
 
 coarser_map <- fb_map_raster(site_species_agg[[1]]) +
   scale_fill_binned(breaks = c(0, 0.5, 1)) +
@@ -201,7 +202,7 @@ package.
 To compute the CWM we'll use the internal function `fb_cwm()`.
 
 ```{r cwm-body-mass}
-site_cwm <- fb_cwm(site_species, species_traits[, 1:2])
+site_cwm <- fb_cwm(woodiv_site_species, woodiv_traits[, 1:2])
 
 head(site_cwm)
 ```
@@ -213,7 +214,7 @@ Now we can aggregate the CWM of body mass at coarser scale using
 colnames(site_cwm)[3] <- "plant_height"
 
 upscaled_cwm <- fb_aggregate_site_data(
-  site_locations[ , 1, drop = FALSE],
+  woodiv_locations[ , 1, drop = FALSE],
   site_cwm[, c(1, 3)],
   coarser_grid
 )
@@ -237,7 +238,7 @@ compute the Functional Richness using two traits across our example dataset.
 
 ```{r compute-fric, eval = require("fundiversity")}
 # Get all species for which we have both adult body mass and litter size
-subset_traits <- species_traits[
+subset_traits <- woodiv_traits[
   , c("species", "plant_height", "seed_mass")
 ]
 subset_traits <- subset(
@@ -255,13 +256,15 @@ subset_traits[["seed_mass"]] <- as.numeric(
 
 # Filter site for which we have trait information for than 80% of species
 subset_site <- fb_filter_sites_by_trait_coverage(
-  site_species, subset_traits, 0.8
+  woodiv_site_species, subset_traits, 0.8
 )
+
 subset_site <- subset_site[, c("site", subset_traits$species)]
 
 # Remove first column and convert in rownames
 rownames(subset_traits) <- subset_traits[["species"]]
 subset_traits <- subset_traits[, -1]
+
 rownames(subset_site) <- subset_site[["site"]]
 subset_site <- subset_site[, -1]
 
@@ -276,7 +279,7 @@ head(site_fric)
 We can now follow a similar upscaling process as in the previous sections
 
 ```{r upscale-fric, eval = require("fundiversity")}
-agg_fric <- fb_aggregate_site_data(site_locations[ , 1, drop = FALSE], 
+agg_fric <- fb_aggregate_site_data(woodiv_locations[ , 1, drop = FALSE], 
                                    site_fric, 
                                    coarser_grid)
 

@@ -1,6 +1,9 @@
 # Initial data -----------------------------------------------------------------
-data("site_locations")
-data("site_species")
+data("woodiv_locations")
+data("woodiv_site_species")
+
+site_locations <- woodiv_locations
+site_species   <- woodiv_site_species
 
 # Get proper raster file
 tavg_file <- system.file("extdata", "annual_mean_temp.tif", 
@@ -86,9 +89,9 @@ test_that("fb_aggregate_site_data() works", {
   )
   
   expect_s4_class(ras, "SpatRaster")
-  expect_named(ras, c("country", "CGRA", "CLAC"))
+  expect_named(ras, c("country", "AALB", "ACEP"))
   expect_equal(dim(ras), c(290, 405, 3))
-  expect_equal(ras[][82006], 0, tolerance = 0.000001)
+  expect_equal(ras[][82006], 2, tolerance = 0.000001)
   
   
   # Projected raster
@@ -101,7 +104,7 @@ test_that("fb_aggregate_site_data() works", {
   )
   
   expect_s4_class(ras, "SpatRaster")
-  expect_named(ras, c("country", "CGRA", "CLAC"))
+  expect_named(ras, c("country", "AALB", "ACEP"))
   
   
   ## Polygon spatial data
@@ -111,9 +114,9 @@ test_that("fb_aggregate_site_data() works", {
   )
   
   expect_s4_class(ras, "SpatRaster")
-  expect_named(ras, c("country", "CGRA", "CLAC"))
+  expect_named(ras, c("country", "AALB", "ACEP"))
   expect_equal(dim(ras), c(290, 405, 3))
-  expect_equal(ras[][82006], 0, tolerance = 0.000001)
+  expect_equal(ras[][82006], 2, tolerance = 0.000001)
   
   # Projected Raster
   expect_silent(
@@ -121,7 +124,7 @@ test_that("fb_aggregate_site_data() works", {
   )
   
   expect_s4_class(ras, "SpatRaster")
-  expect_named(ras, c("country", "CGRA", "CLAC"))
+  expect_named(ras, c("country", "AALB", "ACEP"))
   
   
   ## Multiline spatial data
@@ -131,7 +134,7 @@ test_that("fb_aggregate_site_data() works", {
   )
   
   expect_s4_class(ras, "SpatRaster")
-  expect_named(ras, c("country", "CGRA", "CLAC"))
+  expect_named(ras, c("country", "AALB", "ACEP"))
   expect_equal(dim(ras), c(290, 405, 3))
   
   # Projected Raster
@@ -140,5 +143,5 @@ test_that("fb_aggregate_site_data() works", {
   )
   
   expect_s4_class(ras, "SpatRaster")
-  expect_named(ras, c("country", "CGRA", "CLAC"))
+  expect_named(ras, c("country", "AALB", "ACEP"))
 })

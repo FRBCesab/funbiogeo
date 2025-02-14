@@ -1,3 +1,6 @@
+data("woodiv_traits")
+species_traits <- woodiv_traits
+
 test_that("fb_plot_trait_combination_frequencies() works", {
   expect_silent(
     res <- fb_plot_trait_combination_frequencies(species_traits)

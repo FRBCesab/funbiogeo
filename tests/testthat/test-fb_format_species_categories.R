@@ -1,6 +1,6 @@
 test_that("fb_format_species_categories() works", {
   
-  filename <- system.file("extdata", "funbiogeo_raw_data.csv", 
+  filename <- system.file("extdata", "woodiv_raw_data.csv", 
                           package = "funbiogeo")
   all_data <- read.csv(filename)
   
@@ -134,8 +134,8 @@ test_that("fb_format_species_categories() works", {
     all_data, "species", "genus"
   )
   expect_true(is.data.frame(species_categories))
-  expect_equal(nrow(species_categories), 26L)
+  expect_equal(nrow(species_categories), 24L)
   expect_equal(ncol(species_categories), 2L)
   expect_true("species" %in% colnames(species_categories))
-  expect_equal(species_categories[1, 2],"Crataegus")
+  expect_equal(species_categories[1, 2], "Juniperus")
 })

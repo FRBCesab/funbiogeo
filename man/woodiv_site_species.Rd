@@ -5,8 +5,8 @@
 \alias{woodiv_site_species}
 \title{Sites x Species example data}
 \format{
-A \code{data.frame} with 4,723 rows (sites) and 27 columns (1 column for
-site label and 26 for species occurrence).
+A \code{data.frame} with 5,366 rows (sites) and 25 columns (1 column for
+site label and 24 for species occurrence).
 }
 \usage{
 woodiv_site_species
@@ -14,10 +14,10 @@ woodiv_site_species
 \description{
 This dataset is derived from the WOODIV database (available at:
 \url{https://www.nature.com/articles/s41597-021-00873-3}). It contains the
-presence/absence of the 26 tree species (members of the Rosaceae family)
-occurring in Portugal, Spain, France, and Italy (Mediterranean part). The
-presence/absence is available at 4,723 sites (grid cells of 10 x 10 km
-horizontal resolution). Sites coordinates are provided in \code{site_locations}.
+presence/absence of the 24 Conifer tree species occurring in Portugal,
+Spain, France, and Italy (Mediterranean part). The presence/absence is
+available at 5,366 sites (grid cells of 10 x 10 km horizontal resolution).
+Sites coordinates are provided in \code{site_locations}.
 
 This dataset shows the format of the argument \code{site_species} used in
 several functions of \code{funbiogeo}. Note that site labels must be the first

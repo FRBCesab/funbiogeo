@@ -28,7 +28,7 @@ species category).
 }
 \examples{
 filename <- system.file(
-  "extdata", "funbiogeo_raw_data.csv", 
+  "extdata", "woodiv_raw_data.csv", 
   package = "funbiogeo"
 )
 all_data <- read.csv(filename)

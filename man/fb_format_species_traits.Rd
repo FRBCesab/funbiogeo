@@ -25,7 +25,7 @@ The final output contains species in rows and traits in columns.
 }
 \examples{
 filename <- system.file(
-  "extdata", "funbiogeo_raw_data.csv", package = "funbiogeo"
+  "extdata", "woodiv_raw_data.csv", package = "funbiogeo"
 )
 all_data <- read.csv(filename)
 
