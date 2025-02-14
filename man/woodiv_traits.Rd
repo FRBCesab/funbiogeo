@@ -3,7 +3,7 @@
 \docType{data}
 \name{woodiv_traits}
 \alias{woodiv_traits}
-\title{Species x Traits example data}
+\title{Species x Traits of some Mediterranean Conifers}
 \format{
 A \code{data.frame} with 24 rows (species) and the following five columns:
 \describe{

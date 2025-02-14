@@ -3,7 +3,7 @@
 \docType{data}
 \name{woodiv_locations}
 \alias{woodiv_locations}
-\title{Sites x Locations example data}
+\title{Sites x Locations of some Mediterranean Conifers}
 \format{
 An \code{sf} \code{POLYGON} object with 5,366 rows (grid cells) defined in the
 ETRS89-extended / LAEA Europe Coordinate Reference System (EPSG:3035).
@@ -14,11 +14,11 @@ woodiv_locations
 \description{
 This dataset is derived from the WOODIV database (available at:
 \url{https://www.nature.com/articles/s41597-021-00873-3}). It contains the
-spatial coordinates of sites (grid cells of 10 x 10 km  horizontal
+grid cells of sites (10 km x 10 km  horizontal
 resolution) sampled in Portugal, Spain, France, and Italy (Mediterranean
 part) for which at least one of the 24 Conifer tree species occurs.
 
-This dataset shows the format of the argument \code{site_locations} used in
+This dataset exemplifies the argument \code{site_locations} used in
 several functions of \code{funbiogeo}. The variable \code{site} corresponds to the
 site labels (must match the same column in \code{site_species}) and the variable
 \code{country} will be used as a site grouping factor.

@@ -3,7 +3,7 @@
 \docType{data}
 \name{woodiv_site_species}
 \alias{woodiv_site_species}
-\title{Sites x Species example data}
+\title{Sites x Species of some Mediterranean Conifers}
 \format{
 A \code{data.frame} with 5,366 rows (sites) and 25 columns (1 column for
 site label and 24 for species occurrence).

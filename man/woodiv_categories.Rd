@@ -3,7 +3,7 @@
 \docType{data}
 \name{woodiv_categories}
 \alias{woodiv_categories}
-\title{Species x Categories example data}
+\title{Species x Categories of some Mediterranean Conifers}
 \format{
 A \code{data.frame} with 24 rows (species) and 6 columns (\code{species},
 \code{family}, \code{genus}, \code{binomial}, \code{endemism}, and \code{cultivated}).
