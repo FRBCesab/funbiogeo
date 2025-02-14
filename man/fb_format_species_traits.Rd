@@ -24,16 +24,14 @@ into a proper \code{data.frame} object that can then be used by other functions.
 The final output contains species in rows and traits in columns.
 }
 \examples{
-library("funbiogeo")
-
-filename <- system.file("extdata", "raw_mammals_data.csv", 
-                        package = "funbiogeo")
+filename <- system.file(
+  "extdata", "woodiv_raw_data.csv", package = "funbiogeo"
+)
 all_data <- read.csv(filename)
 
 head(all_data)
 
-traits <- c("adult_body_mass", "gestation_length", "litter_size", 
-            "max_longevity", "sexual_maturity_age", "diet_breadth")
+traits <- c("plant_height", "seed_mass", "sla", "wood_density")
 
 species_traits <- fb_format_species_traits(all_data, "species", traits)
 head(species_traits)

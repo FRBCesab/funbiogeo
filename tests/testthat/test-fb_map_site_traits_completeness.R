@@ -1,3 +1,10 @@
+data("woodiv_site_species")
+data("woodiv_locations")
+data("woodiv_traits")
+site_species   <- woodiv_site_species
+site_locations <- woodiv_locations
+species_traits <- woodiv_traits
+
 # Initial data -----------------------------------------------------------------
 # Make sf points
 site_points <- suppressWarnings(sf::st_centroid(site_locations))

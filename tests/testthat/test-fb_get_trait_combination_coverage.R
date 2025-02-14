@@ -1,3 +1,9 @@
+data("woodiv_site_species")
+data("woodiv_traits")
+
+site_species   <- woodiv_site_species
+species_traits <- woodiv_traits
+
 # Errors on wrong input --------------------------------------------------------
 
 test_that("fb_get_trait_combination_coverage() errors with wrong inputs", {
@@ -52,7 +58,7 @@ test_that("fb_get_trait_combination_coverage() works with good inputs", {
                      "trait_coverage")
   )
   expect_equal(res[1, 2], 1)
-  expect_equal(res[1, 3], "adult_body_mass")
+  expect_equal(res[1, 3], "plant_height")
   
   # Given trait combination
   expect_silent(
@@ -66,5 +72,5 @@ test_that("fb_get_trait_combination_coverage() works with good inputs", {
                      "trait_coverage")
   )
   expect_equal(res[1, 2], 2)
-  expect_equal(res[1, 3], "adult_body_mass__gestation_length")
+  expect_equal(res[1, 3], "plant_height__seed_mass")
 })

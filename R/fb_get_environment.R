@@ -13,17 +13,13 @@
 #' @export
 #' 
 #' @examples
-#' library("funbiogeo")
-#' 
-#' data("site_locations")
-#' 
 #' ## Import climate rasters ----
 #' prec <- system.file("extdata", "annual_tot_prec.tif", package = "funbiogeo")
 #' tavg <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")
 #' 
 #' layers <- terra::rast(c(tavg, prec))
 #' 
-#' fb_get_environment(head(site_locations), layers)
+#' fb_get_environment(head(woodiv_locations), layers)
 
 fb_get_environment <- function(site_locations, environment_raster) {
   

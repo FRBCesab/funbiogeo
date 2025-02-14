@@ -1,3 +1,6 @@
+data("woodiv_traits")
+species_traits <- woodiv_traits
+
 test_that("fb_plot_number_traits_by_species works", {
   expect_silent(given_plot <- fb_plot_number_traits_by_species(species_traits))
   

@@ -30,10 +30,10 @@ into a proper \code{data.frame} object that can then be used by other functions.
 The final output contains sites in rows and species in columns.
 }
 \examples{
-library("funbiogeo")
-
-filename <- system.file("extdata", "raw_mammals_data.csv", 
-                        package = "funbiogeo")
+filename <- system.file(
+  "extdata", "woodiv_raw_data.csv",
+  package = "funbiogeo"
+)
 all_data <- read.csv(filename)
 
 head(all_data)

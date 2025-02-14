@@ -11,14 +11,12 @@
 #' @return a `ggplot2` object
 #' 
 #' @examples
-#' data(species_traits)
-#' 
-#' fb_plot_number_traits_by_species(species_traits)
+#' fb_plot_number_traits_by_species(woodiv_traits)
 #' 
 #' # Add a vertical cutoff line (33% of the species)
 #' fb_plot_number_traits_by_species(
-#'   species_traits, threshold_species_proportion = 1/3
-#'  )
+#'     woodiv_traits, threshold_species_proportion = 1/3
+#' )
 #' 
 #' @importFrom rlang .data
 #' @export
@@ -95,7 +93,7 @@ fb_plot_number_traits_by_species <- function(
   
   
   # Clean environment
-  rm(species_traits, species_traits_categories, species_categories)
+  # rm(species_traits, species_traits_categories, species_categories)
   
   
   # Actual plot

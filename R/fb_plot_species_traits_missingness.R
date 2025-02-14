@@ -17,8 +17,8 @@
 #' @return a `ggplot2` object
 #'
 #' @examples
-#' data(species_traits)
-#' fb_plot_species_traits_missingness(species_traits)
+#' data(woodiv_traits)
+#' fb_plot_species_traits_missingness(woodiv_traits)
 #' 
 #' @importFrom rlang .data
 #' @export
@@ -162,7 +162,7 @@ fb_plot_species_traits_missingness <- function(
      species_traits_long)
   
   number_species_per_trait <- tidyr::pivot_longer(
-    number_species_per_trait[, c(1, 2, 5)], -trait
+    number_species_per_trait[, c(1, 2, 5)], -"trait"
   )
   
   
@@ -172,7 +172,7 @@ fb_plot_species_traits_missingness <- function(
     ggplot2::aes(
       .data$value,
       factor(
-        .data$trait, levels = unique(.data$trait)
+        "trait", levels = unique("trait")
       ),
       fill = .data$name
     )

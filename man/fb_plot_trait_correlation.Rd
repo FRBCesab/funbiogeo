@@ -30,8 +30,8 @@ observation (it removes any row that contains any \code{NA}).
 Use the \code{...} argument to pass options to the \code{cor()} function.
 }
 \examples{
-fb_plot_trait_correlation(species_traits)
+fb_plot_trait_correlation(woodiv_traits)
 
 # Plot Spearman's correlation
-fb_plot_trait_correlation(species_traits, method = "spearman")
+fb_plot_trait_correlation(woodiv_traits, method = "spearman")
 }

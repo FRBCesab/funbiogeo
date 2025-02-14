@@ -1,6 +1,6 @@
 test_that("fb_format_site_species() works", {
   
-  filename <- system.file("extdata", "raw_mammals_data.csv", 
+  filename <- system.file("extdata", "woodiv_raw_data.csv", 
                           package = "funbiogeo")
   all_data <- read.csv(filename)
   
@@ -110,8 +110,8 @@ test_that("fb_format_site_species() works", {
   )
   
   expect_error(
-    fb_format_site_species(all_data, "site", "genus"),
-    "The column 'genus' is absent from 'data'",
+    fb_format_site_species(all_data, "site", "class"),
+    "The column 'class' is absent from 'data'",
     fixed = TRUE
   )
   
@@ -193,12 +193,12 @@ test_that("fb_format_site_species() works", {
   site_species <- fb_format_site_species(all_data, "site", "species", "count",
                                            na_to_zero = TRUE)
   
-  expect_equal(nrow(site_species), 32L)
-  expect_equal(ncol(site_species), 66L)
+  expect_equal(nrow(site_species), 5366L)
+  expect_equal(ncol(site_species), 25L)
   expect_true("site" %in% colnames(site_species))
-  expect_equal(site_species[1, 3], 0L)
+  expect_equal(site_species[1, 3], 1L)
   
   site_species <- fb_format_site_species(all_data, "site", "species", "count",
                                            na_to_zero = FALSE)
-  expect_equal(site_species[1, 3], NA_real_)
+  expect_equal(site_species[1, 3], 1L)
 })

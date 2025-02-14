@@ -43,16 +43,16 @@ The function will not run if the total number of combinations given is over
 \examples{
 # Compute Coverages using All Trait Combinations
 all_combinations = fb_get_trait_combination_coverage(
-site_species, species_traits
+    woodiv_site_species, woodiv_traits
 )
 
 # Get only combinations of 3 traits
 three_traits = fb_get_trait_combination_coverage(
-site_species, species_traits, 3
+    woodiv_site_species, woodiv_traits, 3
 )
 
 # Combinations of 2, 3, and 4 traits
 two_to_four = fb_get_trait_combination_coverage(
-site_species, species_traits, c(2, 3, 4)
+    woodiv_site_species, woodiv_traits, 2:4
 )
 }

@@ -31,14 +31,9 @@ abundance/coverage considering all provided traits.
 ...
 }
 \examples{
-library("funbiogeo")
-
-data("site_species")
-data("species_traits")
-
 # Filter all the sites where all species have known traits
 new_site_species <- fb_filter_sites_by_trait_coverage(
-  site_species, species_traits
+  woodiv_site_species, woodiv_traits
 )
 
 # There is only one such site
@@ -46,7 +41,7 @@ nrow(new_site_species)
 
 # Filter sites where at least 80\% of species have known traits
 new_site_species_2 <- fb_filter_sites_by_trait_coverage(
-  site_species, species_traits, threshold_traits_proportion = 0.8
+  woodiv_site_species, woodiv_traits, threshold_traits_proportion = 0.8
 )
 
 # There are now four sites

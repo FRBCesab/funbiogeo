@@ -1,3 +1,6 @@
+data("woodiv_traits")
+species_traits <- woodiv_traits
+
 test_that("fb_plot_species_traits_missingness works", {
   expect_silent(
     given_plot <- fb_plot_species_traits_missingness(species_traits)
