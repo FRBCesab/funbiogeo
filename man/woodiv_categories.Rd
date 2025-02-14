@@ -5,18 +5,18 @@
 \alias{woodiv_categories}
 \title{Species x Categories example data}
 \format{
-A \code{data.frame} with 26 rows (species) and 3 columns (\code{species},
-\code{genus}, \code{binomial}).
+A \code{data.frame} with 24 rows (species) and 6 columns (\code{species},
+\code{family}, \code{genus}, \code{binomial}, \code{endemism}, and \code{cultivated}).
 }
 \usage{
 woodiv_categories
 }
 \description{
 This dataset is derived from the WOODIV database (available at:
-\url{https://www.nature.com/articles/s41597-021-00873-3}). It contains the
-genus (and binomial names) of the 26 tree species (members of the Rosaceae
-family) occurring in Portugal, Spain, France, and Italy (Mediterranean part).
-The genus will be used as a species grouping factor.
+\url{https://www.nature.com/articles/s41597-021-00873-3}). It contains
+information (classification, endemism, etc.) of the 24 Conifer tree species
+occurring in Portugal, Spain, France, and Italy (Mediterranean part).
+This information will be used as a species grouping factor.
 
 This dataset shows the format of the argument \code{species_categories} used in
 several functions of \code{funbiogeo}. Note that species names must be

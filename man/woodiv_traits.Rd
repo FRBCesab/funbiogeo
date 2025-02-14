@@ -5,7 +5,7 @@
 \alias{woodiv_traits}
 \title{Species x Traits example data}
 \format{
-A \code{data.frame} with 26 rows (species) and the following five columns:
+A \code{data.frame} with 24 rows (species) and the following five columns:
 \describe{
 \item{species}{species name corresponding to the columns of \code{site_species}}
 \item{plant_height}{adult plant height (in \eqn{m})}
@@ -22,8 +22,8 @@ woodiv_traits
 \description{
 This dataset is derived from the WOODIV database (available at:
 \url{https://www.nature.com/articles/s41597-021-00873-3}). It contains the
-values of four functional traits for 26 tree species (members of the Rosaceae
-family) occurring in Portugal, Spain, France, and Italy (Mediterranean part).
+values of four functional traits for 24 Conifer tree species occurring in
+Portugal, Spain, France, and Italy (Mediterranean part).
 
 This dataset shows the format of the argument \code{species_traits} used in
 several functions of \code{funbiogeo}. Note that species names must be
