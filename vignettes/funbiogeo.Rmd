@@ -35,6 +35,7 @@ WOODIV database [@Monnet_2021].
 ```{r setup}
 library("funbiogeo")
 library("ggplot2")
+library("sf")
 ```
 
 ## Provided data
@@ -50,7 +51,7 @@ The functions in `funbiogeo` mostly leverage three different objects:
 You can load the example data using the `data(..., package = "funbiogeo")` call:
 
 ```{r load-datasets}
-data("woodiv_site_species",   package = "funbiogeo")
+data("woodiv_site_species", package = "funbiogeo")
 data("woodiv_locations", package = "funbiogeo")
 data("woodiv_traits", package = "funbiogeo")
 ```
@@ -140,7 +141,7 @@ the location of the 4,723 sites (grid cells of 10 x 10 km resolution) as
 polygons. It contains the names of the site in its first column **`"site"`**:
 
 ```{r preview-sites-locs}
-woodiv_locations
+head(woodiv_locations)
 ```
 
 Note that to use your own site locations object, it should follow similar
@@ -346,7 +347,7 @@ with `fundiversity`.
 # Functional richness in 'fundiversity' requires all the traits to be known
 # so we need to filter the traits
 filt_traits <- subset(
-  red_sp_traits, !is.na(plant_height) & !is.na(sla)
+  red_sp_traits, !is.na(plant_height) & !is.na(seed_mass)
 )
 
 # We need to transform species and site names as row names for species-traits
@@ -468,7 +469,7 @@ body_mass_cwm <- subset(cwm, trait == "plant_height")
 
 fb_map_site_data(woodiv_locations, body_mass_cwm, "cwm") +
   scale_fill_viridis_c(trans = "log10") +
-  labs(title = "Mammals Body Mass CWM")
+  labs(title = "Tree height CWM")
 ```
 
 We can do similarly for functional richness:
@@ -476,7 +477,7 @@ We can do similarly for functional richness:
 ```{r map-fric, eval = require("fundiversity")}
 fb_map_site_data(woodiv_locations, fric, "FRic") +
   scale_fill_viridis_c(option = "magma") +
-  labs(title = "Mammals Functional Richness")
+  labs(title = "Tree Functional Richness")
 ```
 
 

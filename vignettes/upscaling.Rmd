@@ -31,6 +31,7 @@ and the last aggregating functional diversity metrics.
 
 ```{r setup}
 library("funbiogeo")
+library("sf")
 ```
 
 Let's import our site by locations object, which describes the geographical locations of sites.
@@ -154,8 +155,8 @@ single_species <- merge(
 )
 
 finer_map <- ggplot(single_species) +
-  geom_sf(aes(fill = as.factor(CGRA))) +
-  labs(fill = "Presence of CGRA", title = "Original resolution (10 x 10 km)")
+  geom_sf(aes(fill = as.factor(AALB))) +
+  labs(fill = "Presence of AALB", title = "Original resolution (10 x 10 km)")
 
 coarser_map <- fb_map_raster(site_species_agg[[1]]) +
   scale_fill_binned(breaks = c(0, 0.5, 1)) +
