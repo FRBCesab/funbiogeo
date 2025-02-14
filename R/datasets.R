@@ -1,13 +1,13 @@
-#' Sites x Locations example data
+#' Sites x Locations of some Mediterranean Conifers
 #' 
 #' @description
 #' This dataset is derived from the WOODIV database (available at:
 #' \url{https://www.nature.com/articles/s41597-021-00873-3}). It contains the 
-#' spatial coordinates of sites (grid cells of 10 x 10 km  horizontal 
+#' grid cells of sites (10 km x 10 km  horizontal 
 #' resolution) sampled in Portugal, Spain, France, and Italy (Mediterranean 
 #' part) for which at least one of the 24 Conifer tree species occurs.
 #' 
-#' This dataset shows the format of the argument `site_locations` used in 
+#' This dataset exemplifies the argument `site_locations` used in 
 #' several functions of `funbiogeo`. The variable `site` corresponds to the 
 #' site labels (must match the same column in `site_species`) and the variable
 #' `country` will be used as a site grouping factor.
@@ -30,7 +30,7 @@
 
 
 
-#' Sites x Species example data
+#' Sites x Species of some Mediterranean Conifers
 #' 
 #' @description
 #' This dataset is derived from the WOODIV database (available at:
@@ -62,7 +62,7 @@
 
 
 
-#' Species x Traits example data
+#' Species x Traits of some Mediterranean Conifers
 #' 
 #' @description
 #' This dataset is derived from the WOODIV database (available at:
@@ -100,7 +100,7 @@
 
 
 
-#' Species x Categories example data
+#' Species x Categories of some Mediterranean Conifers
 #' 
 #' @description
 #' This dataset is derived from the WOODIV database (available at:
