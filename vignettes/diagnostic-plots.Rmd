@@ -314,8 +314,6 @@ The plot displays the number of species with known and missing traits. It shows
 each trait in separate line as a proportional bar chart with the total numbers
 included within each bar.
 
-~~Here we see that 53 species have all of their traits known while 96 don't.
-Adult body mass is known for 123 species and missing for 26.~~
 
 
 ### Displaying traits combinations
