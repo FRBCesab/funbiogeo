@@ -12,12 +12,12 @@ editor_options:
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
-  collapse   = TRUE,
-  comment    = "#>",
-  fig.width  = 7,
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 7,
   fig.height = 7,
-  out.width  = "100%",
-  dpi        = 100
+  out.width = "100%",
+  dpi = 100
 )
 ```
 
@@ -40,13 +40,18 @@ library("sf")
 
 ## Provided data
 
-We are interested in mapping the functional traits of 26 Rosacean tree species of Western European Mediterranean regions.
+We are interested in mapping the functional traits of 26 Rosacean tree species
+of Western European Mediterranean regions.
 
 The functions in `funbiogeo` mostly leverage three different objects:
 
-- the **species x traits** `data.frame`, which describes the traits (in columns) of the species (in rows) (`species_traits` dataset in `funbiogeo`);
-- the **site x species** `data.frame`, which describes the presence/absence, the abundance, or the cover of species (in columns) across sites (in rows) (`site_species` dataset in `funbiogeo`);
-- the **site x locations** object, which describes the physical location of sites through an `sf` object (`site_locations` dataset in `funbiogeo`).
+- the **species x traits** `data.frame`, which describes the traits (in columns)
+of the species (in rows) (`species_traits` dataset in `funbiogeo`);
+- the **site x species** `data.frame`, which describes the presence/absence,
+the abundance, or the cover of species (in columns) across sites (in rows)
+(`site_species` dataset in `funbiogeo`);
+- the **site x locations** object, which describes the physical location of
+sites through an `sf` object (`site_locations` dataset in `funbiogeo`).
 
 You can load the example data using the `data(..., package = "funbiogeo")` call:
 
@@ -56,7 +61,8 @@ data("woodiv_locations", package = "funbiogeo")
 data("woodiv_traits", package = "funbiogeo")
 ```
 
-In the following sections we'll describe in detail these three provided datasets in the package.
+In the following sections, we'll describe in detail these three provided
+objects in the package.
 
 
 ### Species x Traits
@@ -91,7 +97,7 @@ summary(woodiv_traits)
 ```
 
 Note that to use your own species by traits `data.frame`, it should follow
-similar structure with the first column being named **`"species"`** and the
+a similar structure with the first column being named **`"species"`** and the
 other ones containing traits.
 
 
@@ -99,7 +105,7 @@ other ones containing traits.
 
 This object contains species occurrences/abundance/coverage at sites  
 of the study area. It is a `data.frame`. The first column, **`"site"`**,
-contains site names while the other columns contains the abundance of each
+contains site names, while the other columns contain the abundance of each
 species across sites.
 
 Note that here we are talking about sites in an abstract way.
@@ -119,9 +125,9 @@ knitr::kable(
 ```
 
 The example dataset contains the occurrence of the 26 Rosaceae tree species
-across 4,723 sites (grid cells of 10 x 10 km resolution).
+across 5,366 sites (grid cells of 10 km x 10 km resolution).
 
-Note that to use your own site by species `data.frame`, it should follow similar
+Note that to use your own site by species `data.frame`, it should follow a similar
 structure with the first column being named **`"sites"`** and the other ones
 containing presence information of species across sites.
 
@@ -137,14 +143,14 @@ line transects! To make sure that your data is well plotted you should specify
 the Coordinate Reference System (CRS) of this object.
 
 The package `funbiogeo` comes with the example dataset `site_locations` defining
-the location of the 4,723 sites (grid cells of 10 x 10 km resolution) as
+the location of the 5,366 sites (grid cells of 10 km x 10 km resolution) as
 polygons. It contains the names of the site in its first column **`"site"`**:
 
 ```{r preview-sites-locs}
 head(woodiv_locations)
 ```
 
-Note that to use your own site locations object, it should follow similar
+Note that to use your own site locations object, it should follow a similar
 structure, being an `sf` object with the first column being named **`"sites"`**.
 
 
@@ -152,9 +158,10 @@ structure, being an `sf` object with the first column being named **`"sites"`**.
 
 `funbiogeo` provides many functions to display the data to help the user select
 specific traits, species, and/or sites. We are going to detail some of them
-in this section (see the full list in the
-[diagnostic plots vignette](diagnostic-plots.Rmd).
-We call them *diagnostic plots* because they help us to have an overview of our dataset **prior** to the analyses.
+in this section (see the full list and how to interpret them in the
+[diagnostic plot vignette](diagnostic-plots.Rmd).
+We call them *diagnostic plots* because they help us to have an overview of
+our dataset **prior** to the analyses.
 
 ### Trait completeness per species
 
@@ -171,8 +178,8 @@ the trait name (along the y-axis). The number of concerned species is shown at
 the bottom of the plot while the corresponding proportion of species
 (compared to all the species included in the trait dataset) is indicated as
 a secondary x-axis at the top. The proportion of species concerned is shown at
-the right of each point. ~~For example, in our example dataset, 82.6% species have
-a non-NA adult body mass~~.
+the right of each point. For example, in our example dataset, 70.8% species have
+a non-NA SLA.
 
 The function also includes a way to provide a target proportion of species as
 the second argument. It will display the proportion as a dark red dashed line.
@@ -211,8 +218,10 @@ our data for our following analyses.
 
 We want to select the traits that are available for at least 75% of the species. 
 To do so we can use the `fb_filter_traits_by_species_coverage()` function.
-The function takes the species by traits `data.frame` and outputs the same dataset but with the traits filtered (so with less columns). The second argument
-`threshold_species_proportion` is the threshold proportion of species covered:
+The function takes the species by traits `data.frame` and outputs the same
+dataset but with the traits filtered (so with fewer columns). The second
+argument `threshold_species_proportion` is the threshold proportion of species
+covered:
 
 ```{r filter-traits-by-species}
 # Initial dimension of the input data
@@ -230,25 +239,24 @@ head(red_sp_traits)
 ```
 
 The function outputs a filtered species-traits dataset retaining only traits
-covering at least 75% of the species. ~~In the end this keep two traits: body mass
-and litter size~~.
+covering at least 75% of the species. In the end this keep two traits: plant
+height and seed mass.
 
 
 ### Filter species by trait coverage
 
-Similarly you could filter species by their trait coverage. For example we would
-like to make sure that the species we filtered previously so that they show
-at least one of the two traits selected above and thus exclude species for which
-neither of the traits are available.
+Similarly you could filter species by their trait coverage. For example, we
+would like to make sure that the species we filtered previously so that they
+show at least one of the two traits selected above and thus exclude species for
+which neither of the traits are available.
 We can use the function `fb_filter_species_by_trait_coverage()` with
 the species x traits `data.frame` as the first argument and the second argument
 the proportion of traits covered by species.
 
 ```{r filter-species-by-traits}
-# Filter species with at least 50% of included (two traits)
-# at least one trait
+# Filter species which have at least 80% of known traits
 red_sp_traits_2 <- fb_filter_species_by_trait_coverage(
-  red_sp_traits, threshold_traits_proportion = 0.5
+  red_sp_traits, threshold_traits_proportion = 0.8
 )
 
 head(red_sp_traits_2)
@@ -256,16 +264,16 @@ head(red_sp_traits_2)
 dim(red_sp_traits_2)
 ```
 
-~~We thus have selected 2 traits that cover at least 75% of the initial species
-list and 127 species which have known values for these two traits.~~
+We thus have selected 2 traits that cover at least 80% of the initial species
+list and 23 species which have known values for these two traits.
 
 
 ### Filter sites by trait coverage
 
 Now that we have filtered our traits and species of interest we need to filter
-the sites, that contain enough species for which the traits are available.
+the sites that contain enough species for which the traits are available.
 Similarly to above the function is
-`fb_filter_sites_by_trait_coverage()` it takes as two first arguments
+`fb_filter_sites_by_trait_coverage()` it takes as first two arguments
 the site x species `data.frame` and the species x traits `data.frame`. The third
 argument is `threshold_traits_proportion` that indicates the percent coverage
 of traits to filter each site. Note that this coverage is weighted by
@@ -290,28 +298,39 @@ dim(filt_sites)
 filt_sites[1:4, 1:4]
 ```
 
-~~The output of the function is a site x species `data.frame` with selected sites
-and species. Now we selected 1,268 sites out of 1,505, for our 2 traits and 127 species.~~
+The output of the function is a site x species `data.frame` with selected sites
+and species. Now we selected 5,364 sites out of 5,366, for our 2 traits and 24
+species
 
 
 ## Computing Functional Diversity metrics
 
 The `funbiogeo` functions helped us filter our data appropriately with enough
-available trait information for species and sites.
+available trait information for species and sites. The goal of `funbiogeo` is to
+help you analyzing functional trait data and computing functional diversity
+indices. These indices capture the diversity of trait values in a set of species,
+if you're interested in an introduction to functional diversity indices and how
+to analyze them, it's out of scope of this vignette, but you can refer to 
+Mammola et al. [-@Mammola_Concepts_2021]. The paper provides a general workflow
+to work with trait data.
 
-We can use the filtered datasets to proceed with our analyses using other
-readily available tools for functional diversity indices.
-This where you should use your preferred packages to compute functional
-diversity indices like
-[`fundiversity`](https://cran.r-project.org/package=fundiversity),
-[`betapart`](https://cran.r-project.org/package=betapart), or
-[`hypervolume`](https://cran.r-project.org/package=hypervolume).
+`funbiogeo` doesn't aim to substitute to all these amazing tools that compute
+a diversity of indices with different properties and formulas.,
+however, we can use the filtered datasets to proceed with our analyses
+This is where you should use your preferred packages to compute functional
+diversity indices like [`mFD`](https://cran.r-project.org/package=mFD) or
+[`funrar`](https://cran.r-project.org/package=funrar). If you're new to the
+world of functional diversity analyses, we suggest reading 
+[`mFD` introductory vignette](https://cmlmagneville.github.io/mFD/articles/mFD_general_workflow.html).
+It underlines the different steps to compute functional diversity metrics.
+If you're interest in computing functional rarity indices with `funrar` you can
+also refer to [its tutorial](https://rekyt.github.io/funrar/articles/funrar.html).
 
-For the sake of the example we included a function in `funbiogeo`
+For the sake of the example, we included a function in `funbiogeo`
 to compute Community-Weighted Mean [CWM, @Garnier_Plant_2004] named `fb_cwm()`.
 The CWM is the abundance-weighted average trait per site. We'll be using it in
 the following section we'll then show another example computing functional
-diversity indices using the `fundiversity` package.
+diversity indices using the `mFD` package.
 
 
 ### Community-Weighted Mean (CWM)
@@ -391,12 +410,17 @@ tavg <- terra::rast(tavg)
 # Map raster
 fb_map_raster(tavg) + 
   scale_fill_distiller("Temperature", palette = "Spectral") +
-  theme(legend.position = "bottom") + 
-  ggtitle("Mean annual temperature in Europe")
+  labs(title = "Mean annual temperature in Europe") +
+  theme(legend.position = "bottom")
 ```
 
-We can also combine that with the annual precipitation information available
-as an example
+All of the plots produced by `funbiogeo` are `ggplot2` objects and can thus be
+customized using the `ggplot2` syntax, to learn about it check the
+[`ggplot2` introductory vignette](https://ggplot2.tidyverse.org/articles/ggplot2.html).
+
+Leveraging the `patchwork` package, that allows to combine different `ggplot2`
+objects, we can have side-by-side, the map of mean annual temperature and the
+one on annual total precipitation:
 
 ```{r composition-map, dev = 'png'}
 library("patchwork")
@@ -429,6 +453,7 @@ doesn't tell us anything about the environmental variable at the sites.
 In the next section we will follow the example of mapping an environmental
 variable.
 
+
 ### Map of average environmental variable in site
 
 To get the average environmental variable in the site we can use the
@@ -442,7 +467,7 @@ site_mat <- fb_get_environment(woodiv_locations, tavg)
 head(site_mat)
 ```
 
-The variable names in columns are based on the names of the provided raster.
+The variable names in the columns are based on the names of the provided raster.
 To put these values on the map we can use the `fb_map_site_data()` function,
 which allows mapping arbitrary site-level variables. It takes three needed
 arguments: the first of which, `site_locations`, which is the `sf` object
@@ -483,11 +508,13 @@ fb_map_site_data(woodiv_locations, fric, "FRic") +
 
 ## Conclusion
 
-This concludes our tutorial to introduce `funbiogeo`. The packages contains many
+This concludes our tutorial to introduce `funbiogeo`. The package contains many
 more features, especially diagnostic plots, which are explained in detail in
 [a dedicated vignette](diagnostic-plots.Rmd).
-There is also a specific vignette about [transforming raw data from long to wide format](long-format.Rmd).
-Finally, if you're interested in learning about up-scaling your sites, you can
+There is also a specific vignette about
+[transforming raw data from long to wide format](long-format.Rmd).
+Finally, if you're interested in learning about up-scaling your sites, which
+means aggregating your sites at coarser scales,you can
 refer to [the specific vignette](upscaling.Rmd)
 
 
