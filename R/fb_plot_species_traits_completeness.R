@@ -44,8 +44,7 @@ fb_plot_species_traits_completeness <- function(
     
     species_traits_long_categories <- merge(
       species_traits_long, species_categories,
-      by.x = "species", 
-      by.y = colnames(drop_column(species_categories, "species"))
+      by = "species"
     )
     
   }

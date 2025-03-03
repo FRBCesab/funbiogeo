@@ -279,9 +279,11 @@ check_species_categories <- function(species_categories) {
     stop("'species_categories' isn't a two-column data.frame", call. = FALSE)
   }
 
-  if (!("species" %in% colnames(species_categories))) {
-    stop("The species x categories object must contain the 'species' column", 
-         call. = FALSE)
+  if (!is.null(species_categories)) {
+    if (!("species" %in% colnames(species_categories))) {
+      stop("The species x categories object must contain the 'species' column", 
+           call. = FALSE)
+    }
   }
   
   invisible(NULL)
