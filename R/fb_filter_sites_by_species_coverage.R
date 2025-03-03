@@ -52,7 +52,7 @@ fb_filter_sites_by_species_coverage <- function(
   } else {
     
     returned_sites <- site_species[
-      site_species[ , 1] %in% selected_sites, , drop = FALSE
+      site_species[["site"]] %in% selected_sites, , drop = FALSE
     ]
   }
   

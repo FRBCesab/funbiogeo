@@ -26,7 +26,7 @@ split_species_categories <- function(
   if (!is.null(species_categories)) {
     
     species_traits_categories <- merge(
-      species_traits, species_categories, by = colnames(species_categories)[1]
+      species_traits, species_categories, by = "species"
     )
     
     species_traits_categories <- split(
@@ -40,4 +40,14 @@ split_species_categories <- function(
   
   return(species_traits_categories)
   
+}
+
+#' Function to remove a column in a data.frame (e.g. 'site' or 'species') 
+#' without its position.
+#' 
+#' @noRd
+
+drop_column <- function(data, col_name, drop = FALSE) {
+
+  data[ , -which(colnames(data) == col_name), drop = drop]
 }

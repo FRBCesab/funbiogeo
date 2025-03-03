@@ -158,6 +158,11 @@ check_site_locations <- function(site_locations) {
     stop("The site x locations object should have at least one row", 
          call. = FALSE)
   }
+
+  if (!("site" %in% colnames(site_locations))) {
+    stop("The site x locations object must contain the 'site' column", 
+         call. = FALSE)
+  }
   
   invisible(NULL)
 }
@@ -273,5 +278,11 @@ check_species_categories <- function(species_categories) {
   ) {
     stop("'species_categories' isn't a two-column data.frame", call. = FALSE)
   }
+
+  if (!("species" %in% colnames(species_categories))) {
+    stop("The species x categories object must contain the 'species' column", 
+         call. = FALSE)
+  }
   
+  invisible(NULL)
 }

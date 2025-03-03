@@ -45,7 +45,7 @@ fb_plot_species_traits_missingness <- function(
     
     species_traits_long_categories <- merge(
       species_traits_long, species_categories,
-      by.x = "species", by.y = colnames(species_categories)[1]
+      by = "species"
     )
     
   }
@@ -70,7 +70,7 @@ fb_plot_species_traits_missingness <- function(
     species_traits_categories, fb_count_traits_by_species
   )
   
-  n_max_trait <- ncol(species_traits[, -1, drop = FALSE])
+  n_max_trait <- ncol(species_traits) - 1
   
   # Get number of species with maximum known trait (per category)
   all_traits_list <- lapply(
