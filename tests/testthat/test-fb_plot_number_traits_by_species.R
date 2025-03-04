@@ -2,10 +2,15 @@ data("woodiv_traits")
 species_traits <- woodiv_traits
 
 test_that("fb_plot_number_traits_by_species works", {
+
   expect_silent(given_plot <- fb_plot_number_traits_by_species(species_traits))
   
   expect_s3_class(given_plot, "ggplot")
   
+  vdiffr::expect_doppelganger(
+    "fb_plot_number_traits_by_species-default", 
+    given_plot
+  )
   
   expect_silent(
     given_plot <- fb_plot_number_traits_by_species(
@@ -14,6 +19,11 @@ test_that("fb_plot_number_traits_by_species works", {
   )
   
   expect_s3_class(given_plot, "ggplot")
+
+  vdiffr::expect_doppelganger(
+    "fb_plot_number_traits_by_species-threshold", 
+    given_plot
+  )
   
   # Check with non-continuous traits
   example_traits <- data.frame(
@@ -25,11 +35,25 @@ test_that("fb_plot_number_traits_by_species works", {
   expect_silent(
     given_plot <- fb_plot_number_traits_by_species(example_traits)
   )
+
+  expect_s3_class(given_plot, "ggplot")
+  
+  vdiffr::expect_doppelganger(
+    "fb_plot_number_traits_by_species-nonquanttraits", 
+    given_plot
+  )
   
   # Test that function works with a single trait
   
   expect_silent(
     given_plot <- fb_plot_number_traits_by_species(example_traits[, 1:2])
+  )
+
+  expect_s3_class(given_plot, "ggplot")
+  
+  vdiffr::expect_doppelganger(
+    "fb_plot_number_traits_by_species-singletrait", 
+    given_plot
   )
   
   
@@ -42,6 +66,13 @@ test_that("fb_plot_number_traits_by_species works", {
                  category = "A")
     )
   )
+
+  expect_s3_class(given_plot, "ggplot")
+  
+  # vdiffr::expect_doppelganger(
+  #   "fb_plot_number_traits_by_species-onecat", 
+  #   given_plot
+  # )
   
   # Less categories than species
   expect_silent(
@@ -51,6 +82,13 @@ test_that("fb_plot_number_traits_by_species works", {
                  category = c(1, 1, 2))
     )
   )
+
+  expect_s3_class(given_plot, "ggplot")
+  
+  # vdiffr::expect_doppelganger(
+  #   "fb_plot_number_traits_by_species-fewcat", 
+  #   given_plot
+  # )
   
   # As many categories as species
   expect_silent(
@@ -60,7 +98,13 @@ test_that("fb_plot_number_traits_by_species works", {
                  category = example_traits$species)
     )
   )
+
+  expect_s3_class(given_plot, "ggplot")
   
+  # vdiffr::expect_doppelganger(
+  #   "fb_plot_number_traits_by_species-allcat", 
+  #   given_plot
+  # )  
 })
 
 test_that("fb_plot_number_traits_by_species() fails gracefully", {

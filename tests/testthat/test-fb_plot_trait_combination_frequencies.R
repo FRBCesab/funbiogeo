@@ -2,22 +2,33 @@ data("woodiv_traits")
 species_traits <- woodiv_traits
 
 test_that("fb_plot_trait_combination_frequencies() works", {
+
   expect_silent(
-    res <- fb_plot_trait_combination_frequencies(species_traits)
+    given_plot <- fb_plot_trait_combination_frequencies(species_traits)
   )
   
-  expect_s3_class(res, "ggplot")
+  expect_s3_class(given_plot, "ggplot")
+  
+  vdiffr::expect_doppelganger(
+    "fb_plot_trait_combination_frequencies-default", 
+    given_plot
+  )
   
   expect_silent(
-    res <- fb_plot_trait_combination_frequencies(
+    given_plot <- fb_plot_trait_combination_frequencies(
       species_traits, NULL, "complete"
     )
   )
+
+  expect_s3_class(given_plot, "ggplot")
   
-  expect_s3_class(res, "ggplot")
-  
+  vdiffr::expect_doppelganger(
+    "fb_plot_trait_combination_frequencies-complete", 
+    given_plot
+  )
   
   ## Works with species categories
+
   # Single category 
   expect_silent(
     given_plot <- fb_plot_trait_combination_frequencies(
@@ -25,6 +36,13 @@ test_that("fb_plot_trait_combination_frequencies() works", {
       data.frame(species  = species_traits$species,
                  category = "A")
     )
+  )
+
+  expect_s3_class(given_plot, "ggplot")
+  
+  vdiffr::expect_doppelganger(
+    "fb_plot_trait_combination_frequencies-onecat", 
+    given_plot
   )
   
   # Less categories than species
@@ -37,6 +55,13 @@ test_that("fb_plot_trait_combination_frequencies() works", {
       )
     )
   )
+
+  expect_s3_class(given_plot, "ggplot")
+  
+  # vdiffr::expect_doppelganger(
+  #   "fb_plot_trait_combination_frequencies-fewcat", 
+  #   given_plot
+  # )
   
   # As many categories as species
   expect_silent(
@@ -46,4 +71,11 @@ test_that("fb_plot_trait_combination_frequencies() works", {
                  category = species_traits$species)
     )
   )
+
+  expect_s3_class(given_plot, "ggplot")
+  
+  # vdiffr::expect_doppelganger(
+  #   "fb_plot_trait_combination_frequencies-allcat", 
+  #   given_plot
+  # )
 })

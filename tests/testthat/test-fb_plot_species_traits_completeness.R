@@ -2,13 +2,21 @@ data("woodiv_traits")
 species_traits <- woodiv_traits
 
 test_that("fb_plot_species_traits_completeness works", {
+
   expect_silent(
     given_plot <- fb_plot_species_traits_completeness(species_traits)
   )
   
   expect_s3_class(given_plot, "ggplot")
   
+  vdiffr::expect_doppelganger(
+    "fb_plot_species_traits_completeness-default", 
+    given_plot
+  )  
+  
+
   # Without 'all_traits' added
+
   expect_silent(
     given_plot <- fb_plot_species_traits_completeness(
       species_traits, all_traits = FALSE
@@ -17,7 +25,14 @@ test_that("fb_plot_species_traits_completeness works", {
   
   expect_s3_class(given_plot, "ggplot")
   
+  vdiffr::expect_doppelganger(
+    "fb_plot_species_traits_completeness-noalltrait", 
+    given_plot
+  )  
+  
+
   # Test that graph works with non-continuous traits
+
   example_traits <- data.frame(
     species = letters[1:3],
     trait1  = 1:3,
@@ -29,7 +44,15 @@ test_that("fb_plot_species_traits_completeness works", {
       example_traits, all_traits = FALSE
     )
   )
+
+  expect_s3_class(given_plot, "ggplot")
   
+  vdiffr::expect_doppelganger(
+    "fb_plot_species_traits_completeness-nonquanttrait", 
+    given_plot
+  )
+  
+
   # Test that function works with a single trait
   
   expect_silent(
@@ -37,10 +60,19 @@ test_that("fb_plot_species_traits_completeness works", {
       example_traits[, 1:2], all_traits = FALSE
     )
   )
+
+  expect_s3_class(given_plot, "ggplot")
+  
+  vdiffr::expect_doppelganger(
+    "fb_plot_species_traits_completeness-singletrait", 
+    given_plot
+  )
   
   
   ## Works with species categories
+
   # Single category 
+
   expect_silent(
     given_plot <- fb_plot_species_traits_completeness(
       example_traits,
@@ -49,8 +81,17 @@ test_that("fb_plot_species_traits_completeness works", {
       all_traits = FALSE
     )
   )
+
+  expect_s3_class(given_plot, "ggplot")
+  
+  vdiffr::expect_doppelganger(
+    "fb_plot_species_traits_completeness-onecat", 
+    given_plot
+  )
+
   
   # Less categories than species
+
   expect_silent(
     given_plot <- fb_plot_species_traits_completeness(
       example_traits,
@@ -59,8 +100,17 @@ test_that("fb_plot_species_traits_completeness works", {
       all_traits = FALSE
     )
   )
+
+  expect_s3_class(given_plot, "ggplot")
+  
+  vdiffr::expect_doppelganger(
+    "fb_plot_species_traits_completeness-fewcat", 
+    given_plot
+  )
+
   
   # As many categories as species
+
   expect_silent(
     given_plot <- fb_plot_species_traits_completeness(
       example_traits,
@@ -69,7 +119,13 @@ test_that("fb_plot_species_traits_completeness works", {
       all_traits = FALSE
     )
   )
+
+  expect_s3_class(given_plot, "ggplot")
   
+  vdiffr::expect_doppelganger(
+    "fb_plot_species_traits_completeness-allcat", 
+    given_plot
+  )  
 })
 
 test_that("fb_plot_species_traits_completeness() fails gracefully", {
