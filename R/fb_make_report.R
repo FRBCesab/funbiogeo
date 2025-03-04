@@ -50,12 +50,12 @@
 #' 
 #' # Create report
 #' fb_make_report(
-#'   path                = temp_path, 
-#'   author              = "Casajus N. and Grenié M.",
-#'   species_traits_name = "woodiv_traits",
-#'   site_species_name   = "woodiv_site_species",
-#'   site_locations_name = "woodiv_locations",
-#'   open = FALSE
+#'   path           = temp_path, 
+#'   author         = "Casajus N. and Grenié M.",
+#'   species_traits = woodiv_traits,
+#'   site_species   = woodiv_site_species,
+#'   site_locations = woodiv_locations,
+#'   open           = FALSE
 #' )
 #' 
 #' \dontrun{
@@ -70,23 +70,35 @@
 #' }
 
 fb_make_report <- function(path = ".", filename = NULL, title = NULL, 
-                           author = NULL, species_traits_name, 
-                           site_species_name, site_locations_name,
+                           author = NULL, species_traits, site_species, 
+                           site_locations, species_categories = NULL,
                            overwrite = FALSE, open = TRUE) {
   
   open <- open && rlang::is_interactive()
   
+
   # Check path -----------------------------------------------------------------
   
   if (!dir.exists(path)) {
     stop("The path '", path, "' does not exist", call. = FALSE)
   }
+
+  # Create subdirectories ------------------------------------------------------
+
+  path      <- file.path(path, "funbiogeo")
+  path_data <- file.path(path, "data")
+
+  dir.create(path_data, showWarnings = FALSE, recursive = TRUE)
   
   
   # Create file name and title -------------------------------------------------
   
   if (is.null(title) && !is.null(filename)) {
+
     title <- gsub("\\.Rmd$", "", filename, ignore.case = TRUE)
+    title <- gsub("[[:punct:]]", " ", title)
+    title <- trimws(title)
+    title <- tools::toTitleCase(title)
   }
   
   if (!is.null(title) && is.null(filename)) {
@@ -96,50 +108,101 @@ fb_make_report <- function(path = ".", filename = NULL, title = NULL,
     filename <- tolower(filename)
   }
   
-  if (is.null(filename)) {
-    filename <- "funbiogeo_report"
-  } else {
-    filename <- gsub("\\.Rmd$", "", filename, ignore.case = TRUE)
+  if (is.null(filename) && is.null(title)) {
+
+    filename <- "funbiogeo_report.Rmd"
+    title    <- "funbiogeo Report"
   }
   
-  filename <- paste0(filename, ".Rmd")
-  path     <- file.path(path, filename)
+  path_rmd <- file.path(path, filename)
   
   
   # If file exists -------------------------------------------------------------
   
-  if (file.exists(path) && !overwrite) {
-    stop("The file '", path, "' already exists. If you want to replace it, ", 
+  if (file.exists(path_rmd) && !overwrite) {
+    stop("The file '", path_rmd, "' already exists. If you want to replace it, ", 
          "use 'overwrite = TRUE'.", call. = FALSE)
   }
   
   
-  # Check data names -----------------------------------------------------------
+  # Check datasets -------------------------------------------------------------
   
-  check_object_name(species_traits_name)
-  check_object_name(site_species_name)
-  check_object_name(site_locations_name)
+  check_site_species(site_species)
+  check_site_locations(site_locations)
+  check_species_traits(species_traits)
+  check_species_categories(species_categories)
   
+
+  # Copy datasets in path/funbiogeo/data/ --------------------------------------
+
+  filename <- file.path(path_data, "fb_site_species.rds")
+
+  if (file.exists(filename) && !overwrite) {
+    stop("The file '", filename, "' already exists. If you want to replace ", 
+         "it, use 'overwrite = TRUE'.", call. = FALSE)
+  }
+
+  saveRDS(
+    object = site_species, 
+    file   = filename
+  )
+
+
+  filename <- file.path(path_data, "fb_site_locations.rds")
+
+  if (file.exists(filename) && !overwrite) {
+    stop("The file '", filename, "' already exists. If you want to replace ", 
+         "it, use 'overwrite = TRUE'.", call. = FALSE)
+  }
+
+  saveRDS(
+    object = site_locations, 
+    file   = filename
+  )
+
+
+  filename <- file.path(path_data, "fb_species_traits.rds")
+
+  if (file.exists(filename) && !overwrite) {
+    stop("The file '", filename, "' already exists. If you want to replace ", 
+         "it, use 'overwrite = TRUE'.", call. = FALSE)
+  }
+
+  saveRDS(
+    object = species_traits, 
+    file   = filename
+  )
+
+  if (!is.null(species_categories)) {
+
+    filename <- file.path(path_data, "fb_species_categories.rds")
+
+    if (file.exists(filename) && !overwrite) {
+      stop("The file '", filename, "' already exists. If you want to replace ", 
+      "it, use 'overwrite = TRUE'.", call. = FALSE)
+    }
+
+    saveRDS(
+      object = species_categories, 
+      file   = filename
+    )
+  }
+
   
-  # Copy template --------------------------------------------------------------
+  # Copy report template in path/funbiogeo/ ------------------------------------
   
   invisible(
     file.copy(
       system.file(
         file.path("templates", "template_report.Rmd"), package = "funbiogeo"),
-      path, overwrite = TRUE
+      path_rmd, overwrite = TRUE
     )
   )
   
-  message("The file '", path, "' was created!\nOpen it then use knitr::knit()",
-          " or rmarkdown::render() to render it.")
+  message("The file '", path_rmd, "' has been created!")
   
   
   # Replace default values (mustaches) -----------------------------------------
-  
-  if (is.null(title)) {
-    title <- "funbiogeo Report"
-  }
   
   if (!is.null(author)) {
     
@@ -156,22 +219,10 @@ fb_make_report <- function(path = ".", filename = NULL, title = NULL,
                   fixed = TRUE)
   
   
-  # Replace data names ---------------------------------------------------------
-  
-  xfun::gsub_file(path, "{{species_traits}}", species_traits_name, 
-                  fixed = TRUE)
-  
-  xfun::gsub_file(path, "{{site_species}}", site_species_name, 
-                  fixed = TRUE)
-  
-  xfun::gsub_file(path, "{{site_locations}}", site_locations_name, 
-                  fixed = TRUE)
-  
-  
   # Open file in text editor ---------------------------------------------------
   
   if (open) {
-    open_file(path)
+    open_file(path_rmd)
   }
   
   invisible(NULL)
