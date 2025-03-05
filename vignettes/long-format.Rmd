@@ -15,32 +15,29 @@ knitr::opts_chunk$set(
 )
 ```
 
+This vignette will explain how to process a dataset that is aggregated in long
+format to work with `funbiogeo`
 
-The `funbiogeo`package requires that information is structured in three
-different types of input:
+Most functions in `funbiogeo` need three different datasets to work:
 
-- the **species x traits** `data.frame` (`species_traits` in `funbiogeo`),
-which contains trait values for several traits (in columns) for several species
-(in rows).
-- the **site x species** `data.frame` (`site_species` in `funbiogeo`), which
-contains the presence/absence, abundance, or cover information for species
-(in columns) by sites (in rows).
-- the **site x locations** object (`site_locations` in `funbiogeo`), which
-contains the physical locations of the sites of interest.
+- the **species x traits** `data.frame` (example dataset:`woodiv_traits` in
+`funbiogeo`), which contains trait values for several traits (in columns) for
+several species (in rows).
+- the **site x species** `data.frame` (example dataset:`woodiv_site_species` in
+`funbiogeo`), which contains the presence/absence, abundance, or cover
+information for species (in columns) by sites (in rows).
+- the **site x locations** `sf` object (example dataset:`woodiv_locations` in
+`funbiogeo`), which contains the physical locations of the sites of interest.
 
 Optionally, an additional dataset can be provided:
 
-- a **species x categories** `data.frame` (`species_categories` in `funbiogeo`),
-which contains two columns: one for species, one for potential categorization
-of species (whether it's taxonomic classes, specific diets, or any arbitrary
-classification)
-
+- a **species x categories** `data.frame` (example dataset:`species_categories`
+in `funbiogeo`), which contains two columns: one for species, one for potential categorization of species (whether it's taxonomic classes, specific diets, or any arbitrary classification)
 
 
 ```{r setup}
 library(funbiogeo)
 ```
-
 
 
 ## Wide vs long format
@@ -69,8 +66,9 @@ knitr::kable(
 ```
 
 
-The following dataset illustrates the long format (the column `species` contains the
-name of the species and the column `occurrence` contains the presence/absence of species).
+The following dataset illustrates the long format (the column `species` contains
+the name of the species and the column `occurrence` contains the
+presence/absence of species).
 
 
 ```{r long-format, echo=FALSE}
@@ -86,6 +84,8 @@ knitr::kable(
 )
 ```
 
+In order to use this dataset in `funbiogeo`, we need to transform this tidy 
+dataset into a wide dataset with all species as different columns.
 
 
 ## The `fb_format_*()` functions
@@ -106,7 +106,6 @@ dataset.
 All these functions take a long dataset as input (argument `data`), where one 
 row corresponds to the occurrence/abundance/coverage of one species at one site 
 and output a wider object.
-
 
 
 ## Usage
@@ -138,8 +137,9 @@ knitr::kable(
 ### Extracting species x traits data
 
 The function `fb_format_species_traits()` extracts species traits values from 
-this long table to create the species x traits dataset. Note that one species 
-must have one unique trait value (no trait variation across sites is allowed).
+this long table to create the species x traits dataset. Note that the function
+assumes each species must have a single unique trait value. `funbiogeo` can deal
+with intraspecific variation but not the `fb_format_species_traits()` function.
 
 ```{r 'format-species-traits'}
 # Extract species x traits data ----
@@ -160,7 +160,7 @@ head(species_traits, 10)
 The function `fb_format_site_species()` extracts species 
 occurrence/abundance/coverage from this long table to create the 
 site x species dataset. Note that one species must have been observed one time 
-at one site (the package `funbiogeo` does not yet consider temporal survey).
+at one site (the package `funbiogeo` does not yet consider temporal resurveys).
 
 ```{r 'format-sites-species'}
 # Format site x species data ----
@@ -221,5 +221,5 @@ head(species_categories, 10)
 ```
 
 Once your data are in the good format, you can refer to the
-[Get Started vignette](https://frbcesab.github.io/funbiogeo/articles/funbiogeo.html) 
-to start continue your journey with `funbiogeo`.
+[Get Started vignette](https://frbcesab.github.io/funbiogeo/articles/funbiogeo.html)
+to continue your journey with `funbiogeo`.
