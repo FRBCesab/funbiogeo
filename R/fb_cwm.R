@@ -27,14 +27,14 @@ fb_cwm <- function(site_species, species_traits) {
   
   # Get species in common between both matrices
   species <- list_common_species(
-    colnames(site_species), species_traits[["species"]]
+    colnames(drop_column(site_species, "site")), species_traits[["species"]]
   )
   
   
   # Select quantitative traits for CWM
   quanti_traits  <- vapply(species_traits, is.numeric, TRUE)
   quanti_traits[["species"]] <- TRUE
-  species_traits <- species_traits[, quanti_traits, drop = FALSE]
+  species_traits <- species_traits[ , quanti_traits, drop = FALSE]
   
 
   if (sum(quanti_traits) <= 1) {
@@ -58,7 +58,7 @@ fb_cwm <- function(site_species, species_traits) {
   
   # Extracting Trait Matrix
   trait_matrix <- species_traits[
-    species_traits[["species"]] %in% species,, drop = FALSE
+    species_traits[["species"]] %in% species, , drop = FALSE
   ]
   
   if (any(is.na(trait_matrix))) {

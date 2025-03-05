@@ -56,7 +56,7 @@ fb_filter_sites_by_trait_coverage <- function(
     
     message("No sites has the specified trait coverage threshold")
     
-    returned_sites <- site_species[NULL,]
+    returned_sites <- site_species[NULL, ]
   
   } else {
     

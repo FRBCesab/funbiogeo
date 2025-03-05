@@ -178,19 +178,24 @@ fb_format_site_locations <- function(
   
   data <- data[ , c(site, longitude, latitude)]
   
+
+  ## Rename 'site' column ----
+
+  colnames(data)[1] <- "site"
+
   
   ## Replace non-alphanumeric characters ---------------------------------------
   
-  data[ , site] <- gsub("\\s|[[:punct:]]", "_", data[ , site])
-  data[ , site] <- gsub("_{1,}", "_",           data[ , site])
-  data[ , site] <- gsub("^_|_$", "",            data[ , site])
+  data[["site"]] <- gsub("\\s|[[:punct:]]", "_", data[["site"]])
+  data[["site"]] <- gsub("_{1,}", "_",           data[["site"]])
+  data[["site"]] <- gsub("^_|_$", "",            data[["site"]])
   
   
   ## Remove sites with NA ------------------------------------------------------
   
   if (na_rm) {
-    data <- data[!is.na(data[ , longitude]), ]
-    data <- data[!is.na(data[ , latitude]), ]
+    data <- data[!is.na(data[("longitude")]), ]
+    data <- data[!is.na(data[("latitude")]), ]
   }
   
   

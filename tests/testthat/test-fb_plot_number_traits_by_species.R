@@ -67,7 +67,7 @@ test_that("fb_plot_number_traits_by_species() fails gracefully", {
   
   expect_error(
     fb_plot_number_traits_by_species(species_traits, FALSE),
-    "'species_categories' isn't a two-column data.frame"
+    "The species x categories object must be a data.frame"
   )
   
 })

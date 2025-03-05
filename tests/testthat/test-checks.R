@@ -224,11 +224,63 @@ test_that("check_site_locations() works", {
     fixed = TRUE
   )
   
+  expect_error(
+    check_site_locations(sites_sf[,-1]),
+    "The site x locations object must contain the 'site' column",
+    fixed = TRUE
+  )
+  
   expect_silent(check_site_locations(sites_sf))
   
   expect_equal(check_site_locations(sites_sf), NULL)
 })
 
+
+# Tests for check species-categories -------------------------------------------
+
+test_that("", {
+  
+  ## Wrong inputs
+  # Not good type of object
+  expect_error(
+    check_species_categories("a"),
+    "The species x categories object must be a data.frame",
+    fixed = TRUE
+  )
+  
+  # Not enough rows
+  expect_error(
+    check_species_categories(data.frame("a")[-1,, drop = FALSE]),
+    "The species x categories object should have at least one row",
+    fixed = TRUE
+  )
+  
+  # Not enough columns
+  expect_error(
+    check_species_categories(data.frame("a")),
+    paste0(
+      "The species x categories object must have two columns (species ", 
+      "name and one category)"
+    ),
+    fixed = TRUE
+  )
+  
+  # Not well named columns
+  expect_error(
+    check_species_categories(data.frame("a", "b")),
+    "The species x categories object must contain the 'species' column",
+    fixed = TRUE
+  )
+  
+  ## Working input
+  expect_silent(
+    check_species_categories(data.frame(species = "a", category = "plant"))
+  )
+  
+})
+
+
+# Tests for check threshold proportion -----------------------------------------
 
 test_that("check_threshold_proportion() works", {
   
