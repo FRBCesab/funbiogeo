@@ -48,7 +48,8 @@ fb_plot_trait_correlation <- function(
   
   trait_subset <- species_traits[
     , c(
-      colnames(species_traits)[1], colnames(species_traits)[-1][numerical_traits]
+      "species", 
+      colnames(drop_column(species_traits, "species"))[numerical_traits]
     ), drop = FALSE
   ]
   

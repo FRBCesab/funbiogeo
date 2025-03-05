@@ -158,6 +158,11 @@ check_site_locations <- function(site_locations) {
     stop("The site x locations object should have at least one row", 
          call. = FALSE)
   }
+
+  if (!("site" %in% colnames(site_locations))) {
+    stop("The site x locations object must contain the 'site' column", 
+         call. = FALSE)
+  }
   
   invisible(NULL)
 }
@@ -265,13 +270,34 @@ check_object_name <- function(object) {
 #'   the second column giving their corresponding categories
 #'
 #' @noRd
+
 check_species_categories <- function(species_categories) {
   
-  if (
-    !is.null(species_categories) &
-    (!is.data.frame(species_categories) | sum(ncol(species_categories)) != 2)
-  ) {
-    stop("'species_categories' isn't a two-column data.frame", call. = FALSE)
+  
+  # Only if it's not NULL ------------------------------------------------------
+  
+  if (!is.null(species_categories)) {
+    
+    if (!is.data.frame(species_categories)) {
+      stop("The species x categories object must be a data.frame", 
+           call. = FALSE)
+    }
+
+    if (nrow(species_categories) < 1L) {
+      stop("The species x categories object should have at least one row", 
+           call. = FALSE)
+    }
+
+    if (ncol(species_categories) != 2L) {
+      stop("The species x categories object must have two columns (species ", 
+           "name and one category)", call. = FALSE)
+    }
+    
+    if (!("species" %in% colnames(species_categories))) {
+      stop("The species x categories object must contain the 'species' column",
+           call. = FALSE)
+    }
   }
   
+  invisible(NULL)
 }

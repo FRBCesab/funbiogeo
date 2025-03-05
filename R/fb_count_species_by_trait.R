@@ -24,13 +24,15 @@ fb_count_species_by_trait <- function(species_traits) {
   
   
   # Compute species coverage by trait
-  species_coverage <- unlist(lapply(colnames(species_traits)[-1], function(x) 
-    sum(!is.na(species_traits[[x]]))))
+  species_coverage <- unlist(
+    lapply(colnames(drop_column(species_traits, "species")), function(x) 
+      sum(!is.na(species_traits[[x]])))
+  )
   
   species_coverage <- data.frame(
-    "trait"      = colnames(species_traits)[-1],
-    "n_species"  = species_coverage,
-    "coverage"   = species_coverage / nrow(species_traits))
+    "trait"     = colnames(drop_column(species_traits, "species")),
+    "n_species" = species_coverage,
+    "coverage"  = species_coverage / nrow(species_traits))
   
   species_coverage <- species_coverage[order(species_coverage$"coverage", 
                                              decreasing = TRUE), ]

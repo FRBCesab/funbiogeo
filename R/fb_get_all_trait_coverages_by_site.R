@@ -49,17 +49,19 @@ fb_get_all_trait_coverages_by_site <- function(
   }
   
   # Trait by Trait
-  trait_coverage <- lapply(colnames(species_traits)[-1], function(x) {
+  trait_coverage <- lapply(colnames(drop_column(species_traits, "species")), 
+    function(x) {
     
-    single_trait_coverage <- fb_get_trait_coverage_by_site(
-      site_species, species_traits[, c("species", x)]
-    )
+      single_trait_coverage <- fb_get_trait_coverage_by_site(
+        site_species, species_traits[, c("species", x)]
+      )
     
-    colnames(single_trait_coverage)[2] <- x
+      colnames(single_trait_coverage)[2] <- x
     
-    return(single_trait_coverage)
+      return(single_trait_coverage)
   })
   
+
   # Combine Trait by Trait Coverages
   trait_coverage <- Reduce(
     function(...) merge(..., by = "site", all.x = TRUE), trait_coverage

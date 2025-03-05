@@ -45,7 +45,7 @@ fb_table_trait_summary <- function(species_traits, kable = FALSE) {
   
   # Type
   trait_type <- lapply(
-    species_traits[, -1, drop = FALSE], function(x) class(x)[1]
+    drop_column(species_traits, "species"), function(x) class(x)[1]
   )
   
   trait_type <- vapply(
@@ -59,7 +59,7 @@ fb_table_trait_summary <- function(species_traits, kable = FALSE) {
   
   # Number Non-missing
   non_missing_number <- vapply(
-    species_traits[, -1, drop = FALSE], function(x) {
+    drop_column(species_traits, "species"), function(x) {
       sum(!is.na(x))
     },
     numeric(1)
@@ -67,7 +67,7 @@ fb_table_trait_summary <- function(species_traits, kable = FALSE) {
   
   # Proportion Non-missing
   prop_non_missing <- paste0(
-    round(non_missing_number/nrow(species_traits), 2) * 100, " %"
+    round(non_missing_number / nrow(species_traits), 2) * 100, " %"
   )
   
   # (Numerical traits) range
@@ -163,7 +163,7 @@ fb_table_trait_summary <- function(species_traits, kable = FALSE) {
   # Assemble Summary Table -----------------------------------------------------
   
   trait_summary_table <- data.frame(
-    trait_name             = colnames(species_traits[, -1, drop = FALSE]),
+    trait_name             = colnames(drop_column(species_traits, "species")),
     trait_type             = trait_type,
     number_non_missing     = non_missing_number,
     proportion_non_missing = prop_non_missing,

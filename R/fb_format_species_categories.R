@@ -105,26 +105,30 @@ fb_format_species_categories <- function(data, species, category) {
   data <- data[ , c(species, category)]
   
   
+  ## Rename 'species' column ----
+
+  colnames(data)[1] <- "species"
+  
+  
   ## Replace non-alphanumeric characters ---------------------------------------
   
-  data[ , species] <- gsub("\\s|[[:punct:]]|_{1,}", "_", data[ , species])
-  data[ , species] <- gsub("^_|_$", "", data[ , species])
+  data[["species"]] <- gsub("\\s|[[:punct:]]|_{1,}", "_", data[["species"]])
+  data[["species"]] <- gsub("^_|_$", "",                  data[["species"]])
   
   data[ , category] <- gsub("\\s|[[:punct:]]|_{1,}", "_", data[ , category])
-  data[ , category] <- gsub("^_|_$", "", data[ , category])
+  data[ , category] <- gsub("^_|_$", "",                  data[ , category])
   
   
   ## Remove duplicated rows ----------------------------------------------------
   
-  n_cat_per_sp <- tapply(data[ , category], data[ , species], function(x) 
+  n_cat_per_sp <- tapply(data[ , category], data[["species"]], function(x) 
     length(unique(x)))
   
   if (any(n_cat_per_sp > 1)) {
     stop("Some species have non-unique category values", call. = FALSE)
   }
   
-  data <- data[which(!duplicated(data[ , species])), ]
-  
+  data <- data[which(!duplicated(data[["species"]])), ]
   
   data
 }

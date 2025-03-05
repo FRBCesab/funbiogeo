@@ -39,7 +39,7 @@ fb_get_trait_coverage_by_site <- function(site_species, species_traits) {
   
   # Get species in common between both matrices
   species <- list_common_species(
-    colnames(site_species), species_traits[["species"]]
+    colnames(drop_column(site_species, "site")), species_traits[["species"]]
   )
   
   # Take species with NA into account
@@ -50,13 +50,13 @@ fb_get_trait_coverage_by_site <- function(site_species, species_traits) {
   
   # Subset data with common species
   species_traits <- species_traits[
-    species_traits[["species"]] %in% species,, drop = FALSE
+    species_traits[["species"]] %in% species, , drop = FALSE
   ]
   
   
   # Count all species (presence/abundance) per site
   site_total_abundance <- rowSums(
-    site_species[ , -1, drop = FALSE], na.rm = TRUE
+    drop_column(site_species, "site"), na.rm = TRUE
   )
   
   

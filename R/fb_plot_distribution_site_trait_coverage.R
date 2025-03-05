@@ -36,10 +36,11 @@ fb_plot_distribution_site_trait_coverage <- function(
   
   if (!is.null(species_categories)) {
     
-    category_name <- colnames(species_categories)[2]
+    category_name <- colnames(drop_column(species_categories, "species"))
     
     species_split <- split(
-      species_categories[, 1], species_categories[, 2]
+      species_categories[["species"]], 
+      drop_column(species_categories, "species", drop = TRUE)
     )
     
   }

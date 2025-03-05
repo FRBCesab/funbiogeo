@@ -76,7 +76,7 @@ test_that("fb_plot_species_traits_missingness() fails gracefully", {
   
   expect_error(
     fb_plot_species_traits_missingness(species_traits, FALSE),
-    "'species_categories' isn't a two-column data.frame"
+    "The species x categories object must be a data.frame"
   )
   
 })
