@@ -36,6 +36,7 @@ Imports:
     utils,
     xfun
 Suggests:
+    fs,
     fundiversity,
     ggridges,
     knitr,
@@ -43,7 +44,8 @@ Suggests:
     patchwork,
     rmarkdown,
     rstudioapi,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    withr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 VignetteBuilder: knitr
