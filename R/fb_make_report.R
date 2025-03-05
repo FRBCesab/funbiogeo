@@ -1,54 +1,54 @@
-#' Create an R Markdown Report on Site/Species/Trait Coverage with Plots
+#' Create an Rmarkdown Report to Explore User Data
 #'
 #' Creates an R Markdown (`.Rmd`) report from a template to explore and 
-#' summarize users data. User can modify this report and use the function
-#' [rmarkdown::render()] to convert this `.Rmd` in different formats:
-#' - HTML document (`output_format = "bookdown::html_document2"`);
-#' - PDF document (`output_format = "bookdown::pdf_document2"`);
-#' - Word document (`output_format = "bookdown::word_document2"`);
-#' - HTML, PDF and Word documents (`output_format = "all"`).
+#' summarize user data. User can modify this report and use the function
+#' [rmarkdown::render()] (or click the _Render_ of the RStudio IDE) to convert 
+#' this `.Rmd` in different formats:
+#'   - HTML document (`output_format = "bookdown::html_document2"`);
+#'   - PDF document (`output_format = "bookdown::pdf_document2"`);
+#'   - Word document (`output_format = "bookdown::word_document2"`);
+#'   - HTML, PDF and Word documents (`output_format = "all"`).
 #' 
-#' @param path a `character` of length 1. The directory in which the `.Rmd` 
-#'   file will be created. This directory must exist.
+#' Note that a copy of user data will be saved as `.rds` files in 
+#' `path/funbiogeo/data/` (where `path` is the directory defined by the user).
+#' 
+#' @param path a `character` of length 1. The directory in which the `.Rmd` and
+#'   `.rds` files will be created. This directory must exist. Note that 
+#'   subdirectories `funbiogeo/` and `funbiogeo/data/` will be created. Default 
+#'   is the current directory.
 #' 
 #' @param filename a `character` of length 1. The name of the `.Rmd` file to be
-#'   created. If `NULL` (default) the `.Rmd` file will be named 
-#'   `funbiogeo_report.Rmd`.
+#'   created. If `NULL` (default) the `.Rmd` file will be named from the `title`
+#'   (if provided) or `funbiogeo_report.Rmd` otherwise.
 #'   
 #' @param title a `character` of length 1. The title of the report.
-#'   If `NULL` (default) the title will be `funbiogeo Report`.
+#'   If `NULL` (default) the title will be named from the `title`
+#'   (if provided) or `funbiogeo Report` otherwise.
 #'   
 #' @param author a `character` of length 1. The author(s) of the report. 
 #'   If `NULL` (default) no author will be added.
-#'   
-#' @param species_traits_name a `character` of length 1. The **name** of the 
-#'   species x traits dataset (not the object). Note that before rendering the 
-#'   report this dataset must be loaded.
-#'   
-#' @param site_species_name a `character` of length 1. The **name** of the 
-#'   sites x species dataset (not the object). Note that before rendering the 
-#'   report this dataset must be loaded.
-#'   
-#' @param site_locations_name a `character` of length 1. The **name** of the 
-#'   sites x locations dataset (not the object). Note that before rendering the 
-#'   report this dataset must be loaded.
 #' 
-#' @param overwrite a logical. If this file is already present and 
-#'   `overwrite = TRUE`, it will be erased and replaced by the template.
-#'   Default is `FALSE`.
+#' @param overwrite a logical. If the `.Rmd` file (or any `.rds` dataset) is 
+#'   already present and `overwrite = TRUE`, the `.Rmd` file (and all `.rds` 
+#'   files) will be replaced. Default is `FALSE`.
 #' 
-#' @param open a logical. If `TRUE` (default), this file will be opened on the
-#'   text editor.
-#'   
+#' @param open a logical. If `TRUE` (default), the `.Rmd` file will be opened 
+#'   in the text editor.
+#' 
+#' @inheritParams fb_get_environment
+#' @inheritParams fb_get_trait_coverage_by_site
+#' @inheritParams fb_plot_species_traits_completeness
+#' 
 #' @return No return value.
 #'
 #' @export
 #'
 #' @examples
-#' # Create temporary folder
+#' \dontrun{
+#' # Create temporary folder (optional) ----
 #' temp_path <- tempdir()
 #' 
-#' # Create report
+#' # Create report ----
 #' fb_make_report(
 #'   path           = temp_path, 
 #'   author         = "Casajus N. and Grenié M.",
@@ -58,14 +58,13 @@
 #'   open           = FALSE
 #' )
 #' 
-#' \dontrun{
 #' # Open Rmd file ----
-#' utils::file.edit(file.path(temp_path, "funbiogeo_report.Rmd"))
+#' utils::file.edit(file.path(temp_path, "funbiogeo", "funbiogeo_report.Rmd"))
 #' 
 #' # Render Rmd file ----
 #' rmarkdown::render(
-#'     file.path(temp_path, "funbiogeo_report.Rmd"),
-#'     output_format = "all"
+#'   input         = file.path(temp_path, "funbiogeo", "funbiogeo_report.Rmd"),
+#'   output_format = "all"
 #' )
 #' }
 
