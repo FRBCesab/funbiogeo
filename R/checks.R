@@ -292,11 +292,6 @@ check_species_categories <- function(species_categories) {
       stop("The species x categories object must have two columns (species ", 
            "name and one category)", call. = FALSE)
     }
-
-    if (is.null(colnames(species_categories))) {
-      stop("The species x categories object must have column names",
-           call. = FALSE)
-    }
     
     if (!("species" %in% colnames(species_categories))) {
       stop("The species x categories object must contain the 'species' column",
