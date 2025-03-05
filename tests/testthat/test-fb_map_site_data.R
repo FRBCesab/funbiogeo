@@ -64,19 +64,39 @@ test_that("fb_map_site_data() works", {
   
   # Polygons
   expect_silent(
-    res <- fb_map_site_data(site_locations, site_rich, "n_species")
+    given_plot <- fb_map_site_data(site_locations, site_rich, "n_species")
   )
-  expect_s3_class(res, "ggplot")
   
+  expect_s3_class(given_plot, "ggplot")
+  
+  vdiffr::expect_doppelganger(
+    "fb_map_site_data-sfpolygons", 
+    given_plot
+  )
+  
+
   # Points
   expect_silent(
-    res <- fb_map_site_data(site_points, site_rich, "n_species")
+    given_plot <- fb_map_site_data(site_points, site_rich, "n_species")
   )
-  expect_s3_class(res, "ggplot")
+  
+  expect_s3_class(given_plot, "ggplot")
+  
+  vdiffr::expect_doppelganger(
+    "fb_map_site_data-sfpoints", 
+    given_plot
+  )
+
   
   # Lines
   expect_silent(
-    res <- fb_map_site_data(site_lines, site_rich, "n_species")
+    given_plot <- fb_map_site_data(site_lines, site_rich, "n_species")
   )
-  expect_s3_class(res, "ggplot")
+
+  expect_s3_class(given_plot, "ggplot")
+  
+  vdiffr::expect_doppelganger(
+    "fb_map_site_data-sfmultilines", 
+    given_plot
+  )
 })

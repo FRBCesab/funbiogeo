@@ -98,27 +98,48 @@ test_that("fb_plot_site_environment() works", {
   # 'sf' points
   expect_silent(
     suppressWarnings(
-      res <- fb_plot_site_environment(head(site_points), layers)
+      given_plot <- fb_plot_site_environment(head(site_points), layers)
     )
   )
   
-  expect_s3_class(res, "ggplot")
+  expect_s3_class(given_plot, "ggplot")
+
+  suppressWarnings(
+    vdiffr::expect_doppelganger(
+      "fb_plot_site_environment-sfpoints", 
+      given_plot
+    )
+  )
   
   # 'sf' polygons
   expect_silent(
     suppressWarnings(
-      res <- fb_plot_site_environment(head(site_locations), layers)
+      given_plot <- fb_plot_site_environment(head(site_locations), layers)
     )
   )
   
-  expect_s3_class(res, "ggplot")
+  expect_s3_class(given_plot, "ggplot")
+
+  suppressWarnings(
+    vdiffr::expect_doppelganger(
+      "fb_plot_site_environment-sfpolygons", 
+      given_plot
+    )
+  )
   
   # 'sf' multline
   expect_silent(
     suppressWarnings(
-      res <- fb_plot_site_environment(site_lines, layers)
+      given_plot <- fb_plot_site_environment(site_lines, layers)
     )
   )
   
-  expect_s3_class(res, "ggplot")
+  expect_s3_class(given_plot, "ggplot")
+
+  suppressWarnings(
+    vdiffr::expect_doppelganger(
+      "fb_plot_site_environment-sfmultilines", 
+      given_plot
+    )
+  )
 })

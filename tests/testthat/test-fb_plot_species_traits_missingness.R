@@ -2,13 +2,21 @@ data("woodiv_traits")
 species_traits <- woodiv_traits
 
 test_that("fb_plot_species_traits_missingness works", {
+
   expect_silent(
     given_plot <- fb_plot_species_traits_missingness(species_traits)
   )
   
   expect_s3_class(given_plot, "ggplot")
   
+  vdiffr::expect_doppelganger(
+    "fb_plot_species_traits_missingness-default", 
+    given_plot
+  )
+  
+
   # Without 'all_traits' added
+
   expect_silent(
     given_plot <- fb_plot_species_traits_missingness(
       species_traits, all_traits = FALSE
@@ -17,7 +25,14 @@ test_that("fb_plot_species_traits_missingness works", {
   
   expect_s3_class(given_plot, "ggplot")
   
+  vdiffr::expect_doppelganger(
+    "fb_plot_species_traits_missingness-noalltraits", 
+    given_plot
+  )
+
+  
   # Test that graph works with non-continuous traits
+
   example_traits <- data.frame(
     species = letters[1:3],
     trait1  = 1:3,
@@ -29,6 +44,14 @@ test_that("fb_plot_species_traits_missingness works", {
       example_traits, all_traits = FALSE
     )
   )
+
+  expect_s3_class(given_plot, "ggplot")
+  
+  vdiffr::expect_doppelganger(
+    "fb_plot_species_traits_missingness-nonquanttraits", 
+    given_plot
+  )
+
   
   # Test that function works with a single trait
   
@@ -37,10 +60,19 @@ test_that("fb_plot_species_traits_missingness works", {
       example_traits[, 1:2], all_traits = FALSE
     )
   )
+
+  expect_s3_class(given_plot, "ggplot")
+  
+  vdiffr::expect_doppelganger(
+    "fb_plot_species_traits_missingness-singletrait", 
+    given_plot
+  )
   
   
   ## Works with species categories
+
   # Single category 
+
   expect_silent(
     given_plot <- fb_plot_species_traits_missingness(
       example_traits,
@@ -50,7 +82,16 @@ test_that("fb_plot_species_traits_missingness works", {
     )
   )
   
+  expect_s3_class(given_plot, "ggplot")
+  
+  # vdiffr::expect_doppelganger(
+  #   "fb_plot_species_traits_missingness-onecat", 
+  #   given_plot
+  # )
+
+
   # Less categories than species
+
   expect_silent(
     given_plot <- fb_plot_species_traits_missingness(
       example_traits,
@@ -60,7 +101,16 @@ test_that("fb_plot_species_traits_missingness works", {
     )
   )
   
+  expect_s3_class(given_plot, "ggplot")
+  
+  # vdiffr::expect_doppelganger(
+  #   "fb_plot_species_traits_missingness-fewcat", 
+  #   given_plot
+  # )
+
+
   # As many categories as species
+
   expect_silent(
     given_plot <- fb_plot_species_traits_missingness(
       example_traits,
@@ -69,7 +119,13 @@ test_that("fb_plot_species_traits_missingness works", {
       all_traits = FALSE
     )
   )
+
+  expect_s3_class(given_plot, "ggplot")
   
+  # vdiffr::expect_doppelganger(
+  #   "fb_plot_species_traits_missingness-allcat", 
+  #   given_plot
+  # )  
 })
 
 test_that("fb_plot_species_traits_missingness() fails gracefully", {
