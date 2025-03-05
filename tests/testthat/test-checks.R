@@ -224,6 +224,12 @@ test_that("check_site_locations() works", {
     fixed = TRUE
   )
   
+  expect_error(
+    check_site_locations(sites_sf[,-1]),
+    "The site x locations object must contain the 'site' column",
+    fixed = TRUE
+  )
+  
   expect_silent(check_site_locations(sites_sf))
   
   expect_equal(check_site_locations(sites_sf), NULL)
