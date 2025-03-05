@@ -4,15 +4,21 @@ site_species   <- woodiv_site_species
 species_traits <- woodiv_traits
 
 test_that("fb_plot_distribution_site_trait_coverage() works", {
+
   expect_silent(
     suppressMessages(
-      res <- fb_plot_distribution_site_trait_coverage(
+      given_plot <- fb_plot_distribution_site_trait_coverage(
         site_species, species_traits
       )
     )
   )
   
-  expect_s3_class(res, "ggplot")
+  expect_s3_class(given_plot, "ggplot")
+  
+  vdiffr::expect_doppelganger(
+    "fb_plot_distribution_site_trait_coverage-default", 
+    given_plot
+  )
   
   # Removing all_traits
   # expect_silent(
@@ -23,27 +29,33 @@ test_that("fb_plot_distribution_site_trait_coverage() works", {
   #   )
   # )
   
-  expect_s3_class(res, "ggplot")
+  # expect_s3_class(res, "ggplot")
   
   
   ## Works with species categories
+
   # Single category 
   expect_silent(
     suppressMessages(
-      res <- fb_plot_distribution_site_trait_coverage(
+      given_plot <- fb_plot_distribution_site_trait_coverage(
         site_species, species_traits,
         data.frame(species  = species_traits$species, category = "A")
       )
     )
   )
   
-  expect_s3_class(res, "ggplot")
+  expect_s3_class(given_plot, "ggplot")
+  
+  # vdiffr::expect_doppelganger(
+  #   "fb_plot_distribution_site_trait_coverage-onecat", 
+  #   given_plot
+  # )
   
   
   # Less categories than species
   expect_silent(
     suppressMessages(
-      res <- fb_plot_distribution_site_trait_coverage(
+      given_plot <- fb_plot_distribution_site_trait_coverage(
         site_species, species_traits,
         data.frame(
           species  = species_traits$species,
@@ -53,7 +65,12 @@ test_that("fb_plot_distribution_site_trait_coverage() works", {
     )
   )
   
-  expect_s3_class(res, "ggplot")
+  expect_s3_class(given_plot, "ggplot")
+  
+  # vdiffr::expect_doppelganger(
+  #   "fb_plot_distribution_site_trait_coverage-fewcat", 
+  #   given_plot
+  # )
   
 })
 

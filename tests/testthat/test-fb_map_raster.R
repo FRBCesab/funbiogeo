@@ -3,8 +3,6 @@ site_locations   <- woodiv_locations
 
 test_that("fb_map_raster() works", {
   
-  library("terra")
-  
   prec   <- system.file("extdata", "annual_tot_prec.tif", 
                         package = "funbiogeo")
   tavg   <- system.file("extdata", "annual_mean_temp.tif", 
@@ -32,7 +30,7 @@ test_that("fb_map_raster() works", {
     fixed = TRUE
   )
   
-  x <- rast(prec)
+  x <- terra::rast(prec)
   expect_error(
     fb_map_raster(x, add = FALSE),
     NA)
@@ -40,10 +38,14 @@ test_that("fb_map_raster() works", {
   
   ## Working ----
   
-  x <- rast(prec)
+  x <- terra::rast(prec)
   
-  expect_silent(fb_map_raster(x))
+  expect_silent(x <- fb_map_raster(x))
   
-  expect_s3_class(x <- fb_map_raster(x), "ggplot")
+  expect_s3_class(x, "ggplot")
   
+  vdiffr::expect_doppelganger(
+    "fb_map_raster-default", 
+    x
+  )  
 })
