@@ -14,7 +14,7 @@
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.4.2 (2024-10-31)",
+  "runtimePlatform": "R version 4.4.3 (2025-02-28)",
   "author": [
     {
       "@type": "Person",
@@ -146,6 +146,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=testthat"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "vdiffr",
+      "name": "vdiffr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=vdiffr"
     }
   ],
   "softwareRequirements": {
@@ -264,7 +276,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "4452.396KB",
+  "fileSize": "49217.499KB",
   "releaseNotes": "https://github.com/frbcesab/funbiogeo/blob/master/NEWS.md",
   "readme": "https://github.com/FRBCesab/funbiogeo/blob/main/README.md",
   "contIntegration": ["https://github.com/FRBCesab/funbiogeo/actions", "https://codecov.io/gh/FRBCesab/funbiogeo"],
