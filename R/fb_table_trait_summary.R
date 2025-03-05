@@ -108,7 +108,7 @@ fb_table_trait_summary <- function(species_traits, kable = FALSE) {
       
       ifelse(
         !is.na(trait_mean),
-        paste0(round(trait_mean, 2), "\u0bB1", round(trait_sd, 2)),
+        paste0(round(trait_mean, 2), " +/- ", round(trait_sd, 2)),
         NA_character_
       )
     },
@@ -182,9 +182,12 @@ fb_table_trait_summary <- function(species_traits, kable = FALSE) {
       col.names = c(
         "Trait Name", "Nature of Trait", "Number of Non-Missing Values",
         "Proportion of Non-Missing Values", "Range of Trait",
-        "Trait Mean \u0bB1 SD", "Number of Distinct Values",
+        "Trait Mean +/- SD", "Number of Distinct Values",
         "List of Distinct Values"
-      )
+      ),
+      align = c("c", "c", "r", "r", "c", "c", "r", "l"),
+      caption = "Summary of trait data", 
+      longtable = TRUE
     )
   }
   
