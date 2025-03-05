@@ -41,13 +41,53 @@ knitr::opts_chunk$set(
 library("funbiogeo")
 ```
 
-This is an automated report on your species-traits, site-species, and
-site-locations data generated with `funbiogeo`. Please find below default analyses and visualizations. Do customize this report to your needs.
+<!--
+Note: this Rmd file used the copy of datasets stored in data/ as fb_*.rds files
+-->
 
-```{r rename-data}
-site_species   <- {{site_species}}
-species_traits <- {{species_traits}}
-site_locations <- {{site_locations}}
+> This is an automated report on your species x traits, site x species, and site x locations data generated with [`funbiogeo`](https://frbcesab.github.io/funbiogeo/). Please find below default analyses and visualizations. Do customize this report to your needs.
+
+```{r load-data}
+# Import site x species data ----
+filename <- file.path("data", "fb_site_species.rds")
+if (file.exists(filename)) {
+  site_species <- readRDS(filename)
+} else {
+  stop(
+    "Unable to find 'funbiogeo/data/fb_site_species.rds'. ",
+    "The site x species dataset is required"
+  )
+}
+
+# Import species x traits data ----
+filename <- file.path("data", "fb_species_traits.rds")
+if (file.exists(filename)) {
+  species_traits <- readRDS(filename)
+} else {
+  stop(
+    "Unable to find 'funbiogeo/data/fb_species_traits.rds'. ",
+    "The species x traits dataset is required"
+  )
+}
+
+# Import site x locations data ----
+filename <- file.path("data", "fb_site_locations.rds")
+if (file.exists(filename)) {
+  site_locations <- readRDS(filename)
+} else {
+  stop(
+    "Unable to find 'funbiogeo/data/fb_site_locations.rds'. ",
+    "The site x locations dataset is required"
+  )
+}
+
+# Import species x categories data ----
+filename <- file.path("data", "fb_species_categories.rds")
+if (file.exists(filename)) {
+  species_categories <- readRDS(filename)
+} else {
+  species_categories <- NULL
+}
 ```
 
 
@@ -55,99 +95,127 @@ site_locations <- {{site_locations}}
 
 ## Species x traits data
 
-The species x traits data consists in `r nrow(species_traits)` species and 
-`r ncol(species_traits) - 1` traits (Table \@ref(tab:species-traits) and
-Figure \@ref(fig:n-species-by-traits)).
+The species x traits dataset consists in **`r nrow(species_traits)` species** and 
+**`r ncol(species_traits) - 1` traits**.
 
+Table \@ref(tab:species-traits) shows the first rows of the species x traits dataset.
 
 ```{r species-traits, results='asis'}
 knitr::kable(
   head(species_traits, 10), row.names = FALSE,
-  caption = "Extract of species x traits data", longtable = TRUE
+  caption = "Overview of species x traits data", longtable = TRUE
 )
 ```
+
+Table \@ref(tab:species-traits-description) shows a description of traits (number of species per trait, nature of trait, range and distinct values).
 
 ```{r species-traits-description}
 fb_table_trait_summary(species_traits, kable = TRUE)
 ```
 
-The trait correlations are:
+Correlations between traits are presented in Figure \@ref(fig:trait-correlations).
 
-```{r trait-correlations, fig.cap='Correlation matrix of traits.'}
+```{r trait-correlations, fig.cap='Correlation matrix of traits.', out.width='80%'}
 fb_plot_trait_correlation(species_traits)
 ```
 
 ## Sites x species data
 
-The sites x species data consists in `r nrow(site_species)` sites and 
-`r ncol(species_traits) - 1` species (Table \@ref(tab:site-species)).
+The sites x species dataset consists in **`r nrow(site_species)` sites** and 
+**`r nrow(species_traits) - 1` species**.
 
+Table \@ref(tab:site-species) shows the first rows of the sites x species dataset.
 
 ```{r site-species, results='asis'}
 knitr::kable(
   site_species[1:5, 1:5], row.names = FALSE, 
-  caption = "Extract of the site x species data", longtable = TRUE
+  caption = "Overview of the site x species dataset", longtable = TRUE
 )
 ```
 
+Figure \@ref(fig:n-species-by-sites) shows the number and proportion of sites occupied by each species.
 
+```{r n-species-by-sites, fig.cap='Number and proportion of sites occupied by each species. Species (in columns) are ordered from the most prevalent (at the top) to the least prevalent (at the bottom).', out.width='80%'}
+fb_plot_number_sites_by_species(site_species)
+```
 
 ## Sites x locations data
 
-The sites x locations data consists in `r nrow(site_locations)` sites.
+The sites x locations dataset consists in **`r nrow(site_locations)`** sites.
+
+Table \@ref(tab:sites-locations) shows the first rows of the sites x locations dataset.
 
 
-```{r site-locations}
+```{r sites-locations}
 knitr::kable(
  head(as.data.frame(site_locations)),
- caption = "Extract of the site x location data"
+ caption = "Overview of the sites x locations dataset"
 )
 ```
 
 
-# Data Completeness
+# Data completeness
 
-## Number of Species per Trait
+## Number of species per trait
 
-```{r n-species-by-traits, fig.cap='Number and proportion of species with non-missing trait values. The traits are ordered from the most complete (at the top) to the least complete (at the bottom).'}
+Figure \@ref(fig:n-species-by-traits) shows the number (and proportion) of species with non-missing values for each trait.
+
+```{r n-species-by-traits, fig.cap='Number and proportion of species with non-missing trait values. The traits are ordered from the most complete (at the top) to the least complete (at the bottom).', out.width='80%'}
 fb_plot_number_species_by_trait(species_traits)
 ```
 
-## Number of Species with Known Multiple Traits
+## Number of species with known multiple traits
 
-When we consider multiple traits together we obtain the following:
+Figure \@ref(fig:n-trait-by-species) shows the number (and proportion) of species with non-missing trait values when considering multiple traits together.
 
-```{r n-trait-by-species, fig.cap='Number and proportion of species with at least N traits. The graph consider nested categories of species having 0 or more traits.'}
+```{r n-trait-by-species, fig.cap='Number and proportion of species with at least _n_ traits. The graphic considers nested categories of species having non-missing value for 0 or more traits.', out.width='80%'}
 fb_plot_number_traits_by_species(species_traits)
 ```
 
-## Completeness of Species x Traits matrix
+## Completeness of species x traits matrix
 
-```{r species-traits-completeness, fig.cap='Visualization of the completeness of species x trait matrix. Here the rows represent species and the column the different traits. The columns are ordered from the most complete trait to the least complete one (considering all the traits taken together). Rows are grouped by number of missing traits and shared pattern of missing traits.'}
+Figure \@ref(fig:species-traits-completeness) shows the completeness of the species x traits matrix.
+
+```{r species-traits-completeness, fig.cap='Visualization of the completeness of the species x traits matrix. Rows represent species and columns represent the different traits. Columns are ordered from the most complete trait to the least complete one (considering all the traits taken together). Rows are grouped by number of missing traits and shared pattern of missing traits.', out.width='80%'}
 fb_plot_species_traits_completeness(species_traits)
 ```
 
-Instead of having rows proportional to the number of species we can also look at combinations of missing and present traits explicitly:
+Figure \@ref(fig:species-traits-completeness-explicit) shows an alternative visualization of the completeness of the species x traits matrix by grouping species by common combination of traits.
 
-```{r species-traits-completeness-explicit, fig.cap='Observed number and frequencies of combination of missing and present trait values in the species x traits matrix.'}
+```{r species-traits-completeness-explicit, fig.cap='Number and proportion of species per combination of missing and present trait values in the species x traits matrix.', out.width='80%'}
 fb_plot_trait_combination_frequencies(species_traits)
 ```
 
 
-## Distribution of Site Trait Coverage
+## Distribution of trait coverage per site
 
-```{r distrib-site-trait-coverage, fig.cap = 'Distribution of trait coverage, i.e. the proportion of species with known trait values, per site for each trait separately.'}
+Figure \@ref(fig:distrib-site-trait-coverage) shows the distribution of trait coverage (i.e. proportion of species with known trait values) per site.
+
+```{r distrib-site-trait-coverage, message=FALSE, fig.cap = 'Distribution of trait coverage, i.e. the proportion of species with known trait values, per site for each trait separately and all traits together.', out.width='80%'}
 fb_plot_distribution_site_trait_coverage(site_species, species_traits)
 ```
 
-## Map of Trait Coverage across Sites
 
-```{r map-site-trait-coverage, fig.cap = 'Map of trait coverage, i.e. the proportion of species with known trait values, across sites for each trati separately and all traits taken together'}
+## Trait coverage per site for each trait
+
+Figure \@ref(fig:plot-site-trait-completeness) shows the distribution of trait coverage (i.e. proportion of species with known trait values) per site and for each trait.
+
+```{r plot-site-trait-completeness, message=FALSE, fig.cap = 'Visualization of the trait coverage per site for each trait. Rows represent sites and columns represent the different traits. Columns are ordered from the most complete trait to the least complete one (considering all the traits taken together). Rows are grouped by number of missing traits and shared pattern of missing traits.', out.width='80%'}
+fb_plot_site_traits_completeness(site_species, species_traits)
+```
+
+## Map of trait coverage across sites
+
+Figure \@ref(fig:map-site-trait-coverage) maps the trait coverage (i.e. proportion of species with known trait values) at each site.
+
+```{r map-site-trait-coverage, fig.cap = 'Map of trait coverage, i.e. the proportion of species with known trait values, across sites for each trait separately and all traits together', out.width='80%'}
 fb_map_site_traits_completeness(site_locations, site_species, species_traits)
 ```
 
 
-# Session Info
+# Session information {-}
+
+This report has been produced under the following system:
 
 ```{r session-info}
 sessionInfo()
