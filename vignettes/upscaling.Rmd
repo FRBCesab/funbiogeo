@@ -101,13 +101,14 @@ function requires the following arguments:
 - `site_data`: a `matrix` or `data.frame` containing values per sites to
 aggregate on the provided grid `agg_grid`. Can have one or several columns
 (variables to aggregate). The first column must contain sites names as provided
-in the example dataset `site_locations`
+in the object `species_richness`
 - `agg_grid`: a `SpatRaster` object (package `terra`). A raster of one single
 layer, that defines the grid along which to aggregate
 - `fun`: the function used to aggregate sites values when there are multiple
-sites in one cell
+sites in one cell (do we want to get the minimum value? the maximum? the sum?
+or the mean?)
 
-Let's aggregate our species richness values on this grid.
+Let's compute our average species richness values across our grid.
 
 
 ```{r upscaled-richness}
@@ -122,9 +123,10 @@ upscaled_richness <- fb_aggregate_site_data(
 upscaled_richness
 ```
 
-The result of this function is a `SpatRaster` where the cells contain the
-average values of species richness aggregated over the coarser grid.
-
+We get a `SpatRaster` object that is of the same resolution of our provided
+`agg_grid` raster grid. The cells of this raster contain the averaged values of
+species richness of our sites aggregated on the coarser grid. We can plot these
+values through a call to `fb_map_raster()` which allows to plot rasters.
 
 ```{r map-upscaled-richness, dev='png'}
 fb_map_raster(upscaled_richness)
@@ -133,11 +135,15 @@ fb_map_raster(upscaled_richness)
 
 ## Aggregating site-species data to a coarser spatial scale
 
+Through the `fb_aggregate_site_data()` function we can also coarsen our
+site-species grid by selecting the appropriate function as the `fun` argument,
+we detail how in this section.
+
 Now that we've learned how to aggregate arbitrary data at the site scale over a
 spatial scale. We're going to use our provided example named `site_species` at a 
 resolution of 10 x 10 km to get new sites from a grid with pixels of 0.83° of resolution.
 
-As shown in the part above, we'll need three objects: `site_species`, which
+As shown in the previous section, we'll need three objects: `site_species`, which
 describes the species present across sites; `site_locations`, which gives the
 spatial locations of sites; and `agg_grid` which is a `SpatRaster` object
 defining the coarser grid.
@@ -146,7 +152,8 @@ We'll use the previously defined object to run our example. To aggregate
 the presence-absence of species within each pixel of the new grid, we'll use
 the `max()` function (as the `fun` argument). As such, coarser pixels which
 contains a mix of presence and absence of certain species, we'll be considered
-as having the species present.
+as having the species present. Only when the species is absent from all of the
+finer scale sites will the coarser pixel show the species as absent.
 
 ```{r upscale-site-species}
 site_species_agg <- fb_aggregate_site_data(
@@ -166,7 +173,8 @@ per species.
 site_species_agg
 ```
 
-We can visualize both maps for a single species to see the difference:
+We can visualize both maps for a single species to see the difference in
+resolution :
 
 ```{r plot-map-upsacale-site-species}
 library("ggplot2")
@@ -214,13 +222,15 @@ data, to use them in the rest of the analyses.
 
 Because `funbiogeo` focuses on the functional biogeography workflow, we'll
 explore in this section how to aggregate the results for a functional
-biogeography function. First, we'll show the example with the CWM of body mass
-then we'll show an example with the functional diversity using the `fundiversity`
-package.
+biogeography function. First, we'll detail an example aggregating the
+community-weighted mean (CWM) of plant height, that is the abundance-weighted
+trait average of the assemblage. Second, we'll show an example of coarsing 
+functional diversity metrics computed through the [`fundiversity` package](https://funecology.github.io/fundiversity).
 
-### Coarser CWM of body mass
 
-To compute the CWM we'll use the internal function `fb_cwm()`.
+### Coarsen CWM of plant height
+
+To compute the CWM we'll use the function `fb_cwm()`.
 
 ```{r cwm-body-mass}
 site_cwm <- fb_cwm(woodiv_site_species, woodiv_traits[, 1:2])
@@ -228,8 +238,9 @@ site_cwm <- fb_cwm(woodiv_site_species, woodiv_traits[, 1:2])
 head(site_cwm)
 ```
 
-Now we can aggregate the CWM of body mass at coarser scale using
-`fb_aggregate_site_data()` as done in the previous section:
+Now we can aggregate the CWM of plant hieght at coarser scale using
+`fb_aggregate_site_data()` as done in the previous sections, this time using
+the default `fun` argument as we want to compute the average CWM:
 
 ```{r upscaled-cwm}
 colnames(site_cwm)[3] <- "plant_height"
@@ -297,7 +308,8 @@ site_fric <- fundiversity::fd_fric(
 head(site_fric)
 ```
 
-We can now follow a similar upscaling process as in the previous sections
+We can now follow a similar upscaling process as in the previous sections to
+compute the average functional richness at a coarser spatial scale:
 
 ```{r upscale-fric, eval = require("fundiversity")}
 agg_fric <- fb_aggregate_site_data(
