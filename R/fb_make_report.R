@@ -207,14 +207,14 @@ fb_make_report <- function(path = ".", filename = NULL, title = NULL,
     
     author <- paste0(author, collapse = ", ")
     
-    xfun::gsub_file(path, "\"{{title}}\"", 
+    xfun::gsub_file(path_rmd, "\"{{title}}\"", 
                     "\"{{title}}\"\nauthor: \"{{author}}\"", 
                     fixed = TRUE)
-    xfun::gsub_file(path, "\"{{author}}\"", paste0("\"", author, "\""), 
+    xfun::gsub_file(path_rmd, "\"{{author}}\"", paste0("\"", author, "\""), 
                     fixed = TRUE)
   }
   
-  xfun::gsub_file(path, "\"{{title}}\"", paste0("\"", title, "\""), 
+  xfun::gsub_file(path_rmd, "\"{{title}}\"", paste0("\"", title, "\""), 
                   fixed = TRUE)
   
   
