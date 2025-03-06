@@ -37,7 +37,9 @@ test_that("fb_make_report() errors", {
   # Wrong path -----------------------------------------------------------------
   
   expect_error(
-    fb_make_report(path = file.path(temp_dir, "reports")),
+    fb_make_report(
+      path = file.path(temp_dir, "reports"), interactive = FALSE
+    ),
     paste0("The path '", file.path(temp_dir, "reports"), "' does not exist"),
     fixed = TRUE)
 
@@ -47,7 +49,9 @@ test_that("fb_make_report() errors", {
   invisible(file.create(file.path(temp_dir, filename)))
   
   expect_error(
-    fb_make_report(path = temp_dir),
+    fb_make_report(
+      path = temp_dir, interactive = FALSE
+    ),
     paste0("The file '", file.path(temp_dir, filename), "' already ",
            "exists. If you want to replace it, use 'overwrite = TRUE'."),
     fixed = TRUE) 
@@ -63,7 +67,7 @@ test_that("fb_make_report() errors", {
   
   expect_error(
     fb_make_report(
-      path = temp_dir, overwrite = TRUE
+      path = temp_dir, overwrite = TRUE, interactive = FALSE
     ),
     "Argument 'site_species' (site x species data frame) is required",
     fixed = TRUE
@@ -71,7 +75,8 @@ test_that("fb_make_report() errors", {
 
   expect_error(
     fb_make_report(
-      path = temp_dir, overwrite = TRUE, site_species = NULL
+      path = temp_dir, overwrite = TRUE, site_species = NULL, 
+      interactive = FALSE
     ),
     "The site x species object must be a data.frame",
     fixed = TRUE
@@ -79,7 +84,8 @@ test_that("fb_make_report() errors", {
 
   expect_error(
     fb_make_report(
-      path = temp_dir, overwrite = TRUE, site_species = st_sp$"site"
+      path = temp_dir, overwrite = TRUE, site_species = st_sp$"site", 
+      interactive = FALSE
     ),
     "The site x species object must be a data.frame",
     fixed = TRUE
@@ -87,7 +93,8 @@ test_that("fb_make_report() errors", {
 
   expect_error(
     fb_make_report(
-      path = temp_dir, overwrite = TRUE, site_species = "site_species"
+      path = temp_dir, overwrite = TRUE, site_species = "site_species", 
+      interactive = FALSE
     ),
     "The site x species object must be a data.frame",
     fixed = TRUE
@@ -95,7 +102,8 @@ test_that("fb_make_report() errors", {
 
   expect_error(
     fb_make_report(
-      path = temp_dir, overwrite = TRUE, site_species = st_sp[NULL, ]
+      path = temp_dir, overwrite = TRUE, site_species = st_sp[NULL, ], 
+      interactive = FALSE
     ),
     "The site x species object should have at least one row and one column",
     fixed = TRUE
@@ -106,7 +114,8 @@ test_that("fb_make_report() errors", {
       st_sp2 <- st_sp
       colnames(st_sp2) <- NULL
       fb_make_report(
-        path = temp_dir, overwrite = TRUE, site_species = st_sp2
+        path = temp_dir, overwrite = TRUE, site_species = st_sp2, 
+        interactive = FALSE
       )
     },
     "The site x species object must have column names (species names)",
@@ -118,7 +127,8 @@ test_that("fb_make_report() errors", {
       st_sp2 <- st_sp
       colnames(st_sp2)[1] <- "location"
       fb_make_report(
-        path = temp_dir, overwrite = TRUE, site_species = st_sp2
+        path = temp_dir, overwrite = TRUE, site_species = st_sp2, 
+        interactive = FALSE
       )
     },
     "The site x species object must contain the 'site' column",
@@ -130,7 +140,8 @@ test_that("fb_make_report() errors", {
       st_sp2 <- st_sp
       st_sp2[1, 2] <- -1
       fb_make_report(
-        path = temp_dir, overwrite = TRUE, site_species = st_sp2
+        path = temp_dir, overwrite = TRUE, site_species = st_sp2, 
+        interactive = FALSE
       )
     },
     "The site x species object cannot contain negative values",
@@ -142,7 +153,8 @@ test_that("fb_make_report() errors", {
   
   expect_error(
     fb_make_report(
-      path = temp_dir, overwrite = TRUE, site_species = st_sp
+      path = temp_dir, overwrite = TRUE, site_species = st_sp, 
+      interactive = FALSE
     ),
     "Argument 'sites_locations' (spatial sites 'sf' object) is required",
     fixed = TRUE
@@ -151,7 +163,7 @@ test_that("fb_make_report() errors", {
   expect_error(
     fb_make_report(
       path = temp_dir, overwrite = TRUE, site_species = st_sp, 
-      site_locations = NULL
+      site_locations = NULL, interactive = FALSE
     ),
     "The site x locations object must be an 'sf' object",
     fixed = TRUE
@@ -160,7 +172,7 @@ test_that("fb_make_report() errors", {
   expect_error(
     fb_make_report(
       path = temp_dir, overwrite = TRUE, site_species = st_sp, 
-      site_locations = sf::st_drop_geometry(st_loc)
+      site_locations = sf::st_drop_geometry(st_loc), interactive = FALSE
     ),
     "The site x locations object must be an 'sf' object",
     fixed = TRUE
@@ -169,7 +181,7 @@ test_that("fb_make_report() errors", {
   expect_error(
     fb_make_report(
       path = temp_dir, overwrite = TRUE, site_species = st_sp, 
-      site_locations = st_loc[NULL, ]
+      site_locations = st_loc[NULL, ], interactive = FALSE
     ),
     "The site x locations object should have at least one row",
     fixed = TRUE
@@ -181,7 +193,7 @@ test_that("fb_make_report() errors", {
   expect_error(
     fb_make_report(
       path = temp_dir, overwrite = TRUE, site_species = st_sp, 
-      site_locations = st_loc
+      site_locations = st_loc, interactive = FALSE
     ),
     "Argument 'species_traits' (species x traits data frame) is required",
     fixed = TRUE
@@ -190,7 +202,7 @@ test_that("fb_make_report() errors", {
   expect_error(
     fb_make_report(
       path = temp_dir, overwrite = TRUE, site_species = st_sp, 
-      site_locations = st_loc, species_traits = NULL
+      site_locations = st_loc, species_traits = NULL, interactive = FALSE
     ),
     "The species x traits object must be a data.frame",
     fixed = TRUE
@@ -199,7 +211,8 @@ test_that("fb_make_report() errors", {
   expect_error(
     fb_make_report(
       path = temp_dir, overwrite = TRUE, site_species = st_sp, 
-      site_locations = st_loc, species_traits = sp_tr[NULL, ]
+      site_locations = st_loc, species_traits = sp_tr[NULL, ], 
+      interactive = FALSE
     ),
     "The species x traits object should have at least one row and one column",
     fixed = TRUE
@@ -211,7 +224,7 @@ test_that("fb_make_report() errors", {
       colnames(sp_tr2) <- NULL
       fb_make_report(
         path = temp_dir, overwrite = TRUE, site_species = st_sp, 
-        site_locations = st_loc, species_traits = sp_tr2
+        site_locations = st_loc, species_traits = sp_tr2, interactive = FALSE
       )
     },
     "The species x traits object must have column names (trait names)",
@@ -224,7 +237,7 @@ test_that("fb_make_report() errors", {
       colnames(sp_tr2)[1] <- "espece"
       fb_make_report(
         path = temp_dir, overwrite = TRUE, site_species = st_sp, 
-        site_locations = st_loc, species_traits = sp_tr2
+        site_locations = st_loc, species_traits = sp_tr2, interactive = FALSE
       )
     },
     "The species x traits object must contain the 'species' column",
@@ -247,7 +260,8 @@ test_that("fb_make_report() errors", {
   expect_error(
     fb_make_report(
       path = temp_dir, site_species = st_sp, site_locations = st_loc, 
-      species_traits = sp_tr),
+      species_traits = sp_tr, interactive = FALSE
+    ),
     paste0("The file '", file.path(temp_dir, filename), "' already ",
            "exists. If you want to replace it, use 'overwrite = TRUE'."),
     fixed = TRUE
@@ -262,7 +276,8 @@ test_that("fb_make_report() errors", {
   expect_error(
     fb_make_report(
       path = temp_dir, site_species = st_sp, site_locations = st_loc, 
-      species_traits = sp_tr),
+      species_traits = sp_tr, interactive = FALSE
+    ),
     paste0("The file '", file.path(temp_dir, filename), "' already ",
            "exists. If you want to replace it, use 'overwrite = TRUE'."),
     fixed = TRUE
@@ -281,7 +296,8 @@ test_that("fb_make_report() errors", {
   expect_error(
     fb_make_report(
       path = temp_dir, site_species = st_sp, site_locations = st_loc, 
-      species_traits = sp_tr),
+      species_traits = sp_tr, interactive = FALSE
+    ),
     paste0("The file '", file.path(temp_dir, filename), "' already ",
            "exists. If you want to replace it, use 'overwrite = TRUE'."),
     fixed = TRUE
@@ -312,7 +328,8 @@ test_that("fb_make_report() overwrite option", {
   expect_message(
     fb_make_report(
       path = temp_dir, overwrite = TRUE, species_traits = sp_tr, 
-      site_species = st_sp,site_locations = st_loc, open = FALSE
+      site_species = st_sp,site_locations = st_loc, open = FALSE, 
+      interactive = FALSE
     )
   )
   
@@ -336,7 +353,8 @@ test_that("fb_make_report() filename and title", {
   expect_message(
     fb_make_report(
       path = temp_dir, overwrite = TRUE, species_traits = sp_tr, 
-      site_species = st_sp,site_locations = st_loc, open = FALSE
+      site_species = st_sp,site_locations = st_loc, open = FALSE, 
+      interactive = FALSE
     )
   )
   
@@ -358,7 +376,7 @@ test_that("fb_make_report() filename and title", {
     fb_make_report(
       path = temp_dir, overwrite = TRUE, species_traits = sp_tr, 
       site_species = st_sp,site_locations = st_loc, open = FALSE,
-      filename = file_name
+      filename = file_name, interactive = FALSE
     )
   )
   
@@ -379,7 +397,7 @@ test_that("fb_make_report() filename and title", {
     fb_make_report(
       path = temp_dir, overwrite = TRUE, species_traits = sp_tr, 
       site_species = st_sp,site_locations = st_loc, open = FALSE,
-      filename = file_name
+      filename = file_name, interactive = FALSE
     )
   )
   
@@ -400,7 +418,7 @@ test_that("fb_make_report() filename and title", {
     fb_make_report(
       path = temp_dir, overwrite = TRUE, species_traits = sp_tr, 
       site_species = st_sp,site_locations = st_loc, open = FALSE,
-      title = title
+      title = title, interactive = FALSE
     )
   )
   
@@ -421,7 +439,7 @@ test_that("fb_make_report() filename and title", {
     fb_make_report(
       path = temp_dir, overwrite = TRUE, species_traits = sp_tr, 
       site_species = st_sp,site_locations = st_loc, open = FALSE,
-      title = title
+      title = title, interactive = FALSE
     )
   )
   
@@ -443,7 +461,7 @@ test_that("fb_make_report() filename and title", {
     fb_make_report(
       path = temp_dir, overwrite = TRUE, species_traits = sp_tr, 
       site_species = st_sp,site_locations = st_loc, open = FALSE,
-      title = title, filename = file_name
+      title = title, filename = file_name, interactive = FALSE
     )
   )
   
@@ -467,7 +485,8 @@ test_that("fb_make_report() authorship", {
   expect_message(
     fb_make_report(
       path = temp_dir, overwrite = TRUE, species_traits = sp_tr, 
-      site_species = st_sp, site_locations = st_loc, open = FALSE
+      site_species = st_sp, site_locations = st_loc, open = FALSE, 
+      interactive = FALSE
     )
   )
   
@@ -483,7 +502,7 @@ test_that("fb_make_report() authorship", {
     fb_make_report(
       path = temp_dir, overwrite = TRUE, species_traits = sp_tr, 
       site_species = st_sp, site_locations = st_loc, open = FALSE,
-      author = "Jane Doe"
+      author = "Jane Doe", interactive = FALSE
     )
   )
   
@@ -499,7 +518,7 @@ test_that("fb_make_report() authorship", {
     fb_make_report(
       path = temp_dir, overwrite = TRUE, species_traits = sp_tr, 
       site_species = st_sp, site_locations = st_loc, open = FALSE,
-      author = "Doe J. and Doe J."
+      author = "Doe J. and Doe J.", interactive = FALSE
     )
   )
   
@@ -515,7 +534,7 @@ test_that("fb_make_report() authorship", {
     fb_make_report(
       path = temp_dir, overwrite = TRUE, species_traits = sp_tr, 
       site_species = st_sp, site_locations = st_loc, open = FALSE,
-      author = c("Doe J.", "Doe J.")
+      author = c("Doe J.", "Doe J."), interactive = FALSE
     )
   )
 
