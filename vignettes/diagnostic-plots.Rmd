@@ -1,8 +1,8 @@
 ---
-title: "Diagnostic Plots in funbiogeo"
+title: "Diagnostic plots in funbiogeo"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Diagnostic Plots in funbiogeo}
+  %\VignetteIndexEntry{Diagnostic plots in funbiogeo}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -28,9 +28,8 @@ displaying information by each category of species (family, order, endemism stat
 ```{r child="../man/rmdchunks/_table-plot-functions.Rmd"}
 ```
 
-Table: A table of available plotting functions in `funbiogeo` ordered
-alphabetically with their required arguments. The "Additional input" column
-reflects the need for other argument that are not of the standard object type.
+Table: required ✳️; optional 🟠; absent ➖<br>
+"Additional input" means other types of arguments
 
 Let's first load the package and example datasets included in the `funbiogeo`.
 
@@ -313,9 +312,6 @@ fb_plot_species_traits_missingness(woodiv_traits, all_traits = TRUE)
 The plot displays the number of species with known and missing traits. It shows
 each trait in separate line as a proportional bar chart with the total numbers
 included within each bar.
-
-~~Here we see that 53 species have all of their traits known while 96 don't.
-Adult body mass is known for 123 species and missing for 26.~~
 
 
 ### Displaying traits combinations

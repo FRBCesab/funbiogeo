@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# funbiogeo <img src="man/figures/logo.png" align="right" style="float:right; height:120px;"/>
+# funbiogeo - Streamlining functional biogeography analyses <img src="man/figures/logo.png" align="right" style="float:right; height:120px;"/>
 
 <!-- badges: start -->
 
@@ -13,28 +13,29 @@ status](https://www.r-pkg.org/badges/version/funbiogeo)](https://CRAN.R-project.
 v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 <!-- badges: end -->
 
-<p align="left">
-• <a href="#overview">Overview</a><br> •
-<a href="#features">Features</a><br> •
-<a href="#installation">Installation</a><br> •
-<a href="#first-steps">First steps</a><br> •
-<a href="#long-form-documentations">Long-form documentations</a><br> •
-<a href="#citation">Citation</a><br> •
-<a href="#contributing">Contributing</a><br> •
-<a href="#acknowledgments">Acknowledgments</a><br> •
-<a href="#references">References</a>
-</p>
+- [Overview](#overview)
+- [Features](#features)
+- [Installation](#installation)
+- [First steps](#first-steps)
+- [Long-form documentation (=vignettes)](#long-documentation)
+- [Citation](#citation)
+- [Contributing](#contributing)
+- [Acknowledgments](#acknowledgments)
+- [References](#references)
 
 ## Overview
 
 The package `funbiogeo` aims to help users with analyses in functional
-biogeography (Violle *et al.* 2014) by loading and combining data,
-computing trait coverage, as well as computing functional diversity
-indices, drawing maps, correlating them with the environment, and
-upscaling assemblages.
+biogeography ([Violle *et al.* 2014](#references)), the biogeography of
+species’ traits, by loading and combining data, computing trait
+coverage, drawing maps, correlating them with the environment, and
+upscaling assemblages. It is aimed at first-timers of functional
+biogeography as well as more experienced users who want to obtain quick
+and easy exploratory plots.
 
-It is aimed at first-timers of functional biogeography as well as more
-experienced users who want to obtain quick and easy exploratory plots.
+Below is a quick introduction to the main features of `funbiogeo`, if
+you want some more details about them, check [our
+vignettes](#long-form-documentation).
 
 ## Features
 
@@ -47,8 +48,9 @@ experienced users who want to obtain quick and easy exploratory plots.
 - Extensive documentation (multiple vignettes, well-documented
   functions, real-life example dataset) to guide you through functional
   biogeography analyses,
-- Nice default plotting functions using outputs from functional
-  diversity packages (`betapart`, `fundiversity`, `hillR`, `mFD`, etc.),
+- Nice default plotting functions fully compatible with the outputs of
+  functional diversity packages (`betapart`, `fundiversity`, `hillR`,
+  `mFD`, etc.),
 - Automated standardized report that provide analyses and plots of your
   data,
 - Functions to easily “upscale” your data to coarser spatial
@@ -72,8 +74,9 @@ vignette](https://frbcesab.github.io/funbiogeo/).
 
 The package contains default example data named `species_traits`,
 `site_species`, and `site_locations`. You can for example visualize to
-completeness of your trait dataset using the
-`fb_plot_species_traits_completeness()` function:
+completeness of your trait dataset (which traits are known for which
+proportion of species) using the `fb_plot_species_traits_completeness()`
+function:
 
 ``` r
 fb_plot_species_traits_completeness(species_traits)
@@ -94,7 +97,7 @@ fb_map_site_traits_completeness(site_locations, site_species, species_traits)
 See more features of `funbiogeo` in the [vignettes of the
 package](https://frbcesab.github.io/funbiogeo/articles/)
 
-## Long-form documentations
+## Long-form documentation
 
 `funbiogeo` provides four vignettes to explain its functioning:
 
@@ -102,23 +105,24 @@ package](https://frbcesab.github.io/funbiogeo/articles/)
   vignette](https://frbcesab.github.io/funbiogeo/articles/funbiogeo.html)
   that describes its core features and guide you through a typical
   analysis.
-- A [vignette on all diagnostic
+- A vignette on [all diagnostic
   plots](https://frbcesab.github.io/funbiogeo/articles/diagnostic-plots.html)
   provided in the package, which details how to use each plotting
   function and how to interpret their output.
-- A [vignette on formatting your
-  data](https://frbcesab.github.io/funbiogeo/articles/long-format.html)
-  to the needs of `funbiogeo`, which shows you the use of specific
-  functions.
-- And a [specific vignette on
+- A vignette on [the data
+  format](https://frbcesab.github.io/funbiogeo/articles/long-format.html)
+  that `funbiogeo` needs, which shows you the use of specific functions
+  to format your data to work well within `funbiogeo`.
+- A vignette on [data
   upscaling](https://frbcesab.github.io/funbiogeo/articles/upscaling.html)
-  which explains how to aggregate automatically your data to coarser
-  grain and use it in further analyses.
+  which explains how to leverage `funbiogeo` to aggregate automatically
+  your data to coarser grain and use them in further analyses.
 
 ## Citation
 
-For the moment `funbiogeo` doesn’t offer a companion paper. But if you
-happen to use it in your paper you can cite the package through:
+For the moment `funbiogeo` doesn’t offer a companion paper nor is it on
+CRAN. But if you happen to use it in your paper you can cite the package
+through:
 
 > Casajus N & Grenié M (2024). *funbiogeo: Functional Biogeography
 > Analyses*. R package version 0.0.0.9000,
