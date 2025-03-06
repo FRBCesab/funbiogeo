@@ -34,9 +34,9 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/diagnostic-plots.html">Diagnostic Plots in funbiogeo</a></li>
+<li><a class="dropdown-item" href="../articles/diagnostic-plots.html">Diagnostic plots in funbiogeo</a></li>
     <li><a class="dropdown-item" href="../articles/long-format.html">Formatting your data</a></li>
-    <li><a class="dropdown-item" href="../articles/upscaling.html">Upscaling your data</a></li>
+    <li><a class="dropdown-item" href="../articles/upscaling.html">Upscaling your data: aggregating at coarser scales</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -67,28 +67,31 @@
 
     
     
-<p>The <code>funbiogeo</code>package requires that information is
-structured in three different datasets:</p>
+<p>This vignette will explain how to process a dataset that is
+aggregated in long format to work with <code>funbiogeo</code></p>
+<p>Most functions in <code>funbiogeo</code> need three different
+datasets to work:</p>
 <ul>
 <li>the <strong>species x traits</strong> <code>data.frame</code>
-(<code>species_traits</code> in <code>funbiogeo</code>), which contains
-trait values for several traits (in columns) for several species (in
-rows).</li>
-<li>the <strong>site x species</strong> <code>data.frame</code>
-(<code>site_species</code> in <code>funbiogeo</code>), which contains
-the presence/absence, abundance, or cover information for species (in
-columns) by sites (in rows).</li>
-<li>the <strong>site x locations</strong> object
-(<code>site_locations</code> in <code>funbiogeo</code>), which contains
-the physical locations of the sites of interest</li>
+(example dataset:<code>woodiv_traits</code> in <code>funbiogeo</code>),
+which contains trait values for several traits (in columns) for several
+species (in rows).</li>
+<li>the <strong>site x species</strong> <code>data.frame</code> (example
+dataset:<code>woodiv_site_species</code> in <code>funbiogeo</code>),
+which contains the presence/absence, abundance, or cover information for
+species (in columns) by sites (in rows).</li>
+<li>the <strong>site x locations</strong> <code>sf</code> object
+(example dataset:<code>woodiv_locations</code> in
+<code>funbiogeo</code>), which contains the physical locations of the
+sites of interest.</li>
 </ul>
 <p>Optionally, an additional dataset can be provided:</p>
 <ul>
 <li>a <strong>species x categories</strong> <code>data.frame</code>
-(<code>species_categories</code> in <code>funbiogeo</code>), which
-contains two-columns: one for species, one for potential categorization
-of species (whether it’s taxonomic classes, specific diets, or any
-arbitrary classification)</li>
+(example dataset:<code>species_categories</code> in
+<code>funbiogeo</code>), which contains two columns: one for species,
+one for potential categorization of species (whether it’s taxonomic
+classes, specific diets, or any arbitrary classification)</li>
 </ul>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://frbcesab.github.io/funbiogeo/">funbiogeo</a></span><span class="op">)</span></span></code></pre></div>
@@ -208,6 +211,9 @@ presence/absence of all species is spread across columns).</p>
 </tr>
 </tbody>
 </table>
+<p>In order to use this dataset in <code>funbiogeo</code>, we need to
+transform this tidy dataset into a wide dataset with all species as
+different columns.</p>
 </div>
 <div class="section level2">
 <h2 id="the-fb_format_-functions">The <code>fb_format_*()</code> functions<a class="anchor" aria-label="anchor" href="#the-fb_format_-functions"></a>
@@ -217,19 +223,19 @@ functions <code>fb_format_*()</code> to create these specific objects
 from a long format dataset.</p>
 <ul>
 <li>
-<code><a href="../reference/fb_format_site_locations.html">fb_format_site_locations()</a></code> allows to extract the
+<code><a href="../reference/fb_format_site_locations.html">fb_format_site_locations()</a></code> allows extracting the
 <strong>site x locations</strong> information from the long format
 data</li>
 <li>
-<code><a href="../reference/fb_format_site_species.html">fb_format_site_species()</a></code> allows to extract the
+<code><a href="../reference/fb_format_site_species.html">fb_format_site_species()</a></code> allows extracting the
 <strong>site x species</strong> information from the long format
 data</li>
 <li>
-<code><a href="../reference/fb_format_species_traits.html">fb_format_species_traits()</a></code> allows to extract the
+<code><a href="../reference/fb_format_species_traits.html">fb_format_species_traits()</a></code> allows extracting the
 <strong>species x traits</strong> information from the long format
 data</li>
 <li>
-<code><a href="../reference/fb_format_species_categories.html">fb_format_species_categories()</a></code> allows to extract the
+<code><a href="../reference/fb_format_species_categories.html">fb_format_species_categories()</a></code> allows extracting the
 <strong>species x categories</strong> information from the long format
 data</li>
 </ul>
@@ -241,8 +247,8 @@ wider object.</p>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
-<p><code>funbiogeo</code> provides a small excerpt of long format data
-to show how to use the functions. This data sits at
+<p><code>funbiogeo</code> provides an excerpt of long format data to
+show how to use the functions. This data sits at
 <code>system.file("extdata", "woodiv_raw_data.csv", package = "funbiogeo")</code>.</p>
 <p>Let’s import the long format dataset provided by
 <code>funbiogeo</code>:</p>
@@ -467,8 +473,10 @@ to show how to use the functions. This data sits at
 </h3>
 <p>The function <code><a href="../reference/fb_format_species_traits.html">fb_format_species_traits()</a></code> extracts species
 traits values from this long table to create the species x traits
-dataset. Note that one species must have one unique trait value (no
-trait variation across sites is allowed).</p>
+dataset. Note that the function assumes each species must have a single
+unique trait value. <code>funbiogeo</code> can deal with intraspecific
+variation but not the <code><a href="../reference/fb_format_species_traits.html">fb_format_species_traits()</a></code>
+function.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Extract species x traits data ----</span></span>
 <span><span class="va">species_traits</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_species_traits.html">fb_format_species_traits</a></span><span class="op">(</span></span>
@@ -498,14 +506,15 @@ trait variation across sites is allowed).</p>
 occurrence/abundance/coverage from this long table to create the site x
 species dataset. Note that one species must have been observed one time
 at one site (the package <code>funbiogeo</code> does not yet consider
-temporal survey).</p>
+temporal resurveys).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Format site x species data ----</span></span>
-<span><span class="va">site_species</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_site_species.html">fb_format_site_species</a></span><span class="op">(</span>data       <span class="op">=</span> <span class="va">all_data</span>, </span>
-<span>                                       site       <span class="op">=</span> <span class="st">"site"</span>, </span>
-<span>                                       species    <span class="op">=</span> <span class="st">"species"</span>, </span>
-<span>                                       value      <span class="op">=</span> <span class="st">"count"</span>,</span>
-<span>                                       na_to_zero <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="va">site_species</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_site_species.html">fb_format_site_species</a></span><span class="op">(</span></span>
+<span>  data       <span class="op">=</span> <span class="va">all_data</span>, </span>
+<span>  site       <span class="op">=</span> <span class="st">"site"</span>, </span>
+<span>  species    <span class="op">=</span> <span class="st">"species"</span>, </span>
+<span>  value      <span class="op">=</span> <span class="st">"count"</span>,</span>
+<span>  na_to_zero <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Preview ----</span></span>
@@ -530,11 +539,13 @@ coordinates from this long table to create the site x locations dataset.
 Note that one site must have one unique longitude x latitude value.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Format site x locations data ----</span></span>
-<span><span class="va">site_locations</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_site_locations.html">fb_format_site_locations</a></span><span class="op">(</span>data       <span class="op">=</span>  <span class="va">all_data</span>, </span>
-<span>                                           site       <span class="op">=</span> <span class="st">"site"</span>, </span>
-<span>                                           longitude  <span class="op">=</span> <span class="st">"longitude"</span>, </span>
-<span>                                           latitude   <span class="op">=</span> <span class="st">"latitude"</span>,</span>
-<span>                                           na_rm      <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">site_locations</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_site_locations.html">fb_format_site_locations</a></span><span class="op">(</span></span>
+<span>  data       <span class="op">=</span>  <span class="va">all_data</span>, </span>
+<span>  site       <span class="op">=</span> <span class="st">"site"</span>, </span>
+<span>  longitude  <span class="op">=</span> <span class="st">"longitude"</span>, </span>
+<span>  latitude   <span class="op">=</span> <span class="st">"latitude"</span>,</span>
+<span>  na_rm      <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Preview ----</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">site_locations</span><span class="op">)</span></span>
@@ -562,9 +573,10 @@ several functions in <code>funbiogeo</code> to aggregate metrics at this
 level.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Extract species x categories data ----</span></span>
-<span><span class="va">species_categories</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_species_categories.html">fb_format_species_categories</a></span><span class="op">(</span>data     <span class="op">=</span> <span class="va">all_data</span>, </span>
-<span>                                                   species  <span class="op">=</span> <span class="st">"species"</span>,</span>
-<span>                                                   category <span class="op">=</span> <span class="st">"genus"</span></span>
+<span><span class="va">species_categories</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_species_categories.html">fb_format_species_categories</a></span><span class="op">(</span></span>
+<span>  data     <span class="op">=</span> <span class="va">all_data</span>, </span>
+<span>  species  <span class="op">=</span> <span class="st">"species"</span>,</span>
+<span>  category <span class="op">=</span> <span class="st">"genus"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Preview ----</span></span>
@@ -580,8 +592,9 @@ level.</p>
 <span><span class="co">#&gt; 488    TBAC     Taxus</span></span>
 <span><span class="co">#&gt; 573    PSYL     Pinus</span></span>
 <span><span class="co">#&gt; 916    PHAL     Pinus</span></span></code></pre></div>
-<p>Once your data are in the good format, you can <a href="https://frbcesab.github.io/funbiogeo/articles/funbiogeo.html">get
-started</a> with <code>funbiogeo</code>.</p>
+<p>Once your data are in the good format, you can refer to the <a href="https://frbcesab.github.io/funbiogeo/articles/funbiogeo.html">Get
+Started vignette</a> to continue your journey with
+<code>funbiogeo</code>.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
