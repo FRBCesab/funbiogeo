@@ -40,7 +40,7 @@ library("sf")
 
 ## Provided data
 
-We are interested in mapping the functional traits of 26 Rosacean tree species
+We are interested in mapping the functional traits of 24 Conifer tree species
 of Western European Mediterranean regions.
 
 The functions in `funbiogeo` mostly leverage three different objects:
@@ -112,7 +112,7 @@ Note that here we are talking about sites in an abstract way.
 These can be plots, assemblages, of whatever collections of species you're
 interested in.
 
-The package `funbiogeo` comes with the example dataset on Rosacean tree species of Western European Mediterranean regions
+The package `funbiogeo` comes with the example dataset on Conifer tree species of Western European Mediterranean regions
 `site_species`.
 Let's look at it:
 
@@ -124,7 +124,7 @@ knitr::kable(
 )
 ```
 
-The example dataset contains the occurrence of the 26 Rosaceae tree species
+The example dataset contains the occurrence of the 24 Conifer tree species
 across 5,366 sites (grid cells of 10 km x 10 km resolution).
 
 Note that to use your own site by species `data.frame`, it should follow a similar
@@ -300,7 +300,7 @@ filt_sites[1:4, 1:4]
 
 The output of the function is a site x species `data.frame` with selected sites
 and species. Now we selected 5,364 sites out of 5,366, for our 2 traits and 24
-species
+species.
 
 
 ## Computing Functional Diversity metrics
@@ -336,7 +336,7 @@ diversity indices using the `mFD` package.
 ### Community-Weighted Mean (CWM)
 
 We're interested to look at the spatial distribution of the average plant height
-and seed mass of Rosaceae tree species. To do so, we can compute the
+and seed mass of Conifer tree species. To do so, we can compute the
 community-weighted mean of both traits. We'll use the `fb_cwm()` function to do
 so, it takes the site x species `data.frame` and species x traits `data.frame`
 as arguments.
