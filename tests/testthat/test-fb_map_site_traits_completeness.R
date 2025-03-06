@@ -17,38 +17,58 @@ test_that("fb_map_site_traits_completeness() works", {
   
   # With sf points
   expect_silent(
-    res <- fb_map_site_traits_completeness(
+    given_plot <- fb_map_site_traits_completeness(
       site_points, site_species, species_traits
     )
   )
   
-  expect_s3_class(res, "ggplot")
+  expect_s3_class(given_plot, "ggplot")
+  
+  vdiffr::expect_doppelganger(
+    "fb_map_site_traits_completeness-sfpoints", 
+    given_plot
+  )
   
   # With sf polygons
   expect_silent(
-    res <- fb_map_site_traits_completeness(
+    given_plot <- fb_map_site_traits_completeness(
       site_locations, site_species, species_traits
     )
   )
   
-  expect_s3_class(res, "ggplot")
+  expect_s3_class(given_plot, "ggplot")
+  
+  vdiffr::expect_doppelganger(
+    "fb_map_site_traits_completeness-sfpolygons", 
+    given_plot
+  )
   
   # with sf lines
   expect_silent(
-    res <- fb_map_site_traits_completeness(
+    given_plot <- fb_map_site_traits_completeness(
       site_lines, site_species, species_traits
     )
   )
   
-  expect_s3_class(res, "ggplot")
+  expect_s3_class(given_plot, "ggplot")
+  
+  vdiffr::expect_doppelganger(
+    "fb_map_site_traits_completeness-sfmultilines", 
+    given_plot
+  )
   
   
   # without all traits
   expect_silent(
-    res <- fb_map_site_traits_completeness(
+    given_plot <- fb_map_site_traits_completeness(
       site_lines, site_species, species_traits, FALSE
     )
   )
   
-  expect_s3_class(res, "ggplot")
+  expect_s3_class(given_plot, "ggplot")
+  
+  # vdiffr::expect_doppelganger(
+  #   "fb_map_site_traits_completeness-noalltraits", 
+  #   given_plot
+  # )
 })

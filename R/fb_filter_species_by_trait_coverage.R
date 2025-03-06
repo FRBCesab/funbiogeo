@@ -51,7 +51,7 @@ fb_filter_species_by_trait_coverage <- function(
   } else {
     
     returned_traits <- species_traits[
-      species_traits[ , 1] %in% selected_species, , drop = FALSE
+      species_traits[["species"]] %in% selected_species, , drop = FALSE
     ]
     
   }

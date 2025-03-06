@@ -31,13 +31,20 @@ test_that("fb_plot_trait_correlation() works", {
   )
   
   # Good input
-  expect_silent(res <- fb_plot_trait_correlation(species_traits))
+  expect_silent(
+    given_plot <- fb_plot_trait_correlation(species_traits)
+  )
   
-  expect_s3_class(res, "ggplot")
+  expect_s3_class(given_plot, "ggplot")
   
+  vdiffr::expect_doppelganger(
+    "fb_plot_trait_correlation-default", 
+    given_plot
+  )
   
+
   expect_message(
-    res <- fb_plot_trait_correlation(sp_trait),
+    given_plot <- fb_plot_trait_correlation(sp_trait),
     paste0(
       "Non-numerical traits found, only keeping numerical traits ",
       "to display trait correlations"
@@ -45,7 +52,13 @@ test_that("fb_plot_trait_correlation() works", {
     fixed = TRUE
   )
   
-  expect_s3_class(res, "ggplot")
+  expect_s3_class(given_plot, "ggplot")
+
+  vdiffr::expect_doppelganger(
+    "fb_plot_trait_correlation-withmsg", 
+    given_plot
+  )
+
   
   ## Works with species categories
   # Single category 
@@ -55,6 +68,13 @@ test_that("fb_plot_trait_correlation() works", {
       data.frame(species = sp_trait$species, category = "A")
     )
   )
+
+  expect_s3_class(given_plot, "ggplot")
+
+  vdiffr::expect_doppelganger(
+    "fb_plot_trait_correlation-onecat", 
+    given_plot
+  )
   
   # Less categories than species
   expect_silent(
@@ -63,6 +83,13 @@ test_that("fb_plot_trait_correlation() works", {
       data.frame(species  = sp_trait$species, category = c(1, 1, 2))
     )
   )
+
+  expect_s3_class(given_plot, "ggplot")
+
+  # vdiffr::expect_doppelganger(
+  #   "fb_plot_trait_correlation-fewcat", 
+  #   given_plot
+  # )
   
   # As many categories as species
   expect_silent(
@@ -72,4 +99,11 @@ test_that("fb_plot_trait_correlation() works", {
                  category = sp_trait$species)
     )
   )
+
+  expect_s3_class(given_plot, "ggplot")
+  
+  # vdiffr::expect_doppelganger(
+  #   "fb_plot_trait_correlation-allcat", 
+  #   given_plot
+  # )
 })

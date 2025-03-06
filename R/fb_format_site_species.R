@@ -141,15 +141,21 @@ fb_format_site_species <- function(data, site, species, value,
   data <- data[ , c(site, species, value)]
   
   
+  ## Rename 'site' & 'species' columns ----
+
+  colnames(data)[1] <- "site"
+  colnames(data)[2] <- "species"
+
+
   ## Replace non-alphanumeric characters ---------------------------------------
   
-  data[ , site] <- gsub("\\s|[[:punct:]]", "_", data[ , site])
-  data[ , site] <- gsub("_{1,}", "_", data[ , site])
-  data[ , site] <- gsub("^_|_$", "", data[ , site])
+  data[["site"]] <- gsub("\\s|[[:punct:]]", "_", data[["site"]])
+  data[["site"]] <- gsub("_{1,}", "_",           data[["site"]])
+  data[["site"]] <- gsub("^_|_$", "",            data[["site"]])
   
-  data[ , species] <- gsub("\\s|[[:punct:]]", "_", data[ , species])
-  data[ , species] <- gsub("_{1,}", "_", data[ , species])
-  data[ , species] <- gsub("^_|_$", "", data[ , species])
+  data[["species"]] <- gsub("\\s|[[:punct:]]", "_", data[["species"]])
+  data[["species"]] <- gsub("_{1,}", "_",           data[["species"]])
+  data[["species"]] <- gsub("^_|_$", "",            data[["species"]])
   
   
   ## From long to wider format -------------------------------------------------

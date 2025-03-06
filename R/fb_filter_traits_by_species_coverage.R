@@ -46,7 +46,7 @@ fb_filter_traits_by_species_coverage <- function(
     "trait"]
   
   returned_traits <- species_traits[
-    , c(colnames(species_traits)[1], selected_traits), drop = FALSE
+    , c("species", selected_traits), drop = FALSE
   ]
   
   if (identical(selected_traits, character(0))) {

@@ -28,13 +28,14 @@ fb_count_species_by_site <- function(site_species) {
   ## Compute species coverage by site ----
   
   species_coverage <- apply(
-    site_species[ , -1], 1, function(x) sum(!is.na(x) & x > 0)
+    drop_column(site_species, "site"), 1, function(x) 
+      sum(!is.na(x) & x > 0)
   )
   
   species_coverage <- data.frame(
-    "site"      = site_species[ , 1],
+    "site"      = site_species[["site"]],
     "n_species" = species_coverage,
-    "coverage"  = species_coverage / ncol(site_species[ , -1]))
+    "coverage"  = species_coverage / (ncol(site_species) - 1))
   
   species_coverage <- species_coverage[
     order(species_coverage$"coverage", decreasing = TRUE),

@@ -71,7 +71,7 @@ fb_get_trait_combination_coverage = function(
   }
   
   # Generate all combinations of trait to use
-  traits = colnames(species_traits)[-1]
+  traits = colnames(drop_column(species_traits, "species"))
   
   all_combinations = lapply(
     target_combs,
@@ -89,7 +89,7 @@ fb_get_trait_combination_coverage = function(
     function(combination) {
       
       trait_coverage = fb_get_trait_coverage_by_site(
-        site_species, species_traits[, c("species", combination)]
+        site_species, species_traits[ , c("species", combination)]
       )
       
       combination_length = length(combination)

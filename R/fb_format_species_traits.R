@@ -95,11 +95,16 @@ fb_format_species_traits <- function(data, species, traits) {
   data <- data[ , c(species, traits)]
   
   
+  ## Rename 'species' column ----
+
+  colnames(data)[1] <- "species"
+  
+  
   ## Replace non-alphanumeric characters ---------------------------------------
 
-  data[ , species] <- gsub("\\s|[[:punct:]]", "_", data[ , species])
-  data[ , species] <- gsub("_{1,}", "_", data[ , species])
-  data[ , species] <- gsub("^_|_$", "", data[ , species])
+  data[["species"]] <- gsub("\\s|[[:punct:]]", "_", data[["species"]])
+  data[["species"]] <- gsub("_{1,}", "_",           data[["species"]])
+  data[["species"]] <- gsub("^_|_$", "",            data[["species"]])
   
   
   ## Get unique traits values per species --------------------------------------
@@ -109,7 +114,7 @@ fb_format_species_traits <- function(data, species, traits) {
   
   for (trait in traits) {
     
-    trait_values[[trait]] <- tapply(data[ , trait], data[ , species], 
+    trait_values[[trait]] <- tapply(data[ , trait], data[["species"]], 
                                     function(x) unique(x))
     
     if (length(unique(unlist(lapply(trait_values[[trait]], length)))) > 1) {
