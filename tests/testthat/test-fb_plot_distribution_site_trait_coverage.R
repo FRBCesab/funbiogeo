@@ -16,7 +16,7 @@ test_that("fb_plot_distribution_site_trait_coverage() works", {
   expect_s3_class(given_plot, "ggplot")
   
   vdiffr::expect_doppelganger(
-    "fb_plot_distribution_site_trait_coverage-default", 
+    "fb_plot_dist_site_trait_cov-default", 
     given_plot
   )
   
