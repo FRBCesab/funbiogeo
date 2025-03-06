@@ -172,7 +172,7 @@ fb_plot_species_traits_missingness <- function(
     ggplot2::aes(
       .data$value,
       factor(
-        "trait", levels = unique("trait")
+        .data$trait, levels = unique(.data$trait)
       ),
       fill = .data$name
     )
