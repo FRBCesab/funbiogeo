@@ -16,7 +16,7 @@ pkgload::load_all()
 ```
 
 
-# funbiogeo - Streamlining functional biogeography analyses <img src="man/figures/logo.png" align="right" style="float:right; height:120px;"/>
+# funbiogeo - Streamlining functional biogeography analyses <img src="man/figures/logo.png" align="right" style="float:right; height:240px;"/>
 
 
 <!-- badges: start -->
@@ -60,6 +60,9 @@ Below is a quick introduction to the main features of `funbiogeo`, if you want s
 * Automated standardized report that provide analyses and plots of your data,
 * Functions to easily "upscale" your data to coarser spatial resolutions.
 
+```{r functions-scheme, echo = FALSE, fig.cap = "Naming scheme of available functions in funbiogeo"}
+knitr::include_graphics("inst/misc/functions_scheme.drawio.png")
+```
 
 
 ## Installation
@@ -73,25 +76,23 @@ remotes::install_github("FRBCesab/funbiogeo")
 ```
 
 
-
 ## First steps
 
 This section will show you some useful functions from `funbiogeo`. For a longer introduction please refer to the ["Get started" vignette](https://frbcesab.github.io/funbiogeo/).
 
-The package contains default example data named `species_traits`, `site_species`, and `site_locations`. You can for example visualize to completeness of your trait dataset (which traits are known for which proportion of species) using the `fb_plot_species_traits_completeness()` function:
+The package contains default example data named `woodiv_traits`, `woodiv_site_species`, and `woodiv_locations` all from the WOODIV database ([Monnet et al. 2021](#references)). You can, for example, visualize the completeness of your trait dataset (which traits are known for which proportion of species) using the `fb_plot_species_traits_completeness()` function:
 
 ```{r plot-sp-tr-complete}
-fb_plot_species_traits_completeness(species_traits)
+fb_plot_species_traits_completeness(woodiv_traits)
 ```
 
 One other useful visualization is to see the trait coverage of each trait across all sites, using the function `fb_map_site_traits_completeness()`:
 
 ```{r plot-site-tr-complete}
-fb_map_site_traits_completeness(site_locations, site_species, species_traits)
+fb_map_site_traits_completeness(woodiv_locations, woodiv_site_species, woodiv_traits)
 ```
 
 See more features of `funbiogeo` in the [vignettes of the package](https://frbcesab.github.io/funbiogeo/articles/)
-
 
 
 ## Long-form documentation
@@ -137,10 +138,12 @@ Please note that the `funbiogeo` project is released with a [Contributor Code of
 
 ## Acknowledgments
 
-This package has been developed for the [FRB-CESAB](https://www.fondationbiodiversite.fr/en/about-the-foundation/le-cesab/) working group [FREE](https://www.fondationbiodiversite.fr/en/the-frb-in-action/programs-and-projects/le-cesab/free/) that aims to advance the concept of functional rarity and examine the causes and consequences of functional rarity from local to global scales.
+This package has been developed for the [FRB-CESAB](https://www.fondationbiodiversite.fr/en/about-the-foundation/le-cesab/) working group [FREE](https://www.fondationbiodiversite.fr/en/the-frb-in-action/programs-and-projects/le-cesab/free/) and its followup [FREE 2](https://www.fondationbiodiversite.fr/en/the-frb-in-action/programs-and-projects/le-cesab/free-2/) that aims to advance the concept of functional rarity and examine the causes and consequences of functional rarity from local to global scales.
 
 
 
 ## References
+
+Monnet, AC., Cilleros, K., Médail, F. et al. WOODIV, a database of occurrences, functional traits, and phylogenetic data for all Euro-Mediterranean trees. Sci Data 8, 89 (2021). https://doi.org/10.1038/s41597-021-00873-3
 
 Violle C, Reich, PB Pacala SW, _et al._ (2014) The emergence and promise of functional biogeography. *Proceedings of the National Academy of Sciences*, **111**, 13690--13696. DOI: [10.1073/pnas.1415442111](https://doi.org/10.1073/pnas.1415442111)
