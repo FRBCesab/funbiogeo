@@ -1,92 +1,136 @@
-#' Create an R Markdown Report on Site/Species/Trait Coverage with Plots
+#' Create an Rmarkdown Report to Explore User Data
 #'
 #' Creates an R Markdown (`.Rmd`) report from a template to explore and 
-#' summarize users data. User can modify this report and use the function
-#' [rmarkdown::render()] to convert this `.Rmd` in different formats:
-#' - HTML document (`output_format = "bookdown::html_document2"`);
-#' - PDF document (`output_format = "bookdown::pdf_document2"`);
-#' - Word document (`output_format = "bookdown::word_document2"`);
-#' - HTML, PDF and Word documents (`output_format = "all"`).
+#' summarize user data. User can modify this report and use the function
+#' [rmarkdown::render()] (or click the _Render_ of the RStudio IDE) to convert 
+#' this `.Rmd` in different formats:
+#'   - HTML document (`output_format = "bookdown::html_document2"`);
+#'   - PDF document (`output_format = "bookdown::pdf_document2"`);
+#'   - Word document (`output_format = "bookdown::word_document2"`);
+#'   - HTML, PDF and Word documents (`output_format = "all"`).
 #' 
-#' @param path a `character` of length 1. The directory in which the `.Rmd` 
-#'   file will be created. This directory must exist.
+#' Note that a copy of user data will be saved as `.rds` files in 
+#' `path/funbiogeo/data/` (where `path` is the directory defined by the user).
+#' 
+#' @param path a `character` of length 1. The directory in which the `.Rmd` and
+#'   `.rds` files will be created. This directory must exist. Note that 
+#'   subdirectories `funbiogeo/` and `funbiogeo/data/` will be created. Default 
+#'   is the current directory.
 #' 
 #' @param filename a `character` of length 1. The name of the `.Rmd` file to be
-#'   created. If `NULL` (default) the `.Rmd` file will be named 
-#'   `funbiogeo_report.Rmd`.
+#'   created. If `NULL` (default) the `.Rmd` file will be named from the `title`
+#'   (if provided) or `funbiogeo_report.Rmd` otherwise.
 #'   
 #' @param title a `character` of length 1. The title of the report.
-#'   If `NULL` (default) the title will be `funbiogeo Report`.
+#'   If `NULL` (default) the title will be named from the `title`
+#'   (if provided) or `funbiogeo Report` otherwise.
 #'   
 #' @param author a `character` of length 1. The author(s) of the report. 
 #'   If `NULL` (default) no author will be added.
-#'   
-#' @param species_traits_name a `character` of length 1. The **name** of the 
-#'   species x traits dataset (not the object). Note that before rendering the 
-#'   report this dataset must be loaded.
-#'   
-#' @param site_species_name a `character` of length 1. The **name** of the 
-#'   sites x species dataset (not the object). Note that before rendering the 
-#'   report this dataset must be loaded.
-#'   
-#' @param site_locations_name a `character` of length 1. The **name** of the 
-#'   sites x locations dataset (not the object). Note that before rendering the 
-#'   report this dataset must be loaded.
 #' 
-#' @param overwrite a logical. If this file is already present and 
-#'   `overwrite = TRUE`, it will be erased and replaced by the template.
-#'   Default is `FALSE`.
+#' @param overwrite a logical. If the `.Rmd` file (or any `.rds` dataset) is 
+#'   already present and `overwrite = TRUE`, the `.Rmd` file (and all `.rds` 
+#'   files) will be replaced. Default is `FALSE`.
 #' 
-#' @param open a logical. If `TRUE` (default), this file will be opened on the
-#'   text editor.
-#'   
+#' @param open a logical. If `TRUE` (default), the `.Rmd` file will be opened 
+#'   in the text editor.
+#' 
+#' @param interactive a logical. If `TRUE` (default), the function will ask user
+#'   to accept the copy of datasets.
+#' 
+#' @inheritParams fb_get_environment
+#' @inheritParams fb_get_trait_coverage_by_site
+#' @inheritParams fb_plot_species_traits_completeness
+#' 
 #' @return No return value.
 #'
 #' @export
 #'
 #' @examples
-#' # Create temporary folder
+#' \dontrun{
+#' # Create temporary folder (optional) ----
 #' temp_path <- tempdir()
 #' 
-#' # Create report
+#' # Create report ----
 #' fb_make_report(
-#'   path                = temp_path, 
-#'   author              = "Casajus N. and Grenié M.",
-#'   species_traits_name = "woodiv_traits",
-#'   site_species_name   = "woodiv_site_species",
-#'   site_locations_name = "woodiv_locations",
-#'   open = FALSE
+#'   path           = temp_path, 
+#'   author         = "Casajus N. and Grenié M.",
+#'   species_traits = woodiv_traits,
+#'   site_species   = woodiv_site_species,
+#'   site_locations = woodiv_locations,
+#'   open           = FALSE
 #' )
 #' 
-#' \dontrun{
 #' # Open Rmd file ----
-#' utils::file.edit(file.path(temp_path, "funbiogeo_report.Rmd"))
+#' utils::file.edit(file.path(temp_path, "funbiogeo", "funbiogeo_report.Rmd"))
 #' 
 #' # Render Rmd file ----
 #' rmarkdown::render(
-#'     file.path(temp_path, "funbiogeo_report.Rmd"),
-#'     output_format = "all"
+#'   input         = file.path(temp_path, "funbiogeo", "funbiogeo_report.Rmd"),
+#'   output_format = "all"
 #' )
 #' }
 
 fb_make_report <- function(path = ".", filename = NULL, title = NULL, 
-                           author = NULL, species_traits_name, 
-                           site_species_name, site_locations_name,
-                           overwrite = FALSE, open = TRUE) {
+                           author = NULL, species_traits, site_species, 
+                           site_locations, species_categories = NULL,
+                           overwrite = FALSE, open = TRUE, interactive = TRUE) {
   
   open <- open && rlang::is_interactive()
   
+  if (interactive) {
+
+    prompt <- paste(
+      "funbiogeo will create a copy of your datasets in 'path/'. Do you want", 
+      "to proceed? [Y/n] "
+    )
+
+    answer <- readline(prompt)
+
+    if (answer == "") {
+      answer <- "yes"
+    }
+
+    answer <- tolower(answer)
+    answer <- substr(answer, 1, 1)
+
+    if (!(answer %in% c("y", "n"))) {
+      stop(
+        "Please answer 'yes' or 'no'", call. = FALSE
+      )
+    }
+
+    if (answer == "n") {
+      stop(
+        "You must agree to copy your data to generate the Rmd report", 
+        call. = FALSE
+      )
+    }
+  }
+
+
   # Check path -----------------------------------------------------------------
   
   if (!dir.exists(path)) {
     stop("The path '", path, "' does not exist", call. = FALSE)
   }
+
+  # Create subdirectories ------------------------------------------------------
+
+  path      <- file.path(path, "funbiogeo")
+  path_data <- file.path(path, "data")
+
+  dir.create(path_data, showWarnings = FALSE, recursive = TRUE)
   
   
   # Create file name and title -------------------------------------------------
   
   if (is.null(title) && !is.null(filename)) {
+
     title <- gsub("\\.Rmd$", "", filename, ignore.case = TRUE)
+    title <- gsub("[[:punct:]]", " ", title)
+    title <- trimws(title)
+    title <- tools::toTitleCase(title)
   }
   
   if (!is.null(title) && is.null(filename)) {
@@ -96,82 +140,124 @@ fb_make_report <- function(path = ".", filename = NULL, title = NULL,
     filename <- tolower(filename)
   }
   
-  if (is.null(filename)) {
-    filename <- "funbiogeo_report"
-  } else {
-    filename <- gsub("\\.Rmd$", "", filename, ignore.case = TRUE)
+  if (is.null(filename) && is.null(title)) {
+
+    filename <- "funbiogeo_report.Rmd"
+    title    <- "funbiogeo Report"
   }
-  
+
+  filename <- gsub("\\.Rmd$", "", filename, ignore.case = TRUE)
   filename <- paste0(filename, ".Rmd")
-  path     <- file.path(path, filename)
+  
+  path_rmd <- file.path(path, filename)
   
   
   # If file exists -------------------------------------------------------------
   
-  if (file.exists(path) && !overwrite) {
-    stop("The file '", path, "' already exists. If you want to replace it, ", 
+  if (file.exists(path_rmd) && !overwrite) {
+    stop("The file '", path_rmd, "' already exists. If you want to replace it, ", 
          "use 'overwrite = TRUE'.", call. = FALSE)
   }
   
   
-  # Check data names -----------------------------------------------------------
+  # Check datasets -------------------------------------------------------------
   
-  check_object_name(species_traits_name)
-  check_object_name(site_species_name)
-  check_object_name(site_locations_name)
+  check_site_species(site_species)
+  check_site_locations(site_locations)
+  check_species_traits(species_traits)
+  check_species_categories(species_categories)
   
+
+  # Copy datasets in path/funbiogeo/data/ --------------------------------------
+
+  filename <- file.path(path_data, "fb_site_species.rds")
+
+  if (file.exists(filename) && !overwrite) {
+    stop("The file '", filename, "' already exists. If you want to replace ", 
+         "it, use 'overwrite = TRUE'.", call. = FALSE)
+  }
+
+  saveRDS(
+    object = site_species, 
+    file   = filename
+  )
+
+
+  filename <- file.path(path_data, "fb_site_locations.rds")
+
+  if (file.exists(filename) && !overwrite) {
+    stop("The file '", filename, "' already exists. If you want to replace ", 
+         "it, use 'overwrite = TRUE'.", call. = FALSE)
+  }
+
+  saveRDS(
+    object = site_locations, 
+    file   = filename
+  )
+
+
+  filename <- file.path(path_data, "fb_species_traits.rds")
+
+  if (file.exists(filename) && !overwrite) {
+    stop("The file '", filename, "' already exists. If you want to replace ", 
+         "it, use 'overwrite = TRUE'.", call. = FALSE)
+  }
+
+  saveRDS(
+    object = species_traits, 
+    file   = filename
+  )
+
+  if (!is.null(species_categories)) {
+
+    filename <- file.path(path_data, "fb_species_categories.rds")
+
+    if (file.exists(filename) && !overwrite) {
+      stop("The file '", filename, "' already exists. If you want to replace ", 
+      "it, use 'overwrite = TRUE'.", call. = FALSE)
+    }
+
+    saveRDS(
+      object = species_categories, 
+      file   = filename
+    )
+  }
+
   
-  # Copy template --------------------------------------------------------------
+  # Copy report template in path/funbiogeo/ ------------------------------------
   
   invisible(
     file.copy(
       system.file(
         file.path("templates", "template_report.Rmd"), package = "funbiogeo"),
-      path, overwrite = TRUE
+      path_rmd, overwrite = TRUE
     )
   )
   
-  message("The file '", path, "' was created!\nOpen it then use knitr::knit()",
-          " or rmarkdown::render() to render it.")
+  message("The file '", path_rmd, "' has been created!")
   
   
   # Replace default values (mustaches) -----------------------------------------
-  
-  if (is.null(title)) {
-    title <- "funbiogeo Report"
-  }
   
   if (!is.null(author)) {
     
     author <- paste0(author, collapse = ", ")
     
-    xfun::gsub_file(path, "\"{{title}}\"", 
+    xfun::gsub_file(path_rmd, "\"{{title}}\"", 
                     "\"{{title}}\"\nauthor: \"{{author}}\"", 
                     fixed = TRUE)
-    xfun::gsub_file(path, "\"{{author}}\"", paste0("\"", author, "\""), 
+    xfun::gsub_file(path_rmd, "\"{{author}}\"", paste0("\"", author, "\""), 
                     fixed = TRUE)
   }
   
-  xfun::gsub_file(path, "\"{{title}}\"", paste0("\"", title, "\""), 
-                  fixed = TRUE)
-  
-  
-  # Replace data names ---------------------------------------------------------
-  
-  xfun::gsub_file(path, "{{species_traits}}", species_traits_name, 
-                  fixed = TRUE)
-  
-  xfun::gsub_file(path, "{{site_species}}", site_species_name, 
-                  fixed = TRUE)
-  
-  xfun::gsub_file(path, "{{site_locations}}", site_locations_name, 
+  xfun::gsub_file(path_rmd, "\"{{title}}\"", paste0("\"", title, "\""), 
                   fixed = TRUE)
   
   
   # Open file in text editor ---------------------------------------------------
   
   if (open) {
-    open_file(path)
+    open_file(path_rmd)
   }
   
   invisible(NULL)

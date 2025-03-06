@@ -227,37 +227,36 @@ check_threshold_proportion <- function(
 
 
 
-#' Check object names
-#' 
-#' @description
-#' This function will error if an object name is missing or not provided
-#' by its name.
-#' It will remain silent otherwise.
-#'
-#' @param object a `character` of length 1. The name of the object.
-#'
-#' @noRd
-
-check_object_name <- function(object) {
-  
-
-  # Check missing ----
-  
-  if (missing(object)) {
-    stop("The argument '", deparse(substitute(object)), "' is required", 
-         call. = FALSE)
-  }
-  
-  
-  # Check if it is name ----
-  
-  if (!is.character(object) || length(object) != 1) {
-    stop("The argument '", deparse(substitute(object)), "' must be a ", 
-         "character of length 1", call. = FALSE)
-  }
-  
-  invisible(NULL)
-}
+# #' Check object names
+# #' 
+# #' @description
+# #' This function will error if an object name is missing or not provided
+# #' by its name.
+# #' It will remain silent otherwise.
+# #'
+# #' @param object a `character` of length 1. The name of the object.
+# #'
+# #' @noRd
+# 
+# check_object_name <- function(object) {
+# 
+#   # Check missing ----
+#   
+#   if (missing(object)) {
+#     stop("The argument '", deparse(substitute(object)), "' is required", 
+#          call. = FALSE)
+#   }
+#   
+#   
+#   # Check if it is name ----
+#   
+#   if (!is.character(object) || length(object) != 1) {
+#     stop("The argument '", deparse(substitute(object)), "' must be a ", 
+#          "character of length 1", call. = FALSE)
+#   }
+#   
+#   invisible(NULL)
+# }
 
 #' Check 'species_categories' input
 #' 

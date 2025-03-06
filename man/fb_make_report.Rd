@@ -2,60 +2,74 @@
 % Please edit documentation in R/fb_make_report.R
 \name{fb_make_report}
 \alias{fb_make_report}
-\title{Create an R Markdown Report on Site/Species/Trait Coverage with Plots}
+\title{Create an Rmarkdown Report to Explore User Data}
 \usage{
 fb_make_report(
   path = ".",
   filename = NULL,
   title = NULL,
   author = NULL,
-  species_traits_name,
-  site_species_name,
-  site_locations_name,
+  species_traits,
+  site_species,
+  site_locations,
+  species_categories = NULL,
   overwrite = FALSE,
-  open = TRUE
+  open = TRUE,
+  interactive = TRUE
 )
 }
 \arguments{
-\item{path}{a \code{character} of length 1. The directory in which the \code{.Rmd}
-file will be created. This directory must exist.}
+\item{path}{a \code{character} of length 1. The directory in which the \code{.Rmd} and
+\code{.rds} files will be created. This directory must exist. Note that
+subdirectories \verb{funbiogeo/} and \verb{funbiogeo/data/} will be created. Default
+is the current directory.}
 
 \item{filename}{a \code{character} of length 1. The name of the \code{.Rmd} file to be
-created. If \code{NULL} (default) the \code{.Rmd} file will be named
-\code{funbiogeo_report.Rmd}.}
+created. If \code{NULL} (default) the \code{.Rmd} file will be named from the \code{title}
+(if provided) or \code{funbiogeo_report.Rmd} otherwise.}
 
 \item{title}{a \code{character} of length 1. The title of the report.
-If \code{NULL} (default) the title will be \verb{funbiogeo Report}.}
+If \code{NULL} (default) the title will be named from the \code{title}
+(if provided) or \verb{funbiogeo Report} otherwise.}
 
 \item{author}{a \code{character} of length 1. The author(s) of the report.
 If \code{NULL} (default) no author will be added.}
 
-\item{species_traits_name}{a \code{character} of length 1. The \strong{name} of the
-species x traits dataset (not the object). Note that before rendering the
-report this dataset must be loaded.}
+\item{species_traits}{a \code{data.frame} with species in rows and
+traits as columns. \strong{NOTE}: The first column should be named \strong{\code{"species"}}
+and contain species names. The other columns should be named according
+to trait names.}
 
-\item{site_species_name}{a \code{character} of length 1. The \strong{name} of the
-sites x species dataset (not the object). Note that before rendering the
-report this dataset must be loaded.}
+\item{site_species}{a \code{data.frame} with sites in rows and species in columns.
+\strong{NOTE}: the first column should be named \strong{\code{"site"}} and indicate site
+names. The other columns should be named according to species names.}
 
-\item{site_locations_name}{a \code{character} of length 1. The \strong{name} of the
-sites x locations dataset (not the object). Note that before rendering the
-report this dataset must be loaded.}
+\item{site_locations}{an \code{sf} object with the spatial geometries of sites.
+\strong{NOTE}: the first column should be named \strong{\code{"site"}}
+and indicate site names.}
 
-\item{overwrite}{a logical. If this file is already present and
-\code{overwrite = TRUE}, it will be erased and replaced by the template.
-Default is \code{FALSE}.}
+\item{species_categories}{(default = \code{NULL}) 2-columns \code{data.frame} giving
+species categories, with the first column describing the species name, and
+the second column giving their corresponding categories}
 
-\item{open}{a logical. If \code{TRUE} (default), this file will be opened on the
-text editor.}
+\item{overwrite}{a logical. If the \code{.Rmd} file (or any \code{.rds} dataset) is
+already present and \code{overwrite = TRUE}, the \code{.Rmd} file (and all \code{.rds}
+files) will be replaced. Default is \code{FALSE}.}
+
+\item{open}{a logical. If \code{TRUE} (default), the \code{.Rmd} file will be opened
+in the text editor.}
+
+\item{interactive}{a logical. If \code{TRUE} (default), the function will ask user
+to accept the copy of datasets.}
 }
 \value{
 No return value.
 }
 \description{
 Creates an R Markdown (\code{.Rmd}) report from a template to explore and
-summarize users data. User can modify this report and use the function
-\code{\link[rmarkdown:render]{rmarkdown::render()}} to convert this \code{.Rmd} in different formats:
+summarize user data. User can modify this report and use the function
+\code{\link[rmarkdown:render]{rmarkdown::render()}} (or click the \emph{Render} of the RStudio IDE) to convert
+this \code{.Rmd} in different formats:
 \itemize{
 \item HTML document (\code{output_format = "bookdown::html_document2"});
 \item PDF document (\code{output_format = "bookdown::pdf_document2"});
@@ -63,28 +77,32 @@ summarize users data. User can modify this report and use the function
 \item HTML, PDF and Word documents (\code{output_format = "all"}).
 }
 }
+\details{
+Note that a copy of user data will be saved as \code{.rds} files in
+\verb{path/funbiogeo/data/} (where \code{path} is the directory defined by the user).
+}
 \examples{
-# Create temporary folder
+\dontrun{
+# Create temporary folder (optional) ----
 temp_path <- tempdir()
 
-# Create report
+# Create report ----
 fb_make_report(
-  path                = temp_path, 
-  author              = "Casajus N. and Grenié M.",
-  species_traits_name = "woodiv_traits",
-  site_species_name   = "woodiv_site_species",
-  site_locations_name = "woodiv_locations",
-  open = FALSE
+  path           = temp_path, 
+  author         = "Casajus N. and Grenié M.",
+  species_traits = woodiv_traits,
+  site_species   = woodiv_site_species,
+  site_locations = woodiv_locations,
+  open           = FALSE
 )
 
-\dontrun{
 # Open Rmd file ----
-utils::file.edit(file.path(temp_path, "funbiogeo_report.Rmd"))
+utils::file.edit(file.path(temp_path, "funbiogeo", "funbiogeo_report.Rmd"))
 
 # Render Rmd file ----
 rmarkdown::render(
-    file.path(temp_path, "funbiogeo_report.Rmd"),
-    output_format = "all"
+  input         = file.path(temp_path, "funbiogeo", "funbiogeo_report.Rmd"),
+  output_format = "all"
 )
 }
 }
