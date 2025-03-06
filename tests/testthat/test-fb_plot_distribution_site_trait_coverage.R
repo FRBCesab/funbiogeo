@@ -15,6 +15,12 @@ test_that("fb_plot_distribution_site_trait_coverage() works", {
   
   expect_s3_class(given_plot, "ggplot")
   
+  # Skip vdiffr test on Linux oldrel test
+  skip_if(
+    R.version$system == "x86_64, linux-gnu" &
+      R.version$version.string == "R version 4.3.3 (2024-02-29)"
+  )
+  
   vdiffr::expect_doppelganger(
     "fb_plot_dist_site_trait_cov-default", 
     given_plot
