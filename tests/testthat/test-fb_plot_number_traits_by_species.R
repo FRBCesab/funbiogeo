@@ -39,7 +39,7 @@ test_that("fb_plot_number_traits_by_species works", {
   expect_s3_class(given_plot, "ggplot")
   
   vdiffr::expect_doppelganger(
-    "fb_plot_nb_tr_by_sp-nonquanttraits", 
+    "fb_plot_nb_tr_by_sp-nquant", 
     given_plot
   )
   

@@ -26,7 +26,7 @@ test_that("fb_plot_species_traits_completeness works", {
   expect_s3_class(given_plot, "ggplot")
   
   vdiffr::expect_doppelganger(
-    "fb_plot_sp_tr_comp-noalltrait", 
+    "fb_plot_sp_tr_comp-noall", 
     given_plot
   )  
   
@@ -48,7 +48,7 @@ test_that("fb_plot_species_traits_completeness works", {
   expect_s3_class(given_plot, "ggplot")
   
   vdiffr::expect_doppelganger(
-    "fb_plot_sp_tr_comp-nonquanttrait", 
+    "fb_plot_sp_tr_comp-nquant", 
     given_plot
   )
   
@@ -64,7 +64,7 @@ test_that("fb_plot_species_traits_completeness works", {
   expect_s3_class(given_plot, "ggplot")
   
   vdiffr::expect_doppelganger(
-    "fb_plot_sp_tr_comp-singletrait", 
+    "fb_plot_sp_tr_comp-one", 
     given_plot
   )
   

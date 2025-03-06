@@ -22,7 +22,7 @@ test_that("fb_plot_distribution_site_trait_coverage() works", {
   )
   
   vdiffr::expect_doppelganger(
-    "fb_plot_dist_site_trait_cov-default", 
+    "trait_cov-default", 
     given_plot
   )
   

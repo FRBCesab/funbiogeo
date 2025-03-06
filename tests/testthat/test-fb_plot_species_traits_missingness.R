@@ -26,7 +26,7 @@ test_that("fb_plot_species_traits_missingness works", {
   expect_s3_class(given_plot, "ggplot")
   
   vdiffr::expect_doppelganger(
-    "fb_plot_sp_tr_miss-noalltraits", 
+    "fb_plot_sp_tr_miss-noall", 
     given_plot
   )
 
@@ -48,7 +48,7 @@ test_that("fb_plot_species_traits_missingness works", {
   expect_s3_class(given_plot, "ggplot")
   
   vdiffr::expect_doppelganger(
-    "fb_plot_sp_tr_miss-nonquanttraits", 
+    "fb_plot_sp_tr_miss-nquant", 
     given_plot
   )
 
@@ -64,7 +64,7 @@ test_that("fb_plot_species_traits_missingness works", {
   expect_s3_class(given_plot, "ggplot")
   
   vdiffr::expect_doppelganger(
-    "fb_plot_sp_tr_miss-singletrait", 
+    "fb_plot_sp_tr_miss-one", 
     given_plot
   )
   
