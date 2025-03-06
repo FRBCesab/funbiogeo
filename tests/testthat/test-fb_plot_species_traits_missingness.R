@@ -64,7 +64,7 @@ test_that("fb_plot_species_traits_missingness works", {
   expect_s3_class(given_plot, "ggplot")
   
   vdiffr::expect_doppelganger(
-    "fb_plot_species_traits_missingness-singletrait", 
+    "fb_plot_sp_tr_miss-singletrait", 
     given_plot
   )
   

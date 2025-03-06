@@ -10,7 +10,7 @@ test_that("fb_plot_trait_combination_frequencies() works", {
   expect_s3_class(given_plot, "ggplot")
   
   vdiffr::expect_doppelganger(
-    "fb_plot_trait_combination_frequencies-default", 
+    "fb_plot_tr_comb_freq-default", 
     given_plot
   )
   
@@ -23,7 +23,7 @@ test_that("fb_plot_trait_combination_frequencies() works", {
   expect_s3_class(given_plot, "ggplot")
   
   vdiffr::expect_doppelganger(
-    "fb_plot_trait_combination_frequencies-complete", 
+    "fb_plot_tr_comb_freq-complete", 
     given_plot
   )
   
@@ -41,7 +41,7 @@ test_that("fb_plot_trait_combination_frequencies() works", {
   expect_s3_class(given_plot, "ggplot")
   
   vdiffr::expect_doppelganger(
-    "fb_plot_trait_combination_frequencies-onecat", 
+    "fb_plot_tr_comb_freq-onecat", 
     given_plot
   )
   
