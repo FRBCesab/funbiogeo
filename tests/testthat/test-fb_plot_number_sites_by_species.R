@@ -8,7 +8,7 @@ test_that("fb_plot_number_sites_by_species works", {
   expect_s3_class(given_plot, "ggplot")
   
   vdiffr::expect_doppelganger(
-    "fb_plot_number_sites_by_species-default", 
+    "fb_plot_nb_si_by_sp-default", 
     given_plot
   )
   
@@ -19,7 +19,7 @@ test_that("fb_plot_number_sites_by_species works", {
   expect_s3_class(given_plot, "ggplot")
   
   vdiffr::expect_doppelganger(
-    "fb_plot_number_sites_by_species-threshold", 
+    "fb_plot_nb_si_by_sp-threshold", 
     given_plot
   )
   

@@ -64,6 +64,6 @@
 <text x='378.54' y='32.64' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='105.18px' lengthAdjust='spacingAndGlyphs'>Proportion of Species</text>
 <text x='378.54' y='568.24' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='93.56px' lengthAdjust='spacingAndGlyphs'>Number of Species</text>
 <text transform='translate(13.05,296.65) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='54.40px' lengthAdjust='spacingAndGlyphs'>Trait Name</text>
-<text x='42.57' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='255.37px' lengthAdjust='spacingAndGlyphs'>fb_plot_number_species_by_trait-singletrait</text>
+<text x='42.57' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='180.53px' lengthAdjust='spacingAndGlyphs'>fb_plot_nb_sp_by_tr-singletrait</text>
 </g>
 </svg>

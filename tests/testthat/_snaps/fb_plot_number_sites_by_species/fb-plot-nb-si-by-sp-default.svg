@@ -80,6 +80,6 @@
 <text x='387.35' y='32.64' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='140.04px' lengthAdjust='spacingAndGlyphs'>Proportion of Occupied Sites</text>
 <text x='387.35' y='568.24' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='128.42px' lengthAdjust='spacingAndGlyphs'>Number of Occupied Sites</text>
 <text transform='translate(13.05,296.65) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='252.56px' lengthAdjust='spacingAndGlyphs'>Species Rank (Least to Most prevalent) and Identity</text>
-<text x='60.18' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='243.66px' lengthAdjust='spacingAndGlyphs'>fb_plot_number_sites_by_species-default</text>
+<text x='60.18' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='165.14px' lengthAdjust='spacingAndGlyphs'>fb_plot_nb_si_by_sp-default</text>
 </g>
 </svg>

@@ -47,6 +47,7 @@
 <polyline points='459.41,545.11 459.41,48.19 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
 <polyline points='584.47,545.11 584.47,48.19 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
 <polyline points='709.52,545.11 709.52,48.19 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<line x1='284.34' y1='545.11' x2='284.34' y2='48.19' style='stroke-width: 2.56; stroke: #8B0000; stroke-dasharray: 13.66,13.66; stroke-linecap: butt;' />
 <circle cx='684.51' cy='522.53' r='2.17' style='stroke-width: 0.71; fill: #000000;' />
 <circle cx='684.51' cy='409.59' r='2.17' style='stroke-width: 0.71; fill: #000000;' />
 <circle cx='684.51' cy='296.65' r='2.17' style='stroke-width: 0.71; fill: #000000;' />
@@ -62,6 +63,8 @@
 <text x='684.51' y='293.13' text-anchor='middle' style='font-size: 8.54px; font-family: sans;' textLength='21.83px' lengthAdjust='spacingAndGlyphs'>100%</text>
 <text x='559.46' y='180.19' text-anchor='middle' style='font-size: 8.54px; font-family: sans;' textLength='24.20px' lengthAdjust='spacingAndGlyphs'>79.2%</text>
 <text x='434.40' y='67.25' text-anchor='middle' style='font-size: 8.54px; font-family: sans;' textLength='24.20px' lengthAdjust='spacingAndGlyphs'>58.3%</text>
+<text x='281.12' y='411.09' text-anchor='end' style='font-size: 11.04px; fill: #8B0000; font-family: sans;' textLength='32.22px' lengthAdjust='spacingAndGlyphs'>(n = 8)</text>
+<text x='278.60' y='426.98' text-anchor='end' style='font-size: 11.04px; fill: #8B0000; font-family: sans;' textLength='57.38px' lengthAdjust='spacingAndGlyphs'>(p = 33.3%)</text>
 <rect x='54.25' y='48.19' width='660.27' height='496.92' style='stroke-width: 1.07; stroke: #333333;' />
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
@@ -100,6 +103,6 @@
 <text x='384.38' y='32.64' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='105.18px' lengthAdjust='spacingAndGlyphs'>Proportion of Species</text>
 <text x='384.38' y='568.24' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='93.56px' lengthAdjust='spacingAndGlyphs'>Number of Species</text>
 <text transform='translate(13.05,296.65) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='81.92px' lengthAdjust='spacingAndGlyphs'>Number of Traits</text>
-<text x='54.25' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='245.12px' lengthAdjust='spacingAndGlyphs'>fb_plot_number_traits_by_species-default</text>
+<text x='54.25' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='178.34px' lengthAdjust='spacingAndGlyphs'>fb_plot_nb_tr_by_sp-threshold</text>
 </g>
 </svg>

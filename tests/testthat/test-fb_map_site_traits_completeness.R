@@ -25,7 +25,7 @@ test_that("fb_map_site_traits_completeness() works", {
   expect_s3_class(given_plot, "ggplot")
   
   vdiffr::expect_doppelganger(
-    "fb_map_site_traits_completeness-sfpoints", 
+    "fb_map_s_tr_comp-sfpoints", 
     given_plot
   )
   
@@ -39,7 +39,7 @@ test_that("fb_map_site_traits_completeness() works", {
   expect_s3_class(given_plot, "ggplot")
   
   vdiffr::expect_doppelganger(
-    "fb_map_site_traits_completeness-sfpolygons", 
+    "fb_map_s_tr_comp-sfpolygons", 
     given_plot
   )
   
@@ -53,7 +53,7 @@ test_that("fb_map_site_traits_completeness() works", {
   expect_s3_class(given_plot, "ggplot")
   
   vdiffr::expect_doppelganger(
-    "fb_map_site_traits_completeness-sfmultilines", 
+    "fb_map_s_tr_comp-sfmultilines", 
     given_plot
   )
   
@@ -68,7 +68,7 @@ test_that("fb_map_site_traits_completeness() works", {
   expect_s3_class(given_plot, "ggplot")
   
   # vdiffr::expect_doppelganger(
-  #   "fb_map_site_traits_completeness-noalltraits", 
+  #   "fb_map_s_tr_comp-noalltraits", 
   #   given_plot
   # )
 })

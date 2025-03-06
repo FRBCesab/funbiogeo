@@ -27,26 +27,21 @@
 </defs>
 <g clip-path='url(#cpNDkuODR8NzE0LjUyfDQ4LjE5fDU0NS4xMQ==)'>
 <rect x='49.84' y='48.19' width='664.68' height='496.92' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<polyline points='49.84,409.59 714.52,409.59 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='49.84,183.72 714.52,183.72 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='49.84,296.65 714.52,296.65 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
 <polyline points='180.76,545.11 180.76,48.19 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
 <polyline points='382.18,545.11 382.18,48.19 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
 <polyline points='583.60,545.11 583.60,48.19 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
 <polyline points='49.84,522.53 714.52,522.53 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='49.84,296.65 714.52,296.65 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
 <polyline points='49.84,70.78 714.52,70.78 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
 <polyline points='80.06,545.11 80.06,48.19 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
 <polyline points='281.47,545.11 281.47,48.19 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
 <polyline points='482.89,545.11 482.89,48.19 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
 <polyline points='684.31,545.11 684.31,48.19 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
 <circle cx='684.31' cy='522.53' r='2.17' style='stroke-width: 0.71; fill: #000000;' />
-<circle cx='684.31' cy='296.65' r='2.17' style='stroke-width: 0.71; fill: #000000;' />
 <circle cx='684.31' cy='70.78' r='2.17' style='stroke-width: 0.71; fill: #000000;' />
 <line x1='80.06' y1='522.53' x2='684.31' y2='522.53' style='stroke-width: 1.07; stroke-linecap: butt;' />
-<line x1='80.06' y1='296.65' x2='684.31' y2='296.65' style='stroke-width: 1.07; stroke-linecap: butt;' />
 <line x1='80.06' y1='70.78' x2='684.31' y2='70.78' style='stroke-width: 1.07; stroke-linecap: butt;' />
 <text x='684.31' y='519.00' text-anchor='middle' style='font-size: 8.54px; font-family: sans;' textLength='21.83px' lengthAdjust='spacingAndGlyphs'>100%</text>
-<text x='684.31' y='293.13' text-anchor='middle' style='font-size: 8.54px; font-family: sans;' textLength='21.83px' lengthAdjust='spacingAndGlyphs'>100%</text>
 <text x='684.31' y='67.25' text-anchor='middle' style='font-size: 8.54px; font-family: sans;' textLength='21.83px' lengthAdjust='spacingAndGlyphs'>100%</text>
 <rect x='49.84' y='48.19' width='664.68' height='496.92' style='stroke-width: 1.07; stroke: #333333;' />
 </g>
@@ -62,10 +57,8 @@
 <text x='533.24' y='43.26' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='17.61px' lengthAdjust='spacingAndGlyphs'>75%</text>
 <text x='684.31' y='43.26' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='22.51px' lengthAdjust='spacingAndGlyphs'>100%</text>
 <text x='44.91' y='525.55' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='26.84px' lengthAdjust='spacingAndGlyphs'>≥0 trait</text>
-<text x='44.91' y='299.68' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='26.84px' lengthAdjust='spacingAndGlyphs'>≥1 trait</text>
-<text x='44.91' y='73.81' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='26.41px' lengthAdjust='spacingAndGlyphs'>2 traits</text>
+<text x='44.91' y='73.81' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='26.84px' lengthAdjust='spacingAndGlyphs'>≥1 trait</text>
 <polyline points='47.10,522.53 49.84,522.53 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='47.10,296.65 49.84,296.65 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
 <polyline points='47.10,70.78 49.84,70.78 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
 <polyline points='80.06,547.85 80.06,545.11 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
 <polyline points='281.47,547.85 281.47,545.11 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
@@ -78,6 +71,6 @@
 <text x='382.18' y='32.64' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='105.18px' lengthAdjust='spacingAndGlyphs'>Proportion of Species</text>
 <text x='382.18' y='568.24' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='93.56px' lengthAdjust='spacingAndGlyphs'>Number of Species</text>
 <text transform='translate(13.05,296.65) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='81.92px' lengthAdjust='spacingAndGlyphs'>Number of Traits</text>
-<text x='49.84' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='289.15px' lengthAdjust='spacingAndGlyphs'>fb_plot_number_traits_by_species-nonquanttraits</text>
+<text x='49.84' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='180.53px' lengthAdjust='spacingAndGlyphs'>fb_plot_nb_tr_by_sp-singletrait</text>
 </g>
 </svg>

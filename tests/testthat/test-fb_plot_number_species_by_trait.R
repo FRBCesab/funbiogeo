@@ -8,7 +8,7 @@ test_that("fb_plot_number_species_by_trait works", {
   expect_s3_class(given_plot, "ggplot")
   
   vdiffr::expect_doppelganger(
-    "fb_plot_number_species_by_trait-default", 
+    "fb_plot_nb_sp_by_tr-default", 
     given_plot
   )
 
@@ -21,7 +21,7 @@ test_that("fb_plot_number_species_by_trait works", {
   expect_s3_class(given_plot, "ggplot")
   
   vdiffr::expect_doppelganger(
-    "fb_plot_number_species_by_trait-threshold", 
+    "fb_plot_nb_sp_by_tr-threshold", 
     given_plot
   )
   
@@ -39,7 +39,7 @@ test_that("fb_plot_number_species_by_trait works", {
   expect_s3_class(given_plot, "ggplot")
   
   vdiffr::expect_doppelganger(
-    "fb_plot_number_species_by_trait-nonquanttraits", 
+    "fb_plot_nb_sp_by_tr-nquant", 
     given_plot
   )
   
@@ -52,7 +52,7 @@ test_that("fb_plot_number_species_by_trait works", {
   expect_s3_class(given_plot, "ggplot")
   
   vdiffr::expect_doppelganger(
-    "fb_plot_number_species_by_trait-singletrait", 
+    "fb_plot_nb_sp_by_tr-singletrait", 
     given_plot
   )
   
@@ -70,7 +70,7 @@ test_that("fb_plot_number_species_by_trait works", {
   expect_s3_class(given_plot, "ggplot")
   
   # vdiffr::expect_doppelganger(
-  #   "fb_plot_number_species_by_trait-onecat", 
+  #   "fb_plot_nb_sp_by_tr-onecat", 
   #   given_plot
   # )
   
@@ -86,7 +86,7 @@ test_that("fb_plot_number_species_by_trait works", {
   expect_s3_class(given_plot, "ggplot")
   
   # vdiffr::expect_doppelganger(
-  #   "fb_plot_number_species_by_trait-fewcat", 
+  #   "fb_plot_nb_sp_by_tr-fewcat", 
   #   given_plot
   # )
   
@@ -102,7 +102,7 @@ test_that("fb_plot_number_species_by_trait works", {
   expect_s3_class(given_plot, "ggplot")
   
   # vdiffr::expect_doppelganger(
-  #   "fb_plot_number_species_by_trait-allcat", 
+  #   "fb_plot_nb_sp_by_tr-allcat", 
   #   given_plot
   # )
 })
