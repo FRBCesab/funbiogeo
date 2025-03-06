@@ -140,5 +140,8 @@ fb_plot_trait_correlation <- function(
   ggplot2::theme(
     aspect.ratio = 1,
     legend.position ="top"
+  ) + 
+  ggplot2::guides(
+    fill = ggplot2::guide_colourbar(title.vjust = 0.8)
   )
 }
