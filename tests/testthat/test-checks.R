@@ -238,7 +238,7 @@ test_that("check_site_locations() works", {
 
 # Tests for check species-categories -------------------------------------------
 
-test_that("", {
+test_that("check_species_categories() works", {
   
   ## Wrong inputs
   # Not good type of object

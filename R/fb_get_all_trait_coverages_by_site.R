@@ -40,7 +40,7 @@ fb_get_all_trait_coverages_by_site <- function(
     stop("Argument 'all_traits' should be TRUE or FALSE")
   }
   
-  full_coverage <- data.frame(site = rownames(site_species))
+  full_coverage <- data.frame(site = site_species[["site"]])
   
   # Computing Trait Coverage per Site for all Traits
   if (all_traits) {

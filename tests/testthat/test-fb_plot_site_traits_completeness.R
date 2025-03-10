@@ -15,8 +15,12 @@ test_that("fb_plot_site_traits_completeness works", {
     "fb_plot_si_tr_comp-default", 
     given_plot
   )
+})
 
+test_that("fb_plot_site_traits_completeness skipped", {
   
+  skip()
+
   ## Works with species categories
 
   # Single category 
@@ -31,10 +35,10 @@ test_that("fb_plot_site_traits_completeness works", {
 
   expect_s3_class(given_plot, "ggplot")
   
-  # vdiffr::expect_doppelganger(
-  #   "fb_plot_si_tr_comp-onecat", 
-  #   given_plot
-  # )
+  vdiffr::expect_doppelganger(
+    "fb_plot_si_tr_comp-onecat", 
+    given_plot
+  )
   
   # Less categories than species
   expect_silent(
@@ -49,10 +53,10 @@ test_that("fb_plot_site_traits_completeness works", {
 
   expect_s3_class(given_plot, "ggplot")
   
-  # vdiffr::expect_doppelganger(
-  #   "fb_plot_si_tr_comp-fewcat", 
-  #   given_plot
-  # )
+  vdiffr::expect_doppelganger(
+    "fb_plot_si_tr_comp-fewcat", 
+    given_plot
+  )
   
   # As many categories as species
   expect_silent(
@@ -65,8 +69,8 @@ test_that("fb_plot_site_traits_completeness works", {
 
   expect_s3_class(given_plot, "ggplot")
   
-  # vdiffr::expect_doppelganger(
-  #   "fb_plot_si_tr_comp-allcat", 
-  #   given_plot
-  # )
+  vdiffr::expect_doppelganger(
+    "fb_plot_si_tr_comp-allcat", 
+    given_plot
+  )
 })

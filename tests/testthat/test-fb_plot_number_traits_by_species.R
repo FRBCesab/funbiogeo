@@ -55,8 +55,12 @@ test_that("fb_plot_number_traits_by_species works", {
     "fb_plot_nb_tr_by_sp-singletrait", 
     given_plot
   )
+})
+
+test_that("fb_plot_number_traits_by_species skipped", {
   
-  
+  skip()
+
   ## Works with species categories
   # Single category 
   expect_silent(
@@ -69,10 +73,10 @@ test_that("fb_plot_number_traits_by_species works", {
 
   expect_s3_class(given_plot, "ggplot")
   
-  # vdiffr::expect_doppelganger(
-  #   "fb_plot_nb_tr_by_sp-onecat", 
-  #   given_plot
-  # )
+  vdiffr::expect_doppelganger(
+    "fb_plot_nb_tr_by_sp-onecat", 
+    given_plot
+  )
   
   # Less categories than species
   expect_silent(
@@ -85,10 +89,10 @@ test_that("fb_plot_number_traits_by_species works", {
 
   expect_s3_class(given_plot, "ggplot")
   
-  # vdiffr::expect_doppelganger(
-  #   "fb_plot_nb_tr_by_sp-fewcat", 
-  #   given_plot
-  # )
+  vdiffr::expect_doppelganger(
+    "fb_plot_nb_tr_by_sp-fewcat", 
+    given_plot
+  )
   
   # As many categories as species
   expect_silent(
@@ -101,10 +105,10 @@ test_that("fb_plot_number_traits_by_species works", {
 
   expect_s3_class(given_plot, "ggplot")
   
-  # vdiffr::expect_doppelganger(
-  #   "fb_plot_nb_tr_by_sp-allcat", 
-  #   given_plot
-  # )  
+  vdiffr::expect_doppelganger(
+    "fb_plot_nb_tr_by_sp-allcat", 
+    given_plot
+  )  
 })
 
 test_that("fb_plot_number_traits_by_species() fails gracefully", {

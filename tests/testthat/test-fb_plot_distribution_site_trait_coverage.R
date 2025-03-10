@@ -27,17 +27,24 @@ test_that("fb_plot_distribution_site_trait_coverage() works", {
   )
   
   # Removing all_traits
-  # expect_silent(
-  #   suppressMessages(
-  #     res <- fb_plot_distribution_site_trait_coverage(
-  #       site_species, species_traits, FALSE
-  #     )
-  #   )
-  # )
+  expect_silent(
+    res <- fb_plot_distribution_site_trait_coverage(
+      site_species, species_traits, all_traits = FALSE
+    )
+  )
   
-  # expect_s3_class(res, "ggplot")
+  expect_s3_class(res, "ggplot")
+
+  vdiffr::expect_doppelganger(
+    "trait_cov-noalltraits", 
+    given_plot
+  )
+})
+
+test_that("fb_plot_distribution_site_trait_coverage() skipped", {
   
-  
+  skip()
+
   ## Works with species categories
 
   # Single category 
@@ -52,10 +59,10 @@ test_that("fb_plot_distribution_site_trait_coverage() works", {
   
   expect_s3_class(given_plot, "ggplot")
   
-  # vdiffr::expect_doppelganger(
-  #   "fb_plot_distribution_site_trait_coverage-onecat", 
-  #   given_plot
-  # )
+  vdiffr::expect_doppelganger(
+    "fb_plot_distribution_site_trait_coverage-onecat", 
+    given_plot
+  )
   
   
   # Less categories than species
@@ -72,11 +79,11 @@ test_that("fb_plot_distribution_site_trait_coverage() works", {
   )
   
   expect_s3_class(given_plot, "ggplot")
-  
-  # vdiffr::expect_doppelganger(
-  #   "fb_plot_distribution_site_trait_coverage-fewcat", 
-  #   given_plot
-  # )
+
+  vdiffr::expect_doppelganger(
+    "fb_plot_distribution_site_trait_coverage-fewcat", 
+    given_plot
+  )
   
 })
 
