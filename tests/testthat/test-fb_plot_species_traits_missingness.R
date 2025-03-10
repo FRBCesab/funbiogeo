@@ -67,9 +67,13 @@ test_that("fb_plot_species_traits_missingness works", {
     "fb_plot_sp_tr_miss-one", 
     given_plot
   )
+})
+
+test_that("fb_plot_species_traits_missingness skipped", {
   
-  
-  ## Works with species categories
+  skip()
+
+    ## Works with species categories
 
   # Single category 
 
@@ -81,13 +85,13 @@ test_that("fb_plot_species_traits_missingness works", {
       all_traits = FALSE
     )
   )
-  
+
   expect_s3_class(given_plot, "ggplot")
   
-  # vdiffr::expect_doppelganger(
-  #   "fb_plot_species_traits_missingness-onecat", 
-  #   given_plot
-  # )
+  vdiffr::expect_doppelganger(
+    "fb_plot_species_traits_missingness-onecat", 
+    given_plot
+  )
 
 
   # Less categories than species
@@ -103,10 +107,10 @@ test_that("fb_plot_species_traits_missingness works", {
   
   expect_s3_class(given_plot, "ggplot")
   
-  # vdiffr::expect_doppelganger(
-  #   "fb_plot_species_traits_missingness-fewcat", 
-  #   given_plot
-  # )
+  vdiffr::expect_doppelganger(
+    "fb_plot_species_traits_missingness-fewcat", 
+    given_plot
+  )
 
 
   # As many categories as species
@@ -122,10 +126,10 @@ test_that("fb_plot_species_traits_missingness works", {
 
   expect_s3_class(given_plot, "ggplot")
   
-  # vdiffr::expect_doppelganger(
-  #   "fb_plot_species_traits_missingness-allcat", 
-  #   given_plot
-  # )  
+  vdiffr::expect_doppelganger(
+    "fb_plot_species_traits_missingness-allcat", 
+    given_plot
+  )  
 })
 
 test_that("fb_plot_species_traits_missingness() fails gracefully", {

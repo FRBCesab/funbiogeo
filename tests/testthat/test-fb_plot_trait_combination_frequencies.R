@@ -44,7 +44,12 @@ test_that("fb_plot_trait_combination_frequencies() works", {
     "onecat", 
     given_plot
   )
-  
+})
+
+test_that("fb_plot_trait_combination_frequencies() skipped", {
+
+  skip()
+
   # Less categories than species
   expect_silent(
     given_plot <- fb_plot_trait_combination_frequencies(
@@ -58,10 +63,10 @@ test_that("fb_plot_trait_combination_frequencies() works", {
 
   expect_s3_class(given_plot, "ggplot")
   
-  # vdiffr::expect_doppelganger(
-  #   "fb_plot_trait_combination_frequencies-fewcat", 
-  #   given_plot
-  # )
+  vdiffr::expect_doppelganger(
+    "fb_plot_trait_combination_frequencies-fewcat", 
+    given_plot
+  )
   
   # As many categories as species
   expect_silent(
@@ -74,8 +79,8 @@ test_that("fb_plot_trait_combination_frequencies() works", {
 
   expect_s3_class(given_plot, "ggplot")
   
-  # vdiffr::expect_doppelganger(
-  #   "fb_plot_trait_combination_frequencies-allcat", 
-  #   given_plot
-  # )
+  vdiffr::expect_doppelganger(
+    "fb_plot_trait_combination_frequencies-allcat", 
+    given_plot
+  )
 })

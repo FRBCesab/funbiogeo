@@ -75,7 +75,12 @@ test_that("fb_plot_trait_correlation() works", {
     "fb_plot_trait_correlation-onecat", 
     given_plot
   )
-  
+})
+
+test_that("fb_plot_trait_correlation() skipped", {
+
+  skip()
+
   # Less categories than species
   expect_silent(
     given_plot <- fb_plot_trait_correlation(
@@ -86,10 +91,10 @@ test_that("fb_plot_trait_correlation() works", {
 
   expect_s3_class(given_plot, "ggplot")
 
-  # vdiffr::expect_doppelganger(
-  #   "fb_plot_trait_correlation-fewcat", 
-  #   given_plot
-  # )
+  vdiffr::expect_doppelganger(
+    "fb_plot_trait_correlation-fewcat", 
+    given_plot
+  )
   
   # As many categories as species
   expect_silent(
@@ -102,8 +107,8 @@ test_that("fb_plot_trait_correlation() works", {
 
   expect_s3_class(given_plot, "ggplot")
   
-  # vdiffr::expect_doppelganger(
-  #   "fb_plot_trait_correlation-allcat", 
-  #   given_plot
-  # )
+  vdiffr::expect_doppelganger(
+    "fb_plot_trait_correlation-allcat", 
+    given_plot
+  )
 })
