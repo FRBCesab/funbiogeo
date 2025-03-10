@@ -15,21 +15,25 @@ knitr::opts_chunk$set(
 ```
 
 
-`funbiogeo` provides an easy way to upscale your site data to a coarser resolution.
-The idea is that you have any type of data at the site level (diversity metrics, 
-environmental data, as well as site-species data) that you would like to work or
-visualize at a coarser scale. The aggregation process can look daunting at first
-and be quite difficult to run.
+`funbiogeo` provides an easy way to upscale your site data to a coarser
+resolution. The idea is that you have any type of data at the site level
+(diversity metrics,  environmental data, as well as site-species data) that you
+would like to work on or visualize at a coarser scale. The aggregation process
+can look daunting at first and be quite difficult to run.
 We explain in details, throughout this vignette, how to do so with the
 `fb_aggregate_site_data()` function. We'll detail three use cases:
 
-1. the first through aggregating arbitrary
-2. site-level data, the second focused on aggregating the site x species object,
-3. and the last aggregating functional diversity indices.
+1. Aggregating through a regular square grid
+2. Aggregating to irregular polygons (like countries, biomes, or any other shape
+)
+3. Aggregating using a raster grid
+
+In all three cases, the aggregation can work on any data available at the
+site-level. This could be species richness, site-species data, or functional
+diversity metrics.
 
 
-## Aggregating arbitrary site-data
-
+# Preamble: getting site-level data
 
 ```{r setup}
 library("funbiogeo")
@@ -76,6 +80,13 @@ shows a map of that data.
 fb_map_site_data(woodiv_locations, species_richness, "n_species")
 ```
 
+# Aggregating through a square grid
+
+# Aggregating through irregular polygons
+
+Actually, works with any arbitrary `sf` object
+
+# Aggregating through a SpatRaster grid
 
 We would now like to aggregate our sites at a coarser scale, because 10km by
 10km is a too small resolution.
@@ -133,7 +144,9 @@ fb_map_raster(upscaled_richness)
 ```
 
 
-## Aggregating site-species data to a coarser spatial scale
+# Specific examples
+
+## Coarsening site-species data
 
 Through the `fb_aggregate_site_data()` function we can also coarsen our
 site-species grid by selecting the appropriate function as the `fun` argument,
@@ -218,7 +231,7 @@ coarser data. You can proceed similarly to aggregate the ancillary site-related
 data, to use them in the rest of the analyses.
 
 
-## Aggregating functional diversity data
+## Upscaling functional diversity data
 
 Because `funbiogeo` focuses on the functional biogeography workflow, we'll
 explore in this section how to aggregate the results for a functional
