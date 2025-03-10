@@ -49,10 +49,14 @@
 #'     woodiv_locations, woodiv_site_species[, 1:4], tavg, fun = sum
 #' )
 #' 
-#' ## Square grid
-#' square_grid <- readRDS(system.file(
-#'   "extdata", "annual_mean_temp.tif", package = "funbiogeo"
+#' ## Irregular polygons
+#' countries <- readRDS(system.file(
+#'   "extdata", "countries_sf.rds", package = "funbiogeo"
 #' ))
+#' # Aggregate occurrence per country
+#' fb_aggregate_site_data(
+#'     woodiv_locations, woodiv_site_species[, 1:4], countries, fun = sum
+#' )
 
 fb_aggregate_site_data <- function(
     site_locations, site_data, agg_grid, fun = mean, ...
