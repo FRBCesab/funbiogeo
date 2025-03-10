@@ -27,15 +27,13 @@ test_that("fb_plot_distribution_site_trait_coverage() works", {
   )
   
   # Removing all_traits
-  # expect_silent(
-  #   suppressMessages(
-  #     res <- fb_plot_distribution_site_trait_coverage(
-  #       site_species, species_traits, FALSE
-  #     )
-  #   )
-  # )
+  expect_silent(
+    res <- fb_plot_distribution_site_trait_coverage(
+      site_species, species_traits, all_traits = FALSE
+    )
+  )
   
-  # expect_s3_class(res, "ggplot")
+  expect_s3_class(res, "ggplot")
   
   
   ## Works with species categories
