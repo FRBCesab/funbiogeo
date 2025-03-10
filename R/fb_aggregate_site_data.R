@@ -15,7 +15,7 @@
 #'
 #' @param agg_grid a `SpatRaster` object (from the `terra` package) or an `sf`
 #'   object. This defines  defines the grid along which to aggregate. See more
-#'   in the [Details] section
+#'   in the Details section
 #'   
 #' @param fun the function used to aggregate points values when there are 
 #'   multiple points in one cell. Default is `mean`.
@@ -55,7 +55,8 @@
 #' ))
 #' # Aggregate occurrence per country
 #' fb_aggregate_site_data(
-#'     woodiv_locations, woodiv_site_species[, 1:4], countries, fun = sum
+#'     head(woodiv_locations, n = 20), woodiv_site_species[, 1:4], countries,
+#'     fun = sum
 #' )
 
 fb_aggregate_site_data <- function(
@@ -156,7 +157,9 @@ fb_aggregate_site_data_raster_grid = function(
   
 }
 
-# Function when agg_grid is an sf object
+#' Function when agg_grid is an sf object
+#' @import sf
+#' @noRd
 fb_aggregate_site_data_sf = function(
     site_locations, site_data, agg_grid, fun, ...
 ) {
