@@ -165,6 +165,9 @@ fb_plot_species_traits_missingness <- function(
     number_species_per_trait[, c(1, 2, 5)], -"trait"
   )
   
+  number_species_per_trait$value <- ifelse(
+    number_species_per_trait$value == 0, NA, number_species_per_trait$value
+  )
   
   # Plot Species x Trait completeness
   ggplot2::ggplot(
