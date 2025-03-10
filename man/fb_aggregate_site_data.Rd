@@ -4,7 +4,7 @@
 \alias{fb_aggregate_site_data}
 \title{Aggregate Site Data Along Coarser Spatial Grid}
 \usage{
-fb_aggregate_site_data(site_locations, site_data, agg_grid, fun = mean)
+fb_aggregate_site_data(site_locations, site_data, agg_grid, fun = mean, ...)
 }
 \arguments{
 \item{site_locations}{an \code{sf} object with the spatial geometries of sites.
@@ -14,17 +14,21 @@ and indicate site names.}
 \item{site_data}{a \code{matrix} or \code{data.frame} containing values per sites to
 aggregate along the provided grid. Can have one or several columns
 (variables to aggregate). The first column must contain sites names as
-provided in the example dataset \code{site_locations}.}
+provided in the first argument \code{site_locations}.}
 
-\item{agg_grid}{a \code{SpatRaster} object (package \code{terra}).
-A raster of one single layer, that defines the grid along which
-to aggregate.}
+\item{agg_grid}{a \code{SpatRaster} object (from the \code{terra} package) or an \code{sf}
+object. This defines  defines the grid along which to aggregate. See more
+in the \link{Details} section}
 
 \item{fun}{the function used to aggregate points values when there are
 multiple points in one cell. Default is \code{mean}.}
+
+\item{...}{additional argument(s) passed to the provided function \code{fun}}
 }
 \value{
-A \code{SpatRaster} object with as many layers as columns in \code{site_data}.
+An object of the same type as the \code{agg_grid} input with as many
+layers (if \code{SpatRaster}) or columns (if \code{sf}) as columns provided in the
+input \code{site_data}.
 }
 \description{
 This function helps aggregating site data along a coarser grid.
@@ -33,13 +37,27 @@ The idea is that you have any type of data at the site scale
 on it at a coarser scale, or you want to visualize it at that scale.
 This function helps you do exactly that.
 }
+\details{
+The \code{agg_grid} object will condition the type of object ouput by the
+function. It can be of any sort as an \code{SpatRaster} or \code{sf} object. Depending
+on the need, it could be a regular square grid or hexagonal grid, it could
+also be irregular polygons like biomes or ecoregions, or points, and even
+lines (such as when aggregating across transects or trajectories).
+}
 \examples{
-## Import grid ----
-tavg <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")
+## Raster grid
+tavg <- system.file(
+  "extdata", "annual_mean_temp.tif", package = "funbiogeo"
+)
 tavg <- terra::rast(tavg)
 
-## Rasterize 3 first species counts ----
+# Rasterize 3 first species counts
 fb_aggregate_site_data(
     woodiv_locations, woodiv_site_species[, 1:4], tavg, fun = sum
 )
+
+## Square grid
+square_grid <- readRDS(system.file(
+  "extdata", "annual_mean_temp.tif", package = "funbiogeo"
+))
 }
