@@ -18,7 +18,7 @@ provided in the first argument \code{site_locations}.}
 
 \item{agg_grid}{a \code{SpatRaster} object (from the \code{terra} package) or an \code{sf}
 object. This defines  defines the grid along which to aggregate. See more
-in the \link{Details} section}
+in the Details section}
 
 \item{fun}{the function used to aggregate points values when there are
 multiple points in one cell. Default is \code{mean}.}
@@ -62,6 +62,7 @@ countries <- readRDS(system.file(
 ))
 # Aggregate occurrence per country
 fb_aggregate_site_data(
-    woodiv_locations, woodiv_site_species[, 1:4], countries, fun = sum
+    head(woodiv_locations, n = 20), woodiv_site_species[, 1:4], countries,
+    fun = sum
 )
 }
