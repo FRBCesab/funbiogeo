@@ -38,9 +38,6 @@ countries_sf_no_gf = countries_sf |>
   dplyr::group_by(name) |>
   dplyr::summarise()
 
-woodiv_countries = countries_sf_no_gf |>
-  sf::st_join(woodiv_locations, join = sf::st_covers)
-
 
 # Create points ----------------------------------------------------------------
 set.seed(20250310)
