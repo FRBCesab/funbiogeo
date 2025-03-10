@@ -229,9 +229,9 @@ fb_plot_species_traits_completeness <- function(
     ) +
     ggplot2::scale_y_discrete("Species", labels = NULL) +
     ggplot2::scale_fill_manual(
-      "Known Trait?",
+      "Trait",
       values = c(`FALSE` = "#E41A1C", `TRUE` = "#377EB8"),
-      labels = c(`FALSE` = "No", `TRUE` = "Yes")
+      labels = c(`FALSE` = "Missing", `TRUE` = "Present")
     ) +
     ggplot2::coord_cartesian(expand = FALSE) +
     ggplot2::theme_bw() +
