@@ -64,9 +64,9 @@ fb_aggregate_site_data <- function(
     stop("Argument 'agg_grid' is required", call. = FALSE)
   }
   
-  if (!inherits(agg_grid, "SpatRaster")) {
-    stop("The 'agg_grid' raster must be a 'SpatRaster' object ",
-         "(package `terra`)", call. = FALSE)
+  if (!inherits(agg_grid, "SpatRaster") & !inherits(agg_grid, "sf")) {
+    stop("The 'agg_grid' raster must be a 'SpatRaster' (package `terra`)",
+         " or an 'sf' object", call. = FALSE)
   }
   
   if (is.na(terra::crs(agg_grid, proj = TRUE)) | 
@@ -75,15 +75,33 @@ fb_aggregate_site_data <- function(
          call. = FALSE)
   }
   
+  # Merge sites info -----------------------------------------------------------
+  
+  site_locations <- merge(site_locations, site_data, by = "site")
+  
+  
+  # Aggregate based on grid type -----------------------------------------------
+  
+  if (inherits(agg_grid, "SpatRaster")) {
+    
+    fb_aggregate_site_data_raster_grid(site_locations, site_data, agg_grid, fun)
+    
+  } else if (inherits(agg_grid, "sf")) {
+    
+    fb_aggregate_site_data_sf(site_locations, site_data, agg_grid, fun)
+    
+  }
+  
+}
+
+# Function when grid is a raster
+fb_aggregate_site_data_raster_grid = function(
+    site_locations, site_data, agg_grid, fun
+) {
   
   # Get proper aggregation grid ------------------------------------------------
   
   agg_grid <- terra::subset(agg_grid, 1)
-  
-  
-  # Merge sites info -----------------------------------------------------------
-  
-  site_locations <- merge(site_locations, site_data, by = "site")
   
   
   # Reproject sites if required ------------------------------------------------
@@ -112,4 +130,31 @@ fb_aggregate_site_data <- function(
   names(rasters) <- fields
   
   rasters
+  
+}
+
+# Function when agg_grid is an sf object
+fb_aggregate_site_data_sf = function(
+    site_locations, site_data, agg_grid, fun
+) {
+  
+  # Reproject sites if required ------------------------------------------------
+  
+  if (sf::st_crs(site_locations) != sf::st_crs(agg_grid)) {
+    
+    site_locations <- sf::st_transform(
+      site_locations,
+      sf::st_crs(agg_grid)
+    )
+    
+  }
+  
+  
+  # Aggregate data -------------------------------------------------------------
+  # Select columns on which to perform aggregation
+  data_columns <- setdiff(colnames(site_data), "site")
+  
+  # Perform aggregation
+  aggregated_sf <- aggregate(site_locations[, data_columns], agg_grid, fun)
+  
 }
