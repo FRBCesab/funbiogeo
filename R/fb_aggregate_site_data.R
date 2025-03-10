@@ -11,7 +11,7 @@
 #' @param site_data a `matrix` or `data.frame` containing values per sites to 
 #'   aggregate along the provided grid. Can have one or several columns
 #'   (variables to aggregate). The first column must contain sites names as
-#'   provided in the example dataset `site_locations`.
+#'   provided in the first argument `site_locations`.
 #'
 #' @param agg_grid a `SpatRaster` object (package `terra`).
 #'   A raster of one single layer, that defines the grid along which
@@ -27,7 +27,9 @@
 #'
 #' @examples
 #' ## Import grid ----
-#' tavg <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")
+#' tavg <- system.file(
+#'   "extdata", "annual_mean_temp.tif", package = "funbiogeo"
+#' )
 #' tavg <- terra::rast(tavg)
 #' 
 #' ## Rasterize 3 first species counts ----
@@ -35,8 +37,9 @@
 #'     woodiv_locations, woodiv_site_species[, 1:4], tavg, fun = sum
 #' )
 
-fb_aggregate_site_data <- function(site_locations, site_data, agg_grid,
-                                   fun = mean) {
+fb_aggregate_site_data <- function(
+    site_locations, site_data, agg_grid, fun = mean
+) {
   
   # Check inputs ---------------------------------------------------------------
   
