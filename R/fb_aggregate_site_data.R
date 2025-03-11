@@ -34,7 +34,6 @@
 #'   layers (if `SpatRaster`) or columns (if `sf`) as columns provided in the
 #'   input `site_data`.
 #' 
-#' @import sf
 #' @export
 #'
 #' @examples
@@ -159,7 +158,6 @@ fb_aggregate_site_data_raster_grid = function(
 
 #' Function when agg_grid is an sf object
 #' @importFrom stats aggregate
-#' @importFrom sf st_crs
 #' @noRd
 fb_aggregate_site_data_sf = function(
     site_locations, site_data, agg_grid, fun, ...
