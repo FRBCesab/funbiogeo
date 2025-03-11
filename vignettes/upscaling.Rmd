@@ -237,8 +237,13 @@ raster or a raster grid.
 We would now like to aggregate our sites at the same resolution as is available
 for our environmental data such as mean annual temperature.
 We need to aggregate site data on a `SpatRaster` spatial grid (from
-the [`terra`](http://cran.r-project.org/package=terra) package). First of all,
-we can create a coarser grid based on our locations object.
+the [`terra`](http://cran.r-project.org/package=terra) package).
+A nice property of `fb_aggregate_site_data()` function is that it outputs
+a matching type of object as the provided grid. If it's an `sf` object than the
+function will output the same type of `sf` object, while if it's a `SpatRaster`
+then it will give back a `SpatRaster` object.
+
+First of all, we can create a coarser grid based on our locations object.
 
 
 ```{r import-grid}
