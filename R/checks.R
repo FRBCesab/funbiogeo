@@ -297,13 +297,6 @@ check_species_categories <- function(species_categories) {
            call. = FALSE)
     }
   }
-
-  if (!is.null(species_categories)) {
-    if (!("species" %in% colnames(species_categories))) {
-      stop("The species x categories object must contain the 'species' column", 
-           call. = FALSE)
-    }
-  }
   
   invisible(NULL)
 }

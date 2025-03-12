@@ -25,7 +25,7 @@
 #' 
 #' # Make plot (show environmental position of 6 first sites)
 #' fb_plot_site_environment(head(woodiv_locations), layers)
-fb_plot_site_environment = function(
+fb_plot_site_environment <- function(
     site_locations, environment_raster,
     first_layer = names(environment_raster)[1],
     second_layer = names(environment_raster)[2]

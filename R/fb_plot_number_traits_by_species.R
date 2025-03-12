@@ -57,7 +57,7 @@ fb_plot_number_traits_by_species <- function(
       )
       n_sp_over_at_least$at_least <- n_sp_over_at_least$values
       
-      n_sp_over_at_least = n_sp_over_at_least[, c("n_traits", "at_least")]
+      n_sp_over_at_least <- n_sp_over_at_least[, c("n_traits", "at_least")]
       
       return(n_sp_over_at_least)
     }
