@@ -29,7 +29,6 @@
 #' also be irregular polygons like biomes or ecoregions, or points, and even
 #' lines (such as when aggregating across transects or trajectories).
 #' 
-#'   
 #' @return An object of the same type as the `agg_geom` input with as many
 #'   layers (if `SpatRaster`) or columns (if `sf`) as columns provided in the
 #'   input `site_data`.
@@ -97,7 +96,16 @@ fb_aggregate_site_data <- function(
   }
   
   # Simplify site-locations object ---------------------------------------------
-  site_locations <- site_locations[, "site"]  # Keep only site column
+  # To avoid importing the entire 'sf' package we temporarily remove the
+  # geometry column
+  site_geom <- sf::st_geometry(site_locations)
+  sf::st_geometry(site_locations) <- NULL
+  
+  # Keep only site column
+  site_locations <- site_locations[, "site", drop = FALSE]
+  
+  # Re-add the geometry column
+  sf::st_geometry(site_locations) <- site_geom
   
   # Merge sites info -----------------------------------------------------------
   site_locations <- merge(site_locations, site_data, by = "site")
