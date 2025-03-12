@@ -166,7 +166,9 @@ fb_plot_species_traits_missingness <- function(
   )
   
   # Keep only categories with positive number of species
-  number_species_per_trait <- subset(number_species_per_trait, value != 0)
+  number_species_per_trait <- number_species_per_trait[
+    , number_species_per_trait$value != 0
+  ]
   
   # Plot Species x Trait completeness
   ggplot2::ggplot(
