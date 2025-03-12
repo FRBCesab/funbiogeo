@@ -331,33 +331,36 @@ head(red_sp_traits)
 ```
 
 The function outputs a filtered species-traits dataset retaining only traits
-covering at least 75% of the species. In the end this keep two traits: plant
-height and seed mass.
+covering at least 75% of the species. In the end, this keep only two traits:
+plant height and seed mass.
 
 
 ## Filter species by trait coverage
 
-Similarly you could filter species by their trait coverage. For example, we
-would like to make sure that the species we filtered previously so that they
-show at least one of the two traits selected above and thus exclude species for
-which neither of the traits are available.
-We can use the function `fb_filter_species_by_trait_coverage()` with
-the species x traits `data.frame` as the first argument and the second argument
-the proportion of traits covered by species.
+Now that we obtained a reduced trait dataset, selecting only two traits, this
+doesn't mean that these traits are available for all species. We could filter
+species that have only non-missing traits through the function
+`fb_filter_species_by_trait_coverage()` with the species x traits `data.frame`
+as the first argument and the second argument the proportion of traits that
+should be known by species. Here, because we want the species to have all the
+traits our threshold will be 100%. This way we can filter our dataset again:
 
 ```{r filter-species-by-traits}
-# Filter species which have at least 80% of known traits
+# Filter species which have at least 100% of known traits
 red_sp_traits_2 <- fb_filter_species_by_trait_coverage(
-  red_sp_traits, threshold_traits_proportion = 0.8
+  red_sp_traits, threshold_traits_proportion = 1
 )
+
+dim(red_sp_traits_2)
 
 head(red_sp_traits_2)
 
-dim(red_sp_traits_2)
 ```
 
-We thus have selected 2 traits that cover at least 80% of the initial species
-list and 23 species which have known values for these two traits.
+In the end, by filtering the traits available for at least 75% of the species,
+have filtering the species that have only non-missing traits for these traits,
+we ended with a list of 23 species and 2 traits. This is the dataset we'll
+continue using in the rest of the vignette.
 
 
 ## Filter sites by trait coverage
