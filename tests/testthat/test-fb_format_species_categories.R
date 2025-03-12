@@ -26,8 +26,9 @@ test_that("fb_format_species_categories() works", {
   )
   
   expect_error(
-    fb_format_species_categories(data.frame(all_data[ , 
-                                                  -c(seq_len(ncol(all_data)))])),
+    fb_format_species_categories(
+      data.frame(all_data[ , -c(seq_len(ncol(all_data)))])
+    ),
     "Argument 'data' must be a data.frame with at least two columns",
     fixed = TRUE
   )

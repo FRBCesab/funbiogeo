@@ -27,7 +27,9 @@ nomenclature <- read.csv(
   file.path(path_data, "SPECIES", "WOODIV_Nomenclature.csv")
 )
 
-nomenclature <- nomenclature[ , c("spcode", "family", "genus", "species", "subspecies")]
+nomenclature <- nomenclature[
+  , c("spcode", "family", "genus", "species", "subspecies")
+]
 
 nomenclature <- nomenclature[nomenclature$"family" %in% families, ]
 nomenclature <- nomenclature[nomenclature$"subspecies" == "", ]
@@ -67,7 +69,9 @@ values <- tapply(
 
 values <- data.frame(species = rownames(values), values, row.names = NULL)
 
-colnames(values) <- c("species", "plant_height", "seed_mass", "sla", "wood_density")
+colnames(values) <- c(
+  "species", "plant_height", "seed_mass", "sla", "wood_density"
+)
 
 woodiv_traits <- values
 
@@ -96,7 +100,9 @@ occurrence <- occurrence[occurrence$"spcode" %in% sp_codes, ]
 
 occurrence$"value" <- 1
 
-occurrence <- tidyr::pivot_wider(occurrence, names_from = spcode, values_from = value, values_fill = 0)
+occurrence <- tidyr::pivot_wider(
+  occurrence, names_from = spcode, values_from = value, values_fill = 0
+)
 
 occurrence <- as.data.frame(occurrence)
 colnames(occurrence)[1] <- "site"
@@ -130,7 +136,9 @@ woodiv_locations <- spatial
 
 species <- colnames(woodiv_site_species)[-1]
 
-woodiv_categories <- woodiv_categories[woodiv_categories$"species" %in% species, ]
+woodiv_categories <- woodiv_categories[
+  woodiv_categories$"species" %in% species,
+]
 woodiv_traits     <- woodiv_traits[woodiv_traits$"species" %in% species, ]
 
 
@@ -181,7 +189,9 @@ woodiv_raw_data <- woodiv_raw_data[ ,
     "seed_mass", "sla", "wood_density"
 )]
 
-woodiv_raw_data <- woodiv_raw_data[with(woodiv_raw_data, order(site, species)), ]
+woodiv_raw_data <- woodiv_raw_data[
+  with(woodiv_raw_data, order(site, species)),
+]
 
 rownames(woodiv_raw_data) <- NULL
 

@@ -22,7 +22,7 @@
 #'
 #' @export
 #' @importFrom rlang .data
-fb_plot_trait_combination_frequencies = function(
+fb_plot_trait_combination_frequencies <- function(
     species_traits, species_categories = NULL,
     order_by = c("number", "complete")
 ) {

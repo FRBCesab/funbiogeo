@@ -542,6 +542,15 @@ test_that("fb_make_report() authorship", {
   
   content <- readLines(file.path(temp_dir, filename))
   expect_equal(length(grep("^author: \"Doe J., Doe J.\"$", content)), 1)
+  
+  # Test open file -------------------------------------------------------------
+  expect_message(
+    fb_make_report(
+      path = temp_dir, overwrite = TRUE, species_traits = sp_tr, 
+      site_species = st_sp, site_locations = st_loc, open = TRUE,
+      author = c("Doe J.", "Doe J."), interactive = FALSE
+    )
+  )
 })
 
 withr::deferred_clear()

@@ -12,7 +12,6 @@
 #' @export
 #'
 #' @importFrom rlang .data
-#' @import sf
 #' @examples
 #' fb_map_site_traits_completeness(
 #'     woodiv_locations, woodiv_site_species, woodiv_traits

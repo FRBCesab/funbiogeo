@@ -11,7 +11,7 @@ A \code{data.frame} with 24 rows (species) and the following five columns:
 \item{plant_height}{adult plant height (in \eqn{m})}
 \item{seed_mass}{seed mass (in \eqn{g})}
 \item{sla}{specific leaf area, i.e. the ratio between leaf area and dry
-mass (in \eqn{m^{2}\cdot kg^{−1}})}
+mass (in \eqn{m^{2}\cdot kg^{-1}})}
 \item{wood_density}{wood density, i.e. stem specific density
 (in \eqn{kg\cdot dm^{–3}})}
 }

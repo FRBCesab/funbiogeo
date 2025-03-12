@@ -38,9 +38,7 @@
 <polyline points='531.26,545.11 531.26,61.98 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
 <polyline points='683.98,545.11 683.98,61.98 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
 <rect x='73.11' y='122.37' width='610.87' height='362.35' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #377EB8;' />
-<rect x='683.98' y='122.37' width='0.00' height='362.35' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #E41A1C;' />
 <text x='378.54' y='307.35' text-anchor='middle' style='font-size: 11.04px; fill: #FFFFFF; font-family: sans;' textLength='6.14px' lengthAdjust='spacingAndGlyphs'>3</text>
-<text x='683.98' y='307.35' text-anchor='middle' style='font-size: 11.04px; fill: #FFFFFF; font-family: sans;' textLength='6.14px' lengthAdjust='spacingAndGlyphs'>0</text>
 <rect x='42.57' y='61.98' width='671.95' height='483.13' style='stroke-width: 1.07; stroke: #333333;' />
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
@@ -58,14 +56,11 @@
 <text x='683.98' y='556.10' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='22.51px' lengthAdjust='spacingAndGlyphs'>100%</text>
 <text x='378.54' y='568.24' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='103.35px' lengthAdjust='spacingAndGlyphs'>Proportion of species</text>
 <text transform='translate(13.05,303.55) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='22.00px' lengthAdjust='spacingAndGlyphs'>Trait</text>
-<rect x='299.21' y='22.78' width='158.67' height='28.24' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<text x='304.69' y='40.69' style='font-size: 11.00px; font-family: sans;' textLength='64.81px' lengthAdjust='spacingAndGlyphs'>Known Trait?</text>
-<rect x='374.98' y='28.26' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<rect x='375.69' y='28.97' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #377EB8;' />
-<rect x='418.39' y='28.26' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<rect x='419.10' y='28.97' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #E41A1C;' />
-<text x='397.74' y='39.93' style='font-size: 8.80px; font-family: sans;' textLength='15.17px' lengthAdjust='spacingAndGlyphs'>Yes</text>
-<text x='441.15' y='39.93' style='font-size: 8.80px; font-family: sans;' textLength='11.25px' lengthAdjust='spacingAndGlyphs'>No</text>
+<rect x='332.78' y='22.78' width='91.53' height='28.24' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
+<text x='338.26' y='40.69' style='font-size: 11.00px; font-family: sans;' textLength='22.00px' lengthAdjust='spacingAndGlyphs'>Trait</text>
+<rect x='365.74' y='28.26' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
+<rect x='366.44' y='28.97' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #377EB8;' />
+<text x='388.50' y='39.93' style='font-size: 8.80px; font-family: sans;' textLength='30.33px' lengthAdjust='spacingAndGlyphs'>Present</text>
 <text x='42.57' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='137.23px' lengthAdjust='spacingAndGlyphs'>fb_plot_sp_tr_miss-one</text>
 </g>
 </svg>

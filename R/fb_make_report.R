@@ -155,8 +155,10 @@ fb_make_report <- function(path = ".", filename = NULL, title = NULL,
   # If file exists -------------------------------------------------------------
   
   if (file.exists(path_rmd) && !overwrite) {
-    stop("The file '", path_rmd, "' already exists. If you want to replace it, ", 
-         "use 'overwrite = TRUE'.", call. = FALSE)
+    stop(
+      "The file '", path_rmd, "' already exists. If you want to replace it, ", 
+      "use 'overwrite = TRUE'.", call. = FALSE
+    )
   }
   
   

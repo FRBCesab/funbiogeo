@@ -165,6 +165,10 @@ fb_plot_species_traits_missingness <- function(
     number_species_per_trait[, c(1, 2, 5)], -"trait"
   )
   
+  # Keep only categories with positive number of species
+  number_species_per_trait <- number_species_per_trait[
+    number_species_per_trait$value != 0,
+  ]
   
   # Plot Species x Trait completeness
   ggplot2::ggplot(
@@ -183,13 +187,15 @@ fb_plot_species_traits_missingness <- function(
       position = ggplot2::position_fill(vjust = 0.5), color = "white"
     ) +
     category_facet +
-    ggplot2::scale_x_continuous("Proportion of species", labels = scales::label_percent()) +
+    ggplot2::scale_x_continuous(
+      "Proportion of species", labels = scales::label_percent()
+    ) +
     ggplot2::scale_y_discrete("Trait") +
     ggplot2::scale_fill_manual(
-      "Known Trait?",
+      "Trait",
       breaks = c("n_species", "missing_species"),
       values = c(`missing_species` = "#E41A1C", `n_species` = "#377EB8"),
-      labels = c(`missing_species` = "No", `n_species` = "Yes")
+      labels = c(`missing_species` = "Missing", `n_species` = "Present")
     ) +
     ggplot2::theme_bw() +
     ggplot2::theme(

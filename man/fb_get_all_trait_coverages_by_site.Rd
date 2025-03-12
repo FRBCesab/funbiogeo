@@ -34,9 +34,9 @@ traits taken together.
 \description{
 Compute trait coverage for all sites, i.e., the percentage of total
 abundance/presence of species that have traits data compared to total
-species. This function assumes that all species provided in the traits dataset have
-all their traits specified (meaning that all species have either known or
-\code{NA} values reported as their traits).
+species. This function assumes that all species provided in the traits
+dataset have all their traits specified (meaning that all species have either
+known or \code{NA} values reported as their traits).
 The coverage of each trait separately is returned as well as all traits taken
 together if wanted.
 }

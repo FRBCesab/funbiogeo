@@ -13,7 +13,6 @@
 #' @return a `ggplot` object.
 #' 
 #' @importFrom rlang .data
-#' @import sf
 #' @export
 #'
 #' @examples
