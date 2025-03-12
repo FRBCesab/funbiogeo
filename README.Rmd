@@ -39,11 +39,10 @@ pkgload::load_all()
 
 ## Overview
 
-The package `funbiogeo` aims to help users with analyses in functional biogeography ([Violle _et al._ 2014](#references)), the biogeography of species' traits, by loading and combining data, computing trait coverage, drawing maps, correlating them with the environment, and upscaling assemblages.
+The package `funbiogeo` aims to help users with analyses in functional biogeography ([Violle _et al._ 2014](#references)), the biogeography of species' traits, by loading and combining data, exlporing the relationships between traits and their availability trait coverage, providing many diagnostic plots to understand how to filter them, producing maps, correlating them with the environment, and helping to aggregate data at different scales
 It is aimed at first-timers of functional biogeography as well as more experienced users who want to obtain quick and easy exploratory plots.
 
 Below is a quick introduction to the main features of `funbiogeo`, if you want some more details about them, check [our vignettes](#long-form-documentation).
-
 
 
 ## Features
@@ -55,10 +54,9 @@ Below is a quick introduction to the main features of `funbiogeo`, if you want s
 * Extensive documentation (multiple vignettes, well-documented functions,
   real-life example dataset) to guide you through functional biogeography
   analyses,
-* Nice default plotting functions fully compatible with the outputs of functional diversity
-  packages (`betapart`, `fundiversity`, `hillR`, `mFD`, etc.),
-* Automated standardized report that provide analyses and plots of your data,
-* Functions to easily "upscale" your data to coarser spatial resolutions.
+* Nice default plotting functions fully compatible with the outputs of functional diversity packages (`betapart`, `fundiversity`, `hillR`, `mFD`, etc.),
+* A publication-ready automated standardized report that provide analyses and plots of your data,
+* Functions to easily "upscale" (=aggregate) your data to coarser spatial resolutions whatever the type of aggregation geometry you want (regular grid, irregular polygons, and rasters).
 
 ```{r functions-scheme, echo = FALSE, fig.cap = "Naming scheme of available functions in funbiogeo"}
 knitr::include_graphics("inst/misc/functions_scheme.drawio.png")
