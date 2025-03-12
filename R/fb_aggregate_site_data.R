@@ -144,9 +144,9 @@ fb_aggregate_site_data_raster_grid = function(
   fields <- colnames(sf::st_drop_geometry(site_locations))[-1]
   
   rasters <- lapply(seq_along(fields), function(x) {
-    terra::rasterize(terra::vect(site_locations), agg_geom,
-                     field = fields[x], 
-                     fun = fun, ...)
+    terra::rasterize(
+      terra::vect(site_locations), agg_geom, field = fields[x], fun = fun, ...
+    )
   })
   
   rasters <- terra::rast(rasters)
