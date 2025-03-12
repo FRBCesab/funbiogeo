@@ -78,13 +78,13 @@ test_that("fb_aggregate_site_data() errors with wrong input", {
     fixed = TRUE
   )
   
-  # Wrong 'agg_grid' argument
+  # Wrong 'agg_geom' argument
   grid_test <- data.frame(tavg_file)
   
   expect_error(
     fb_aggregate_site_data(site_locations, site_species, grid_test),
     paste0(
-      "The 'agg_grid' raster must be a 'SpatRaster' (package `terra`) or an ",
+      "The 'agg_geom' raster must be a 'SpatRaster' (package `terra`) or an ",
       "'sf' object"
     ),
     fixed = TRUE
@@ -95,7 +95,7 @@ test_that("fb_aggregate_site_data() errors with wrong input", {
   
   expect_error(
     fb_aggregate_site_data(site_locations, site_species, grid_test),
-    "The 'agg_grid' raster must have a CRS (coordinate system)",
+    "The 'agg_geom' raster must have a CRS (coordinate system)",
     fixed = TRUE
   )
 })
