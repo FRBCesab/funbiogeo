@@ -34,6 +34,7 @@
 #'   layers (if `SpatRaster`) or columns (if `sf`) as columns provided in the
 #'   input `site_data`.
 #' 
+#' @import sf
 #' @export
 #'
 #' @examples
