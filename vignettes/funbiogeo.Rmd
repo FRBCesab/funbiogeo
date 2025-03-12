@@ -38,10 +38,7 @@ library("ggplot2")
 library("sf")
 ```
 
-## Provided data
-
-We are interested in mapping the functional traits of 24 Conifer tree species
-of Western European Mediterranean regions.
+## Types of data
 
 The functions in `funbiogeo` mostly leverage three different objects:
 
@@ -53,11 +50,22 @@ the abundance, or the cover of species (in columns) across sites (in rows)
 - the **site x locations** object, which describes the physical location of
 sites through an `sf` object (`site_locations` argument in `funbiogeo` functions).
 
+*Note: the `site_locations` object must be an `sf` object, as it is now the 
+standard package for spatial data in R. To have more information about the sf
+package, refer to its
+[website](https://r-spatial.github.io/sf/articles/sf1.html). If you want to
+learn how to convert your data to an `sf` object, check the [formatting vignette](long-format.html).*
+
 Optionally, an additional dataset can be provided:
 
 - the **species x categories** object, which contains a potential categorization 
 of species like taxonomic classes, specific diets, or any arbitrary classification
 (`species_categories` argument in `funbiogeo` functions)
+
+## Provided data
+
+We are interested in mapping the functional traits of 24 Conifer tree species
+of Western European Mediterranean regions.
 
 You can load the example data using the `data(..., package = "funbiogeo")` call:
 
