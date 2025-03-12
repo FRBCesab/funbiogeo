@@ -598,14 +598,23 @@ fb_map_site_data(woodiv_locations, woodiv_fdis, "fdis") +
 ```
 
 
-## Map of environmental raster
+## Mapping an environmental raster
 
-If we want to display the environment associated with our sites of interest, we
-can leverage environmental raster layers, like the mean annual temperature.
-Fortunately, we have access to an example raster of mean annual temperature
-through `funbiogeo`. The package provides a helper function display a raster
-layer easily (without any assumption about the projection) named
-`fb_map_raster()`:
+A common case of analysis in biogeography is to be interested in mapping
+environmental variables. If we want to display the environment associated with
+our sites of interest, we can leverage environmental raster layers, like the
+mean annual temperature. Fortunately, we have access to an example raster of
+mean annual temperature through `funbiogeo`.
+
+We first going to read the raster using the `terra` package, which is the
+reference package to read spatial raster data. If you want to know more about
+raster data, we recommend reading the [dedicated chapter](https://r.geocompx.org/raster) in the [*Geocomputations with R*](https://r.geocompx.org/) book
+REF. Then, we'll use the `fb_map_raster()` function that displays a map for the
+first layer of the raster data. It takes as fi
+
+The package provides a helper
+function display a raster layer easily (without any assumption about the
+projection) named `fb_map_raster()`:
 
 ```{r map-tavg, dev = 'png'}
 # Read raster
