@@ -49,20 +49,20 @@ fb_get_trait_combination_coverage = function(
   }
   
   # Check for dimensionality issue
-  n_traits = ncol(species_traits) - 1
+  n_traits <- ncol(species_traits) - 1
   
-  target_combs = seq(n_traits)
+  target_combs <- seq(n_traits)
   
-  n_comb = sum(
+  n_comb <- sum(
     sapply(seq(n_traits), function(x) choose(n_traits, x))
   )
   
   if (!is.null(comb_size)) {
-    n_comb = sum(
+    n_comb <- sum(
       sapply(comb_size, function(x) choose(n_traits, x))
     )
     
-    target_combs = comb_size
+    target_combs <- comb_size
   }
   
   if (n_comb > 1e4) {
@@ -71,34 +71,34 @@ fb_get_trait_combination_coverage = function(
   }
   
   # Generate all combinations of trait to use
-  traits = colnames(drop_column(species_traits, "species"))
+  traits <- colnames(drop_column(species_traits, "species"))
   
-  all_combinations = lapply(
+  all_combinations <- lapply(
     target_combs,
     function(x) {
       utils::combn(traits, x, simplify = FALSE)
     }
   )
   
-  all_combinations = unlist(all_combinations, recursive = FALSE)
+  all_combinations <- unlist(all_combinations, recursive = FALSE)
   
   
   # Compute trait coverages across all combinations
-  trait_coverages = lapply(
+  trait_coverages <- lapply(
     all_combinations,
     function(combination) {
       
-      trait_coverage = fb_get_trait_coverage_by_site(
+      trait_coverage <- fb_get_trait_coverage_by_site(
         site_species, species_traits[ , c("species", combination)]
       )
       
-      combination_length = length(combination)
+      combination_length <- length(combination)
       
-      combination_name = paste(combination, collapse = "__")
+      combination_name <- paste(combination, collapse = "__")
       
       # Add Info on Given Combination
-      trait_coverage$combination_length = combination_length
-      trait_coverage$combination_name   = combination_name
+      trait_coverage$combination_length <- combination_length
+      trait_coverage$combination_name   <- combination_name
       
       # Reorder columns
       trait_coverage[

@@ -128,7 +128,7 @@ fb_plot_site_traits_completeness <- function(
       
       # Take 'all_traits' into account to make sure it's the last column
       if (all_traits) {
-        all_traits_position = which(avg_coverage$coverage_name == "all_traits")
+        all_traits_position <- which(avg_coverage$coverage_name == "all_traits")
         
         avg_coverage <- rbind(
           avg_coverage[avg_coverage$coverage_name != "all_traits",],
