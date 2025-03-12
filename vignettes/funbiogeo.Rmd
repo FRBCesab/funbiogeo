@@ -408,22 +408,19 @@ to analyze them, it's out of scope of this vignette, but you can refer to
 Mammola et al. [-@Mammola_Concepts_2021]. The paper provides a general workflow
 to work with trait data.
 
-`funbiogeo` doesn't aim to substitute to all these amazing tools that compute
-a diversity of indices with different properties and formulas.,
-however, we can use the filtered datasets to proceed with our analyses
-This is where you should use your preferred packages to compute functional
-diversity indices like [`mFD`](https://cran.r-project.org/package=mFD) or
+`funbiogeo` doesn't aim to substitute to all these amazing tools that compute a
+diversity of indices with different properties and formulas., however, we can
+use the filtered datasets to proceed with our analyses This is where you should
+use your preferred packages to compute functional diversity indices like
+[`mFD`](https://cran.r-project.org/package=mFD) or
 [`funrar`](https://cran.r-project.org/package=funrar). If you're new to the
-world of functional diversity analyses, we suggest reading 
-[`mFD` introductory vignette](https://cmlmagneville.github.io/mFD/articles/mFD_general_workflow.html).
-It underlines the different steps to compute functional diversity metrics.
-If you're interest in computing functional rarity indices with `funrar` you can
-also refer to [its tutorial](https://rekyt.github.io/funrar/articles/funrar.html).
+world of functional diversity analyses, we suggest reading
+[`mFD` introductory vignette](https://cmlmagneville.github.io/mFD/articles/mFD_general_workflow.html). It underlines the different steps to compute functional diversity metrics. If you're interested in computing functional rarity indices with `funrar` you canalso refer to [its tutorial](https://rekyt.github.io/funrar/articles/funrar.html).
 
 For the sake of the example, we included a function in `funbiogeo`
 to compute Community-Weighted Mean [CWM, @Garnier_Plant_2004] named `fb_cwm()`.
 The CWM is the abundance-weighted average trait per site. We'll be using it in
-the following section we'll then show another example computing functional
+the following section, then we'll then show another example computing functional
 diversity indices using the `mFD` package.
 
 
@@ -436,48 +433,104 @@ so, it takes the site x species `data.frame` and species x traits `data.frame`
 as arguments.
 
 ```{r compute-cwm}
-# Note that we're reusing our filtered data to compute CWM
+# We're reusing our filtered data, on both the site x species data.frame
+# and the species x traits data.frame to compute CWM
 cwm <- fb_cwm(filt_sites, selected_species)
 
 head(cwm)
 ```
 
 It outputs a `data.frame` with 3 columns: the first one, `site`, shows the site
-name as provided in the input site x species `data.frame`, `trait`
-which indicates the trait name on which the CWM is computed,
-and `cwm` which shows the value of the CWM.
+name as provided in the input site x species `data.frame`, `trait` which
+indicates the trait name on which the CWM is computed, and `cwm` which shows the
+value of the CWM at this site for this trait.
 
 
 ## Compute functional diversity indices
 
 We can also integrate our filtered datasets in other functional diversity computation pipeline. We'll show an example by computing functional richness
-with `fundiversity`.
+with the `mFD` package.
 
-```{r computing-fric, eval = require("fundiversity")}
-## To install 'fundiversity' uncomment the following line
-# install.packages("fundiversity")
+Before computing any functional diversity index, we need to scale and center our
+trait values so that they are on comparable scales. For this we can use the
+`tr.cont.scale()` function in `mFD`. The function requires that species names
+are available as row names instead of having a separate `species` column. We
+first give row names and then use the function to scale our traits.
 
-# Functional richness in 'fundiversity' requires all the traits to be known
-# so we need to filter the traits
-filt_traits <- subset(
-  selected_traits, !is.na(plant_height) & !is.na(seed_mass)
-)
+*Note: the following chunk of code is executed only if you have `mFD` installed*
 
-# We need to transform species and site names as row names for species-traits
-# and site-species data.frames, as required by 'fundiversity'
-rownames(filt_traits) <- filt_traits$species
-filt_traits <- filt_traits[, -1]
+```{r mfd-scaling-traits, eval = require("mFD")}
+## To install 'mFD' uncomment the following line
+# install.packages("mFD")
 
-rownames(filt_sites) <- filt_sites$site
-filt_sites <- filt_sites[, -1]
+# Create a new object
+subset_traits <- selected_species
+
+# Add row names
+rownames(subset_traits) <- subset_traits[["species"]]
+
+# Remove unused 'species' column
+subset_traits <- subset_traits[, -1]
 
 # Scale traits
-filt_traits <- scale(filt_traits)
+scaled_traits <- mFD::tr.cont.scale(subset_traits)
 
-# Compute Functional Richness
-fric <- fundiversity::fd_fric(filt_traits, filt_sites)
+# Check that traits are scaled (should have a mean of 0 and SD of 1)
+summary(scaled_traits)
 
-head(fric)
+# Compare initial trait data to scaled traits
+head(selected_species)
+head(scaled_traits)
+```
+
+We get a data.frame with the two scaled traits and species names as row names.
+
+To compute functional diversity indices with `mFD` we further need a site by
+species data.frame, with sites names as row names, and only for the species for
+which we have the traits in the species by trait table. We thus transform the
+site by species object:
+
+```{r mfd-format-site-species, eval = require("mFD")}
+# Copy filtered sites
+formatted_site_species <- filt_sites
+
+# Put site names as row names
+rownames(formatted_site_species) <- filt_sites[["site"]]
+formatted_site_species <- formatted_site_species[, -1]
+
+# Keeping only species for which we have the traits
+formatted_site_species <- formatted_site_species[, rownames(scaled_traits)]
+
+formatted_site_species[1:5, 1:5]
+```
+
+`mFD` furthermore requires that the site by species object is a `matrix`, we
+thus convert it to a matrix:
+
+```{r mfd-site-species-matrix, eval = require("mFD")}
+formatted_site_species <- as.matrix(formatted_site_species)
+```
+
+We can now compute functional diversity metrics using the `alpha.fd.multidim()`
+function from the `mFD` package. We'll be using our two formatted objects
+`scaled_traits` as our species by trait table, and `formatted_site_species` as
+our site by species table. We'll be computing Functional Dispersion (noted FDis)
+as a functional diversity index. It's out of the scope of this vignette to
+explain the differences between functional diversity indices, but we recommend
+reading Mammola et al. [-@Mammola_Concepts_2021] for a general introduction
+about them.
+
+Going back to computing Functional Dispersion with the `alpha.fd.multidim()`
+function, we need to use the species-traits table as first argument then the
+site-species table as second argument, then the name of the functional diversity
+index as a third argument:
+
+```{r mfd-fdis, eval = require("mFD")}
+woodiv_fdis <- mFD::alpha.fd.multidim(
+  scaled_traits, formatted_site_species, ind_vect = "fdis"
+)
+
+head(woodiv_fdis)
 ```
 
 We now have a table with Functional Richness computed for all of our sites.
