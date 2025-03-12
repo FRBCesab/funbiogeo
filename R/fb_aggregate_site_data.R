@@ -96,8 +96,10 @@ fb_aggregate_site_data <- function(
          call. = FALSE)
   }
   
-  # Merge sites info -----------------------------------------------------------
+  # Simplify site-locations object ---------------------------------------------
+  site_locations <- site_locations[, "site"]  # Keep only site column
   
+  # Merge sites info -----------------------------------------------------------
   site_locations <- merge(site_locations, site_data, by = "site")
   
   
