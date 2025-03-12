@@ -105,7 +105,7 @@ fb_aggregate_site_data <- function(
   
   if (inherits(agg_geom, "SpatRaster")) {
     
-    fb_aggregate_site_data_raster_grid(
+    fb_aggregate_site_data_raster(
       site_locations, site_data, agg_geom, fun, ...
     )
     
@@ -118,7 +118,7 @@ fb_aggregate_site_data <- function(
 }
 
 # Function when grid is a raster
-fb_aggregate_site_data_raster_grid = function(
+fb_aggregate_site_data_raster = function(
     site_locations, site_data, agg_geom, fun, ...
 ) {
   
