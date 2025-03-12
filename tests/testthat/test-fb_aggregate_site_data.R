@@ -112,9 +112,9 @@ test_that("fb_aggregate_site_data() works", {
   )
   
   expect_s4_class(ras, "SpatRaster")
-  expect_named(ras, c("country", "AALB", "ACEP"))
-  expect_equal(dim(ras), c(290, 405, 3))
-  expect_equal(ras[][82006], 2, tolerance = 0.000001)
+  expect_named(ras, c("AALB", "ACEP"))
+  expect_equal(dim(ras), c(290, 405, 2))
+  expect_equal(ras[][68329], 0, tolerance = 0.000001)
   
   
   # Projected raster
@@ -127,7 +127,7 @@ test_that("fb_aggregate_site_data() works", {
   )
   
   expect_s4_class(ras, "SpatRaster")
-  expect_named(ras, c("country", "AALB", "ACEP"))
+  expect_named(ras, c("AALB", "ACEP"))
   
   
   ## Polygon spatial data
@@ -137,9 +137,9 @@ test_that("fb_aggregate_site_data() works", {
   )
   
   expect_s4_class(ras, "SpatRaster")
-  expect_named(ras, c("country", "AALB", "ACEP"))
-  expect_equal(dim(ras), c(290, 405, 3))
-  expect_equal(ras[][82006], 2, tolerance = 0.000001)
+  expect_named(ras, c("AALB", "ACEP"))
+  expect_equal(dim(ras), c(290, 405, 2))
+  expect_equal(ras[][68329], 0, tolerance = 0.000001)
   
   # Projected Raster
   expect_silent(
@@ -147,7 +147,7 @@ test_that("fb_aggregate_site_data() works", {
   )
   
   expect_s4_class(ras, "SpatRaster")
-  expect_named(ras, c("country", "AALB", "ACEP"))
+  expect_named(ras, c("AALB", "ACEP"))
   
   # Square grid
   expect_silent(
@@ -190,8 +190,8 @@ test_that("fb_aggregate_site_data() works", {
   )
   
   expect_s4_class(ras, "SpatRaster")
-  expect_named(ras, c("country", "AALB", "ACEP"))
-  expect_equal(dim(ras), c(290, 405, 3))
+  expect_named(ras, c("AALB", "ACEP"))
+  expect_equal(dim(ras), c(290, 405, 2))
   
   # Projected Raster
   expect_silent(
@@ -199,9 +199,6 @@ test_that("fb_aggregate_site_data() works", {
   )
   
   expect_s4_class(ras, "SpatRaster")
-  expect_named(ras, c("country", "AALB", "ACEP"))
-  
-  
-  
+  expect_named(ras, c("AALB", "ACEP"))
   
 })
