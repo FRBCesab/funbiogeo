@@ -8,18 +8,18 @@ pkgload::load_all()
 
 
 # Load data --------------------------------------------------------------------
-countries = rnaturalearth::ne_countries(returnclass = "sf")
+countries <- rnaturalearth::ne_countries(returnclass = "sf")
 
 
 # Create larger irregular polygons ---------------------------------------------
-countries_sf = countries |>
+countries_sf <- countries |>
   subset(name %in% c("France", "Portugal", "Spain", "Italy"))
-countries_sf = countries_sf[, "name"]
+countries_sf <- countries_sf[, "name"]
 
-countries_sf = countries_sf |>
+countries_sf <- countries_sf |>
   sf::st_transform(sf::st_crs(woodiv_locations))
 
-split_pols = countries_sf |>
+split_pols <- countries_sf |>
   st_cast("POLYGON")
 
 # Remove French Guiana
@@ -30,7 +30,7 @@ countries_sf |>
   ggplot(aes(fill = id)) +
   geom_sf()
 
-countries_sf_no_gf = countries_sf |>
+countries_sf_no_gf <- countries_sf |>
   st_cast("POLYGON") |> 
   dplyr::mutate(id = rownames(split_pols)) |>
   dplyr::filter(id != 44) |>
@@ -41,7 +41,7 @@ countries_sf_no_gf = countries_sf |>
 
 # Create points ----------------------------------------------------------------
 set.seed(20250310)
-woodiv_points = woodiv_locations |>
+woodiv_points <- woodiv_locations |>
   sf::st_centroid() |>
   slice_sample(n = 1e3)
 
