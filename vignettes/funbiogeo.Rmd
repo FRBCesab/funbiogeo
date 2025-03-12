@@ -62,7 +62,8 @@ Optionally, an additional dataset can be provided:
 of species like taxonomic classes, specific diets, or any arbitrary classification
 (`species_categories` argument in `funbiogeo` functions)
 
-# Provided data
+
+# Provided dataset
 
 We are interested in mapping the functional traits of 24 Conifer tree species
 of Western European Mediterranean regions.
@@ -91,9 +92,11 @@ Note that we'll be talking about **species** throughout this vignette
 and in the arguments of `funbiogeo`, but the package doesn't make any assumption
 on the biological level. It can be individuals, populations, strains, species,
 genera, families, etc. The important fact is that you should have trait data
-for the level at which you want to work.
+for the level at which you want to work. This biological level should correspond
+between the trait data (`species_traits` argument) and the occurrence/abundance
+ (`site_species` argument) you have.
 
-Let's examine the `species_traits` data included in the package:
+Let's examine the `woodiv_traits` data included in the package:
 
 ```{r preview-species-traits, echo = FALSE}
 knitr::kable(
@@ -124,9 +127,10 @@ of the study area. It is a `data.frame`. The first column, **`"site"`**,
 contains site names, while the other columns contain the distribution of each
 species across sites.
 
-Note that here we are talking about sites in an abstract way.
-These can be plots, assemblages, of whatever collections of species you're
-interested in.
+As mentioned above for the notion of "species" we're referring to, we are
+talking about sites in an abstract way. `funbiogeo` doesn't have a specific
+notion of sites, but these can be any groupings of individuals whatever the
+scale. These could, for example, be plots, assemblages, countries, or biomes.
 
 The package `funbiogeo` comes with the example dataset on Conifer tree species 
 of Western European Mediterranean regions `woodiv_site_species`.
@@ -143,24 +147,24 @@ knitr::kable(
 The example dataset contains the occurrence of the 24 Conifer tree species
 across 5,366 sites (grid cells of 10 km x 10 km resolution).
 
-Note that to use your own site by species `data.frame`, it should follow a similar
+To use your own site by species `data.frame`, you should follow a similar
 structure with the first column being named **`"site"`** and the other ones
 containing presence information of species across sites.
 
 
 ## Site x Locations
 
-This object contains the geographical location of the sites.
-It should be an `sf` object
-from the [`sf` package](https://cran.r-project.org/package=sf).
+This object contains the geographical location of the sites. It should be an
+`sf` object from the [`sf` package](https://cran.r-project.org/package=sf).
 These are spatial R objects that describe geographical locations. The sites can
 have arbitrary shapes: points, regular polygons, irregular polygons, or even
 line transects! To make sure that your data is well plotted you should specify
 the Coordinate Reference System (CRS) of this object.
 
-The package `funbiogeo` comes with the example dataset `woodiv_locations` defining
-the location of the 5,366 sites (grid cells of 10 km x 10 km resolution) as
-polygons. It contains the label of the sites in its first column **`"site"`**:
+The package `funbiogeo` comes with the example dataset `woodiv_locations`
+defining the location of the 5,366 sites (grid cells of 10 km x 10 km
+resolution) as polygons. It contains the label of the sites in its first column
+**`"site"`**:
 
 ```{r preview-sites-locs}
 head(woodiv_locations)
@@ -172,14 +176,15 @@ structure, being an `sf` object with the first column being named **`"site"`**.
 
 ## Species x Categories
 
-This optional object contains a categorization of species like 
-taxonomic classes, specific diets, or any arbitrary classification
-(`species_categories` argument in some `funbiogeo` functions). It must contain
-only two columns: the **`species`** column and the category of species.
+This optional object contains a categorization of species like taxonomic
+classes, specific diets, or any arbitrary classification (`species_categories`
+argument in some `funbiogeo` functions). It must contain only two columns: the
+**`species`** column and the category of species.
 
 The package `funbiogeo` comes with the example dataset `woodiv_categories` 
 providing different species categorizations: the species family, the species 
 genus, the species endemism, and the cultivated status of the species.
+
 Let's have a look at this dataset:
 
 ```{r preview-species-categories, echo = FALSE}
@@ -194,43 +199,47 @@ knitr::kable(
 Let's select the **`family`** category:
 
 ```{r select-species-categories, echo = FALSE}
-woodiv_categories <- woodiv_categories[ , c("species", "family")]
+woodiv_families <- woodiv_categories[ , c("species", "family")]
+
+head(woodiv_families)
 ```
 
 
 # Visualizing the data (diagnostic plots)
 
 `funbiogeo` provides many functions to display the data to help the user select
-specific traits, species, and/or sites. We are going to detail some of them
-in this section (see the full list and how to interpret them in the
-[diagnostic plot vignette](diagnostic-plots.Rmd)).
-We call them *diagnostic plots* because they help us to have an overview of
-our dataset **prior** to the analyses.
+specific traits, species, and/or sites. We are going to detail some of them in
+this section (see the full list and how to interpret them in the
+[diagnostic plot vignette](diagnostic-plots.Rmd)). We call them
+*diagnostic plots* because they help us to have an overview of our dataset
+**prior** to the analyses.
 
 ## Trait completeness per species
 
 A first way to visualize our `data.frame` is to look at the proportion of
 species with non-missing traits using the `fb_plot_number_species_by_trait()`
-function.
-It takes the species by trait `data.frame` as input.
+function. It takes the species by trait `data.frame` as input.
 
 ```{r fig-plot-sp-by-trait}
 fb_plot_number_species_by_trait(woodiv_traits)
 ```
 
-This plot shows us the number of species (along the x-axis) in function of 
-the trait name (along the y-axis). The number of concerned species is shown at
-the bottom of the plot while the corresponding proportion of species
-(compared to all the species included in the trait dataset) is indicated as
-a secondary x-axis at the top. The proportion of species concerned is shown at
-the right of each point. For example, in our example dataset, 70.8% species have
-a value for SLA.
+This plot shows us the number of species (along the x-axis) in function of the
+trait name (along the y-axis). The number of concerned species is shown at the
+bottom of the plot while the corresponding proportion of species (compared to
+all the species included in the trait dataset) is indicated as a secondary
+x-axis at the top. The proportion of species concerned is shown at the right of
+each point. For example, in our example dataset, 70.8% species have a value for
+SLA.
 
 The function also includes a way to provide a target proportion of species as
 the second argument. It will display the proportion as a dark red dashed line.
 
-For example, if we want to visualize which traits cover more than 75%
-of the species:
+For example, if we want to visualize which traits are available for more than
+75% of the species (we can also say which traits *cover* more than 75% of the
+species), we can use function `fb_plot_number_species_by_trait()`. It takes as
+first argument, the species by traits table, then, as second argument the
+proportion of species to consider (as a number between 0 and 1):
 
 ```{r fig-plot-sp-by-trait-prop}
 fb_plot_number_species_by_trait(
@@ -238,7 +247,16 @@ fb_plot_number_species_by_trait(
 )
 ```
 
-The top number shows the corresponding number of species.
+The plot shows us the number (and proportion) of species which have non-missing
+values for each trait included in our dataset. The number of species is
+specified as the bottom x-axis, while its corresponding proportion is reported
+as the top x-axis. According to this graph, we see that plant height is
+available for 100% of species, while SLA is only available for 70.8% of the
+species in the dataset. The dashed red line represents the proportion we gave as
+threshold in the function call above. By the line we see this proportion (75%)
+with the corresponding species number (18) as labels on the plot. Given this
+plot, we know that only two traits are available for more than 75% of the
+species: plant height and seed mass.
 
 
 ## Number of Traits per Species
