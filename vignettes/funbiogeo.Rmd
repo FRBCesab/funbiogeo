@@ -527,13 +527,25 @@ index as a third argument:
 
 ```{r mfd-fdis, eval = require("mFD")}
 woodiv_fdis <- mFD::alpha.fd.multidim(
-  scaled_traits, formatted_site_species, ind_vect = "fdis"
+  scaled_traits, formatted_site_species, ind_vect = "fdis",
+  # remove all of the messages
+  details_returned = FALSE, verbose = FALSE
 )
 
-head(woodiv_fdis)
+head(woodiv_fdis$functional_diversity_indices)
 ```
 
-We now have a table with Functional Richness computed for all of our sites.
+We now have a table with several diversity indices computed for each site. This
+table contains site names as row names an four columns:
+
+- `sp_richn`, which is the species richness, 
+- `fdis`, the Functional Dispersion index,
+- `fide_plant_height`, the average plant height of all species of the site,
+- `fide_seed_mass`, the average seed mass of all species of the site.
+
+Now, we can use `funbiogeo` again to put these different indices on a map to
+better understand our dataset. Mapping functions are the topic of the next
+section of this introductory vignette.
 
 
 # Putting variables on the map
