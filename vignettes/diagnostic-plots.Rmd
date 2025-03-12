@@ -129,7 +129,9 @@ less than the given proportion of sites.
 Let's say we want to see the species present in at least 40% of the sites:
 
 ```{r plot-sites-coverage-species-thresh}
-fb_plot_number_sites_by_species(woodiv_site_species, threshold_sites_proportion = 0.4)
+fb_plot_number_sites_by_species(
+  woodiv_site_species, threshold_sites_proportion = 0.4
+)
 ```
 
 The threshold bar helps us get a sense of how many species are present in at
@@ -162,7 +164,9 @@ proportion of species. Let's say we want to see traits available for at least
 90% of the species:
 
 ```{r plot-species-coverage-trait-thresh}
-fb_plot_number_species_by_trait(woodiv_traits, threshold_species_proportion = 0.9)
+fb_plot_number_species_by_trait(
+  woodiv_traits, threshold_species_proportion = 0.9
+)
 ```
 
 The red dashed vertical line shows the corresponding species coverage with
@@ -208,7 +212,9 @@ Let's say we're interested in combinations of traits with at least 50% species
 covered. We can use the second argument to show it:
 
 ```{r plot-n-traits-species-thresh}
-fb_plot_number_traits_by_species(woodiv_traits, threshold_species_proportion = 0.5)
+fb_plot_number_traits_by_species(
+  woodiv_traits, threshold_species_proportion = 0.5
+)
 ```
 
 Adding this argument displays a vertical bar at the target proportion of species
@@ -421,7 +427,9 @@ traits `data.frame`).
 If we use the included dataset in `funbiogeo` it gives:
 
 ```{r map-trait-complete}
-fb_map_site_traits_completeness(woodiv_locations, woodiv_site_species, woodiv_traits)
+fb_map_site_traits_completeness(
+  woodiv_locations, woodiv_site_species, woodiv_traits
+)
 ```
 
 It displays maps of the sites, colored by their trait coverage. Each facet
@@ -467,7 +475,9 @@ display the map:
 # Generate categories
 site_cat <- data.frame(
   site = woodiv_site_species$"site",
-  set  = sample(c("Testing", "Training"), nrow(woodiv_site_species), replace = TRUE)
+  set  = sample(
+    c("Testing", "Training"), nrow(woodiv_site_species), replace = TRUE
+  )
 )
 
 # Display them

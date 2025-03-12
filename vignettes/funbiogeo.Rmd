@@ -165,8 +165,9 @@ our dataset **prior** to the analyses.
 
 ### Trait completeness per species
 
-A first way to visualize our `data.frame` is to look at the proportion of species
-with non-missing traits using the `fb_plot_number_species_by_trait()` function.
+A first way to visualize our `data.frame` is to look at the proportion of
+species with non-missing traits using the `fb_plot_number_species_by_trait()`
+function.
 It takes the species by trait `data.frame` as input.
 
 ```{r fig-plot-sp-by-trait}
