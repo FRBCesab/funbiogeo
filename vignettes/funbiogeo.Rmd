@@ -271,13 +271,40 @@ fb_plot_number_traits_by_species(woodiv_traits)
 ```
 
 The plot shows the number (bottom x-axis) and the proportion (top x-axis) of
-species covered by a specific number of traits (0 to 4 in our example).
+species covered by a specific number of traits (0 to 4 in our example). We can
+read it as the fact that 58.3% of the species show non-missing values for the
+four traits in the dataset. However, all species (100%) have non-missing values
+for two or more traits. This doesn't mean that these two traits are the same,
+but that all species of datasets have non-missing values for a combination two
+traits among the four provided traits.
 
-  
+To identify further which combinations of traits are most frequently available
+together, we can use the `fb_plot_trait_combination_frequencies()` function.
+This function takes the species-traits table as first argument:
+
+```{r trait-combinations}
+fb_plot_trait_combination_frequencies(woodiv_traits)
+```
+
+In this plot, each **observed** combination of missing and non-missing trait is
+represented as a row. Each column represents a different trait. The y-axis
+details how many species (as well as the corresponding proportion) harvest this
+particular combination of missing/non-missing trait values. The cells are blue
+to represent non-missing trait, and red when they are missing. At the bottom of
+the graph, we can indeed see that 14 species (representing 58.3% of the
+species), have all traits that are non-missing. At the very top we see that only
+one species has the a non-missing plant height and SLA with a missing seed mass
+and wood density. This graph allows us to better examine the missingness
+patterns among our trait dataset. To see all the available options in
+`funbiogeo` as well as the details of the arguments of each function refer to
+the [diagnostic plots vignette](diagnostic-plots.html).
+
+
 # Filtering the data
 
-Now that we displayed the diagnostic plots, we can decide thresholds and filter
-our data for our following analyses.
+We performed simple visualizations of our dataset to know identify our patterns
+of trait completeness. Based on these plots, we can choose thresholds in trait
+completeness to filter our data for our following analyses.
 
 ## Filter trait by species coverage
 
