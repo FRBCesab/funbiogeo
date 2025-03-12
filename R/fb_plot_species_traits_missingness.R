@@ -183,7 +183,9 @@ fb_plot_species_traits_missingness <- function(
       position = ggplot2::position_fill(vjust = 0.5), color = "white"
     ) +
     category_facet +
-    ggplot2::scale_x_continuous("Proportion of species", labels = scales::label_percent()) +
+    ggplot2::scale_x_continuous(
+      "Proportion of species", labels = scales::label_percent()
+    ) +
     ggplot2::scale_y_discrete("Trait") +
     ggplot2::scale_fill_manual(
       "Known Trait?",

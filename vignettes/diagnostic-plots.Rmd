@@ -114,14 +114,17 @@ proportion of sites coverage, is optional.
 fb_plot_number_sites_by_species(woodiv_site_species)
 ```
 
-The function outputs a dotchart. The number of occupied sites per species is indicated at the 
-bottom x-axis, while the top x-axis represents the proportion of occupied sites. 
-The left y-axis label species names (in parenthesis) and their rank by increasing 
-prevalence. Note that for readability constraints, only a limited number of species are labeled on the y-axis, but they are all displayed as dots on the plot.
+The function outputs a dotchart. The number of occupied sites per species is
+indicated at the  bottom x-axis, while the top x-axis represents the proportion
+of occupied sites. 
+The left y-axis label species names (in parenthesis) and their rank by
+increasing  prevalence. Note that for readability constraints, only a limited
+number of species are labeled on the y-axis, but they are all displayed as dots
+on the plot.
 
 Adding the second argument `threshold_sites_proportion` displays a vertical
-bar at the target proportion of sites to see how many species occupy more or less than 
-the given proportion of sites.
+bar at the target proportion of sites to see how many species occupy more or
+less than the given proportion of sites.
 
 Let's say we want to see the species present in at least 40% of the sites:
 
@@ -129,7 +132,8 @@ Let's say we want to see the species present in at least 40% of the sites:
 fb_plot_number_sites_by_species(woodiv_site_species, threshold_sites_proportion = 0.4)
 ```
 
-The threshold bar helps us get a sense of how many species are present in at least 40% of the sites. It also displays the corresponding number of sites.
+The threshold bar helps us get a sense of how many species are present in at
+least 40% of the sites. It also displays the corresponding number of sites.
 
 ### Plotting the number of species per trait
 
@@ -147,10 +151,10 @@ fb_plot_number_species_by_trait(woodiv_traits)
 The function outputs a lollipop chart. On the bottom x-axis there is the number
 of species covered by the given trait (the top x-axis represents the proportion
 of species, which is directly proportional). The y-axis represents each trait.
-The dot represents the actual coverage observed with the corresponding proportion
-of species written on top. With this figure we see that 70.8% of the species
-have a non-missing SLA in the species by trait `data.frame`, while
-only 100% have a non-missing plant height.
+The dot represents the actual coverage observed with the corresponding
+proportion of species written on top. With this figure we see that 70.8% of the
+species have a non-missing SLA in the species by trait `data.frame`, while 100%
+have a non-missing plant height.
 
 Adding the second argument `threshold_species_proportion` displays a vertical
 bar at the target proportion to easily target traits covering a certain
@@ -169,10 +173,10 @@ labels indicating the proportion and corresponding number of species (n = 22).
 
 You can also display the number of traits available per species. Showing
 it for each species would be quite difficult to read, so we decided instead to
-represent the number of species having given number of known traits. Also, because
-most trait ecologists are interested in multiple traits, we considered nested
-proportions of traits: considering the number of species covered by at least one
-trait, at least two, etc.
+represent the number of species having given number of known traits. Also,
+because most trait ecologists are interested in multiple traits, we considered
+nested proportions of traits: considering the number of species covered by at
+least one trait, at least two, etc.
 
 To represent such a plot you can use the function
 `fb_plot_number_traits_by_species()`, it uses two arguments. The first
@@ -191,13 +195,14 @@ the actual number of species, while top x-axis displays the corresponding
 proportion of species). The y-axis shows the number of each traits. Note that
 the categories are nested: the set of species with at least 1 trait contains the
 set of species with at least 2 traits, and so on and so forth. By definition all
-species have 0 or more known traits, but we show that in the plot as a reference to
-see how the proportion decreases with increasing number of traits. The
+species have 0 or more known traits, but we show that in the plot as a reference
+to see how the proportion decreases with increasing number of traits. The
 proportion is shown as text above each dot representing it. So for example,
 there are 79.2% species with at least 3 non-missing traits.
 
 This plot does not tell us if all species with at least 3 traits share the same
-trait combination (there are multiple 3 trait combinations), but it's a first indication.
+trait combination (there are multiple 3 trait combinations), but it's a first
+indication.
 
 Let's say we're interested in combinations of traits with at least 50% species
 covered. We can use the second argument to show it:
@@ -217,8 +222,8 @@ To see if our sites are biased environmentally it can be nice to locate them
 along environmental variables compared to a full region. For the sake of
 simplicity we can focus on two variables against which to compare our sites to a
 region. That is what the `fb_plot_site_environment()` function does. It has four
-arguments: the first one, `site_locations`, provides the locations of sites as an `sf`
-object, `environment_raster` is a
+arguments: the first one, `site_locations`, provides the locations of sites as
+an `sf` object, `environment_raster` is a
 [`terra`](http://cran.r-project.org/package=terra) raster object, the next two
 arguments are `first_layer` and `second_layer` which are the names of the two
 variables to be extracted from `environment_raster` to make our plot.
@@ -268,7 +273,8 @@ column. Note that for readability reasons the color scale has been discretized
 from 0 to 100% coverage. Traits are ranked in decreasing average coverage. The
 last column `all_traits` contains the coverage for all traits taken together.
 
-With this figure we can see that all sites have over 95% coverage for all traits.
+With this figure we can see that all sites have over 95% coverage for all
+traits.
 
 
 ### Plotting trait coverage per species
@@ -316,11 +322,11 @@ included within each bar.
 
 ### Displaying traits combinations
 
-Looking at the traits coverage for each species continuously maybe impractical or
-difficult. For example, when trying to display thousands of species or when the
-trait coverage varies widely across species. One way to reduce the size of the
-analyzed (and thus visualized) dataset is instead to count at which frequency
-appear the combinations of present/missing traits.
+Looking at the traits coverage for each species continuously maybe impractical
+or difficult. For example, when trying to display thousands of species or when
+the trait coverage varies widely across species. One way to reduce the size of
+the analyzed (and thus visualized) dataset is instead to count at which
+frequency appear the combinations of present/missing traits.
 
 This is done by `fb_plot_trait_combination_frequencies()` which takes two
 arguments: `species_traits`, the species by traits `data.frame`, and `order_by`
@@ -342,8 +348,8 @@ to bottom, with the most numerous combinations of trait presences at the very
 bottom of the graph.
 
 With this graph we can see that we have exactly 14 species (58.3% of the total
-number of species provided) with all their traits that are non-missing, while 1 species
-has a missing seed mass and a missing wood density.
+number of species provided) with all their traits that are non-missing, while 1
+species has a missing seed mass and a missing wood density.
 
 If we change `order_by` to `"complete"`, the combinations are ordered instead by
 the number of trait presents among them:
@@ -404,9 +410,9 @@ Note that all maps are always in the Coordinate Reference System of the provided
 
 ### Mapping traits coverage of sites
 
-The function `fb_map_site_traits_completeness()` maps the trait coverage (proportion of
-species, weighted by relative abundance if relevant, with known trait values) of
-each site for all traits.
+The function `fb_map_site_traits_completeness()` maps the trait coverage
+(proportion of species, weighted by relative abundance if relevant, with known
+trait values) of each site for all traits.
 
 It takes three arguments: `site_locations` (spatial locations of sites),
 `site_species` (site by species `data.frame`), and `species_traits` (species by
@@ -436,8 +442,8 @@ arbitrary site data whether quantitative or qualitative with the
 the spatial locations of sites as an `sf` object, the second argument is
 `site_data` which is a `data.frame` containing a `"site"` column and data in
 additional columns, the third and last required argument is `selected_col` which
-should be the name of the column provided in the `site_data` `data.frame` that is going to be used as
-a variable to display. All three arguments are required.
+should be the name of the column provided in the `site_data` `data.frame` that
+is going to be used as a variable to display. All three arguments are required.
 
 For example, if we want to get a map of species richness of the included dataset
 we can do the following:
