@@ -260,10 +260,10 @@ function requires the following arguments:
 
 - `site_locations`: the site x locations object
 - `site_data`: a `matrix` or `data.frame` containing values per sites to
-aggregate on the provided grid `agg_grid`. Can have one or several columns
+aggregate on the provided grid `agg_geom`. Can have one or several columns
 (variables to aggregate). The first column must contain sites names as provided
 in the object `species_richness`
-- `agg_grid`: a `SpatRaster` object (package `terra`). A raster of one single
+- `agg_geom`: a `SpatRaster` object (package `terra`). A raster of one single
 layer, that defines the grid along which to aggregate
 - `fun`: the function used to aggregate sites values when there are multiple
 sites in one cell (do we want to get the minimum value? the maximum? the sum?
@@ -277,7 +277,7 @@ Let's compute our average species richness values across our grid.
 upscaled_richness <- fb_aggregate_site_data(
   site_locations = woodiv_locations[ , 1, drop = FALSE],
   site_data      = species_richness[ , 1:2],
-  agg_grid       = coarser_grid,
+  agg_geom       = coarser_grid,
   fun            = mean
 )
 
@@ -285,7 +285,7 @@ upscaled_richness
 ```
 
 We get a `SpatRaster` object that is of the same resolution of our provided
-`agg_grid` raster grid. The cells of this raster contain the averaged values of
+`agg_geom` raster grid. The cells of this raster contain the averaged values of
 species richness of our sites aggregated on the coarser grid. We can plot these
 values through a call to `fb_map_raster()` which allows to plot rasters.
 
@@ -308,7 +308,7 @@ resolution of 10 x 10 km to get new sites from a grid with pixels of 0.83° of r
 
 As shown in the previous section, we'll need three objects: `site_species`, which
 describes the species present across sites; `site_locations`, which gives the
-spatial locations of sites; and `agg_grid` which is a `SpatRaster` object
+spatial locations of sites; and `agg_geom` which is a `SpatRaster` object
 defining the coarser grid.
 
 We'll use the previously defined object to run our example. To aggregate 
@@ -322,7 +322,7 @@ finer scale sites will the coarser pixel show the species as absent.
 site_species_agg <- fb_aggregate_site_data(
   woodiv_locations[ , 1, drop = FALSE],
   woodiv_site_species,
-  agg_grid = coarser_grid,
+  agg_geom = coarser_grid,
   fun = max
 )
 ```

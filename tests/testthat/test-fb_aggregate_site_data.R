@@ -55,7 +55,7 @@ test_that("fb_aggregate_site_data() errors with missing input", {
   
   expect_error(
     fb_aggregate_site_data(site_locations, site_species),
-    "Argument 'agg_grid' is required",
+    "Argument 'agg_geom' is required",
     fixed = TRUE
   )
 })

@@ -13,9 +13,9 @@
 #'   (variables to aggregate). The first column must contain sites names as
 #'   provided in the first argument `site_locations`.
 #'
-#' @param agg_grid a `SpatRaster` object (from the `terra` package) or an `sf`
-#'   object. This defines  defines the grid along which to aggregate. See more
-#'   in the Details section
+#' @param agg_geom a `terra::SpatRaster` or an `sf` object. This defines the
+#'   geometry along which to aggregate the initial data. See more in the Details
+#'   section.
 #'   
 #' @param fun the function used to aggregate points values when there are 
 #'   multiple points in one cell. Default is `mean`.
@@ -23,14 +23,14 @@
 #' @param ... additional argument(s) passed to the provided function `fun`
 #'   
 #' @details
-#' The `agg_grid` object will condition the type of object ouput by the
+#' The `agg_geom` object will condition the type of object ouput by the
 #' function. It can be of any sort as an `SpatRaster` or `sf` object. Depending
 #' on the need, it could be a regular square grid or hexagonal grid, it could
 #' also be irregular polygons like biomes or ecoregions, or points, and even
 #' lines (such as when aggregating across transects or trajectories).
 #' 
 #'   
-#' @return An object of the same type as the `agg_grid` input with as many
+#' @return An object of the same type as the `agg_geom` input with as many
 #'   layers (if `SpatRaster`) or columns (if `sf`) as columns provided in the
 #'   input `site_data`.
 #' 
@@ -59,7 +59,7 @@
 #' )
 
 fb_aggregate_site_data <- function(
-    site_locations, site_data, agg_grid, fun = mean, ...
+    site_locations, site_data, agg_geom, fun = mean, ...
 ) {
   
   # Check inputs ---------------------------------------------------------------
@@ -81,18 +81,18 @@ fb_aggregate_site_data <- function(
          call. = FALSE)
   }
   
-  if (missing(agg_grid)) {
-    stop("Argument 'agg_grid' is required", call. = FALSE)
+  if (missing(agg_geom)) {
+    stop("Argument 'agg_geom' is required", call. = FALSE)
   }
   
-  if (!inherits(agg_grid, "SpatRaster") & !inherits(agg_grid, "sf")) {
-    stop("The 'agg_grid' raster must be a 'SpatRaster' (package `terra`)",
+  if (!inherits(agg_geom, "SpatRaster") & !inherits(agg_geom, "sf")) {
+    stop("The 'agg_geom' raster must be a 'SpatRaster' (package `terra`)",
          " or an 'sf' object", call. = FALSE)
   }
   
-  if (is.na(terra::crs(agg_grid, proj = TRUE)) | 
-      terra::crs(agg_grid, proj = TRUE) == "") {
-    stop("The 'agg_grid' raster must have a CRS (coordinate system)", 
+  if (is.na(terra::crs(agg_geom, proj = TRUE)) | 
+      terra::crs(agg_geom, proj = TRUE) == "") {
+    stop("The 'agg_geom' raster must have a CRS (coordinate system)", 
          call. = FALSE)
   }
   
@@ -103,15 +103,15 @@ fb_aggregate_site_data <- function(
   
   # Aggregate based on grid type -----------------------------------------------
   
-  if (inherits(agg_grid, "SpatRaster")) {
+  if (inherits(agg_geom, "SpatRaster")) {
     
     fb_aggregate_site_data_raster_grid(
-      site_locations, site_data, agg_grid, fun, ...
+      site_locations, site_data, agg_geom, fun, ...
     )
     
-  } else if (inherits(agg_grid, "sf")) {
+  } else if (inherits(agg_geom, "sf")) {
     
-    fb_aggregate_site_data_sf(site_locations, site_data, agg_grid, fun, ...)
+    fb_aggregate_site_data_sf(site_locations, site_data, agg_geom, fun, ...)
     
   }
   
@@ -119,22 +119,22 @@ fb_aggregate_site_data <- function(
 
 # Function when grid is a raster
 fb_aggregate_site_data_raster_grid = function(
-    site_locations, site_data, agg_grid, fun, ...
+    site_locations, site_data, agg_geom, fun, ...
 ) {
   
   # Get proper aggregation grid ------------------------------------------------
   
-  agg_grid <- terra::subset(agg_grid, 1)
+  agg_geom <- terra::subset(agg_geom, 1)
   
   
   # Reproject sites if required ------------------------------------------------
   
   if (sf::st_crs(site_locations) !=
-      sf::st_crs(terra::crs(agg_grid, proj = TRUE))) {
+      sf::st_crs(terra::crs(agg_geom, proj = TRUE))) {
     
     site_locations <- sf::st_transform(
       site_locations,
-      sf::st_crs(terra::crs(agg_grid, proj = TRUE))
+      sf::st_crs(terra::crs(agg_geom, proj = TRUE))
     )
   }
   
@@ -144,7 +144,7 @@ fb_aggregate_site_data_raster_grid = function(
   fields <- colnames(sf::st_drop_geometry(site_locations))[-1]
   
   rasters <- lapply(seq_along(fields), function(x) {
-    terra::rasterize(terra::vect(site_locations), agg_grid,
+    terra::rasterize(terra::vect(site_locations), agg_geom,
                      field = fields[x], 
                      fun = fun, ...)
   })
@@ -156,20 +156,20 @@ fb_aggregate_site_data_raster_grid = function(
   
 }
 
-#' Function when agg_grid is an sf object
+#' Function when agg_geom is an sf object
 #' @importFrom stats aggregate
 #' @noRd
 fb_aggregate_site_data_sf = function(
-    site_locations, site_data, agg_grid, fun, ...
+    site_locations, site_data, agg_geom, fun, ...
 ) {
   
   # Reproject sites if required ------------------------------------------------
   
-  if (sf::st_crs(site_locations) != sf::st_crs(agg_grid)) {
+  if (sf::st_crs(site_locations) != sf::st_crs(agg_geom)) {
     
     site_locations <- sf::st_transform(
       site_locations,
-      sf::st_crs(agg_grid)
+      sf::st_crs(agg_geom)
     )
     
   }
@@ -180,6 +180,6 @@ fb_aggregate_site_data_sf = function(
   data_columns <- setdiff(colnames(site_data), "site")
   
   # Perform aggregation
-  aggregated_sf <- aggregate(site_locations[, data_columns], agg_grid, fun, ...)
+  aggregated_sf <- aggregate(site_locations[, data_columns], agg_geom, fun, ...)
   
 }

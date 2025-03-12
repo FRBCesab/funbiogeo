@@ -4,7 +4,7 @@
 \alias{fb_aggregate_site_data}
 \title{Aggregate Site Data Along Coarser Spatial Grid}
 \usage{
-fb_aggregate_site_data(site_locations, site_data, agg_grid, fun = mean, ...)
+fb_aggregate_site_data(site_locations, site_data, agg_geom, fun = mean, ...)
 }
 \arguments{
 \item{site_locations}{an \code{sf} object with the spatial geometries of sites.
@@ -16,9 +16,9 @@ aggregate along the provided grid. Can have one or several columns
 (variables to aggregate). The first column must contain sites names as
 provided in the first argument \code{site_locations}.}
 
-\item{agg_grid}{a \code{SpatRaster} object (from the \code{terra} package) or an \code{sf}
-object. This defines  defines the grid along which to aggregate. See more
-in the Details section}
+\item{agg_geom}{a \code{terra::SpatRaster} or an \code{sf} object. This defines the
+geometry along which to aggregate the initial data. See more in the Details
+section.}
 
 \item{fun}{the function used to aggregate points values when there are
 multiple points in one cell. Default is \code{mean}.}
@@ -26,7 +26,7 @@ multiple points in one cell. Default is \code{mean}.}
 \item{...}{additional argument(s) passed to the provided function \code{fun}}
 }
 \value{
-An object of the same type as the \code{agg_grid} input with as many
+An object of the same type as the \code{agg_geom} input with as many
 layers (if \code{SpatRaster}) or columns (if \code{sf}) as columns provided in the
 input \code{site_data}.
 }
@@ -38,7 +38,7 @@ on it at a coarser scale, or you want to visualize it at that scale.
 This function helps you do exactly that.
 }
 \details{
-The \code{agg_grid} object will condition the type of object ouput by the
+The \code{agg_geom} object will condition the type of object ouput by the
 function. It can be of any sort as an \code{SpatRaster} or \code{sf} object. Depending
 on the need, it could be a regular square grid or hexagonal grid, it could
 also be irregular polygons like biomes or ecoregions, or points, and even
