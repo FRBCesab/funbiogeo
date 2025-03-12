@@ -550,6 +550,54 @@ section of this introductory vignette.
 
 # Putting variables on the map
 
+## Mapping diversity indices
+
+As we're interested in putting functional dispersion on a map, we should
+slightly transform our site-indices table to include an explicit `site` column
+as required by `funbiogeo`:
+
+```{r site-indices, eval = require("mFD")}
+# Simplify object
+woodiv_fdis <- woodiv_fdis$functional_diversity_indices
+
+# Create 'site' column
+woodiv_fdis[["site"]] <- rownames(woodiv_fdis)
+
+# Remove row names
+rownames(woodiv_fdis) <- NULL
+
+# Move 'site' column as first column
+woodiv_fdis <- woodiv_fdis[, c(5, 1:4)]
+
+head(woodiv_fdis)
+```
+
+We get a regular data.frame describing each diversity index with the `site`
+column giving the id of the sites. Using `funbiogeo` we can automatically create
+a map of these variables by using the `fb_map_site_data()` function. It takes as
+first three arguments: (1) the site locations `sf` object, (2) the data.frame
+containing the data to be plotted with a column named `site`, (3) the name of
+the column to be plotted on the map as a character string (= quoted).
+Let's represent the functional dispersion:
+
+```{r map-fdis}
+fb_map_site_data(woodiv_locations, woodiv_fdis, "fdis")
+```
+We get a map of our sites, colored by Functional Dispersion. The map uses the
+default `ggplot2` color scheme. We see that we have higher functional dispersion
+in Spain and in the French-Spanish border than in Italy.
+Because all of the plotting functions of `funbiogeo` output `ggplot2` objects
+they can be customized using usual `ggplot2` syntax:
+
+```{r map-fdis-custom, eval = require("mFD")}
+fb_map_site_data(woodiv_locations, woodiv_fdis, "fdis") +
+  scale_fill_viridis_c() +
+  labs(fill = "Functional Dispersion",
+       title = "WOODIV (2 traits: plant height & seed mass)") +
+  theme(legend.position = "bottom")
+```
+
+
 ## Map of environmental raster
 
 If we want to display the environment associated with our sites of interest, we
@@ -643,26 +691,6 @@ fb_map_site_data(woodiv_locations, site_mat, "annual_mean_temp") +
   labs(title = "Mean Annual Temperature per Site")
 ```
 
-## Map of functional diversity indices
-
-We can leverage the same functions to map our functional diversity indices.
-For example, with the body mass CWM:
-
-```{r map-cwm-body-mass}
-body_mass_cwm <- subset(cwm, trait == "plant_height")
-
-fb_map_site_data(woodiv_locations, body_mass_cwm, "cwm") +
-  scale_fill_viridis_c(trans = "log10") +
-  labs(title = "Tree height CWM")
-```
-
-We can do similarly for functional richness:
-
-```{r map-fric, eval = require("fundiversity")}
-fb_map_site_data(woodiv_locations, fric, "FRic") +
-  scale_fill_viridis_c(option = "magma") +
-  labs(title = "Tree Functional Richness")
-```
 
 
 # Conclusion
