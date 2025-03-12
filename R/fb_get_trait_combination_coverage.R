@@ -54,12 +54,12 @@ fb_get_trait_combination_coverage = function(
   target_combs <- seq(n_traits)
   
   n_comb <- sum(
-    sapply(seq(n_traits), function(x) choose(n_traits, x))
+    vapply(seq(n_traits), function(x) choose(n_traits, x), 1)
   )
   
   if (!is.null(comb_size)) {
     n_comb <- sum(
-      sapply(comb_size, function(x) choose(n_traits, x))
+      vapply(comb_size, function(x) choose(n_traits, x), 1)
     )
     
     target_combs <- comb_size
