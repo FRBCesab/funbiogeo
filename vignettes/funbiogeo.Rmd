@@ -580,7 +580,7 @@ containing the data to be plotted with a column named `site`, (3) the name of
 the column to be plotted on the map as a character string (= quoted).
 Let's represent the functional dispersion:
 
-```{r map-fdis}
+```{r map-fdis, eval = require("mFD")}
 fb_map_site_data(woodiv_locations, woodiv_fdis, "fdis")
 ```
 We get a map of our sites, colored by Functional Dispersion. The map uses the
