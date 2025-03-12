@@ -36,7 +36,7 @@
 #' two_to_four = fb_get_trait_combination_coverage(
 #'     woodiv_site_species, woodiv_traits, 2:4
 #' )
-fb_get_trait_combination_coverage = function(
+fb_get_trait_combination_coverage <- function(
     site_species, species_traits, comb_size = NULL
 ) {
   
