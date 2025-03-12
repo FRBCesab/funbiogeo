@@ -38,7 +38,7 @@ library("ggplot2")
 library("sf")
 ```
 
-## Types of data
+# Types of data
 
 The functions in `funbiogeo` mostly leverage three different objects:
 
@@ -62,7 +62,7 @@ Optionally, an additional dataset can be provided:
 of species like taxonomic classes, specific diets, or any arbitrary classification
 (`species_categories` argument in `funbiogeo` functions)
 
-## Provided data
+# Provided data
 
 We are interested in mapping the functional traits of 24 Conifer tree species
 of Western European Mediterranean regions.
@@ -80,7 +80,7 @@ In the following sections, we'll describe in detail these provided
 objects in the package.
 
 
-### Species x Traits
+## Species x Traits
 
 This object contains traits values for multiple traits (as columns) for studied
 species (as rows). It should be a `data.frame`. The column containing species 
@@ -117,7 +117,7 @@ a similar structure with the first column being named **`"species"`** and the
 other ones containing traits.
 
 
-### Site x Species
+## Site x Species
 
 This object contains species occurrences/abundance/coverage at sites  
 of the study area. It is a `data.frame`. The first column, **`"site"`**,
@@ -148,7 +148,7 @@ structure with the first column being named **`"site"`** and the other ones
 containing presence information of species across sites.
 
 
-### Site x Locations
+## Site x Locations
 
 This object contains the geographical location of the sites.
 It should be an `sf` object
@@ -170,7 +170,7 @@ Note that to use your own site locations object, it should follow a similar
 structure, being an `sf` object with the first column being named **`"site"`**.
 
 
-### Species x Categories
+## Species x Categories
 
 This optional object contains a categorization of species like 
 taxonomic classes, specific diets, or any arbitrary classification
@@ -198,7 +198,7 @@ woodiv_categories <- woodiv_categories[ , c("species", "family")]
 ```
 
 
-## Visualizing the data (diagnostic plots)
+# Visualizing the data (diagnostic plots)
 
 `funbiogeo` provides many functions to display the data to help the user select
 specific traits, species, and/or sites. We are going to detail some of them
@@ -207,7 +207,7 @@ in this section (see the full list and how to interpret them in the
 We call them *diagnostic plots* because they help us to have an overview of
 our dataset **prior** to the analyses.
 
-### Trait completeness per species
+## Trait completeness per species
 
 A first way to visualize our `data.frame` is to look at the proportion of
 species with non-missing traits using the `fb_plot_number_species_by_trait()`
@@ -241,7 +241,7 @@ fb_plot_number_species_by_trait(
 The top number shows the corresponding number of species.
 
 
-### Number of Traits per Species
+## Number of Traits per Species
 
 Another way to filter the data would be to select certain species that
 have at least a certain number of traits. This can be visualized using the
@@ -256,12 +256,12 @@ The plot shows the number (bottom x-axis) and the proportion (top x-axis) of
 species covered by a specific number of traits (0 to 4 in our example).
 
   
-## Filtering the data
+# Filtering the data
 
 Now that we displayed the diagnostic plots, we can decide thresholds and filter
 our data for our following analyses.
 
-### Filter trait by species coverage
+## Filter trait by species coverage
 
 We want to select the traits that are available for at least 75% of the species. 
 To do so we can use the `fb_filter_traits_by_species_coverage()` function.
@@ -290,7 +290,7 @@ covering at least 75% of the species. In the end this keep two traits: plant
 height and seed mass.
 
 
-### Filter species by trait coverage
+## Filter species by trait coverage
 
 Similarly you could filter species by their trait coverage. For example, we
 would like to make sure that the species we filtered previously so that they
@@ -315,7 +315,7 @@ We thus have selected 2 traits that cover at least 80% of the initial species
 list and 23 species which have known values for these two traits.
 
 
-### Filter sites by trait coverage
+## Filter sites by trait coverage
 
 Now that we have filtered our traits and species of interest we need to filter
 the sites that contain enough species for which the traits are available.
@@ -350,7 +350,7 @@ and species. Now we selected 5,364 sites out of 5,366, for our 2 traits and 24
 species.
 
 
-## Computing Functional Diversity metrics
+# Computing Functional Diversity metrics
 
 The `funbiogeo` functions helped us filter our data appropriately with enough
 available trait information for species and sites. The goal of `funbiogeo` is to
@@ -380,7 +380,7 @@ the following section we'll then show another example computing functional
 diversity indices using the `mFD` package.
 
 
-### Community-Weighted Mean (CWM)
+## Community-Weighted Mean (CWM)
 
 We're interested to look at the spatial distribution of the average plant height
 and seed mass of Conifer tree species. To do so, we can compute the
@@ -401,7 +401,7 @@ which indicates the trait name on which the CWM is computed,
 and `cwm` which shows the value of the CWM.
 
 
-### Compute functional diversity indices
+## Compute functional diversity indices
 
 We can also integrate our filtered datasets in other functional diversity computation pipeline. We'll show an example by computing functional richness
 with `fundiversity`.
@@ -436,9 +436,9 @@ head(fric)
 We now have a table with Functional Richness computed for all of our sites.
 
 
-## Putting variables on the map
+# Putting variables on the map
 
-### Map of environmental raster
+## Map of environmental raster
 
 If we want to display the environment associated with our sites of interest, we
 can leverage environmental raster layers, like the mean annual temperature.
@@ -501,7 +501,7 @@ In the next section we will follow the example of mapping an environmental
 variable.
 
 
-### Map of average environmental variable in site
+## Map of average environmental variable in site
 
 To get the average environmental variable in the site we can use the
 `fb_get_environment()` function, it takes as arguments the site-locations object
@@ -531,7 +531,7 @@ fb_map_site_data(woodiv_locations, site_mat, "annual_mean_temp") +
   labs(title = "Mean Annual Temperature per Site")
 ```
 
-### Map of functional diversity indices
+## Map of functional diversity indices
 
 We can leverage the same functions to map our functional diversity indices.
 For example, with the body mass CWM:
@@ -553,7 +553,7 @@ fb_map_site_data(woodiv_locations, fric, "FRic") +
 ```
 
 
-## Conclusion
+# Conclusion
 
 This concludes our tutorial to introduce `funbiogeo`. The package contains many
 more features, especially diagnostic plots, which are explained in detail in
@@ -565,4 +565,4 @@ means aggregating your sites at coarser scales,you can
 refer to [the specific vignette](upscaling.Rmd)
 
 
-## References
+# References
