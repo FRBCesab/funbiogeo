@@ -24,11 +24,11 @@ knitr::opts_chunk$set(
 The aim of the `funbiogeo` package is to help users streamline the workflows in 
 **fun**ctional **biogeo**graphy [@Violle_emergence_2014].
 It helps filter sites, species, and traits based on their trait coverages.
-It also provide default diagnostic plots and standard tables summarizing input
+It also provides default diagnostic plots and standard tables summarizing input
 data. This vignette aims to be an introduction to the most commonly used
 functions.
 
-The vignette is a worked through real world example of a functional biogeography 
+This vignette is a worked through real world example of a functional biogeography 
 workflow using the internal dataset provided in `funbiogeo` and derived from the
 WOODIV database [@Monnet_2021].
 
@@ -46,30 +46,38 @@ of Western European Mediterranean regions.
 The functions in `funbiogeo` mostly leverage three different objects:
 
 - the **species x traits** `data.frame`, which describes the traits (in columns)
-of the species (in rows) (`species_traits` dataset in `funbiogeo`);
+of the species (in rows) (`species_traits` argument in `funbiogeo` functions);
 - the **site x species** `data.frame`, which describes the presence/absence,
 the abundance, or the cover of species (in columns) across sites (in rows)
-(`site_species` dataset in `funbiogeo`);
+(`site_species` argument in `funbiogeo` functions);
 - the **site x locations** object, which describes the physical location of
-sites through an `sf` object (`site_locations` dataset in `funbiogeo`).
+sites through an `sf` object (`site_locations` argument in `funbiogeo` functions).
+
+Optionally, an additional dataset can be provided:
+
+- the **species x categories** object, which contains a potential categorization 
+of species like taxonomic classes, specific diets, or any arbitrary classification
+(`species_categories` argument in `funbiogeo` functions)
 
 You can load the example data using the `data(..., package = "funbiogeo")` call:
 
 ```{r load-datasets}
 data("woodiv_site_species", package = "funbiogeo")
+data("woodiv_categories", package = "funbiogeo")
 data("woodiv_locations", package = "funbiogeo")
 data("woodiv_traits", package = "funbiogeo")
 ```
 
-In the following sections, we'll describe in detail these three provided
+In the following sections, we'll describe in detail these provided
 objects in the package.
 
 
 ### Species x Traits
 
 This object contains traits values for multiple traits (as columns) for studied
-species (as rows). It should be a `data.frame`. The first column should contain
-species names and the other columns contain trait values.
+species (as rows). It should be a `data.frame`. The column containing species 
+names should be named **"species"** and the other columns should only contain 
+trait values.
 
 Note that we'll be talking about **species** throughout this vignette
 and in the arguments of `funbiogeo`, but the package doesn't make any assumption
@@ -105,15 +113,15 @@ other ones containing traits.
 
 This object contains species occurrences/abundance/coverage at sites  
 of the study area. It is a `data.frame`. The first column, **`"site"`**,
-contains site names, while the other columns contain the abundance of each
+contains site names, while the other columns contain the distribution of each
 species across sites.
 
 Note that here we are talking about sites in an abstract way.
 These can be plots, assemblages, of whatever collections of species you're
 interested in.
 
-The package `funbiogeo` comes with the example dataset on Conifer tree species of Western European Mediterranean regions
-`site_species`.
+The package `funbiogeo` comes with the example dataset on Conifer tree species 
+of Western European Mediterranean regions `woodiv_site_species`.
 Let's look at it:
 
 ```{r preview-sites-species, echo = FALSE}
@@ -128,7 +136,7 @@ The example dataset contains the occurrence of the 24 Conifer tree species
 across 5,366 sites (grid cells of 10 km x 10 km resolution).
 
 Note that to use your own site by species `data.frame`, it should follow a similar
-structure with the first column being named **`"sites"`** and the other ones
+structure with the first column being named **`"site"`** and the other ones
 containing presence information of species across sites.
 
 
@@ -142,16 +150,44 @@ have arbitrary shapes: points, regular polygons, irregular polygons, or even
 line transects! To make sure that your data is well plotted you should specify
 the Coordinate Reference System (CRS) of this object.
 
-The package `funbiogeo` comes with the example dataset `site_locations` defining
+The package `funbiogeo` comes with the example dataset `woodiv_locations` defining
 the location of the 5,366 sites (grid cells of 10 km x 10 km resolution) as
-polygons. It contains the names of the site in its first column **`"site"`**:
+polygons. It contains the label of the sites in its first column **`"site"`**:
 
 ```{r preview-sites-locs}
 head(woodiv_locations)
 ```
 
 Note that to use your own site locations object, it should follow a similar
-structure, being an `sf` object with the first column being named **`"sites"`**.
+structure, being an `sf` object with the first column being named **`"site"`**.
+
+
+### Species x Categories
+
+This optional object contains a categorization of species like 
+taxonomic classes, specific diets, or any arbitrary classification
+(`species_categories` argument in some `funbiogeo` functions). It must contain
+only two columns: the **`species`** column and the category of species.
+
+The package `funbiogeo` comes with the example dataset `woodiv_categories` 
+providing different species categorizations: the species family, the species 
+genus, the species endemism, and the cultivated status of the species.
+Let's have a look at this dataset:
+
+```{r preview-species-categories, echo = FALSE}
+knitr::kable(
+  head(woodiv_categories, 5), 
+  caption   = "Format of species x categories dataset", 
+  align     = c(rep("c", 3), "l", rep("c", 2)),
+  row.names = FALSE
+)
+```
+
+Let's select the **`family`** category:
+
+```{r select-species-categories, echo = FALSE}
+woodiv_categories <- woodiv_categories[ , c("species", "family")]
+```
 
 
 ## Visualizing the data (diagnostic plots)
@@ -159,7 +195,7 @@ structure, being an `sf` object with the first column being named **`"sites"`**.
 `funbiogeo` provides many functions to display the data to help the user select
 specific traits, species, and/or sites. We are going to detail some of them
 in this section (see the full list and how to interpret them in the
-[diagnostic plot vignette](diagnostic-plots.Rmd).
+[diagnostic plot vignette](diagnostic-plots.Rmd)).
 We call them *diagnostic plots* because they help us to have an overview of
 our dataset **prior** to the analyses.
 
@@ -179,7 +215,7 @@ the bottom of the plot while the corresponding proportion of species
 (compared to all the species included in the trait dataset) is indicated as
 a secondary x-axis at the top. The proportion of species concerned is shown at
 the right of each point. For example, in our example dataset, 70.8% species have
-a non-NA SLA.
+a value for SLA.
 
 The function also includes a way to provide a target proportion of species as
 the second argument. It will display the proportion as a dark red dashed line.
@@ -188,7 +224,9 @@ For example, if we want to visualize which traits cover more than 75%
 of the species:
 
 ```{r fig-plot-sp-by-trait-prop}
-fb_plot_number_species_by_trait(woodiv_traits, threshold_species_proportion = 0.75)
+fb_plot_number_species_by_trait(
+  woodiv_traits, threshold_species_proportion = 0.75
+)
 ```
 
 The top number shows the corresponding number of species.
