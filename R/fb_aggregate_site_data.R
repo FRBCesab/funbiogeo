@@ -11,32 +11,56 @@
 #' @param site_data a `matrix` or `data.frame` containing values per sites to 
 #'   aggregate along the provided grid. Can have one or several columns
 #'   (variables to aggregate). The first column must contain sites names as
-#'   provided in the example dataset `site_locations`.
+#'   provided in the first argument `site_locations`.
 #'
-#' @param agg_grid a `SpatRaster` object (package `terra`).
-#'   A raster of one single layer, that defines the grid along which
-#'   to aggregate.
+#' @param agg_geom a `terra::SpatRaster` or an `sf` object. This defines the
+#'   geometry along which to aggregate the initial data. See more in the Details
+#'   section.
 #'   
 #' @param fun the function used to aggregate points values when there are 
 #'   multiple points in one cell. Default is `mean`.
 #'   
-#' @return A `SpatRaster` object with as many layers as columns in `site_data`.
+#' @param ... additional argument(s) passed to the provided function `fun`
+#'   
+#' @details
+#' The `agg_geom` object will condition the type of object ouput by the
+#' function. It can be of any sort as an `SpatRaster` or `sf` object. Depending
+#' on the need, it could be a regular square grid or hexagonal grid, it could
+#' also be irregular polygons like biomes or ecoregions, or points, and even
+#' lines (such as when aggregating across transects or trajectories).
 #' 
-#' @import sf
+#'   
+#' @return An object of the same type as the `agg_geom` input with as many
+#'   layers (if `SpatRaster`) or columns (if `sf`) as columns provided in the
+#'   input `site_data`.
+#' 
 #' @export
 #'
 #' @examples
-#' ## Import grid ----
-#' tavg <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")
+#' ## Raster grid
+#' tavg <- system.file(
+#'   "extdata", "annual_mean_temp.tif", package = "funbiogeo"
+#' )
 #' tavg <- terra::rast(tavg)
 #' 
-#' ## Rasterize 3 first species counts ----
+#' # Rasterize 3 first species counts
 #' fb_aggregate_site_data(
 #'     woodiv_locations, woodiv_site_species[, 1:4], tavg, fun = sum
 #' )
+#' 
+#' ## Irregular polygons
+#' countries <- readRDS(system.file(
+#'   "extdata", "countries_sf.rds", package = "funbiogeo"
+#' ))
+#' # Aggregate occurrence per country
+#' fb_aggregate_site_data(
+#'     head(woodiv_locations, n = 20), woodiv_site_species[, 1:4], countries,
+#'     fun = sum
+#' )
 
-fb_aggregate_site_data <- function(site_locations, site_data, agg_grid,
-                                   fun = mean) {
+fb_aggregate_site_data <- function(
+    site_locations, site_data, agg_geom, fun = mean, ...
+) {
   
   # Check inputs ---------------------------------------------------------------
   
@@ -57,40 +81,60 @@ fb_aggregate_site_data <- function(site_locations, site_data, agg_grid,
          call. = FALSE)
   }
   
-  if (missing(agg_grid)) {
-    stop("Argument 'agg_grid' is required", call. = FALSE)
+  if (missing(agg_geom)) {
+    stop("Argument 'agg_geom' is required", call. = FALSE)
   }
   
-  if (!inherits(agg_grid, "SpatRaster")) {
-    stop("The 'agg_grid' raster must be a 'SpatRaster' object ",
-         "(package `terra`)", call. = FALSE)
+  if (!inherits(agg_geom, "SpatRaster") & !inherits(agg_geom, "sf")) {
+    stop("The 'agg_geom' raster must be a 'SpatRaster' (package `terra`)",
+         " or an 'sf' object", call. = FALSE)
   }
   
-  if (is.na(terra::crs(agg_grid, proj = TRUE)) | 
-      terra::crs(agg_grid, proj = TRUE) == "") {
-    stop("The 'agg_grid' raster must have a CRS (coordinate system)", 
+  if (is.na(terra::crs(agg_geom, proj = TRUE)) | 
+      terra::crs(agg_geom, proj = TRUE) == "") {
+    stop("The 'agg_geom' raster must have a CRS (coordinate system)", 
          call. = FALSE)
   }
-  
-  
-  # Get proper aggregation grid ------------------------------------------------
-  
-  agg_grid <- terra::subset(agg_grid, 1)
-  
   
   # Merge sites info -----------------------------------------------------------
   
   site_locations <- merge(site_locations, site_data, by = "site")
   
   
+  # Aggregate based on grid type -----------------------------------------------
+  
+  if (inherits(agg_geom, "SpatRaster")) {
+    
+    fb_aggregate_site_data_raster_grid(
+      site_locations, site_data, agg_geom, fun, ...
+    )
+    
+  } else if (inherits(agg_geom, "sf")) {
+    
+    fb_aggregate_site_data_sf(site_locations, site_data, agg_geom, fun, ...)
+    
+  }
+  
+}
+
+# Function when grid is a raster
+fb_aggregate_site_data_raster_grid = function(
+    site_locations, site_data, agg_geom, fun, ...
+) {
+  
+  # Get proper aggregation grid ------------------------------------------------
+  
+  agg_geom <- terra::subset(agg_geom, 1)
+  
+  
   # Reproject sites if required ------------------------------------------------
   
   if (sf::st_crs(site_locations) !=
-      sf::st_crs(terra::crs(agg_grid, proj = TRUE))) {
+      sf::st_crs(terra::crs(agg_geom, proj = TRUE))) {
     
     site_locations <- sf::st_transform(
       site_locations,
-      sf::st_crs(terra::crs(agg_grid, proj = TRUE))
+      sf::st_crs(terra::crs(agg_geom, proj = TRUE))
     )
   }
   
@@ -100,13 +144,42 @@ fb_aggregate_site_data <- function(site_locations, site_data, agg_grid,
   fields <- colnames(sf::st_drop_geometry(site_locations))[-1]
   
   rasters <- lapply(seq_along(fields), function(x) {
-    terra::rasterize(terra::vect(site_locations), agg_grid,
+    terra::rasterize(terra::vect(site_locations), agg_geom,
                      field = fields[x], 
-                     fun = fun)
+                     fun = fun, ...)
   })
   
   rasters <- terra::rast(rasters)
   names(rasters) <- fields
   
   rasters
+  
+}
+
+#' Function when agg_geom is an sf object
+#' @importFrom stats aggregate
+#' @noRd
+fb_aggregate_site_data_sf = function(
+    site_locations, site_data, agg_geom, fun, ...
+) {
+  
+  # Reproject sites if required ------------------------------------------------
+  
+  if (sf::st_crs(site_locations) != sf::st_crs(agg_geom)) {
+    
+    site_locations <- sf::st_transform(
+      site_locations,
+      sf::st_crs(agg_geom)
+    )
+    
+  }
+  
+  
+  # Aggregate data -------------------------------------------------------------
+  # Select columns on which to perform aggregation
+  data_columns <- setdiff(colnames(site_data), "site")
+  
+  # Perform aggregation
+  aggregated_sf <- aggregate(site_locations[, data_columns], agg_geom, fun, ...)
+  
 }
