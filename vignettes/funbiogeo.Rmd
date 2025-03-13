@@ -597,13 +597,27 @@ fb_map_site_data(woodiv_locations, woodiv_fdis, "fdis") +
   theme(legend.position = "bottom")
 ```
 
+We can proceed similarly to display the average plant height per assemblage by specifying the name of the column `fide_plant_height` from our `woodiv_fdis` data.frame:
+
+```{r woodiv-avg-plant-height, options = require("mFD")}
+fb_map_site_data(woodiv_locations, woodiv_fdis, "fide_plant_height") +
+  # Additional code to customize our plot
+  scale_fill_distiller("Average plant height", palette = "RdYlBu") +
+  labs(title = "WOODIV average plant height") +
+  theme(legend.position = "bottom")
+```
+
+We see that the tallest assemblages are in Italy, while central Spain and North
+of Portugal shows the lowest average plant height. You can adapt the above code
+on the other available diversity indices.
+
 
 ## Mapping an environmental raster
 
 A common case of analysis in biogeography is to be interested in mapping
 environmental variables. If we want to display the environment associated with
-our sites of interest, we can leverage environmental raster layers, like the
-mean annual temperature. Fortunately, we have access to an example raster of
+our sites of interest, we can leverage environmental raster layers as provided, for example, by
+WorldClim [@Fick_WorldClim_2017] or CHELSA [@Karger_Climatologies_2017]. Fortunately, we have access to an example raster of
 mean annual temperature through `funbiogeo`.
 
 We first going to read the raster using the `terra` package, which is the
