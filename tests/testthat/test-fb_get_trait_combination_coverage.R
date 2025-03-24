@@ -28,7 +28,7 @@ test_that("fb_get_trait_combination_coverage() errors with wrong inputs", {
     )
   )
   
-  trait_mat[["species"]] <- "a"
+  trait_mat[["species"]] <- c("a", "b")
   
   expect_error(
     fb_get_trait_combination_coverage(site_species, trait_mat),

@@ -42,7 +42,6 @@ test_that("check_site_species() works", {
     fixed = TRUE
   )
   
-  dat[["site"]] <- "a"
   colnames(dat) <- NULL
   
   expect_error(
@@ -66,10 +65,30 @@ test_that("check_site_species() works", {
     "The site x species object cannot contain negative values",
     fixed = TRUE)
   
+  
+  mat <- matrix(c(1:10), ncol = 2)
+  rownames(mat) <- paste0("site_", seq_len(nrow(mat)))
+  colnames(mat) <- paste0("species_", LETTERS[seq_len(ncol(mat))])
+  
+  dat <- as.data.frame(mat)
+  dat[["site"]] <- rownames(mat)
+
+  dat2 <- dat
+  dat2[1, "site"] <- NA
+
   expect_error(
-    check_site_species(dat),
-    "The site x species object cannot contain negative values",
-    fixed = TRUE)
+    check_site_species(dat2),
+    "The column 'site' of site x species cannot contain missing values",
+    fixed = TRUE
+  )
+
+  dat2[1, "site"] <- dat2[2, "site"]
+
+  expect_error(
+    check_site_species(dat2),
+    "The column 'site' of site x species cannot contain duplicated values",
+    fixed = TRUE
+  )
   
   
   # Correct input ----
@@ -160,6 +179,26 @@ test_that("check_species_traits() works", {
     "The species x traits object must have column names (trait names)",
     fixed = TRUE)
   
+  mat <- matrix(1:10, ncol = 2)
+  rownames(mat) <- paste0("species_", seq_len(nrow(mat)))
+  dat <- as.data.frame(mat)
+  dat[["species"]] <- rownames(dat)
+
+  dat2 <- dat
+  dat2[1, "species"] <- NA
+
+  expect_error(
+    check_species_traits(dat2),
+    "The column 'species' of species x traits cannot contain missing values",
+    fixed = TRUE)
+  
+  dat2[1, "species"] <- dat2[2, "species"]
+
+  expect_error(
+    check_species_traits(dat2),
+    "The column 'species' of species x traits cannot contain duplicated values",
+    fixed = TRUE)
+  
   
   # Correct Input ----
 
@@ -175,10 +214,6 @@ test_that("check_species_traits() works", {
   expect_equal(check_species_traits(dat), NULL)
   
   dat$"trait_3" <- LETTERS[seq_len(nrow(dat))]
-  
-  expect_silent(check_species_traits(dat))
-  
-  dat[1, 3] <- NA
   
   expect_silent(check_species_traits(dat))
 })
@@ -229,6 +264,21 @@ test_that("check_site_locations() works", {
     "The site x locations object must contain the 'site' column",
     fixed = TRUE
   )
+
+  sites <- sites_sf
+  sites[1, "site"] <- NA
+
+  expect_error(
+    check_site_locations(sites),
+    "The column 'site' of site x locations cannot contain missing values",
+    fixed = TRUE)
+  
+  sites[1, "site"] <- sites[2, "site", drop = TRUE]
+
+  expect_error(
+    check_site_locations(sites),
+    "The column 'site' of site x locations cannot contain duplicated values",
+    fixed = TRUE)
   
   expect_silent(check_site_locations(sites_sf))
   
@@ -271,12 +321,38 @@ test_that("check_species_categories() works", {
     "The species x categories object must contain the 'species' column",
     fixed = TRUE
   )
+
+
+  dat <- data.frame(
+    species  = c("a", NA), 
+    category = c("plant", "plant")
+  )
+
+  expect_error(
+    check_species_categories(dat),
+    paste0(
+      "The column 'species' of species x categories cannot contain ", 
+      "missing values"
+    ),
+    fixed = TRUE
+  )
+
+  dat[2, "species"] <- dat[1, "species"]
+
+  expect_error(
+    check_species_categories(dat),
+    paste0(
+      "The column 'species' of species x categories cannot contain ", 
+      "duplicated values"
+    ),
+    fixed = TRUE
+  )
   
+    
   ## Working input
   expect_silent(
     check_species_categories(data.frame(species = "a", category = "plant"))
   )
-  
 })
 
 
