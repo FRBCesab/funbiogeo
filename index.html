@@ -77,7 +77,7 @@
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>The package <code>funbiogeo</code> aims to help users with analyses in functional biogeography (<a href="#references">Violle <em>et al.</em> 2014</a>), the biogeography of species’ traits, by loading and combining data, computing trait coverage, drawing maps, correlating them with the environment, and upscaling assemblages. It is aimed at first-timers of functional biogeography as well as more experienced users who want to obtain quick and easy exploratory plots.</p>
+<p>The package <code>funbiogeo</code> aims to help users with analyses in functional biogeography (<a href="#references">Violle <em>et al.</em> 2014</a>), the biogeography of species’ traits, by loading and combining data, exploring the relationships between traits and their availability trait coverage, providing many diagnostic plots to understand how to filter them, producing maps, correlating them with the environment, and helping to aggregate data at different scales It is aimed at first-timers of functional biogeography as well as more experienced users who want to obtain quick and easy exploratory plots.</p>
 <p>Below is a quick introduction to the main features of <code>funbiogeo</code>, if you want some more details about them, check <a href="#long-form-documentation">our vignettes</a>.</p>
 </div>
 <div class="section level2">
@@ -89,8 +89,8 @@
 <li>Pleasing default diagnostic plots to visualize the structure of your data,</li>
 <li>Extensive documentation (multiple vignettes, well-documented functions, real-life example dataset) to guide you through functional biogeography analyses,</li>
 <li>Nice default plotting functions fully compatible with the outputs of functional diversity packages (<code>betapart</code>, <code>fundiversity</code>, <code>hillR</code>, <code>mFD</code>, etc.),</li>
-<li>Automated standardized report that provide analyses and plots of your data,</li>
-<li>Functions to easily “upscale” your data to coarser spatial resolutions.</li>
+<li>A publication-ready automated standardized report that provide analyses and plots of your data,</li>
+<li>Functions to easily “upscale” (=aggregate) your data to coarser spatial resolutions whatever the type of aggregation geometry you want (regular grid, irregular polygons, and rasters).</li>
 </ul>
 <div class="figure">
 <img src="inst/misc/functions_scheme.drawio.png" alt="Naming scheme of available functions in funbiogeo" width="100%"><p class="caption">
@@ -202,8 +202,8 @@ Naming scheme of available functions in funbiogeo
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/FRBCesab/funbiogeo/actions" class="external-link"><img src="https://github.com/FRBCesab/funbiogeo/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://codecov.io/gh/FRBCesab/funbiogeo" class="external-link"><img src="https://codecov.io/gh/FRBCesab/funbiogeo/branch/main/graph/badge.svg?token=JPXXVNMAJ0" alt="codecov"></a></li>
+<li><a href="https://github.com/FRBCesab/funbiogeo/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/FRBCesab/funbiogeo/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://app.codecov.io/gh/FRBCesab/funbiogeo" class="external-link"><img src="https://codecov.io/gh/FRBCesab/funbiogeo/graph/badge.svg?token=JPXXVNMAJ0" alt="Codecov test coverage"></a></li>
 <li><a href="https://CRAN.R-project.org/package=funbiogeo" class="external-link"><img src="https://www.r-pkg.org/badges/version/funbiogeo" alt="CRAN status"></a></li>
 <li><a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html" class="external-link"><img src="https://img.shields.io/badge/License-GPL%20v2-blue.svg" alt="License: GPL v2"></a></li>
 </ul>
