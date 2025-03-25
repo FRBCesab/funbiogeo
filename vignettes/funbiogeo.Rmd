@@ -597,7 +597,9 @@ fb_map_site_data(woodiv_locations, woodiv_fdis, "fdis") +
   theme(legend.position = "bottom")
 ```
 
-We can proceed similarly to display the average plant height per assemblage by specifying the name of the column `fide_plant_height` from our `woodiv_fdis` data.frame:
+We can proceed similarly to display the average plant height per assemblage by
+specifying the name of the column `fide_plant_height` from our `woodiv_fdis`
+data.frame:
 
 ```{r woodiv-avg-plant-height, eval = require("mFD")}
 fb_map_site_data(woodiv_locations, woodiv_fdis, "fide_plant_height") +
@@ -616,10 +618,10 @@ on the other available diversity indices.
 
 A common case of analysis in biogeography is to be interested in mapping
 environmental variables. If we want to display the environment associated with
-our sites of interest, we can leverage environmental raster layers as provided, for example, by
-WorldClim [@Fick_WorldClim_2017] or CHELSA [@Karger_Climatologies_2017].
-Fortunately, we have access to an example raster of mean annual temperature
-through `funbiogeo`.
+our sites of interest, we can leverage environmental raster layers as provided,
+for example, by WorldClim [@Fick_WorldClim_2017] or CHELSA
+[@Karger_Climatologies_2017]. Fortunately, we have access to an example raster
+of mean annual temperature through `funbiogeo`.
 
 We ar first going to read the raster using the `terra` package, which is the
 reference package to read spatial raster data. If you want to know more about
@@ -636,7 +638,7 @@ For this, we'll use the `system.file()` function which allows accessing specific
 files from packages, then we'll read the raster with the `rast()` function from
 the `terra` package:
 
-```{r map-tavg}
+```{r map-tavg-load-raster}
 # Get file pathr
 tavg <- system.file(
   "extdata", "annual_mean_temp.tif", package = "funbiogeo"
@@ -657,7 +659,7 @@ code).
 We then display it with the `fb_map_raster()` function from `funbiogeo` in the
 next chunk. 
 
-```{r map-tavg, dev = 'png'}
+```{r map-tavg-fb, dev = 'png'}
 # Map raster
 fb_map_raster(tavg)
 ```
