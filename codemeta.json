@@ -300,9 +300,9 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "49195.902KB",
+  "fileSize": "49412.995KB",
   "releaseNotes": "https://github.com/frbcesab/funbiogeo/blob/master/NEWS.md",
   "readme": "https://github.com/FRBCesab/funbiogeo/blob/main/README.md",
-  "contIntegration": ["https://github.com/FRBCesab/funbiogeo/actions", "https://codecov.io/gh/FRBCesab/funbiogeo"],
-  "keywords": ["r", "package", "functional-biogeography"]
+  "contIntegration": ["https://github.com/FRBCesab/funbiogeo/actions/workflows/R-CMD-check.yaml", "https://app.codecov.io/gh/FRBCesab/funbiogeo"],
+  "keywords": ["r", "package", "functional-biogeography", "functional-diversity", "functional-trait"]
 }
