@@ -60,6 +60,23 @@ check_site_species <- function(site_species) {
          call. = FALSE)
   }
   
+  
+  # Check 'site' column --------------------------------------------------------
+  
+  if (any(is.na(site_species[["site"]]))) {
+    stop(
+      "The column 'site' of site x species cannot contain missing values", 
+      call. = FALSE
+    )
+  }
+
+  if (any(duplicated(site_species[["site"]]))) {
+    stop(
+      "The column 'site' of site x species cannot contain duplicated values", 
+      call. = FALSE
+    )
+  }
+
   invisible(NULL)
 } 
 
@@ -117,6 +134,24 @@ check_species_traits <- function(species_traits) {
            call. = FALSE)
     }
   }
+
+
+  # Check 'species' column -----------------------------------------------------
+
+  if (any(is.na(species_traits[["species"]]))) {
+    stop(
+      "The column 'species' of species x traits cannot contain missing values", 
+      call. = FALSE
+    )
+  }
+
+  if (any(duplicated(species_traits[["species"]]))) {
+    stop(
+      "The column 'species' of species x traits cannot contain duplicated ", 
+      "values", 
+      call. = FALSE
+    )
+  }
   
   invisible(NULL)
 }
@@ -162,6 +197,23 @@ check_site_locations <- function(site_locations) {
   if (!("site" %in% colnames(site_locations))) {
     stop("The site x locations object must contain the 'site' column", 
          call. = FALSE)
+  }
+
+
+  # Check 'site' column --------------------------------------------------------
+  
+  if (any(is.na(site_locations[["site"]]))) {
+    stop(
+      "The column 'site' of site x locations cannot contain missing values", 
+      call. = FALSE
+    )
+  }
+
+  if (any(duplicated(site_locations[["site"]]))) {
+    stop(
+      "The column 'site' of site x locations cannot contain duplicated values", 
+      call. = FALSE
+    )
   }
   
   invisible(NULL)
@@ -296,6 +348,25 @@ check_species_categories <- function(species_categories) {
       stop("The species x categories object must contain the 'species' column",
            call. = FALSE)
     }
+  }
+
+
+  # Check 'species' column -----------------------------------------------------
+
+  if (any(is.na(species_categories[["species"]]))) {
+    stop(
+      "The column 'species' of species x categories cannot contain missing ", 
+      "values", 
+      call. = FALSE
+    )
+  }
+
+  if (any(duplicated(species_categories[["species"]]))) {
+    stop(
+      "The column 'species' of species x categories cannot contain ", 
+      "duplicated values", 
+      call. = FALSE
+    )
   }
   
   invisible(NULL)
