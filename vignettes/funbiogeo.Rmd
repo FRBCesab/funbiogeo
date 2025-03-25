@@ -599,7 +599,7 @@ fb_map_site_data(woodiv_locations, woodiv_fdis, "fdis") +
 
 We can proceed similarly to display the average plant height per assemblage by specifying the name of the column `fide_plant_height` from our `woodiv_fdis` data.frame:
 
-```{r woodiv-avg-plant-height, options = require("mFD")}
+```{r woodiv-avg-plant-height, eval = require("mFD")}
 fb_map_site_data(woodiv_locations, woodiv_fdis, "fide_plant_height") +
   # Additional code to customize our plot
   scale_fill_distiller("Average plant height", palette = "RdYlBu") +
