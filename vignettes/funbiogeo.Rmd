@@ -682,25 +682,24 @@ Leveraging the `patchwork` package, that allows to combine different `ggplot2`
 objects, we can have side-by-side, the map of mean annual temperature and the
 one on annual total precipitation:
 
-```{r composition-map, dev = 'png'}
+```{r composition-map, dev = 'png', eval = require("patchwork")}
 library("patchwork")
 
-# Read raster ------------------------------------------------------------------
+# Read rasters
 tavg <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")
 tavg <- terra::rast(tavg)
 
 prec <- system.file("extdata", "annual_tot_prec.tif", package = "funbiogeo")
 prec <- terra::rast(prec)
 
-# Individual Maps --------------------------------------------------------------
+# Individual Maps
 map_temperature <- fb_map_raster(tavg, legend.position = "none") + 
   scale_fill_distiller("Temperature", palette = "Spectral")
 
 map_precipitation <- fb_map_raster(prec) + 
   scale_fill_distiller("Precipitation", direction = 1)
 
-# Plot composition -------------------------------------------------------------
-
+# Compose plot (leveraging `patchwork`)
 (map_temperature / map_precipitation) + 
   plot_annotation(title = "Europe", 
                   theme = theme(plot.title = element_text(face = "bold"))) & 
@@ -716,18 +715,25 @@ site of our study.
 
 ## Map of average environmental variable in site
 
-To get the average environmental variable in the site we can use the
-`fb_get_environment()` function, it takes as arguments the site-locations object
-and an environmental raster from the `terra` package.
-By default, it takes the average of the raster values per site.
+We want to make a map of the average environmental conditions of the sites. For
+this we're using the above-mentioned `terra` raster of the mean annual
+temperature, named `tavg`. To automatically extract the average mean annual
+temperature per site, we use the `fb_get_environment()` function, it takes as
+first argumen the site-locations object and a second argument the environmental
+raster. It takes the average of the raster values per site.
 
 ```{r get-environment}
-site_mat <- fb_get_environment(woodiv_locations, tavg)
+site_env <- fb_get_environment(woodiv_locations, tavg)
 
-head(site_mat)
+head(site_env)
 ```
 
 The variable names in the columns are based on the names of the provided raster.
+Here, because the raster has a single layer named `annual_mean_temp`, it's the
+name of the column. Note that the `fb_get_environment()` function also works
+with multi-layered rasters to extract multiple average conditions at observed
+sites.
+
 To put these values on the map we can use the `fb_map_site_data()` function,
 which allows mapping arbitrary site-level variables. It takes three needed
 arguments: the first of which, `site_locations`, which is the `sf` object
@@ -740,7 +746,7 @@ We can thus plot the mean annual temperature of sites through the following
 commands:
 
 ```{r map-avg-environment}
-fb_map_site_data(woodiv_locations, site_mat, "annual_mean_temp") +
+fb_map_site_data(woodiv_locations, site_env, "annual_mean_temp") +
   labs(title = "Mean Annual Temperature per Site")
 ```
 
@@ -749,13 +755,14 @@ fb_map_site_data(woodiv_locations, site_mat, "annual_mean_temp") +
 # Conclusion
 
 This concludes our tutorial to introduce `funbiogeo`. The package contains many
-more features, especially diagnostic plots, which are explained in detail in
-[a dedicated vignette](diagnostic-plots.Rmd).
-There is also a specific vignette about
+more features, especially several diagnostic plots that allow to identify which
+trait are missing or not, at species or site scales. All of the plots are
+explained in details in [a dedicated vignette](diagnostic-plots.Rmd). There is
+also a specific vignette about
 [transforming raw data from long to wide format](long-format.Rmd).
-Finally, if you're interested in learning about up-scaling your sites, which
-means aggregating your sites at coarser scales,you can
-refer to [the specific vignette](upscaling.Rmd)
+Finally, if you're interested in learning about up-scaling your sites,
+which means aggregating your sites at coarser scales,you can refer to
+[the specific vignette](upscaling.Rmd).
 
 
 # References
