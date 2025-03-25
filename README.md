@@ -5,8 +5,9 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/FRBCesab/funbiogeo/workflows/R-CMD-check/badge.svg)](https://github.com/FRBCesab/funbiogeo/actions)
-[![codecov](https://codecov.io/gh/FRBCesab/funbiogeo/branch/main/graph/badge.svg?token=JPXXVNMAJ0)](https://codecov.io/gh/FRBCesab/funbiogeo)
+[![R-CMD-check](https://github.com/FRBCesab/funbiogeo/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/FRBCesab/funbiogeo/actions/workflows/R-CMD-check.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/FRBCesab/funbiogeo/graph/badge.svg?token=JPXXVNMAJ0)](https://app.codecov.io/gh/FRBCesab/funbiogeo)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/funbiogeo)](https://CRAN.R-project.org/package=funbiogeo)
 [![License: GPL
@@ -27,11 +28,13 @@ v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org
 
 The package `funbiogeo` aims to help users with analyses in functional
 biogeography ([Violle *et al.* 2014](#references)), the biogeography of
-species’ traits, by loading and combining data, computing trait
-coverage, drawing maps, correlating them with the environment, and
-upscaling assemblages. It is aimed at first-timers of functional
-biogeography as well as more experienced users who want to obtain quick
-and easy exploratory plots.
+species’ traits, by loading and combining data, exploring the
+relationships between traits and their availability trait coverage,
+providing many diagnostic plots to understand how to filter them,
+producing maps, correlating them with the environment, and helping to
+aggregate data at different scales It is aimed at first-timers of
+functional biogeography as well as more experienced users who want to
+obtain quick and easy exploratory plots.
 
 Below is a quick introduction to the main features of `funbiogeo`, if
 you want some more details about them, check [our
@@ -51,10 +54,11 @@ vignettes](#long-form-documentation).
 - Nice default plotting functions fully compatible with the outputs of
   functional diversity packages (`betapart`, `fundiversity`, `hillR`,
   `mFD`, etc.),
-- Automated standardized report that provide analyses and plots of your
-  data,
-- Functions to easily “upscale” your data to coarser spatial
-  resolutions.
+- A publication-ready automated standardized report that provide
+  analyses and plots of your data,
+- Functions to easily “upscale” (=aggregate) your data to coarser
+  spatial resolutions whatever the type of aggregation geometry you want
+  (regular grid, irregular polygons, and rasters).
 
 <div class="figure">
 
