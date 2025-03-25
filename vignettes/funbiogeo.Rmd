@@ -617,26 +617,55 @@ on the other available diversity indices.
 A common case of analysis in biogeography is to be interested in mapping
 environmental variables. If we want to display the environment associated with
 our sites of interest, we can leverage environmental raster layers as provided, for example, by
-WorldClim [@Fick_WorldClim_2017] or CHELSA [@Karger_Climatologies_2017]. Fortunately, we have access to an example raster of
-mean annual temperature through `funbiogeo`.
+WorldClim [@Fick_WorldClim_2017] or CHELSA [@Karger_Climatologies_2017].
+Fortunately, we have access to an example raster of mean annual temperature
+through `funbiogeo`.
 
-We first going to read the raster using the `terra` package, which is the
+We ar first going to read the raster using the `terra` package, which is the
 reference package to read spatial raster data. If you want to know more about
-raster data, we recommend reading the [dedicated chapter](https://r.geocompx.org/raster) in the [*Geocomputations with R*](https://r.geocompx.org/) book
-REF. Then, we'll use the `fb_map_raster()` function that displays a map for the
-first layer of the raster data. It takes as fi
+raster data, we recommend reading the
+[dedicated chapter](https://r.geocompx.org/raster) in the
+[*Geocomputations with R*](https://r.geocompx.org/) book
+[@Lovelace_Geocomputation_2025]. Then, we'll use the `fb_map_raster()`
+function that displays a map for the first layer of the raster data.
+It takes the actual raster object as first argument. The other arguments are
+passed to the `theme()` function of ggplot2 to customize the plot.
 
-The package provides a helper
-function display a raster layer easily (without any assumption about the
-projection) named `fb_map_raster()`:
+So first, let's read the mean annual temperature raster provided by `funbiogeo`.
+For this, we'll use the `system.file()` function which allows accessing specific
+files from packages, then we'll read the raster with the `rast()` function from
+the `terra` package:
 
-```{r map-tavg, dev = 'png'}
-# Read raster
+```{r map-tavg}
+# Get file pathr
 tavg <- system.file(
   "extdata", "annual_mean_temp.tif", package = "funbiogeo"
 )
+
+# Read raster
 tavg <- terra::rast(tavg)
 
+# Display object
+tavg
+```
+
+This raster represents mean annual temperature in Europe. We can see that the
+temperature goes between -5.9°C and 19.8°C. The raster isn't projected (as given
+by its [EPSG](https://en.wikipedia.org/wiki/EPSG_Geodetic_Parameter_Dataset)
+code).
+
+We then display it with the `fb_map_raster()` function from `funbiogeo` in the
+next chunk. 
+
+```{r map-tavg, dev = 'png'}
+# Map raster
+fb_map_raster(tavg)
+```
+
+As with all plots provided by `funbiogeo`, the `fb_map_raster()` returns a
+ggplot2 object which can be customized providing additional functions:
+
+```{r map-tavg-custom, dev = 'png'}
 # Map raster
 fb_map_raster(tavg) + 
   scale_fill_distiller("Temperature", palette = "Spectral") +
@@ -644,8 +673,7 @@ fb_map_raster(tavg) +
   theme(legend.position = "bottom")
 ```
 
-All of the plots produced by `funbiogeo` are `ggplot2` objects and can thus be
-customized using the `ggplot2` syntax, to learn about it check the
+To learn about the ggplot2 syntax and functions check the
 [`ggplot2` introductory vignette](https://ggplot2.tidyverse.org/articles/ggplot2.html).
 
 Leveraging the `patchwork` package, that allows to combine different `ggplot2`
@@ -679,9 +707,9 @@ map_precipitation <- fb_map_raster(prec) +
 ```
 
 This function allows the visualization of a raster in a simple fashion, but it
-doesn't tell us anything about the environmental variable at the sites.
-In the next section we will follow the example of mapping an environmental
-variable.
+doesn't tell us anything about the environmental variable at the sites we're
+interested in. In the next section we will map an environmental variable at each
+site of our study.
 
 
 ## Map of average environmental variable in site
