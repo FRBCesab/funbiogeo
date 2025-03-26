@@ -4,7 +4,18 @@ site_species   <- woodiv_site_species
 species_traits <- woodiv_traits
 
 test_that("fb_plot_site_traits_completeness works", {
-
+  
+  # With categories
+  expect_silent(
+    given_plot <- fb_plot_site_traits_completeness(
+      site_species, species_traits, woodiv_categories[, 1:2]
+    )
+  )
+  
+  expect_s3_class(given_plot, "ggplot")
+  
+  
+  # Without categories
   expect_silent(
     given_plot <- fb_plot_site_traits_completeness(site_species, species_traits)
   )
