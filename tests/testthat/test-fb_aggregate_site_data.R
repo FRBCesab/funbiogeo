@@ -21,7 +21,9 @@ tavg_file <- system.file("extdata", "annual_mean_temp.tif",
 tavg <- terra::rast(tavg_file)
 
 # Square grid
-square_grid <- sf::st_make_grid(head(site_locations), cellsize = c(300e3, 300e3)) |>
+square_grid <- sf::st_make_grid(
+  head(site_locations), cellsize = c(300e3, 300e3)
+  ) |>
   sf::st_as_sf()
 
 # Irregular polygons (countries)
