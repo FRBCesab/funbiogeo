@@ -44,7 +44,7 @@
 #' 
 #' # Rasterize 3 first species counts
 #' fb_aggregate_site_data(
-#'     woodiv_locations[, 1:5e2], woodiv_site_species[, 1:4], tavg, fun = sum
+#'     woodiv_locations[1:5e2,], woodiv_site_species[, 1:4], tavg, fun = sum
 #' )
 #' 
 #' ## Irregular polygons
