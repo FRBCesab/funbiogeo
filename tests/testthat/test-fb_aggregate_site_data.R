@@ -184,6 +184,17 @@ test_that("fb_aggregate_site_data() works", {
   expect_named(agg, c("AALB", "ACEP", "geometry"))
   
   
+  # Polygons with projections
+  expect_silent(
+    agg <- fb_aggregate_site_data(
+      site_locations, site_species[, 1:3], sf::st_transform(countries, 4668)
+    )
+  )
+  
+  expect_s3_class(agg, "sf")
+  expect_named(agg, c("AALB", "ACEP", "geometry"))
+  
+  
   
   ## Multiline spatial data
   # Unprojected raster

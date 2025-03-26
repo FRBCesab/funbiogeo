@@ -2,7 +2,17 @@ data("woodiv_traits")
 species_traits <- woodiv_traits
 
 test_that("fb_plot_number_traits_by_species works", {
-
+  
+  # Works with species categories
+  expect_silent(
+    given_plot <- fb_plot_number_traits_by_species(
+      species_traits, woodiv_categories[, 1:2]
+    )
+  )
+  
+  expect_s3_class(given_plot, "ggplot")
+  
+  # Works without species categories
   expect_silent(given_plot <- fb_plot_number_traits_by_species(species_traits))
   
   expect_s3_class(given_plot, "ggplot")

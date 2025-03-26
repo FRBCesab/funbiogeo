@@ -2,7 +2,17 @@ data("woodiv_traits")
 species_traits <- woodiv_traits
 
 test_that("fb_plot_species_traits_missingness works", {
-
+  
+  # With species categories
+  expect_silent(
+    given_plot <- fb_plot_species_traits_missingness(
+      species_traits, woodiv_categories[, 1:2]
+    )
+  )
+  
+  expect_s3_class(given_plot, "ggplot")
+  
+  # Without species categories
   expect_silent(
     given_plot <- fb_plot_species_traits_missingness(species_traits)
   )
