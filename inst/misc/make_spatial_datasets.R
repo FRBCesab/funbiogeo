@@ -51,7 +51,7 @@ woodiv_points |>
 
 
 # Create transects -------------------------------------------------------------
-woodiv_transects = woodiv_points |>
+woodiv_transects <- woodiv_points |>
   group_by(country) |>
   slice_sample(n = 6) |>
   summarise(do_union = FALSE) |>
