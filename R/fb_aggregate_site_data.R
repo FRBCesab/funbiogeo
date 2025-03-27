@@ -36,6 +36,7 @@
 #' @export
 #'
 #' @examples
+#' library("sf")
 #' ## Raster grid
 #' tavg <- system.file(
 #'   "extdata", "annual_mean_temp.tif", package = "funbiogeo"

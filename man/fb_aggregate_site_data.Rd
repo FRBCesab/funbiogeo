@@ -45,6 +45,7 @@ also be irregular polygons like biomes or ecoregions, or points, and even
 lines (such as when aggregating across transects or trajectories).
 }
 \examples{
+library("sf")
 ## Raster grid
 tavg <- system.file(
   "extdata", "annual_mean_temp.tif", package = "funbiogeo"
