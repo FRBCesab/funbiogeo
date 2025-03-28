@@ -3,7 +3,7 @@
 #' @param x a `SpatRaster` object (package `terra`). A raster of one single 
 #' layer
 #' 
-#' @param ... other parameters passed to [`theme()`]
+#' @param ... other parameters passed to `ggplot2::theme()`
 #'
 #' @return A `ggplot` object.
 #' 

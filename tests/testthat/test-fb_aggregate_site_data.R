@@ -21,7 +21,9 @@ tavg_file <- system.file("extdata", "annual_mean_temp.tif",
 tavg <- terra::rast(tavg_file)
 
 # Square grid
-square_grid <- sf::st_make_grid(head(site_locations), cellsize = c(300e3, 300e3)) |>
+square_grid <- sf::st_make_grid(
+  head(site_locations), cellsize = c(300e3, 300e3)
+  ) |>
   sf::st_as_sf()
 
 # Irregular polygons (countries)
@@ -175,6 +177,17 @@ test_that("fb_aggregate_site_data() works", {
   expect_silent(
     agg <- fb_aggregate_site_data(
       site_locations, site_species[, 1:3], transects
+    )
+  )
+  
+  expect_s3_class(agg, "sf")
+  expect_named(agg, c("AALB", "ACEP", "geometry"))
+  
+  
+  # Polygons with projections
+  expect_silent(
+    agg <- fb_aggregate_site_data(
+      site_locations, site_species[, 1:3], sf::st_transform(countries, 4668)
     )
   )
   

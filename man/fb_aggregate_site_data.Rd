@@ -45,6 +45,7 @@ also be irregular polygons like biomes or ecoregions, or points, and even
 lines (such as when aggregating across transects or trajectories).
 }
 \examples{
+library("sf")
 ## Raster grid
 tavg <- system.file(
   "extdata", "annual_mean_temp.tif", package = "funbiogeo"
@@ -53,7 +54,7 @@ tavg <- terra::rast(tavg)
 
 # Rasterize 3 first species counts
 fb_aggregate_site_data(
-    woodiv_locations, woodiv_site_species[, 1:4], tavg, fun = sum
+    head(woodiv_locations), woodiv_site_species[, 1:4], tavg, fun = sum
 )
 
 ## Irregular polygons

@@ -95,9 +95,7 @@ fb_make_report <- function(path = ".", filename = NULL, title = NULL,
     answer <- substr(answer, 1, 1)
 
     if (!(answer %in% c("y", "n"))) {
-      stop(
-        "Please answer 'yes' or 'no'", call. = FALSE
-      )
+      stop("Please answer 'yes' or 'no'", call. = FALSE)
     }
 
     if (answer == "n") {

@@ -36,6 +36,7 @@
 #' @export
 #'
 #' @examples
+#' library("sf")
 #' ## Raster grid
 #' tavg <- system.file(
 #'   "extdata", "annual_mean_temp.tif", package = "funbiogeo"
@@ -44,7 +45,7 @@
 #' 
 #' # Rasterize 3 first species counts
 #' fb_aggregate_site_data(
-#'     woodiv_locations, woodiv_site_species[, 1:4], tavg, fun = sum
+#'     head(woodiv_locations), woodiv_site_species[, 1:4], tavg, fun = sum
 #' )
 #' 
 #' ## Irregular polygons
@@ -128,7 +129,7 @@ fb_aggregate_site_data <- function(
 }
 
 # Function when grid is a raster
-fb_aggregate_site_data_raster = function(
+fb_aggregate_site_data_raster <- function(
     site_locations, site_data, agg_geom, fun, ...
 ) {
   
@@ -169,7 +170,7 @@ fb_aggregate_site_data_raster = function(
 #' Function when agg_geom is an sf object
 #' @importFrom stats aggregate
 #' @noRd
-fb_aggregate_site_data_sf = function(
+fb_aggregate_site_data_sf <- function(
     site_locations, site_data, agg_geom, fun, ...
 ) {
   

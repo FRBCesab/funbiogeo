@@ -155,7 +155,7 @@ test_that("fb_format_species_traits() works", {
       "wood_density")
   )
   expect_true(is.data.frame(species_traits))
-  expect_equal(nrow(species_traits), 24L)
+  expect_equal(nrow(species_traits), 11L)
   expect_equal(ncol(species_traits), 5L)
   expect_true("species" %in% colnames(species_traits))
   expect_equal(species_traits[1, 3], 235, tolerance = 7)

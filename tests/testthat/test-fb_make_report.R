@@ -17,6 +17,11 @@ st_sp <- data.frame(
   sp2  = c( 1, 1, 0, 0)
 )
 
+sp_cat <- data.frame(
+  species = paste0("sp", 1:4),
+  fam     = c("A", "A", "B", "B")
+)
+
 data("woodiv_locations")
 site_locations <- woodiv_locations
 
@@ -501,8 +506,9 @@ test_that("fb_make_report() authorship", {
   expect_message(
     fb_make_report(
       path = temp_dir, overwrite = TRUE, species_traits = sp_tr, 
-      site_species = st_sp, site_locations = st_loc, open = FALSE,
-      author = "Jane Doe", interactive = FALSE
+      site_species = st_sp, site_locations = st_loc,
+      species_categories = sp_cat, open = FALSE, author = "Jane Doe",
+      interactive = FALSE
     )
   )
   
@@ -510,7 +516,7 @@ test_that("fb_make_report() authorship", {
   
   content <- readLines(file.path(temp_dir, filename))
   expect_equal(length(grep("^author: \"Jane Doe\"$", content)), 1)
-    
+  
   
   # Multiple authors provided ----
   

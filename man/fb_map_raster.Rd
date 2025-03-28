@@ -10,7 +10,7 @@ fb_map_raster(x, ...)
 \item{x}{a \code{SpatRaster} object (package \code{terra}). A raster of one single
 layer}
 
-\item{...}{other parameters passed to \code{\link[=theme]{theme()}}}
+\item{...}{other parameters passed to \code{ggplot2::theme()}}
 }
 \value{
 A \code{ggplot} object.

@@ -102,7 +102,7 @@ nubmers as the second argument defining the cell sizes. By default, the newly
 created grid will cover the same extent as in the input spatial data.
 
 ```{r make-grid}
-coarser_grid = sf::st_make_grid(woodiv_locations, cellsize = c(300e3, 300e3))
+coarser_grid <- sf::st_make_grid(woodiv_locations, cellsize = c(300e3, 300e3))
 
 head(coarser_grid)
 ```
@@ -112,7 +112,7 @@ object to be fully compatible with `fb_aggregate_site_data()`. We do so in the
 next chunk:
 
 ```{r convert-grid-to-sf}
-coarser_grid = sf::st_as_sf(coarser_grid)
+coarser_grid <- sf::st_as_sf(coarser_grid)
 
 coarser_grid
 ```
@@ -151,7 +151,7 @@ object, with the species richness data, on the coarser grid, using the `mean()`
 function to get back the average species richness across sites per larger pixel.
 
 ```{r square-grid-aggregate}
-coarser_richness = fb_aggregate_site_data(
+coarser_richness <- fb_aggregate_site_data(
   woodiv_locations, species_richness, coarser_grid, fun = mean
 )
 
