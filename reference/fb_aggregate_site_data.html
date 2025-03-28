@@ -109,7 +109,9 @@ lines (such as when aggregating across transects or trajectories).</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Raster grid</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://r-spatial.github.io/sf/" class="external-link">"sf"</a></span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Linking to GEOS 3.12.1, GDAL 3.8.4, PROJ 9.4.0; sf_use_s2() is TRUE</span>
+<span class="r-in"><span><span class="co">## Raster grid</span></span></span>
 <span class="r-in"><span><span class="va">tavg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="st">"extdata"</span>, <span class="st">"annual_mean_temp.tif"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
@@ -117,7 +119,7 @@ lines (such as when aggregating across transects or trajectories).</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Rasterize 3 first species counts</span></span></span>
 <span class="r-in"><span><span class="fu">fb_aggregate_site_data</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    <span class="va">woodiv_locations</span>, <span class="va">woodiv_site_species</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, <span class="va">tavg</span>, fun <span class="op">=</span> <span class="va">sum</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">woodiv_locations</span><span class="op">)</span>, <span class="va">woodiv_site_species</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, <span class="va">tavg</span>, fun <span class="op">=</span> <span class="va">sum</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> class       : SpatRaster </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> dimensions  : 290, 405, 3  (nrow, ncol, nlyr)</span>
@@ -130,7 +132,7 @@ lines (such as when aggregating across transects or trajectories).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               annual_mean_temp </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> names       : AALB, ACEP, APIN </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> min values  :    0,    0,    0 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> max values  :    1,    1,    1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> max values  :    0,    0,    0 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Irregular polygons</span></span></span>
 <span class="r-in"><span><span class="va">countries</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span></span>

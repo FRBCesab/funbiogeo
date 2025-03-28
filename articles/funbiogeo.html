@@ -751,14 +751,35 @@ traits.</p>
 <span><span class="va">subset_traits</span> <span class="op">&lt;-</span> <span class="va">subset_traits</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span></span>
 <span></span>
 <span><span class="co"># Scale traits</span></span>
-<span><span class="va">scaled_traits</span> <span class="op">&lt;-</span> <span class="fu">mFD</span><span class="fu">::</span><span class="fu">tr.cont.scale</span><span class="op">(</span><span class="va">subset_traits</span><span class="op">)</span></span>
+<span><span class="va">scaled_traits</span> <span class="op">&lt;-</span> <span class="fu">mFD</span><span class="fu">::</span><span class="fu"><a href="https://cmlmagneville.github.io/mFD/reference/tr.cont.scale.html" class="external-link">tr.cont.scale</a></span><span class="op">(</span><span class="va">subset_traits</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Check that traits are scaled (should have a mean of 0 and SD of 1)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">scaled_traits</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   plant_height       seed_mass       </span></span>
+<span><span class="co">#&gt;  Min.   :-1.4651   Min.   :-0.43558  </span></span>
+<span><span class="co">#&gt;  1st Qu.:-0.8662   1st Qu.:-0.37724  </span></span>
+<span><span class="co">#&gt;  Median :-0.1174   Median :-0.25557  </span></span>
+<span><span class="co">#&gt;  Mean   : 0.0000   Mean   : 0.00000  </span></span>
+<span><span class="co">#&gt;  3rd Qu.: 0.5587   3rd Qu.:-0.03737  </span></span>
+<span><span class="co">#&gt;  Max.   : 2.5591   Max.   : 4.49587</span></span>
 <span></span>
 <span><span class="co"># Compare initial trait data to scaled traits</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">selected_species</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">scaled_traits</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co">#&gt;   species plant_height seed_mass</span></span>
+<span><span class="co">#&gt; 1    AALB    49.641622 67.866923</span></span>
+<span><span class="co">#&gt; 3    ACEP    25.875000 64.703750</span></span>
+<span><span class="co">#&gt; 5    APIN    27.333333 55.520000</span></span>
+<span><span class="co">#&gt; 6    CLIB    35.636364 86.872600</span></span>
+<span><span class="co">#&gt; 7    CSEM    24.692308  7.608125</span></span>
+<span><span class="co">#&gt; 8    JCOM     6.894711 14.556875</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">scaled_traits</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      plant_height   seed_mass</span></span>
+<span><span class="co">#&gt; AALB    2.5590553  0.04481508</span></span>
+<span><span class="co">#&gt; ACEP    0.5778367  0.01959764</span></span>
+<span><span class="co">#&gt; APIN    0.6994054 -0.05361705</span></span>
+<span><span class="co">#&gt; CLIB    1.3915576  0.19633213</span></span>
+<span><span class="co">#&gt; CSEM    0.4792459 -0.43558008</span></span>
+<span><span class="co">#&gt; JCOM   -1.0043865 -0.38018325</span></span></code></pre></div>
 <p>We get a data.frame with the two scaled traits and species names as
 row names.</p>
 <p>To compute functional diversity indices with <code>mFD</code> we
@@ -777,7 +798,13 @@ object:</p>
 <span><span class="co"># Keeping only species for which we have the traits</span></span>
 <span><span class="va">formatted_site_species</span> <span class="op">&lt;-</span> <span class="va">formatted_site_species</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">scaled_traits</span><span class="op">)</span><span class="op">]</span></span>
 <span></span>
-<span><span class="va">formatted_site_species</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></code></pre></div>
+<span><span class="va">formatted_site_species</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span>
+<span><span class="co">#&gt;          AALB ACEP APIN CLIB CSEM</span></span>
+<span><span class="co">#&gt; 41152325    1    0    0    0    0</span></span>
+<span><span class="co">#&gt; 40852325    1    0    0    0    0</span></span>
+<span><span class="co">#&gt; 40852345    1    0    0    0    0</span></span>
+<span><span class="co">#&gt; 42552105    1    0    0    0    0</span></span>
+<span><span class="co">#&gt; 41152315    1    0    0    0    0</span></span></code></pre></div>
 <p><code>mFD</code> furthermore requires that the site by species object
 is a <code>matrix</code>, we thus convert it to a matrix:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
@@ -798,13 +825,20 @@ species-traits table as first argument then the site-species table as
 second argument, then the name of the functional diversity index as a
 third argument:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">woodiv_fdis</span> <span class="op">&lt;-</span> <span class="fu">mFD</span><span class="fu">::</span><span class="fu">alpha.fd.multidim</span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">woodiv_fdis</span> <span class="op">&lt;-</span> <span class="fu">mFD</span><span class="fu">::</span><span class="fu"><a href="https://cmlmagneville.github.io/mFD/reference/alpha.fd.multidim.html" class="external-link">alpha.fd.multidim</a></span><span class="op">(</span></span>
 <span>  <span class="va">scaled_traits</span>, <span class="va">formatted_site_species</span>, ind_vect <span class="op">=</span> <span class="st">"fdis"</span>,</span>
 <span>  <span class="co"># remove all of the messages</span></span>
 <span>  details_returned <span class="op">=</span> <span class="cn">FALSE</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">woodiv_fdis</span><span class="op">$</span><span class="va">functional_diversity_indices</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">woodiv_fdis</span><span class="op">$</span><span class="va">functional_diversity_indices</span><span class="op">)</span></span>
+<span><span class="co">#&gt;          sp_richn      fdis fide_plant_height fide_seed_mass</span></span>
+<span><span class="co">#&gt; 41152325        7 0.3847528       -0.14087355     -0.1624503</span></span>
+<span><span class="co">#&gt; 40852325        8 0.4080783        0.09301692     -0.1733643</span></span>
+<span><span class="co">#&gt; 40852345        8 0.4213861        0.04003436     -0.2076613</span></span>
+<span><span class="co">#&gt; 42552105        6 0.4368759        0.26890829     -0.1355701</span></span>
+<span><span class="co">#&gt; 41152315        9 0.3917271        0.01446366     -0.1938831</span></span>
+<span><span class="co">#&gt; 37452365        2 0.6982520        0.77733440     -0.1676841</span></span></code></pre></div>
 <p>We now have a table with several diversity indices computed for each
 site. This table contains site names as row names an four columns:</p>
 <ul>
@@ -846,7 +880,14 @@ should slightly transform our site-indices table to include an explicit
 <span><span class="co"># Move 'site' column as first column</span></span>
 <span><span class="va">woodiv_fdis</span> <span class="op">&lt;-</span> <span class="va">woodiv_fdis</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span><span class="op">]</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">woodiv_fdis</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">woodiv_fdis</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       site sp_richn      fdis fide_plant_height fide_seed_mass</span></span>
+<span><span class="co">#&gt; 1 41152325        7 0.3847528       -0.14087355     -0.1624503</span></span>
+<span><span class="co">#&gt; 2 40852325        8 0.4080783        0.09301692     -0.1733643</span></span>
+<span><span class="co">#&gt; 3 40852345        8 0.4213861        0.04003436     -0.2076613</span></span>
+<span><span class="co">#&gt; 4 42552105        6 0.4368759        0.26890829     -0.1355701</span></span>
+<span><span class="co">#&gt; 5 41152315        9 0.3917271        0.01446366     -0.1938831</span></span>
+<span><span class="co">#&gt; 6 37452365        2 0.6982520        0.77733440     -0.1676841</span></span></code></pre></div>
 <p>We get a regular data.frame describing each diversity index with the
 <code>site</code> column giving the id of the sites. Using
 <code>funbiogeo</code> we can automatically create a map of these
@@ -858,7 +899,8 @@ on the map as a character string (= quoted). Let’s represent the
 functional dispersion:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_map_site_data.html">fb_map_site_data</a></span><span class="op">(</span><span class="va">woodiv_locations</span>, <span class="va">woodiv_fdis</span>, <span class="st">"fdis"</span><span class="op">)</span></span></code></pre></div>
-<p>We get a map of our sites, colored by Functional Dispersion. The map
+<p><img src="funbiogeo_files/figure-html/map-fdis-1.png" width="100%">
+We get a map of our sites, colored by Functional Dispersion. The map
 uses the default <code>ggplot2</code> color scheme. We see that we have
 higher functional dispersion in Spain and in the French-Spanish border
 than in Italy. Because all of the plotting functions of
@@ -870,6 +912,7 @@ customized using usual <code>ggplot2</code> syntax:</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"Functional Dispersion"</span>,</span>
 <span>       title <span class="op">=</span> <span class="st">"WOODIV (2 traits: plant height &amp; seed mass)"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="funbiogeo_files/figure-html/map-fdis-custom-1.png" width="100%"></p>
 <p>We can proceed similarly to display the average plant height per
 assemblage by specifying the name of the column
 <code>fide_plant_height</code> from our <code>woodiv_fdis</code>
@@ -880,6 +923,7 @@ data.frame:</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_distiller</a></span><span class="op">(</span><span class="st">"Average plant height"</span>, palette <span class="op">=</span> <span class="st">"RdYlBu"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"WOODIV average plant height"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="funbiogeo_files/figure-html/woodiv-avg-plant-height-1.png" width="100%"></p>
 <p>We see that the tallest assemblages are in Italy, while central Spain
 and North of Portugal shows the lowest average plant height. You can
 adapt the above code on the other available diversity indices.</p>

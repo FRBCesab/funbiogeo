@@ -169,7 +169,7 @@ object as first argument, then a vector of two nubmers as the second
 argument defining the cell sizes. By default, the newly created grid
 will cover the same extent as in the input spatial data.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">coarser_grid</span> <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_make_grid.html" class="external-link">st_make_grid</a></span><span class="op">(</span><span class="va">woodiv_locations</span>, cellsize <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">300e3</span>, <span class="fl">300e3</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">coarser_grid</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_make_grid.html" class="external-link">st_make_grid</a></span><span class="op">(</span><span class="va">woodiv_locations</span>, cellsize <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">300e3</span>, <span class="fl">300e3</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">coarser_grid</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Geometry set for 6 features </span></span>
@@ -187,7 +187,7 @@ will cover the same extent as in the input spatial data.</p>
 transform it to an <code>sf</code> object to be fully compatible with
 <code><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data()</a></code>. We do so in the next chunk:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">coarser_grid</span> <span class="op">=</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">coarser_grid</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">coarser_grid</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">coarser_grid</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">coarser_grid</span></span>
 <span><span class="co">#&gt; Simple feature collection with 36 features and 0 fields</span></span>
@@ -240,7 +240,7 @@ our original site-locations object, with the species richness data, on
 the coarser grid, using the <code><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean()</a></code> function to get back the
 average species richness across sites per larger pixel.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">coarser_richness</span> <span class="op">=</span> <span class="fu"><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">coarser_richness</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data</a></span><span class="op">(</span></span>
 <span>  <span class="va">woodiv_locations</span>, <span class="va">species_richness</span>, <span class="va">coarser_grid</span>, fun <span class="op">=</span> <span class="va">mean</span></span>
 <span><span class="op">)</span></span>
 <span></span>
