@@ -223,6 +223,7 @@ ggplot(countries_richness) +
   geom_sf(aes(fill = n_species)) +
   theme_bw()
 ```
+
 We observe that France has a higher species richness than the other countries,
 with more than 5 species on average in the sites it harbors.
 
