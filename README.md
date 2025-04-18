@@ -83,7 +83,7 @@ remotes::install_github("FRBCesab/funbiogeo")
 
 This section will show you some useful functions from `funbiogeo`. For a
 longer introduction please refer to the [“Get started”
-vignette](https://frbcesab.github.io/funbiogeo/).
+vignette](https://frbcesab.github.io/funbiogeo/articles/funbiogeo.html).
 
 The package contains default example data named `woodiv_traits`,
 `woodiv_site_species`, and `woodiv_locations` all from the WOODIV

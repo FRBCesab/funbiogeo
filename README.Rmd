@@ -76,7 +76,7 @@ remotes::install_github("FRBCesab/funbiogeo")
 
 ## First steps
 
-This section will show you some useful functions from `funbiogeo`. For a longer introduction please refer to the ["Get started" vignette](https://frbcesab.github.io/funbiogeo/).
+This section will show you some useful functions from `funbiogeo`. For a longer introduction please refer to the ["Get started" vignette](https://frbcesab.github.io/funbiogeo/articles/funbiogeo.html).
 
 The package contains default example data named `woodiv_traits`, `woodiv_site_species`, and `woodiv_locations` all from the WOODIV database ([Monnet et al. 2021](#references)). You can, for example, visualize the completeness of your trait dataset (which traits are known for which proportion of species) using the `fb_plot_species_traits_completeness()` function:
 
