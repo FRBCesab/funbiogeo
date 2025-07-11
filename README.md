@@ -72,18 +72,17 @@ Naming scheme of available functions in funbiogeo
 ## Installation
 
 For the moment `funbiogeo` is not on CRAN but you can install the
-development version from GitHub as follow:
+development version from [R-universe](https://r-universe.dev) as follow:
 
 ``` r
-# install.packages("remotes")  # Run this line if 'remotes' pkg is not installed
-remotes::install_github("FRBCesab/funbiogeo")
+install.packages('funbiogeo', repos = c('https://frbcesab.r-universe.dev', 'https://cloud.r-project.org'))
 ```
 
 ## First steps
 
 This section will show you some useful functions from `funbiogeo`. For a
 longer introduction please refer to the [“Get started”
-vignette](https://frbcesab.github.io/funbiogeo/).
+vignette](https://frbcesab.github.io/funbiogeo/articles/funbiogeo.html).
 
 The package contains default example data named `woodiv_traits`,
 `woodiv_site_species`, and `woodiv_locations` all from the WOODIV
