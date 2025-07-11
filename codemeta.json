@@ -14,7 +14,7 @@
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.4.3 (2025-02-28)",
+  "runtimePlatform": "R version 4.5.1 (2025-06-13)",
   "author": [
     {
       "@type": "Person",
@@ -97,6 +97,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=knitr"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "mFD",
+      "name": "mFD",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=mFD"
     },
     {
       "@type": "SoftwareApplication",
@@ -300,7 +312,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "49412.995KB",
+  "fileSize": "47280.913KB",
   "releaseNotes": "https://github.com/frbcesab/funbiogeo/blob/master/NEWS.md",
   "readme": "https://github.com/FRBCesab/funbiogeo/blob/main/README.md",
   "contIntegration": ["https://github.com/FRBCesab/funbiogeo/actions/workflows/R-CMD-check.yaml", "https://app.codecov.io/gh/FRBCesab/funbiogeo"],
