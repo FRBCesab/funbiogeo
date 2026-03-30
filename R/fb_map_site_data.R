@@ -8,6 +8,8 @@
 #' @inheritParams fb_get_environment 
 #' @param site_data `data.frame()` of additional site information containing
 #'   the column `"site"` to merge with the `site_locations` argument
+#' @param background a `logical`. If `TRUE` adds a layer of country boundaries
+#'   from Natural Earth.
 #' @param selected_col `character(1)` name of the column to plot 
 #'
 #' @return a `ggplot` object.
@@ -25,7 +27,9 @@
 #' # Customize the map
 #' rich_map +
 #'   ggplot2::scale_fill_viridis_c("Species Richness")
-fb_map_site_data <- function(site_locations, site_data, selected_col) {
+fb_map_site_data <- function(
+  site_locations, site_data, selected_col, background = FALSE
+) {
   
   # Checks
   check_site_locations(site_locations)
@@ -62,21 +66,58 @@ fb_map_site_data <- function(site_locations, site_data, selected_col) {
   # Clean environment
   rm(site_data, site_locations)
   
-  # Make plot
-  if (inherits(sf::st_geometry(full_data), "sfc_POLYGON") |
-      inherits(sf::st_geometry(full_data), "sfc_MULTIPOLYGON")) {
-    
-    ggplot2::ggplot(
-      full_data, ggplot2::aes(fill = .data[[selected_col]])
-    ) +
-      ggplot2::geom_sf(color = NA) +
-      ggplot2::theme_bw()
+  # Make plot wo/ background
+  if (!background) {
+    if (inherits(sf::st_geometry(full_data), "sfc_POLYGON") |
+        inherits(sf::st_geometry(full_data), "sfc_MULTIPOLYGON")) {
+      
+      ggplot2::ggplot(
+        full_data, ggplot2::aes(fill = .data[[selected_col]])
+      ) +
+        ggplot2::geom_sf(color = NA) +
+        ggplot2::theme_bw()
 
-  } else {
-    
-    ggplot2::ggplot(full_data, ggplot2::aes(color = .data[[selected_col]])) +
-      ggplot2::geom_sf() +
-      ggplot2::theme_bw()
-    
-  }
+    } else {
+      
+      ggplot2::ggplot(full_data, ggplot2::aes(color = .data[[selected_col]])) +
+        ggplot2::geom_sf() +
+        ggplot2::theme_bw()
+      
+    }
+  } else { # Make plot w/ background
+    # Define map extent
+    map_extent <- sf::st_bbox(full_data)
+
+    # Import World baseline (Natural Earth)
+    basemap <- rnaturalearth::ne_countries()
+
+    if (inherits(sf::st_geometry(full_data), "sfc_POLYGON") |
+        inherits(sf::st_geometry(full_data), "sfc_MULTIPOLYGON")) {
+      
+      ggplot2::ggplot(
+        full_data, ggplot2::aes(fill = .data[[selected_col]])
+      ) +
+        ggplot2::geom_sf(color = NA) +
+        ggplot2::geom_sf(data = basemap, fill = NA) +
+        ggplot2::coord_sf(
+          xlim = c(map_extent[1], map_extent[3]),
+          ylim = c(map_extent[2], map_extent[4]),
+          expand = TRUE
+        ) +
+        ggplot2::theme_bw()
+
+    } else {
+      
+      ggplot2::ggplot(full_data, ggplot2::aes(color = .data[[selected_col]])) +
+        ggplot2::geom_sf(data = basemap, fill = NA) +
+        ggplot2::geom_sf() +
+        ggplot2::coord_sf(
+          xlim = c(map_extent[1], map_extent[3]),
+          ylim = c(map_extent[2], map_extent[4]),
+          expand = TRUE
+        ) +
+        ggplot2::theme_bw()
+      
+    }
+  }  
 }
