@@ -8,7 +8,8 @@ fb_map_site_traits_completeness(
   site_locations,
   site_species,
   species_traits,
-  all_traits = TRUE
+  all_traits = TRUE,
+  background = FALSE
 )
 }
 \arguments{
@@ -28,6 +29,9 @@ to trait names.}
 \item{all_traits}{a logical (default = \code{TRUE}) which tell if the coverage
 considering all provided traits should be provided in an additional column
 \code{all_traits}}
+
+\item{background}{a \code{logical}. If \code{TRUE} adds a layer of country boundaries
+from Natural Earth.}
 }
 \value{
 a 'ggplot2' object
