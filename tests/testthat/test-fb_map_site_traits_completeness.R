@@ -25,7 +25,7 @@ test_that("fb_map_site_traits_completeness() works", {
   expect_s3_class(given_plot, "ggplot")
   
   vdiffr::expect_doppelganger(
-    "fb_map_s_tr_comp-sfpoints", 
+    "fb_map_s_tr_comp-sfpts", 
     given_plot
   )
   
@@ -39,7 +39,7 @@ test_that("fb_map_site_traits_completeness() works", {
   expect_s3_class(given_plot, "ggplot")
   
   vdiffr::expect_doppelganger(
-    "fb_map_s_tr_comp-sfpolygons", 
+    "fb_map_s_tr_comp-sfpoly", 
     given_plot
   )
   
@@ -53,10 +53,51 @@ test_that("fb_map_site_traits_completeness() works", {
   expect_s3_class(given_plot, "ggplot")
   
   vdiffr::expect_doppelganger(
-    "fb_map_s_tr_comp-sfmultilines", 
+    "fb_map_s_tr_comp-sfml", 
     given_plot
   )
   
+  # With sf points w/ background
+  expect_silent(
+    given_plot <- fb_map_site_traits_completeness(
+      site_points, site_species, species_traits, background = TRUE
+    )
+  )
+  
+  expect_s3_class(given_plot, "ggplot")
+  
+  vdiffr::expect_doppelganger(
+    "fb_map_s_tr_comp-sfpt-w-bg", 
+    given_plot
+  )
+  
+  # With sf polygons w/ background
+  expect_silent(
+    given_plot <- fb_map_site_traits_completeness(
+      site_locations, site_species, species_traits, background = TRUE
+    )
+  )
+  
+  expect_s3_class(given_plot, "ggplot")
+  
+  vdiffr::expect_doppelganger(
+    "fb_map_s_tr_comp-sfpol-w-bg", 
+    given_plot
+  )
+  
+  # with sf lines w/ background
+  expect_silent(
+    given_plot <- fb_map_site_traits_completeness(
+      site_lines, site_species, species_traits, background = TRUE
+    )
+  )
+  
+  expect_s3_class(given_plot, "ggplot")
+  
+  vdiffr::expect_doppelganger(
+    "fb_map_s_tr_comp-sfml-w-bg", 
+    given_plot
+  )
   
   # without all traits
   expect_silent(
