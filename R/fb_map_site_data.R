@@ -108,9 +108,9 @@ fb_map_site_data <- function(
 
     } else {
       
-      ggplot2::ggplot(full_data, ggplot2::aes(color = .data[[selected_col]])) +
+      ggplot2::ggplot(full_data) +
         ggplot2::geom_sf(data = basemap, fill = NA) +
-        ggplot2::geom_sf() +
+        ggplot2::geom_sf(ggplot2::aes(color = .data[[selected_col]])) +
         ggplot2::coord_sf(
           xlim = c(map_extent[1], map_extent[3]),
           ylim = c(map_extent[2], map_extent[4]),
