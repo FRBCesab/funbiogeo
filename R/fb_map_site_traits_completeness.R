@@ -81,15 +81,16 @@ fb_map_site_traits_completeness <- function(
       
     }
   } else {
+
+    # Define map extent
+    map_extent <- sf::st_bbox(site_locations_cov)
+
+    # Import World baseline (Natural Earth)
+    basemap <- rnaturalearth::ne_countries()
+    
     # Make the Map
     if(inherits(sf::st_geometry(site_locations_cov), "sfc_POLYGON") |
       inherits(sf::st_geometry(site_locations_cov), "sfc_MULTIPOLYGON")) {
-      
-      # Define map extent
-      map_extent <- sf::st_bbox(site_locations_cov)
-
-      # Import World baseline (Natural Earth)
-      basemap <- rnaturalearth::ne_countries()
         
       # If sites are (multi-)polygons
       base_plot <- ggplot2::ggplot(
