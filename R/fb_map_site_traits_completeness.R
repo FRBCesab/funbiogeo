@@ -15,7 +15,12 @@
 #' @importFrom rlang .data
 #' @examples
 #' fb_map_site_traits_completeness(
-#'     woodiv_locations, woodiv_site_species, woodiv_traits
+#'   woodiv_locations, woodiv_site_species, woodiv_traits
+#' )
+#' 
+#' # Map w/ a background
+#' fb_map_site_traits_completeness(
+#'   woodiv_locations, woodiv_site_species, woodiv_traits, background = TRUE
 #' )
 fb_map_site_traits_completeness <- function(
     site_locations, site_species, species_traits, all_traits = TRUE, 

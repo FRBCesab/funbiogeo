@@ -38,4 +38,9 @@ rich_map
 # Customize the map
 rich_map +
   ggplot2::scale_fill_viridis_c("Species Richness")
+
+# Map w/ a background
+fb_map_site_data(
+  woodiv_locations, site_rich, "n_species", background = TRUE
+)
 }

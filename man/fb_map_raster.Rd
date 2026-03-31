@@ -31,6 +31,9 @@ tavg <- terra::rast(tavg)
 ## Default map ----
 fb_map_raster(tavg)
 
+## Map with a background ----
+fb_map_raster(tavg, background = TRUE)
+
 ## Map with custom theme ----
 fb_map_raster(tavg, legend.position = "bottom")
 

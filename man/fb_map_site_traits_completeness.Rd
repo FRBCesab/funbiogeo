@@ -44,6 +44,11 @@ trait coverage with all traits taken together.
 }
 \examples{
 fb_map_site_traits_completeness(
-    woodiv_locations, woodiv_site_species, woodiv_traits
+  woodiv_locations, woodiv_site_species, woodiv_traits
+)
+
+# Map w/ a background
+fb_map_site_traits_completeness(
+  woodiv_locations, woodiv_site_species, woodiv_traits, background = TRUE
 )
 }
