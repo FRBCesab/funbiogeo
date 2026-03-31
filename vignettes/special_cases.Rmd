@@ -1,0 +1,34 @@
+---
+title: "Special Cases in {funbiogeo}"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{special_cases}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(funbiogeo)
+```
+
+This vignette aims to describe several specific cases in the use of funbiogeo. It provides detailed examples of these uses. If you find your case is missing or if you have additional questions, please [open an issue](https://github.com/FRBCesab/funbiogeo/issues/new/choose).
+
+## Working with Categorical Traits
+
+Traits are not always continuous. While funbiogeo has been thought mainly to work with continuous trait data, it can also work with categorical trait data.
+
+## Considering Intraspecific Variation
+
+Trait-based ecology tends to present its frameworks and analyses with species average traits, most of its concepts can consider intraspecific trait variation, funbiogeo is no different. All of the examples, including the dataset provided with the package, show species average traits.
+
+## working with other functional diversity packages
+
+## sites of arbitrary shapes
+
