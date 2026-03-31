@@ -49,6 +49,6 @@ Suggests:
     vdiffr,
     withr
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 VignetteBuilder: knitr
 Config/testthat/edition: 3

@@ -77,10 +77,12 @@ sites have higher coverage for certain traits than for others.
 
 You can plot this using the `fb_plot_distribution_site_trait_coverage()`
 function. It takes two arguments: `site_species` the site by species
-`data.frame` and `species_traits` the species by traits `data.frame`. Note that
-internally the function uses
-[`ggridges`](https://cran.r-project.org/package=ggridges) to plot the
-distributions. This package is thus needed to run this function.
+`data.frame` and `species_traits` the species by traits `data.frame`.
+
+**Note:** the function internally uses the
+[`ggridges`](https://cran.r-project.org/package=ggridges) package to plot the
+distributions. This package is thus needed to run this function. 
+Use `install.packages("ggridges")` to install this package.
 
 Example:
 
