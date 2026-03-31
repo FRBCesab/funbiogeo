@@ -20,15 +20,23 @@ library(funbiogeo)
 
 This vignette aims to describe several specific cases in the use of funbiogeo. It provides detailed examples of these uses. If you find your case is missing or if you have additional questions, please [open an issue](https://github.com/FRBCesab/funbiogeo/issues/new/choose).
 
+
 ## Working with Categorical Traits
 
-Traits are not always continuous. While funbiogeo has been thought mainly to work with continuous trait data, it can also work with categorical trait data.
+Traits are not always continuous. While funbiogeo has been thought mainly to work with continuous trait data, it can also work with categorical trait data. This section describes how to use funbiogeo to work with categorical traits.
+
 
 ## Considering Intraspecific Variation
 
-Trait-based ecology tends to present its frameworks and analyses with species average traits, most of its concepts can consider intraspecific trait variation, funbiogeo is no different. All of the examples, including the dataset provided with the package, show species average traits.
+Trait-based ecology tends to present its frameworks and analyses with species average traits, most of its concepts can consider intraspecific trait variation, funbiogeo is no different. All of the examples, including the dataset provided with the package, show species average traits. In this section, we detail how to work with data that include intraspecific variation within funbiogeo. This should be fairly similar to what's possible across other functional diversity R packages.
 
-## working with other functional diversity packages
 
-## sites of arbitrary shapes
+## Including {funbiogeo} in functional diversity workflows
+
+funbiogeo is a tool to assist users in selecting relevant traits based on their coverage across communities and helping plot nice default visualizations including maps. funbiogeo isn't an additional package to compute functional diversity indices many of these exist, and we here detail two workflow examples that integrate funbiogeo with the use of mFD and fundiversity to compute functional diversity indices.
+
+
+## Sites of Arbitrary Shapes
+
+funbiogeo contains function that requires site-level data. A "site" is here defined as any geographic grain in which the studied organisms occur. Depending on the underlying scientific question, a site could be a single geographic point, for example marking a precise sampled location, or it could be a polygon (e.g., the area of a protected area), or a (multi-)line (e.g., a transect or a sampling route), or a square in a grid (e.g., through a sampling grid). The `fb_map_*()` functions in funbiogeo are agnostic to the shape of the sites, meaning they will work whatever the nature of the sites. The outputs will be adapted to the nature of the sites. In this section, we will show examples with sites of different types and see how this affects the output given by funbiogeo.
 
