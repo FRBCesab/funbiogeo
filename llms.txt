@@ -1,0 +1,299 @@
+# funbiogeo - Streamlining functional biogeography analyses
+
+- [Overview](#overview)
+- [Features](#features)
+- [Installation](#installation)
+- [First steps](#first-steps)
+- [Long-form documentation (=vignettes)](#long-documentation)
+- [Citation](#citation)
+- [Contributing](#contributing)
+- [Acknowledgments](#acknowledgments)
+- [References](#references)
+
+## Overview
+
+The package `funbiogeo` aims to help users with analyses in functional
+biogeography ([Violle *et al.* 2014](#references)), the biogeography of
+species’ traits, by loading and combining data, exploring the
+relationships between traits and their availability trait coverage,
+providing many diagnostic plots to understand how to filter them,
+producing maps, correlating them with the environment, and helping to
+aggregate data at different scales It is aimed at first-timers of
+functional biogeography as well as more experienced users who want to
+obtain quick and easy exploratory plots.
+
+Below is a quick introduction to the main features of `funbiogeo`, if
+you want some more details about them, check [our
+vignettes](#long-form-documentation).
+
+## Features
+
+`funbiogeo` offers:
+
+- Standardized functions to filter and select your data for further
+  analyses,
+- Pleasing default diagnostic plots to visualize the structure of your
+  data,
+- Extensive documentation (multiple vignettes, well-documented
+  functions, real-life example dataset) to guide you through functional
+  biogeography analyses,
+- Nice default plotting functions fully compatible with the outputs of
+  functional diversity packages (`betapart`, `fundiversity`, `hillR`,
+  `mFD`, etc.),
+- A publication-ready automated standardized report that provide
+  analyses and plots of your data,
+- Functions to easily “upscale” (=aggregate) your data to coarser
+  spatial resolutions whatever the type of aggregation geometry you want
+  (regular grid, irregular polygons, and rasters).
+
+![Naming scheme of available functions in
+funbiogeo](inst/misc/functions_scheme.drawio.png)
+
+Naming scheme of available functions in funbiogeo
+
+## Installation
+
+For the moment `funbiogeo` is not on CRAN but you can install the
+development version from [R-universe](https://r-universe.dev) as follow:
+
+``` r
+install.packages('funbiogeo', repos = c('https://frbcesab.r-universe.dev', 'https://cloud.r-project.org'))
+```
+
+## First steps
+
+This section will show you some useful functions from `funbiogeo`. For a
+longer introduction please refer to the [“Get started”
+vignette](https://frbcesab.github.io/funbiogeo/articles/funbiogeo.html).
+
+The package contains default example data named `woodiv_traits`,
+`woodiv_site_species`, and `woodiv_locations` all from the WOODIV
+database ([Monnet et al. 2021](#references)). You can, for example,
+visualize the completeness of your trait dataset (which traits are known
+for which proportion of species) using the
+[`fb_plot_species_traits_completeness()`](https://frbcesab.github.io/funbiogeo/reference/fb_plot_species_traits_completeness.md)
+function:
+
+``` r
+fb_plot_species_traits_completeness(woodiv_traits)
+```
+
+![](reference/figures/README-plot-sp-tr-complete-1.png)
+
+One other useful visualization is to see the trait coverage of each
+trait across all sites, using the function
+[`fb_map_site_traits_completeness()`](https://frbcesab.github.io/funbiogeo/reference/fb_map_site_traits_completeness.md):
+
+``` r
+fb_map_site_traits_completeness(woodiv_locations, woodiv_site_species, woodiv_traits)
+```
+
+![](reference/figures/README-plot-site-tr-complete-1.png)
+
+See more features of `funbiogeo` in the [vignettes of the
+package](https://frbcesab.github.io/funbiogeo/articles/)
+
+## Long-form documentation
+
+`funbiogeo` provides four vignettes to explain its functioning:
+
+- A [“Get started”
+  vignette](https://frbcesab.github.io/funbiogeo/articles/funbiogeo.html)
+  that describes its core features and guide you through a typical
+  analysis.
+- A vignette on [all diagnostic
+  plots](https://frbcesab.github.io/funbiogeo/articles/diagnostic-plots.html)
+  provided in the package, which details how to use each plotting
+  function and how to interpret their output.
+- A vignette on [the data
+  format](https://frbcesab.github.io/funbiogeo/articles/long-format.html)
+  that `funbiogeo` needs, which shows you the use of specific functions
+  to format your data to work well within `funbiogeo`.
+- A vignette on [data
+  upscaling](https://frbcesab.github.io/funbiogeo/articles/upscaling.html)
+  which explains how to leverage `funbiogeo` to aggregate automatically
+  your data to coarser grain and use them in further analyses.
+
+## Citation
+
+For the moment `funbiogeo` doesn’t offer a companion paper nor is it on
+CRAN. But if you happen to use it in your paper you can cite the package
+through:
+
+> Casajus N & Grenié M (2024). *funbiogeo: Functional Biogeography
+> Analyses*. R package version 0.0.0.9000,
+> <https://github.com/frbcesab/funbiogeo>.
+
+You can also run:
+
+``` r
+citation("funbiogeo")
+```
+
+## Contributing
+
+All types of contributions are encouraged and valued. For more
+information, check out our [Contributor
+Guidelines](https://github.com/FRBCesab/funbiogeo/blob/main/CONTRIBUTING.md).
+
+Please note that the `funbiogeo` project is released with a [Contributor
+Code of
+Conduct](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
+
+## Acknowledgments
+
+This package has been developed for the
+[FRB-CESAB](https://www.fondationbiodiversite.fr/en/about-the-foundation/le-cesab/)
+working group
+[FREE](https://www.fondationbiodiversite.fr/en/the-frb-in-action/programs-and-projects/le-cesab/free/)
+and its followup [FREE
+2](https://www.fondationbiodiversite.fr/en/the-frb-in-action/programs-and-projects/le-cesab/free-2/)
+that aims to advance the concept of functional rarity and examine the
+causes and consequences of functional rarity from local to global
+scales.
+
+## References
+
+Monnet, AC., Cilleros, K., Médail, F. et al. WOODIV, a database of
+occurrences, functional traits, and phylogenetic data for all
+Euro-Mediterranean trees. Sci Data 8, 89 (2021).
+<https://doi.org/10.1038/s41597-021-00873-3>
+
+Violle C, Reich, PB Pacala SW, *et al.* (2014) The emergence and promise
+of functional biogeography. *Proceedings of the National Academy of
+Sciences*, **111**, 13690–13696. DOI:
+[10.1073/pnas.1415442111](https://doi.org/10.1073/pnas.1415442111)
+
+# Package index
+
+## Included Datasets
+
+- [`woodiv_traits`](https://frbcesab.github.io/funbiogeo/reference/woodiv_traits.md)
+  : Species x Traits of some Mediterranean Conifers
+- [`woodiv_site_species`](https://frbcesab.github.io/funbiogeo/reference/woodiv_site_species.md)
+  : Sites x Species of some Mediterranean Conifers
+- [`woodiv_locations`](https://frbcesab.github.io/funbiogeo/reference/woodiv_locations.md)
+  : Sites x Locations of some Mediterranean Conifers
+- [`woodiv_categories`](https://frbcesab.github.io/funbiogeo/reference/woodiv_categories.md)
+  : Species x Categories of some Mediterranean Conifers
+
+## Formatting Functions
+
+Transform your raw dataset to the expected format by `funbiogeo`
+
+- [`fb_format_site_locations()`](https://frbcesab.github.io/funbiogeo/reference/fb_format_site_locations.md)
+  : Extract site x locations information from long format data
+- [`fb_format_site_species()`](https://frbcesab.github.io/funbiogeo/reference/fb_format_site_species.md)
+  : Extract site x species information from long format data
+- [`fb_format_species_categories()`](https://frbcesab.github.io/funbiogeo/reference/fb_format_species_categories.md)
+  : Extract species x categories information from long format data
+- [`fb_format_species_traits()`](https://frbcesab.github.io/funbiogeo/reference/fb_format_species_traits.md)
+  : Extract species x traits information from long format data
+
+## Coverage functions
+
+Count species, traits, sites by trait/species coverage (proportion of
+species with known traits/present). Also filter datasets based on their
+coverages.
+
+### Count functions
+
+- [`fb_count_sites_by_species()`](https://frbcesab.github.io/funbiogeo/reference/fb_count_sites_by_species.md)
+  : Count Number of Sites Occupied by Species
+- [`fb_count_species_by_site()`](https://frbcesab.github.io/funbiogeo/reference/fb_count_species_by_site.md)
+  : Count Number of Species per Site
+- [`fb_count_species_by_trait()`](https://frbcesab.github.io/funbiogeo/reference/fb_count_species_by_trait.md)
+  : Count Number of Species for Each Trait
+- [`fb_count_traits_by_species()`](https://frbcesab.github.io/funbiogeo/reference/fb_count_traits_by_species.md)
+  : Compute Number of Known Trait(s) per Species
+
+### Trait coverage functions
+
+- [`fb_get_trait_combination_coverage()`](https://frbcesab.github.io/funbiogeo/reference/fb_get_trait_combination_coverage.md)
+  : Compute site trait coverage for each trait combination
+- [`fb_get_trait_coverage_by_site()`](https://frbcesab.github.io/funbiogeo/reference/fb_get_trait_coverage_by_site.md)
+  : Compute Trait Coverage For Each Site Weighted by Abundance
+- [`fb_get_all_trait_coverages_by_site()`](https://frbcesab.github.io/funbiogeo/reference/fb_get_all_trait_coverages_by_site.md)
+  : Compute Trait Coverage per Site for Each Trait
+
+### Filtering functions
+
+- [`fb_filter_sites_by_species_coverage()`](https://frbcesab.github.io/funbiogeo/reference/fb_filter_sites_by_species_coverage.md)
+  : Filter sites with a given species coverage threshold
+- [`fb_filter_sites_by_trait_coverage()`](https://frbcesab.github.io/funbiogeo/reference/fb_filter_sites_by_trait_coverage.md)
+  : Filter sites with a given trait coverage threshold
+- [`fb_filter_species_by_site_coverage()`](https://frbcesab.github.io/funbiogeo/reference/fb_filter_species_by_site_coverage.md)
+  : Filter species with a given sites coverage threshold
+- [`fb_filter_species_by_trait_coverage()`](https://frbcesab.github.io/funbiogeo/reference/fb_filter_species_by_trait_coverage.md)
+  : Filter species with a given traits coverage threshold
+- [`fb_filter_traits_by_species_coverage()`](https://frbcesab.github.io/funbiogeo/reference/fb_filter_traits_by_species_coverage.md)
+  : Filter traits with a given species coverage threshold
+
+## Functional Diversity Functions
+
+- [`fb_cwm()`](https://frbcesab.github.io/funbiogeo/reference/fb_cwm.md)
+  : Compute community-weighted means (CWM) of trait values
+
+## Upscaling functions
+
+Aggregate your site data over a coarser spatial grid
+
+- [`fb_get_environment()`](https://frbcesab.github.io/funbiogeo/reference/fb_get_environment.md)
+  : Extract Raster Values at Location of Sites
+- [`fb_aggregate_site_data()`](https://frbcesab.github.io/funbiogeo/reference/fb_aggregate_site_data.md)
+  : Aggregate Site Data Along Coarser Spatial Grid
+
+## Visualization & Summary functions
+
+### Maps
+
+- [`fb_map_raster()`](https://frbcesab.github.io/funbiogeo/reference/fb_map_raster.md)
+  : Map a Single Raster Layer
+- [`fb_map_site_data()`](https://frbcesab.github.io/funbiogeo/reference/fb_map_site_data.md)
+  : Map Arbitrary Site Data
+- [`fb_map_site_traits_completeness()`](https://frbcesab.github.io/funbiogeo/reference/fb_map_site_traits_completeness.md)
+  : Map Trait Coverage Per Site
+
+### Regular plots and summary
+
+- [`fb_plot_distribution_site_trait_coverage()`](https://frbcesab.github.io/funbiogeo/reference/fb_plot_distribution_site_trait_coverage.md)
+  : Plot Distribution of Trait Coverages across all Sites
+- [`fb_plot_number_sites_by_species()`](https://frbcesab.github.io/funbiogeo/reference/fb_plot_number_sites_by_species.md)
+  : Plot Number of Sites by Species
+- [`fb_plot_number_species_by_trait()`](https://frbcesab.github.io/funbiogeo/reference/fb_plot_number_species_by_trait.md)
+  : Plot Number of Species per Trait
+- [`fb_plot_number_traits_by_species()`](https://frbcesab.github.io/funbiogeo/reference/fb_plot_number_traits_by_species.md)
+  : Plot Number of Traits per Species
+- [`fb_plot_site_environment()`](https://frbcesab.github.io/funbiogeo/reference/fb_plot_site_environment.md)
+  : Plot Position of Sites in Environmental Space
+- [`fb_plot_site_traits_completeness()`](https://frbcesab.github.io/funbiogeo/reference/fb_plot_site_traits_completeness.md)
+  : Plot Trait Coverage per Site for each Trait
+- [`fb_plot_species_traits_completeness()`](https://frbcesab.github.io/funbiogeo/reference/fb_plot_species_traits_completeness.md)
+  : Plot Trait Coverage per Species for each Trait
+- [`fb_plot_species_traits_missingness()`](https://frbcesab.github.io/funbiogeo/reference/fb_plot_species_traits_missingness.md)
+  : Plot Trait Coverage per Species for each Trait
+- [`fb_plot_trait_combination_frequencies()`](https://frbcesab.github.io/funbiogeo/reference/fb_plot_trait_combination_frequencies.md)
+  : Plot Present and Missing Trait Combinations Frequencies
+- [`fb_plot_trait_correlation()`](https://frbcesab.github.io/funbiogeo/reference/fb_plot_trait_correlation.md)
+  : Plot Trait Correlation Matrix
+- [`fb_table_trait_summary()`](https://frbcesab.github.io/funbiogeo/reference/fb_table_trait_summary.md)
+  : Summary Table on Traits (Missingness, Range, etc.)
+
+## Pre-analysis R Markdown report
+
+- [`fb_make_report()`](https://frbcesab.github.io/funbiogeo/reference/fb_make_report.md)
+  : Create an Rmarkdown Report to Explore User Data
+
+# Articles
+
+### All vignettes
+
+- [Diagnostic plots in
+  funbiogeo](https://frbcesab.github.io/funbiogeo/articles/diagnostic-plots.md):
+- [Get started with
+  funbiogeo](https://frbcesab.github.io/funbiogeo/articles/funbiogeo.md):
+- [Formatting your
+  data](https://frbcesab.github.io/funbiogeo/articles/long-format.md):
+- [Upscaling your data: aggregating at coarser
+  scales](https://frbcesab.github.io/funbiogeo/articles/upscaling.md):

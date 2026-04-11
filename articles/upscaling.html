@@ -147,7 +147,7 @@ any arbitrary data at the site level by combining it with the site by
 locations object, and it shows a map of that data:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_map_site_data.html">fb_map_site_data</a></span><span class="op">(</span><span class="va">woodiv_locations</span>, <span class="va">species_richness</span>, <span class="st">"n_species"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="upscaling_files/figure-html/map-original-richness-1.png" width="700"></p>
+<p><img src="upscaling_files/figure-html/map-original-richness-1.png" class="r-plt" alt="" width="700"></p>
 <p>Now, from this site-level species richness, we would like to get the
 species richness at different scales. First, we’ll show how to aggregate
 on a coarser square grid, then at the country level, and then with a
@@ -220,7 +220,7 @@ We will do so using the <code><a href="https://ggplot2.tidyverse.org/reference/g
 <span>    values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>original <span class="op">=</span> <span class="st">"darkorange"</span>, coarser <span class="op">=</span> <span class="st">"darkmagenta"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="upscaling_files/figure-html/map-grid-1.png" width="700"></p>
+<p><img src="upscaling_files/figure-html/map-grid-1.png" class="r-plt" alt="" width="700"></p>
 <p>In orange, you see the original data grid of the data, while in
 purple is the coarser grid we defined over which we’ll aggregate the
 data.</p>
@@ -265,7 +265,7 @@ the same type as the <code>grid</code> we provided.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html" class="external-link">scale_fill_viridis_c</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="upscaling_files/figure-html/square-map-richness-1.png" width="700"></p>
+<p><img src="upscaling_files/figure-html/square-map-richness-1.png" class="r-plt" alt="" width="700"></p>
 <p>We see that the pixels of the North show the greatest average species
 richness, especially in the South of France.</p>
 </div>
@@ -296,7 +296,7 @@ the four Mediterrannean countries covered by our example dataset:</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">woodiv_locations</span>, alpha <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span>  <span class="co"># Add original data</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">name</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="upscaling_files/figure-html/coutries-load-1.png" width="700"></p>
+<p><img src="upscaling_files/figure-html/coutries-load-1.png" class="r-plt" alt="" width="700"></p>
 <p>As we already have our aggregation object, here the countries
 delimitation, we can directly use the
 <code><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data()</a></code> function on: the original
@@ -315,7 +315,7 @@ countries) are going to be dropped.</p>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">countries_richness</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">n_species</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="upscaling_files/figure-html/countries-agg-1.png" width="700"></p>
+<p><img src="upscaling_files/figure-html/countries-agg-1.png" class="r-plt" alt="" width="700"></p>
 <p>We observe that France has a higher species richness than the other
 countries, with more than 5 species on average in the sites it
 harbors.</p>
@@ -406,7 +406,7 @@ sites aggregated on the coarser grid. We can plot these values through a
 call to <code><a href="../reference/fb_map_raster.html">fb_map_raster()</a></code> which allows to plot rasters.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">upscaled_richness</span><span class="op">)</span></span></code></pre></div>
-<p><img src="upscaling_files/figure-html/map-upscaled-richness-1.png" width="700"></p>
+<p><img src="upscaling_files/figure-html/map-upscaled-richness-1.png" class="r-plt" alt="" width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="specific-examples">Specific examples<a class="anchor" aria-label="anchor" href="#specific-examples"></a>
@@ -476,7 +476,7 @@ in resolution :</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Coarser resolution (0.83°)"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="va">finer_map</span>, <span class="va">coarser_map</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="upscaling_files/figure-html/plot-map-upscale-site-species-1.png" width="700"></p>
+<p><img src="upscaling_files/figure-html/plot-map-upscale-site-species-1.png" class="r-plt" alt="" width="700"></p>
 <div class="section level4">
 <h4 id="obtaining-back-a-site-x-species-data-frame">Obtaining back a site x species <code>data.frame</code><a class="anchor" aria-label="anchor" href="#obtaining-back-a-site-x-species-data-frame"></a>
 </h4>
@@ -561,7 +561,7 @@ function:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">upscaled_cwm</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_colour_continuous.html" class="external-link">scale_fill_continuous</a></span><span class="op">(</span>trans <span class="op">=</span> <span class="st">"log10"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="upscaling_files/figure-html/map-upscaled-cwm-1.png" width="700"></p>
+<p><img src="upscaling_files/figure-html/map-upscaled-cwm-1.png" class="r-plt" alt="" width="700"></p>
 </div>
 <div class="section level4">
 <h4 id="coarser-fric-through-fundiversity">Coarser FRic through <code>fundiversity</code><a class="anchor" aria-label="anchor" href="#coarser-fric-through-fundiversity"></a>
@@ -629,7 +629,7 @@ scale:</p>
 <span><span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">agg_fric</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: Raster pixels are placed at uneven horizontal intervals and will be shifted</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Consider using `geom_tile()` instead.</span></span></code></pre></div>
-<p><img src="upscaling_files/figure-html/upscale-fric-1.png" width="700"></p>
+<p><img src="upscaling_files/figure-html/upscale-fric-1.png" class="r-plt" alt="" width="700"></p>
 </div>
 </div>
 </div>
@@ -644,7 +644,7 @@ scale:</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

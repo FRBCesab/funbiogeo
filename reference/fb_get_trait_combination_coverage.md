@@ -1,0 +1,68 @@
+# Compute site trait coverage for each trait combination
+
+This function computes trait coverage for each site for different trait
+combinations. If not provided, consider all possible trait combinations.
+The function will not run if the total number of combinations given is
+over 10,000.
+
+## Usage
+
+``` r
+fb_get_trait_combination_coverage(
+  site_species,
+  species_traits,
+  comb_size = NULL
+)
+```
+
+## Arguments
+
+- site_species:
+
+  a `data.frame` with sites in rows and species in columns. **NOTE**:
+  the first column should be named **`"site"`** and indicate site names.
+  The other columns should be named according to species names.
+
+- species_traits:
+
+  a `data.frame` with species in rows and traits as columns. **NOTE**:
+  The first column should be named **`"species"`** and contain species
+  names. The other columns should be named according to trait names.
+
+- comb_size:
+
+  an integer vector defining one or more sizes of combinations (default:
+  `NULL`)
+
+## Value
+
+a data.frame with the following columns:
+
+- `site` with the site indices from `site_species`,
+
+- `combination_length` with the number of traits in given combinations,
+
+- `combination_name` with the name of the trait combination
+  (concatenated trait names with `__`),
+
+- `trait_coverage` the corresponding trait coverage for the given trait
+  combination and site.
+
+## Examples
+
+``` r
+# Compute Coverages using All Trait Combinations
+all_combinations = fb_get_trait_combination_coverage(
+    woodiv_site_species, woodiv_traits
+)
+
+# Get only combinations of 3 traits
+three_traits = fb_get_trait_combination_coverage(
+    woodiv_site_species, woodiv_traits, 3
+)
+
+# Combinations of 2, 3, and 4 traits
+two_to_four = fb_get_trait_combination_coverage(
+    woodiv_site_species, woodiv_traits, 2:4
+)
+```

@@ -254,16 +254,20 @@ others.</p>
 <code><a href="../reference/fb_plot_distribution_site_trait_coverage.html">fb_plot_distribution_site_trait_coverage()</a></code> function. It
 takes two arguments: <code>site_species</code> the site by species
 <code>data.frame</code> and <code>species_traits</code> the species by
-traits <code>data.frame</code>. Note that internally the function uses
-<a href="https://cran.r-project.org/package=ggridges" class="external-link"><code>ggridges</code></a>
-to plot the distributions. This package is thus needed to run this
-function.</p>
+traits <code>data.frame</code>. The function leverages stacked density
+plots of trait coverages across sites (nicknamed ‘ridges’). They
+represent the distribution of trait coverage across all sites for each
+trait separately.</p>
+<p><strong>Note:</strong> the function internally uses the <a href="https://cran.r-project.org/package=ggridges" class="external-link"><code>ggridges</code></a>
+package to plot the distributions. This package is thus needed to run
+this function. Use <code>install.packages("ggridges")</code> to install
+this package.</p>
 <p>Example:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_distribution_site_trait_coverage.html">fb_plot_distribution_site_trait_coverage</a></span><span class="op">(</span><span class="va">woodiv_site_species</span>, <span class="va">woodiv_traits</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required namespace: ggridges</span></span>
 <span><span class="co">#&gt; Picking joint bandwidth of 0.0445</span></span></code></pre></div>
-<p><img src="diagnostic-plots_files/figure-html/plot-dist-site-cov-1.png" width="700"></p>
+<p><img src="diagnostic-plots_files/figure-html/plot-dist-site-cov-1.png" class="r-plt" alt="" width="700"></p>
 <p>We see the distribution of species coverage per site (along the
 x-axis) for each trait (along the y-axis) and with all traits taken
 together (shown at the top of the top on the line
@@ -290,7 +294,7 @@ is necessary while the second one
 coverage, is optional.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_sites_by_species.html">fb_plot_number_sites_by_species</a></span><span class="op">(</span><span class="va">woodiv_site_species</span><span class="op">)</span></span></code></pre></div>
-<p><img src="diagnostic-plots_files/figure-html/plot-sites-coverage-species-1.png" width="700"></p>
+<p><img src="diagnostic-plots_files/figure-html/plot-sites-coverage-species-1.png" class="r-plt" alt="" width="700"></p>
 <p>The function outputs a dotchart. The number of occupied sites per
 species is indicated at the bottom x-axis, while the top x-axis
 represents the proportion of occupied sites. The left y-axis label
@@ -307,7 +311,7 @@ sites:</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_sites_by_species.html">fb_plot_number_sites_by_species</a></span><span class="op">(</span></span>
 <span>  <span class="va">woodiv_site_species</span>, threshold_sites_proportion <span class="op">=</span> <span class="fl">0.4</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="diagnostic-plots_files/figure-html/plot-sites-coverage-species-thresh-1.png" width="700"></p>
+<p><img src="diagnostic-plots_files/figure-html/plot-sites-coverage-species-thresh-1.png" class="r-plt" alt="" width="700"></p>
 <p>The threshold bar helps us get a sense of how many species are
 present in at least 40% of the sites. It also displays the corresponding
 number of sites.</p>
@@ -324,7 +328,7 @@ one <code>threshold_species_proportion</code>, a target proportion of
 species coverage, is optional.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_species_by_trait.html">fb_plot_number_species_by_trait</a></span><span class="op">(</span><span class="va">woodiv_traits</span><span class="op">)</span></span></code></pre></div>
-<p><img src="diagnostic-plots_files/figure-html/plot-species-coverage-trait-1.png" width="700"></p>
+<p><img src="diagnostic-plots_files/figure-html/plot-species-coverage-trait-1.png" class="r-plt" alt="" width="700"></p>
 <p>The function outputs a lollipop chart. On the bottom x-axis there is
 the number of species covered by the given trait (the top x-axis
 represents the proportion of species, which is directly proportional).
@@ -341,7 +345,7 @@ traits available for at least 90% of the species:</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_species_by_trait.html">fb_plot_number_species_by_trait</a></span><span class="op">(</span></span>
 <span>  <span class="va">woodiv_traits</span>, threshold_species_proportion <span class="op">=</span> <span class="fl">0.9</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="diagnostic-plots_files/figure-html/plot-species-coverage-trait-thresh-1.png" width="700"></p>
+<p><img src="diagnostic-plots_files/figure-html/plot-species-coverage-trait-thresh-1.png" class="r-plt" alt="" width="700"></p>
 <p>The red dashed vertical line shows the corresponding species coverage
 with labels indicating the proportion and corresponding number of
 species (n = 22).</p>
@@ -366,7 +370,7 @@ can be added to the plot.</p>
 <p>Using it on the included dataset gives:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_traits_by_species.html">fb_plot_number_traits_by_species</a></span><span class="op">(</span><span class="va">woodiv_traits</span><span class="op">)</span></span></code></pre></div>
-<p><img src="diagnostic-plots_files/figure-html/plot-n-traits-species-1.png" width="700"></p>
+<p><img src="diagnostic-plots_files/figure-html/plot-n-traits-species-1.png" class="r-plt" alt="" width="700"></p>
 <p>The x-axis represents the number of species concerned (bottom x-axis
 displays the actual number of species, while top x-axis displays the
 corresponding proportion of species). The y-axis shows the number of
@@ -386,7 +390,7 @@ combinations), but it’s a first indication.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_traits_by_species.html">fb_plot_number_traits_by_species</a></span><span class="op">(</span></span>
 <span>  <span class="va">woodiv_traits</span>, threshold_species_proportion <span class="op">=</span> <span class="fl">0.5</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="diagnostic-plots_files/figure-html/plot-n-traits-species-thresh-1.png" width="700"></p>
+<p><img src="diagnostic-plots_files/figure-html/plot-n-traits-species-thresh-1.png" class="r-plt" alt="" width="700"></p>
 <p>Adding this argument displays a vertical bar at the target proportion
 of species to easily target number of traits covering a certain
 proportion of species. The red dashed vertical line shows the
@@ -423,7 +427,7 @@ region:</p>
 <span><span class="co">#&gt; (`geom_point()`).</span></span>
 <span><span class="co">#&gt; Warning: Removed 2 rows containing missing values or values outside the scale range</span></span>
 <span><span class="co">#&gt; (`geom_point()`).</span></span></code></pre></div>
-<p><img src="diagnostic-plots_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
+<p><img src="diagnostic-plots_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" alt="" width="700"></p>
 <p>The plot shows the first selected layer as the x-axis and the second
 one as the y-axis. The environmental position of the sites are displayed
 using the big blue dots, while the light gray pixels are all the
@@ -446,7 +450,7 @@ and <code>species_traits</code>, the species by traits
 <p>We can use it with the included dataset as an example:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_site_traits_completeness.html">fb_plot_site_traits_completeness</a></span><span class="op">(</span><span class="va">woodiv_site_species</span>, <span class="va">woodiv_traits</span><span class="op">)</span></span></code></pre></div>
-<p><img src="diagnostic-plots_files/figure-html/plot-site-trait-complete-1.png" width="700"></p>
+<p><img src="diagnostic-plots_files/figure-html/plot-site-trait-complete-1.png" class="r-plt" alt="" width="700"></p>
 <p>The plot shows the trait along the x-axis (and their average coverage
 across all sites in their labels) and sites along the y-axis. Each thin
 horizontal line represents a site. The color indicates the coverage for
@@ -468,7 +472,7 @@ species. This is done by
 <p>We can use it with the included dataset as an example:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_species_traits_completeness.html">fb_plot_species_traits_completeness</a></span><span class="op">(</span><span class="va">woodiv_traits</span><span class="op">)</span></span></code></pre></div>
-<p><img src="diagnostic-plots_files/figure-html/plot-species-trait-complete-1.png" width="700"></p>
+<p><img src="diagnostic-plots_files/figure-html/plot-species-trait-complete-1.png" class="r-plt" alt="" width="700"></p>
 <p>This figure visualizes directly the species by trait
 <code>data.frame</code>. The x-axis displays the different traits,
 ranked from left to right in decreasing coverage order (as indicated in
@@ -493,7 +497,7 @@ to know if an additional row should be used to display a summary for all
 traits taken together.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_species_traits_missingness.html">fb_plot_species_traits_missingness</a></span><span class="op">(</span><span class="va">woodiv_traits</span>, all_traits <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="diagnostic-plots_files/figure-html/plot-species-traits-missingness-1.png" width="700"></p>
+<p><img src="diagnostic-plots_files/figure-html/plot-species-traits-missingness-1.png" class="r-plt" alt="" width="700"></p>
 <p>The plot displays the number of species with known and missing
 traits. It shows each trait in separate line as a proportional bar chart
 with the total numbers included within each bar.</p>
@@ -516,7 +520,7 @@ details below).</p>
 <p>We can use it with the included dataset as an example:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_trait_combination_frequencies.html">fb_plot_trait_combination_frequencies</a></span><span class="op">(</span><span class="va">woodiv_traits</span><span class="op">)</span></span></code></pre></div>
-<p><img src="diagnostic-plots_files/figure-html/plot-trait-comb-freq-1.png" width="700"></p>
+<p><img src="diagnostic-plots_files/figure-html/plot-trait-comb-freq-1.png" class="r-plt" alt="" width="700"></p>
 <p>The x-axis represents individual traits ranked in alphabetical order
 from left to right. The y-axis represents different combinations. The
 labels on the y-axis show both the number and the frequency of each
@@ -534,7 +538,7 @@ combinations are ordered instead by the number of trait presents among
 them:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_trait_combination_frequencies.html">fb_plot_trait_combination_frequencies</a></span><span class="op">(</span><span class="va">woodiv_traits</span>, order_by <span class="op">=</span> <span class="st">"complete"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="diagnostic-plots_files/figure-html/plot-trait-comb-freq-order-1.png" width="700"></p>
+<p><img src="diagnostic-plots_files/figure-html/plot-trait-comb-freq-order-1.png" class="r-plt" alt="" width="700"></p>
 <p>The most complete combinations are shown at the bottom, while the
 combinations with most missing traits are at the top.</p>
 </div>
@@ -554,7 +558,7 @@ silently removes any species that has any <code>NA</code>.</p>
 <p>With the included dataset as an example:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_trait_correlation.html">fb_plot_trait_correlation</a></span><span class="op">(</span><span class="va">woodiv_traits</span><span class="op">)</span></span></code></pre></div>
-<p><img src="diagnostic-plots_files/figure-html/plot-trait-corr-1.png" width="700"></p>
+<p><img src="diagnostic-plots_files/figure-html/plot-trait-corr-1.png" class="r-plt" alt="" width="700"></p>
 <p>Both x- and y-axes represent the different traits. At their
 intersection are shown squared that are colored in function of their
 correlation coefficient (purple means close to -1 correlation while
@@ -597,7 +601,7 @@ gives:</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_map_site_traits_completeness.html">fb_map_site_traits_completeness</a></span><span class="op">(</span></span>
 <span>  <span class="va">woodiv_locations</span>, <span class="va">woodiv_site_species</span>, <span class="va">woodiv_traits</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="diagnostic-plots_files/figure-html/map-trait-complete-1.png" width="700"></p>
+<p><img src="diagnostic-plots_files/figure-html/map-trait-complete-1.png" class="r-plt" alt="" width="700"></p>
 <p>It displays maps of the sites, colored by their trait coverage. Each
 facet represents a different trait while the <code>all_traits</code>
 facet consider all traits together.</p>
@@ -628,7 +632,7 @@ included dataset we can do the following:</p>
 <span></span>
 <span><span class="co"># Map of Species Richness</span></span>
 <span><span class="fu"><a href="../reference/fb_map_site_data.html">fb_map_site_data</a></span><span class="op">(</span><span class="va">woodiv_locations</span>, <span class="va">site_rich</span>, <span class="st">"n_species"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="diagnostic-plots_files/figure-html/map-site-data-sr-1.png" width="700"></p>
+<p><img src="diagnostic-plots_files/figure-html/map-site-data-sr-1.png" class="r-plt" alt="" width="700"></p>
 <p>From this map, we can for example see that the French part of our
 dataset is the most species-rich compared to the other places.</p>
 <p>Now imagine we want to display the category of sites which be
@@ -645,7 +649,7 @@ use the following to display the map:</p>
 <span></span>
 <span><span class="co"># Display them</span></span>
 <span><span class="fu"><a href="../reference/fb_map_site_data.html">fb_map_site_data</a></span><span class="op">(</span><span class="va">woodiv_locations</span>, <span class="va">site_cat</span>, <span class="st">"set"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="diagnostic-plots_files/figure-html/map-site-data-cat-1.png" width="700"></p>
+<p><img src="diagnostic-plots_files/figure-html/map-site-data-cat-1.png" class="r-plt" alt="" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="mapping-site-rasters">Mapping site rasters<a class="anchor" aria-label="anchor" href="#mapping-site-rasters"></a>
@@ -664,7 +668,7 @@ display the raster in the provided projection.</p>
 <span></span>
 <span><span class="co"># Mapping the raster</span></span>
 <span><span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">tavg</span><span class="op">)</span></span></code></pre></div>
-<p><img src="diagnostic-plots_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
+<p><img src="diagnostic-plots_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" alt="" width="700"></p>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -678,7 +682,7 @@ display the raster in the provided projection.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

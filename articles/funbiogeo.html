@@ -473,7 +473,7 @@ the proportion of species with non-missing traits using the
 species by trait <code>data.frame</code> as input.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_species_by_trait.html">fb_plot_number_species_by_trait</a></span><span class="op">(</span><span class="va">woodiv_traits</span><span class="op">)</span></span></code></pre></div>
-<p><img src="funbiogeo_files/figure-html/fig-plot-sp-by-trait-1.png" width="100%"></p>
+<p><img src="funbiogeo_files/figure-html/fig-plot-sp-by-trait-1.png" class="r-plt" alt="" width="100%"></p>
 <p>This plot shows us the number of species (along the x-axis) in
 function of the trait name (along the y-axis). The number of concerned
 species is shown at the bottom of the plot while the corresponding
@@ -494,7 +494,7 @@ proportion of species to consider (as a number between 0 and 1):</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_species_by_trait.html">fb_plot_number_species_by_trait</a></span><span class="op">(</span></span>
 <span>  <span class="va">woodiv_traits</span>, threshold_species_proportion <span class="op">=</span> <span class="fl">0.75</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="funbiogeo_files/figure-html/fig-plot-sp-by-trait-prop-1.png" width="100%"></p>
+<p><img src="funbiogeo_files/figure-html/fig-plot-sp-by-trait-prop-1.png" class="r-plt" alt="" width="100%"></p>
 <p>The plot shows us the number (and proportion) of species which have
 non-missing values for each trait included in our dataset. The number of
 species is specified as the bottom x-axis, while its corresponding
@@ -517,7 +517,7 @@ Similarly to the above-mentioned function, it takes the species x traits
 <code>data.frame</code> as the first argument:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_traits_by_species.html">fb_plot_number_traits_by_species</a></span><span class="op">(</span><span class="va">woodiv_traits</span><span class="op">)</span></span></code></pre></div>
-<p><img src="funbiogeo_files/figure-html/fig-plot-trait-by-sp-1.png" width="100%"></p>
+<p><img src="funbiogeo_files/figure-html/fig-plot-trait-by-sp-1.png" class="r-plt" alt="" width="100%"></p>
 <p>The plot shows the number (bottom x-axis) and the proportion (top
 x-axis) of species covered by a specific number of traits (0 to 4 in our
 example). We can read it as the fact that 58.3% of the species show
@@ -532,7 +532,7 @@ available together, we can use the
 function takes the species-traits table as first argument:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_trait_combination_frequencies.html">fb_plot_trait_combination_frequencies</a></span><span class="op">(</span><span class="va">woodiv_traits</span><span class="op">)</span></span></code></pre></div>
-<p><img src="funbiogeo_files/figure-html/trait-combinations-1.png" width="100%"></p>
+<p><img src="funbiogeo_files/figure-html/trait-combinations-1.png" class="r-plt" alt="" width="100%"></p>
 <p>In this plot, each <strong>observed</strong> combination of missing
 and non-missing trait is represented as a row. Each column represents a
 different trait. The y-axis details how many species (as well as the
@@ -899,7 +899,7 @@ on the map as a character string (= quoted). Let’s represent the
 functional dispersion:</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_map_site_data.html">fb_map_site_data</a></span><span class="op">(</span><span class="va">woodiv_locations</span>, <span class="va">woodiv_fdis</span>, <span class="st">"fdis"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="funbiogeo_files/figure-html/map-fdis-1.png" width="100%">
+<p><img src="funbiogeo_files/figure-html/map-fdis-1.png" class="r-plt" alt="" width="100%">
 We get a map of our sites, colored by Functional Dispersion. The map
 uses the default <code>ggplot2</code> color scheme. We see that we have
 higher functional dispersion in Spain and in the French-Spanish border
@@ -912,7 +912,7 @@ customized using usual <code>ggplot2</code> syntax:</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"Functional Dispersion"</span>,</span>
 <span>       title <span class="op">=</span> <span class="st">"WOODIV (2 traits: plant height &amp; seed mass)"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="funbiogeo_files/figure-html/map-fdis-custom-1.png" width="100%"></p>
+<p><img src="funbiogeo_files/figure-html/map-fdis-custom-1.png" class="r-plt" alt="" width="100%"></p>
 <p>We can proceed similarly to display the average plant height per
 assemblage by specifying the name of the column
 <code>fide_plant_height</code> from our <code>woodiv_fdis</code>
@@ -923,7 +923,7 @@ data.frame:</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_distiller</a></span><span class="op">(</span><span class="st">"Average plant height"</span>, palette <span class="op">=</span> <span class="st">"RdYlBu"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"WOODIV average plant height"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="funbiogeo_files/figure-html/woodiv-avg-plant-height-1.png" width="100%"></p>
+<p><img src="funbiogeo_files/figure-html/woodiv-avg-plant-height-1.png" class="r-plt" alt="" width="100%"></p>
 <p>We see that the tallest assemblages are in Italy, while central Spain
 and North of Portugal shows the lowest average plant height. You can
 adapt the above code on the other available diversity indices.</p>
@@ -979,7 +979,7 @@ from <code>funbiogeo</code> in the next chunk.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Map raster</span></span>
 <span><span class="fu"><a href="../reference/fb_map_raster.html">fb_map_raster</a></span><span class="op">(</span><span class="va">tavg</span><span class="op">)</span></span></code></pre></div>
-<p><img src="funbiogeo_files/figure-html/map-tavg-fb-1.png" width="100%"></p>
+<p><img src="funbiogeo_files/figure-html/map-tavg-fb-1.png" class="r-plt" alt="" width="100%"></p>
 <p>As with all plots provided by <code>funbiogeo</code>, the
 <code><a href="../reference/fb_map_raster.html">fb_map_raster()</a></code> returns a ggplot2 object which can be
 customized providing additional functions:</p>
@@ -989,7 +989,7 @@ customized providing additional functions:</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_distiller</a></span><span class="op">(</span><span class="st">"Temperature"</span>, palette <span class="op">=</span> <span class="st">"Spectral"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Mean annual temperature in Europe"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="funbiogeo_files/figure-html/map-tavg-custom-1.png" width="100%"></p>
+<p><img src="funbiogeo_files/figure-html/map-tavg-custom-1.png" class="r-plt" alt="" width="100%"></p>
 <p>To learn about the ggplot2 syntax and functions check the <a href="https://ggplot2.tidyverse.org/articles/ggplot2.html" class="external-link"><code>ggplot2</code>
 introductory vignette</a>.</p>
 <p>Leveraging the <code>patchwork</code> package, that allows to combine
@@ -1019,7 +1019,7 @@ precipitation:</p>
 <span>                  theme <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>plot.title <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>face <span class="op">=</span> <span class="st">"bold"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">&amp;</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">&amp;</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>family <span class="op">=</span> <span class="st">"mono"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="funbiogeo_files/figure-html/composition-map-1.png" width="100%"></p>
+<p><img src="funbiogeo_files/figure-html/composition-map-1.png" class="r-plt" alt="" width="100%"></p>
 <p>This function allows the visualization of a raster in a simple
 fashion, but it doesn’t tell us anything about the environmental
 variable at the sites we’re interested in. In the next section we will
@@ -1067,7 +1067,7 @@ following commands:</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_map_site_data.html">fb_map_site_data</a></span><span class="op">(</span><span class="va">woodiv_locations</span>, <span class="va">site_env</span>, <span class="st">"annual_mean_temp"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Mean Annual Temperature per Site"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="funbiogeo_files/figure-html/map-avg-environment-1.png" width="100%"></p>
+<p><img src="funbiogeo_files/figure-html/map-avg-environment-1.png" class="r-plt" alt="" width="100%"></p>
 </div>
 </div>
 <div class="section level2">
@@ -1143,7 +1143,7 @@ Sciences</em> 111 (38): 13690–96. <a href="https://doi.org/10.1073/pnas.141544
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>
