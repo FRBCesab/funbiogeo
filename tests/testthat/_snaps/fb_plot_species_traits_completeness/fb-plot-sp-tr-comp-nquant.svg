@@ -21,39 +21,39 @@
 <rect x='0.00' y='0.00' width='720.00' height='576.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
 </g>
 <defs>
-  <clipPath id='cpMjAuODF8NzE0LjUyfDYxLjk4fDUxNi4wMw=='>
-    <rect x='20.81' y='61.98' width='693.71' height='454.05' />
+  <clipPath id='cpMTguMDd8NzE0LjUyfDYxLjk4fDUxNi4wMw=='>
+    <rect x='18.07' y='61.98' width='696.45' height='454.05' />
   </clipPath>
 </defs>
-<g clip-path='url(#cpMjAuODF8NzE0LjUyfDYxLjk4fDUxNi4wMw==)'>
-<rect x='20.81' y='61.98' width='693.71' height='454.05' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<polyline points='20.81,440.35 714.52,440.35 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='20.81,289.01 714.52,289.01 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='20.81,137.66 714.52,137.66 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='194.24,516.03 194.24,61.98 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='541.09,516.03 541.09,61.98 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<rect x='20.81' y='364.68' width='346.85' height='151.35' style='stroke-width: 0.21; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #377EB8;' />
-<rect x='20.81' y='213.33' width='346.85' height='151.35' style='stroke-width: 0.21; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #377EB8;' />
-<rect x='20.81' y='61.98' width='346.85' height='151.35' style='stroke-width: 0.21; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #377EB8;' />
-<rect x='367.67' y='364.68' width='346.85' height='151.35' style='stroke-width: 0.21; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #377EB8;' />
-<rect x='367.67' y='61.98' width='346.85' height='151.35' style='stroke-width: 0.21; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #377EB8;' />
-<rect x='367.67' y='213.33' width='346.85' height='151.35' style='stroke-width: 0.21; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #377EB8;' />
-<rect x='20.81' y='61.98' width='693.71' height='454.05' style='stroke-width: 1.07; stroke: #333333;' />
+<g clip-path='url(#cpMTguMDd8NzE0LjUyfDYxLjk4fDUxNi4wMw==)'>
+<rect x='18.07' y='61.98' width='696.45' height='454.05' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
+<polyline points='18.07,440.35 714.52,440.35 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='18.07,289.01 714.52,289.01 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='18.07,137.66 714.52,137.66 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='192.18,516.03 192.18,61.98 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='540.41,516.03 540.41,61.98 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<rect x='18.07' y='364.68' width='348.22' height='151.35' style='stroke-width: 0.43; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #377EB8;' />
+<rect x='18.07' y='213.33' width='348.22' height='151.35' style='stroke-width: 0.43; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #377EB8;' />
+<rect x='18.07' y='61.98' width='348.22' height='151.35' style='stroke-width: 0.43; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #377EB8;' />
+<rect x='366.30' y='364.68' width='348.22' height='151.35' style='stroke-width: 0.43; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #377EB8;' />
+<rect x='366.30' y='61.98' width='348.22' height='151.35' style='stroke-width: 0.43; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #377EB8;' />
+<rect x='366.30' y='213.33' width='348.22' height='151.35' style='stroke-width: 0.43; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #377EB8;' />
+<rect x='18.07' y='61.98' width='696.45' height='454.05' style='stroke-width: 1.07; stroke: #333333;' />
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
-<polyline points='194.24,518.77 194.24,516.03 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='541.09,518.77 541.09,516.03 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<text x='194.24' y='527.02' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='19.56px' lengthAdjust='spacingAndGlyphs'>trait1</text>
-<text x='194.24' y='536.52' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='28.37px' lengthAdjust='spacingAndGlyphs'>(100%)</text>
-<text x='541.09' y='546.60' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='19.56px' lengthAdjust='spacingAndGlyphs'>trait2</text>
-<text x='541.09' y='556.10' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='28.37px' lengthAdjust='spacingAndGlyphs'>(100%)</text>
-<text x='367.67' y='568.24' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='22.00px' lengthAdjust='spacingAndGlyphs'>Trait</text>
+<polyline points='192.18,518.77 192.18,516.03 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
+<polyline points='540.41,518.77 540.41,516.03 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
+<text x='192.18' y='527.02' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='19.56px' lengthAdjust='spacingAndGlyphs'>trait1</text>
+<text x='192.18' y='536.52' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='28.37px' lengthAdjust='spacingAndGlyphs'>(100%)</text>
+<text x='540.41' y='546.60' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='19.56px' lengthAdjust='spacingAndGlyphs'>trait2</text>
+<text x='540.41' y='556.10' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='28.37px' lengthAdjust='spacingAndGlyphs'>(100%)</text>
+<text x='366.30' y='568.24' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='22.00px' lengthAdjust='spacingAndGlyphs'>Trait</text>
 <text transform='translate(13.05,289.01) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='39.14px' lengthAdjust='spacingAndGlyphs'>Species</text>
-<rect x='321.90' y='22.78' width='91.53' height='28.24' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<text x='327.38' y='40.69' style='font-size: 11.00px; font-family: sans;' textLength='22.00px' lengthAdjust='spacingAndGlyphs'>Trait</text>
-<rect x='354.86' y='28.26' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<rect x='355.00' y='28.40' width='17.00' height='17.00' style='stroke-width: 0.21; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #377EB8;' />
-<text x='377.62' y='39.93' style='font-size: 8.80px; font-family: sans;' textLength='30.33px' lengthAdjust='spacingAndGlyphs'>Present</text>
-<text x='20.81' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='160.73px' lengthAdjust='spacingAndGlyphs'>fb_plot_sp_tr_comp-nquant</text>
+<rect x='320.53' y='22.78' width='91.53' height='28.24' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
+<text x='326.01' y='40.69' style='font-size: 11.00px; font-family: sans;' textLength='22.00px' lengthAdjust='spacingAndGlyphs'>Trait</text>
+<rect x='353.49' y='28.26' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
+<rect x='353.77' y='28.55' width='16.71' height='16.71' style='stroke-width: 0.43; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #377EB8;' />
+<text x='376.25' y='39.93' style='font-size: 8.80px; font-family: sans;' textLength='30.33px' lengthAdjust='spacingAndGlyphs'>Present</text>
+<text x='18.07' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='160.73px' lengthAdjust='spacingAndGlyphs'>fb_plot_sp_tr_comp-nquant</text>
 </g>
 </svg>
