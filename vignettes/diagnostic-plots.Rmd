@@ -78,6 +78,9 @@ sites have higher coverage for certain traits than for others.
 You can plot this using the `fb_plot_distribution_site_trait_coverage()`
 function. It takes two arguments: `site_species` the site by species
 `data.frame` and `species_traits` the species by traits `data.frame`.
+The function leverages stacked density plots of trait coverages across sites
+(nicknamed 'ridges'). They represent the distribution of trait coverage across
+all sites for each trait separately.
 
 **Note:** the function internally uses the
 [`ggridges`](https://cran.r-project.org/package=ggridges) package to plot the
