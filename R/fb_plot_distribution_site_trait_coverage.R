@@ -8,6 +8,10 @@
 #' `"all_traits"` that contains the distribution of coverage all traits taken
 #' together.
 #' 
+#' **Note**: this function requires the installation of the `ggridges` package.
+#'   If it isn't installed, the function will give an error suggesting
+#'   installing it through `install.packages("ggrdiges")`.
+#' 
 #' @inheritParams fb_get_all_trait_coverages_by_site
 #' @inheritParams fb_plot_species_traits_completeness
 #'
