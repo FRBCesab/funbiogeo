@@ -31,9 +31,16 @@ test_that("fb_map_raster() works", {
   )
   
   x <- terra::rast(prec)
+  
   expect_error(
     fb_map_raster(x, add = FALSE),
-    NA)
+    NA
+  )
+  
+  expect_error(
+    fb_map_raster(x, background = 3),
+    "The 'background' argument should either be TRUE or FALSE"
+  )
   
   
   ## Working ----

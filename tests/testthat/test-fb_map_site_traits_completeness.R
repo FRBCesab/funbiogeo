@@ -107,9 +107,15 @@ test_that("fb_map_site_traits_completeness() works", {
   )
   
   expect_s3_class(given_plot, "ggplot")
+})
+
+test_that("fb_map_site_traits_completeness() errors well", {
   
-  # vdiffr::expect_doppelganger(
-  #   "fb_map_s_tr_comp-noalltraits", 
-  #   given_plot
-  # )
+  expect_error(
+    fb_map_site_traits_completeness(
+      site_points, site_species, species_traits, background = 3
+    ),
+    "The 'background' argument should either be TRUE or FALSE"
+  )
+  
 })

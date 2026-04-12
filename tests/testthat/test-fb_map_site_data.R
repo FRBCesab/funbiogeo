@@ -56,6 +56,11 @@ test_that("fb_map_site_data() errors with wrong input", {
     "Provided 'selected_col' should be in 'site_data'",
     fixed = TRUE
   )
+  
+  expect_error(
+    fb_map_site_data(site_locations, site_rich, "n_species", background = 3),
+    "The 'background' argument should either be TRUE or FALSE"
+  )
 })
 
 test_that("fb_map_site_data() works", {
