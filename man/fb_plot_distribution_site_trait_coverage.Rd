@@ -41,6 +41,11 @@ trait coverage (top to bottom). The top always displays a distribution named
 \code{"all_traits"} that contains the distribution of coverage all traits taken
 together.
 }
+\details{
+\strong{Note}: this function requires the installation of the \code{ggridges} package.
+If it isn't installed, the function will give an error suggesting
+installing it through \code{install.packages("ggrdiges")}.
+}
 \examples{
 fb_plot_distribution_site_trait_coverage(woodiv_site_species, woodiv_traits)
 
