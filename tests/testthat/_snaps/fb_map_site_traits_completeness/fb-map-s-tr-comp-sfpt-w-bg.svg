@@ -28585,7 +28585,7 @@
 <polyline points='27.13,309.74 29.87,309.74 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
 <rect x='630.80' y='242.14' width='83.72' height='112.69' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
 <text x='636.28' y='256.33' style='font-size: 11.00px; font-family: sans;' textLength='72.76px' lengthAdjust='spacingAndGlyphs'>Trait Coverage</text>
-<image width='17.28' height='86.40' x='636.28' y='262.95' preserveAspectRatio='none' xlink:href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAEsCAYAAAACUNnVAAAA2ElEQVQ4jZWRyRVDIQhFL/SS/stKFUIWOSoomp8NR3gDg7T3y9UQ1FxQQ0mpPEz5G+21FsgkbZa11WUxIALtahCtiAZzllYCoO7SA/JHeqVYqeAnZRxs+tkJtUDpe1iwJ6f5P5ZPmWca2jbSeStxUBxUXPqLWQOlABZFheLSDQqgVgy0BEAFqYGoSBQ/NT/2gP61cdWuEF+CR8p2ukTG/UJZGn3JBWU7ne9oseCc4M4jr3W8c+UXBxoAnmt7iN0yumoLShm4dHvkMijWa76glhUztaydBrahH9ZJlv7ajQdXAAAAAElFTkSuQmCC'/>
+<image width='17.28' height='86.40' x='636.28' y='262.95' preserveAspectRatio='none' xlink:href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAEsCAYAAAACUNnVAAAA2UlEQVQ4jZWRSxIDIQhEH94l9z9WTiGdRcoRlDGTDSX0BwH6+6XmGM1lNKeRUnuY8jc6aj2QSdos66vLYkAE+tEgWhEN5l96CUCTbATsj/RI8VLBT8q1sOnnd6gHypjDgz05zfdYjjLXpLTxrnQPEzQEzWTjxaxBowAWRYUiGwYFUCsutASgGVYDUZEoumt+2wPGaeOoQ2FagiJlW10iIx0oS6MvuaBsq9OOFgPOH5x55LFu91z5xQ9dAMq1PcRuGV21BaUMHLo9crkoPmpaUM+KmXrWTgPf0A/WSZb+CDZ+NwAAAABJRU5ErkJggg=='/>
 <polyline points='650.11,349.21 653.56,349.21 ' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
 <polyline points='650.11,327.68 653.56,327.68 ' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
 <polyline points='650.11,306.15 653.56,306.15 ' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />

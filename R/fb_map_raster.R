@@ -62,38 +62,40 @@ fb_map_raster <- function(x, background = FALSE, ...) {
     )
   }
 
+  if (!is.logical(background) & !is.na(background)) {  
+    stop(
+      "The 'background' argument should either be TRUE or FALSE", 
+      call. = FALSE
+    )
+  } 
+
   # Fortify raster
   x <- terra::as.data.frame(x, xy = TRUE)
 
-  if (background) {
-    # Define map extent
-    map_extent <- c(range(x$x), range(x$y))
+  # Define map extent
+  map_extent <- c(range(x$x), range(x$y))
+
+  basemap <- NULL  
+
+  if (background) {  
 
     # Import World baseline (Natural Earth)
     basemap <- rnaturalearth::ne_countries()
-
-    # Plot
-    ggplot2::ggplot(x) +
-      ggplot2::geom_raster(
-        ggplot2::aes(x = .data$x, y = .data$y, fill = .data[[colnames(x)[3]]])
-      ) +
-      ggplot2::geom_sf(data = basemap, fill = NA, color = "white") +
-      ggplot2::coord_sf(
-        xlim = c(map_extent[1], map_extent[2]),
-        ylim = c(map_extent[3], map_extent[4]),
-        expand = TRUE
-      ) +
-      ggplot2::labs(x = "Longitude", y = "Latitude") +
-      ggplot2::theme_bw() +
-      ggplot2::theme(...)
-  } else {
-    # Plot
-    ggplot2::ggplot(x) +
-      ggplot2::geom_raster(
-        ggplot2::aes(x = .data$x, y = .data$y, fill = .data[[colnames(x)[3]]])
-      ) +
-      ggplot2::labs(x = "Longitude", y = "Latitude") +
-      ggplot2::theme_bw() +
-      ggplot2::theme(...)
+    basemap <-  ggplot2::geom_sf(data = basemap, fill = NA, color = "white")
   }
+
+  # Plot
+  ggplot2::ggplot(x) +
+    ggplot2::geom_raster(
+      ggplot2::aes(x = .data$x, y = .data$y, fill = .data[[colnames(x)[3]]])
+    ) +
+    basemap + 
+    ggplot2::coord_sf(  
+      xlim = c(map_extent[1], map_extent[2]),  
+      ylim = c(map_extent[3], map_extent[4]),  
+      expand = TRUE  
+    ) +   
+    ggplot2::labs(x = "Longitude", y = "Latitude") +
+    ggplot2::theme_bw() +
+    ggplot2::theme(...)
 }

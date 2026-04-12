@@ -43,11 +43,12 @@ trait and add an additional facet named \code{"all_traits"} considering the
 trait coverage with all traits taken together.
 }
 \examples{
+# Map without a background
 fb_map_site_traits_completeness(
   woodiv_locations, woodiv_site_species, woodiv_traits
 )
 
-# Map w/ a background
+# Map with a background
 fb_map_site_traits_completeness(
   woodiv_locations, woodiv_site_species, woodiv_traits, background = TRUE
 )
