@@ -7,7 +7,7 @@ possible to let the user do the customization.
 ## Usage
 
 ``` r
-fb_map_site_data(site_locations, site_data, selected_col)
+fb_map_site_data(site_locations, site_data, selected_col, background = FALSE)
 ```
 
 ## Arguments
@@ -27,6 +27,11 @@ fb_map_site_data(site_locations, site_data, selected_col)
 
   `character(1)` name of the column to plot
 
+- background:
+
+  a `logical`. If `TRUE` adds a layer of country boundaries from Natural
+  Earth.
+
 ## Value
 
 a `ggplot` object.
@@ -44,4 +49,10 @@ rich_map
 # Customize the map
 rich_map +
   ggplot2::scale_fill_viridis_c("Species Richness")
+
+
+# Map w/ a background
+fb_map_site_data(
+  woodiv_locations, site_rich, "n_species", background = TRUE
+)
 ```

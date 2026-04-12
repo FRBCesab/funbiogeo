@@ -12,7 +12,8 @@ fb_map_site_traits_completeness(
   site_locations,
   site_species,
   species_traits,
-  all_traits = TRUE
+  all_traits = TRUE,
+  background = FALSE
 )
 ```
 
@@ -41,6 +42,11 @@ fb_map_site_traits_completeness(
   all provided traits should be provided in an additional column
   `all_traits`
 
+- background:
+
+  a `logical`. If `TRUE` adds a layer of country boundaries from Natural
+  Earth.
+
 ## Value
 
 a 'ggplot2' object
@@ -48,7 +54,14 @@ a 'ggplot2' object
 ## Examples
 
 ``` r
+# Map without a background
 fb_map_site_traits_completeness(
-    woodiv_locations, woodiv_site_species, woodiv_traits
+  woodiv_locations, woodiv_site_species, woodiv_traits
+)
+
+
+# Map with a background
+fb_map_site_traits_completeness(
+  woodiv_locations, woodiv_site_species, woodiv_traits, background = TRUE
 )
 ```
