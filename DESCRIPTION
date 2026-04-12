@@ -37,6 +37,7 @@ Imports:
     utils,
     xfun
 Suggests:
+    dplyr,
     fs,
     fundiversity,
     ggridges,

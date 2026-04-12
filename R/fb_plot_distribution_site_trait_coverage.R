@@ -76,7 +76,7 @@ fb_plot_distribution_site_trait_coverage <- function(
     function(single_category) {
       site_avg_coverage <- by(
       single_category, list(coverage_name = single_category[["coverage_name"]]),
-      \(y) mean(y$coverage_value, na.rm = TRUE)
+      function(y) mean(y$coverage_value, na.rm = TRUE)
     )
       site_avg_coverage <- utils::stack(site_avg_coverage)
       colnames(site_avg_coverage) <- c("avg_coverage", "coverage_name")
@@ -103,7 +103,7 @@ fb_plot_distribution_site_trait_coverage <- function(
   # Get order of coverage overall
   grand_avg_coverage <- utils::stack(
     by(avg_coverage, avg_coverage$coverage_name,
-       \(x) mean(x$avg_coverage, na.rm =TRUE))
+       function(x) mean(x$avg_coverage, na.rm =TRUE))
   )
   
   # Order coverage categories per decreasing coverage
