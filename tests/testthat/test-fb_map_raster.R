@@ -48,4 +48,15 @@ test_that("fb_map_raster() works", {
     "fb_map_raster-default", 
     x
   )  
+
+  x <- terra::rast(prec)
+  
+  expect_silent(y <- fb_map_raster(x, background = TRUE))
+  
+  expect_s3_class(y, "ggplot")
+  
+  vdiffr::expect_doppelganger(
+    "fb_map_raster-background", 
+    y
+  )  
 })

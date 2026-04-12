@@ -4,7 +4,7 @@
 \alias{fb_map_site_data}
 \title{Map Arbitrary Site Data}
 \usage{
-fb_map_site_data(site_locations, site_data, selected_col)
+fb_map_site_data(site_locations, site_data, selected_col, background = FALSE)
 }
 \arguments{
 \item{site_locations}{an \code{sf} object with the spatial geometries of sites.
@@ -15,6 +15,9 @@ and indicate site names.}
 the column \code{"site"} to merge with the \code{site_locations} argument}
 
 \item{selected_col}{\code{character(1)} name of the column to plot}
+
+\item{background}{a \code{logical}. If \code{TRUE} adds a layer of country boundaries
+from Natural Earth.}
 }
 \value{
 a \code{ggplot} object.
@@ -35,4 +38,9 @@ rich_map
 # Customize the map
 rich_map +
   ggplot2::scale_fill_viridis_c("Species Richness")
+
+# Map w/ a background
+fb_map_site_data(
+  woodiv_locations, site_rich, "n_species", background = TRUE
+)
 }

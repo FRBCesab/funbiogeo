@@ -4,11 +4,14 @@
 \alias{fb_map_raster}
 \title{Map a Single Raster Layer}
 \usage{
-fb_map_raster(x, ...)
+fb_map_raster(x, background = FALSE, ...)
 }
 \arguments{
 \item{x}{a \code{SpatRaster} object (package \code{terra}). A raster of one single
 layer}
+
+\item{background}{a \code{logical}. If \code{TRUE} adds a layer of country boundaries
+from Natural Earth.}
 
 \item{...}{other parameters passed to \code{ggplot2::theme()}}
 }
@@ -28,19 +31,22 @@ tavg <- terra::rast(tavg)
 ## Default map ----
 fb_map_raster(tavg)
 
+## Map with a background ----
+fb_map_raster(tavg, background = TRUE)
+
 ## Map with custom theme ----
 fb_map_raster(tavg, legend.position = "bottom")
 
 ## Advanced customization ----
-my_map <- fb_map_raster(tavg) + 
+my_map <- fb_map_raster(tavg) +
   scale_fill_distiller("Temperature", palette = "Spectral") +
-  theme(legend.position = "bottom") + 
+  theme(legend.position = "bottom") +
   ggtitle("Mean annual temperature in Western Europe")
 
 my_map
 
 ## Map w/o annotation ----
-fb_map_raster(tavg) + 
-  theme_void() + 
+fb_map_raster(tavg) +
+  theme_void() +
   theme(legend.position = "none")
 }

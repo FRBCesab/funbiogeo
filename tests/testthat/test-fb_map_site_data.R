@@ -1,6 +1,6 @@
 data("woodiv_site_species")
 data("woodiv_locations")
-site_species   <- woodiv_site_species
+site_species <- woodiv_site_species
 site_locations <- woodiv_locations
 
 # Initial data -----------------------------------------------------------------
@@ -16,87 +16,133 @@ site_lines <- sf::st_cast(site_locations, "MULTILINESTRING")
 
 # Tests ------------------------------------------------------------------------
 test_that("fb_map_site_data() errors with wrong input", {
-  
   # Missing Arguments
   expect_error(
     res <- fb_map_site_data(site_locations),
     "Argument 'site_data' (site info data.frame) is required",
     fixed = TRUE
   )
-  
+
   # Wrong type
   expect_error(
     res <- fb_map_site_data(site_locations, matrix()),
     "Argument 'site_data' must be a data.frame",
     fixed = TRUE
   )
-  
+
   # Column 'site' not in data.frame
   expect_error(
     res <- fb_map_site_data(site_locations, data.frame()),
     "\"site\" column should be in provided 'site_data'",
     fixed = TRUE
   )
-  
+
   # Missing 'selected_col' argument
   expect_error(
     res <- fb_map_site_data(site_locations, data.frame(site = "a")),
     "Argument 'selected_col' (name of selected column) is required",
     fixed = TRUE
   )
-  
+
   expect_error(
     res <- fb_map_site_data(site_locations, data.frame(site = "a", b = 1), 1),
     "Argument 'selected_col' must be a character",
     fixed = TRUE
   )
-  
+
   # Specified 'selected_col' not in provided 'site_data'
   expect_error(
     res <- fb_map_site_data(site_locations, data.frame(site = "a", b = 1), "a"),
     "Provided 'selected_col' should be in 'site_data'",
     fixed = TRUE
   )
-  
 })
 
 test_that("fb_map_site_data() works", {
-  
   # Polygons
   expect_silent(
     given_plot <- fb_map_site_data(site_locations, site_rich, "n_species")
   )
-  
+
   expect_s3_class(given_plot, "ggplot")
-  
+
   vdiffr::expect_doppelganger(
-    "fb_map_site_data-sfpolygons", 
+    "fb_map_site_data-sfpolygons",
     given_plot
   )
-  
 
   # Points
   expect_silent(
     given_plot <- fb_map_site_data(site_points, site_rich, "n_species")
   )
-  
+
   expect_s3_class(given_plot, "ggplot")
-  
+
   vdiffr::expect_doppelganger(
-    "fb_map_site_data-sfpoints", 
+    "fb_map_site_data-sfpoints",
     given_plot
   )
 
-  
   # Lines
   expect_silent(
     given_plot <- fb_map_site_data(site_lines, site_rich, "n_species")
   )
 
   expect_s3_class(given_plot, "ggplot")
-  
+
   vdiffr::expect_doppelganger(
-    "fb_map_site_data-sfmultilines", 
+    "fb_map_site_data-sfmultilines",
+    given_plot
+  )
+
+  # Polygons w/ background
+  expect_silent(
+    given_plot <- fb_map_site_data(
+      site_locations,
+      site_rich,
+      "n_species",
+      background = TRUE
+    )
+  )
+
+  expect_s3_class(given_plot, "ggplot")
+
+  vdiffr::expect_doppelganger(
+    "fb_map_site_data-sfpolygons-w-background",
+    given_plot
+  )
+
+  # Points w/ background
+  expect_silent(
+    given_plot <- fb_map_site_data(
+      site_points,
+      site_rich,
+      "n_species",
+      background = TRUE
+    )
+  )
+
+  expect_s3_class(given_plot, "ggplot")
+
+  vdiffr::expect_doppelganger(
+    "fb_map_site_data-sfpoints-w-background",
+    given_plot
+  )
+
+  # Lines w/ background
+  expect_silent(
+    given_plot <- fb_map_site_data(
+      site_lines,
+      site_rich,
+      "n_species",
+      background = TRUE
+    )
+  )
+
+  expect_s3_class(given_plot, "ggplot")
+
+  vdiffr::expect_doppelganger(
+    "fb_map_site_data-sfmultilines-w-background",
     given_plot
   )
 })
