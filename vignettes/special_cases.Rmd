@@ -112,7 +112,9 @@ We will first select the 100 first sites in the `woodiv_locations` object:
 ```{r sampled_sites}
 sampled_sites <- woodiv_locations[1:100,]
 
-fb_map_site_traits_completeness(sampled_sites, woodiv_site_species, woodiv_traits)
+fb_map_site_traits_completeness(
+  sampled_sites, woodiv_site_species, woodiv_traits
+)
 ```
 
 We will now convert the sites to points by taking the centroid of sites and use `fb_map_*()` functions to see how it will affect their outputs:
