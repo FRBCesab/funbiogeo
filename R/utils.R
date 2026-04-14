@@ -28,6 +28,14 @@ split_species_categories <- function(
     species_traits_categories <- merge(
       species_traits, species_categories, by = "species"
     )
+
+    if (nrow(species_traits_categories) == 0) {
+      stop(
+          "No species of 'species x traits' object found in the ", 
+          "'species x categories' object",
+        call. = FALSE
+      )
+    }
     
     species_traits_categories <- split(
       species_traits_categories[
