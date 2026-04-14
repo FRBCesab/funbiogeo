@@ -1,8 +1,8 @@
 ---
-title: "Special Cases in {funbiogeo}"
+title: "Special Cases in funbiogeo"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{special_cases}
+  %\VignetteIndexEntry{Special Cases in funbiogeo}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
