@@ -9,6 +9,6 @@
 - [Formatting your
   data](https://frbcesab.github.io/funbiogeo/articles/long-format.md):
 - [Special Cases in
-  {funbiogeo}](https://frbcesab.github.io/funbiogeo/articles/special_cases.md):
+  funbiogeo](https://frbcesab.github.io/funbiogeo/articles/special_cases.md):
 - [Upscaling your data: aggregating at coarser
   scales](https://frbcesab.github.io/funbiogeo/articles/upscaling.md):

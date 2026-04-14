@@ -1,4 +1,4 @@
-# Special Cases in {funbiogeo}
+# Special Cases in funbiogeo
 
 ``` r
 library(funbiogeo)
