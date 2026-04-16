@@ -23,5 +23,5 @@ Useful links:
 
 Authors:
 
-- Matthias Grenié <matthias.grenie@idiv.de>
+- Matthias Grenié <matthias.grenie@univ-grenoble-alpes.fr>
   ([ORCID](https://orcid.org/0000-0002-4659-7522))

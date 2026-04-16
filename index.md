@@ -95,7 +95,7 @@ package](https://frbcesab.github.io/funbiogeo/articles/)
 
 ## Long-form documentation
 
-`funbiogeo` provides four vignettes to explain its functioning:
+`funbiogeo` provides five vignettes to explain its functioning:
 
 - A [“Get started”
   vignette](https://frbcesab.github.io/funbiogeo/articles/funbiogeo.html)
@@ -113,14 +113,18 @@ package](https://frbcesab.github.io/funbiogeo/articles/)
   upscaling](https://frbcesab.github.io/funbiogeo/articles/upscaling.html)
   which explains how to leverage `funbiogeo` to aggregate automatically
   your data to coarser grain and use them in further analyses.
+- A vignette focusing on [special
+  cases](https://frbcesab.github.io/funbiogeo/articles/special_cases.html),
+  e.g. how to work with categorical traits, or how to consider
+  intraspefic trait variations.
 
 ## Citation
 
-For the moment `funbiogeo` doesn’t offer a companion paper nor is it on
+At the moment, `funbiogeo` doesn’t offer a companion paper nor is it on
 CRAN. But if you happen to use it in your paper you can cite the package
 through:
 
-> Casajus N & Grenié M (2024). *funbiogeo: Functional Biogeography
+> Casajus N & Grenié M (2026). *funbiogeo: Functional Biogeography
 > Analyses*. R package version 0.0.0.9000,
 > <https://github.com/frbcesab/funbiogeo>.
 
