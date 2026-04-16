@@ -59,3 +59,17 @@ drop_column <- function(data, col_name, drop = FALSE) {
 
   data[ , -which(colnames(data) == col_name), drop = drop]
 }
+
+
+#' Ask user
+#' @noRd
+
+ask_user <- function() {
+
+  readline(
+    paste(
+      "funbiogeo will create a copy of your datasets in 'path/'. Do you want", 
+      "to proceed? [Y/n] "
+    )
+  )
+}

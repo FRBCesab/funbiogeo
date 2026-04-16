@@ -35,9 +35,6 @@
 #' @param open a logical. If `TRUE` (default), the `.Rmd` file will be opened 
 #'   in the text editor.
 #' 
-#' @param interactive a logical. If `TRUE` (default), the function will ask user
-#'   to accept the copy of datasets.
-#' 
 #' @inheritParams fb_get_environment
 #' @inheritParams fb_get_trait_coverage_by_site
 #' @inheritParams fb_plot_species_traits_completeness
@@ -74,37 +71,30 @@
 fb_make_report <- function(path = ".", filename = NULL, title = NULL, 
                            author = NULL, species_traits, site_species, 
                            site_locations, species_categories = NULL,
-                           overwrite = FALSE, open = TRUE, interactive = TRUE) {
+                           overwrite = FALSE, open = TRUE) {
   
   open <- open && rlang::is_interactive()
   
-  if (interactive) {
+  answer <- ask_user()
 
-    prompt <- paste(
-      "funbiogeo will create a copy of your datasets in 'path/'. Do you want", 
-      "to proceed? [Y/n] "
-    )
-
-    answer <- readline(prompt)
-
-    if (answer == "") {
-      answer <- "yes"
-    }
-
-    answer <- tolower(answer)
-    answer <- substr(answer, 1, 1)
-
-    if (!(answer %in% c("y", "n"))) {
-      stop("Please answer 'yes' or 'no'", call. = FALSE)
-    }
-
-    if (answer == "n") {
-      stop(
-        "You must agree to copy your data to generate the Rmd report", 
-        call. = FALSE
-      )
-    }
+  if (answer == "") {
+    answer <- "yes"
   }
+
+  answer <- tolower(answer)
+  answer <- substr(answer, 1, 1)
+
+  if (!(answer %in% c("y", "n"))) {
+    stop("Please answer 'yes' or 'no'", call. = FALSE)
+  }
+
+  if (answer == "n") {
+    stop(
+      "You must agree to copy your data to generate the Rmd report", 
+      call. = FALSE
+    )
+  }
+
 
 
   # Check path -----------------------------------------------------------------

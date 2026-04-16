@@ -14,8 +14,7 @@ fb_make_report(
   site_locations,
   species_categories = NULL,
   overwrite = FALSE,
-  open = TRUE,
-  interactive = TRUE
+  open = TRUE
 )
 }
 \arguments{
@@ -58,9 +57,6 @@ files) will be replaced. Default is \code{FALSE}.}
 
 \item{open}{a logical. If \code{TRUE} (default), the \code{.Rmd} file will be opened
 in the text editor.}
-
-\item{interactive}{a logical. If \code{TRUE} (default), the function will ask user
-to accept the copy of datasets.}
 }
 \value{
 No return value.
