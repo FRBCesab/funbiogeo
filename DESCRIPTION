@@ -10,7 +10,7 @@ Authors@R:
              comment = c(ORCID = "0000-0002-5537-5294")),
       person(given   = "Matthias",
              family  = "Grenié",
-             email   = "matthias.grenie@idiv.de",
+             email   = "matthias.grenie@univ-grenoble-alpes.fr",
              role    = "aut",
              comment = c(ORCID = "0000-0002-4659-7522")))
 Description: Helps users with analyses in functional biogeogeography by loading 

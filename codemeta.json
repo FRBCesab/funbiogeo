@@ -14,7 +14,7 @@
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.5.1 (2025-06-13)",
+  "runtimePlatform": "R version 4.5.3 (2026-03-11)",
   "author": [
     {
       "@type": "Person",
@@ -27,7 +27,7 @@
       "@type": "Person",
       "givenName": "Matthias",
       "familyName": "Grenié",
-      "email": "matthias.grenie@idiv.de",
+      "email": "matthias.grenie@univ-grenoble-alpes.fr",
       "@id": "https://orcid.org/0000-0002-4659-7522"
     }
   ],
@@ -50,6 +50,18 @@
     }
   ],
   "softwareSuggestions": [
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "dplyr",
+      "name": "dplyr",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=dplyr"
+    },
     {
       "@type": "SoftwareApplication",
       "identifier": "fs",
@@ -218,6 +230,11 @@
     },
     "3": {
       "@type": "SoftwareApplication",
+      "identifier": "grid",
+      "name": "grid"
+    },
+    "4": {
+      "@type": "SoftwareApplication",
       "identifier": "rlang",
       "name": "rlang",
       "provider": {
@@ -228,7 +245,19 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=rlang"
     },
-    "4": {
+    "5": {
+      "@type": "SoftwareApplication",
+      "identifier": "rnaturalearth",
+      "name": "rnaturalearth",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rnaturalearth"
+    },
+    "6": {
       "@type": "SoftwareApplication",
       "identifier": "scales",
       "name": "scales",
@@ -240,7 +269,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=scales"
     },
-    "5": {
+    "7": {
       "@type": "SoftwareApplication",
       "identifier": "sf",
       "name": "sf",
@@ -252,12 +281,12 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=sf"
     },
-    "6": {
+    "8": {
       "@type": "SoftwareApplication",
       "identifier": "stats",
       "name": "stats"
     },
-    "7": {
+    "9": {
       "@type": "SoftwareApplication",
       "identifier": "terra",
       "name": "terra",
@@ -269,7 +298,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=terra"
     },
-    "8": {
+    "10": {
       "@type": "SoftwareApplication",
       "identifier": "tidyr",
       "name": "tidyr",
@@ -281,7 +310,7 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=tidyr"
     },
-    "9": {
+    "11": {
       "@type": "SoftwareApplication",
       "identifier": "tidyselect",
       "name": "tidyselect",
@@ -293,12 +322,17 @@
       },
       "sameAs": "https://CRAN.R-project.org/package=tidyselect"
     },
-    "10": {
+    "12": {
+      "@type": "SoftwareApplication",
+      "identifier": "tools",
+      "name": "tools"
+    },
+    "13": {
       "@type": "SoftwareApplication",
       "identifier": "utils",
       "name": "utils"
     },
-    "11": {
+    "14": {
       "@type": "SoftwareApplication",
       "identifier": "xfun",
       "name": "xfun",
@@ -312,8 +346,8 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "47280.913KB",
-  "releaseNotes": "https://github.com/frbcesab/funbiogeo/blob/master/NEWS.md",
+  "fileSize": "67144.367KB",
+  "releaseNotes": "https://github.com/frbcesab/funbiogeo/blob/main/NEWS.md",
   "readme": "https://github.com/FRBCesab/funbiogeo/blob/main/README.md",
   "contIntegration": ["https://github.com/FRBCesab/funbiogeo/actions/workflows/R-CMD-check.yaml", "https://app.codecov.io/gh/FRBCesab/funbiogeo"],
   "keywords": ["r", "package", "functional-biogeography", "functional-diversity", "functional-trait"]
