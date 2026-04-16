@@ -26,6 +26,7 @@ Depends:
     R (>= 3.5.0)
 Imports:
     ggplot2 (>= 3.4.0),
+    grid,
     rlang,
     rnaturalearth,
     scales,
@@ -34,6 +35,7 @@ Imports:
     terra,
     tidyr,
     tidyselect,
+    tools,
     utils,
     xfun
 Suggests:
