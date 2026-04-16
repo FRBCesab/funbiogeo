@@ -27,8 +27,7 @@ fb_make_report(
   site_locations,
   species_categories = NULL,
   overwrite = FALSE,
-  open = TRUE,
-  interactive = TRUE
+  open = TRUE
 )
 ```
 
@@ -91,11 +90,6 @@ fb_make_report(
 
   a logical. If `TRUE` (default), the `.Rmd` file will be opened in the
   text editor.
-
-- interactive:
-
-  a logical. If `TRUE` (default), the function will ask user to accept
-  the copy of datasets.
 
 ## Value
 

@@ -73,7 +73,7 @@ values:
 # Randomly removes 20% of the values
 set.seed(20260411)
 woodiv_cat_na <- apply(
-  woodiv_cat[, 2:4], 2, function(x) {x[sample( c(1:24), floor(24/10))] = NA; x}
+  woodiv_cat[, 2:4], 2, function(x) {x[sample( c(1:24), floor(24/10))] <- NA; x}
 )
 
 woodiv_cat_na <- as.data.frame(woodiv_cat_na)
@@ -221,7 +221,7 @@ represent lines, we will group sites into lines of sites and use the
 same function.
 
 ``` r
-lines_sites = points_sites
+lines_sites <- points_sites
 
 # Assign groups to create 10 lines
 site_ids <- data.frame(
