@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Special Cases in funbiogeo • funbiogeo</title>
+<title>Special cases in funbiogeo • funbiogeo</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Special Cases in funbiogeo">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Special cases in funbiogeo">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -36,7 +36,7 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/diagnostic-plots.html">Diagnostic plots in funbiogeo</a></li>
     <li><a class="dropdown-item" href="../articles/long-format.html">Formatting your data</a></li>
-    <li><a class="dropdown-item" href="../articles/special_cases.html">Special Cases in funbiogeo</a></li>
+    <li><a class="dropdown-item" href="../articles/special_cases.html">Special cases in funbiogeo</a></li>
     <li><a class="dropdown-item" href="../articles/upscaling.html">Upscaling your data: aggregating at coarser scales</a></li>
   </ul>
 </li>
@@ -59,7 +59,7 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>Special Cases in funbiogeo</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Special cases in funbiogeo</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/frbcesab/funbiogeo/blob/main/vignettes/special_cases.Rmd" class="external-link"><code>vignettes/special_cases.Rmd</code></a></small>
@@ -71,35 +71,38 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://frbcesab.github.io/funbiogeo/">funbiogeo</a></span><span class="op">)</span></span></code></pre></div>
 <p>This vignette aims to describe several specific cases in the use of
-funbiogeo. It provides detailed examples of these uses. If you find your
-case is missing or if you have additional questions, please <a href="https://github.com/FRBCesab/funbiogeo/issues/new/choose" class="external-link">open an
+<code>funbiogeo</code>. It provides detailed examples of these uses. If
+you find your case is missing or if you have additional questions,
+please <a href="https://github.com/FRBCesab/funbiogeo/issues/new/choose" class="external-link">open an
 issue</a>.</p>
 <div class="section level2">
 <h2 id="working-with-categorical-traits">Working with Categorical Traits<a class="anchor" aria-label="anchor" href="#working-with-categorical-traits"></a>
 </h2>
-<p>Traits are not always continuous. While funbiogeo has been thought
-mainly to work with continuous trait data, it can also work with
-categorical trait data. This section describes how to use funbiogeo to
-work with categorical traits.</p>
-<p>The default dataset provided in funbiogeo is an extract of the <a href="https://doi.org/10.1038/s41597-021-00873-3" class="external-link">WOODIV database</a>,
-describing the diversity of Mediterrannean trees. It contains data for
-28 species. To focus on categorical traits, we here propose to add three
-more traits for each species: its leaf habit (whether is deciduous or
-not?), its seed dispersal mode, and its shade tolerance. The next chunk
-gives these traits for the 24 species. We coded seed dispersal as a
-categorical trait with two modalities <code>"anemochory"</code> and
-<code>"endozoochory"</code>. We coded shade tolerance as a categorical
-traits with five ordered levels <code>"very_intolerant"</code>,
-<code>"intolerant"</code>, <code>"moderately_tolerant"</code>,
-<code>"tolerant"</code>, and <code>"very_tolerant"</code>. We first give
-the complete dataset, and then randomly remove data points to show the
-abilities of funbiogeo to display missing categorical traits.</p>
+<p>Traits are not always continuous. While <code>funbiogeo</code> has
+been thought mainly to work with continuous trait data, it can also work
+with categorical trait data. This section describes how to use
+<code>funbiogeo</code> to work with categorical traits.</p>
+<p>The default dataset provided in <code>funbiogeo</code> is an extract
+of the <a href="https://doi.org/10.1038/s41597-021-00873-3" class="external-link">WOODIV
+database</a>, describing the diversity of Mediterrannean trees. It
+contains data for 28 species. To focus on categorical traits, we here
+propose to add three more traits for each species: its leaf habit
+(whether is deciduous or not?), its seed dispersal mode, and its shade
+tolerance. The next chunk gives these traits for the 24 species. We
+coded seed dispersal as a categorical trait with two modalities
+<code>"anemochory"</code> and <code>"endozoochory"</code>. We coded
+shade tolerance as a categorical traits with five ordered levels
+<code>"very_intolerant"</code>, <code>"intolerant"</code>,
+<code>"moderately_tolerant"</code>, <code>"tolerant"</code>, and
+<code>"very_tolerant"</code>. We first give the complete dataset, and
+then randomly remove data points to show the abilities of
+<code>funbiogeo</code> to display missing categorical traits.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">woodiv_cat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">'AALB'</span>, <span class="st">'ACEP'</span>, <span class="st">'ANEB'</span>, <span class="st">'APIN'</span>, <span class="st">'CLIB'</span>, <span class="st">'CSEM'</span>, <span class="st">'JCOM'</span>, <span class="st">'JDEL'</span>, <span class="st">'JMAC'</span>,</span>
-<span>    <span class="st">'JNAV'</span>, <span class="st">'JOXY'</span>, <span class="st">'JPHO'</span>, <span class="st">'JTHU'</span>, <span class="st">'PBRU'</span>, <span class="st">'PHAL'</span>, <span class="st">'PHEL'</span>, <span class="st">'PINI'</span>, <span class="st">'PMUG'</span>,</span>
-<span>    <span class="st">'PPIA'</span>, <span class="st">'PPIR'</span>, <span class="st">'PSYL'</span>, <span class="st">'PUNC'</span>, <span class="st">'TART'</span>, <span class="st">'TBAC'</span></span>
+<span>    <span class="st">"AALB"</span>, <span class="st">"ACEP"</span>, <span class="st">"ANEB"</span>, <span class="st">"APIN"</span>, <span class="st">"CLIB"</span>, <span class="st">"CSEM"</span>, <span class="st">"JCOM"</span>, <span class="st">"JDEL"</span>, <span class="st">"JMAC"</span>,</span>
+<span>    <span class="st">"JNAV"</span>, <span class="st">"JOXY"</span>, <span class="st">"JPHO"</span>, <span class="st">"JTHU"</span>, <span class="st">"PBRU"</span>, <span class="st">"PHAL"</span>, <span class="st">"PHEL"</span>, <span class="st">"PINI"</span>, <span class="st">"PMUG"</span>,</span>
+<span>    <span class="st">"PPIA"</span>, <span class="st">"PPIR"</span>, <span class="st">"PSYL"</span>, <span class="st">"PUNC"</span>, <span class="st">"TART"</span>, <span class="st">"TBAC"</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  leaf_habit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"evergreen"</span><span class="op">)</span>,</span>
 <span>  seed_dispersal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
@@ -133,8 +136,12 @@ values:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Randomly removes 20% of the values</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">20260411</span><span class="op">)</span></span>
+<span></span>
 <span><span class="va">woodiv_cat_na</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span></span>
-<span>  <span class="va">woodiv_cat</span><span class="op">[</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, <span class="fl">2</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">24</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">floor</a></span><span class="op">(</span><span class="fl">24</span><span class="op">/</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span>; <span class="va">x</span><span class="op">}</span></span>
+<span>  <span class="va">woodiv_cat</span><span class="op">[</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, <span class="fl">2</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">24</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">floor</a></span><span class="op">(</span><span class="fl">24</span><span class="op">/</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
+<span>    <span class="va">x</span></span>
+<span>  <span class="op">}</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">woodiv_cat_na</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">woodiv_cat_na</span><span class="op">)</span></span>
@@ -158,36 +165,35 @@ values:</p>
 <span><span class="co">#&gt; 4    APIN  evergreen     anemochory moderately_tolerant</span></span>
 <span><span class="co">#&gt; 5    CLIB  evergreen     anemochory moderately_tolerant</span></span>
 <span><span class="co">#&gt; 6    CSEM  evergreen     anemochory          intolerant</span></span></code></pre></div>
-<p>We can now use all of the functions of funbiogeo as with continuous
-trait data:</p>
+<p>We can now use all of the functions of <code>funbiogeo</code> as with
+continuous trait data:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Show trait completeness overall</span></span>
 <span><span class="fu"><a href="../reference/fb_plot_species_traits_completeness.html">fb_plot_species_traits_completeness</a></span><span class="op">(</span><span class="va">woodiv_cat_na</span><span class="op">)</span></span></code></pre></div>
 <p><img src="special_cases_files/figure-html/fb_plots-1.png" class="r-plt" alt="" width="700"></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="co"># Map site completeness per trait</span></span>
+<code class="sourceCode R"><span><span class="co"># Map site completeness per trait</span></span>
 <span><span class="fu"><a href="../reference/fb_map_site_traits_completeness.html">fb_map_site_traits_completeness</a></span><span class="op">(</span></span>
 <span>  <span class="va">woodiv_locations</span>, <span class="va">woodiv_site_species</span>, <span class="va">woodiv_cat_na</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="special_cases_files/figure-html/fb_plots-2.png" class="r-plt" alt="" width="700"></p>
-<p><strong>Note</strong>: the only two functions that won’t work with
-categorical traits are <code><a href="../reference/fb_cwm.html">fb_cwm()</a></code> which computes an
-abundance-weighted trait average, and
-<code><a href="../reference/fb_plot_trait_correlation.html">fb_plot_trait_correlation()</a></code> which displays trait-trait
-correlations.</p>
+<p><strong>Note</strong>: the only two functions of
+<code>funbiogeo</code> that won’t work with categorical traits are
+<code><a href="../reference/fb_cwm.html">fb_cwm()</a></code> which computes an abundance-weighted trait
+average, and <code><a href="../reference/fb_plot_trait_correlation.html">fb_plot_trait_correlation()</a></code> which displays
+trait-trait correlations.</p>
 </div>
 <div class="section level2">
 <h2 id="considering-intraspecific-variation">Considering Intraspecific Variation<a class="anchor" aria-label="anchor" href="#considering-intraspecific-variation"></a>
 </h2>
 <p>Trait-based ecology tends to present its frameworks and analyses with
 species average traits, most of its concepts can, however, apply to
-intraspecific trait variation, funbiogeo is no different. All of the
-examples, including the dataset provided with the package, show species
-average traits. In this section, we detail how to work with data that
-include intraspecific variation within funbiogeo. This should be fairly
-similar to what’s possible across other functional diversity R
-packages.</p>
+intraspecific trait variation, <code>funbiogeo</code> is no different.
+All of the examples, including the dataset provided with the package,
+show species average traits. In this section, we detail how to work with
+data that include intraspecific variation within <code>funbiogeo</code>.
+This should be fairly similar to what’s possible across other functional
+diversity R packages.</p>
 <p>To include intraspecific variation, the user has to index species
 within specific sites. For example, if they are three individuals of
 <em>Abies alba</em> in site <em>A</em>, then the user has to provide
@@ -206,18 +212,19 @@ in trait completeness plots.</p>
 <div class="section level2">
 <h2 id="sites-of-arbitrary-shapes">Sites of Arbitrary Shapes<a class="anchor" aria-label="anchor" href="#sites-of-arbitrary-shapes"></a>
 </h2>
-<p>funbiogeo contains function that requires site-level data. A “site”
-is here defined as any geographic grain in which the studied organisms
-occur. Depending on the underlying scientific question, a site could be
-a single geographic point, for example marking a precise sampled
-location, or it could be a polygon (e.g., the area of a protected area),
-or a (multi-)line (e.g., a transect or a sampling route), or a square in
-a grid (e.g., through a sampling grid). The <code>fb_map_*()</code>
-functions in funbiogeo are agnostic to the shape of the sites, meaning
-they will work whatever the nature of the sites. The outputs will be
-adapted to the nature of the sites. In this section, we will show
-examples with sites of different types and see how this affects the
-output given by funbiogeo mapping functions.</p>
+<p><code>funbiogeo</code> contains functions that require site-level
+data. A “site” is here defined as any geographic grain in which the
+studied organisms occur. Depending on the underlying scientific
+question, a site could be a single geographic point, for example marking
+a precise sampled location, or it could be a polygon (e.g., the area of
+a protected area), or a (multi-)line (e.g., a transect or a sampling
+route), or a square in a grid (e.g., through a sampling grid). The
+<code>fb_map_*()</code> functions in <code>funbiogeo</code> are agnostic
+to the shape of the sites, meaning they will work whatever the nature of
+the sites. The outputs will be adapted to the nature of the sites. In
+this section, we will show examples with sites of different types and
+see how this affects the output given by <code>funbiogeo</code> mapping
+functions.</p>
 <p>We will first select the 100 first sites in the
 <code>woodiv_locations</code> object:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -262,9 +269,9 @@ affect their outputs:</p>
 <p>As seen above, the sites are now actual points instead of the
 original squares. The function will adapt to the geometry of the sites
 provided by the user.</p>
-<p>But funbiogeo can accommodate sites of any geometry, to show sites
-that represent lines, we will group sites into lines of sites and use
-the same function.</p>
+<p>But <code>funbiogeo</code> can accommodate sites of any geometry, to
+show sites that represent lines, we will group sites into lines of sites
+and use the same function.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lines_sites</span> <span class="op">&lt;-</span> <span class="va">points_sites</span></span>
 <span></span>
@@ -309,7 +316,7 @@ the same function.</p>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>site <span class="op">=</span> <span class="va">group_line</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">site</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
-<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="co">#&gt; Joining with `by = join_by(site)`</span></span>
 <span></span>
@@ -339,7 +346,7 @@ for example by aggregating sites per country.</p>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>site <span class="op">=</span> <span class="st">"Portugal"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">site</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
-<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span>, \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Display the map</span></span>
@@ -348,8 +355,8 @@ for example by aggregating sites per country.</p>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="special_cases_files/figure-html/convert_to_polygons-1.png" class="r-plt" alt="" width="700"></p>
 <p>Now all of the sites are merged as a single big polygon.</p>
-<p>Have fun with funbiogeo and if you have a question, an issue, or a
-suggestion, make sure to fill a report <a href="https://github.com/FRBCesab/funbiogeo/issues/new" class="external-link">on
+<p>Have fun with <code>funbiogeo</code> and if you have a question, an
+issue, or a suggestion, make sure to fill a report <a href="https://github.com/FRBCesab/funbiogeo/issues/new" class="external-link">on
 GitHub</a>.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
