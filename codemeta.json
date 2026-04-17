@@ -346,7 +346,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "67144.367KB",
+  "fileSize": "67144.48KB",
   "releaseNotes": "https://github.com/frbcesab/funbiogeo/blob/main/NEWS.md",
   "readme": "https://github.com/FRBCesab/funbiogeo/blob/main/README.md",
   "contIntegration": ["https://github.com/FRBCesab/funbiogeo/actions/workflows/R-CMD-check.yaml", "https://app.codecov.io/gh/FRBCesab/funbiogeo"],
