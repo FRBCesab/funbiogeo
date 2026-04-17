@@ -32,6 +32,6 @@ woodiv_categories[1:6, ]
 Monnet AC, Cilleros K, Médail F \emph{et al.} (2021) WOODIV, a database of
 occurrences, functional traits, and phylogenetic data for all
 Euro-Mediterranean trees. \strong{Scientific Data}, 8, 89.
-DOI: \href{https://doi.org/10.1038/s41597-021-00873-3}{10.1038/s41597-021-00873-3}
+DOI: \doi{10.1038/s41597-021-00873-3}.
 }
 \keyword{datasets}
