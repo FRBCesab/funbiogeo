@@ -1,5 +1,5 @@
 ---
-title: "Special Cases in funbiogeo"
+title: "Special cases in funbiogeo"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Special Cases in funbiogeo}
@@ -18,21 +18,21 @@ knitr::opts_chunk$set(
 library(funbiogeo)
 ```
 
-This vignette aims to describe several specific cases in the use of funbiogeo. It provides detailed examples of these uses. If you find your case is missing or if you have additional questions, please [open an issue](https://github.com/FRBCesab/funbiogeo/issues/new/choose).
+This vignette aims to describe several specific cases in the use of `funbiogeo`. It provides detailed examples of these uses. If you find your case is missing or if you have additional questions, please [open an issue](https://github.com/FRBCesab/funbiogeo/issues/new/choose).
 
 
 ## Working with Categorical Traits
 
-Traits are not always continuous. While funbiogeo has been thought mainly to work with continuous trait data, it can also work with categorical trait data. This section describes how to use funbiogeo to work with categorical traits.
+Traits are not always continuous. While `funbiogeo` has been thought mainly to work with continuous trait data, it can also work with categorical trait data. This section describes how to use `funbiogeo` to work with categorical traits.
 
-The default dataset provided in funbiogeo is an extract of the [WOODIV database](https://doi.org/10.1038/s41597-021-00873-3), describing the diversity of Mediterrannean trees. It contains data for 28 species. To focus on categorical traits, we here propose to add three more traits for each species: its leaf habit (whether is deciduous or not?), its seed dispersal mode, and its shade tolerance. The next chunk gives these traits for the 24 species. We coded seed dispersal as a categorical trait with two modalities `"anemochory"` and `"endozoochory"`. We coded shade tolerance as a categorical traits with five ordered levels `"very_intolerant"`, `"intolerant"`, `"moderately_tolerant"`, `"tolerant"`, and `"very_tolerant"`. We first give the complete dataset, and then randomly remove data points to show the abilities of funbiogeo to display missing categorical traits.
+The default dataset provided in `funbiogeo` is an extract of the [WOODIV database](https://doi.org/10.1038/s41597-021-00873-3), describing the diversity of Mediterrannean trees. It contains data for 28 species. To focus on categorical traits, we here propose to add three more traits for each species: its leaf habit (whether is deciduous or not?), its seed dispersal mode, and its shade tolerance. The next chunk gives these traits for the 24 species. We coded seed dispersal as a categorical trait with two modalities `"anemochory"` and `"endozoochory"`. We coded shade tolerance as a categorical traits with five ordered levels `"very_intolerant"`, `"intolerant"`, `"moderately_tolerant"`, `"tolerant"`, and `"very_tolerant"`. We first give the complete dataset, and then randomly remove data points to show the abilities of `funbiogeo` to display missing categorical traits.
 
 ```{r woodiv_cat}
 woodiv_cat <- data.frame(
   species = c(
-    'AALB', 'ACEP', 'ANEB', 'APIN', 'CLIB', 'CSEM', 'JCOM', 'JDEL', 'JMAC',
-    'JNAV', 'JOXY', 'JPHO', 'JTHU', 'PBRU', 'PHAL', 'PHEL', 'PINI', 'PMUG',
-    'PPIA', 'PPIR', 'PSYL', 'PUNC', 'TART', 'TBAC'
+    "AALB", "ACEP", "ANEB", "APIN", "CLIB", "CSEM", "JCOM", "JDEL", "JMAC",
+    "JNAV", "JOXY", "JPHO", "JTHU", "PBRU", "PHAL", "PHEL", "PINI", "PMUG",
+    "PPIA", "PPIR", "PSYL", "PUNC", "TART", "TBAC"
   ),
   leaf_habit = c("evergreen"),
   seed_dispersal = c(
@@ -61,8 +61,12 @@ Then to simulate missing trait data, we randomly remove 20% of the values:
 ```{r woodiv_cat_na}
 # Randomly removes 20% of the values
 set.seed(20260411)
+
 woodiv_cat_na <- apply(
-  woodiv_cat[, 2:4], 2, function(x) {x[sample( c(1:24), floor(24/10))] <- NA; x}
+  woodiv_cat[, 2:4], 2, function(x) {
+    x[sample( c(1:24), floor(24/10))] <- NA
+    x
+  }
 )
 
 woodiv_cat_na <- as.data.frame(woodiv_cat_na)
@@ -81,31 +85,30 @@ woodiv_cat_na$shade_tolerance <- factor(
 head(woodiv_cat_na)
 ```
 
-We can now use all of the functions of funbiogeo as with continuous trait data:
+We can now use all of the functions of `funbiogeo` as with continuous trait data:
 
 ```{r fb_plots}
 # Show trait completeness overall
 fb_plot_species_traits_completeness(woodiv_cat_na)
-
 # Map site completeness per trait
 fb_map_site_traits_completeness(
   woodiv_locations, woodiv_site_species, woodiv_cat_na
 )
 ```
 
-**Note**: the only two functions that won't work with categorical traits are `fb_cwm()` which computes an abundance-weighted trait average, and `fb_plot_trait_correlation()` which displays trait-trait correlations.
+**Note**: the only two functions of `funbiogeo` that won't work with categorical traits are `fb_cwm()` which computes an abundance-weighted trait average, and `fb_plot_trait_correlation()` which displays trait-trait correlations.
 
 
 ## Considering Intraspecific Variation
 
-Trait-based ecology tends to present its frameworks and analyses with species average traits, most of its concepts can, however, apply to intraspecific trait variation, funbiogeo is no different. All of the examples, including the dataset provided with the package, show species average traits. In this section, we detail how to work with data that include intraspecific variation within funbiogeo. This should be fairly similar to what's possible across other functional diversity R packages.
+Trait-based ecology tends to present its frameworks and analyses with species average traits, most of its concepts can, however, apply to intraspecific trait variation, `funbiogeo` is no different. All of the examples, including the dataset provided with the package, show species average traits. In this section, we detail how to work with data that include intraspecific variation within `funbiogeo`. This should be fairly similar to what's possible across other functional diversity R packages.
 
 To include intraspecific variation, the user has to index species within specific sites. For example, if they are three individuals of *Abies alba* in site *A*, then the user has to provide different names to the different individuals like `Abies_alba_1`, `Abies_alba_2`, and `Abies_alba_3`. These names have to be reused consistently across objects `site_species`, `species_traits`, and `species_categories`. As such, the user can define as fine as possible intraspecific variation. It is also possible to provide individual trait value for one or several sites and species average trait for the rest of the sites, following the same idea as long as the naming of species and invidivuals is consistent across objects. In this case, the specified individuals will be counfounded as distinct species in trait completeness plots.
 
 
 ## Sites of Arbitrary Shapes
 
-funbiogeo contains function that requires site-level data. A "site" is here defined as any geographic grain in which the studied organisms occur. Depending on the underlying scientific question, a site could be a single geographic point, for example marking a precise sampled location, or it could be a polygon (e.g., the area of a protected area), or a (multi-)line (e.g., a transect or a sampling route), or a square in a grid (e.g., through a sampling grid). The `fb_map_*()` functions in funbiogeo are agnostic to the shape of the sites, meaning they will work whatever the nature of the sites. The outputs will be adapted to the nature of the sites. In this section, we will show examples with sites of different types and see how this affects the output given by funbiogeo mapping functions.
+`funbiogeo` contains functions that require site-level data. A "site" is here defined as any geographic grain in which the studied organisms occur. Depending on the underlying scientific question, a site could be a single geographic point, for example marking a precise sampled location, or it could be a polygon (e.g., the area of a protected area), or a (multi-)line (e.g., a transect or a sampling route), or a square in a grid (e.g., through a sampling grid). The `fb_map_*()` functions in `funbiogeo` are agnostic to the shape of the sites, meaning they will work whatever the nature of the sites. The outputs will be adapted to the nature of the sites. In this section, we will show examples with sites of different types and see how this affects the output given by `funbiogeo` mapping functions.
 
 We will first select the 100 first sites in the `woodiv_locations` object:
 
@@ -133,7 +136,7 @@ fb_map_site_traits_completeness(
 
 As seen above, the sites are now actual points instead of the original squares. The function will adapt to the geometry of the sites provided by the user.
 
-But funbiogeo can accommodate sites of any geometry, to show sites that represent lines, we will group sites into lines of sites and use the same function.
+But `funbiogeo` can accommodate sites of any geometry, to show sites that represent lines, we will group sites into lines of sites and use the same function.
 
 ```{r convert_to_lines}
 lines_sites <- points_sites
@@ -161,7 +164,7 @@ woodiv_site_lines <- woodiv_site_species |>
   dplyr::rename(site = group_line) |> 
   dplyr::group_by(site) |>
   dplyr::summarise(
-    dplyr::across(dplyr::everything(), \(x) as.numeric(sum(x) > 0))
+    dplyr::across(dplyr::everything(), function(x) as.numeric(sum(x) > 0))
   )
 
 
@@ -189,7 +192,7 @@ woodiv_site_polygon <- woodiv_site_species |>
   dplyr::mutate(site = "Portugal") |> 
   dplyr::group_by(site) |>
   dplyr::summarise(
-    dplyr::across(dplyr::everything(), \(x) as.numeric(sum(x) > 0))
+    dplyr::across(dplyr::everything(), function(x) as.numeric(sum(x) > 0))
   )
 
 # Display the map
@@ -200,4 +203,4 @@ fb_map_site_traits_completeness(
 
 Now all of the sites are merged as a single big polygon.
 
-Have fun with funbiogeo and if you have a question, an issue, or a suggestion, make sure to fill a report [on GitHub](https://github.com/FRBCesab/funbiogeo/issues/new).
+Have fun with `funbiogeo` and if you have a question, an issue, or a suggestion, make sure to fill a report [on GitHub](https://github.com/FRBCesab/funbiogeo/issues/new).
