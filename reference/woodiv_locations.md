@@ -27,7 +27,8 @@ ETRS89-extended / LAEA Europe Coordinate Reference System (EPSG:3035).
 Monnet AC, Cilleros K, Médail F *et al.* (2021) WOODIV, a database of
 occurrences, functional traits, and phylogenetic data for all
 Euro-Mediterranean trees. **Scientific Data**, 8, 89. DOI:
-[10.1038/s41597-021-00873-3](https://doi.org/10.1038/s41597-021-00873-3)
+[doi:10.1038/s41597-021-00873-3](https://doi.org/10.1038/s41597-021-00873-3)
+.
 
 ## Examples
 
