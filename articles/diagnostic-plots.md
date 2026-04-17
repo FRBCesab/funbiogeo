@@ -253,7 +253,7 @@ compare our sites to a region. That is what the
 [`fb_plot_site_environment()`](https://frbcesab.github.io/funbiogeo/reference/fb_plot_site_environment.md)
 function does. It has four arguments: the first one, `site_locations`,
 provides the locations of sites as an `sf` object, `environment_raster`
-is a [`terra`](http://cran.r-project.org/package=terra) raster object,
+is a [`terra`](https://cran.r-project.org/package=terra) raster object,
 the next two arguments are `first_layer` and `second_layer` which are
 the names of the two variables to be extracted from `environment_raster`
 to make our plot.

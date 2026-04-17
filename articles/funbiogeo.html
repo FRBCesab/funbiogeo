@@ -940,12 +940,14 @@ access to an example raster of mean annual temperature through
 <code>funbiogeo</code>.</p>
 <p>We ar first going to read the raster using the <code>terra</code>
 package, which is the reference package to read spatial raster data. If
-you want to know more about raster data, we recommend reading the <a href="https://r.geocompx.org/raster" class="external-link">dedicated chapter</a> in the <a href="https://r.geocompx.org/" class="external-link"><em>Geocomputations with R</em></a> book
-<span class="citation">(Lovelace, Nowosad, and Muenchow 2025)</span>.
-Then, we’ll use the <code><a href="../reference/fb_map_raster.html">fb_map_raster()</a></code> function that displays
-a map for the first layer of the raster data. It takes the actual raster
-object as first argument. The other arguments are passed to the
-<code><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme()</a></code> function of ggplot2 to customize the plot.</p>
+you want to know more about raster data, we recommend reading the <a href="https://r.geocompx.org/attr#manipulating-raster-objects" class="external-link">dedicated
+chapter</a> in the <a href="https://r.geocompx.org/" class="external-link"><em>Geocomputations
+with R</em></a> book <span class="citation">(Lovelace, Nowosad, and
+Muenchow 2025)</span>. Then, we’ll use the <code><a href="../reference/fb_map_raster.html">fb_map_raster()</a></code>
+function that displays a map for the first layer of the raster data. It
+takes the actual raster object as first argument. The other arguments
+are passed to the <code><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme()</a></code> function of ggplot2 to customize
+the plot.</p>
 <p>So first, let’s read the mean annual temperature raster provided by
 <code>funbiogeo</code>. For this, we’ll use the
 <code><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file()</a></code> function which allows accessing specific

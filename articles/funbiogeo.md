@@ -762,9 +762,9 @@ example raster of mean annual temperature through `funbiogeo`.
 We ar first going to read the raster using the `terra` package, which is
 the reference package to read spatial raster data. If you want to know
 more about raster data, we recommend reading the [dedicated
-chapter](https://r.geocompx.org/raster) in the [*Geocomputations with
-R*](https://r.geocompx.org/) book (Lovelace, Nowosad, and Muenchow
-2025). Then, we’ll use the
+chapter](https://r.geocompx.org/attr#manipulating-raster-objects) in the
+[*Geocomputations with R*](https://r.geocompx.org/) book (Lovelace,
+Nowosad, and Muenchow 2025). Then, we’ll use the
 [`fb_map_raster()`](https://frbcesab.github.io/funbiogeo/reference/fb_map_raster.md)
 function that displays a map for the first layer of the raster data. It
 takes the actual raster object as first argument. The other arguments

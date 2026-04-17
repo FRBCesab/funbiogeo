@@ -316,7 +316,7 @@ follow an environmental raster or a raster grid.
 We would now like to aggregate our sites at the same resolution as is
 available for our environmental data such as mean annual temperature. We
 need to aggregate site data on a `SpatRaster` spatial grid (from the
-[`terra`](http://cran.r-project.org/package=terra) package). A nice
+[`terra`](https://cran.r-project.org/package=terra) package). A nice
 property of
 [`fb_aggregate_site_data()`](https://frbcesab.github.io/funbiogeo/reference/fb_aggregate_site_data.md)
 function is that it outputs a matching type of object as the provided
@@ -516,8 +516,8 @@ functional biogeography function. First, we’ll detail an example
 aggregating the community-weighted mean (CWM) of plant height, that is
 the abundance-weighted trait average of the assemblage. Second, we’ll
 show an example of coarsing functional diversity metrics computed
-through the [`fundiversity`
-package](https://funecology.github.io/fundiversity).
+through the [`fundiversity`](https://funecology.github.io/fundiversity/)
+package.
 
 #### Coarsen CWM of plant height
 
