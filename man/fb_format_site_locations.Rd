@@ -26,7 +26,7 @@ The function assumes coordinates are WGS84 (EPSG:4326).}
 
 \item{crs}{a \code{character} of length 1 or an object of class \code{crs}.
 Coordinate Reference System (CRS) of the specified coordinates.
-The CRS should be a \href{https://geocompr.robinlovelace.net/spatial-class.html?q=CRS#crs-in-r}{valid CRS in R}.
+The CRS should be a \href{https://r.geocompx.org/spatial-class.html?q=CRS#crs-intro}{valid CRS in R}.
 It can either be a character like \code{"+proj=longlat +datum=WGS84 +no_defs"}
 or as specified using \code{sf::st_crs()} like \code{sf::st_crs(4326)}
 the default value.}
