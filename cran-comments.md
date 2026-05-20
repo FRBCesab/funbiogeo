@@ -1,14 +1,14 @@
 ## Test environments
 
 * Local
-  * Fedora Linux 6.19.12-200.fc43.x86_64 (R 4.5.3)
-  * Debian 13 Linux 6.12.74+deb13+1-amd64 (R 4.5.3)
+  * Fedora Linux 6.19.12-200.fc43.x86_64 (R 4.6.0)
+  * Debian 13 Linux 6.12.74+deb13+1-amd64 (R 4.6.0)
   * Windows 11 26200 (R 4.4.2)
   
 * GitHub Actions
-  * macOS 15.7.4 24G517, R-release (R 4.5.3)
-  * Windows Server 2025 10.0.26100, R-release (R 4.5.3)
-  * Ubuntu 24.04.4 LTS, R-devel, R-release (R 4.5.3), R-oldrel
+  * macOS 15.7.4 24G517, R-release (R 4.6.0)
+  * Windows Server 2025 10.0.26100, R-release (R 4.6.0)
+  * Ubuntu 24.04.4 LTS, R-devel, R-release (R 4.6.0), R-oldrel
 
 
 ## R CMD check results
@@ -33,4 +33,4 @@ There are currently no downstream dependencies for this package.
 > This is the first version of the `funbiogeo` that we are submitting to CRAN.
 > Thank you very much for taking the time to review our submission.
 >
-> Nicolas Casajus
+> Nicolas Casajus & Matthias Grenié
