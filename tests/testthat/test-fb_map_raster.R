@@ -1,11 +1,11 @@
 data("woodiv_locations")
 site_locations <- woodiv_locations
 
-test_that("fb_map_raster() errors", {
-  prec <- system.file("extdata", "annual_tot_prec.tif", package = "funbiogeo")
-  tavg <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")
-  layers <- terra::rast(c(tavg, prec))
+prec <- system.file("extdata", "annual_tot_prec.tif", package = "funbiogeo")
+tavg <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")
+layers <- terra::rast(c(tavg, prec))
 
+test_that("fb_map_raster() errors", {
   ## Wrong input ----
 
   expect_error(
