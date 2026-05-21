@@ -17,7 +17,8 @@ knitr::opts_chunk$set(
   fig.width = 7,
   fig.height = 7,
   out.width = "100%",
-  dpi = 100
+  dpi = 100,
+  pngquant = "--speed=1 --quality=50"
 )
 ```
 
@@ -100,9 +101,9 @@ Let's examine the `woodiv_traits` data included in the package:
 
 ```{r preview-species-traits, echo = FALSE}
 knitr::kable(
-  head(woodiv_traits, 4), 
-  caption   = "Format of species x traits dataset", 
-  align     = c("c", rep("r", 4))
+  head(woodiv_traits, 4),
+  caption = "Format of species x traits dataset",
+  align = c("c", rep("r", 4))
 )
 ```
 
@@ -138,9 +139,9 @@ Let's look at it:
 
 ```{r preview-sites-species, echo = FALSE}
 knitr::kable(
-  head(woodiv_site_species[ , 1:6], 10), 
-  caption   = "Format of site x species dataset", 
-  align     = rep("c", 6)
+  head(woodiv_site_species[, 1:6], 10),
+  caption = "Format of site x species dataset",
+  align = rep("c", 6)
 )
 ```
 
@@ -189,9 +190,9 @@ Let's have a look at this dataset:
 
 ```{r preview-species-categories, echo = FALSE}
 knitr::kable(
-  head(woodiv_categories, 5), 
-  caption   = "Format of species x categories dataset", 
-  align     = c(rep("c", 3), "l", rep("c", 2)),
+  head(woodiv_categories, 5),
+  caption = "Format of species x categories dataset",
+  align = c(rep("c", 3), "l", rep("c", 2)),
   row.names = FALSE
 )
 ```
@@ -199,7 +200,7 @@ knitr::kable(
 Let's select the **`family`** category:
 
 ```{r select-species-categories, echo = FALSE}
-woodiv_families <- woodiv_categories[ , c("species", "family")]
+woodiv_families <- woodiv_categories[, c("species", "family")]
 
 head(woodiv_families)
 ```
@@ -243,7 +244,8 @@ proportion of species to consider (as a number between 0 and 1):
 
 ```{r fig-plot-sp-by-trait-prop}
 fb_plot_number_species_by_trait(
-  woodiv_traits, threshold_species_proportion = 0.75
+  woodiv_traits,
+  threshold_species_proportion = 0.75
 )
 ```
 
@@ -319,9 +321,10 @@ covered:
 # Initial dimension of the input data
 dim(woodiv_traits)
 
-# Filter traits 
+# Filter traits
 selected_traits <- fb_filter_traits_by_species_coverage(
-  woodiv_traits, threshold_species_proportion =  0.75
+  woodiv_traits,
+  threshold_species_proportion = 0.75
 )
 
 dim(selected_traits)
@@ -348,13 +351,13 @@ traits our threshold will be 100%. This way we can filter our dataset again:
 ```{r filter-species-by-traits}
 # Filter species which have at least 100% of known traits
 selected_species <- fb_filter_species_by_trait_coverage(
-  selected_traits, threshold_traits_proportion = 1
+  selected_traits,
+  threshold_traits_proportion = 1
 )
 
 dim(selected_species)
 
 head(selected_species)
-
 ```
 
 In the end, by filtering the traits available for at least 75% of the species,
@@ -383,7 +386,9 @@ dim(woodiv_site_species)
 
 # Filter sites with at least 90% species covered
 filt_sites <- fb_filter_sites_by_trait_coverage(
-  woodiv_site_species, selected_species, threshold_traits_proportion = 0.9
+  woodiv_site_species,
+  selected_species,
+  threshold_traits_proportion = 0.9
 )
 
 # Filtered sites
@@ -527,9 +532,12 @@ index as a third argument:
 
 ```{r mfd-fdis, eval = require("mFD")}
 woodiv_fdis <- mFD::alpha.fd.multidim(
-  scaled_traits, formatted_site_species, ind_vect = "fdis",
+  scaled_traits,
+  formatted_site_species,
+  ind_vect = "fdis",
   # remove all of the messages
-  details_returned = FALSE, verbose = FALSE
+  details_returned = FALSE,
+  verbose = FALSE
 )
 
 head(woodiv_fdis$functional_diversity_indices)
@@ -592,8 +600,10 @@ they can be customized using usual `ggplot2` syntax:
 ```{r map-fdis-custom, eval = require("mFD")}
 fb_map_site_data(woodiv_locations, woodiv_fdis, "fdis") +
   scale_fill_viridis_c() +
-  labs(fill = "Functional Dispersion",
-       title = "WOODIV (2 traits: plant height & seed mass)") +
+  labs(
+    fill = "Functional Dispersion",
+    title = "WOODIV (2 traits: plant height & seed mass)"
+  ) +
   theme(legend.position = "bottom")
 ```
 
@@ -641,7 +651,9 @@ the `terra` package:
 ```{r map-tavg-load-raster}
 # Get file pathr
 tavg <- system.file(
-  "extdata", "annual_mean_temp.tif", package = "funbiogeo"
+  "extdata",
+  "annual_mean_temp.tif",
+  package = "funbiogeo"
 )
 
 # Read raster
@@ -669,7 +681,7 @@ ggplot2 object which can be customized providing additional functions:
 
 ```{r map-tavg-custom, dev = 'png'}
 # Map raster
-fb_map_raster(tavg) + 
+fb_map_raster(tavg) +
   scale_fill_distiller("Temperature", palette = "Spectral") +
   labs(title = "Mean annual temperature in Europe") +
   theme(legend.position = "bottom")
@@ -693,16 +705,18 @@ prec <- system.file("extdata", "annual_tot_prec.tif", package = "funbiogeo")
 prec <- terra::rast(prec)
 
 # Individual Maps
-map_temperature <- fb_map_raster(tavg, legend.position = "none") + 
+map_temperature <- fb_map_raster(tavg, legend.position = "none") +
   scale_fill_distiller("Temperature", palette = "Spectral")
 
-map_precipitation <- fb_map_raster(prec) + 
+map_precipitation <- fb_map_raster(prec) +
   scale_fill_distiller("Precipitation", direction = 1)
 
 # Compose plot (leveraging `patchwork`)
-(map_temperature / map_precipitation) + 
-  plot_annotation(title = "Europe", 
-                  theme = theme(plot.title = element_text(face = "bold"))) & 
+(map_temperature / map_precipitation) +
+  plot_annotation(
+    title = "Europe",
+    theme = theme(plot.title = element_text(face = "bold"))
+  ) &
   theme_classic() &
   theme(text = element_text(family = "mono"))
 ```
