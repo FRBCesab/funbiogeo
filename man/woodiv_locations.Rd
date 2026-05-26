@@ -14,7 +14,7 @@ woodiv_locations
 \description{
 This dataset is derived from the WOODIV database (available at:
 \url{https://www.nature.com/articles/s41597-021-00873-3}). It contains the
-grid cells of sites (10 km x 10 km  horizontal
+grid cells of sites (10 km x 10 km horizontal
 resolution) sampled in Portugal, Spain, France, and Italy (Mediterranean
 part) for which at least one of the 24 conifer tree species occurs.
 

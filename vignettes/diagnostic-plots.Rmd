@@ -120,10 +120,10 @@ fb_plot_number_sites_by_species(woodiv_site_species)
 ```
 
 The function outputs a dotchart. The number of occupied sites per species is
-indicated at the  bottom x-axis, while the top x-axis represents the proportion
+indicated at the bottom x-axis, while the top x-axis represents the proportion
 of occupied sites. 
 The left y-axis labels species names (in parentheses) and their rank by
-increasing  prevalence. Note that, for readability constraints, only a limited
+increasing prevalence. Note that, for readability constraints, only a limited
 number of species are labeled on the y-axis, but they are all displayed as dots
 on the plot.
 
