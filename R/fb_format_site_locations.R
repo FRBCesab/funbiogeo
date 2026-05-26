@@ -1,9 +1,10 @@
 #' Extract site x locations information from long format data
 #' 
 #' Convert a flat `data.frame` with site coordinates into a proper `sf` object
-#' that can then be used by other functions. This function assumes that
-#' the coordinates are given in WGS84 (longitude vs. latitude). The function
-#' automatically removes repeated coordinates from the input dataset.
+#' that can then be used by other functions. This function assumes by default 
+#' that the coordinates are given in WGS84 (longitude vs. latitude), but this
+#' can be changed through the `crs` argument. The function automatically removes
+#' repeated coordinates from the input dataset.
 #'
 #' @param data a `data.frame` in a long format (see example).
 #' 

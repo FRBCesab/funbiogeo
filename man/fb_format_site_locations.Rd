@@ -39,9 +39,10 @@ An \code{sf} object with a \code{site} column specifying site coordinates.
 }
 \description{
 Convert a flat \code{data.frame} with site coordinates into a proper \code{sf} object
-that can then be used by other functions. This function assumes that
-the coordinates are given in WGS84 (longitude vs. latitude). The function
-automatically removes repeated coordinates from the input dataset.
+that can then be used by other functions. This function assumes by default
+that the coordinates are given in WGS84 (longitude vs. latitude), but this
+can be changed through the \code{crs} argument. The function automatically removes
+repeated coordinates from the input dataset.
 }
 \examples{
 filename <- system.file(

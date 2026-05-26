@@ -21,8 +21,8 @@ species category).
 }
 \description{
 Convert a flat \code{data.frame} with species names and species (supra-)category
-(e.g. family, order, endemism status, etc.) into a proper \code{data.frame} object
-that can then be used by other functions.
+(e.g. family, order, endemism status, etc.) into a proper
+\code{species_categories} object that can then be used by other functions.
 The final output contains species in rows and two columns (species name and
 species category).
 }
