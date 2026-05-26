@@ -28,7 +28,11 @@ A subset of \code{site_species} with sites covered by X\% of
 abundance/coverage considering all provided traits.
 }
 \description{
-...
+Select sites (rows of the \code{site_species} object) with all given traits
+available for at least the user-defined proportion of species
+\code{threshold_traits_proportion}. If a single trait is given, then the threshold
+applies to a single trait, if more than one trait is provided, then the
+function considers a threshold across all traits taken together.
 }
 \examples{
 # Filter all the sites where all species have known traits
