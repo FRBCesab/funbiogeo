@@ -8,24 +8,24 @@
 #' 
 #' @inheritParams fb_get_environment
 
-#' @param site_data a `matrix` or `data.frame` containing values per sites to 
-#'   aggregate along the provided grid. Can have one or several columns
-#'   (variables to aggregate). The first column must contain sites names as
+#' @param site_data a `matrix` or `data.frame` containing values per site to 
+#'   aggregate along the provided grid. It can contain one or several columns
+#'   (variables to aggregate). The first column must contain site names as
 #'   provided in the first argument `site_locations`.
 #'
 #' @param agg_geom a `terra::SpatRaster` or an `sf` object. This defines the
 #'   geometry along which to aggregate the initial data. See more in the Details
 #'   section.
 #'   
-#' @param fun the function used to aggregate points values when there are 
+#' @param fun the function used to aggregate point values when there are 
 #'   multiple points in one cell. Default is `mean`.
 #'   
 #' @param ... additional argument(s) passed to the provided function `fun`
 #'   
 #' @details
-#' The `agg_geom` object will condition the type of object ouput by the
-#' function. It can be of any sort as an `SpatRaster` or `sf` object. Depending
-#' on the need, it could be a regular square grid or hexagonal grid, it could
+#' The `agg_geom` object will condition the type of object output by the
+#' function. It can be of any sort of a `SpatRaster` or a `sf` object. Depending
+#' on the need, it could be a regular square grid or hexagonal grid; it could
 #' also be irregular polygons like biomes or ecoregions, or points, and even
 #' lines (such as when aggregating across transects or trajectories).
 #' 

@@ -11,16 +11,16 @@ fb_aggregate_site_data(site_locations, site_data, agg_geom, fun = mean, ...)
 \strong{NOTE}: the first column should be named \strong{\code{"site"}}
 and indicate site names.}
 
-\item{site_data}{a \code{matrix} or \code{data.frame} containing values per sites to
-aggregate along the provided grid. Can have one or several columns
-(variables to aggregate). The first column must contain sites names as
+\item{site_data}{a \code{matrix} or \code{data.frame} containing values per site to
+aggregate along the provided grid. It can contain one or several columns
+(variables to aggregate). The first column must contain site names as
 provided in the first argument \code{site_locations}.}
 
 \item{agg_geom}{a \code{terra::SpatRaster} or an \code{sf} object. This defines the
 geometry along which to aggregate the initial data. See more in the Details
 section.}
 
-\item{fun}{the function used to aggregate points values when there are
+\item{fun}{the function used to aggregate point values when there are
 multiple points in one cell. Default is \code{mean}.}
 
 \item{...}{additional argument(s) passed to the provided function \code{fun}}
@@ -38,9 +38,9 @@ on it at a coarser scale, or you want to visualize it at that scale.
 This function helps you do exactly that.
 }
 \details{
-The \code{agg_geom} object will condition the type of object ouput by the
-function. It can be of any sort as an \code{SpatRaster} or \code{sf} object. Depending
-on the need, it could be a regular square grid or hexagonal grid, it could
+The \code{agg_geom} object will condition the type of object output by the
+function. It can be of any sort of a \code{SpatRaster} or a \code{sf} object. Depending
+on the need, it could be a regular square grid or hexagonal grid; it could
 also be irregular polygons like biomes or ecoregions, or points, and even
 lines (such as when aggregating across transects or trajectories).
 }
