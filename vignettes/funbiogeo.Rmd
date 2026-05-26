@@ -627,7 +627,7 @@ We are first going to read the raster using the `terra` package, which is the
 reference package to read spatial raster data. If you want to know more about
 raster data, we recommend reading the
 [dedicated chapter](https://r.geocompx.org/attr#manipulating-raster-objects) in the
-[*Geocomputations with R*](https://r.geocompx.org/) book
+[*Geocomputations With R*](https://r.geocompx.org/) book
 [@Lovelace_Geocomputation_2025]. Then, we'll use the `fb_map_raster()`
 function that displays a map for the first layer of the raster data.
 It takes the actual raster object as the first argument. The other arguments are
