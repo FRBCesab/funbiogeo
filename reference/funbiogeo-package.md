@@ -23,5 +23,8 @@ Useful links:
 
 Authors:
 
+- Nicolas Casajus <nicolas.casajus@fondationbiodiversite.fr>
+  ([ORCID](https://orcid.org/0000-0002-5537-5294)) \[copyright holder\]
+
 - Matthias Grenié <matthias.grenie@univ-grenoble-alpes.fr>
   ([ORCID](https://orcid.org/0000-0002-4659-7522))
