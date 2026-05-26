@@ -10,7 +10,8 @@ vignette: >
 ```{r options, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment  = "#>"
+  comment = "#>",
+  pngquant = "--speed=1 --quality=50"
 )
 ```
 
@@ -152,7 +153,10 @@ function to get back the average species richness across sites per larger pixel.
 
 ```{r square-grid-aggregate}
 coarser_richness <- fb_aggregate_site_data(
-  woodiv_locations, species_richness, coarser_grid, fun = mean
+  woodiv_locations,
+  species_richness,
+  coarser_grid,
+  fun = mean
 )
 
 head(coarser_richness)
@@ -199,7 +203,7 @@ countries <- readRDS(
 # Visualize the spatial object
 ggplot(countries) +
   geom_sf(aes(fill = name)) +
-  geom_sf(data = woodiv_locations, alpha = 1/2) +  # Add original data
+  geom_sf(data = woodiv_locations, alpha = 1 / 2) + # Add original data
   geom_sf_text(aes(label = name)) +
   theme_bw()
 ```
@@ -215,7 +219,10 @@ dropped.
 ```{r countries-agg}
 # Compute country-level average species richness
 countries_richness <- fb_aggregate_site_data(
-  woodiv_locations, species_richness, countries, fun = mean
+  woodiv_locations,
+  species_richness,
+  countries,
+  fun = mean
 )
 
 # Map country-level average species richness
@@ -276,10 +283,10 @@ Let's compute our average species richness values across our grid.
 ```{r upscaled-richness}
 # Upscale to grid ----
 upscaled_richness <- fb_aggregate_site_data(
-  site_locations = woodiv_locations[ , 1, drop = FALSE],
-  site_data      = species_richness[ , 1:2],
-  agg_geom       = coarser_grid,
-  fun            = mean
+  site_locations = woodiv_locations[, 1, drop = FALSE],
+  site_data = species_richness[, 1:2],
+  agg_geom = coarser_grid,
+  fun = mean
 )
 
 upscaled_richness
@@ -321,7 +328,7 @@ finer scale sites will the coarser pixel show the species as absent.
 
 ```{r upscale-site-species}
 site_species_agg <- fb_aggregate_site_data(
-  woodiv_locations[ , 1, drop = FALSE],
+  woodiv_locations[, 1, drop = FALSE],
   woodiv_site_species,
   agg_geom = coarser_grid,
   fun = max
@@ -341,9 +348,11 @@ We can visualize both maps for a single species to see the difference in
 resolution :
 
 ```{r plot-map-upscale-site-species}
-
 single_species <- merge(
-  woodiv_locations, woodiv_site_species[, 1:2], by = "site", all = TRUE
+  woodiv_locations,
+  woodiv_site_species[, 1:2],
+  by = "site",
+  all = TRUE
 )
 
 finer_map <- ggplot(single_species) +
@@ -409,7 +418,7 @@ the default `fun` argument as we want to compute the average CWM:
 colnames(site_cwm)[3] <- "plant_height"
 
 upscaled_cwm <- fb_aggregate_site_data(
-  woodiv_locations[ , 1, drop = FALSE],
+  woodiv_locations[, 1, drop = FALSE],
   site_cwm[, c(1, 3)],
   coarser_grid
 )
@@ -433,11 +442,12 @@ compute the Functional Richness using two traits across our example dataset.
 
 ```{r compute-fric, eval = require("fundiversity")}
 # Get all species for which we have both adult body mass and litter size
-subset_traits <- woodiv_traits[
-  , c("species", "plant_height", "seed_mass")
+subset_traits <- woodiv_traits[,
+  c("species", "plant_height", "seed_mass")
 ]
 subset_traits <- subset(
-  subset_traits, !is.na(plant_height) & !is.na(seed_mass)
+  subset_traits,
+  !is.na(plant_height) & !is.na(seed_mass)
 )
 
 # Transform trait data
@@ -451,7 +461,9 @@ subset_traits[["seed_mass"]] <- as.numeric(
 
 # Filter site for which we have trait information for than 80% of species
 subset_site <- fb_filter_sites_by_trait_coverage(
-  woodiv_site_species, subset_traits, 0.8
+  woodiv_site_species,
+  subset_traits,
+  0.8
 )
 
 subset_site <- subset_site[, c("site", subset_traits$species)]
@@ -465,7 +477,8 @@ subset_site <- subset_site[, -1]
 
 # Compute FRic
 site_fric <- fundiversity::fd_fric(
-  subset_traits, subset_site
+  subset_traits,
+  subset_site
 )
 
 head(site_fric)
@@ -476,8 +489,8 @@ compute the average functional richness at a coarser spatial scale:
 
 ```{r upscale-fric, eval = require("fundiversity")}
 agg_fric <- fb_aggregate_site_data(
-  woodiv_locations[ , 1, drop = FALSE], 
-  site_fric, 
+  woodiv_locations[, 1, drop = FALSE],
+  site_fric,
   coarser_grid
 )
 
