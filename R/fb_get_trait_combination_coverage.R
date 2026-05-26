@@ -1,13 +1,12 @@
 #' Compute site trait coverage for each trait combination
 #' 
 #' This function computes trait coverage for each site for different trait
-#' combinations. If not provided, consider all possible trait combinations.
 #' The function will not run if the total number of combinations given is over
 #' 10,000.
 #'
 #' @inheritParams fb_get_trait_coverage_by_site
 #' @param comb_size an integer vector defining one or more sizes of combinations
-#'   (default: `NULL`)
+#'   over which to compute trait coverage. (default: `NULL`)
 #'
 #' @return
 #'   a data.frame with the following columns:

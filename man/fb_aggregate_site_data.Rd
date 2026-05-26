@@ -7,7 +7,7 @@
 fb_aggregate_site_data(site_locations, site_data, agg_geom, fun = mean, ...)
 }
 \arguments{
-\item{site_locations}{an \code{sf} object with the spatial geometries of sites.
+\item{site_locations}{a \code{sf} object with the spatial geometries of sites.
 \strong{NOTE}: the first column should be named \strong{\code{"site"}}
 and indicate site names.}
 

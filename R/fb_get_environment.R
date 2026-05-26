@@ -1,6 +1,9 @@
 #' Extract Raster Values at Location of Sites
+#' 
+#' This function uses a `site_locations` object and a given `SpatRaster`.
+#' It extracts the mean value of the provided raster for each site.
 #'
-#' @param site_locations an `sf` object with the spatial geometries of sites.
+#' @param site_locations a `sf` object with the spatial geometries of sites.
 #'                       **NOTE**: the first column should be named **`"site"`**
 #'                       and indicate site names.
 #' 
@@ -8,7 +11,7 @@
 #'   A single or multi-layers environmental raster.
 #'
 #' @return A `data.frame` with average environmental values (columns) per site
-#' (rows), with the first column being `"site"` indicating site names.
+#' (rows), with the first column being `"site"`, indicating site names.
 #' 
 #' @export
 #' 

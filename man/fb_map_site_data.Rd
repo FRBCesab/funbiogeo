@@ -7,7 +7,7 @@
 fb_map_site_data(site_locations, site_data, selected_col, background = FALSE)
 }
 \arguments{
-\item{site_locations}{an \code{sf} object with the spatial geometries of sites.
+\item{site_locations}{a \code{sf} object with the spatial geometries of sites.
 \strong{NOTE}: the first column should be named \strong{\code{"site"}}
 and indicate site names.}
 
@@ -23,10 +23,10 @@ from Natural Earth.}
 a \code{ggplot} object.
 }
 \description{
-From the site-locations data and a dataset organized by site, plot a map of
-this information.
-The returned plot is as little customized as possible to let the user do
-the customization.
+This function helps to map arbitrary site data using the site-locations
+object  and a dataset organized by site. The returned plot is as little
+customized as possible to let the user choose. The function can provide a
+basic background map if the \code{background} argument is toggled.
 }
 \examples{
 site_rich <- fb_count_species_by_site(woodiv_site_species)

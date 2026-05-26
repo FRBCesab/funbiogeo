@@ -13,7 +13,7 @@ fb_map_site_traits_completeness(
 )
 }
 \arguments{
-\item{site_locations}{an \code{sf} object with the spatial geometries of sites.
+\item{site_locations}{a \code{sf} object with the spatial geometries of sites.
 \strong{NOTE}: the first column should be named \strong{\code{"site"}}
 and indicate site names.}
 
@@ -40,7 +40,7 @@ a 'ggplot2' object
 Returns a \code{ggplot2} map of sites colored by trait coverage (proportion
 of species having a known trait value). By default shows one plot for each
 trait and add an additional facet named \code{"all_traits"} considering the
-trait coverage with all traits taken together.
+trait coverage with all provided traits taken together.
 }
 \examples{
 # Map without a background

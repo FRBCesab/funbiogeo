@@ -1,8 +1,10 @@
 #' Create an Rmarkdown Report to Explore User Data
 #'
 #' Creates an R Markdown (`.Rmd`) report from a template to explore and 
-#' summarize user data. User can modify this report and use the function
-#' [rmarkdown::render()] (or click the _Render_ of the RStudio IDE) to convert 
+#' summarize user data in (functional) biogeography through the use of the
+#' site-species, the species-traits, and the site-locations objects. Users can
+#' modify this report and use the function [rmarkdown::render()]
+#' (or click the _Render_ of the RStudio IDE) to convert 
 #' this `.Rmd` in different formats:
 #'   - HTML document (`output_format = "bookdown::html_document2"`);
 #'   - PDF document (`output_format = "bookdown::pdf_document2"`);

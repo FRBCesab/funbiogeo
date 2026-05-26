@@ -1,9 +1,9 @@
 #' Map Arbitrary Site Data
 #'
-#' From the site-locations data and a dataset organized by site, plot a map of
-#' this information.
-#' The returned plot is as little customized as possible to let the user do
-#' the customization.
+#' This function helps to map arbitrary site data using the site-locations
+#' object  and a dataset organized by site. The returned plot is as little 
+#' customized as possible to let the user choose. The function can provide a
+#' basic background map if the `background` argument is toggled.
 #'
 #' @param site_data `data.frame()` of additional site information containing
 #'   the column `"site"` to merge with the `site_locations` argument
