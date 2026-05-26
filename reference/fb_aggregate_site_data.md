@@ -72,18 +72,18 @@ tavg <- terra::rast(tavg)
 fb_aggregate_site_data(
     head(woodiv_locations), woodiv_site_species[, 1:4], tavg, fun = sum
 )
-#> class       : SpatRaster 
+#> class       : SpatRaster
 #> size        : 290, 405, 3  (nrow, ncol, nlyr)
 #> resolution  : 0.08333333, 0.08333333  (x, y)
 #> extent      : -10.5, 23.25, 35.83333, 60  (xmin, xmax, ymin, ymax)
-#> coord. ref. : lon/lat WGS 84 (EPSG:4326) 
+#> coord. ref. : lon/lat WGS 84 (EPSG:4326)
 #> source(s)   : memory
-#> varnames    : annual_mean_temp 
-#>               annual_mean_temp 
-#>               annual_mean_temp 
-#> names       : AALB, ACEP, APIN 
-#> min values  :    0,    0,    0 
-#> max values  :    0,    0,    0 
+#> varnames    : annual_mean_temp
+#>               annual_mean_temp
+#>               annual_mean_temp
+#> names       : AALB, ACEP, APIN
+#> min values  :    0,    0,    0
+#> max values  :    0,    0,    0
 
 ## Irregular polygons
 countries <- readRDS(system.file(

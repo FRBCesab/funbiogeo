@@ -1,6 +1,7 @@
 # Special cases in funbiogeo
 
 ``` r
+
 library(funbiogeo)
 ```
 
@@ -31,28 +32,86 @@ and then randomly remove data points to show the abilities of
 `funbiogeo` to display missing categorical traits.
 
 ``` r
+
 woodiv_cat <- data.frame(
   species = c(
-    "AALB", "ACEP", "ANEB", "APIN", "CLIB", "CSEM", "JCOM", "JDEL", "JMAC",
-    "JNAV", "JOXY", "JPHO", "JTHU", "PBRU", "PHAL", "PHEL", "PINI", "PMUG",
-    "PPIA", "PPIR", "PSYL", "PUNC", "TART", "TBAC"
+    "AALB",
+    "ACEP",
+    "ANEB",
+    "APIN",
+    "CLIB",
+    "CSEM",
+    "JCOM",
+    "JDEL",
+    "JMAC",
+    "JNAV",
+    "JOXY",
+    "JPHO",
+    "JTHU",
+    "PBRU",
+    "PHAL",
+    "PHEL",
+    "PINI",
+    "PMUG",
+    "PPIA",
+    "PPIR",
+    "PSYL",
+    "PUNC",
+    "TART",
+    "TBAC"
   ),
   leaf_habit = c("evergreen"),
   seed_dispersal = c(
-    "anemochory", "anemochory", "anemochory", "anemochory", "anemochory",
-    "anemochory", "endozoochory", "endozoochory", "endozoochory",
-    "endozoochory", "endozoochory", "endozoochory", "endozoochory",
-    "anemochory", "anemochory", "anemochory", "anemochory", "anemochory",
-    "endozoochory", "anemochory", "anemochory", "anemochory", "anemochory",
+    "anemochory",
+    "anemochory",
+    "anemochory",
+    "anemochory",
+    "anemochory",
+    "anemochory",
+    "endozoochory",
+    "endozoochory",
+    "endozoochory",
+    "endozoochory",
+    "endozoochory",
+    "endozoochory",
+    "endozoochory",
+    "anemochory",
+    "anemochory",
+    "anemochory",
+    "anemochory",
+    "anemochory",
+    "endozoochory",
+    "anemochory",
+    "anemochory",
+    "anemochory",
+    "anemochory",
     "endozoochory"
   ),
   shade_tolerance = c(
-    "tolerant", "moderately_tolerant", "moderately_tolerant",
-    "moderately_tolerant", "moderately_tolerant", "intolerant", "intolerant",
-    "intolerant", "intolerant", "intolerant", "intolerant", "intolerant",
-    "intolerant", "very_intolerant", "very_intolerant", "intolerant",
-    "intolerant", "intolerant", "intolerant", "intolerant", "intolerant",
-    "intolerant", "very_intolerant", "very_tolerant"
+    "tolerant",
+    "moderately_tolerant",
+    "moderately_tolerant",
+    "moderately_tolerant",
+    "moderately_tolerant",
+    "intolerant",
+    "intolerant",
+    "intolerant",
+    "intolerant",
+    "intolerant",
+    "intolerant",
+    "intolerant",
+    "intolerant",
+    "very_intolerant",
+    "very_intolerant",
+    "intolerant",
+    "intolerant",
+    "intolerant",
+    "intolerant",
+    "intolerant",
+    "intolerant",
+    "intolerant",
+    "very_intolerant",
+    "very_tolerant"
   )
 )
 
@@ -70,12 +129,15 @@ Then to simulate missing trait data, we randomly remove 20% of the
 values:
 
 ``` r
+
 # Randomly removes 20% of the values
 set.seed(20260411)
 
 woodiv_cat_na <- apply(
-  woodiv_cat[, 2:4], 2, function(x) {
-    x[sample( c(1:24), floor(24/10))] <- NA
+  woodiv_cat[, 2:4],
+  2,
+  function(x) {
+    x[sample(c(1:24), floor(24 / 10))] <- NA
     x
   }
 )
@@ -88,8 +150,13 @@ woodiv_cat_na <- woodiv_cat_na[, c(4, 1:3)]
 
 woodiv_cat_na$shade_tolerance <- factor(
   woodiv_cat_na$shade_tolerance,
-  levels = c("very_intolerant", "intolerant", "moderately_tolerant",
-             "tolerant", "very_tolerant"),
+  levels = c(
+    "very_intolerant",
+    "intolerant",
+    "moderately_tolerant",
+    "tolerant",
+    "very_tolerant"
+  ),
   ordered = TRUE
 )
 
@@ -107,6 +174,7 @@ We can now use all of the functions of `funbiogeo` as with continuous
 trait data:
 
 ``` r
+
 # Show trait completeness overall
 fb_plot_species_traits_completeness(woodiv_cat_na)
 ```
@@ -114,9 +182,12 @@ fb_plot_species_traits_completeness(woodiv_cat_na)
 ![](special_cases_files/figure-html/fb_plots-1.png)
 
 ``` r
+
 # Map site completeness per trait
 fb_map_site_traits_completeness(
-  woodiv_locations, woodiv_site_species, woodiv_cat_na
+  woodiv_locations,
+  woodiv_site_species,
+  woodiv_cat_na
 )
 ```
 
@@ -172,10 +243,13 @@ We will first select the 100 first sites in the `woodiv_locations`
 object:
 
 ``` r
-sampled_sites <- woodiv_locations[1:100,]
+
+sampled_sites <- woodiv_locations[1:100, ]
 
 fb_map_site_traits_completeness(
-  sampled_sites, woodiv_site_species, woodiv_traits
+  sampled_sites,
+  woodiv_site_species,
+  woodiv_traits
 )
 ```
 
@@ -185,6 +259,7 @@ We will now convert the sites to points by taking the centroid of sites
 and use `fb_map_*()` functions to see how it will affect their outputs:
 
 ``` r
+
 # Convert all the sites into 'POINT' geometry
 points_sites <- sf::st_centroid(sampled_sites)
 #> Warning: st_centroid assumes attributes are constant over geometries
@@ -210,7 +285,9 @@ points_sites
 
 # Map the sites
 fb_map_site_traits_completeness(
-  points_sites, woodiv_site_species, woodiv_traits
+  points_sites,
+  woodiv_site_species,
+  woodiv_traits
 )
 ```
 
@@ -225,6 +302,7 @@ that represent lines, we will group sites into lines of sites and use
 the same function.
 
 ``` r
+
 lines_sites <- points_sites
 
 # Assign groups to create 10 lines
@@ -235,9 +313,9 @@ site_ids <- data.frame(
 
 # Group sites geographically
 lines_sites <- lines_sites |>
-  dplyr::inner_join(site_ids, by = "site") |> 
+  dplyr::inner_join(site_ids, by = "site") |>
   dplyr::group_by(group_line) |>
-  dplyr::summarise(country = unique(country)) |> 
+  dplyr::summarise(country = unique(country)) |>
   sf::st_cast("LINESTRING") |>
   dplyr::rename(site = group_line)
 
@@ -265,7 +343,7 @@ lines_sites
 woodiv_site_lines <- woodiv_site_species |>
   dplyr::inner_join(site_ids) |>
   dplyr::select(-site) |>
-  dplyr::rename(site = group_line) |> 
+  dplyr::rename(site = group_line) |>
   dplyr::group_by(site) |>
   dplyr::summarise(
     dplyr::across(dplyr::everything(), function(x) as.numeric(sum(x) > 0))
@@ -274,7 +352,9 @@ woodiv_site_lines <- woodiv_site_species |>
 
 
 fb_map_site_traits_completeness(
-  lines_sites, woodiv_site_lines, woodiv_traits
+  lines_sites,
+  woodiv_site_lines,
+  woodiv_traits
 )
 ```
 
@@ -290,18 +370,19 @@ the map functions can also accommodate larger polygons, for example by
 aggregating sites per country.
 
 ``` r
+
 # Convert all sites to a single polygon
 polygon_sites <- sampled_sites |>
   dplyr::group_by(country) |>
-  dplyr::summarise(country = unique(country)) |> 
+  dplyr::summarise(country = unique(country)) |>
   sf::st_cast("MULTIPOLYGON") |>
   dplyr::rename(site = country)
 
 # Compute new site-species object
 woodiv_site_polygon <- woodiv_site_species |>
-  subset(site %in% sampled_sites$site) |> 
+  subset(site %in% sampled_sites$site) |>
   dplyr::select(-site) |>
-  dplyr::mutate(site = "Portugal") |> 
+  dplyr::mutate(site = "Portugal") |>
   dplyr::group_by(site) |>
   dplyr::summarise(
     dplyr::across(dplyr::everything(), function(x) as.numeric(sum(x) > 0))
@@ -309,7 +390,9 @@ woodiv_site_polygon <- woodiv_site_species |>
 
 # Display the map
 fb_map_site_traits_completeness(
-  polygon_sites, woodiv_site_polygon, woodiv_traits
+  polygon_sites,
+  woodiv_site_polygon,
+  woodiv_traits
 )
 ```
 

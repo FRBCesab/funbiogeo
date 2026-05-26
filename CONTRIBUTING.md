@@ -156,6 +156,7 @@ If you want to contribute by improving the README, please edit the
 `README.md` by running:
 
 ``` r
+
 rmarkdown::render("README.Rmd")
 ```
 
@@ -185,6 +186,7 @@ not already listed under the section `Imports`).
 Check the integrity of the package with:
 
 ``` r
+
 devtools::check()
 ```
 
@@ -198,6 +200,7 @@ syntax).
 Update the documentation (`Rd` files in the `man/` folder) by running:
 
 ``` r
+
 devtools::document()
 ```
 
@@ -208,6 +211,7 @@ forget to add it in the `DESCRIPTION` file under the section `Imports`
 Check the integrity of the package with:
 
 ``` r
+
 devtools::check()
 ```
 
@@ -219,6 +223,7 @@ edit the corresponding file in the `R/` folder.
 Check the integrity of the package with:
 
 ``` r
+
 devtools::check()
 ```
 
@@ -231,6 +236,7 @@ the function by editing the corresponding file stored in the
 Check your tests by running:
 
 ``` r
+
 devtools::test()
 ```
 

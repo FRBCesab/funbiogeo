@@ -57,6 +57,7 @@ For the moment `funbiogeo` is not on CRAN but you can install the
 development version from [R-universe](https://r-universe.dev) as follow:
 
 ``` r
+
 install.packages('funbiogeo', repos = c('https://frbcesab.r-universe.dev', 'https://cloud.r-project.org'))
 ```
 
@@ -75,6 +76,7 @@ for which proportion of species) using the
 function:
 
 ``` r
+
 fb_plot_species_traits_completeness(woodiv_traits)
 ```
 
@@ -85,6 +87,7 @@ trait across all sites, using the function
 [`fb_map_site_traits_completeness()`](https://frbcesab.github.io/funbiogeo/reference/fb_map_site_traits_completeness.md):
 
 ``` r
+
 fb_map_site_traits_completeness(woodiv_locations, woodiv_site_species, woodiv_traits)
 ```
 
@@ -131,6 +134,7 @@ through:
 You can also run:
 
 ``` r
+
 citation("funbiogeo")
 ```
 

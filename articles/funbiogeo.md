@@ -12,6 +12,7 @@ biogeography workflow using the internal dataset provided in `funbiogeo`
 and derived from the WOODIV database (Monnet et al. 2021).
 
 ``` r
+
 library("funbiogeo")
 library("ggplot2")
 library("sf")
@@ -57,6 +58,7 @@ You can load the example data using the
 `data(..., package = "funbiogeo")` call:
 
 ``` r
+
 data("woodiv_site_species", package = "funbiogeo")
 data("woodiv_categories", package = "funbiogeo")
 data("woodiv_locations", package = "funbiogeo")
@@ -91,7 +93,7 @@ Let’s examine the `woodiv_traits` data included in the package:
 | 4   |  ANEB   |     15.00000 |        NA | 3.420603 |           NA |
 | 5   |  APIN   |     27.33333 |  55.52000 | 3.420603 |    0.4586508 |
 
-Format of species x traits dataset
+Format of species x traits dataset {.table}
 
 The first column **`"species"`** contains species names, while the next
 four columns contain different traits for all species.
@@ -99,15 +101,16 @@ four columns contain different traits for all species.
 Let’s look at a summary of the trait dataset:
 
 ``` r
+
 summary(woodiv_traits)
-#>    species           plant_height      seed_mass            sla        
-#>  Length:24          Min.   : 1.368   Min.   :  7.608   Min.   : 0.508  
-#>  Class :character   1st Qu.: 8.776   1st Qu.: 14.926   1st Qu.: 3.421  
-#>  Mode  :character   Median :16.908   Median : 30.188   Median : 4.365  
-#>                     Mean   :18.779   Mean   : 62.245   Mean   : 4.773  
-#>                     3rd Qu.:25.531   3rd Qu.: 57.558   3rd Qu.: 5.824  
-#>                     Max.   :49.642   Max.   :626.189   Max.   :10.600  
-#>                                      NA's   :1         NA's   :7       
+#>       species    plant_height      seed_mass            sla        
+#>  Length   :24   Min.   : 1.368   Min.   :  7.608   Min.   : 0.508  
+#>  N.unique :24   1st Qu.: 8.776   1st Qu.: 14.926   1st Qu.: 3.421  
+#>  N.blank  : 0   Median :16.908   Median : 30.188   Median : 4.365  
+#>  Min.nchar: 4   Mean   :18.779   Mean   : 62.245   Mean   : 4.773  
+#>  Max.nchar: 4   3rd Qu.:25.531   3rd Qu.: 57.558   3rd Qu.: 5.824  
+#>                 Max.   :49.642   Max.   :626.189   Max.   :10.600  
+#>                                  NAs    :1         NAs    :7       
 #>   wood_density   
 #>  Min.   :0.2796  
 #>  1st Qu.:0.4500  
@@ -115,7 +118,7 @@ summary(woodiv_traits)
 #>  Mean   :0.4948  
 #>  3rd Qu.:0.5300  
 #>  Max.   :0.6488  
-#>  NA's   :7
+#>  NAs    :7
 ```
 
 Note that to use your own species by traits `data.frame`, it should
@@ -152,7 +155,7 @@ Let’s look at it:
 | 39852335 |  1   |  0   |  0   |  0   |  0   |
 | 39652375 |  1   |  0   |  0   |  0   |  0   |
 
-Format of site x species dataset
+Format of site x species dataset {.table}
 
 The example dataset contains the occurrence of the 24 Conifer tree
 species across 5,366 sites (grid cells of 10 km x 10 km resolution).
@@ -177,6 +180,7 @@ of 10 km x 10 km resolution) as polygons. It contains the label of the
 sites in its first column **`"site"`**:
 
 ``` r
+
 head(woodiv_locations)
 #> Simple feature collection with 6 features and 2 fields
 #> Geometry type: POLYGON
@@ -219,7 +223,7 @@ Let’s have a look at this dataset:
 |  APIN   | Pinaceae | Abies  | Abies pinsapo     |    1     |     0      |
 |  CLIB   | Pinaceae | Cedrus | Cedrus libani     |    0     |     1      |
 
-Format of species x categories dataset
+Format of species x categories dataset {.table style="width:100%;"}
 
 Let’s select the **`family`** category:
 
@@ -249,6 +253,7 @@ of species with non-missing traits using the
 function. It takes the species by trait `data.frame` as input.
 
 ``` r
+
 fb_plot_number_species_by_trait(woodiv_traits)
 ```
 
@@ -275,8 +280,10 @@ argument the proportion of species to consider (as a number between 0
 and 1):
 
 ``` r
+
 fb_plot_number_species_by_trait(
-  woodiv_traits, threshold_species_proportion = 0.75
+  woodiv_traits,
+  threshold_species_proportion = 0.75
 )
 ```
 
@@ -304,6 +311,7 @@ function. Similarly to the above-mentioned function, it takes the
 species x traits `data.frame` as the first argument:
 
 ``` r
+
 fb_plot_number_traits_by_species(woodiv_traits)
 ```
 
@@ -325,6 +333,7 @@ function. This function takes the species-traits table as first
 argument:
 
 ``` r
+
 fb_plot_trait_combination_frequencies(woodiv_traits)
 ```
 
@@ -363,13 +372,15 @@ columns). The second argument `threshold_species_proportion` is the
 threshold proportion of species covered:
 
 ``` r
+
 # Initial dimension of the input data
 dim(woodiv_traits)
 #> [1] 24  5
 
-# Filter traits 
+# Filter traits
 selected_traits <- fb_filter_traits_by_species_coverage(
-  woodiv_traits, threshold_species_proportion =  0.75
+  woodiv_traits,
+  threshold_species_proportion = 0.75
 )
 
 dim(selected_traits)
@@ -403,9 +414,11 @@ species. Here, because we want the species to have all the traits our
 threshold will be 100%. This way we can filter our dataset again:
 
 ``` r
+
 # Filter species which have at least 100% of known traits
 selected_species <- fb_filter_species_by_trait_coverage(
-  selected_traits, threshold_traits_proportion = 1
+  selected_traits,
+  threshold_traits_proportion = 1
 )
 
 dim(selected_species)
@@ -443,13 +456,16 @@ Let’s say here we’re interested in sites for which our species with
 available traits represent at least 90% of the species present:
 
 ``` r
+
 # Initial site x species data
 dim(woodiv_site_species)
 #> [1] 5366   25
 
 # Filter sites with at least 90% species covered
 filt_sites <- fb_filter_sites_by_trait_coverage(
-  woodiv_site_species, selected_species, threshold_traits_proportion = 0.9
+  woodiv_site_species,
+  selected_species,
+  threshold_traits_proportion = 0.9
 )
 
 # Filtered sites
@@ -511,6 +527,7 @@ function to do so, it takes the site x species `data.frame` and species
 x traits `data.frame` as arguments.
 
 ``` r
+
 # We're reusing our filtered data, on both the site x species data.frame
 # and the species x traits data.frame to compute CWM
 cwm <- fb_cwm(filt_sites, selected_species)
@@ -547,6 +564,7 @@ function to scale our traits.
 installed*
 
 ``` r
+
 ## To install 'mFD' uncomment the following line
 # install.packages("mFD")
 
@@ -600,6 +618,7 @@ the species for which we have the traits in the species by trait table.
 We thus transform the site by species object:
 
 ``` r
+
 # Copy filtered sites
 formatted_site_species <- filt_sites
 
@@ -623,6 +642,7 @@ formatted_site_species[1:5, 1:5]
 `matrix`, we thus convert it to a matrix:
 
 ``` r
+
 formatted_site_species <- as.matrix(formatted_site_species)
 ```
 
@@ -641,10 +661,14 @@ as first argument then the site-species table as second argument, then
 the name of the functional diversity index as a third argument:
 
 ``` r
+
 woodiv_fdis <- mFD::alpha.fd.multidim(
-  scaled_traits, formatted_site_species, ind_vect = "fdis",
+  scaled_traits,
+  formatted_site_species,
+  ind_vect = "fdis",
   # remove all of the messages
-  details_returned = FALSE, verbose = FALSE
+  details_returned = FALSE,
+  verbose = FALSE
 )
 
 head(woodiv_fdis$functional_diversity_indices)
@@ -679,6 +703,7 @@ slightly transform our site-indices table to include an explicit `site`
 column as required by `funbiogeo`:
 
 ``` r
+
 # Simplify object
 woodiv_fdis <- woodiv_fdis$functional_diversity_indices
 
@@ -712,6 +737,7 @@ as a character string (= quoted). Let’s represent the functional
 dispersion:
 
 ``` r
+
 fb_map_site_data(woodiv_locations, woodiv_fdis, "fdis")
 ```
 
@@ -723,10 +749,13 @@ the plotting functions of `funbiogeo` output `ggplot2` objects they can
 be customized using usual `ggplot2` syntax:
 
 ``` r
+
 fb_map_site_data(woodiv_locations, woodiv_fdis, "fdis") +
   scale_fill_viridis_c() +
-  labs(fill = "Functional Dispersion",
-       title = "WOODIV (2 traits: plant height & seed mass)") +
+  labs(
+    fill = "Functional Dispersion",
+    title = "WOODIV (2 traits: plant height & seed mass)"
+  ) +
   theme(legend.position = "bottom")
 ```
 
@@ -737,6 +766,7 @@ assemblage by specifying the name of the column `fide_plant_height` from
 our `woodiv_fdis` data.frame:
 
 ``` r
+
 fb_map_site_data(woodiv_locations, woodiv_fdis, "fide_plant_height") +
   # Additional code to customize our plot
   scale_fill_distiller("Average plant height", palette = "RdYlBu") +
@@ -763,8 +793,8 @@ We ar first going to read the raster using the `terra` package, which is
 the reference package to read spatial raster data. If you want to know
 more about raster data, we recommend reading the [dedicated
 chapter](https://r.geocompx.org/attr#manipulating-raster-objects) in the
-[*Geocomputations with R*](https://r.geocompx.org/) book (Lovelace,
-Nowosad, and Muenchow 2025). Then, we’ll use the
+[*Geocomputations with R*](https://r.geocompx.org/) book (Lovelace et
+al. 2025). Then, we’ll use the
 [`fb_map_raster()`](https://frbcesab.github.io/funbiogeo/reference/fb_map_raster.md)
 function that displays a map for the first layer of the raster data. It
 takes the actual raster object as first argument. The other arguments
@@ -779,9 +809,12 @@ which allows accessing specific files from packages, then we’ll read the
 raster with the `rast()` function from the `terra` package:
 
 ``` r
+
 # Get file pathr
 tavg <- system.file(
-  "extdata", "annual_mean_temp.tif", package = "funbiogeo"
+  "extdata",
+  "annual_mean_temp.tif",
+  package = "funbiogeo"
 )
 
 # Read raster
@@ -789,15 +822,15 @@ tavg <- terra::rast(tavg)
 
 # Display object
 tavg
-#> class       : SpatRaster 
+#> class       : SpatRaster
 #> size        : 290, 405, 1  (nrow, ncol, nlyr)
 #> resolution  : 0.08333333, 0.08333333  (x, y)
 #> extent      : -10.5, 23.25, 35.83333, 60  (xmin, xmax, ymin, ymax)
-#> coord. ref. : lon/lat WGS 84 (EPSG:4326) 
-#> source      : annual_mean_temp.tif 
-#> name        : annual_mean_temp 
-#> min value   :        -5.921834 
-#> max value   :        19.843750
+#> coord. ref. : lon/lat WGS 84 (EPSG:4326)
+#> source      : annual_mean_temp.tif
+#> name        : annual_mean_temp
+#> min value   :        -5.921834
+#> max value   :         19.84375
 ```
 
 This raster represents mean annual temperature in Europe. We can see
@@ -811,6 +844,7 @@ We then display it with the
 function from `funbiogeo` in the next chunk.
 
 ``` r
+
 # Map raster
 fb_map_raster(tavg)
 ```
@@ -823,8 +857,9 @@ returns a ggplot2 object which can be customized providing additional
 functions:
 
 ``` r
+
 # Map raster
-fb_map_raster(tavg) + 
+fb_map_raster(tavg) +
   scale_fill_distiller("Temperature", palette = "Spectral") +
   labs(title = "Mean annual temperature in Europe") +
   theme(legend.position = "bottom")
@@ -841,6 +876,7 @@ Leveraging the `patchwork` package, that allows to combine different
 temperature and the one on annual total precipitation:
 
 ``` r
+
 library("patchwork")
 
 # Read rasters
@@ -851,16 +887,18 @@ prec <- system.file("extdata", "annual_tot_prec.tif", package = "funbiogeo")
 prec <- terra::rast(prec)
 
 # Individual Maps
-map_temperature <- fb_map_raster(tavg, legend.position = "none") + 
+map_temperature <- fb_map_raster(tavg, legend.position = "none") +
   scale_fill_distiller("Temperature", palette = "Spectral")
 
-map_precipitation <- fb_map_raster(prec) + 
+map_precipitation <- fb_map_raster(prec) +
   scale_fill_distiller("Precipitation", direction = 1)
 
 # Compose plot (leveraging `patchwork`)
-(map_temperature / map_precipitation) + 
-  plot_annotation(title = "Europe", 
-                  theme = theme(plot.title = element_text(face = "bold"))) & 
+(map_temperature / map_precipitation) +
+  plot_annotation(
+    title = "Europe",
+    theme = theme(plot.title = element_text(face = "bold"))
+  ) &
   theme_classic() &
   theme(text = element_text(family = "mono"))
 ```
@@ -884,6 +922,7 @@ second argument the environmental raster. It takes the average of the
 raster values per site.
 
 ``` r
+
 site_env <- fb_get_environment(woodiv_locations, tavg)
 
 head(site_env)
@@ -916,6 +955,7 @@ We can thus plot the mean annual temperature of sites through the
 following commands:
 
 ``` r
+
 fb_map_site_data(woodiv_locations, site_env, "annual_mean_temp") +
   labs(title = "Mean Annual Temperature per Site")
 ```
@@ -944,17 +984,15 @@ Spatial Resolution Climate Surfaces for Global Land Areas.”
 *International Journal of Climatology* 37 (12): 4302–15.
 <https://doi.org/10.1002/joc.5086>.
 
-Garnier, Eric, Jacques Cortez, Georges Billès, Marie-Laure Navas,
-Catherine Roumet, Max Debussche, Gérard Laurent, et al. 2004. “Plant
+Garnier, Eric, Jacques Cortez, Georges Billès, et al. 2004. “Plant
 Functional Markers Capture Ecosystem Properties During Secondary
 Succession.” *Ecology* 85 (9): 2630–37.
 <https://doi.org/10.1890/03-0799>.
 
-Karger, Dirk Nikolaus, Olaf Conrad, Jürgen Böhner, Tobias Kawohl, Holger
-Kreft, Rodrigo Wilber Soria-Auza, Niklaus E. Zimmermann, H. Peter
-Linder, and Michael Kessler. 2017. “Climatologies at High Resolution for
-the Earth’s Land Surface Areas.” *Scientific Data* 4 (September):
-170122. <https://doi.org/10.1038/sdata.2017.122>.
+Karger, Dirk Nikolaus, Olaf Conrad, Jürgen Böhner, et al. 2017.
+“Climatologies at High Resolution for the Earth’s Land Surface Areas.”
+*Scientific Data* 4 (September): 170122.
+<https://doi.org/10.1038/sdata.2017.122>.
 
 Lovelace, Robin, Jakub Nowosad, and Jannes Muenchow. 2025.
 *Geocomputation with R*. Second. CRC Press.
@@ -964,11 +1002,10 @@ Cardoso. 2021. “Concepts and Applications in Functional Diversity.”
 *Functional Ecology* 35 (9): 1869–85.
 <https://doi.org/10.1111/1365-2435.13882>.
 
-Monnet, Anne-Christine, Kévin Cilleros, Frédéric Médail, Marwan Cheikh
-Albassatneh, Juan Arroyo, Gianluigi Bacchetta, Francesca Bagnoli, et al.
-2021. “WOODIV, a database of occurrences, functional traits, and
-phylogenetic data for all Euro-Mediterranean trees.” *Scientific Data*
-8: 89. <https://doi.org/10.1038/s41597-021-00873-3>.
+Monnet, Anne-Christine, Kévin Cilleros, Frédéric Médail, et al. 2021.
+“WOODIV, a database of occurrences, functional traits, and phylogenetic
+data for all Euro-Mediterranean trees.” *Scientific Data* 8: 89.
+<https://doi.org/10.1038/s41597-021-00873-3>.
 
 Violle, Cyrille, Peter B. Reich, Stephen W. Pacala, Brian J. Enquist,
 and Jens Kattge. 2014. “The Emergence and Promise of Functional

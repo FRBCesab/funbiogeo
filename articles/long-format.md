@@ -25,6 +25,7 @@ Optionally, an additional dataset can be provided:
   classification)
 
 ``` r
+
 library(funbiogeo)
 ```
 
@@ -44,7 +45,7 @@ presence/absence of all species is spread across columns).
 |  B   |     0     |     0     |     1     |     1     |
 |  C   |     1     |     1     |     1     |     0     |
 
-Wide format dataset (used in `funbiogeo`)
+Wide format dataset (used in `funbiogeo`) {.table}
 
 The following dataset illustrates the long format (the column `species`
 contains the name of the species and the column `occurrence` contains
@@ -65,7 +66,7 @@ the presence/absence of species).
 |  B   | species_4 |     1      |
 |  C   | species_4 |     0      |
 
-Long format dataset
+Long format dataset {.table}
 
 In order to use this dataset in `funbiogeo`, we need to transform this
 tidy dataset into a wide dataset with all species as different columns.
@@ -102,9 +103,12 @@ the functions. This data sits at
 Let’s import the long format dataset provided by `funbiogeo`:
 
 ``` r
+
 # Define the path to long format dataset ----
 file_name <- system.file(
-  "extdata", "woodiv_raw_data.csv", package = "funbiogeo"
+  "extdata",
+  "woodiv_raw_data.csv",
+  package = "funbiogeo"
 )
 
 
@@ -112,20 +116,20 @@ file_name <- system.file(
 all_data <- read.csv(file_name)
 ```
 
-|   site   | country  | longitude | latitude | species | count |    family    | genus     |            binomial | endemism | cultivated | plant_height | seed_mass |   sla    | wood_density |
-|:--------:|:--------:|----------:|---------:|:-------:|:-----:|:------------:|:----------|--------------------:|---------:|-----------:|-------------:|:---------:|:--------:|-------------:|
-| 26351755 | Portugal |   2635000 |  1755000 |  JPHO   |   1   | Cupressaceae | Juniperus | Juniperus phoenicea |        0 |          0 |      4.88150 | 79.86000  | 4.365246 |    0.6487500 |
-| 26351755 | Portugal |   2635000 |  1755000 |  PPIR   |   1   |   Pinaceae   | Pinus     |      Pinus pinaster |        0 |          0 |     19.75384 | 55.83434  | 3.357539 |    0.4430277 |
-| 26351765 | Portugal |   2635000 |  1765000 |  JPHO   |   1   | Cupressaceae | Juniperus | Juniperus phoenicea |        0 |          0 |      4.88150 | 79.86000  | 4.365246 |    0.6487500 |
-| 26351955 | Portugal |   2635000 |  1955000 |  JPHO   |   1   | Cupressaceae | Juniperus | Juniperus phoenicea |        0 |          0 |      4.88150 | 79.86000  | 4.365246 |    0.6487500 |
-| 26351955 | Portugal |   2635000 |  1955000 |  PPIR   |   1   |   Pinaceae   | Pinus     |      Pinus pinaster |        0 |          0 |     19.75384 | 55.83434  | 3.357539 |    0.4430277 |
-| 26351965 | Portugal |   2635000 |  1965000 |  JPHO   |   1   | Cupressaceae | Juniperus | Juniperus phoenicea |        0 |          0 |      4.88150 | 79.86000  | 4.365246 |    0.6487500 |
-| 26351965 | Portugal |   2635000 |  1965000 |  PPIA   |   1   |   Pinaceae   | Pinus     |         Pinus pinea |        0 |          1 |     22.67000 | 626.18882 | 4.216176 |    0.5178617 |
-| 26451755 | Portugal |   2645000 |  1755000 |  JPHO   |   1   | Cupressaceae | Juniperus | Juniperus phoenicea |        0 |          0 |      4.88150 | 79.86000  | 4.365246 |    0.6487500 |
-| 26451765 | Portugal |   2645000 |  1765000 |  JPHO   |   1   | Cupressaceae | Juniperus | Juniperus phoenicea |        0 |          0 |      4.88150 | 79.86000  | 4.365246 |    0.6487500 |
-| 26451765 | Portugal |   2645000 |  1765000 |  PPIA   |   1   |   Pinaceae   | Pinus     |         Pinus pinea |        0 |          1 |     22.67000 | 626.18882 | 4.216176 |    0.5178617 |
+| site | country | longitude | latitude | species | count | family | genus | binomial | endemism | cultivated | plant_height | seed_mass | sla | wood_density |
+|:--:|:--:|---:|---:|:--:|:--:|:--:|:---|---:|---:|---:|---:|:--:|:--:|---:|
+| 26351755 | Portugal | 2635000 | 1755000 | JPHO | 1 | Cupressaceae | Juniperus | Juniperus phoenicea | 0 | 0 | 4.88150 | 79.86000 | 4.365246 | 0.6487500 |
+| 26351755 | Portugal | 2635000 | 1755000 | PPIR | 1 | Pinaceae | Pinus | Pinus pinaster | 0 | 0 | 19.75384 | 55.83434 | 3.357539 | 0.4430277 |
+| 26351765 | Portugal | 2635000 | 1765000 | JPHO | 1 | Cupressaceae | Juniperus | Juniperus phoenicea | 0 | 0 | 4.88150 | 79.86000 | 4.365246 | 0.6487500 |
+| 26351955 | Portugal | 2635000 | 1955000 | JPHO | 1 | Cupressaceae | Juniperus | Juniperus phoenicea | 0 | 0 | 4.88150 | 79.86000 | 4.365246 | 0.6487500 |
+| 26351955 | Portugal | 2635000 | 1955000 | PPIR | 1 | Pinaceae | Pinus | Pinus pinaster | 0 | 0 | 19.75384 | 55.83434 | 3.357539 | 0.4430277 |
+| 26351965 | Portugal | 2635000 | 1965000 | JPHO | 1 | Cupressaceae | Juniperus | Juniperus phoenicea | 0 | 0 | 4.88150 | 79.86000 | 4.365246 | 0.6487500 |
+| 26351965 | Portugal | 2635000 | 1965000 | PPIA | 1 | Pinaceae | Pinus | Pinus pinea | 0 | 1 | 22.67000 | 626.18882 | 4.216176 | 0.5178617 |
+| 26451755 | Portugal | 2645000 | 1755000 | JPHO | 1 | Cupressaceae | Juniperus | Juniperus phoenicea | 0 | 0 | 4.88150 | 79.86000 | 4.365246 | 0.6487500 |
+| 26451765 | Portugal | 2645000 | 1765000 | JPHO | 1 | Cupressaceae | Juniperus | Juniperus phoenicea | 0 | 0 | 4.88150 | 79.86000 | 4.365246 | 0.6487500 |
+| 26451765 | Portugal | 2645000 | 1765000 | PPIA | 1 | Pinaceae | Pinus | Pinus pinea | 0 | 1 | 22.67000 | 626.18882 | 4.216176 | 0.5178617 |
 
-Long table example
+Long table example {.table style="width:100%;"}
 
 ### Extracting species x traits data
 
@@ -139,11 +143,12 @@ intraspecific variation but not the
 function.
 
 ``` r
+
 # Extract species x traits data ----
 species_traits <- fb_format_species_traits(
-  data    = all_data, 
-  species = "species", 
-  traits  = c("plant_height", "seed_mass", "sla", "wood_density")
+  data = all_data,
+  species = "species",
+  traits = c("plant_height", "seed_mass", "sla", "wood_density")
 )
 
 # Preview ----
@@ -171,17 +176,18 @@ observed one time at one site (the package `funbiogeo` does not yet
 consider temporal resurveys).
 
 ``` r
+
 # Format site x species data ----
 site_species <- fb_format_site_species(
-  data       = all_data, 
-  site       = "site", 
-  species    = "species", 
-  value      = "count",
+  data = all_data,
+  site = "site",
+  species = "species",
+  value = "count",
   na_to_zero = TRUE
 )
 
 # Preview ----
-head(site_species[ , 1:8], 10)
+head(site_species[, 1:8], 10)
 #>        site JPHO PPIR PPIA JNAV JMAC JOXY JCOM
 #> 1  26351755    1    1    0    0    0    0    0
 #> 2  26351765    1    0    0    0    0    0    0
@@ -204,13 +210,14 @@ locations dataset. Note that one site must have one unique longitude x
 latitude value.
 
 ``` r
+
 # Format site x locations data ----
 site_locations <- fb_format_site_locations(
-  data       =  all_data, 
-  site       = "site", 
-  longitude  = "longitude", 
-  latitude   = "latitude",
-  na_rm      = FALSE
+  data = all_data,
+  site = "site",
+  longitude = "longitude",
+  latitude = "latitude",
+  na_rm = FALSE
 )
 
 # Preview ----
@@ -240,10 +247,11 @@ later by several functions in `funbiogeo` to aggregate metrics at this
 level.
 
 ``` r
+
 # Extract species x categories data ----
 species_categories <- fb_format_species_categories(
-  data     = all_data, 
-  species  = "species",
+  data = all_data,
+  species = "species",
   category = "genus"
 )
 

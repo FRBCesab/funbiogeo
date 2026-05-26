@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Diagnostic plots in funbiogeo • funbiogeo</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Diagnostic plots in funbiogeo">
 </head>
@@ -310,7 +310,8 @@ many species occupy more or less than the given proportion of sites.</p>
 sites:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_sites_by_species.html">fb_plot_number_sites_by_species</a></span><span class="op">(</span></span>
-<span>  <span class="va">woodiv_site_species</span>, threshold_sites_proportion <span class="op">=</span> <span class="fl">0.4</span></span>
+<span>  <span class="va">woodiv_site_species</span>,</span>
+<span>  threshold_sites_proportion <span class="op">=</span> <span class="fl">0.4</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="diagnostic-plots_files/figure-html/plot-sites-coverage-species-thresh-1.png" class="r-plt" alt="" width="700"></p>
 <p>The threshold bar helps us get a sense of how many species are
@@ -344,7 +345,8 @@ covering a certain proportion of species. Let’s say we want to see
 traits available for at least 90% of the species:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_species_by_trait.html">fb_plot_number_species_by_trait</a></span><span class="op">(</span></span>
-<span>  <span class="va">woodiv_traits</span>, threshold_species_proportion <span class="op">=</span> <span class="fl">0.9</span></span>
+<span>  <span class="va">woodiv_traits</span>,</span>
+<span>  threshold_species_proportion <span class="op">=</span> <span class="fl">0.9</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="diagnostic-plots_files/figure-html/plot-species-coverage-trait-thresh-1.png" class="r-plt" alt="" width="700"></p>
 <p>The red dashed vertical line shows the corresponding species coverage
@@ -389,7 +391,8 @@ combinations), but it’s a first indication.</p>
 50% species covered. We can use the second argument to show it:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_plot_number_traits_by_species.html">fb_plot_number_traits_by_species</a></span><span class="op">(</span></span>
-<span>  <span class="va">woodiv_traits</span>, threshold_species_proportion <span class="op">=</span> <span class="fl">0.5</span></span>
+<span>  <span class="va">woodiv_traits</span>,</span>
+<span>  threshold_species_proportion <span class="op">=</span> <span class="fl">0.5</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="diagnostic-plots_files/figure-html/plot-n-traits-species-thresh-1.png" class="r-plt" alt="" width="700"></p>
 <p>Adding this argument displays a vertical bar at the target proportion
@@ -600,7 +603,9 @@ traits <code>data.frame</code>).</p>
 gives:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_map_site_traits_completeness.html">fb_map_site_traits_completeness</a></span><span class="op">(</span></span>
-<span>  <span class="va">woodiv_locations</span>, <span class="va">woodiv_site_species</span>, <span class="va">woodiv_traits</span></span>
+<span>  <span class="va">woodiv_locations</span>,</span>
+<span>  <span class="va">woodiv_site_species</span>,</span>
+<span>  <span class="va">woodiv_traits</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="diagnostic-plots_files/figure-html/map-trait-complete-1.png" class="r-plt" alt="" width="700"></p>
 <p>It displays maps of the sites, colored by their trait coverage. Each
@@ -643,8 +648,10 @@ use the following to display the map:</p>
 <code class="sourceCode R"><span><span class="co"># Generate categories</span></span>
 <span><span class="va">site_cat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  site <span class="op">=</span> <span class="va">woodiv_site_species</span><span class="op">$</span><span class="st">"site"</span>,</span>
-<span>  set  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Testing"</span>, <span class="st">"Training"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">woodiv_site_species</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  set <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Testing"</span>, <span class="st">"Training"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">woodiv_site_species</span><span class="op">)</span>,</span>
+<span>    replace <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>

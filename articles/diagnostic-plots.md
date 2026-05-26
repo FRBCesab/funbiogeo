@@ -18,12 +18,13 @@ tables specified by the other columns.
 [TABLE]
 
 required ✳️; optional 🟠; absent ➖  
-“Additional input” means other types of arguments
+“Additional input” means other types of arguments {.table}
 
 Let’s first load the package and example datasets included in the
 `funbiogeo`.
 
 ``` r
+
 library("funbiogeo")
 library("sf")
 #> Linking to GEOS 3.12.1, GDAL 3.8.4, PROJ 9.4.0; sf_use_s2() is TRUE
@@ -81,6 +82,7 @@ function. Use `install.packages("ggridges")` to install this package.
 Example:
 
 ``` r
+
 fb_plot_distribution_site_trait_coverage(woodiv_site_species, woodiv_traits)
 #> Loading required namespace: ggridges
 #> Picking joint bandwidth of 0.0445
@@ -113,6 +115,7 @@ second one `threshold_sites_proportion`, a target proportion of sites
 coverage, is optional.
 
 ``` r
+
 fb_plot_number_sites_by_species(woodiv_site_species)
 ```
 
@@ -134,8 +137,10 @@ Let’s say we want to see the species present in at least 40% of the
 sites:
 
 ``` r
+
 fb_plot_number_sites_by_species(
-  woodiv_site_species, threshold_sites_proportion = 0.4
+  woodiv_site_species,
+  threshold_sites_proportion = 0.4
 )
 ```
 
@@ -156,6 +161,7 @@ species by traits `data.frame`, is necessary while the second one
 is optional.
 
 ``` r
+
 fb_plot_number_species_by_trait(woodiv_traits)
 ```
 
@@ -176,8 +182,10 @@ certain proportion of species. Let’s say we want to see traits available
 for at least 90% of the species:
 
 ``` r
+
 fb_plot_number_species_by_trait(
-  woodiv_traits, threshold_species_proportion = 0.9
+  woodiv_traits,
+  threshold_species_proportion = 0.9
 )
 ```
 
@@ -207,6 +215,7 @@ the plot.
 Using it on the included dataset gives:
 
 ``` r
+
 fb_plot_number_traits_by_species(woodiv_traits)
 ```
 
@@ -231,8 +240,10 @@ Let’s say we’re interested in combinations of traits with at least 50%
 species covered. We can use the second argument to show it:
 
 ``` r
+
 fb_plot_number_traits_by_species(
-  woodiv_traits, threshold_species_proportion = 0.5
+  woodiv_traits,
+  threshold_species_proportion = 0.5
 )
 ```
 
@@ -262,6 +273,7 @@ From the included dataset we can represent the first 6 sites along total
 annual precipitation and mean annual temperature over the full region:
 
 ``` r
+
 # Create the environmental rasters
 prec <- system.file("extdata", "annual_tot_prec.tif", package = "funbiogeo")
 tavg <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")
@@ -300,6 +312,7 @@ which takes `site_species`, the site by species `data.frame`, and
 We can use it with the included dataset as an example:
 
 ``` r
+
 fb_plot_site_traits_completeness(woodiv_site_species, woodiv_traits)
 ```
 
@@ -327,6 +340,7 @@ sole argument.
 We can use it with the included dataset as an example:
 
 ``` r
+
 fb_plot_species_traits_completeness(woodiv_traits)
 ```
 
@@ -355,6 +369,7 @@ argument as well as `all_traits` to know if an additional row should be
 used to display a summary for all traits taken together.
 
 ``` r
+
 fb_plot_species_traits_missingness(woodiv_traits, all_traits = TRUE)
 ```
 
@@ -383,6 +398,7 @@ details below).
 We can use it with the included dataset as an example:
 
 ``` r
+
 fb_plot_trait_combination_frequencies(woodiv_traits)
 ```
 
@@ -406,6 +422,7 @@ If we change `order_by` to `"complete"`, the combinations are ordered
 instead by the number of trait presents among them:
 
 ``` r
+
 fb_plot_trait_combination_frequencies(woodiv_traits, order_by = "complete")
 ```
 
@@ -431,6 +448,7 @@ Note that the function only works with **numerical traits** and with
 With the included dataset as an example:
 
 ``` r
+
 fb_plot_trait_correlation(woodiv_traits)
 ```
 
@@ -480,8 +498,11 @@ It takes three arguments: `site_locations` (spatial locations of sites),
 If we use the included dataset in `funbiogeo` it gives:
 
 ``` r
+
 fb_map_site_traits_completeness(
-  woodiv_locations, woodiv_site_species, woodiv_traits
+  woodiv_locations,
+  woodiv_site_species,
+  woodiv_traits
 )
 ```
 
@@ -513,6 +534,7 @@ For example, if we want to get a map of species richness of the included
 dataset we can do the following:
 
 ``` r
+
 # Compute Species Richness
 site_rich <- fb_count_species_by_site(woodiv_site_species)
 
@@ -530,11 +552,14 @@ or “Training”, depending on which set they belong to. We can use the
 following to display the map:
 
 ``` r
+
 # Generate categories
 site_cat <- data.frame(
   site = woodiv_site_species$"site",
-  set  = sample(
-    c("Testing", "Training"), nrow(woodiv_site_species), replace = TRUE
+  set = sample(
+    c("Testing", "Training"),
+    nrow(woodiv_site_species),
+    replace = TRUE
   )
 )
 
@@ -556,6 +581,7 @@ function will display the raster in the provided projection.
 For example:
 
 ``` r
+
 # Getting the raster
 raw <- system.file("extdata", "annual_mean_temp.tif", package = "funbiogeo")
 tavg <- terra::rast(raw)

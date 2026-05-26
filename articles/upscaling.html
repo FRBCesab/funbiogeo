@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Upscaling your data: aggregating at coarser scales • funbiogeo</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Upscaling your data: aggregating at coarser scales">
 </head>
@@ -242,7 +242,10 @@ the coarser grid, using the <code><a href="https://rdrr.io/r/base/mean.html" cla
 average species richness across sites per larger pixel.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">coarser_richness</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data</a></span><span class="op">(</span></span>
-<span>  <span class="va">woodiv_locations</span>, <span class="va">species_richness</span>, <span class="va">coarser_grid</span>, fun <span class="op">=</span> <span class="va">mean</span></span>
+<span>  <span class="va">woodiv_locations</span>,</span>
+<span>  <span class="va">species_richness</span>,</span>
+<span>  <span class="va">coarser_grid</span>,</span>
+<span>  fun <span class="op">=</span> <span class="va">mean</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">coarser_richness</span><span class="op">)</span></span>
@@ -294,7 +297,7 @@ the four Mediterrannean countries covered by our example dataset:</p>
 <span><span class="co"># Visualize the spatial object</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">countries</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">name</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">woodiv_locations</span>, alpha <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span> <span class="op">+</span>  <span class="co"># Add original data</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">woodiv_locations</span>, alpha <span class="op">=</span> <span class="fl">1</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span> <span class="co"># Add original data</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">name</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="upscaling_files/figure-html/coutries-load-1.png" class="r-plt" alt="" width="700"></p>
@@ -309,7 +312,10 @@ countries) are going to be dropped.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Compute country-level average species richness</span></span>
 <span><span class="va">countries_richness</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data</a></span><span class="op">(</span></span>
-<span>  <span class="va">woodiv_locations</span>, <span class="va">species_richness</span>, <span class="va">countries</span>, fun <span class="op">=</span> <span class="va">mean</span></span>
+<span>  <span class="va">woodiv_locations</span>,</span>
+<span>  <span class="va">species_richness</span>,</span>
+<span>  <span class="va">countries</span>,</span>
+<span>  fun <span class="op">=</span> <span class="va">mean</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Map country-level average species richness</span></span>
@@ -346,14 +352,14 @@ object.</p>
 <span><span class="va">coarser_grid</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">coarser_grid</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">coarser_grid</span></span>
-<span><span class="co">#&gt; class       : SpatRaster </span></span>
+<span><span class="co">#&gt; class       : SpatRaster</span></span>
 <span><span class="co">#&gt; size        : 29, 41, 1  (nrow, ncol, nlyr)</span></span>
 <span><span class="co">#&gt; resolution  : 0.8333333, 0.8333333  (x, y)</span></span>
 <span><span class="co">#&gt; extent      : -10.5, 23.66667, 35.83333, 60  (xmin, xmax, ymin, ymax)</span></span>
-<span><span class="co">#&gt; coord. ref. : lon/lat WGS 84 (EPSG:4326) </span></span>
-<span><span class="co">#&gt; source      : grid_area.tif </span></span>
-<span><span class="co">#&gt; name        : value </span></span>
-<span><span class="co">#&gt; min value   :     1 </span></span>
+<span><span class="co">#&gt; coord. ref. : lon/lat WGS 84 (EPSG:4326)</span></span>
+<span><span class="co">#&gt; source      : grid_area.tif</span></span>
+<span><span class="co">#&gt; name        : value</span></span>
+<span><span class="co">#&gt; min value   :     1</span></span>
 <span><span class="co">#&gt; max value   :     1</span></span></code></pre></div>
 <p>We will aggregate the site data (resolution of 10 km by 10 km) to
 this new coarser raster (resolution of 0.83°, close to 92 km by 92km)
@@ -383,22 +389,22 @@ grid.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Upscale to grid ----</span></span>
 <span><span class="va">upscaled_richness</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data</a></span><span class="op">(</span></span>
-<span>  site_locations <span class="op">=</span> <span class="va">woodiv_locations</span><span class="op">[</span> , <span class="fl">1</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>,</span>
-<span>  site_data      <span class="op">=</span> <span class="va">species_richness</span><span class="op">[</span> , <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>,</span>
-<span>  agg_geom       <span class="op">=</span> <span class="va">coarser_grid</span>,</span>
-<span>  fun            <span class="op">=</span> <span class="va">mean</span></span>
+<span>  site_locations <span class="op">=</span> <span class="va">woodiv_locations</span><span class="op">[</span>, <span class="fl">1</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>,</span>
+<span>  site_data <span class="op">=</span> <span class="va">species_richness</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>,</span>
+<span>  agg_geom <span class="op">=</span> <span class="va">coarser_grid</span>,</span>
+<span>  fun <span class="op">=</span> <span class="va">mean</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">upscaled_richness</span></span>
-<span><span class="co">#&gt; class       : SpatRaster </span></span>
+<span><span class="co">#&gt; class       : SpatRaster</span></span>
 <span><span class="co">#&gt; size        : 29, 41, 1  (nrow, ncol, nlyr)</span></span>
 <span><span class="co">#&gt; resolution  : 0.8333333, 0.8333333  (x, y)</span></span>
 <span><span class="co">#&gt; extent      : -10.5, 23.66667, 35.83333, 60  (xmin, xmax, ymin, ymax)</span></span>
-<span><span class="co">#&gt; coord. ref. : lon/lat WGS 84 (EPSG:4326) </span></span>
+<span><span class="co">#&gt; coord. ref. : lon/lat WGS 84 (EPSG:4326)</span></span>
 <span><span class="co">#&gt; source(s)   : memory</span></span>
-<span><span class="co">#&gt; varname     : grid_area </span></span>
-<span><span class="co">#&gt; name        : n_species </span></span>
-<span><span class="co">#&gt; min value   :         1 </span></span>
+<span><span class="co">#&gt; varname     : grid_area</span></span>
+<span><span class="co">#&gt; name        : n_species</span></span>
+<span><span class="co">#&gt; min value   :         1</span></span>
 <span><span class="co">#&gt; max value   :        10</span></span></code></pre></div>
 <p>We get a <code>SpatRaster</code> object that is of the same
 resolution of our provided <code>agg_geom</code> raster grid. The cells
@@ -436,7 +442,7 @@ present. Only when the species is absent from all of the finer scale
 sites will the coarser pixel show the species as absent.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">site_species_agg</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data</a></span><span class="op">(</span></span>
-<span>  <span class="va">woodiv_locations</span><span class="op">[</span> , <span class="fl">1</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>,</span>
+<span>  <span class="va">woodiv_locations</span><span class="op">[</span>, <span class="fl">1</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>,</span>
 <span>  <span class="va">woodiv_site_species</span>,</span>
 <span>  agg_geom <span class="op">=</span> <span class="va">coarser_grid</span>,</span>
 <span>  fun <span class="op">=</span> <span class="va">max</span></span>
@@ -447,25 +453,29 @@ analyses provided in <code>funbiogeo</code>. The new object contains one
 layer for each aggregated variable, i.e. here, one per species.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">site_species_agg</span></span>
-<span><span class="co">#&gt; class       : SpatRaster </span></span>
+<span><span class="co">#&gt; class       : SpatRaster</span></span>
 <span><span class="co">#&gt; size        : 29, 41, 24  (nrow, ncol, nlyr)</span></span>
 <span><span class="co">#&gt; resolution  : 0.8333333, 0.8333333  (x, y)</span></span>
 <span><span class="co">#&gt; extent      : -10.5, 23.66667, 35.83333, 60  (xmin, xmax, ymin, ymax)</span></span>
-<span><span class="co">#&gt; coord. ref. : lon/lat WGS 84 (EPSG:4326) </span></span>
+<span><span class="co">#&gt; coord. ref. : lon/lat WGS 84 (EPSG:4326)</span></span>
 <span><span class="co">#&gt; source(s)   : memory</span></span>
-<span><span class="co">#&gt; varnames    : grid_area </span></span>
-<span><span class="co">#&gt;               grid_area </span></span>
-<span><span class="co">#&gt;               grid_area </span></span>
+<span><span class="co">#&gt; varnames    : grid_area</span></span>
+<span><span class="co">#&gt;               grid_area</span></span>
+<span><span class="co">#&gt;               grid_area</span></span>
+<span><span class="co">#&gt;               grid_area</span></span>
+<span><span class="co">#&gt;               grid_area</span></span>
 <span><span class="co">#&gt;               ...</span></span>
-<span><span class="co">#&gt; names       : AALB, ACEP, APIN, CLIB, CSEM, JCOM, ... </span></span>
-<span><span class="co">#&gt; min values  :    0,    0,    0,    0,    0,    0, ... </span></span>
+<span><span class="co">#&gt; names       : AALB, ACEP, APIN, CLIB, CSEM, JCOM, ...</span></span>
+<span><span class="co">#&gt; min values  :    0,    0,    0,    0,    0,    0, ...</span></span>
 <span><span class="co">#&gt; max values  :    1,    1,    1,    0,    1,    1, ...</span></span></code></pre></div>
 <p>We can visualize both maps for a single species to see the difference
 in resolution :</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="va">single_species</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html" class="external-link">merge</a></span><span class="op">(</span></span>
-<span>  <span class="va">woodiv_locations</span>, <span class="va">woodiv_site_species</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>, by <span class="op">=</span> <span class="st">"site"</span>, all <span class="op">=</span> <span class="cn">TRUE</span></span>
+<code class="sourceCode R"><span><span class="va">single_species</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html" class="external-link">merge</a></span><span class="op">(</span></span>
+<span>  <span class="va">woodiv_locations</span>,</span>
+<span>  <span class="va">woodiv_site_species</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span>,</span>
+<span>  by <span class="op">=</span> <span class="st">"site"</span>,</span>
+<span>  all <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">finer_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">single_species</span><span class="op">)</span> <span class="op">+</span></span>
@@ -541,22 +551,22 @@ compute the average CWM:</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">site_cwm</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"plant_height"</span></span>
 <span></span>
 <span><span class="va">upscaled_cwm</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data</a></span><span class="op">(</span></span>
-<span>  <span class="va">woodiv_locations</span><span class="op">[</span> , <span class="fl">1</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>,</span>
+<span>  <span class="va">woodiv_locations</span><span class="op">[</span>, <span class="fl">1</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>,</span>
 <span>  <span class="va">site_cwm</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">]</span>,</span>
 <span>  <span class="va">coarser_grid</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">upscaled_cwm</span></span>
-<span><span class="co">#&gt; class       : SpatRaster </span></span>
+<span><span class="co">#&gt; class       : SpatRaster</span></span>
 <span><span class="co">#&gt; size        : 29, 41, 1  (nrow, ncol, nlyr)</span></span>
 <span><span class="co">#&gt; resolution  : 0.8333333, 0.8333333  (x, y)</span></span>
 <span><span class="co">#&gt; extent      : -10.5, 23.66667, 35.83333, 60  (xmin, xmax, ymin, ymax)</span></span>
-<span><span class="co">#&gt; coord. ref. : lon/lat WGS 84 (EPSG:4326) </span></span>
+<span><span class="co">#&gt; coord. ref. : lon/lat WGS 84 (EPSG:4326)</span></span>
 <span><span class="co">#&gt; source(s)   : memory</span></span>
-<span><span class="co">#&gt; varname     : grid_area </span></span>
-<span><span class="co">#&gt; name        : plant_height </span></span>
-<span><span class="co">#&gt; min value   :      4.88150 </span></span>
-<span><span class="co">#&gt; max value   :     42.14307</span></span></code></pre></div>
+<span><span class="co">#&gt; varname     : grid_area</span></span>
+<span><span class="co">#&gt; name        : plant_height</span></span>
+<span><span class="co">#&gt; min value   :       4.8815</span></span>
+<span><span class="co">#&gt; max value   :    42.143066</span></span></code></pre></div>
 <p>We can then map the CWM using the <code><a href="../reference/fb_map_raster.html">fb_map_raster()</a></code>
 function:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
@@ -572,11 +582,12 @@ vignette to <code>funbiogeo</code></a> in this section we’ll compute the
 Functional Richness using two traits across our example dataset.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get all species for which we have both adult body mass and litter size</span></span>
-<span><span class="va">subset_traits</span> <span class="op">&lt;-</span> <span class="va">woodiv_traits</span><span class="op">[</span></span>
-<span>  , <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"species"</span>, <span class="st">"plant_height"</span>, <span class="st">"seed_mass"</span><span class="op">)</span></span>
+<span><span class="va">subset_traits</span> <span class="op">&lt;-</span> <span class="va">woodiv_traits</span><span class="op">[</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"species"</span>, <span class="st">"plant_height"</span>, <span class="st">"seed_mass"</span><span class="op">)</span></span>
 <span><span class="op">]</span></span>
 <span><span class="va">subset_traits</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span></span>
-<span>  <span class="va">subset_traits</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">plant_height</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">seed_mass</span><span class="op">)</span></span>
+<span>  <span class="va">subset_traits</span>,</span>
+<span>  <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">plant_height</span><span class="op">)</span> <span class="op">&amp;</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">seed_mass</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Transform trait data</span></span>
@@ -590,7 +601,9 @@ Functional Richness using two traits across our example dataset.</p>
 <span></span>
 <span><span class="co"># Filter site for which we have trait information for than 80% of species</span></span>
 <span><span class="va">subset_site</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_filter_sites_by_trait_coverage.html">fb_filter_sites_by_trait_coverage</a></span><span class="op">(</span></span>
-<span>  <span class="va">woodiv_site_species</span>, <span class="va">subset_traits</span>, <span class="fl">0.8</span></span>
+<span>  <span class="va">woodiv_site_species</span>,</span>
+<span>  <span class="va">subset_traits</span>,</span>
+<span>  <span class="fl">0.8</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">subset_site</span> <span class="op">&lt;-</span> <span class="va">subset_site</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"site"</span>, <span class="va">subset_traits</span><span class="op">$</span><span class="va">species</span><span class="op">)</span><span class="op">]</span></span>
@@ -604,7 +617,8 @@ Functional Richness using two traits across our example dataset.</p>
 <span></span>
 <span><span class="co"># Compute FRic</span></span>
 <span><span class="va">site_fric</span> <span class="op">&lt;-</span> <span class="fu">fundiversity</span><span class="fu">::</span><span class="fu"><a href="https://funecology.github.io/fundiversity/reference/fd_fric.html" class="external-link">fd_fric</a></span><span class="op">(</span></span>
-<span>  <span class="va">subset_traits</span>, <span class="va">subset_site</span></span>
+<span>  <span class="va">subset_traits</span>,</span>
+<span>  <span class="va">subset_site</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning in fundiversity::fd_fric(subset_traits, subset_site): Some sites had</span></span>
 <span><span class="co">#&gt; less species than traits so returned FRic is 'NA'</span></span>
@@ -622,8 +636,8 @@ sections to compute the average functional richness at a coarser spatial
 scale:</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">agg_fric</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data</a></span><span class="op">(</span></span>
-<span>  <span class="va">woodiv_locations</span><span class="op">[</span> , <span class="fl">1</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>, </span>
-<span>  <span class="va">site_fric</span>, </span>
+<span>  <span class="va">woodiv_locations</span><span class="op">[</span>, <span class="fl">1</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>,</span>
+<span>  <span class="va">site_fric</span>,</span>
 <span>  <span class="va">coarser_grid</span></span>
 <span><span class="op">)</span></span>
 <span></span>

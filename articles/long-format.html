@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Formatting your data • funbiogeo</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Formatting your data">
 </head>
@@ -256,7 +256,9 @@ show how to use the functions. This data sits at
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Define the path to long format dataset ----</span></span>
 <span><span class="va">file_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
-<span>  <span class="st">"extdata"</span>, <span class="st">"woodiv_raw_data.csv"</span>, package <span class="op">=</span> <span class="st">"funbiogeo"</span></span>
+<span>  <span class="st">"extdata"</span>,</span>
+<span>  <span class="st">"woodiv_raw_data.csv"</span>,</span>
+<span>  package <span class="op">=</span> <span class="st">"funbiogeo"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span></span>
@@ -483,9 +485,9 @@ function.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Extract species x traits data ----</span></span>
 <span><span class="va">species_traits</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_species_traits.html">fb_format_species_traits</a></span><span class="op">(</span></span>
-<span>  data    <span class="op">=</span> <span class="va">all_data</span>, </span>
-<span>  species <span class="op">=</span> <span class="st">"species"</span>, </span>
-<span>  traits  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"plant_height"</span>, <span class="st">"seed_mass"</span>, <span class="st">"sla"</span>, <span class="st">"wood_density"</span><span class="op">)</span></span>
+<span>  data <span class="op">=</span> <span class="va">all_data</span>,</span>
+<span>  species <span class="op">=</span> <span class="st">"species"</span>,</span>
+<span>  traits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"plant_height"</span>, <span class="st">"seed_mass"</span>, <span class="st">"sla"</span>, <span class="st">"wood_density"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Preview ----</span></span>
@@ -513,15 +515,15 @@ temporal resurveys).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Format site x species data ----</span></span>
 <span><span class="va">site_species</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_site_species.html">fb_format_site_species</a></span><span class="op">(</span></span>
-<span>  data       <span class="op">=</span> <span class="va">all_data</span>, </span>
-<span>  site       <span class="op">=</span> <span class="st">"site"</span>, </span>
-<span>  species    <span class="op">=</span> <span class="st">"species"</span>, </span>
-<span>  value      <span class="op">=</span> <span class="st">"count"</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">all_data</span>,</span>
+<span>  site <span class="op">=</span> <span class="st">"site"</span>,</span>
+<span>  species <span class="op">=</span> <span class="st">"species"</span>,</span>
+<span>  value <span class="op">=</span> <span class="st">"count"</span>,</span>
 <span>  na_to_zero <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Preview ----</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">[</span> , <span class="fl">1</span><span class="op">:</span><span class="fl">8</span><span class="op">]</span>, <span class="fl">10</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">site_species</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">8</span><span class="op">]</span>, <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="co">#&gt;        site JPHO PPIR PPIA JNAV JMAC JOXY JCOM</span></span>
 <span><span class="co">#&gt; 1  26351755    1    1    0    0    0    0    0</span></span>
 <span><span class="co">#&gt; 2  26351765    1    0    0    0    0    0    0</span></span>
@@ -543,11 +545,11 @@ Note that one site must have one unique longitude x latitude value.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Format site x locations data ----</span></span>
 <span><span class="va">site_locations</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_site_locations.html">fb_format_site_locations</a></span><span class="op">(</span></span>
-<span>  data       <span class="op">=</span>  <span class="va">all_data</span>, </span>
-<span>  site       <span class="op">=</span> <span class="st">"site"</span>, </span>
-<span>  longitude  <span class="op">=</span> <span class="st">"longitude"</span>, </span>
-<span>  latitude   <span class="op">=</span> <span class="st">"latitude"</span>,</span>
-<span>  na_rm      <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  data <span class="op">=</span> <span class="va">all_data</span>,</span>
+<span>  site <span class="op">=</span> <span class="st">"site"</span>,</span>
+<span>  longitude <span class="op">=</span> <span class="st">"longitude"</span>,</span>
+<span>  latitude <span class="op">=</span> <span class="st">"latitude"</span>,</span>
+<span>  na_rm <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Preview ----</span></span>
@@ -577,8 +579,8 @@ level.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Extract species x categories data ----</span></span>
 <span><span class="va">species_categories</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_format_species_categories.html">fb_format_species_categories</a></span><span class="op">(</span></span>
-<span>  data     <span class="op">=</span> <span class="va">all_data</span>, </span>
-<span>  species  <span class="op">=</span> <span class="st">"species"</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">all_data</span>,</span>
+<span>  species <span class="op">=</span> <span class="st">"species"</span>,</span>
 <span>  category <span class="op">=</span> <span class="st">"genus"</span></span>
 <span><span class="op">)</span></span>
 <span></span>

@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Special cases in funbiogeo • funbiogeo</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Special cases in funbiogeo">
 </head>
@@ -100,26 +100,83 @@ then randomly remove data points to show the abilities of
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">woodiv_cat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  species <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"AALB"</span>, <span class="st">"ACEP"</span>, <span class="st">"ANEB"</span>, <span class="st">"APIN"</span>, <span class="st">"CLIB"</span>, <span class="st">"CSEM"</span>, <span class="st">"JCOM"</span>, <span class="st">"JDEL"</span>, <span class="st">"JMAC"</span>,</span>
-<span>    <span class="st">"JNAV"</span>, <span class="st">"JOXY"</span>, <span class="st">"JPHO"</span>, <span class="st">"JTHU"</span>, <span class="st">"PBRU"</span>, <span class="st">"PHAL"</span>, <span class="st">"PHEL"</span>, <span class="st">"PINI"</span>, <span class="st">"PMUG"</span>,</span>
-<span>    <span class="st">"PPIA"</span>, <span class="st">"PPIR"</span>, <span class="st">"PSYL"</span>, <span class="st">"PUNC"</span>, <span class="st">"TART"</span>, <span class="st">"TBAC"</span></span>
+<span>    <span class="st">"AALB"</span>,</span>
+<span>    <span class="st">"ACEP"</span>,</span>
+<span>    <span class="st">"ANEB"</span>,</span>
+<span>    <span class="st">"APIN"</span>,</span>
+<span>    <span class="st">"CLIB"</span>,</span>
+<span>    <span class="st">"CSEM"</span>,</span>
+<span>    <span class="st">"JCOM"</span>,</span>
+<span>    <span class="st">"JDEL"</span>,</span>
+<span>    <span class="st">"JMAC"</span>,</span>
+<span>    <span class="st">"JNAV"</span>,</span>
+<span>    <span class="st">"JOXY"</span>,</span>
+<span>    <span class="st">"JPHO"</span>,</span>
+<span>    <span class="st">"JTHU"</span>,</span>
+<span>    <span class="st">"PBRU"</span>,</span>
+<span>    <span class="st">"PHAL"</span>,</span>
+<span>    <span class="st">"PHEL"</span>,</span>
+<span>    <span class="st">"PINI"</span>,</span>
+<span>    <span class="st">"PMUG"</span>,</span>
+<span>    <span class="st">"PPIA"</span>,</span>
+<span>    <span class="st">"PPIR"</span>,</span>
+<span>    <span class="st">"PSYL"</span>,</span>
+<span>    <span class="st">"PUNC"</span>,</span>
+<span>    <span class="st">"TART"</span>,</span>
+<span>    <span class="st">"TBAC"</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  leaf_habit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"evergreen"</span><span class="op">)</span>,</span>
 <span>  seed_dispersal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"anemochory"</span>, <span class="st">"anemochory"</span>, <span class="st">"anemochory"</span>, <span class="st">"anemochory"</span>, <span class="st">"anemochory"</span>,</span>
-<span>    <span class="st">"anemochory"</span>, <span class="st">"endozoochory"</span>, <span class="st">"endozoochory"</span>, <span class="st">"endozoochory"</span>,</span>
-<span>    <span class="st">"endozoochory"</span>, <span class="st">"endozoochory"</span>, <span class="st">"endozoochory"</span>, <span class="st">"endozoochory"</span>,</span>
-<span>    <span class="st">"anemochory"</span>, <span class="st">"anemochory"</span>, <span class="st">"anemochory"</span>, <span class="st">"anemochory"</span>, <span class="st">"anemochory"</span>,</span>
-<span>    <span class="st">"endozoochory"</span>, <span class="st">"anemochory"</span>, <span class="st">"anemochory"</span>, <span class="st">"anemochory"</span>, <span class="st">"anemochory"</span>,</span>
+<span>    <span class="st">"anemochory"</span>,</span>
+<span>    <span class="st">"anemochory"</span>,</span>
+<span>    <span class="st">"anemochory"</span>,</span>
+<span>    <span class="st">"anemochory"</span>,</span>
+<span>    <span class="st">"anemochory"</span>,</span>
+<span>    <span class="st">"anemochory"</span>,</span>
+<span>    <span class="st">"endozoochory"</span>,</span>
+<span>    <span class="st">"endozoochory"</span>,</span>
+<span>    <span class="st">"endozoochory"</span>,</span>
+<span>    <span class="st">"endozoochory"</span>,</span>
+<span>    <span class="st">"endozoochory"</span>,</span>
+<span>    <span class="st">"endozoochory"</span>,</span>
+<span>    <span class="st">"endozoochory"</span>,</span>
+<span>    <span class="st">"anemochory"</span>,</span>
+<span>    <span class="st">"anemochory"</span>,</span>
+<span>    <span class="st">"anemochory"</span>,</span>
+<span>    <span class="st">"anemochory"</span>,</span>
+<span>    <span class="st">"anemochory"</span>,</span>
+<span>    <span class="st">"endozoochory"</span>,</span>
+<span>    <span class="st">"anemochory"</span>,</span>
+<span>    <span class="st">"anemochory"</span>,</span>
+<span>    <span class="st">"anemochory"</span>,</span>
+<span>    <span class="st">"anemochory"</span>,</span>
 <span>    <span class="st">"endozoochory"</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  shade_tolerance <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"tolerant"</span>, <span class="st">"moderately_tolerant"</span>, <span class="st">"moderately_tolerant"</span>,</span>
-<span>    <span class="st">"moderately_tolerant"</span>, <span class="st">"moderately_tolerant"</span>, <span class="st">"intolerant"</span>, <span class="st">"intolerant"</span>,</span>
-<span>    <span class="st">"intolerant"</span>, <span class="st">"intolerant"</span>, <span class="st">"intolerant"</span>, <span class="st">"intolerant"</span>, <span class="st">"intolerant"</span>,</span>
-<span>    <span class="st">"intolerant"</span>, <span class="st">"very_intolerant"</span>, <span class="st">"very_intolerant"</span>, <span class="st">"intolerant"</span>,</span>
-<span>    <span class="st">"intolerant"</span>, <span class="st">"intolerant"</span>, <span class="st">"intolerant"</span>, <span class="st">"intolerant"</span>, <span class="st">"intolerant"</span>,</span>
-<span>    <span class="st">"intolerant"</span>, <span class="st">"very_intolerant"</span>, <span class="st">"very_tolerant"</span></span>
+<span>    <span class="st">"tolerant"</span>,</span>
+<span>    <span class="st">"moderately_tolerant"</span>,</span>
+<span>    <span class="st">"moderately_tolerant"</span>,</span>
+<span>    <span class="st">"moderately_tolerant"</span>,</span>
+<span>    <span class="st">"moderately_tolerant"</span>,</span>
+<span>    <span class="st">"intolerant"</span>,</span>
+<span>    <span class="st">"intolerant"</span>,</span>
+<span>    <span class="st">"intolerant"</span>,</span>
+<span>    <span class="st">"intolerant"</span>,</span>
+<span>    <span class="st">"intolerant"</span>,</span>
+<span>    <span class="st">"intolerant"</span>,</span>
+<span>    <span class="st">"intolerant"</span>,</span>
+<span>    <span class="st">"intolerant"</span>,</span>
+<span>    <span class="st">"very_intolerant"</span>,</span>
+<span>    <span class="st">"very_intolerant"</span>,</span>
+<span>    <span class="st">"intolerant"</span>,</span>
+<span>    <span class="st">"intolerant"</span>,</span>
+<span>    <span class="st">"intolerant"</span>,</span>
+<span>    <span class="st">"intolerant"</span>,</span>
+<span>    <span class="st">"intolerant"</span>,</span>
+<span>    <span class="st">"intolerant"</span>,</span>
+<span>    <span class="st">"intolerant"</span>,</span>
+<span>    <span class="st">"very_intolerant"</span>,</span>
+<span>    <span class="st">"very_tolerant"</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -138,8 +195,10 @@ values:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">20260411</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">woodiv_cat_na</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span></span>
-<span>  <span class="va">woodiv_cat</span><span class="op">[</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, <span class="fl">2</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">24</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">floor</a></span><span class="op">(</span><span class="fl">24</span><span class="op">/</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
+<span>  <span class="va">woodiv_cat</span><span class="op">[</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>,</span>
+<span>  <span class="fl">2</span>,</span>
+<span>  <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">24</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">floor</a></span><span class="op">(</span><span class="fl">24</span> <span class="op">/</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
 <span>    <span class="va">x</span></span>
 <span>  <span class="op">}</span></span>
 <span><span class="op">)</span></span>
@@ -152,8 +211,13 @@ values:</p>
 <span></span>
 <span><span class="va">woodiv_cat_na</span><span class="op">$</span><span class="va">shade_tolerance</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span></span>
 <span>  <span class="va">woodiv_cat_na</span><span class="op">$</span><span class="va">shade_tolerance</span>,</span>
-<span>  levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"very_intolerant"</span>, <span class="st">"intolerant"</span>, <span class="st">"moderately_tolerant"</span>,</span>
-<span>             <span class="st">"tolerant"</span>, <span class="st">"very_tolerant"</span><span class="op">)</span>,</span>
+<span>  levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"very_intolerant"</span>,</span>
+<span>    <span class="st">"intolerant"</span>,</span>
+<span>    <span class="st">"moderately_tolerant"</span>,</span>
+<span>    <span class="st">"tolerant"</span>,</span>
+<span>    <span class="st">"very_tolerant"</span></span>
+<span>  <span class="op">)</span>,</span>
 <span>  ordered <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -174,7 +238,9 @@ continuous trait data:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Map site completeness per trait</span></span>
 <span><span class="fu"><a href="../reference/fb_map_site_traits_completeness.html">fb_map_site_traits_completeness</a></span><span class="op">(</span></span>
-<span>  <span class="va">woodiv_locations</span>, <span class="va">woodiv_site_species</span>, <span class="va">woodiv_cat_na</span></span>
+<span>  <span class="va">woodiv_locations</span>,</span>
+<span>  <span class="va">woodiv_site_species</span>,</span>
+<span>  <span class="va">woodiv_cat_na</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="special_cases_files/figure-html/fb_plots-2.png" class="r-plt" alt="" width="700"></p>
 <p><strong>Note</strong>: the only two functions of
@@ -228,10 +294,12 @@ functions.</p>
 <p>We will first select the 100 first sites in the
 <code>woodiv_locations</code> object:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">sampled_sites</span> <span class="op">&lt;-</span> <span class="va">woodiv_locations</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>,<span class="op">]</span></span>
+<code class="sourceCode R"><span><span class="va">sampled_sites</span> <span class="op">&lt;-</span> <span class="va">woodiv_locations</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">100</span>, <span class="op">]</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/fb_map_site_traits_completeness.html">fb_map_site_traits_completeness</a></span><span class="op">(</span></span>
-<span>  <span class="va">sampled_sites</span>, <span class="va">woodiv_site_species</span>, <span class="va">woodiv_traits</span></span>
+<span>  <span class="va">sampled_sites</span>,</span>
+<span>  <span class="va">woodiv_site_species</span>,</span>
+<span>  <span class="va">woodiv_traits</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="special_cases_files/figure-html/sampled_sites-1.png" class="r-plt" alt="" width="700"></p>
 <p>We will now convert the sites to points by taking the centroid of
@@ -263,7 +331,9 @@ affect their outputs:</p>
 <span></span>
 <span><span class="co"># Map the sites</span></span>
 <span><span class="fu"><a href="../reference/fb_map_site_traits_completeness.html">fb_map_site_traits_completeness</a></span><span class="op">(</span></span>
-<span>  <span class="va">points_sites</span>, <span class="va">woodiv_site_species</span>, <span class="va">woodiv_traits</span></span>
+<span>  <span class="va">points_sites</span>,</span>
+<span>  <span class="va">woodiv_site_species</span>,</span>
+<span>  <span class="va">woodiv_traits</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="special_cases_files/figure-html/convert_to_points-1.png" class="r-plt" alt="" width="700"></p>
 <p>As seen above, the sites are now actual points instead of the
@@ -283,9 +353,9 @@ and use the same function.</p>
 <span></span>
 <span><span class="co"># Group sites geographically</span></span>
 <span><span class="va">lines_sites</span> <span class="op">&lt;-</span> <span class="va">lines_sites</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">inner_join</a></span><span class="op">(</span><span class="va">site_ids</span>, by <span class="op">=</span> <span class="st">"site"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">inner_join</a></span><span class="op">(</span><span class="va">site_ids</span>, by <span class="op">=</span> <span class="st">"site"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">group_line</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>country <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">country</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>country <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">country</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_cast.html" class="external-link">st_cast</a></span><span class="op">(</span><span class="st">"LINESTRING"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>site <span class="op">=</span> <span class="va">group_line</span><span class="op">)</span></span>
 <span></span>
@@ -313,7 +383,7 @@ and use the same function.</p>
 <span><span class="va">woodiv_site_lines</span> <span class="op">&lt;-</span> <span class="va">woodiv_site_species</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">inner_join</a></span><span class="op">(</span><span class="va">site_ids</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">site</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>site <span class="op">=</span> <span class="va">group_line</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>site <span class="op">=</span> <span class="va">group_line</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">site</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
@@ -322,7 +392,9 @@ and use the same function.</p>
 <span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/fb_map_site_traits_completeness.html">fb_map_site_traits_completeness</a></span><span class="op">(</span></span>
-<span>  <span class="va">lines_sites</span>, <span class="va">woodiv_site_lines</span>, <span class="va">woodiv_traits</span></span>
+<span>  <span class="va">lines_sites</span>,</span>
+<span>  <span class="va">woodiv_site_lines</span>,</span>
+<span>  <span class="va">woodiv_traits</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="special_cases_files/figure-html/convert_to_lines-1.png" class="r-plt" alt="" width="700"></p>
 <p>The geometry now displays the lines, even though they are not the
@@ -335,15 +407,15 @@ for example by aggregating sites per country.</p>
 <code class="sourceCode R"><span><span class="co"># Convert all sites to a single polygon</span></span>
 <span><span class="va">polygon_sites</span> <span class="op">&lt;-</span> <span class="va">sampled_sites</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">country</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>country <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">country</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>country <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">country</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_cast.html" class="external-link">st_cast</a></span><span class="op">(</span><span class="st">"MULTIPOLYGON"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>site <span class="op">=</span> <span class="va">country</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Compute new site-species object</span></span>
 <span><span class="va">woodiv_site_polygon</span> <span class="op">&lt;-</span> <span class="va">woodiv_site_species</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">site</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">sampled_sites</span><span class="op">$</span><span class="va">site</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">site</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">sampled_sites</span><span class="op">$</span><span class="va">site</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">site</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>site <span class="op">=</span> <span class="st">"Portugal"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>site <span class="op">=</span> <span class="st">"Portugal"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">site</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span><span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
@@ -351,7 +423,9 @@ for example by aggregating sites per country.</p>
 <span></span>
 <span><span class="co"># Display the map</span></span>
 <span><span class="fu"><a href="../reference/fb_map_site_traits_completeness.html">fb_map_site_traits_completeness</a></span><span class="op">(</span></span>
-<span>  <span class="va">polygon_sites</span>, <span class="va">woodiv_site_polygon</span>, <span class="va">woodiv_traits</span></span>
+<span>  <span class="va">polygon_sites</span>,</span>
+<span>  <span class="va">woodiv_site_polygon</span>,</span>
+<span>  <span class="va">woodiv_traits</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="special_cases_files/figure-html/convert_to_polygons-1.png" class="r-plt" alt="" width="700"></p>
 <p>Now all of the sites are merged as a single big polygon.</p>

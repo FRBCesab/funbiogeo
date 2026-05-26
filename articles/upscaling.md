@@ -22,6 +22,7 @@ functional diversity metrics.
 ## Preamble: getting site-level data
 
 ``` r
+
 library("funbiogeo")
 library("sf")
 #> Linking to GEOS 3.12.1, GDAL 3.8.4, PROJ 9.4.0; sf_use_s2() is TRUE
@@ -32,6 +33,7 @@ Let’s import our site by locations object, which describes the
 geographical locations of sites.
 
 ``` r
+
 data("woodiv_locations")
 
 woodiv_locations
@@ -64,6 +66,7 @@ counting the species at each site with the function
 [`fb_count_species_by_site()`](https://frbcesab.github.io/funbiogeo/reference/fb_count_species_by_site.md).
 
 ``` r
+
 # Import site x species data
 data("woodiv_site_species")
 
@@ -92,6 +95,7 @@ level by combining it with the site by locations object, and it shows a
 map of that data:
 
 ``` r
+
 fb_map_site_data(woodiv_locations, species_richness, "n_species")
 ```
 
@@ -122,6 +126,7 @@ the newly created grid will cover the same extent as in the input
 spatial data.
 
 ``` r
+
 coarser_grid <- sf::st_make_grid(woodiv_locations, cellsize = c(300e3, 300e3))
 
 head(coarser_grid)
@@ -144,6 +149,7 @@ an `sf` object to be fully compatible with
 We do so in the next chunk:
 
 ``` r
+
 coarser_grid <- sf::st_as_sf(coarser_grid)
 
 coarser_grid
@@ -173,6 +179,7 @@ We will do so using the
 function from `ggplot2`.
 
 ``` r
+
 ggplot() +
   geom_sf(data = coarser_grid, aes(fill = "coarser")) +
   geom_sf(data = woodiv_locations, aes(fill = "original")) +
@@ -209,8 +216,12 @@ richness data, on the coarser grid, using the
 average species richness across sites per larger pixel.
 
 ``` r
+
 coarser_richness <- fb_aggregate_site_data(
-  woodiv_locations, species_richness, coarser_grid, fun = mean
+  woodiv_locations,
+  species_richness,
+  coarser_grid,
+  fun = mean
 )
 
 head(coarser_richness)
@@ -234,6 +245,7 @@ as the `grid` we provided.
 We can plot it using `ggplot2`:
 
 ``` r
+
 ggplot(coarser_richness, aes(fill = n_species)) +
   geom_sf() +
   scale_fill_viridis_c() +
@@ -264,6 +276,7 @@ To show you how to do it, we’ll use the included spatial object for the
 four Mediterrannean countries covered by our example dataset:
 
 ``` r
+
 # Load the file from the package folder
 countries <- readRDS(
   system.file("extdata", "countries_sf.rds", package = "funbiogeo")
@@ -272,7 +285,7 @@ countries <- readRDS(
 # Visualize the spatial object
 ggplot(countries) +
   geom_sf(aes(fill = name)) +
-  geom_sf(data = woodiv_locations, alpha = 1/2) +  # Add original data
+  geom_sf(data = woodiv_locations, alpha = 1 / 2) + # Add original data
   geom_sf_text(aes(label = name)) +
   theme_bw()
 ```
@@ -290,9 +303,13 @@ are not covered by the aggregation polygons (here the countries) are
 going to be dropped.
 
 ``` r
+
 # Compute country-level average species richness
 countries_richness <- fb_aggregate_site_data(
-  woodiv_locations, species_richness, countries, fun = mean
+  woodiv_locations,
+  species_richness,
+  countries,
+  fun = mean
 )
 
 # Map country-level average species richness
@@ -328,19 +345,20 @@ First of all, we can create a coarser grid based on our locations
 object.
 
 ``` r
+
 # Import study area grid
 coarser_grid <- system.file("extdata", "grid_area.tif", package = "funbiogeo")
 coarser_grid <- terra::rast(coarser_grid)
 
 coarser_grid
-#> class       : SpatRaster 
+#> class       : SpatRaster
 #> size        : 29, 41, 1  (nrow, ncol, nlyr)
 #> resolution  : 0.8333333, 0.8333333  (x, y)
 #> extent      : -10.5, 23.66667, 35.83333, 60  (xmin, xmax, ymin, ymax)
-#> coord. ref. : lon/lat WGS 84 (EPSG:4326) 
-#> source      : grid_area.tif 
-#> name        : value 
-#> min value   :     1 
+#> coord. ref. : lon/lat WGS 84 (EPSG:4326)
+#> source      : grid_area.tif
+#> name        : value
+#> min value   :     1
 #> max value   :     1
 ```
 
@@ -364,24 +382,25 @@ This function requires the following arguments:
 Let’s compute our average species richness values across our grid.
 
 ``` r
+
 # Upscale to grid ----
 upscaled_richness <- fb_aggregate_site_data(
-  site_locations = woodiv_locations[ , 1, drop = FALSE],
-  site_data      = species_richness[ , 1:2],
-  agg_geom       = coarser_grid,
-  fun            = mean
+  site_locations = woodiv_locations[, 1, drop = FALSE],
+  site_data = species_richness[, 1:2],
+  agg_geom = coarser_grid,
+  fun = mean
 )
 
 upscaled_richness
-#> class       : SpatRaster 
+#> class       : SpatRaster
 #> size        : 29, 41, 1  (nrow, ncol, nlyr)
 #> resolution  : 0.8333333, 0.8333333  (x, y)
 #> extent      : -10.5, 23.66667, 35.83333, 60  (xmin, xmax, ymin, ymax)
-#> coord. ref. : lon/lat WGS 84 (EPSG:4326) 
+#> coord. ref. : lon/lat WGS 84 (EPSG:4326)
 #> source(s)   : memory
-#> varname     : grid_area 
-#> name        : n_species 
-#> min value   :         1 
+#> varname     : grid_area
+#> name        : n_species
+#> min value   :         1
 #> max value   :        10
 ```
 
@@ -393,6 +412,7 @@ coarser grid. We can plot these values through a call to
 which allows to plot rasters.
 
 ``` r
+
 fb_map_raster(upscaled_richness)
 ```
 
@@ -427,8 +447,9 @@ the species present. Only when the species is absent from all of the
 finer scale sites will the coarser pixel show the species as absent.
 
 ``` r
+
 site_species_agg <- fb_aggregate_site_data(
-  woodiv_locations[ , 1, drop = FALSE],
+  woodiv_locations[, 1, drop = FALSE],
   woodiv_site_species,
   agg_geom = coarser_grid,
   fun = max
@@ -441,19 +462,22 @@ in `funbiogeo`. The new object contains one layer for each aggregated
 variable, i.e. here, one per species.
 
 ``` r
+
 site_species_agg
-#> class       : SpatRaster 
+#> class       : SpatRaster
 #> size        : 29, 41, 24  (nrow, ncol, nlyr)
 #> resolution  : 0.8333333, 0.8333333  (x, y)
 #> extent      : -10.5, 23.66667, 35.83333, 60  (xmin, xmax, ymin, ymax)
-#> coord. ref. : lon/lat WGS 84 (EPSG:4326) 
+#> coord. ref. : lon/lat WGS 84 (EPSG:4326)
 #> source(s)   : memory
-#> varnames    : grid_area 
-#>               grid_area 
-#>               grid_area 
+#> varnames    : grid_area
+#>               grid_area
+#>               grid_area
+#>               grid_area
+#>               grid_area
 #>               ...
-#> names       : AALB, ACEP, APIN, CLIB, CSEM, JCOM, ... 
-#> min values  :    0,    0,    0,    0,    0,    0, ... 
+#> names       : AALB, ACEP, APIN, CLIB, CSEM, JCOM, ...
+#> min values  :    0,    0,    0,    0,    0,    0, ...
 #> max values  :    1,    1,    1,    0,    1,    1, ...
 ```
 
@@ -463,7 +487,10 @@ resolution :
 ``` r
 
 single_species <- merge(
-  woodiv_locations, woodiv_site_species[, 1:2], by = "site", all = TRUE
+  woodiv_locations,
+  woodiv_site_species[, 1:2],
+  by = "site",
+  all = TRUE
 )
 
 finer_map <- ggplot(single_species) +
@@ -490,6 +517,7 @@ all the additional arguments with
 [`?terra::as.data.frame`](https://rspatial.github.io/terra/reference/as.data.frame.html)).
 
 ``` r
+
 # Use the 'cells = TRUE' argument to index results with a new cell column
 # corresponding to the ID of the coarser grid pixels
 site_species_agg_df <- terra::as.data.frame(site_species_agg, cells = TRUE)
@@ -525,6 +553,7 @@ To compute the CWM we’ll use the function
 [`fb_cwm()`](https://frbcesab.github.io/funbiogeo/reference/fb_cwm.md).
 
 ``` r
+
 site_cwm <- fb_cwm(woodiv_site_species, woodiv_traits[, 1:2])
 
 head(site_cwm)
@@ -543,25 +572,26 @@ as done in the previous sections, this time using the default `fun`
 argument as we want to compute the average CWM:
 
 ``` r
+
 colnames(site_cwm)[3] <- "plant_height"
 
 upscaled_cwm <- fb_aggregate_site_data(
-  woodiv_locations[ , 1, drop = FALSE],
+  woodiv_locations[, 1, drop = FALSE],
   site_cwm[, c(1, 3)],
   coarser_grid
 )
 
 upscaled_cwm
-#> class       : SpatRaster 
+#> class       : SpatRaster
 #> size        : 29, 41, 1  (nrow, ncol, nlyr)
 #> resolution  : 0.8333333, 0.8333333  (x, y)
 #> extent      : -10.5, 23.66667, 35.83333, 60  (xmin, xmax, ymin, ymax)
-#> coord. ref. : lon/lat WGS 84 (EPSG:4326) 
+#> coord. ref. : lon/lat WGS 84 (EPSG:4326)
 #> source(s)   : memory
-#> varname     : grid_area 
-#> name        : plant_height 
-#> min value   :      4.88150 
-#> max value   :     42.14307
+#> varname     : grid_area
+#> name        : plant_height
+#> min value   :       4.8815
+#> max value   :    42.143066
 ```
 
 We can then map the CWM using the
@@ -569,6 +599,7 @@ We can then map the CWM using the
 function:
 
 ``` r
+
 fb_map_raster(upscaled_cwm) +
   scale_fill_continuous(trans = "log10")
 ```
@@ -583,12 +614,14 @@ in this section we’ll compute the Functional Richness using two traits
 across our example dataset.
 
 ``` r
+
 # Get all species for which we have both adult body mass and litter size
-subset_traits <- woodiv_traits[
-  , c("species", "plant_height", "seed_mass")
+subset_traits <- woodiv_traits[,
+  c("species", "plant_height", "seed_mass")
 ]
 subset_traits <- subset(
-  subset_traits, !is.na(plant_height) & !is.na(seed_mass)
+  subset_traits,
+  !is.na(plant_height) & !is.na(seed_mass)
 )
 
 # Transform trait data
@@ -602,7 +635,9 @@ subset_traits[["seed_mass"]] <- as.numeric(
 
 # Filter site for which we have trait information for than 80% of species
 subset_site <- fb_filter_sites_by_trait_coverage(
-  woodiv_site_species, subset_traits, 0.8
+  woodiv_site_species,
+  subset_traits,
+  0.8
 )
 
 subset_site <- subset_site[, c("site", subset_traits$species)]
@@ -616,7 +651,8 @@ subset_site <- subset_site[, -1]
 
 # Compute FRic
 site_fric <- fundiversity::fd_fric(
-  subset_traits, subset_site
+  subset_traits,
+  subset_site
 )
 #> Warning in fundiversity::fd_fric(subset_traits, subset_site): Some sites had
 #> less species than traits so returned FRic is 'NA'
@@ -636,9 +672,10 @@ sections to compute the average functional richness at a coarser spatial
 scale:
 
 ``` r
+
 agg_fric <- fb_aggregate_site_data(
-  woodiv_locations[ , 1, drop = FALSE], 
-  site_fric, 
+  woodiv_locations[, 1, drop = FALSE],
+  site_fric,
   coarser_grid
 )
 
