@@ -1,8 +1,8 @@
 #' Count Number of Sites Occupied by Species
 #' 
 #' @description
-#' For each species computes the percentage of sites where the species is 
-#' present (distribution value higher than 0 and non-NA).
+#' This function computes the number and proportion of sites occupied by each
+#' species (distribution value higher than 0 and non-NA).
 #' 
 #' @inheritParams fb_get_trait_coverage_by_site
 #'

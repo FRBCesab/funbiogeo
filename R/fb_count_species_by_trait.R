@@ -1,8 +1,8 @@
 #' Count Number of Species for Each Trait
 #' 
 #' @description
-#' For each trait computes the percentage of species without `NA` (missing 
-#' trait values).
+#' This function computes, for each trait, the number and proportion of species
+#' without missing trait value (`NA`).
 #' 
 #' @inheritParams fb_get_trait_coverage_by_site
 #'
