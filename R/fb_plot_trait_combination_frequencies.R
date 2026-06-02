@@ -93,7 +93,7 @@ fb_plot_trait_combination_frequencies <- function(
   # Get row order
   unique_combinations <- lapply(
     unique_combinations, function(x) {
-      x[["row_order"]] <- seq(nrow(x))
+      x[["row_order"]] <- seq_len(nrow(x))
       
       return(x)
     }
@@ -109,7 +109,7 @@ fb_plot_trait_combination_frequencies <- function(
       )
       
       # To disambiguate labels throughout- table
-      x$unique_label <- seq(nrow(x))
+      x$unique_label <- seq_len(nrow(x))
       
       long_df <- tidyr::pivot_longer(
         x, !c("comb_count", "row_order", "n_present", "trait_label",
