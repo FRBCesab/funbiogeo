@@ -148,7 +148,7 @@ fb_plot_species_traits_completeness <- function(
   # Add column for value
   species_traits_long_categories$has_trait <- 
     !is.na(species_traits_long_categories$trait_value) &
-      !(species_traits_long_categories$trait_value == "NaN")
+      species_traits_long_categories$trait_value != "NaN"
   
   # Merge all datasets before plotting
   number_species_per_trait <- lapply(
