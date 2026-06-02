@@ -46,7 +46,7 @@ fb_cwm <- function(site_species, species_traits) {
   
   
   # Total sites abundances
-  if (any(is.na(site_species[ , species, drop = FALSE]))) {
+  if (anyNA(site_species[ , species, drop = FALSE])) {
     message(
       "Some species had NA abundances, removing them from CWM computation"
     )
@@ -61,7 +61,7 @@ fb_cwm <- function(site_species, species_traits) {
     species_traits[["species"]] %in% species, , drop = FALSE
   ]
   
-  if (any(is.na(trait_matrix))) {
+  if (anyNA(trait_matrix)) {
     message(
       "Some species had NA trait values, removing them from CWM computation"
     )
