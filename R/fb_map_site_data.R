@@ -67,7 +67,7 @@ fb_map_site_data <- function(
     stop("Provided 'selected_col' should be in 'site_data'")
   }
 
-  if (!is.logical(background) & !is.na(background)) {
+  if (!is.logical(background) && !is.na(background)) {
     stop(
       "The 'background' argument should either be TRUE or FALSE",
       call. = FALSE
@@ -93,7 +93,7 @@ fb_map_site_data <- function(
 
   # Plot
   if (
-    inherits(sf::st_geometry(full_data), "sfc_POLYGON") |
+    inherits(sf::st_geometry(full_data), "sfc_POLYGON") ||
       inherits(sf::st_geometry(full_data), "sfc_MULTIPOLYGON")
   ) {
     ggplot2::ggplot(

@@ -9,7 +9,7 @@
 
 list_common_species <- function(first_list, second_list) {
   
-  if (anyNA(first_list) | anyNA(second_list)) {
+  if (anyNA(first_list) || anyNA(second_list)) {
     stop("Species names cannot contain NA", call. = FALSE)
   }
   

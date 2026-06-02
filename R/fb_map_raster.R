@@ -62,7 +62,7 @@ fb_map_raster <- function(x, background = FALSE, ...) {
     )
   }
 
-  if (!is.logical(background) & !is.na(background)) {  
+  if (!is.logical(background) && !is.na(background)) {  
     stop(
       "The 'background' argument should either be TRUE or FALSE", 
       call. = FALSE

@@ -154,7 +154,7 @@ fb_format_site_locations <- function(
   
   ## Check provided CRS --------------------------------------------------------
   
-  if (is.character(crs) | !inherits(crs, "crs")) {
+  if (is.character(crs) || !inherits(crs, "crs")) {
     # Try to coerce provided argument into a CRS, specific error otherwise
     crs <- tryCatch(
       suppressWarnings(sf::st_crs(crs)),

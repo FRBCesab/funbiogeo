@@ -35,7 +35,7 @@ fb_map_site_traits_completeness <- function(
   check_site_species(site_species)
   check_species_traits(species_traits)
 
-  if (!is.logical(background) & !is.na(background)) {
+  if (!is.logical(background) && !is.na(background)) {
     stop(
       "The 'background' argument should either be TRUE or FALSE",
       call. = FALSE
@@ -92,7 +92,7 @@ fb_map_site_traits_completeness <- function(
 
   # Make the Map
   if (
-    inherits(sf::st_geometry(site_locations_cov), "sfc_POLYGON") |
+    inherits(sf::st_geometry(site_locations_cov), "sfc_POLYGON") ||
       inherits(sf::st_geometry(site_locations_cov), "sfc_MULTIPOLYGON")
   ) {
     # If sites are (multi-)polygons

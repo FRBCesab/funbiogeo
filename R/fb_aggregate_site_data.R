@@ -72,7 +72,7 @@ fb_aggregate_site_data <- function(
          call. = FALSE)
   }
   
-  if (!is.data.frame(site_data) & !is.matrix(site_data)) {
+  if (!is.data.frame(site_data) && !is.matrix(site_data)) {
     stop("Argument 'site_data' must be a matrix or a data.frame", 
          call. = FALSE)
   }
@@ -86,12 +86,12 @@ fb_aggregate_site_data <- function(
     stop("Argument 'agg_geom' is required", call. = FALSE)
   }
   
-  if (!inherits(agg_geom, "SpatRaster") & !inherits(agg_geom, "sf")) {
+  if (!inherits(agg_geom, "SpatRaster") && !inherits(agg_geom, "sf")) {
     stop("The 'agg_geom' raster must be a 'SpatRaster' (package `terra`)",
          " or an 'sf' object", call. = FALSE)
   }
   
-  if (is.na(terra::crs(agg_geom, proj = TRUE)) | 
+  if (is.na(terra::crs(agg_geom, proj = TRUE)) || 
       terra::crs(agg_geom, proj = TRUE) == "") {
     stop("The 'agg_geom' raster must have a CRS (coordinate system)", 
          call. = FALSE)
