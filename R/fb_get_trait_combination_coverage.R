@@ -44,7 +44,7 @@ fb_get_trait_combination_coverage <- function(
   check_site_species(site_species)
   check_species_traits(species_traits)
   
-  if (!is.null(comb_size) & !is.numeric(comb_size)) {
+  if (!is.null(comb_size) && !is.numeric(comb_size)) {
     stop("Target combination length 'comb_size' should be numeric")
   }
   

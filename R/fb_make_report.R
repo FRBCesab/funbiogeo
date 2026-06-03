@@ -218,8 +218,7 @@ fb_make_report <- function(path = ".", filename = NULL, title = NULL,
   
   invisible(
     file.copy(
-      system.file(
-        file.path("templates", "template_report.Rmd"), package = "funbiogeo"),
+      system.file("templates", "template_report.Rmd", package = "funbiogeo"),
       path_rmd, overwrite = TRUE
     )
   )

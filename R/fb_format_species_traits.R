@@ -85,7 +85,7 @@ fb_format_species_traits <- function(data, species, traits) {
          call. = FALSE)
   }
   
-  if (any(!(traits %in% colnames(data)))) {
+  if (!all((traits %in% colnames(data)))) {
     stop("Some traits columns are absent from 'data'", call. = FALSE)
   }
 

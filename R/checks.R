@@ -63,14 +63,14 @@ check_site_species <- function(site_species) {
   
   # Check 'site' column --------------------------------------------------------
   
-  if (any(is.na(site_species[["site"]]))) {
+  if (anyNA(site_species[["site"]])) {
     stop(
       "The column 'site' of site x species cannot contain missing values", 
       call. = FALSE
     )
   }
 
-  if (any(duplicated(site_species[["site"]]))) {
+  if (anyDuplicated(site_species[["site"]]) > 0) {
     stop(
       "The column 'site' of site x species cannot contain duplicated values", 
       call. = FALSE
@@ -138,14 +138,14 @@ check_species_traits <- function(species_traits) {
 
   # Check 'species' column -----------------------------------------------------
 
-  if (any(is.na(species_traits[["species"]]))) {
+  if (anyNA(species_traits[["species"]])) {
     stop(
       "The column 'species' of species x traits cannot contain missing values", 
       call. = FALSE
     )
   }
 
-  if (any(duplicated(species_traits[["species"]]))) {
+  if (anyDuplicated(species_traits[["species"]]) > 0) {
     stop(
       "The column 'species' of species x traits cannot contain duplicated ", 
       "values", 
@@ -202,14 +202,14 @@ check_site_locations <- function(site_locations) {
 
   # Check 'site' column --------------------------------------------------------
   
-  if (any(is.na(site_locations[["site"]]))) {
+  if (anyNA(site_locations[["site"]])) {
     stop(
       "The column 'site' of site x locations cannot contain missing values", 
       call. = FALSE
     )
   }
 
-  if (any(duplicated(site_locations[["site"]]))) {
+  if (anyDuplicated(site_locations[["site"]]) > 0) {
     stop(
       "The column 'site' of site x locations cannot contain duplicated values", 
       call. = FALSE
@@ -353,7 +353,7 @@ check_species_categories <- function(species_categories) {
 
   # Check 'species' column -----------------------------------------------------
 
-  if (any(is.na(species_categories[["species"]]))) {
+  if (anyNA(species_categories[["species"]])) {
     stop(
       "The column 'species' of species x categories cannot contain missing ", 
       "values", 
@@ -361,7 +361,7 @@ check_species_categories <- function(species_categories) {
     )
   }
 
-  if (any(duplicated(species_categories[["species"]]))) {
+  if (anyDuplicated(species_categories[["species"]]) > 0) {
     stop(
       "The column 'species' of species x categories cannot contain ", 
       "duplicated values", 
