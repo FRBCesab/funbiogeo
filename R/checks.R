@@ -266,7 +266,7 @@ check_threshold_proportion <- function(
   
   # Check values ---------------------------------------------------------------
   
-  if (threshold < 0 | threshold > 1) {
+  if (threshold < 0 || threshold > 1) {
     stop(
       "Argument '", deparse(substitute(threshold)), "' (", type,
       " coverage proportion) should be a numeric value >= 0 and <= 1",
