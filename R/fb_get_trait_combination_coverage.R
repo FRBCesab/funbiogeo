@@ -22,17 +22,17 @@
 #'
 #' @examples
 #' # Compute Coverages using All Trait Combinations
-#' all_combinations = fb_get_trait_combination_coverage(
+#' all_combinations <- fb_get_trait_combination_coverage(
 #'     woodiv_site_species, woodiv_traits
 #' )
 #' 
 #' # Get only combinations of 3 traits
-#' three_traits = fb_get_trait_combination_coverage(
+#' three_traits <- fb_get_trait_combination_coverage(
 #'     woodiv_site_species, woodiv_traits, 3
 #' )
 #' 
 #' # Combinations of 2, 3, and 4 traits
-#' two_to_four = fb_get_trait_combination_coverage(
+#' two_to_four <- fb_get_trait_combination_coverage(
 #'     woodiv_site_species, woodiv_traits, 2:4
 #' )
 fb_get_trait_combination_coverage <- function(
