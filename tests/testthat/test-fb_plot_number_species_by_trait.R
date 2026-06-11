@@ -5,15 +5,15 @@ test_that("fb_plot_number_species_by_trait works", {
 
   # With categories
   expect_silent(
-    given_plot <- fb_plot_number_species_by_trait(
+    {given_plot <- fb_plot_number_species_by_trait(
       species_traits, woodiv_categories[, 1:2]
-    )
+    )}
   )
   
   expect_s3_class(given_plot, "ggplot")
   
   # Without categories
-  expect_silent(given_plot <- fb_plot_number_species_by_trait(species_traits))
+  expect_silent({given_plot <- fb_plot_number_species_by_trait(species_traits)})
   
   expect_s3_class(given_plot, "ggplot")
   
@@ -23,9 +23,9 @@ test_that("fb_plot_number_species_by_trait works", {
   )
 
   expect_silent(
-    given_plot <- fb_plot_number_species_by_trait(
+    {given_plot <- fb_plot_number_species_by_trait(
       species_traits, threshold_species_proportion = 25
-    )
+    )}
   )
   
   expect_s3_class(given_plot, "ggplot")
@@ -43,7 +43,7 @@ test_that("fb_plot_number_species_by_trait works", {
   )
   
   expect_silent(
-    given_plot <- fb_plot_number_species_by_trait(example_traits)
+    {given_plot <- fb_plot_number_species_by_trait(example_traits)}
   )
 
   expect_s3_class(given_plot, "ggplot")
@@ -56,7 +56,7 @@ test_that("fb_plot_number_species_by_trait works", {
   # Test that function works with a single trait
   
   expect_silent(
-    given_plot <- fb_plot_number_species_by_trait(example_traits[, 1:2])
+    {given_plot <- fb_plot_number_species_by_trait(example_traits[, 1:2])}
   )
 
   expect_s3_class(given_plot, "ggplot")
@@ -74,11 +74,11 @@ test_that("fb_plot_number_species_by_trait skipped", {
   ## Works with species categories
   # Single category 
   expect_silent(
-    given_plot <- fb_plot_number_species_by_trait(
+    {given_plot <- fb_plot_number_species_by_trait(
       example_traits,
       data.frame(species  = example_traits$species,
                  category = "A")
-    )
+    )}
   )
 
   expect_s3_class(given_plot, "ggplot")
@@ -90,11 +90,11 @@ test_that("fb_plot_number_species_by_trait skipped", {
   
   # Less categories than species
   expect_silent(
-    given_plot <- fb_plot_number_species_by_trait(
+    {given_plot <- fb_plot_number_species_by_trait(
       example_traits,
       data.frame(species  = example_traits$species,
                  category = c(1, 1, 2))
-    )
+    )}
   )
 
   expect_s3_class(given_plot, "ggplot")
@@ -106,11 +106,11 @@ test_that("fb_plot_number_species_by_trait skipped", {
   
   # As many categories as species
   expect_silent(
-    given_plot <- fb_plot_number_species_by_trait(
+    {given_plot <- fb_plot_number_species_by_trait(
       example_traits,
       data.frame(species  = example_traits$species,
                  category = example_traits$species)
-    )
+    )}
   )
 
   expect_s3_class(given_plot, "ggplot")

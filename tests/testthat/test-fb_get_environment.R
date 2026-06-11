@@ -83,7 +83,7 @@ test_that("fb_get_environment() works", {
   
   ## 'sf' points
   # Non-projected layers
-  expect_silent(env_value <- fb_get_environment(site_points, layers))
+  expect_silent({env_value <- fb_get_environment(site_points, layers)})
   
   expect_s3_class(env_value, "data.frame")
   expect_named(env_value, c("site", "annual_mean_temp", "annual_tot_prec"))
@@ -95,7 +95,7 @@ test_that("fb_get_environment() works", {
   
   layers_prj <- terra::project(layers, rob)
   
-  expect_silent(env_value <- fb_get_environment(site_points, layers_prj))
+  expect_silent({env_value <- fb_get_environment(site_points, layers_prj)})
   
   expect_s3_class(env_value, "data.frame")
   expect_named(env_value, c("site", "annual_mean_temp", "annual_tot_prec"))
@@ -105,7 +105,7 @@ test_that("fb_get_environment() works", {
   
   ## 'sf' polygons
   # Non-projected
-  expect_silent(env_value <- fb_get_environment(site_locations, layers))
+  expect_silent({env_value <- fb_get_environment(site_locations, layers)})
   
   expect_s3_class(env_value, "data.frame")
   expect_named(env_value, c("site", "annual_mean_temp", "annual_tot_prec"))
@@ -113,7 +113,7 @@ test_that("fb_get_environment() works", {
   expect_equal(round(env_value[["annual_tot_prec"]][[85]]), 688)
   
   # Projected Layer
-  expect_silent(env_value <- fb_get_environment(site_locations, layers_prj))
+  expect_silent({env_value <- fb_get_environment(site_locations, layers_prj)})
   
   expect_s3_class(env_value, "data.frame")
   expect_named(env_value, c("site", "annual_mean_temp", "annual_tot_prec"))
@@ -123,7 +123,7 @@ test_that("fb_get_environment() works", {
   
   ## 'sf' line
   # Non-projected
-  expect_silent(env_value <- fb_get_environment(site_lines, layers))
+  expect_silent({env_value <- fb_get_environment(site_lines, layers)})
   
   expect_s3_class(env_value, "data.frame")
   expect_named(env_value, c("site", "annual_mean_temp", "annual_tot_prec"))
@@ -131,7 +131,7 @@ test_that("fb_get_environment() works", {
   expect_equal(env_value[["annual_mean_temp"]], 16.45, tolerance = 0.01)
   
   # Projected layer
-  expect_silent(env_value <- fb_get_environment(site_lines, layers_prj))
+  expect_silent({env_value <- fb_get_environment(site_lines, layers_prj)})
   
   expect_s3_class(env_value, "data.frame")
   expect_named(env_value, c("site", "annual_mean_temp", "annual_tot_prec"))

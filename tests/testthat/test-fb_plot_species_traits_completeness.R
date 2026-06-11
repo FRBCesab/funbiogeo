@@ -4,7 +4,7 @@ species_traits <- woodiv_traits
 test_that("fb_plot_species_traits_completeness works", {
 
   expect_silent(
-    given_plot <- fb_plot_species_traits_completeness(species_traits)
+    {given_plot <- fb_plot_species_traits_completeness(species_traits)}
   )
   
   expect_s3_class(given_plot, "ggplot")
@@ -18,9 +18,9 @@ test_that("fb_plot_species_traits_completeness works", {
   # Without 'all_traits' added
 
   expect_silent(
-    given_plot <- fb_plot_species_traits_completeness(
+    {given_plot <- fb_plot_species_traits_completeness(
       species_traits, all_traits = FALSE
-    )
+    )}
   )
   
   expect_s3_class(given_plot, "ggplot")
@@ -40,9 +40,9 @@ test_that("fb_plot_species_traits_completeness works", {
   )
   
   expect_silent(
-    given_plot <- fb_plot_species_traits_completeness(
+    {given_plot <- fb_plot_species_traits_completeness(
       example_traits, all_traits = FALSE
-    )
+    )}
   )
 
   expect_s3_class(given_plot, "ggplot")
@@ -56,9 +56,9 @@ test_that("fb_plot_species_traits_completeness works", {
   # Test that function works with a single trait
   
   expect_silent(
-    given_plot <- fb_plot_species_traits_completeness(
+    {given_plot <- fb_plot_species_traits_completeness(
       example_traits[, 1:2], all_traits = FALSE
-    )
+    )}
   )
 
   expect_s3_class(given_plot, "ggplot")
@@ -74,12 +74,12 @@ test_that("fb_plot_species_traits_completeness works", {
   # Single category 
 
   expect_silent(
-    given_plot <- fb_plot_species_traits_completeness(
+    {given_plot <- fb_plot_species_traits_completeness(
       example_traits,
       data.frame(species  = example_traits$species,
                  category = "A"),
       all_traits = FALSE
-    )
+    )}
   )
 
   expect_s3_class(given_plot, "ggplot")
@@ -93,12 +93,12 @@ test_that("fb_plot_species_traits_completeness works", {
   # Less categories than species
 
   expect_silent(
-    given_plot <- fb_plot_species_traits_completeness(
+    {given_plot <- fb_plot_species_traits_completeness(
       example_traits,
       data.frame(species  = example_traits$species,
                  category = c(1, 1, 2)),
       all_traits = FALSE
-    )
+    )}
   )
 
   expect_s3_class(given_plot, "ggplot")
@@ -112,12 +112,12 @@ test_that("fb_plot_species_traits_completeness works", {
   # As many categories as species
 
   expect_silent(
-    given_plot <- fb_plot_species_traits_completeness(
+    {given_plot <- fb_plot_species_traits_completeness(
       example_traits,
       data.frame(species  = example_traits$species,
                  category = example_traits$species),
       all_traits = FALSE
-    )
+    )}
   )
 
   expect_s3_class(given_plot, "ggplot")

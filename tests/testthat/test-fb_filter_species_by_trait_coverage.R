@@ -90,13 +90,13 @@ test_that("fb_filter_species_by_trait_coverage() successully works", {
   
   
   expect_silent(
-    test_coverage <- fb_filter_species_by_trait_coverage(species_traits, 0)
+    {test_coverage <- fb_filter_species_by_trait_coverage(species_traits, 0)}
   )
   
   expect_identical(test_coverage, species_traits)
   
   expect_silent(
-    test_coverage <- fb_filter_species_by_trait_coverage(species_traits, 1)
+    {test_coverage <- fb_filter_species_by_trait_coverage(species_traits, 1)}
   )
   
   

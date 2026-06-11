@@ -85,9 +85,9 @@ test_that("fb_filter_traits_by_species_coverage() errors with wrong inputs", {
   )
   
   expect_message(
-    test_coverage <- fb_filter_traits_by_species_coverage(
+    {test_coverage <- fb_filter_traits_by_species_coverage(
       species_traits3, threshold_species_proportion = 1
-    ),
+    )},
     "No trait has the specified species coverage threshold",
     fixed = TRUE
   )
@@ -102,13 +102,13 @@ test_that("fb_filter_traits_by_species_coverage() errors with wrong inputs", {
 test_that("fb_filter_traits_by_species_coverage() successully works", {
   
   expect_silent(
-    test_coverage <- fb_filter_traits_by_species_coverage(species_traits, 0)
+    {test_coverage <- fb_filter_traits_by_species_coverage(species_traits, 0)}
   )
   
   expect_identical(ncol(test_coverage), ncol(species_traits))
   
   expect_silent(
-    test_coverage <- fb_filter_traits_by_species_coverage(species_traits, 1)
+    {test_coverage <- fb_filter_traits_by_species_coverage(species_traits, 1)}
   )
   
   expect_s3_class(test_coverage, "data.frame")
@@ -127,7 +127,7 @@ test_that("fb_filter_traits_by_species_coverage() successully works", {
   
   # Test for one species with all NA
   expect_silent(
-    test_coverage <- fb_filter_traits_by_species_coverage(species_traits3, 0.1)
+    {test_coverage <- fb_filter_traits_by_species_coverage(species_traits3, 0.1)}
   )
   
   expect_equal(nrow(test_coverage), 4)

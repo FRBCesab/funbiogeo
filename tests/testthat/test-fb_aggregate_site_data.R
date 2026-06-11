@@ -110,7 +110,7 @@ test_that("fb_aggregate_site_data() works", {
   ## Points spatial data
   # Unprojected raster
   expect_silent(
-    ras <- fb_aggregate_site_data(site_points, site_species[, 1:3], tavg)
+    {ras <- fb_aggregate_site_data(site_points, site_species[, 1:3], tavg)}
   )
   
   expect_s4_class(ras, "SpatRaster")
@@ -125,7 +125,7 @@ test_that("fb_aggregate_site_data() works", {
   tavg_prj <- terra::project(tavg, rob)
   
   expect_silent(
-    ras <- fb_aggregate_site_data(site_points, site_species[, 1:3], tavg_prj)
+    {ras <- fb_aggregate_site_data(site_points, site_species[, 1:3], tavg_prj)}
   )
   
   expect_s4_class(ras, "SpatRaster")
@@ -135,7 +135,7 @@ test_that("fb_aggregate_site_data() works", {
   ## Polygon spatial data
   # Regular
   expect_silent(
-    ras <- fb_aggregate_site_data(site_locations, site_species[, 1:3], tavg)
+    {ras <- fb_aggregate_site_data(site_locations, site_species[, 1:3], tavg)}
   )
   
   expect_s4_class(ras, "SpatRaster")
@@ -145,7 +145,7 @@ test_that("fb_aggregate_site_data() works", {
   
   # Projected Raster
   expect_silent(
-    ras <- fb_aggregate_site_data(site_locations, site_species[, 1:3], tavg_prj)
+    {ras <- fb_aggregate_site_data(site_locations, site_species[, 1:3], tavg_prj)}
   )
   
   expect_s4_class(ras, "SpatRaster")
@@ -153,9 +153,9 @@ test_that("fb_aggregate_site_data() works", {
   
   # Square grid
   expect_silent(
-    agg <- fb_aggregate_site_data(
+    {agg <- fb_aggregate_site_data(
       site_locations, site_species[, 1:3], square_grid
-    )
+    )}
   )
   
   expect_s3_class(agg, "sf")
@@ -164,9 +164,9 @@ test_that("fb_aggregate_site_data() works", {
   
   # Irregular polygons (countries)
   expect_silent(
-    agg <- fb_aggregate_site_data(
+    {agg <- fb_aggregate_site_data(
       site_locations, site_species[, 1:3], countries
-    )
+    )}
   )
   
   expect_s3_class(agg, "sf")
@@ -175,9 +175,9 @@ test_that("fb_aggregate_site_data() works", {
   
   # Lines
   expect_silent(
-    agg <- fb_aggregate_site_data(
+    {agg <- fb_aggregate_site_data(
       site_locations, site_species[, 1:3], transects
-    )
+    )}
   )
   
   expect_s3_class(agg, "sf")
@@ -186,9 +186,9 @@ test_that("fb_aggregate_site_data() works", {
   
   # Polygons with projections
   expect_silent(
-    agg <- fb_aggregate_site_data(
+    {agg <- fb_aggregate_site_data(
       site_locations, site_species[, 1:3], sf::st_transform(countries, 4668)
-    )
+    )}
   )
   
   expect_s3_class(agg, "sf")
@@ -199,7 +199,7 @@ test_that("fb_aggregate_site_data() works", {
   ## Multiline spatial data
   # Unprojected raster
   expect_silent(
-    ras <- fb_aggregate_site_data(site_lines, site_species[, 1:3], tavg)
+    {ras <- fb_aggregate_site_data(site_lines, site_species[, 1:3], tavg)}
   )
   
   expect_s4_class(ras, "SpatRaster")
@@ -208,7 +208,7 @@ test_that("fb_aggregate_site_data() works", {
   
   # Projected Raster
   expect_silent(
-    ras <- fb_aggregate_site_data(site_lines, site_species[, 1:3], tavg_prj)
+    {ras <- fb_aggregate_site_data(site_lines, site_species[, 1:3], tavg_prj)}
   )
   
   expect_s4_class(ras, "SpatRaster")

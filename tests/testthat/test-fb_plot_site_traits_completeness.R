@@ -7,9 +7,9 @@ test_that("fb_plot_site_traits_completeness works", {
   
   # With categories
   expect_silent(
-    given_plot <- fb_plot_site_traits_completeness(
+    {given_plot <- fb_plot_site_traits_completeness(
       site_species, species_traits, woodiv_categories[, 1:2]
-    )
+    )}
   )
   
   expect_s3_class(given_plot, "ggplot")
@@ -17,7 +17,7 @@ test_that("fb_plot_site_traits_completeness works", {
   
   # Without categories
   expect_silent(
-    given_plot <- fb_plot_site_traits_completeness(site_species, species_traits)
+    {given_plot <- fb_plot_site_traits_completeness(site_species, species_traits)}
   )
   
   expect_s3_class(given_plot, "ggplot")
@@ -37,11 +37,11 @@ test_that("fb_plot_site_traits_completeness skipped", {
   # Single category 
 
   expect_silent(
-    given_plot <- fb_plot_site_traits_completeness(
+    {given_plot <- fb_plot_site_traits_completeness(
       site_species, species_traits,
       data.frame(species  = species_traits$species,
                  category = "A")
-    )
+    )}
   )
 
   expect_s3_class(given_plot, "ggplot")
@@ -53,13 +53,13 @@ test_that("fb_plot_site_traits_completeness skipped", {
   
   # Less categories than species
   expect_silent(
-    given_plot <- fb_plot_site_traits_completeness(
+    {given_plot <- fb_plot_site_traits_completeness(
       site_species, species_traits,
       data.frame(
         species  = species_traits$species,
         category = sample(letters[1:3], nrow(species_traits), replace = TRUE)
       )
-    )
+    )}
   )
 
   expect_s3_class(given_plot, "ggplot")
@@ -71,11 +71,11 @@ test_that("fb_plot_site_traits_completeness skipped", {
   
   # As many categories as species
   expect_silent(
-    given_plot <- fb_plot_site_traits_completeness(
+    {given_plot <- fb_plot_site_traits_completeness(
       site_species, species_traits,
       data.frame(species  = species_traits$species,
                  category = species_traits$species)
-    )
+    )}
   )
 
   expect_s3_class(given_plot, "ggplot")

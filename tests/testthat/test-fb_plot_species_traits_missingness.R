@@ -5,16 +5,16 @@ test_that("fb_plot_species_traits_missingness works", {
   
   # With species categories
   expect_silent(
-    given_plot <- fb_plot_species_traits_missingness(
+    {given_plot <- fb_plot_species_traits_missingness(
       species_traits, woodiv_categories[, 1:2]
-    )
+    )}
   )
   
   expect_s3_class(given_plot, "ggplot")
   
   # Without species categories
   expect_silent(
-    given_plot <- fb_plot_species_traits_missingness(species_traits)
+    {given_plot <- fb_plot_species_traits_missingness(species_traits)}
   )
   
   expect_s3_class(given_plot, "ggplot")
@@ -28,9 +28,9 @@ test_that("fb_plot_species_traits_missingness works", {
   # Without 'all_traits' added
 
   expect_silent(
-    given_plot <- fb_plot_species_traits_missingness(
+    {given_plot <- fb_plot_species_traits_missingness(
       species_traits, all_traits = FALSE
-    )
+    )}
   )
   
   expect_s3_class(given_plot, "ggplot")
@@ -50,9 +50,9 @@ test_that("fb_plot_species_traits_missingness works", {
   )
   
   expect_silent(
-    given_plot <- fb_plot_species_traits_missingness(
+    {given_plot <- fb_plot_species_traits_missingness(
       example_traits, all_traits = FALSE
-    )
+    )}
   )
 
   expect_s3_class(given_plot, "ggplot")
@@ -66,9 +66,9 @@ test_that("fb_plot_species_traits_missingness works", {
   # Test that function works with a single trait
   
   expect_silent(
-    given_plot <- fb_plot_species_traits_missingness(
+    {given_plot <- fb_plot_species_traits_missingness(
       example_traits[, 1:2], all_traits = FALSE
-    )
+    )}
   )
 
   expect_s3_class(given_plot, "ggplot")
@@ -88,12 +88,12 @@ test_that("fb_plot_species_traits_missingness skipped", {
   # Single category 
 
   expect_silent(
-    given_plot <- fb_plot_species_traits_missingness(
+    {given_plot <- fb_plot_species_traits_missingness(
       example_traits,
       data.frame(species  = example_traits$species,
                  category = "A"),
       all_traits = FALSE
-    )
+    )}
   )
 
   expect_s3_class(given_plot, "ggplot")
@@ -107,12 +107,12 @@ test_that("fb_plot_species_traits_missingness skipped", {
   # Less categories than species
 
   expect_silent(
-    given_plot <- fb_plot_species_traits_missingness(
+    {given_plot <- fb_plot_species_traits_missingness(
       example_traits,
       data.frame(species  = example_traits$species,
                  category = c(1, 1, 2)),
       all_traits = FALSE
-    )
+    )}
   )
   
   expect_s3_class(given_plot, "ggplot")
@@ -126,12 +126,12 @@ test_that("fb_plot_species_traits_missingness skipped", {
   # As many categories as species
 
   expect_silent(
-    given_plot <- fb_plot_species_traits_missingness(
+    {given_plot <- fb_plot_species_traits_missingness(
       example_traits,
       data.frame(species  = example_traits$species,
                  category = example_traits$species),
       all_traits = FALSE
-    )
+    )}
   )
 
   expect_s3_class(given_plot, "ggplot")

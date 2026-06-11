@@ -20,11 +20,11 @@ test_that("fb_map_site_traits_completeness() works", {
 
   # With sf points
   expect_silent(
-    given_plot <- fb_map_site_traits_completeness(
+   { given_plot <- fb_map_site_traits_completeness(
       site_points,
       site_species,
       species_traits
-    )
+    )}
   )
 
   expect_s3_class(given_plot, "ggplot")
@@ -36,11 +36,11 @@ test_that("fb_map_site_traits_completeness() works", {
 
   # With sf polygons
   expect_silent(
-    given_plot <- fb_map_site_traits_completeness(
+    {given_plot <- fb_map_site_traits_completeness(
       site_locations,
       site_species,
       species_traits
-    )
+    )}
   )
 
   expect_s3_class(given_plot, "ggplot")
@@ -52,11 +52,11 @@ test_that("fb_map_site_traits_completeness() works", {
 
   # with sf lines
   expect_silent(
-    given_plot <- fb_map_site_traits_completeness(
+    {given_plot <- fb_map_site_traits_completeness(
       site_lines,
       site_species,
       species_traits
-    )
+    )}
   )
 
   expect_s3_class(given_plot, "ggplot")
@@ -68,12 +68,12 @@ test_that("fb_map_site_traits_completeness() works", {
 
   # With sf points w/ background
   expect_silent(
-    given_plot <- fb_map_site_traits_completeness(
+    {given_plot <- fb_map_site_traits_completeness(
       site_points,
       site_species,
       species_traits,
       background = TRUE
-    )
+    )}
   )
 
   expect_s3_class(given_plot, "ggplot")
@@ -85,12 +85,12 @@ test_that("fb_map_site_traits_completeness() works", {
 
   # With sf polygons w/ background
   expect_silent(
-    given_plot <- fb_map_site_traits_completeness(
+    {given_plot <- fb_map_site_traits_completeness(
       site_locations,
       site_species,
       species_traits,
       background = TRUE
-    )
+    )}
   )
 
   expect_s3_class(given_plot, "ggplot")
@@ -102,12 +102,12 @@ test_that("fb_map_site_traits_completeness() works", {
 
   # with sf lines w/ background
   expect_silent(
-    given_plot <- fb_map_site_traits_completeness(
+    {given_plot <- fb_map_site_traits_completeness(
       site_lines,
       site_species,
       species_traits,
       background = TRUE
-    )
+    )}
   )
 
   expect_s3_class(given_plot, "ggplot")
@@ -119,12 +119,12 @@ test_that("fb_map_site_traits_completeness() works", {
 
   # without all traits
   expect_silent(
-    given_plot <- fb_map_site_traits_completeness(
+    {given_plot <- fb_map_site_traits_completeness(
       site_lines,
       site_species,
       species_traits,
       FALSE
-    )
+    )}
   )
 
   expect_s3_class(given_plot, "ggplot")

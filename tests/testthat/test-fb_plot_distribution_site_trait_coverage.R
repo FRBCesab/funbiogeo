@@ -7,21 +7,23 @@ test_that("fb_plot_distribution_site_trait_coverage() works", {
 
   # Works with species categories
   expect_silent(
-    suppressMessages(
-      given_plot <- fb_plot_distribution_site_trait_coverage(
+{    
+      given_plot <- suppressMessages(
+        fb_plot_distribution_site_trait_coverage(
         site_species, species_traits, woodiv_categories[, 1:2]
       )
-    )
+    )}
   )
+  
   expect_s3_class(given_plot, "ggplot")
   
   # Works without species categories
   expect_silent(
-    suppressMessages(
-      given_plot <- fb_plot_distribution_site_trait_coverage(
+      {given_plot <- suppressMessages(
+        fb_plot_distribution_site_trait_coverage(
         site_species, species_traits
       )
-    )
+    )}
   )
   
   expect_s3_class(given_plot, "ggplot")
@@ -39,9 +41,9 @@ test_that("fb_plot_distribution_site_trait_coverage() works", {
   
   # Removing all_traits
   expect_silent(
-    res <- fb_plot_distribution_site_trait_coverage(
+    {res <- fb_plot_distribution_site_trait_coverage(
       site_species, species_traits, all_traits = FALSE
-    )
+    )}
   )
   
   expect_s3_class(res, "ggplot")

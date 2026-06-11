@@ -54,14 +54,16 @@ test_that("split_species_categories() works", {
   )
   
   # No species x categories
-  expect_silent(res <- split_species_categories(sp_tr))
+  expect_silent({res <- split_species_categories(sp_tr)})
+
   expect_true(inherits(res, "list"))
   expect_equal(length(res), 1L)
   expect_equal(nrow(res[[1]]), 3L)
   expect_equal(ncol(res[[1]]), 2L)
 
   # With species x categories & species in common
-  expect_silent(res <- split_species_categories(sp_tr, sp_cat_good))
+  expect_silent({res <- split_species_categories(sp_tr, sp_cat_good)})
+  
   expect_true(inherits(res, "list"))
   expect_equal(length(res), 2L)
   expect_true("AAA" %in% names(res))

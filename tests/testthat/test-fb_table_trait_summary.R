@@ -25,7 +25,7 @@ test_that("fb_table_trait_summary() work ", {
   # Non-kable
   
   expect_silent(
-    res <- fb_table_trait_summary(sp_trait, kable = FALSE)
+    {res <- fb_table_trait_summary(sp_trait, kable = FALSE)}
   )
   
   expect_s3_class(res, "data.frame")
@@ -50,7 +50,7 @@ test_that("fb_table_trait_summary() work ", {
   
   # kable
   expect_silent(
-    res <- fb_table_trait_summary(sp_trait, kable = TRUE)
+    {res <- fb_table_trait_summary(sp_trait, kable = TRUE)}
   )
   
   expect_s3_class(res, "knitr_kable")

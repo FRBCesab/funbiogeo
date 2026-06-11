@@ -166,9 +166,9 @@ test_that(
     ## Only numeric trait
     # Working
     expect_silent(
-      test_coverage <- fb_filter_sites_by_trait_coverage(
+      {test_coverage <- fb_filter_sites_by_trait_coverage(
         occ_dat, species_traits, 1
-      )
+      )}
     )
     
     expect_identical(test_coverage, occ_dat)
@@ -189,10 +189,10 @@ test_that(
     
     # Lower threshold
     expect_silent(
-      test_coverage <- fb_filter_sites_by_trait_coverage(
+      {test_coverage <- fb_filter_sites_by_trait_coverage(
         occ_dat, species_traits[1, , drop = FALSE],
         threshold_traits_proportion = 0.3
-      )
+      )}
     )
     
     expect_identical(test_coverage, occ_dat[3,,])
@@ -200,19 +200,20 @@ test_that(
     
     ## Missing trait data
     expect_silent(
-      test_coverage <- fb_filter_sites_by_trait_coverage(
+      {test_coverage <- fb_filter_sites_by_trait_coverage(
         occ_dat, species_traits_na, 1/2
-      )
+      )}
     )
+
     expect_identical(test_coverage, occ_dat[c(2, 4, 5),])
     
     
     ## Multiple trait types
     # Working
     expect_silent(
-      test_coverage <- fb_filter_sites_by_trait_coverage(
+      {test_coverage <- fb_filter_sites_by_trait_coverage(
         occ_dat, species_traits_2, 1
-      )
+      )}
     )
     
     expect_identical(test_coverage, occ_dat)
@@ -232,10 +233,10 @@ test_that(
     
     # Lower threshold
     expect_silent(
-      test_coverage <- fb_filter_sites_by_trait_coverage(
+      {test_coverage <- fb_filter_sites_by_trait_coverage(
         occ_dat, species_traits_2[1, , drop = FALSE],
         threshold_traits_proportion = 0.3
-      )
+      )}
     )
     
     expect_identical(test_coverage, occ_dat[3,,])
@@ -251,9 +252,9 @@ test_that(
     ## Only numeric trait
     # (with only species for which we have species_traits)
     expect_silent(
-      test_coverage <- fb_filter_sites_by_trait_coverage(
+      {test_coverage <- fb_filter_sites_by_trait_coverage(
         site_species, species_traits
-      )
+      )}
     )
     
     expect_identical(test_coverage, site_species)
@@ -283,9 +284,9 @@ test_that(
     
     # Lower threshold
     expect_silent(
-      test_coverage <- fb_filter_sites_by_trait_coverage(
+      {test_coverage <- fb_filter_sites_by_trait_coverage(
         site_species, species_traits[1,, drop = FALSE], 0.5
-      )
+      )}
     )
     
     expect_identical(test_coverage, site_species[3,])
@@ -293,18 +294,18 @@ test_that(
     
     ## Missing trait data
     expect_silent(
-      test_coverage <- fb_filter_sites_by_trait_coverage(
+      {test_coverage <- fb_filter_sites_by_trait_coverage(
         site_species, species_traits_na, 1/2
-      )
+      )}
     )
     expect_identical(test_coverage, site_species[2:5,])
     
     ## Multiple trait types
     # (with only species for which we have traits of species)
     expect_silent(
-      test_coverage <- fb_filter_sites_by_trait_coverage(
+      {test_coverage <- fb_filter_sites_by_trait_coverage(
         site_species, species_traits_2
-      )
+      )}
     )
     
     expect_identical(test_coverage, site_species)
@@ -323,9 +324,9 @@ test_that(
     
     # Lower threshold
     expect_silent(
-      test_coverage <- fb_filter_sites_by_trait_coverage(
+      {test_coverage <- fb_filter_sites_by_trait_coverage(
         site_species, species_traits_2[1,, drop = FALSE], 0.5
-      )
+      )}
     )
     
     expect_identical(test_coverage, site_species[3,])
@@ -339,7 +340,7 @@ test_that("fb_filter_sites_by_trait_coverage() works with cover matrices", {
   ## Only numeric trait
   # (with only species for which we have species_traits)
   expect_silent(
-    test_coverage <- fb_filter_sites_by_trait_coverage(rel_dat, species_traits)
+    {test_coverage <- fb_filter_sites_by_trait_coverage(rel_dat, species_traits)}
   )
   
   expect_identical(test_coverage, rel_dat)
@@ -360,28 +361,28 @@ test_that("fb_filter_sites_by_trait_coverage() works with cover matrices", {
   # Lower threshold should work
   
   expect_silent(
-    test_coverage <- fb_filter_sites_by_trait_coverage(
+    {test_coverage <- fb_filter_sites_by_trait_coverage(
       rel_dat, species_traits[1,, drop = FALSE],
       threshold_traits_proportion = 0.6
-    )
+    )}
   )
   
   expect_identical(test_coverage, rel_dat[3,])
   
   ## Missing Trait Data
   expect_silent(
-    test_coverage <- fb_filter_sites_by_trait_coverage(
+    {test_coverage <- fb_filter_sites_by_trait_coverage(
       rel_dat, species_traits_na, 1/2
-    )
+    )}
   )
   expect_identical(test_coverage, rel_dat[2:5,])
   
   ## Multiple trait types
   # (with only species for which we have traits)
   expect_silent(
-    test_coverage <- fb_filter_sites_by_trait_coverage(
+    {test_coverage <- fb_filter_sites_by_trait_coverage(
       rel_dat, species_traits_2
-    )
+    )}
   )
   
   expect_identical(test_coverage, rel_dat)
@@ -400,10 +401,10 @@ test_that("fb_filter_sites_by_trait_coverage() works with cover matrices", {
   
   # Lower threshold should work
   expect_silent(
-    test_coverage <- fb_filter_sites_by_trait_coverage(
+    {test_coverage <- fb_filter_sites_by_trait_coverage(
       rel_dat, species_traits_2[1,, drop = FALSE],
       threshold_traits_proportion = 0.6
-    )
+    )}
   )
   
   expect_identical(test_coverage, rel_dat[3,])

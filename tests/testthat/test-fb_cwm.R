@@ -122,7 +122,7 @@ test_that("fb_cwm() fails with wrong inputs", {
 test_that("fb_cwm() works with valid inputs", {
   
   # Normal input
-  expect_silent(test_cwm <- fb_cwm(site_species, species_traits))
+  expect_silent({test_cwm <- fb_cwm(site_species, species_traits)})
   
   expect_s3_class(test_cwm, "data.frame")
   expect_named(test_cwm, c("site", "trait", "cwm"))

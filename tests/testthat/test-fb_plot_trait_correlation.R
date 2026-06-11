@@ -32,7 +32,7 @@ test_that("fb_plot_trait_correlation() works", {
   
   # Good input
   expect_silent(
-    given_plot <- fb_plot_trait_correlation(species_traits)
+    {given_plot <- fb_plot_trait_correlation(species_traits)}
   )
   
   expect_s3_class(given_plot, "ggplot")
@@ -44,7 +44,7 @@ test_that("fb_plot_trait_correlation() works", {
   
 
   expect_message(
-    given_plot <- fb_plot_trait_correlation(sp_trait),
+    {given_plot <- fb_plot_trait_correlation(sp_trait)},
     paste0(
       "Non-numerical traits found, only keeping numerical traits ",
       "to display trait correlations"
@@ -63,10 +63,10 @@ test_that("fb_plot_trait_correlation() works", {
   ## Works with species categories
   # Single category 
   expect_silent(
-    given_plot <- fb_plot_trait_correlation(
+    {given_plot <- fb_plot_trait_correlation(
       sp_trait[, -c(2, 5)],
       data.frame(species = sp_trait$species, category = "A")
-    )
+    )}
   )
 
   expect_s3_class(given_plot, "ggplot")
@@ -83,10 +83,10 @@ test_that("fb_plot_trait_correlation() skipped", {
 
   # Less categories than species
   expect_silent(
-    given_plot <- fb_plot_trait_correlation(
+    {given_plot <- fb_plot_trait_correlation(
       sp_trait[, -c(2, 5)],
       data.frame(species  = sp_trait$species, category = c(1, 1, 2))
-    )
+    )}
   )
 
   expect_s3_class(given_plot, "ggplot")
@@ -98,11 +98,11 @@ test_that("fb_plot_trait_correlation() skipped", {
   
   # As many categories as species
   expect_silent(
-    given_plot <- fb_plot_trait_correlation(
+    {given_plot <- fb_plot_trait_correlation(
       sp_trait[, -c(2, 5)],
       data.frame(species  = sp_trait$species,
                  category = sp_trait$species)
-    )
+    )}
   )
 
   expect_s3_class(given_plot, "ggplot")

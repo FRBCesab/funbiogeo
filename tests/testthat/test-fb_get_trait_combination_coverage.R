@@ -48,7 +48,7 @@ test_that("fb_get_trait_combination_coverage() works with good inputs", {
   
   # All combinations
   expect_silent(
-    res <- fb_get_trait_combination_coverage(site_species, species_traits)
+    {res <- fb_get_trait_combination_coverage(site_species, species_traits)}
   )
   
   expect_s3_class(res, "data.frame")
@@ -62,7 +62,7 @@ test_that("fb_get_trait_combination_coverage() works with good inputs", {
   
   # Given trait combination
   expect_silent(
-    res <- fb_get_trait_combination_coverage(site_species, species_traits, 2)
+    {res <- fb_get_trait_combination_coverage(site_species, species_traits, 2)}
   )
   
   expect_s3_class(res, "data.frame")

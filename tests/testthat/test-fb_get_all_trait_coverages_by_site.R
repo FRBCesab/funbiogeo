@@ -61,7 +61,7 @@ test_that(
     
     # With all traits
     expect_silent(
-      res <- fb_get_all_trait_coverages_by_site(site_species, species_traits)
+      {res <- fb_get_all_trait_coverages_by_site(site_species, species_traits)}
     )
     
     expect_s3_class(res, "data.frame")
@@ -74,9 +74,9 @@ test_that(
     
     # Without all traits
     expect_silent(
-      res <- fb_get_all_trait_coverages_by_site(
+{      res <- fb_get_all_trait_coverages_by_site(
         site_species, species_traits, all_traits = FALSE
-      )
+      )}
     )
     
     expect_s3_class(res, "data.frame")
@@ -95,10 +95,11 @@ test_that("fb_get_all_trait_coverages_by_site() works for edge cases", {
   ## With all traits
   # Single species (from site-species)
   expect_silent(
-    res <- fb_get_all_trait_coverages_by_site(
+{    res <- fb_get_all_trait_coverages_by_site(
       site_species[, 1:2], species_traits, all_traits = TRUE
-    )
+    )}
   )
+
   expect_s3_class(res, "data.frame")
   expect_equal(dim(res), c(5366L, 6L))
   expect_equal(
@@ -107,9 +108,9 @@ test_that("fb_get_all_trait_coverages_by_site() works for edge cases", {
   
   # Single species (from trait)
   expect_silent(
-    res <- fb_get_all_trait_coverages_by_site(
+{    res <- fb_get_all_trait_coverages_by_site(
       site_species, species_traits[1,, drop = FALSE], all_traits = TRUE
-    )
+    )}
   )
   expect_s3_class(res, "data.frame")
   expect_equal(dim(res), c(5366L, 6L))
@@ -119,9 +120,9 @@ test_that("fb_get_all_trait_coverages_by_site() works for edge cases", {
   
   # Both
   expect_silent(
-    res <- fb_get_all_trait_coverages_by_site(
+{    res <- fb_get_all_trait_coverages_by_site(
       site_species[, 1:2], species_traits[1,, drop = FALSE], all_traits = TRUE
-    )
+    )}
   )
   expect_s3_class(res, "data.frame")
   expect_equal(dim(res), c(5366L, 6L))
@@ -133,10 +134,11 @@ test_that("fb_get_all_trait_coverages_by_site() works for edge cases", {
   ## Without all traits
   # Single species (from site-species)
   expect_silent(
-    res <- fb_get_all_trait_coverages_by_site(
+{    res <- fb_get_all_trait_coverages_by_site(
       site_species[, 1:2], species_traits, all_traits = FALSE
-    )
+    )}
   )
+
   expect_s3_class(res, "data.frame")
   expect_equal(dim(res), c(5366L, 5L))
   expect_equal(
@@ -145,10 +147,11 @@ test_that("fb_get_all_trait_coverages_by_site() works for edge cases", {
   
   # Single species (from trait)
   expect_silent(
-    res <- fb_get_all_trait_coverages_by_site(
+    {res <- fb_get_all_trait_coverages_by_site(
       site_species, species_traits[1,, drop = FALSE], all_traits = FALSE
-    )
+    )}
   )
+
   expect_s3_class(res, "data.frame")
   expect_equal(dim(res), c(5366L, 5L))
   expect_equal(
@@ -157,9 +160,9 @@ test_that("fb_get_all_trait_coverages_by_site() works for edge cases", {
   
   # Both
   expect_silent(
-    res <- fb_get_all_trait_coverages_by_site(
+    {res <- fb_get_all_trait_coverages_by_site(
       site_species[, 1:2], species_traits[1,, drop = FALSE], all_traits = FALSE
-    )
+    )}
   )
   expect_s3_class(res, "data.frame")
   expect_equal(dim(res), c(5366L, 5L))

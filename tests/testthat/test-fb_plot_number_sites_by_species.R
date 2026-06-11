@@ -16,7 +16,7 @@ test_that("fb_plot_number_sites_by_species works", {
   
   # Less than 30 species
   expect_silent(
-    given_plot <- fb_plot_number_sites_by_species(woodiv_site_species[, 1:5])
+    {given_plot <- fb_plot_number_sites_by_species(woodiv_site_species[, 1:5])}
   )
   
   expect_s3_class(given_plot, "ggplot")
@@ -27,9 +27,9 @@ test_that("fb_plot_number_sites_by_species works", {
   )
   
   expect_silent(
-    given_plot <- fb_plot_number_sites_by_species(
+    {given_plot <- fb_plot_number_sites_by_species(
       woodiv_site_species[, 1:5], 0.5
-    )
+    )}
   )
   
   expect_s3_class(given_plot, "ggplot")

@@ -85,7 +85,7 @@ test_that("fb_filter_sites_by_species_coverage() successully works", {
   
   
   expect_silent(
-    test_coverage <- fb_filter_sites_by_species_coverage(site_species, 0)
+    {test_coverage <- fb_filter_sites_by_species_coverage(site_species, 0)}
   )
   
   expect_identical(nrow(test_coverage), nrow(site_species))
@@ -109,7 +109,7 @@ test_that("fb_filter_sites_by_species_coverage() successully works", {
   
   # Test for one species absent from study area
   expect_silent(
-    test_coverage <- fb_filter_sites_by_species_coverage(site_species2, 0.1)
+    {test_coverage <- fb_filter_sites_by_species_coverage(site_species2, 0.1)}
   )
   
   expect_equal(ncol(test_coverage), 3)
