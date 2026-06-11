@@ -1,7 +1,9 @@
 # Create an Rmarkdown Report to Explore User Data
 
 Creates an R Markdown (`.Rmd`) report from a template to explore and
-summarize user data. User can modify this report and use the function
+summarize user data in (functional) biogeography through the use of the
+site-species, the species-traits, and the site-locations objects. Users
+can modify this report and use the function
 [`rmarkdown::render()`](https://pkgs.rstudio.com/rmarkdown/reference/render.html)
 (or click the *Render* of the RStudio IDE) to convert this `.Rmd` in
 different formats:
@@ -71,7 +73,7 @@ fb_make_report(
 
 - site_locations:
 
-  an `sf` object with the spatial geometries of sites. **NOTE**: the
+  a `sf` object with the spatial geometries of sites. **NOTE**: the
   first column should be named **`"site"`** and indicate site names.
 
 - species_categories:

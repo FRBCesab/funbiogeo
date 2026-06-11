@@ -1,12 +1,12 @@
 # Upscaling your data: aggregating at coarser scales
 
-`funbiogeo` provides an easy way to upscale your site data to a coarser
-resolution. The idea is that you have any type of data at the site level
-(diversity metrics, environmental data, as well as site-species data)
-that you would like to work on or visualize at a coarser scale. The
-aggregation process can look daunting at first and be quite difficult to
-run. We explain in details, throughout this vignette, how to do so with
-the
+`funbiogeo` provides an easy way to upscale your site’s data to a
+coarser resolution. The idea is that you have any type of data at the
+site level (diversity metrics, environmental data, as well as
+site-species data) that you would like to work on or visualize on a
+coarser scale. The aggregation process can look daunting at first and be
+quite difficult to run. We explain in detail, throughout this vignette,
+how to do so with the
 [`fb_aggregate_site_data()`](https://frbcesab.github.io/funbiogeo/reference/fb_aggregate_site_data.md)
 function. We’ll detail three use cases:
 
@@ -19,7 +19,7 @@ In all three cases, the aggregation can work on any data available at
 the site-level. This could be species richness, site-species data, or
 functional diversity metrics.
 
-## Preamble: getting site-level data
+## Preamble: Getting Site-Level Data
 
 ``` r
 
@@ -58,7 +58,7 @@ woodiv_locations
 
 These sites are a collection of regular spatial polygons at a resolution
 of 10 km x 10 km over South Western Europe. Our site by locations object
-is an `sf` object, which means it’s a spatial object coupled with a
+is a `sf` object, which means it’s a spatial object coupled with a
 data.frame.
 
 For each site, we want to compute the species richness. We can do so by
@@ -87,7 +87,7 @@ Unfortunately, the
 [`fb_count_species_by_site()`](https://frbcesab.github.io/funbiogeo/reference/fb_count_species_by_site.md)
 doesn’t output a spatial object but a data.frame with three columns: the
 identifier of the site, the number of species, and the proportion of
-species present at a given site. Before going any further let’s put
+species present at a given site. Before going any further, let’s put
 species richness on the map with the function
 [`fb_map_site_data()`](https://frbcesab.github.io/funbiogeo/reference/fb_map_site_data.md).
 That function allows us to represent any arbitrary data at the site
@@ -101,12 +101,12 @@ fb_map_site_data(woodiv_locations, species_richness, "n_species")
 
 ![](upscaling_files/figure-html/map-original-richness-1.png)
 
-Now, from this site-level species richness, we would like to get the
-species richness at different scales. First, we’ll show how to aggregate
-on a coarser square grid, then at the country level, and then with a
-grid from a `SpatRaster`.
+Now, from this site-level species richness, we would like to get species
+richness at different scales. First, we’ll show how to aggregate on a
+coarser square grid, then at the country level, and then with a grid
+from a `SpatRaster`.
 
-## Aggregating through a square grid
+## Aggregating Through a Square Grid
 
 Our initial sites are 10km by 10km, we want to aggregate using a grid
 with pixels of 300km by 300km. When aggregating with a such a grid,
@@ -120,10 +120,10 @@ Because our data are using a [map
 projection](https://en.wikipedia.org/wiki/Map_projection) with units in
 meters, we can directly specify the `cellsize` argument of
 [`st_make_grid()`](https://r-spatial.github.io/sf/reference/st_make_grid.html).
-The function the locations object as first argument, then a vector of
-two nubmers as the second argument defining the cell sizes. By default,
-the newly created grid will cover the same extent as in the input
-spatial data.
+The function the locations object as the first argument, then a vector
+of two numbers as the second argument defining the cell sizes. By
+default, the newly created grid will cover the same extent as in the
+input spatial data.
 
 ``` r
 
@@ -143,8 +143,8 @@ head(coarser_grid)
 #> POLYGON ((3830000 1380000, 4130000 1380000, 413...
 ```
 
-Because the coarser grid is an `sfc` object, we need to transform it to
-an `sf` object to be fully compatible with
+Because the coarser grid is a `sfc` object, we need to transform it into
+a `sf` object to be fully compatible with
 [`fb_aggregate_site_data()`](https://frbcesab.github.io/funbiogeo/reference/fb_aggregate_site_data.md).
 We do so in the next chunk:
 
@@ -196,18 +196,18 @@ In orange, you see the original data grid of the data, while in purple
 is the coarser grid we defined over which we’ll aggregate the data.
 
 We’re interested in knowing the occurrence of our Mediterranean plant
-species over each pixel of the coarser grid. To do this we’ll use the
+species over each pixel of the coarser grid. To do this, we’ll use the
 [`fb_aggregate_site_data()`](https://frbcesab.github.io/funbiogeo/reference/fb_aggregate_site_data.md)
 function from `funbiogeo`. It takes as first argument the site-locations
 object (including the column with the site ids), then the data that
 needs to be aggregated (with the site ids column), then the grid over
-which to aggregate the data, finally the last argument is the function
+which to aggregate the data, finally, the last argument is the function
 to use to aggregate the data. By default, uses the
 [`mean()`](https://rdrr.io/r/base/mean.html) function and assumes
 quantitative site data only.
 
 Because we’re interested in species richness, we’ll use the dataset we
-computed in the first section, that defines species richness at each
+computed in the first section, which defines species richness at each
 site. We’ll use the
 [`fb_aggregate_site_data()`](https://frbcesab.github.io/funbiogeo/reference/fb_aggregate_site_data.md)
 function on our original site-locations object, with the species
@@ -239,8 +239,8 @@ head(coarser_richness)
 #> 6        NA         NA POLYGON ((4130000 1380000, ...
 ```
 
-Note that the object we obtain is also an `sf` object of the same type
-as the `grid` we provided.
+Note that the object we obtain is also a `sf` object of the same type as
+the `grid` we provided.
 
 We can plot it using `ggplot2`:
 
@@ -257,7 +257,7 @@ ggplot(coarser_richness, aes(fill = n_species)) +
 We see that the pixels of the North show the greatest average species
 richness, especially in the South of France.
 
-## Aggregating through irregular polygons
+## Aggregating Through Irregular Polygons
 
 We aggregated our richness data on a regular grid with square pixels,
 but it is very common in biogeography to want to aggregate data on
@@ -268,7 +268,7 @@ easily doable with the
 [`fb_aggregate_site_data()`](https://frbcesab.github.io/funbiogeo/reference/fb_aggregate_site_data.md)
 function.
 
-The function actually works with any arbitrary `sf` object as
+The function actually works with any arbitrary `sf` object as an
 aggregation grid whether it’s polygons regular or not, lines, points, or
 a mix of any geometries.
 
@@ -292,7 +292,7 @@ ggplot(countries) +
 
 ![](upscaling_files/figure-html/coutries-load-1.png)
 
-As we already have our aggregation object, here the countries
+As we already have our aggregation object, here the countries’
 delimitation, we can directly use the
 [`fb_aggregate_site_data()`](https://frbcesab.github.io/funbiogeo/reference/fb_aggregate_site_data.md)
 function on: the original locations, the species richness data, and the
@@ -320,13 +320,13 @@ ggplot(countries_richness) +
 
 ![](upscaling_files/figure-html/countries-agg-1.png)
 
-We observe that France has a higher species richness than the other
+We observe that France has a higher species richness than other
 countries, with more than 5 species on average in the sites it harbors.
 
-## Aggregating through a SpatRaster grid
+## Aggregating Through a SpatRaster Grid
 
-In the two previous sections we saw how to aggregate on arbitrary shaped
-polygons. However, another quite common use case, especially when
+In the two previous sections, we saw how to aggregate on arbitrary
+shaped polygons. However, another quite common use case, especially when
 working with species distribution model, is to want to aggregate data
 follow an environmental raster or a raster grid.
 
@@ -337,12 +337,11 @@ need to aggregate site data on a `SpatRaster` spatial grid (from the
 property of
 [`fb_aggregate_site_data()`](https://frbcesab.github.io/funbiogeo/reference/fb_aggregate_site_data.md)
 function is that it outputs a matching type of object as the provided
-grid. If it’s an `sf` object than the function will output the same type
+grid. If it’s a `sf` object, then the function will output the same type
 of `sf` object, while if it’s a `SpatRaster` then it will give back a
 `SpatRaster` object.
 
-First of all, we can create a coarser grid based on our locations
-object.
+First of all, we can create a coarser grid based on our location object.
 
 ``` r
 
@@ -369,15 +368,15 @@ the function
 This function requires the following arguments:
 
 - `site_locations`: the site x locations object
-- `site_data`: a `matrix` or `data.frame` containing values per sites to
+- `site_data`: a `matrix` or `data.frame` containing values per site to
   aggregate on the provided grid `agg_geom`. Can have one or several
-  columns (variables to aggregate). The first column must contain sites
+  columns (variables to aggregate). The first column must contain site
   names as provided in the object `species_richness`
 - `agg_geom`: a `SpatRaster` object (package `terra`). A raster of one
-  single layer, that defines the grid along which to aggregate
-- `fun`: the function used to aggregate sites values when there are
+  single layer that defines the grid along which to aggregate.
+- `fun`: the function used to aggregate site values when there are
   multiple sites in one cell (do we want to get the minimum value? the
-  maximum? the sum? or the mean?)
+  maximum? the sum? Or the mean?)
 
 Let’s compute our average species richness values across our grid.
 
@@ -404,7 +403,7 @@ upscaled_richness
 #> max value   :        10
 ```
 
-We get a `SpatRaster` object that is of the same resolution of our
+We get a `SpatRaster` object that is of the same resolution as our
 provided `agg_geom` raster grid. The cells of this raster contain the
 averaged values of species richness of our sites aggregated on the
 coarser grid. We can plot these values through a call to
@@ -418,13 +417,13 @@ fb_map_raster(upscaled_richness)
 
 ![](upscaling_files/figure-html/map-upscaled-richness-1.png)
 
-## Specific examples
+## Specific Examples
 
-### Coarsening site-species data
+### Coarsening Site x Species Data
 
 Through the
 [`fb_aggregate_site_data()`](https://frbcesab.github.io/funbiogeo/reference/fb_aggregate_site_data.md)
-function we can also coarsen our site-species grid by selecting the
+function, we can also coarsen our site-species grid by selecting the
 appropriate function as the `fun` argument, we detail how in this
 section.
 
@@ -441,10 +440,10 @@ As shown in the previous section, we’ll need three objects:
 We’ll use the previously defined object to run our example. To aggregate
 the presence-absence of species within each pixel of the new grid, we’ll
 use the [`max()`](https://rdrr.io/r/base/Extremes.html) function (as the
-`fun` argument). As such, coarser pixels which contains a mix of
+`fun` argument). As such, coarser pixels, which contain a mix of
 presence and absence of certain species, we’ll be considered as having
 the species present. Only when the species is absent from all of the
-finer scale sites will the coarser pixel show the species as absent.
+finer scale sites, will the coarser pixels show the species as absent.
 
 ``` r
 
@@ -456,10 +455,10 @@ site_species_agg <- fb_aggregate_site_data(
 )
 ```
 
-The return object is a `SpatRaster` as well but can be transformed
-easily in a data.frame to follow back with the regular analyses provided
-in `funbiogeo`. The new object contains one layer for each aggregated
-variable, i.e. here, one per species.
+The returned object is a `SpatRaster` as well but can be easily
+transformed into a data.frame to follow back with the regular analyses
+provided in `funbiogeo`. The new object contains one layer for each
+aggregated variable, i.e., here, one per species.
 
 ``` r
 
@@ -506,14 +505,15 @@ patchwork::wrap_plots(finer_map, coarser_map, nrow = 1)
 
 ![](upscaling_files/figure-html/plot-map-upscale-site-species-1.png)
 
-#### Obtaining back a site x species `data.frame`
+#### Obtaining Back a Site x Species `data.frame`
 
-Now we obtained a raster of aggregated site-species presences. However,
-the other functions of `funbiogeo` don’t play well with raster data.
-They need data.frames to work well. We can do this through the specific
-function [`as.data.frame()`](https://rdrr.io/r/base/as.data.frame.html)
-in `terra` (make sure to check the dedicated help page that specifies
-all the additional arguments with
+Now we have obtained a raster of aggregated site-species presences.
+However, the other functions of `funbiogeo` don’t play well with raster
+data. They need data.frames to work well. We can do this through the
+specific function
+[`as.data.frame()`](https://rdrr.io/r/base/as.data.frame.html) in
+`terra` (make sure to check the dedicated help page that specifies all
+the additional arguments with
 [`?terra::as.data.frame`](https://rspatial.github.io/terra/reference/as.data.frame.html)).
 
 ``` r
@@ -536,18 +536,18 @@ With this, we’re ready to reuse all of `funbiogeo` functions to work on
 these coarser data. You can proceed similarly to aggregate the ancillary
 site-related data, to use them in the rest of the analyses.
 
-### Upscaling functional diversity data
+### Upscaling Functional Diversity Data
 
 Because `funbiogeo` focuses on the functional biogeography workflow,
 we’ll explore in this section how to aggregate the results for a
 functional biogeography function. First, we’ll detail an example
-aggregating the community-weighted mean (CWM) of plant height, that is
+aggregating the community-weighted mean (CWM) of plant height, which is
 the abundance-weighted trait average of the assemblage. Second, we’ll
 show an example of coarsing functional diversity metrics computed
 through the [`fundiversity`](https://funecology.github.io/fundiversity/)
 package.
 
-#### Coarsen CWM of plant height
+#### Coarsen CWM of Plant Height
 
 To compute the CWM we’ll use the function
 [`fb_cwm()`](https://frbcesab.github.io/funbiogeo/reference/fb_cwm.md).
@@ -566,10 +566,10 @@ head(site_cwm)
 #> 6 26451765 plant_height 15.76845
 ```
 
-Now we can aggregate the CWM of plant hieght at coarser scale using
+Now we can aggregate the CWM of plant height at a coarser scale using
 [`fb_aggregate_site_data()`](https://frbcesab.github.io/funbiogeo/reference/fb_aggregate_site_data.md)
 as done in the previous sections, this time using the default `fun`
-argument as we want to compute the average CWM:
+argument, as we want to compute the average CWM:
 
 ``` r
 
@@ -606,11 +606,11 @@ fb_map_raster(upscaled_cwm) +
 
 ![](upscaling_files/figure-html/map-upscaled-cwm-1.png)
 
-#### Coarser FRic through `fundiversity`
+#### Coarser FRic Through `fundiversity`
 
 In a similar fashion as in the [introduction vignette to
 `funbiogeo`](https://frbcesab.github.io/funbiogeo/articles/funbiogeo.Rmd)
-in this section we’ll compute the Functional Richness using two traits
+in this section, we’ll compute the Functional Richness using two traits
 across our example dataset.
 
 ``` r
@@ -668,7 +668,7 @@ head(site_fric)
 ```
 
 We can now follow a similar upscaling process as in the previous
-sections to compute the average functional richness at a coarser spatial
+sections to compute the average functional richness on a coarser spatial
 scale:
 
 ``` r

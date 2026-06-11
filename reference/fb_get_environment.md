@@ -1,6 +1,7 @@
 # Extract Raster Values at Location of Sites
 
-Extract Raster Values at Location of Sites
+This function uses a `site_locations` object and a given `SpatRaster`.
+It extracts the mean value of the provided raster for each site.
 
 ## Usage
 
@@ -12,7 +13,7 @@ fb_get_environment(site_locations, environment_raster)
 
 - site_locations:
 
-  an `sf` object with the spatial geometries of sites. **NOTE**: the
+  a `sf` object with the spatial geometries of sites. **NOTE**: the
   first column should be named **`"site"`** and indicate site names.
 
 - environment_raster:
@@ -23,7 +24,7 @@ fb_get_environment(site_locations, environment_raster)
 ## Value
 
 A `data.frame` with average environmental values (columns) per site
-(rows), with the first column being `"site"` indicating site names.
+(rows), with the first column being `"site"`, indicating site names.
 
 ## Examples
 

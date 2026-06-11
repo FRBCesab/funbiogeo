@@ -2,9 +2,9 @@
 
 Convert a flat `data.frame` with species names and species
 (supra-)category (e.g. family, order, endemism status, etc.) into a
-proper `data.frame` object that can then be used by other functions. The
-final output contains species in rows and two columns (species name and
-species category).
+proper `species_categories` object that can then be used by other
+functions. The final output contains species in rows and two columns
+(species name and species category).
 
 ## Usage
 

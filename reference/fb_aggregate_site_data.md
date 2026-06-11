@@ -16,15 +16,15 @@ fb_aggregate_site_data(site_locations, site_data, agg_geom, fun = mean, ...)
 
 - site_locations:
 
-  an `sf` object with the spatial geometries of sites. **NOTE**: the
+  a `sf` object with the spatial geometries of sites. **NOTE**: the
   first column should be named **`"site"`** and indicate site names.
 
 - site_data:
 
-  a `matrix` or `data.frame` containing values per sites to aggregate
-  along the provided grid. Can have one or several columns (variables to
-  aggregate). The first column must contain sites names as provided in
-  the first argument `site_locations`.
+  a `matrix` or `data.frame` containing values per site to aggregate
+  along the provided grid. It can contain one or several columns
+  (variables to aggregate). The first column must contain site names as
+  provided in the first argument `site_locations`.
 
 - agg_geom:
 
@@ -35,7 +35,7 @@ fb_aggregate_site_data(site_locations, site_data, agg_geom, fun = mean, ...)
 
 - fun:
 
-  the function used to aggregate points values when there are multiple
+  the function used to aggregate point values when there are multiple
   points in one cell. Default is `mean`.
 
 - ...:
@@ -50,10 +50,10 @@ An object of the same type as the `agg_geom` input with as many layers
 
 ## Details
 
-The `agg_geom` object will condition the type of object ouput by the
-function. It can be of any sort as an `SpatRaster` or `sf` object.
+The `agg_geom` object will condition the type of object output by the
+function. It can be of any sort of a `SpatRaster` or a `sf` object.
 Depending on the need, it could be a regular square grid or hexagonal
-grid, it could also be irregular polygons like biomes or ecoregions, or
+grid; it could also be irregular polygons like biomes or ecoregions, or
 points, and even lines (such as when aggregating across transects or
 trajectories).
 

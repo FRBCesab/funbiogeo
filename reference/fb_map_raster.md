@@ -1,6 +1,9 @@
 # Map a Single Raster Layer
 
-Map a Single Raster Layer
+This is a helper function to plot a map of an environmental raster. The
+raster is plotted as is, with its given coordinate reference system. The
+function can provide a background map if the `background` argument is
+toggled.
 
 ## Usage
 

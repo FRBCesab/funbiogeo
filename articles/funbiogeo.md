@@ -2,12 +2,12 @@
 
 The aim of the `funbiogeo` package is to help users streamline the
 workflows in **fun**ctional **biogeo**graphy (Violle et al. 2014). It
-helps filter sites, species, and traits based on their trait coverages.
+helps filter sites, species, and traits based on their trait coverage.
 It also provides default diagnostic plots and standard tables
 summarizing input data. This vignette aims to be an introduction to the
 most commonly used functions.
 
-This vignette is a worked through real world example of a functional
+This vignette is a worked-through real-world example of a functional
 biogeography workflow using the internal dataset provided in `funbiogeo`
 and derived from the WOODIV database (Monnet et al. 2021).
 
@@ -19,7 +19,7 @@ library("sf")
 #> Linking to GEOS 3.12.1, GDAL 3.8.4, PROJ 9.4.0; sf_use_s2() is TRUE
 ```
 
-## Types of data
+## Types of Data
 
 The functions in `funbiogeo` mostly leverage three different objects:
 
@@ -31,14 +31,14 @@ The functions in `funbiogeo` mostly leverage three different objects:
   across sites (in rows) (`site_species` argument in `funbiogeo`
   functions);
 - the **site x locations** object, which describes the physical location
-  of sites through an `sf` object (`site_locations` argument in
+  of sites through a `sf` object (`site_locations` argument in
   `funbiogeo` functions).
 
-*Note: the `site_locations` object must be an `sf` object, as it is now
+*Note: the `site_locations` object must be a `sf` object, as it is now
 the standard package for spatial data in R. To have more information
 about the sf package, refer to its
 [website](https://r-spatial.github.io/sf/articles/sf1.html). If you want
-to learn how to convert your data to an `sf` object, check the
+to learn how to convert your data to a `sf` object, check the
 [formatting
 vignette](https://frbcesab.github.io/funbiogeo/articles/long-format.md).*
 
@@ -49,7 +49,7 @@ Optionally, an additional dataset can be provided:
   any arbitrary classification (`species_categories` argument in
   `funbiogeo` functions)
 
-## Provided dataset
+## Provided Dataset
 
 We are interested in mapping the functional traits of 24 Conifer tree
 species of Western European Mediterranean regions.
@@ -77,7 +77,7 @@ columns should only contain trait values.
 
 Note that we’ll be talking about **species** throughout this vignette
 and in the arguments of `funbiogeo`, but the package doesn’t make any
-assumption on the biological level. It can be individuals, populations,
+assumptions on the biological level. It can be individuals, populations,
 strains, species, genera, families, etc. The important fact is that you
 should have trait data for the level at which you want to work. This
 biological level should correspond between the trait data
@@ -122,12 +122,13 @@ summary(woodiv_traits)
 ```
 
 Note that to use your own species by traits `data.frame`, it should
-follow a similar structure with the first column being named
+follow a similar structure, with the first column being named
 **`"species"`** and the other ones containing traits.
 
 ### Site x Species
 
-This object contains species occurrences/abundance/coverage at sites  
+This object contains species occurrences/abundance/coverage at the
+sites  
 of the study area. It is a `data.frame`. The first column, **`"site"`**,
 contains site names, while the other columns contain the distribution of
 each species across sites.
@@ -161,17 +162,17 @@ The example dataset contains the occurrence of the 24 Conifer tree
 species across 5,366 sites (grid cells of 10 km x 10 km resolution).
 
 To use your own site by species `data.frame`, you should follow a
-similar structure with the first column being named **`"site"`** and the
-other ones containing presence information of species across sites.
+similar structure, with the first column being named **`"site"`** and
+the other ones containing presence information of species across sites.
 
 ### Site x Locations
 
 This object contains the geographical location of the sites. It should
-be an `sf` object from the [`sf`
+be a `sf` object from the [`sf`
 package](https://cran.r-project.org/package=sf). These are spatial R
 objects that describe geographical locations. The sites can have
 arbitrary shapes: points, regular polygons, irregular polygons, or even
-line transects! To make sure that your data is well plotted you should
+line transects! To make sure that your data is well plotted, you should
 specify the Coordinate Reference System (CRS) of this object.
 
 The package `funbiogeo` comes with the example dataset
@@ -235,7 +236,7 @@ Let’s select the **`family`** category:
     #> 6    CLIB     Pinaceae
     #> 7    CSEM Cupressaceae
 
-## Visualizing the data (diagnostic plots)
+## Visualizing the Data (Diagnostic plots)
 
 `funbiogeo` provides many functions to display the data to help the user
 select specific traits, species, and/or sites. We are going to detail
@@ -245,7 +246,7 @@ vignette](https://frbcesab.github.io/funbiogeo/articles/diagnostic-plots.Rmd)).
 We call them *diagnostic plots* because they help us to have an overview
 of our dataset **prior** to the analyses.
 
-### Trait completeness per species
+### Trait Completeness per Species
 
 A first way to visualize our `data.frame` is to look at the proportion
 of species with non-missing traits using the
@@ -261,11 +262,11 @@ fb_plot_number_species_by_trait(woodiv_traits)
 
 This plot shows us the number of species (along the x-axis) in function
 of the trait name (along the y-axis). The number of concerned species is
-shown at the bottom of the plot while the corresponding proportion of
+shown at the bottom of the plot, while the corresponding proportion of
 species (compared to all the species included in the trait dataset) is
 indicated as a secondary x-axis at the top. The proportion of species
 concerned is shown at the right of each point. For example, in our
-example dataset, 70.8% species have a value for SLA.
+example dataset, 70.8% of species have a value for SLA.
 
 The function also includes a way to provide a target proportion of
 species as the second argument. It will display the proportion as a dark
@@ -273,11 +274,11 @@ red dashed line.
 
 For example, if we want to visualize which traits are available for more
 than 75% of the species (we can also say which traits *cover* more than
-75% of the species), we can use function
+75% of the species), we can use the function
 [`fb_plot_number_species_by_trait()`](https://frbcesab.github.io/funbiogeo/reference/fb_plot_number_species_by_trait.md).
-It takes as first argument, the species by traits table, then, as second
-argument the proportion of species to consider (as a number between 0
-and 1):
+It takes, as first argument, the species by traits table, then, as
+second argument, the proportion of species to consider (as a number
+between 0 and 1):
 
 ``` r
 
@@ -307,8 +308,8 @@ Another way to filter the data would be to select certain species that
 have at least a certain number of traits. This can be visualized using
 the
 [`fb_plot_number_traits_by_species()`](https://frbcesab.github.io/funbiogeo/reference/fb_plot_number_traits_by_species.md)
-function. Similarly to the above-mentioned function, it takes the
-species x traits `data.frame` as the first argument:
+function. Similar to the above-mentioned function, it takes the species
+x traits `data.frame` as the first argument:
 
 ``` r
 
@@ -323,13 +324,13 @@ example). We can read it as the fact that 58.3% of the species show
 non-missing values for the four traits in the dataset. However, all
 species (100%) have non-missing values for two or more traits. This
 doesn’t mean that these two traits are the same, but that all species of
-datasets have non-missing values for a combination two traits among the
-four provided traits.
+datasets have non-missing values for a combination of two traits among
+the four provided traits.
 
 To identify further which combinations of traits are most frequently
 available together, we can use the
 [`fb_plot_trait_combination_frequencies()`](https://frbcesab.github.io/funbiogeo/reference/fb_plot_trait_combination_frequencies.md)
-function. This function takes the species-traits table as first
+function. This function takes the species-traits table as the first
 argument:
 
 ``` r
@@ -340,31 +341,31 @@ fb_plot_trait_combination_frequencies(woodiv_traits)
 ![](funbiogeo_files/figure-html/trait-combinations-1.png)
 
 In this plot, each **observed** combination of missing and non-missing
-trait is represented as a row. Each column represents a different trait.
-The y-axis details how many species (as well as the corresponding
+traits is represented as a row. Each column represents a different
+trait. The y-axis details how many species (as well as the corresponding
 proportion) harvest this particular combination of missing/non-missing
-trait values. The cells are blue to represent non-missing trait, and red
-when they are missing. At the bottom of the graph, we can indeed see
+trait values. The cells are blue to represent non-missing traits, and
+red when they are missing. At the bottom of the graph, we can indeed see
 that 14 species (representing 58.3% of the species), have all traits
-that are non-missing. At the very top we see that only one species has
-the a non-missing plant height and SLA with a missing seed mass and wood
+that are non-missing. At the very top, we see that only one species has
+a non-missing plant height and SLA with a missing seed mass and wood
 density. This graph allows us to better examine the missingness patterns
 among our trait dataset. To see all the available options in `funbiogeo`
-as well as the details of the arguments of each function refer to the
+as well as the details of the arguments of each function, refer to the
 [diagnostic plots
 vignette](https://frbcesab.github.io/funbiogeo/articles/diagnostic-plots.md).
 
-## Filtering the data
+## Filtering the Data
 
 We performed simple visualizations of our dataset to know identify our
 patterns of trait completeness. Based on these plots, we can choose
 thresholds in trait completeness to filter our data for our following
 analyses.
 
-### Filter trait by species coverage
+### Filter trait by Species Coverage
 
 We want to select the traits that are available for at least 75% of the
-species. To do so we can use the
+species. To do so, we can use the
 [`fb_filter_traits_by_species_coverage()`](https://frbcesab.github.io/funbiogeo/reference/fb_filter_traits_by_species_coverage.md)
 function. The function takes the species by traits `data.frame` and
 outputs the same dataset but with the traits filtered (so with fewer
@@ -398,15 +399,15 @@ head(selected_traits)
 ```
 
 The function outputs a filtered species-traits dataset retaining only
-traits covering at least 75% of the species. In the end, this keep only
+traits covering at least 75% of the species. In the end, this keeps only
 two traits: plant height and seed mass.
 
-### Filter species by trait coverage
+### Filter Species by Trait Coverage
 
-Now that we obtained a reduced trait dataset, selecting only two traits,
-this doesn’t mean that these traits are available for all species. We
-could filter species that have only non-missing traits through the
-function
+Now that we have obtained a reduced trait dataset, selecting only two
+traits, this doesn’t mean that these traits are available for all
+species. We could filter species that have only non-missing traits
+through the function
 [`fb_filter_species_by_trait_coverage()`](https://frbcesab.github.io/funbiogeo/reference/fb_filter_species_by_trait_coverage.md)
 with the species x traits `data.frame` as the first argument and the
 second argument the proportion of traits that should be known by
@@ -435,18 +436,18 @@ head(selected_species)
 ```
 
 In the end, by filtering the traits available for at least 75% of the
-species, have filtering the species that have only non-missing traits
-for these traits, we ended with a list of 23 species and 2 traits. This
+species have filtering the species that have only non-missing traits for
+these traits, we ended up with a list of 23 species and 2 traits. This
 is the dataset we’ll continue using in the rest of the vignette.
 
-### Filter sites by trait coverage
+### Filter Sites by Trait Coverage
 
 Now that we have filtered our traits and species of interest, we need to
 filter the sites that contain enough species for which the traits are
-available. Similarly to above the function is
+available. Similar to above, the function is
 [`fb_filter_sites_by_trait_coverage()`](https://frbcesab.github.io/funbiogeo/reference/fb_filter_sites_by_trait_coverage.md)
-it takes as first two arguments the site x species `data.frame` and the
-species x traits `data.frame`. The third argument is
+it takes as the first two arguments the site x species `data.frame` and
+the species x traits `data.frame`. The third argument is
 `threshold_traits_proportion` that indicates the percent coverage of
 traits to filter each site. Note that this coverage is weighted by the
 occurrence, abundance, or cover depending on the content of the site x
@@ -481,23 +482,24 @@ filt_sites[1:4, 1:4]
 ```
 
 The output of the function is a site x species `data.frame` with
-selected sites and species. Now we selected 5,364 sites out of 5,366,
-for our 2 traits and 23 species.
+selected sites and species. Now we have selected 5,364 sites out of
+5,366 for our 2 traits and 23 species.
 
-## Computing Functional Diversity metrics
+## Computing Functional Diversity Metrics
 
 The `funbiogeo` functions helped us filter our data appropriately with
 enough available trait information for species and sites. The goal of
-`funbiogeo` is to help you analyzing functional trait data and computing
+`funbiogeo` is to help you analyze functional trait data and computing
 functional diversity indices. These indices capture the diversity of
 trait values in a set of species, if you’re interested in an
 introduction to functional diversity indices and how to analyze them,
-it’s out of scope of this vignette, but you can refer to Mammola et al.
-(2021). The paper provides a general workflow to work with trait data.
+it’s out of the scope of this vignette, but you can refer to Mammola et
+al. (2021). The paper provides a general workflow to work with trait
+data.
 
-`funbiogeo` doesn’t aim to substitute to all these amazing tools that
-compute a diversity of indices with different properties and formulas.,
-however, we can use the filtered datasets to proceed with our analyses
+`funbiogeo` doesn’t aim to substitute for all these amazing tools that
+compute a diversity of indices with different properties and formulas.
+However, we can use the filtered datasets to proceed with our analyses.
 This is where you should use your preferred packages to compute
 functional diversity indices like
 [`mFD`](https://cran.r-project.org/package=mFD) or
@@ -507,7 +509,7 @@ introductory
 vignette](https://cmlmagneville.github.io/mFD/articles/mFD_general_workflow.html).
 It underlines the different steps to compute functional diversity
 metrics. If you’re interested in computing functional rarity indices
-with `funrar` you canalso refer to [its
+with `funrar` you can also refer to [its
 tutorial](https://rekyt.github.io/funrar/articles/funrar.html).
 
 For the sake of the example, we included a function in `funbiogeo` to
@@ -519,7 +521,7 @@ computing functional diversity indices using the `mFD` package.
 
 ### Community-Weighted Mean (CWM)
 
-We’re interested to look at the spatial distribution of the average
+We’re interested in looking at the spatial distribution of the average
 plant height and seed mass of Conifer tree species. To do so, we can
 compute the community-weighted mean of both traits. We’ll use the
 [`fb_cwm()`](https://frbcesab.github.io/funbiogeo/reference/fb_cwm.md)
@@ -547,10 +549,10 @@ the site name as provided in the input site x species `data.frame`,
 `trait` which indicates the trait name on which the CWM is computed, and
 `cwm` which shows the value of the CWM at this site for this trait.
 
-### Compute functional diversity indices
+### Compute Functional Diversity Indices
 
-We can also integrate our filtered datasets in other functional
-diversity computation pipeline. We’ll show an example by computing
+We can also integrate our filtered datasets into other functional
+diversity computation pipelines. We’ll show an example of computing
 functional richness with the `mFD` package.
 
 Before computing any functional diversity index, we need to scale and
@@ -561,7 +563,7 @@ a separate `species` column. We first give row names and then use the
 function to scale our traits.
 
 *Note: the following chunk of code is executed only if you have `mFD`
-installed*
+installed.*
 
 ``` r
 
@@ -609,11 +611,11 @@ head(scaled_traits)
 #> JCOM   -1.0043865 -0.38018325
 ```
 
-We get a data.frame with the two scaled traits and species names as row
+We get a data frame with the two scaled traits and species names as row
 names.
 
 To compute functional diversity indices with `mFD` we further need a
-site by species data.frame, with sites names as row names, and only for
+site by species data.frame, with site names as row names, and only for
 the species for which we have the traits in the species by trait table.
 We thus transform the site by species object:
 
@@ -638,8 +640,8 @@ formatted_site_species[1:5, 1:5]
 #> 41152315    1    0    0    0    0
 ```
 
-`mFD` furthermore requires that the site by species object is a
-`matrix`, we thus convert it to a matrix:
+`mFD`, furthermore, requires that the site by species object is a
+`matrix`. We thus convert it to a matrix:
 
 ``` r
 
@@ -648,17 +650,18 @@ formatted_site_species <- as.matrix(formatted_site_species)
 
 We can now compute functional diversity metrics using the
 `alpha.fd.multidim()` function from the `mFD` package. We’ll be using
-our two formatted objects `scaled_traits` as our species by trait table,
-and `formatted_site_species` as our site by species table. We’ll be
-computing Functional Dispersion (noted FDis) as a functional diversity
-index. It’s out of the scope of this vignette to explain the differences
-between functional diversity indices, but we recommend reading Mammola
-et al. (2021) for a general introduction about them.
+our two formatted objects: `scaled_traits` as our species by trait
+table, and `formatted_site_species` as our site by species table. We’ll
+be computing Functional Dispersion (noted FDis) as a functional
+diversity index. It’s out of the scope of this vignette to explain the
+differences between functional diversity indices, but we recommend
+reading Mammola et al. (2021) for a general introduction to them.
 
 Going back to computing Functional Dispersion with the
 `alpha.fd.multidim()` function, we need to use the species-traits table
-as first argument then the site-species table as second argument, then
-the name of the functional diversity index as a third argument:
+as the first argument then the site-species table as the second
+argument, then the name of the functional diversity index as a third
+argument:
 
 ``` r
 
@@ -682,7 +685,7 @@ head(woodiv_fdis$functional_diversity_indices)
 ```
 
 We now have a table with several diversity indices computed for each
-site. This table contains site names as row names an four columns:
+site. This table contains site names as row names four columns:
 
 - `sp_richn`, which is the species richness,
 - `fdis`, the Functional Dispersion index,
@@ -694,12 +697,12 @@ Now, we can use `funbiogeo` again to put these different indices on a
 map to better understand our dataset. Mapping functions are the topic of
 the next section of this introductory vignette.
 
-## Putting variables on the map
+## Putting Variables on a Map
 
-### Mapping diversity indices
+### Mapping Diversity Indices
 
 As we’re interested in putting functional dispersion on a map, we should
-slightly transform our site-indices table to include an explicit `site`
+slightly transform our site-index table to include an explicit `site`
 column as required by `funbiogeo`:
 
 ``` r
@@ -744,9 +747,9 @@ fb_map_site_data(woodiv_locations, woodiv_fdis, "fdis")
 ![](funbiogeo_files/figure-html/map-fdis-1.png) We get a map of our
 sites, colored by Functional Dispersion. The map uses the default
 `ggplot2` color scheme. We see that we have higher functional dispersion
-in Spain and in the French-Spanish border than in Italy. Because all of
-the plotting functions of `funbiogeo` output `ggplot2` objects they can
-be customized using usual `ggplot2` syntax:
+in Spain and on the French-Spanish border than in Italy. Because all of
+the plotting functions of `funbiogeo` output `ggplot2` objects, they can
+be customized using the usual `ggplot2` syntax:
 
 ``` r
 
@@ -777,35 +780,35 @@ fb_map_site_data(woodiv_locations, woodiv_fdis, "fide_plant_height") +
 ![](funbiogeo_files/figure-html/woodiv-avg-plant-height-1.png)
 
 We see that the tallest assemblages are in Italy, while central Spain
-and North of Portugal shows the lowest average plant height. You can
-adapt the above code on the other available diversity indices.
+and the north of Portugal show the lowest average plant heights. You can
+adapt the above code to the other available diversity indices.
 
-### Mapping an environmental raster
+### Mapping an Environmental Raster
 
 A common case of analysis in biogeography is to be interested in mapping
 environmental variables. If we want to display the environment
 associated with our sites of interest, we can leverage environmental
-raster layers as provided, for example, by WorldClim (Fick and Hijmans
+raster layers, as provided, for example, by WorldClim (Fick and Hijmans
 2017) or CHELSA (Karger et al. 2017). Fortunately, we have access to an
 example raster of mean annual temperature through `funbiogeo`.
 
-We ar first going to read the raster using the `terra` package, which is
-the reference package to read spatial raster data. If you want to know
-more about raster data, we recommend reading the [dedicated
+We are first going to read the raster using the `terra` package, which
+is the reference package to read spatial raster data. If you want to
+know more about raster data, we recommend reading the [dedicated
 chapter](https://r.geocompx.org/attr#manipulating-raster-objects) in the
-[*Geocomputations with R*](https://r.geocompx.org/) book (Lovelace et
+[*Geocomputations With R*](https://r.geocompx.org/) book (Lovelace et
 al. 2025). Then, we’ll use the
 [`fb_map_raster()`](https://frbcesab.github.io/funbiogeo/reference/fb_map_raster.md)
 function that displays a map for the first layer of the raster data. It
-takes the actual raster object as first argument. The other arguments
-are passed to the
+takes the actual raster object as the first argument. The other
+arguments are passed to the
 [`theme()`](https://ggplot2.tidyverse.org/reference/theme.html) function
 of ggplot2 to customize the plot.
 
 So first, let’s read the mean annual temperature raster provided by
 `funbiogeo`. For this, we’ll use the
-[`system.file()`](https://rdrr.io/r/base/system.file.html) function
-which allows accessing specific files from packages, then we’ll read the
+[`system.file()`](https://rdrr.io/r/base/system.file.html) function,
+which allows accessing specific files from packages; then we’ll read the
 raster with the `rast()` function from the `terra` package:
 
 ``` r
@@ -833,7 +836,7 @@ tavg
 #> max value   :         19.84375
 ```
 
-This raster represents mean annual temperature in Europe. We can see
+This raster represents the mean annual temperature in Europe. We can see
 that the temperature goes between -5.9°C and 19.8°C. The raster isn’t
 projected (as given by its
 [EPSG](https://en.wikipedia.org/wiki/EPSG_Geodetic_Parameter_Dataset)
@@ -853,7 +856,7 @@ fb_map_raster(tavg)
 
 As with all plots provided by `funbiogeo`, the
 [`fb_map_raster()`](https://frbcesab.github.io/funbiogeo/reference/fb_map_raster.md)
-returns a ggplot2 object which can be customized providing additional
+returns a ggplot2 object, which can be customized providing additional
 functions:
 
 ``` r
@@ -867,13 +870,13 @@ fb_map_raster(tavg) +
 
 ![](funbiogeo_files/figure-html/map-tavg-custom-1.png)
 
-To learn about the ggplot2 syntax and functions check the [`ggplot2`
+To learn about the ggplot2 syntax and functions, check the [`ggplot2`
 introductory
 vignette](https://ggplot2.tidyverse.org/articles/ggplot2.html).
 
-Leveraging the `patchwork` package, that allows to combine different
+Leveraging the `patchwork` package, which allows to combine different
 `ggplot2` objects, we can have side-by-side, the map of mean annual
-temperature and the one on annual total precipitation:
+temperature and the one on total annual precipitation:
 
 ``` r
 
@@ -905,19 +908,19 @@ map_precipitation <- fb_map_raster(prec) +
 
 ![](funbiogeo_files/figure-html/composition-map-1.png)
 
-This function allows the visualization of a raster in a simple fashion,
-but it doesn’t tell us anything about the environmental variable at the
-sites we’re interested in. In the next section we will map an
-environmental variable at each site of our study.
+This function allows for the visualization of a raster in a simple
+fashion, but it doesn’t tell us anything about the environmental
+variables at the sites we’re interested in. In the next section, we will
+map an environmental variable at each site of our study.
 
-### Map of average environmental variable in site
+### Map of Average Environmental Variables in Site
 
 We want to make a map of the average environmental conditions of the
 sites. For this we’re using the above-mentioned `terra` raster of the
 mean annual temperature, named `tavg`. To automatically extract the
 average mean annual temperature per site, we use the
 [`fb_get_environment()`](https://frbcesab.github.io/funbiogeo/reference/fb_get_environment.md)
-function, it takes as first argumen the site-locations object and a
+function. It takes as first argument the site-locations object and a
 second argument the environmental raster. It takes the average of the
 raster values per site.
 
@@ -935,14 +938,14 @@ head(site_env)
 #> 6 26451765         16.39656
 ```
 
-The variable names in the columns are based on the names of the provided
-raster. Here, because the raster has a single layer named
+The names of the variables in the columns come from the names of the
+rasters provided. Here, because the raster has a single layer named
 `annual_mean_temp`, it’s the name of the column. Note that the
 [`fb_get_environment()`](https://frbcesab.github.io/funbiogeo/reference/fb_get_environment.md)
-function also works with multi-layered rasters to extract multiple
+function also works with multilayered rasters to extract multiple
 average conditions at observed sites.
 
-To put these values on the map we can use the
+To put these values on the map, we can use the
 [`fb_map_site_data()`](https://frbcesab.github.io/funbiogeo/reference/fb_map_site_data.md)
 function, which allows mapping arbitrary site-level variables. It takes
 three needed arguments: the first of which, `site_locations`, which is
@@ -966,13 +969,13 @@ fb_map_site_data(woodiv_locations, site_env, "annual_mean_temp") +
 
 This concludes our tutorial to introduce `funbiogeo`. The package
 contains many more features, especially several diagnostic plots that
-allow to identify which trait are missing or not, at species or site
-scales. All of the plots are explained in details in [a dedicated
+allow to identify which traits are missing or not, at species or site
+scales. All of the plots are explained in detail in [a dedicated
 vignette](https://frbcesab.github.io/funbiogeo/articles/diagnostic-plots.Rmd).
-There is also a specific vignette about [transforming raw data from long
-to wide
+There is also a specific vignette about [transforming raw data from a
+long to wide
 format](https://frbcesab.github.io/funbiogeo/articles/long-format.Rmd).
-Finally, if you’re interested in learning about up-scaling your sites,
+Finally, if you’re interested in learning about upscaling your sites,
 which means aggregating your sites at coarser scales,you can refer to
 [the specific
 vignette](https://frbcesab.github.io/funbiogeo/articles/upscaling.Rmd).

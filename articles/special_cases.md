@@ -17,19 +17,19 @@ mainly to work with continuous trait data, it can also work with
 categorical trait data. This section describes how to use `funbiogeo` to
 work with categorical traits.
 
-The default dataset provided in `funbiogeo` is an extract of the [WOODIV
-database](https://doi.org/10.1038/s41597-021-00873-3), describing the
-diversity of Mediterrannean trees. It contains data for 28 species. To
-focus on categorical traits, we here propose to add three more traits
-for each species: its leaf habit (whether is deciduous or not?), its
-seed dispersal mode, and its shade tolerance. The next chunk gives these
-traits for the 24 species. We coded seed dispersal as a categorical
-trait with two modalities `"anemochory"` and `"endozoochory"`. We coded
-shade tolerance as a categorical traits with five ordered levels
-`"very_intolerant"`, `"intolerant"`, `"moderately_tolerant"`,
-`"tolerant"`, and `"very_tolerant"`. We first give the complete dataset,
-and then randomly remove data points to show the abilities of
-`funbiogeo` to display missing categorical traits.
+The default dataset provided in `funbiogeo` is an extract from the
+[WOODIV database](https://doi.org/10.1038/s41597-021-00873-3),
+describing the diversity of Mediterrannean trees. It contains data for
+28 species. To focus on categorical traits, we here propose to add three
+more traits for each species: its leaf habit (whether it is deciduous or
+not?), its seed dispersal mode, and its shade tolerance. The next chunk
+gives these traits for the 24 species. We coded seed dispersal as a
+categorical trait with two modalities: `"anemochory"` and
+`"endozoochory"`. We coded shade tolerance as a categorical traits with
+five ordered levels: `"very_intolerant"`, `"intolerant"`,
+`"moderately_tolerant"`, `"tolerant"`, and `"very_tolerant"`. We first
+give the complete dataset, and then randomly remove data points to show
+the abilities of `funbiogeo` to display missing categorical traits.
 
 ``` r
 
@@ -125,7 +125,7 @@ head(woodiv_cat)
 #> 6    CSEM  evergreen     anemochory          intolerant
 ```
 
-Then to simulate missing trait data, we randomly remove 20% of the
+Then, to simulate missing trait data, we randomly remove 20% of the
 values:
 
 ``` r
@@ -203,8 +203,8 @@ which displays trait-trait correlations.
 ## Considering Intraspecific Variation
 
 Trait-based ecology tends to present its frameworks and analyses with
-species average traits, most of its concepts can, however, apply to
-intraspecific trait variation, `funbiogeo` is no different. All of the
+species average traits. Most of its concepts can, however, apply to
+intraspecific trait variation; `funbiogeo` is no different. All of the
 examples, including the dataset provided with the package, show species
 average traits. In this section, we detail how to work with data that
 include intraspecific variation within `funbiogeo`. This should be
@@ -214,15 +214,15 @@ packages.
 To include intraspecific variation, the user has to index species within
 specific sites. For example, if they are three individuals of *Abies
 alba* in site *A*, then the user has to provide different names to the
-different individuals like `Abies_alba_1`, `Abies_alba_2`, and
+different individuals, like `Abies_alba_1`, `Abies_alba_2`, and
 `Abies_alba_3`. These names have to be reused consistently across
 objects `site_species`, `species_traits`, and `species_categories`. As
 such, the user can define as fine as possible intraspecific variation.
-It is also possible to provide individual trait value for one or several
-sites and species average trait for the rest of the sites, following the
-same idea as long as the naming of species and invidivuals is consistent
-across objects. In this case, the specified individuals will be
-counfounded as distinct species in trait completeness plots.
+It is also possible to provide individual trait values for one or
+several sites and species average traits for the rest of the sites,
+following the same idea as long as the naming of species and invidivuals
+is consistent across objects. In this case, the specified individuals
+will be confounded as distinct species in trait completeness plots.
 
 ## Sites of Arbitrary Shapes
 
@@ -256,7 +256,8 @@ fb_map_site_traits_completeness(
 ![](special_cases_files/figure-html/sampled_sites-1.png)
 
 We will now convert the sites to points by taking the centroid of sites
-and use `fb_map_*()` functions to see how it will affect their outputs:
+and using `fb_map_*()` functions to see how it will affect their
+outputs:
 
 ``` r
 
@@ -297,9 +298,9 @@ As seen above, the sites are now actual points instead of the original
 squares. The function will adapt to the geometry of the sites provided
 by the user.
 
-But `funbiogeo` can accommodate sites of any geometry, to show sites
-that represent lines, we will group sites into lines of sites and use
-the same function.
+However, `funbiogeo` can handle sites of any shape. To display
+line-shaped sites, we will cluster them into groups of site lines and
+use the same function.
 
 ``` r
 
@@ -364,7 +365,7 @@ The geometry now displays the lines, even though they are not the most
 perfect representation of the actual sites, but it shows the
 capabilities of funbiogeo.
 
-Similarly to the [upscaling
+Similar to the [upscaling
 vignette](https://frbcesab.github.io/funbiogeo/articles/vignettes/upscaling.Rmd),
 the map functions can also accommodate larger polygons, for example by
 aggregating sites per country.

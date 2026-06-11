@@ -1,8 +1,8 @@
 # Compute Trait Coverage For Each Site Weighted by Abundance
 
-Compute trait coverage for all sites, i.e., the percentage of total
-abundance/presence of species that have traits data compared to total
-species. This function assumes that all species provided in the traits
+Compute trait coverage for all sites, i.e., the proportion of total
+abundance/presence of species that have traits data compared to all
+species. This function assumes that all species provided in the trait
 dataset have all their traits specified (meaning that all species have
 either known or `NA` values reported as their traits). **NB**: this
 function returns trait coverage using all traits provided in the input

@@ -1,18 +1,18 @@
 # Formatting your data
 
 This vignette will explain how to process a dataset that is aggregated
-in long format to work with `funbiogeo`
+in a long format to work with `funbiogeo`
 
 Most functions in `funbiogeo` need three different datasets to work:
 
-- the **species x traits** `data.frame` (example dataset:`woodiv_traits`
+- The **species x traits** `data.frame` (example dataset:`woodiv_traits`
   in `funbiogeo`), which contains trait values for several traits (in
   columns) for several species (in rows).
-- the **site x species** `data.frame` (example
+- The **site x species** `data.frame` (example
   dataset:`woodiv_site_species` in `funbiogeo`), which contains the
   presence/absence, abundance, or cover information for species (in
   columns) by sites (in rows).
-- the **site x locations** `sf` object (example
+- The **site x locations** `sf` object (example
   dataset:`woodiv_locations` in `funbiogeo`), which contains the
   physical locations of the sites of interest.
 
@@ -29,7 +29,7 @@ Optionally, an additional dataset can be provided:
 library(funbiogeo)
 ```
 
-## Wide vs long format
+## Wide vs. Long Format
 
 In `funbiogeo` these datasets **must be** in a wide format (where one
 row hosts several variables across columns), but sometimes information
@@ -92,7 +92,7 @@ format dataset.
 
 All these functions take a long dataset as input (argument `data`),
 where one row corresponds to the occurrence/abundance/coverage of one
-species at one site and output a wider object.
+species at one site and outputs a wider object.
 
 ## Usage
 
@@ -131,7 +131,7 @@ all_data <- read.csv(file_name)
 
 Long table example {.table style="width:100%;"}
 
-### Extracting species x traits data
+### Extracting Species x Traits Data
 
 The function
 [`fb_format_species_traits()`](https://frbcesab.github.io/funbiogeo/reference/fb_format_species_traits.md)
@@ -166,14 +166,14 @@ head(species_traits, 10)
 #> 10    PSYL    24.795416   8.376612 4.765988    0.4365944
 ```
 
-### Extracting site x species data
+### Extracting Site x Species Data
 
 The function
 [`fb_format_site_species()`](https://frbcesab.github.io/funbiogeo/reference/fb_format_site_species.md)
 extracts species occurrence/abundance/coverage from this long table to
 create the site x species dataset. Note that one species must have been
-observed one time at one site (the package `funbiogeo` does not yet
-consider temporal resurveys).
+observed once at one site (the package `funbiogeo` does not yet consider
+temporal resurveys).
 
 ``` r
 
@@ -201,11 +201,11 @@ head(site_species[, 1:8], 10)
 #> 10 26451975    1    1    1    0    0    0    0
 ```
 
-### Extracting site x locations data
+### Extracting Site x Locations Data
 
 The function
 [`fb_format_site_locations()`](https://frbcesab.github.io/funbiogeo/reference/fb_format_site_locations.md)
-extracts sites coordinates from this long table to create the site x
+extracts site coordinates from this long table to create the site x
 locations dataset. Note that one site must have one unique longitude x
 latitude value.
 
@@ -236,7 +236,7 @@ head(site_locations)
 #> 9 26451765 POINT (1765000 2645000)
 ```
 
-### Extracting species x categories data
+### Extracting Species x Categories Data
 
 The function
 [`fb_format_species_categories()`](https://frbcesab.github.io/funbiogeo/reference/fb_format_species_categories.md)

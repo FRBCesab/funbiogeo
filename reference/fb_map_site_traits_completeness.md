@@ -3,7 +3,7 @@
 Returns a `ggplot2` map of sites colored by trait coverage (proportion
 of species having a known trait value). By default shows one plot for
 each trait and add an additional facet named `"all_traits"` considering
-the trait coverage with all traits taken together.
+the trait coverage with all provided traits taken together.
 
 ## Usage
 
@@ -21,7 +21,7 @@ fb_map_site_traits_completeness(
 
 - site_locations:
 
-  an `sf` object with the spatial geometries of sites. **NOTE**: the
+  a `sf` object with the spatial geometries of sites. **NOTE**: the
   first column should be named **`"site"`** and indicate site names.
 
 - site_species:

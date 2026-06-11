@@ -68,12 +68,12 @@
 
     
     
-<p><code>funbiogeo</code> provides an easy way to upscale your site data
-to a coarser resolution. The idea is that you have any type of data at
-the site level (diversity metrics, environmental data, as well as
-site-species data) that you would like to work on or visualize at a
+<p><code>funbiogeo</code> provides an easy way to upscale your site’s
+data to a coarser resolution. The idea is that you have any type of data
+at the site level (diversity metrics, environmental data, as well as
+site-species data) that you would like to work on or visualize on a
 coarser scale. The aggregation process can look daunting at first and be
-quite difficult to run. We explain in details, throughout this vignette,
+quite difficult to run. We explain in detail, throughout this vignette,
 how to do so with the <code><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data()</a></code> function.
 We’ll detail three use cases:</p>
 <ol style="list-style-type: decimal">
@@ -86,7 +86,7 @@ other shape )</li>
 the site-level. This could be species richness, site-species data, or
 functional diversity metrics.</p>
 <div class="section level2">
-<h2 id="preamble-getting-site-level-data">Preamble: getting site-level data<a class="anchor" aria-label="anchor" href="#preamble-getting-site-level-data"></a>
+<h2 id="preamble-getting-site-level-data">Preamble: Getting Site-Level Data<a class="anchor" aria-label="anchor" href="#preamble-getting-site-level-data"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://frbcesab.github.io/funbiogeo/">"funbiogeo"</a></span><span class="op">)</span></span>
@@ -118,8 +118,8 @@ geographical locations of sites.</p>
 <span><span class="co">#&gt; 12 26451975 Portugal POLYGON ((2640000 1970000, ...</span></span></code></pre></div>
 <p>These sites are a collection of regular spatial polygons at a
 resolution of 10 km x 10 km over South Western Europe. Our site by
-locations object is an <code>sf</code> object, which means it’s a
-spatial object coupled with a data.frame.</p>
+locations object is a <code>sf</code> object, which means it’s a spatial
+object coupled with a data.frame.</p>
 <p>For each site, we want to compute the species richness. We can do so
 by counting the species at each site with the function
 <code><a href="../reference/fb_count_species_by_site.html">fb_count_species_by_site()</a></code>.</p>
@@ -141,7 +141,7 @@ by counting the species at each site with the function
 <p>Unfortunately, the <code><a href="../reference/fb_count_species_by_site.html">fb_count_species_by_site()</a></code> doesn’t
 output a spatial object but a data.frame with three columns: the
 identifier of the site, the number of species, and the proportion of
-species present at a given site. Before going any further let’s put
+species present at a given site. Before going any further, let’s put
 species richness on the map with the function
 <code><a href="../reference/fb_map_site_data.html">fb_map_site_data()</a></code>. That function allows us to represent
 any arbitrary data at the site level by combining it with the site by
@@ -149,13 +149,13 @@ locations object, and it shows a map of that data:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/fb_map_site_data.html">fb_map_site_data</a></span><span class="op">(</span><span class="va">woodiv_locations</span>, <span class="va">species_richness</span>, <span class="st">"n_species"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="upscaling_files/figure-html/map-original-richness-1.png" class="r-plt" alt="" width="700"></p>
-<p>Now, from this site-level species richness, we would like to get the
+<p>Now, from this site-level species richness, we would like to get
 species richness at different scales. First, we’ll show how to aggregate
 on a coarser square grid, then at the country level, and then with a
 grid from a <code>SpatRaster</code>.</p>
 </div>
 <div class="section level2">
-<h2 id="aggregating-through-a-square-grid">Aggregating through a square grid<a class="anchor" aria-label="anchor" href="#aggregating-through-a-square-grid"></a>
+<h2 id="aggregating-through-a-square-grid">Aggregating Through a Square Grid<a class="anchor" aria-label="anchor" href="#aggregating-through-a-square-grid"></a>
 </h2>
 <p>Our initial sites are 10km by 10km, we want to aggregate using a grid
 with pixels of 300km by 300km. When aggregating with a such a grid,
@@ -166,7 +166,7 @@ grid on the fly using the function <code><a href="https://r-spatial.github.io/sf
 <p>Because our data are using a <a href="https://en.wikipedia.org/wiki/Map_projection" class="external-link">map projection</a>
 with units in meters, we can directly specify the <code>cellsize</code>
 argument of <code><a href="https://r-spatial.github.io/sf/reference/st_make_grid.html" class="external-link">st_make_grid()</a></code>. The function the locations
-object as first argument, then a vector of two nubmers as the second
+object as the first argument, then a vector of two numbers as the second
 argument defining the cell sizes. By default, the newly created grid
 will cover the same extent as in the input spatial data.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -184,8 +184,8 @@ will cover the same extent as in the input spatial data.</p>
 <span><span class="co">#&gt; POLYGON ((3230000 1380000, 3530000 1380000, 353...</span></span>
 <span><span class="co">#&gt; POLYGON ((3530000 1380000, 3830000 1380000, 383...</span></span>
 <span><span class="co">#&gt; POLYGON ((3830000 1380000, 4130000 1380000, 413...</span></span></code></pre></div>
-<p>Because the coarser grid is an <code>sfc</code> object, we need to
-transform it to an <code>sf</code> object to be fully compatible with
+<p>Because the coarser grid is a <code>sfc</code> object, we need to
+transform it into a <code>sf</code> object to be fully compatible with
 <code><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data()</a></code>. We do so in the next chunk:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">coarser_grid</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">coarser_grid</span><span class="op">)</span></span>
@@ -226,16 +226,16 @@ We will do so using the <code><a href="https://ggplot2.tidyverse.org/reference/g
 purple is the coarser grid we defined over which we’ll aggregate the
 data.</p>
 <p>We’re interested in knowing the occurrence of our Mediterranean plant
-species over each pixel of the coarser grid. To do this we’ll use the
+species over each pixel of the coarser grid. To do this, we’ll use the
 <code><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data()</a></code> function from
 <code>funbiogeo</code>. It takes as first argument the site-locations
 object (including the column with the site ids), then the data that
 needs to be aggregated (with the site ids column), then the grid over
-which to aggregate the data, finally the last argument is the function
+which to aggregate the data, finally, the last argument is the function
 to use to aggregate the data. By default, uses the <code><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean()</a></code>
 function and assumes quantitative site data only.</p>
 <p>Because we’re interested in species richness, we’ll use the dataset
-we computed in the first section, that defines species richness at each
+we computed in the first section, which defines species richness at each
 site. We’ll use the <code><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data()</a></code> function on
 our original site-locations object, with the species richness data, on
 the coarser grid, using the <code><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean()</a></code> function to get back the
@@ -261,7 +261,7 @@ average species richness across sites per larger pixel.</p>
 <span><span class="co">#&gt; 4        NA         NA POLYGON ((3530000 1380000, ...</span></span>
 <span><span class="co">#&gt; 5        NA         NA POLYGON ((3830000 1380000, ...</span></span>
 <span><span class="co">#&gt; 6        NA         NA POLYGON ((4130000 1380000, ...</span></span></code></pre></div>
-<p>Note that the object we obtain is also an <code>sf</code> object of
+<p>Note that the object we obtain is also a <code>sf</code> object of
 the same type as the <code>grid</code> we provided.</p>
 <p>We can plot it using <code>ggplot2</code>:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
@@ -274,7 +274,7 @@ the same type as the <code>grid</code> we provided.</p>
 richness, especially in the South of France.</p>
 </div>
 <div class="section level2">
-<h2 id="aggregating-through-irregular-polygons">Aggregating through irregular polygons<a class="anchor" aria-label="anchor" href="#aggregating-through-irregular-polygons"></a>
+<h2 id="aggregating-through-irregular-polygons">Aggregating Through Irregular Polygons<a class="anchor" aria-label="anchor" href="#aggregating-through-irregular-polygons"></a>
 </h2>
 <p>We aggregated our richness data on a regular grid with square pixels,
 but it is very common in biogeography to want to aggregate data on
@@ -284,8 +284,8 @@ regular grid, but we want to aggregate at the country scale. This is
 easily doable with the <code><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data()</a></code>
 function.</p>
 <p>The function actually works with any arbitrary <code>sf</code> object
-as aggregation grid whether it’s polygons regular or not, lines, points,
-or a mix of any geometries.</p>
+as an aggregation grid whether it’s polygons regular or not, lines,
+points, or a mix of any geometries.</p>
 <p>To show you how to do it, we’ll use the included spatial object for
 the four Mediterrannean countries covered by our example dataset:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
@@ -301,7 +301,7 @@ the four Mediterrannean countries covered by our example dataset:</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">name</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="upscaling_files/figure-html/coutries-load-1.png" class="r-plt" alt="" width="700"></p>
-<p>As we already have our aggregation object, here the countries
+<p>As we already have our aggregation object, here the countries’
 delimitation, we can directly use the
 <code><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data()</a></code> function on: the original
 locations, the species richness data, and the countries object, with the
@@ -323,14 +323,14 @@ countries) are going to be dropped.</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">n_species</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="upscaling_files/figure-html/countries-agg-1.png" class="r-plt" alt="" width="700"></p>
-<p>We observe that France has a higher species richness than the other
+<p>We observe that France has a higher species richness than other
 countries, with more than 5 species on average in the sites it
 harbors.</p>
 </div>
 <div class="section level2">
-<h2 id="aggregating-through-a-spatraster-grid">Aggregating through a SpatRaster grid<a class="anchor" aria-label="anchor" href="#aggregating-through-a-spatraster-grid"></a>
+<h2 id="aggregating-through-a-spatraster-grid">Aggregating Through a SpatRaster Grid<a class="anchor" aria-label="anchor" href="#aggregating-through-a-spatraster-grid"></a>
 </h2>
-<p>In the two previous sections we saw how to aggregate on arbitrary
+<p>In the two previous sections, we saw how to aggregate on arbitrary
 shaped polygons. However, another quite common use case, especially when
 working with species distribution model, is to want to aggregate data
 follow an environmental raster or a raster grid.</p>
@@ -340,11 +340,11 @@ need to aggregate site data on a <code>SpatRaster</code> spatial grid
 (from the <a href="https://cran.r-project.org/package=terra" class="external-link"><code>terra</code></a>
 package). A nice property of <code><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data()</a></code>
 function is that it outputs a matching type of object as the provided
-grid. If it’s an <code>sf</code> object than the function will output
+grid. If it’s a <code>sf</code> object, then the function will output
 the same type of <code>sf</code> object, while if it’s a
 <code>SpatRaster</code> then it will give back a <code>SpatRaster</code>
 object.</p>
-<p>First of all, we can create a coarser grid based on our locations
+<p>First of all, we can create a coarser grid based on our location
 object.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Import study area grid</span></span>
@@ -370,19 +370,19 @@ requires the following arguments:</p>
 <code>site_locations</code>: the site x locations object</li>
 <li>
 <code>site_data</code>: a <code>matrix</code> or
-<code>data.frame</code> containing values per sites to aggregate on the
+<code>data.frame</code> containing values per site to aggregate on the
 provided grid <code>agg_geom</code>. Can have one or several columns
-(variables to aggregate). The first column must contain sites names as
+(variables to aggregate). The first column must contain site names as
 provided in the object <code>species_richness</code>
 </li>
 <li>
 <code>agg_geom</code>: a <code>SpatRaster</code> object (package
-<code>terra</code>). A raster of one single layer, that defines the grid
-along which to aggregate</li>
+<code>terra</code>). A raster of one single layer that defines the grid
+along which to aggregate.</li>
 <li>
-<code>fun</code>: the function used to aggregate sites values when
+<code>fun</code>: the function used to aggregate site values when
 there are multiple sites in one cell (do we want to get the minimum
-value? the maximum? the sum? or the mean?)</li>
+value? the maximum? the sum? Or the mean?)</li>
 </ul>
 <p>Let’s compute our average species richness values across our
 grid.</p>
@@ -407,7 +407,7 @@ grid.</p>
 <span><span class="co">#&gt; min value   :         1</span></span>
 <span><span class="co">#&gt; max value   :        10</span></span></code></pre></div>
 <p>We get a <code>SpatRaster</code> object that is of the same
-resolution of our provided <code>agg_geom</code> raster grid. The cells
+resolution as our provided <code>agg_geom</code> raster grid. The cells
 of this raster contain the averaged values of species richness of our
 sites aggregated on the coarser grid. We can plot these values through a
 call to <code><a href="../reference/fb_map_raster.html">fb_map_raster()</a></code> which allows to plot rasters.</p>
@@ -416,12 +416,12 @@ call to <code><a href="../reference/fb_map_raster.html">fb_map_raster()</a></cod
 <p><img src="upscaling_files/figure-html/map-upscaled-richness-1.png" class="r-plt" alt="" width="700"></p>
 </div>
 <div class="section level2">
-<h2 id="specific-examples">Specific examples<a class="anchor" aria-label="anchor" href="#specific-examples"></a>
+<h2 id="specific-examples">Specific Examples<a class="anchor" aria-label="anchor" href="#specific-examples"></a>
 </h2>
 <div class="section level3">
-<h3 id="coarsening-site-species-data">Coarsening site-species data<a class="anchor" aria-label="anchor" href="#coarsening-site-species-data"></a>
+<h3 id="coarsening-site-x-species-data">Coarsening Site x Species Data<a class="anchor" aria-label="anchor" href="#coarsening-site-x-species-data"></a>
 </h3>
-<p>Through the <code><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data()</a></code> function we can
+<p>Through the <code><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data()</a></code> function, we can
 also coarsen our site-species grid by selecting the appropriate function
 as the <code>fun</code> argument, we detail how in this section.</p>
 <p>Now that we’ve learned how to aggregate arbitrary data at the site
@@ -436,10 +436,10 @@ object defining the coarser grid.</p>
 <p>We’ll use the previously defined object to run our example. To
 aggregate the presence-absence of species within each pixel of the new
 grid, we’ll use the <code><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max()</a></code> function (as the <code>fun</code>
-argument). As such, coarser pixels which contains a mix of presence and
+argument). As such, coarser pixels, which contain a mix of presence and
 absence of certain species, we’ll be considered as having the species
 present. Only when the species is absent from all of the finer scale
-sites will the coarser pixel show the species as absent.</p>
+sites, will the coarser pixels show the species as absent.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">site_species_agg</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data</a></span><span class="op">(</span></span>
 <span>  <span class="va">woodiv_locations</span><span class="op">[</span>, <span class="fl">1</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>,</span>
@@ -447,10 +447,10 @@ sites will the coarser pixel show the species as absent.</p>
 <span>  agg_geom <span class="op">=</span> <span class="va">coarser_grid</span>,</span>
 <span>  fun <span class="op">=</span> <span class="va">max</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>The return object is a <code>SpatRaster</code> as well but can be
-transformed easily in a data.frame to follow back with the regular
+<p>The returned object is a <code>SpatRaster</code> as well but can be
+easily transformed into a data.frame to follow back with the regular
 analyses provided in <code>funbiogeo</code>. The new object contains one
-layer for each aggregated variable, i.e. here, one per species.</p>
+layer for each aggregated variable, i.e., here, one per species.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">site_species_agg</span></span>
 <span><span class="co">#&gt; class       : SpatRaster</span></span>
@@ -489,9 +489,9 @@ in resolution :</p>
 <span><span class="fu">patchwork</span><span class="fu">::</span><span class="fu"><a href="https://patchwork.data-imaginist.com/reference/wrap_plots.html" class="external-link">wrap_plots</a></span><span class="op">(</span><span class="va">finer_map</span>, <span class="va">coarser_map</span>, nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="upscaling_files/figure-html/plot-map-upscale-site-species-1.png" class="r-plt" alt="" width="700"></p>
 <div class="section level4">
-<h4 id="obtaining-back-a-site-x-species-data-frame">Obtaining back a site x species <code>data.frame</code><a class="anchor" aria-label="anchor" href="#obtaining-back-a-site-x-species-data-frame"></a>
+<h4 id="obtaining-back-a-site-x-species-data-frame">Obtaining Back a Site x Species <code>data.frame</code><a class="anchor" aria-label="anchor" href="#obtaining-back-a-site-x-species-data-frame"></a>
 </h4>
-<p>Now we obtained a raster of aggregated site-species presences.
+<p>Now we have obtained a raster of aggregated site-species presences.
 However, the other functions of <code>funbiogeo</code> don’t play well
 with raster data. They need data.frames to work well. We can do this
 through the specific function <code><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame()</a></code> in
@@ -518,18 +518,18 @@ the analyses.</p>
 </div>
 </div>
 <div class="section level3">
-<h3 id="upscaling-functional-diversity-data">Upscaling functional diversity data<a class="anchor" aria-label="anchor" href="#upscaling-functional-diversity-data"></a>
+<h3 id="upscaling-functional-diversity-data">Upscaling Functional Diversity Data<a class="anchor" aria-label="anchor" href="#upscaling-functional-diversity-data"></a>
 </h3>
 <p>Because <code>funbiogeo</code> focuses on the functional biogeography
 workflow, we’ll explore in this section how to aggregate the results for
 a functional biogeography function. First, we’ll detail an example
-aggregating the community-weighted mean (CWM) of plant height, that is
+aggregating the community-weighted mean (CWM) of plant height, which is
 the abundance-weighted trait average of the assemblage. Second, we’ll
 show an example of coarsing functional diversity metrics computed
 through the <a href="https://funecology.github.io/fundiversity/" class="external-link"><code>fundiversity</code></a>
 package.</p>
 <div class="section level4">
-<h4 id="coarsen-cwm-of-plant-height">Coarsen CWM of plant height<a class="anchor" aria-label="anchor" href="#coarsen-cwm-of-plant-height"></a>
+<h4 id="coarsen-cwm-of-plant-height">Coarsen CWM of Plant Height<a class="anchor" aria-label="anchor" href="#coarsen-cwm-of-plant-height"></a>
 </h4>
 <p>To compute the CWM we’ll use the function <code><a href="../reference/fb_cwm.html">fb_cwm()</a></code>.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
@@ -543,9 +543,9 @@ package.</p>
 <span><span class="co">#&gt; 4 26351965 plant_height 13.77575</span></span>
 <span><span class="co">#&gt; 5 26451755 plant_height  4.88150</span></span>
 <span><span class="co">#&gt; 6 26451765 plant_height 15.76845</span></span></code></pre></div>
-<p>Now we can aggregate the CWM of plant hieght at coarser scale using
+<p>Now we can aggregate the CWM of plant height at a coarser scale using
 <code><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data()</a></code> as done in the previous sections,
-this time using the default <code>fun</code> argument as we want to
+this time using the default <code>fun</code> argument, as we want to
 compute the average CWM:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">site_cwm</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"plant_height"</span></span>
@@ -575,11 +575,11 @@ function:</p>
 <p><img src="upscaling_files/figure-html/map-upscaled-cwm-1.png" class="r-plt" alt="" width="700"></p>
 </div>
 <div class="section level4">
-<h4 id="coarser-fric-through-fundiversity">Coarser FRic through <code>fundiversity</code><a class="anchor" aria-label="anchor" href="#coarser-fric-through-fundiversity"></a>
+<h4 id="coarser-fric-through-fundiversity">Coarser FRic Through <code>fundiversity</code><a class="anchor" aria-label="anchor" href="#coarser-fric-through-fundiversity"></a>
 </h4>
 <p>In a similar fashion as in the <a href="funbiogeo.Rmd">introduction
-vignette to <code>funbiogeo</code></a> in this section we’ll compute the
-Functional Richness using two traits across our example dataset.</p>
+vignette to <code>funbiogeo</code></a> in this section, we’ll compute
+the Functional Richness using two traits across our example dataset.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get all species for which we have both adult body mass and litter size</span></span>
 <span><span class="va">subset_traits</span> <span class="op">&lt;-</span> <span class="va">woodiv_traits</span><span class="op">[</span>,</span>
@@ -632,7 +632,7 @@ Functional Richness using two traits across our example dataset.</p>
 <span><span class="co">#&gt; 5 41152315 1.1380385</span></span>
 <span><span class="co">#&gt; 6 37452365        NA</span></span></code></pre></div>
 <p>We can now follow a similar upscaling process as in the previous
-sections to compute the average functional richness at a coarser spatial
+sections to compute the average functional richness on a coarser spatial
 scale:</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">agg_fric</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fb_aggregate_site_data.html">fb_aggregate_site_data</a></span><span class="op">(</span></span>

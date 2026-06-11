@@ -3,7 +3,8 @@
 This function returns the community-weighted mean of provided trait
 values. It only works with quantitative traits and will warn you
 otherwise. It will remove species that either have `NA` values in the
-`site_species` input or `NA` values as their trait.
+`site_species` input or `NA` values as their trait in the provided trait
+object.
 
 ## Usage
 
@@ -34,6 +35,17 @@ A `data.frame` with sites in rows and the following variables:
 - `trait`, the trait label as provided in `species_traits`,
 
 - and `cwm`, the community-weighted means of quantitative traits values.
+
+## Details
+
+The community-weighted mean is a site-based trait mean weighted by the
+abundance of the species. It can be written with the following equation:
+
+\$\$ \text{CWM}\_k = \sum\_{i = 1}^S p\_{ik} \times t\_{ik} \$\$
+
+with \\\text{CWM}\_k\\ the CWM of site k, \\p\_{ik}\\ the relative
+abundance of species \\i\\ in site \\k\\, and \\t\_{ik}\\ the trait of
+species \\i\\ in site \\k\\.
 
 ## Examples
 

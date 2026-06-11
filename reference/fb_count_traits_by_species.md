@@ -1,7 +1,7 @@
 # Compute Number of Known Trait(s) per Species
 
-For each species computes the percentage of traits without `NA` (missing
-trait values).
+For each species, this function computes the number and proportion of
+traits without `NA` (missing trait values).
 
 ## Usage
 

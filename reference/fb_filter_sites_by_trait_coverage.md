@@ -1,6 +1,11 @@
 # Filter sites with a given trait coverage threshold
 
-...
+Select sites (rows of the `site_species` object) with all given traits
+available for at least the user-defined proportion of species
+`threshold_traits_proportion`. If a single trait is given, then the
+threshold applies to a single trait, if more than one trait is provided,
+then the function considers a threshold across all traits taken
+together.
 
 ## Usage
 

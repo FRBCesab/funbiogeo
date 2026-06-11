@@ -1,7 +1,9 @@
 # Filter species with a given traits coverage threshold
 
-Selects species (rows) for which the percentage of traits without `NA`
-(missing trait values) is higher than a threshold.
+Selects species (rows) for which the proportion of traits without `NA`
+(missing trait values) is higher than the user-defined threshold. It
+considers as many traits as the ones provided to filter given the
+threshold.
 
 ## Usage
 

@@ -1,7 +1,7 @@
 # Count Number of Species for Each Trait
 
-For each trait computes the percentage of species without `NA` (missing
-trait values).
+This function computes, for each trait, the number and proportion of
+species without missing trait value (`NA`).
 
 ## Usage
 

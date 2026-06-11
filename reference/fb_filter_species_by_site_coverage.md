@@ -2,7 +2,7 @@
 
 Selects species (columns) for which the percentage of sites where the
 species is present (distribution value higher than 0 and non-NA) is
-higher than a threshold.
+higher than a user-defined threshold.
 
 ## Usage
 

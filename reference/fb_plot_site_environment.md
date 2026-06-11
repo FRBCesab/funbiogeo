@@ -20,7 +20,7 @@ fb_plot_site_environment(
 
 - site_locations:
 
-  an `sf` object with the spatial geometries of sites. **NOTE**: the
+  a `sf` object with the spatial geometries of sites. **NOTE**: the
   first column should be named **`"site"`** and indicate site names.
 
 - environment_raster:

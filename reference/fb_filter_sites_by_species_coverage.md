@@ -1,8 +1,8 @@
 # Filter sites with a given species coverage threshold
 
-Selects sites (rows) for which the percentage of present species
-(distribution value higher than 0 and non-NA) is higher than a
-threshold.
+Selects sites (rows) for which the proportion of species present
+(distribution value higher than 0 and non-NA) is higher than the
+user-defined threshold.
 
 ## Usage
 
@@ -23,12 +23,13 @@ fb_filter_sites_by_species_coverage(
 
 - threshold_species_proportion:
 
-  a numeric of length 1 between 0 and 1. The percentage of species
-  coverage threshold.
+  a numeric of length 1 between 0 and 1. The threshold of species
+  coverage under which to exclude the sites.
 
 ## Value
 
-A subset of `site_species` with sites covered by X% of species.
+A subset of `site_species` with sites with at least
+`threshold_species_proportion`% species present.
 
 ## Examples
 

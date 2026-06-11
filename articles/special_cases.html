@@ -83,15 +83,15 @@ been thought mainly to work with continuous trait data, it can also work
 with categorical trait data. This section describes how to use
 <code>funbiogeo</code> to work with categorical traits.</p>
 <p>The default dataset provided in <code>funbiogeo</code> is an extract
-of the <a href="https://doi.org/10.1038/s41597-021-00873-3" class="external-link">WOODIV
+from the <a href="https://doi.org/10.1038/s41597-021-00873-3" class="external-link">WOODIV
 database</a>, describing the diversity of Mediterrannean trees. It
 contains data for 28 species. To focus on categorical traits, we here
 propose to add three more traits for each species: its leaf habit
-(whether is deciduous or not?), its seed dispersal mode, and its shade
-tolerance. The next chunk gives these traits for the 24 species. We
-coded seed dispersal as a categorical trait with two modalities
+(whether it is deciduous or not?), its seed dispersal mode, and its
+shade tolerance. The next chunk gives these traits for the 24 species.
+We coded seed dispersal as a categorical trait with two modalities:
 <code>"anemochory"</code> and <code>"endozoochory"</code>. We coded
-shade tolerance as a categorical traits with five ordered levels
+shade tolerance as a categorical traits with five ordered levels:
 <code>"very_intolerant"</code>, <code>"intolerant"</code>,
 <code>"moderately_tolerant"</code>, <code>"tolerant"</code>, and
 <code>"very_tolerant"</code>. We first give the complete dataset, and
@@ -188,7 +188,7 @@ then randomly remove data points to show the abilities of
 <span><span class="co">#&gt; 4    APIN  evergreen     anemochory moderately_tolerant</span></span>
 <span><span class="co">#&gt; 5    CLIB  evergreen     anemochory moderately_tolerant</span></span>
 <span><span class="co">#&gt; 6    CSEM  evergreen     anemochory          intolerant</span></span></code></pre></div>
-<p>Then to simulate missing trait data, we randomly remove 20% of the
+<p>Then, to simulate missing trait data, we randomly remove 20% of the
 values:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Randomly removes 20% of the values</span></span>
@@ -253,8 +253,8 @@ trait-trait correlations.</p>
 <h2 id="considering-intraspecific-variation">Considering Intraspecific Variation<a class="anchor" aria-label="anchor" href="#considering-intraspecific-variation"></a>
 </h2>
 <p>Trait-based ecology tends to present its frameworks and analyses with
-species average traits, most of its concepts can, however, apply to
-intraspecific trait variation, <code>funbiogeo</code> is no different.
+species average traits. Most of its concepts can, however, apply to
+intraspecific trait variation; <code>funbiogeo</code> is no different.
 All of the examples, including the dataset provided with the package,
 show species average traits. In this section, we detail how to work with
 data that include intraspecific variation within <code>funbiogeo</code>.
@@ -263,16 +263,16 @@ diversity R packages.</p>
 <p>To include intraspecific variation, the user has to index species
 within specific sites. For example, if they are three individuals of
 <em>Abies alba</em> in site <em>A</em>, then the user has to provide
-different names to the different individuals like
+different names to the different individuals, like
 <code>Abies_alba_1</code>, <code>Abies_alba_2</code>, and
 <code>Abies_alba_3</code>. These names have to be reused consistently
 across objects <code>site_species</code>, <code>species_traits</code>,
 and <code>species_categories</code>. As such, the user can define as
 fine as possible intraspecific variation. It is also possible to provide
-individual trait value for one or several sites and species average
-trait for the rest of the sites, following the same idea as long as the
+individual trait values for one or several sites and species average
+traits for the rest of the sites, following the same idea as long as the
 naming of species and invidivuals is consistent across objects. In this
-case, the specified individuals will be counfounded as distinct species
+case, the specified individuals will be confounded as distinct species
 in trait completeness plots.</p>
 </div>
 <div class="section level2">
@@ -303,7 +303,7 @@ functions.</p>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="special_cases_files/figure-html/sampled_sites-1.png" class="r-plt" alt="" width="700"></p>
 <p>We will now convert the sites to points by taking the centroid of
-sites and use <code>fb_map_*()</code> functions to see how it will
+sites and using <code>fb_map_*()</code> functions to see how it will
 affect their outputs:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Convert all the sites into 'POINT' geometry</span></span>
@@ -339,9 +339,9 @@ affect their outputs:</p>
 <p>As seen above, the sites are now actual points instead of the
 original squares. The function will adapt to the geometry of the sites
 provided by the user.</p>
-<p>But <code>funbiogeo</code> can accommodate sites of any geometry, to
-show sites that represent lines, we will group sites into lines of sites
-and use the same function.</p>
+<p>However, <code>funbiogeo</code> can handle sites of any shape. To
+display line-shaped sites, we will cluster them into groups of site
+lines and use the same function.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lines_sites</span> <span class="op">&lt;-</span> <span class="va">points_sites</span></span>
 <span></span>
@@ -400,7 +400,7 @@ and use the same function.</p>
 <p>The geometry now displays the lines, even though they are not the
 most perfect representation of the actual sites, but it shows the
 capabilities of funbiogeo.</p>
-<p>Similarly to the <a href="vignettes/upscaling.Rmd">upscaling
+<p>Similar to the <a href="vignettes/upscaling.Rmd">upscaling
 vignette</a>, the map functions can also accommodate larger polygons,
 for example by aggregating sites per country.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
