@@ -2,7 +2,7 @@
 #' 
 #' @description
 #' Selects traits (columns) for which the percentage of species without 
-#' `NA` (missing trait values) is higher than a threshold.
+#' `NA` (missing trait values) is higher than a user-defined threshold.
 #' 
 #' @param threshold_species_proportion `numeric(1)` \[default = `NULL`\]\cr{}
 #'   between 0 and 1. The percentage of species coverage threshold.

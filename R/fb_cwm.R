@@ -3,7 +3,18 @@
 #' This function returns the community-weighted mean of provided trait values.
 #' It only works with quantitative traits and will warn you otherwise.
 #' It will remove species that either have `NA` values in the `site_species`
-#' input or `NA` values as their trait.
+#' input or `NA` values as their trait in the provided trait object.
+#' 
+#' The community-weighted mean is a site-based trait mean weighted by the
+#' abundance of the species. It can be written with the following equation:
+#' 
+#' \deqn{
+#'   \text{CWM}_k = \sum_{i = 1}^S p_{ik} \times t_{ik}
+#' }
+#' 
+#' with \eqn{\text{CWM}_k} the CWM of site k, \eqn{p_{ik}} the relative
+#' abundance of species \eqn{i} in site \eqn{k}, and \eqn{t_{ik}} the trait of
+#' species \eqn{i} in site \eqn{k}.
 #' 
 #' @inheritParams fb_get_trait_coverage_by_site
 #'

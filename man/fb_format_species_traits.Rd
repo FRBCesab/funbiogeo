@@ -20,8 +20,8 @@ first column names \code{"species"} containing the species names.
 }
 \description{
 Convert a flat \code{data.frame} with traits values for different species
-into a proper \code{data.frame} object that can then be used by other functions.
-The final output contains species in rows and traits in columns.
+into a proper \code{species_traits} object that can then be used by other
+functions. The final output contains species in rows and traits in columns.
 }
 \examples{
 filename <- system.file(

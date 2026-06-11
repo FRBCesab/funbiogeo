@@ -15,14 +15,16 @@ fb_filter_sites_by_species_coverage(
 names. The other columns should be named according to species names.}
 
 \item{threshold_species_proportion}{a numeric of length 1 between 0 and 1.
-The percentage of species coverage threshold.}
+The threshold of species coverage under which to exclude the sites.}
 }
 \value{
-A subset of \code{site_species} with sites covered by X\% of species.
+A subset of \code{site_species} with sites with at least
+\code{threshold_species_proportion}\% species present.
 }
 \description{
-Selects sites (rows) for which the percentage of present species
-(distribution value higher than 0 and non-NA) is higher than a threshold.
+Selects sites (rows) for which the proportion of species present
+(distribution value higher than 0 and non-NA) is higher than the user-defined
+threshold.
 }
 \examples{
 # Get sites with more than 40\% of the species

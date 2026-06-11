@@ -21,8 +21,8 @@ A three-column \code{data.frame} with:
 }
 }
 \description{
-For each trait computes the percentage of species without \code{NA} (missing
-trait values).
+This function computes, for each trait, the number and proportion of species
+without missing trait value (\code{NA}).
 }
 \examples{
 species_coverage_by_trait <- fb_count_species_by_trait(woodiv_traits)

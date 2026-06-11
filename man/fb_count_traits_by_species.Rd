@@ -22,8 +22,8 @@ species.
 }
 }
 \description{
-For each species computes the percentage of traits without \code{NA} (missing
-trait values).
+For each species, this function computes the number and proportion of traits
+without \code{NA} (missing trait values).
 }
 \examples{
 trait_coverage_by_species <- fb_count_traits_by_species(woodiv_traits)

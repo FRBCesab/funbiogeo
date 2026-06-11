@@ -43,7 +43,7 @@ to trait names.}
 \strong{NOTE}: the first column should be named \strong{\code{"site"}} and indicate site
 names. The other columns should be named according to species names.}
 
-\item{site_locations}{an \code{sf} object with the spatial geometries of sites.
+\item{site_locations}{a \code{sf} object with the spatial geometries of sites.
 \strong{NOTE}: the first column should be named \strong{\code{"site"}}
 and indicate site names.}
 
@@ -63,8 +63,10 @@ No return value.
 }
 \description{
 Creates an R Markdown (\code{.Rmd}) report from a template to explore and
-summarize user data. User can modify this report and use the function
-\code{\link[rmarkdown:render]{rmarkdown::render()}} (or click the \emph{Render} of the RStudio IDE) to convert
+summarize user data in (functional) biogeography through the use of the
+site-species, the species-traits, and the site-locations objects. Users can
+modify this report and use the function \code{\link[rmarkdown:render]{rmarkdown::render()}}
+(or click the \emph{Render} of the RStudio IDE) to convert
 this \code{.Rmd} in different formats:
 \itemize{
 \item HTML document (\code{output_format = "bookdown::html_document2"});

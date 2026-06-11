@@ -1,8 +1,10 @@
 #' Filter species with a given traits coverage threshold
 #' 
 #' @description
-#' Selects species (rows) for which the percentage of traits without 
-#' `NA` (missing trait values) is higher than a threshold.
+#' Selects species (rows) for which the proportion of traits without 
+#' `NA` (missing trait values) is higher than the user-defined threshold.
+#' It considers as many traits as the ones provided to filter given
+#' the threshold.
 #' 
 #' @param threshold_traits_proportion a numeric of length 1 between 0 and 1.
 #'   The percentage of traits coverage threshold.

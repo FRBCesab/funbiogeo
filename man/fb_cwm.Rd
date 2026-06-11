@@ -28,7 +28,19 @@ A \code{data.frame} with sites in rows and the following variables:
 This function returns the community-weighted mean of provided trait values.
 It only works with quantitative traits and will warn you otherwise.
 It will remove species that either have \code{NA} values in the \code{site_species}
-input or \code{NA} values as their trait.
+input or \code{NA} values as their trait in the provided trait object.
+}
+\details{
+The community-weighted mean is a site-based trait mean weighted by the
+abundance of the species. It can be written with the following equation:
+
+\deqn{
+  \text{CWM}_k = \sum_{i = 1}^S p_{ik} \times t_{ik}
+}
+
+with \eqn{\text{CWM}_k} the CWM of site k, \eqn{p_{ik}} the relative
+abundance of species \eqn{i} in site \eqn{k}, and \eqn{t_{ik}} the trait of
+species \eqn{i} in site \eqn{k}.
 }
 \examples{
 site_cwm <- fb_cwm(head(woodiv_site_species), woodiv_traits)

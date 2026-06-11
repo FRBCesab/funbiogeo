@@ -7,7 +7,7 @@
 fb_get_environment(site_locations, environment_raster)
 }
 \arguments{
-\item{site_locations}{an \code{sf} object with the spatial geometries of sites.
+\item{site_locations}{a \code{sf} object with the spatial geometries of sites.
 \strong{NOTE}: the first column should be named \strong{\code{"site"}}
 and indicate site names.}
 
@@ -16,10 +16,11 @@ A single or multi-layers environmental raster.}
 }
 \value{
 A \code{data.frame} with average environmental values (columns) per site
-(rows), with the first column being \code{"site"} indicating site names.
+(rows), with the first column being \code{"site"}, indicating site names.
 }
 \description{
-Extract Raster Values at Location of Sites
+This function uses a \code{site_locations} object and a given \code{SpatRaster}.
+It extracts the mean value of the provided raster for each site.
 }
 \examples{
 ## Import climate rasters ----

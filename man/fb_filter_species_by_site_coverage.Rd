@@ -24,7 +24,7 @@ than \code{threshold_sites_proportion}.
 \description{
 Selects species (columns) for which the percentage of sites where the
 species is present (distribution value higher than 0 and non-NA) is higher
-than a threshold.
+than a user-defined threshold.
 }
 \examples{
 # Filter species present in at least 10\% of the sites

@@ -21,7 +21,7 @@ and contain species names. The other columns should be named according
 to trait names.}
 
 \item{comb_size}{an integer vector defining one or more sizes of combinations
-(default: \code{NULL})}
+over which to compute trait coverage. (default: \code{NULL})}
 }
 \value{
 a data.frame with the following columns:
@@ -36,7 +36,6 @@ trait combination and site.
 }
 \description{
 This function computes trait coverage for each site for different trait
-combinations. If not provided, consider all possible trait combinations.
 The function will not run if the total number of combinations given is over
 10,000.
 }

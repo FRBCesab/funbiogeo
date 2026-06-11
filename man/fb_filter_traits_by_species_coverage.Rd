@@ -24,7 +24,7 @@ proportion of species.
 }
 \description{
 Selects traits (columns) for which the percentage of species without
-\code{NA} (missing trait values) is higher than a threshold.
+\code{NA} (missing trait values) is higher than a user-defined threshold.
 }
 \examples{
 # Filter traits that have at least 60\% non-missing values

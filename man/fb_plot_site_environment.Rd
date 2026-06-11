@@ -12,7 +12,7 @@ fb_plot_site_environment(
 )
 }
 \arguments{
-\item{site_locations}{an \code{sf} object with the spatial geometries of sites.
+\item{site_locations}{a \code{sf} object with the spatial geometries of sites.
 \strong{NOTE}: the first column should be named \strong{\code{"site"}}
 and indicate site names.}
 

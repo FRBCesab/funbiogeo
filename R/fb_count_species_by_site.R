@@ -1,9 +1,9 @@
 #' Count Number of Species per Site
 #' 
 #' @description
-#' For each site computes the proportion of species present (distribution value
-#' higher than 0 and non-NA) compared to all species provided.
-#' For example, a site could contain only 20% of all species provided.
+#' This function computes for each site the number and proportion of species
+#' present (distribution value higher than 0 and non-NA) compared to all species
+#' provided. For example, a site could contain only 20% of all species provided.
 #' 
 #' @inheritParams fb_get_trait_coverage_by_site
 #'
