@@ -47,10 +47,12 @@ test_that("fb_plot_distribution_site_trait_coverage() works", {
   # Removing all_traits
   expect_silent(
     {
-      res <- fb_plot_distribution_site_trait_coverage(
-        site_species,
-        species_traits,
-        all_traits = FALSE
+      res <- suppressMessages(
+        fb_plot_distribution_site_trait_coverage(
+          site_species,
+          species_traits,
+          all_traits = FALSE
+        )
       )
     }
   )
@@ -70,13 +72,15 @@ test_that("fb_plot_distribution_site_trait_coverage() skipped", {
 
   # Single category
   expect_silent(
-    suppressMessages(
-      given_plot <- fb_plot_distribution_site_trait_coverage(
-        site_species,
-        species_traits,
-        data.frame(species = species_traits$species, category = "A")
+    {
+      given_plot <- suppressMessages(
+        fb_plot_distribution_site_trait_coverage(
+          site_species,
+          species_traits,
+          data.frame(species = species_traits$species, category = "A")
+        )
       )
-    )
+    }
   )
 
   expect_s3_class(given_plot, "ggplot")
@@ -88,16 +92,22 @@ test_that("fb_plot_distribution_site_trait_coverage() skipped", {
 
   # Less categories than species
   expect_silent(
-    suppressMessages(
-      given_plot <- fb_plot_distribution_site_trait_coverage(
-        site_species,
-        species_traits,
-        data.frame(
-          species = species_traits$species,
-          category = sample(letters[1:3], nrow(species_traits), replace = TRUE)
+    {
+      given_plot <- suppressMessages(
+        fb_plot_distribution_site_trait_coverage(
+          site_species,
+          species_traits,
+          data.frame(
+            species = species_traits$species,
+            category = sample(
+              letters[1:3],
+              nrow(species_traits),
+              replace = TRUE
+            )
+          )
         )
       )
-    )
+    }
   )
 
   expect_s3_class(given_plot, "ggplot")
