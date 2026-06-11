@@ -40,7 +40,7 @@ library(funbiogeo)
 ```
 
 
-## Wide vs. long format
+## Wide vs. Long Format
 
 In `funbiogeo` these datasets **must be** in a wide format (where one row hosts
 several variables across columns), but sometimes information is structured in a
@@ -137,7 +137,7 @@ knitr::kable(
 ```
 
 
-### Extracting species x traits data
+### Extracting Species x Traits Data
 
 The function `fb_format_species_traits()` extracts species traits values from 
 this long table to create the species x traits dataset. Note that the function
@@ -181,7 +181,7 @@ head(site_species[ , 1:8], 10)
 
 
 
-### Extracting Site x locations Data
+### Extracting Site x Locations Data
 
 The function `fb_format_site_locations()` extracts site coordinates from this
 long table to create the site x locations dataset. Note that one site must have
@@ -203,7 +203,7 @@ head(site_locations)
 ```
 
 
-### Extracting Species x categories Data
+### Extracting Species x Categories Data
 
 The function `fb_format_species_categories()` extracts species values for one 
 supra-category (optional) from this long table to create the species x 

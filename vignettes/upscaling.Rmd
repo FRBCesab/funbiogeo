@@ -33,7 +33,7 @@ site-level. This could be species richness, site-species data, or functional
 diversity metrics.
 
 
-# Preamble: getting site-level data
+# Preamble: Getting Site-Level Data
 
 ```{r setup}
 library("funbiogeo")
@@ -175,7 +175,7 @@ especially in the South of France.
 
 
 
-# Aggregating through irregular polygons
+# Aggregating Through Irregular Polygons
 
 We aggregated our richness data on a regular grid with square pixels, but it is
 very common in biogeography to want to aggregate data on spatial objects that
@@ -228,7 +228,7 @@ We observe that France has a higher species richness than other countries,
 with more than 5 species on average in the sites it harbors.
 
 
-# Aggregating through a SpatRaster grid
+# Aggregating Through a SpatRaster Grid
 
 In the two previous sections, we saw how to aggregate on arbitrary shaped
 polygons. However, another quite common use case, especially when working with
@@ -295,9 +295,9 @@ fb_map_raster(upscaled_richness)
 ```
 
 
-# Specific examples
+# Specific Examples
 
-## Coarsening site-species data
+## Coarsening Site x Species Data
 
 Through the `fb_aggregate_site_data()` function, we can also coarsen our
 site-species grid by selecting the appropriate function as the `fun` argument,
@@ -358,7 +358,7 @@ patchwork::wrap_plots(finer_map, coarser_map, nrow = 1)
 ```
 
 
-### Obtaining back a site x species `data.frame`
+### Obtaining Back a Site x Species `data.frame`
 
 Now we have obtained a raster of aggregated site-species presences. However, the 
 other functions of `funbiogeo` don't play well with raster data. They need
@@ -391,7 +391,7 @@ trait average of the assemblage. Second, we'll show an example of coarsing
 functional diversity metrics computed through the [`fundiversity`](https://funecology.github.io/fundiversity/) package.
 
 
-### Coarsen CWM of plant height
+### Coarsen CWM of Plant Height
 
 To compute the CWM we'll use the function `fb_cwm()`.
 
@@ -425,7 +425,7 @@ fb_map_raster(upscaled_cwm) +
 ```
 
 
-### Coarser FRic through `fundiversity`
+### Coarser FRic Through `fundiversity`
 
 In a similar fashion as in the
 [introduction vignette to `funbiogeo`](funbiogeo.Rmd) in this section, we'll

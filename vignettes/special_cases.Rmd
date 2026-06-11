@@ -21,7 +21,7 @@ library(funbiogeo)
 This vignette aims to describe several specific cases in the use of `funbiogeo`. It provides detailed examples of these uses. If you find your case is missing or if you have additional questions, please [open an issue](https://github.com/FRBCesab/funbiogeo/issues/new/choose).
 
 
-## Working With Categorical Traits
+## Working with Categorical Traits
 
 Traits are not always continuous. While `funbiogeo` has been thought mainly to work with continuous trait data, it can also work with categorical trait data. This section describes how to use `funbiogeo` to work with categorical traits.
 

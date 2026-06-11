@@ -38,7 +38,7 @@ library("ggplot2")
 library("sf")
 ```
 
-# Types of data
+# Types of Data
 
 The functions in `funbiogeo` mostly leverage three different objects:
 
@@ -63,7 +63,7 @@ of species like taxonomic classes, specific diets, or any arbitrary classificati
 (`species_categories` argument in `funbiogeo` functions)
 
 
-# Provided dataset
+# Provided Dataset
 
 We are interested in mapping the functional traits of 24 Conifer tree species
 of Western European Mediterranean regions.
@@ -205,7 +205,7 @@ head(woodiv_families)
 ```
 
 
-# Visualizing the data (diagnostic plots)
+# Visualizing the Data (Diagnostic plots)
 
 `funbiogeo` provides many functions to display the data to help the user select
 specific traits, species, and/or sites. We are going to detail some of them in
@@ -335,7 +335,7 @@ covering at least 75% of the species. In the end, this keeps only two traits:
 plant height and seed mass.
 
 
-## Filter Species by trait Coverage
+## Filter Species by Trait Coverage
 
 Now that we have obtained a reduced trait dataset, selecting only two traits, this
 doesn't mean that these traits are available for all species. We could filter
@@ -363,7 +363,7 @@ we ended up with a list of 23 species and 2 traits. This is the dataset we'll
 continue using in the rest of the vignette.
 
 
-## Filter Sites by trait Coverage
+## Filter Sites by Trait Coverage
 
 Now that we have filtered our traits and species of interest, we need to filter
 the sites that contain enough species for which the traits are available.
@@ -446,7 +446,7 @@ indicates the trait name on which the CWM is computed, and `cwm` which shows the
 value of the CWM at this site for this trait.
 
 
-## Compute functional diversity indices
+## Compute Functional Diversity Indices
 
 We can also integrate our filtered datasets into other functional diversity computation pipelines. We'll show an example of computing functional richness
 with the `mFD` package.
@@ -483,7 +483,7 @@ head(selected_species)
 head(scaled_traits)
 ```
 
-We get a data.frame with the two scaled traits and species names as row names.
+We get a data frame with the two scaled traits and species names as row names.
 
 To compute functional diversity indices with `mFD` we further need a site by
 species data.frame, with site names as row names, and only for the species for
@@ -548,9 +548,9 @@ better understand our dataset. Mapping functions are the topic of the next
 section of this introductory vignette.
 
 
-# Putting variables on the map
+# Putting Variables on a Map
 
-## Mapping diversity indices
+## Mapping Diversity Indices
 
 As we're interested in putting functional dispersion on a map, we should
 slightly transform our site-index table to include an explicit `site` column

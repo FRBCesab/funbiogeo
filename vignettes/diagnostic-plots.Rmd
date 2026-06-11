@@ -69,7 +69,7 @@ The functions are all described in their specific subsections in alphabetical
 order.
 
 
-### Distribution of trait coverage across sites
+### Distribution of Trait Coverage Across Sites
 
 Visualizing the trait coverage of all sites can help isolate which traits may
 show consistently low coverage. Also this can help notice if some groups of
@@ -142,7 +142,7 @@ fb_plot_number_sites_by_species(
 The threshold bar helps us get a sense of how many species are present in at
 least 40% of the sites. It also displays the corresponding number of sites.
 
-### Plotting the Number of Species per trait
+### Plotting the Number of Species per Trait
 
 One way to look at the species by traits `data.frame` is to look at
 number of species with non-missing trait values for each trait. The
@@ -178,7 +178,7 @@ The red dashed vertical line shows the corresponding species coverage with
 labels indicating the proportion and corresponding number of species (n = 22).
 
 
-### Plotting the number of traits per species
+### Plotting the Number of Traits per Species
 
 You can also display the number of traits available per species. Showing
 it for each species would be quite difficult to read, so we decided instead to
@@ -263,7 +263,7 @@ temperature and lower in annual precipitation than most other places in our
 environmental rasters, with one site has higher precipitation than others.
 
 
-### Plotting trait coverage for all sites
+### Plotting Trait Coverage for All Sites
 
 To select appropriate sites and traits, we can visualize the trait coverage per
 site and per trait. This is exactly what is done by
@@ -288,7 +288,7 @@ With this figure we can see that all sites have over 95% coverage for all
 traits.
 
 
-### Plotting trait coverage per species
+### Plotting Trait Coverage per Species
 
 To select appropriate traits, we can visualize the trait coverage per species. 
 This is done by `fb_plot_species_traits_completeness()` which takes
@@ -312,7 +312,7 @@ traits and but taken all together means that we know perfectly only 58.3% of the
 species.
 
 
-### Plotting number of species with missing traits
+### Plotting Number of Species with Missing Traits
 
 Maybe you're rather interested in plotting the number of species with known
 (or missing) traits in your dataset. This plot is an alternative to the one
@@ -331,7 +331,7 @@ each trait in separate lines as a proportional bar chart with the total numbers
 included within each bar.
 
 
-### Displaying traits Combinations
+### Displaying Trait Combinations
 
 Looking at the traits coverage for each species continuously maybe impractical
 or difficult. For example, when trying to display thousands of species or when
@@ -373,7 +373,7 @@ The most complete combinations are shown at the bottom, while the combinations
 with most missing traits are at the top.
 
 
-### Displaying traits correlations
+### Displaying Trait Correlations
 
 Most of the plot functions in `funbiogeo` show traits independently of one
 another. However, for functional biogeography analyses, trait correlations are maybe
@@ -419,7 +419,7 @@ Note that all maps are always in the Coordinate Reference System of the provided
 `ggplot2::coord_sf()` call.
 
 
-### Mapping traits coverage of sites
+### Mapping Trait Coverage of Sites
 
 The function `fb_map_site_traits_completeness()` maps the trait coverage
 (proportion of species, weighted by relative abundance if relevant, with known
@@ -447,7 +447,7 @@ Spain compares to other places which makes achieving high coverages more
 difficult. 
 
 
-### Mapping arbitrary site data
+### Mapping Arbitrary Site Data
 
 To be the most flexible possible, `funbiogeo` provides a function to map
 arbitrary site data whether quantitative or qualitative with the
@@ -489,7 +489,7 @@ site_cat <- data.frame(
 fb_map_site_data(woodiv_locations, site_cat, "set")
 ```
 
-### Mapping site rasters
+### Mapping Site Rasters
 
 Mapping rasters can be quite cumbersome with R. `funbiogeo` provides a generic
 function to map them with `fb_map_raster()`. It only needs as first argument a
