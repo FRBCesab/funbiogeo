@@ -29,12 +29,6 @@ site_locations <- woodiv_locations
 st_loc <- site_locations[1:4, ]
 
 
-# Create fake directory ----
-
-temp_dir <- create_tempdir()
-dir.create(file.path(temp_dir, "funbiogeo"))
-
-
 # Test for errors ----
 
 test_that("fb_make_report() ask errors", {
@@ -62,6 +56,9 @@ test_that("fb_make_report() ask errors", {
 })
 
 test_that("fb_make_report() errors", {
+  temp_dir <- create_tempdir()
+  dir.create(file.path(temp_dir, "funbiogeo"))
+
   # Wrong path -----------------------------------------------------------------
 
   with_mocked_bindings(
@@ -429,6 +426,9 @@ test_that("fb_make_report() errors", {
 # Test no answer to ask (equal to yes) -----------------------------------------
 
 test_that("fb_make_report() empty answer", {
+  temp_dir <- create_tempdir()
+  dir.create(file.path(temp_dir, "funbiogeo"))
+
   with_mocked_bindings(
     ask_user = function() "",
     {
@@ -462,6 +462,9 @@ test_that("fb_make_report() empty answer", {
 # Test option overwrite --------------------------------------------------------
 
 test_that("fb_make_report() overwrite option", {
+  temp_dir <- create_tempdir()
+  dir.create(file.path(temp_dir, "funbiogeo"))
+
   with_mocked_bindings(
     ask_user = function() "yes",
     {
@@ -495,6 +498,9 @@ test_that("fb_make_report() overwrite option", {
 # Test for filenames and titles ------------------------------------------------
 
 test_that("fb_make_report() filename and title", {
+  temp_dir <- create_tempdir()
+  dir.create(file.path(temp_dir, "funbiogeo"))
+
   with_mocked_bindings(
     ask_user = function() "yes",
     {
@@ -653,6 +659,9 @@ test_that("fb_make_report() filename and title", {
 # Test for author ----
 
 test_that("fb_make_report() authorship", {
+  temp_dir <- create_tempdir()
+  dir.create(file.path(temp_dir, "funbiogeo"))
+
   with_mocked_bindings(
     ask_user = function() "yes",
     {
@@ -674,7 +683,7 @@ test_that("fb_make_report() authorship", {
       expect_true(file.exists(file.path(temp_dir, filename)))
 
       content <- readLines(file.path(temp_dir, filename))
-      expect_length(grep("^title: ", content), 1L)
+      expect_length(grep("^author: ", content), 0L)
 
       # Single author provided ----
 
@@ -749,5 +758,3 @@ test_that("fb_make_report() authorship", {
     }
   )
 })
-
-withr::deferred_clear()
