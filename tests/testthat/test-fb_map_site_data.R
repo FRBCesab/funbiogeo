@@ -18,45 +18,45 @@ site_lines <- sf::st_cast(site_locations, "MULTILINESTRING")
 test_that("fb_map_site_data() errors with wrong input", {
   # Missing Arguments
   expect_error(
-    res <- fb_map_site_data(site_locations),
+    fb_map_site_data(site_locations),
     "Argument 'site_data' (site info data.frame) is required",
     fixed = TRUE
   )
 
   # Wrong type
   expect_error(
-    res <- fb_map_site_data(site_locations, matrix()),
+    fb_map_site_data(site_locations, matrix()),
     "Argument 'site_data' must be a data.frame",
     fixed = TRUE
   )
 
   # Column 'site' not in data.frame
   expect_error(
-    res <- fb_map_site_data(site_locations, data.frame()),
+    fb_map_site_data(site_locations, data.frame()),
     "\"site\" column should be in provided 'site_data'",
     fixed = TRUE
   )
 
   # Missing 'selected_col' argument
   expect_error(
-    res <- fb_map_site_data(site_locations, data.frame(site = "a")),
+    fb_map_site_data(site_locations, data.frame(site = "a")),
     "Argument 'selected_col' (name of selected column) is required",
     fixed = TRUE
   )
 
   expect_error(
-    res <- fb_map_site_data(site_locations, data.frame(site = "a", b = 1), 1),
+    fb_map_site_data(site_locations, data.frame(site = "a", b = 1), 1),
     "Argument 'selected_col' must be a character",
     fixed = TRUE
   )
 
   # Specified 'selected_col' not in provided 'site_data'
   expect_error(
-    res <- fb_map_site_data(site_locations, data.frame(site = "a", b = 1), "a"),
+    fb_map_site_data(site_locations, data.frame(site = "a", b = 1), "a"),
     "Provided 'selected_col' should be in 'site_data'",
     fixed = TRUE
   )
-  
+
   expect_error(
     fb_map_site_data(site_locations, site_rich, "n_species", background = 3),
     "The 'background' argument should either be TRUE or FALSE"
@@ -66,7 +66,9 @@ test_that("fb_map_site_data() errors with wrong input", {
 test_that("fb_map_site_data() works", {
   # Polygons
   expect_silent(
-    given_plot <- fb_map_site_data(site_locations, site_rich, "n_species")
+    {
+      given_plot <- fb_map_site_data(site_locations, site_rich, "n_species")
+    }
   )
 
   expect_s3_class(given_plot, "ggplot")
@@ -78,7 +80,9 @@ test_that("fb_map_site_data() works", {
 
   # Points
   expect_silent(
-    given_plot <- fb_map_site_data(site_points, site_rich, "n_species")
+    {
+      given_plot <- fb_map_site_data(site_points, site_rich, "n_species")
+    }
   )
 
   expect_s3_class(given_plot, "ggplot")
@@ -90,7 +94,9 @@ test_that("fb_map_site_data() works", {
 
   # Lines
   expect_silent(
-    given_plot <- fb_map_site_data(site_lines, site_rich, "n_species")
+    {
+      given_plot <- fb_map_site_data(site_lines, site_rich, "n_species")
+    }
   )
 
   expect_s3_class(given_plot, "ggplot")
@@ -102,12 +108,14 @@ test_that("fb_map_site_data() works", {
 
   # Polygons w/ background
   expect_silent(
-    given_plot <- fb_map_site_data(
-      site_locations,
-      site_rich,
-      "n_species",
-      background = TRUE
-    )
+    {
+      given_plot <- fb_map_site_data(
+        site_locations,
+        site_rich,
+        "n_species",
+        background = TRUE
+      )
+    }
   )
 
   expect_s3_class(given_plot, "ggplot")
@@ -119,12 +127,14 @@ test_that("fb_map_site_data() works", {
 
   # Points w/ background
   expect_silent(
-    given_plot <- fb_map_site_data(
-      site_points,
-      site_rich,
-      "n_species",
-      background = TRUE
-    )
+    {
+      given_plot <- fb_map_site_data(
+        site_points,
+        site_rich,
+        "n_species",
+        background = TRUE
+      )
+    }
   )
 
   expect_s3_class(given_plot, "ggplot")
@@ -136,12 +146,14 @@ test_that("fb_map_site_data() works", {
 
   # Lines w/ background
   expect_silent(
-    given_plot <- fb_map_site_data(
-      site_lines,
-      site_rich,
-      "n_species",
-      background = TRUE
-    )
+    {
+      given_plot <- fb_map_site_data(
+        site_lines,
+        site_rich,
+        "n_species",
+        background = TRUE
+      )
+    }
   )
 
   expect_s3_class(given_plot, "ggplot")

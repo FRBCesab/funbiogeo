@@ -1,16 +1,16 @@
 #' Count Number of Sites Occupied by Species
-#' 
+#'
 #' @description
 #' This function computes the number and proportion of sites occupied by each
 #' species (distribution value higher than 0 and non-NA).
-#' 
+#'
 #' @inheritParams fb_get_trait_coverage_by_site
 #'
 #' @return A three-column `data.frame` with:
 #' - `species`: the name of the species;
 #' - `n_sites`: the number of sites where the species is present;
 #' - `coverage`: the percentage of sites where the species is present.
-#' 
+#'
 #' @export
 #'
 #' @examples
@@ -18,29 +18,29 @@
 #' head(site_coverage_by_species)
 
 fb_count_sites_by_species <- function(site_species) {
-  
   ## Check inputs ----
-  
+
   check_site_species(site_species)
-  
-  
+
   ## Compute sites coverage by species ----
-  
+
   sites_coverage <- unlist(
-    lapply(colnames(drop_column(site_species, "site")), function(x) 
-      sum(!is.na(site_species[[x]]) & site_species[[x]] > 0))
+    lapply(colnames(drop_column(site_species, "site")), function(x) {
+      sum(!is.na(site_species[[x]]) & site_species[[x]] > 0)
+    })
   )
-  
+
   sites_coverage <- data.frame(
-    "species"  = colnames(drop_column(site_species, "site")),
-    "n_sites"  = sites_coverage,
+    "species" = colnames(drop_column(site_species, "site")),
+    "n_sites" = sites_coverage,
     "coverage" = sites_coverage / nrow(site_species)
   )
-  
+
   sites_coverage <- sites_coverage[
-    order(sites_coverage$"coverage", decreasing = TRUE), ]
-  
+    order(sites_coverage$"coverage", decreasing = TRUE),
+  ]
+
   rownames(sites_coverage) <- NULL
-  
+
   sites_coverage
 }

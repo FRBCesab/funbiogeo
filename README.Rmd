@@ -68,7 +68,7 @@ For the moment `funbiogeo` is not on CRAN but you can install the development
 version from [R-universe](https://r-universe.dev) as follow:
 
 ```{r eval=FALSE}
-install.packages('funbiogeo', repos = c('https://frbcesab.r-universe.dev', 'https://cloud.r-project.org'))
+install.packages("funbiogeo", repos = c("https://frbcesab.r-universe.dev", "https://cloud.r-project.org"))
 ```
 
 

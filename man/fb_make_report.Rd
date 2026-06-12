@@ -86,7 +86,7 @@ temp_path <- tempdir()
 
 # Create report ----
 fb_make_report(
-  path           = temp_path, 
+  path           = temp_path,
   author         = "Casajus N. and Grenié M.",
   species_traits = woodiv_traits,
   site_species   = woodiv_site_species,

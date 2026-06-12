@@ -1,18 +1,18 @@
 #' Filter sites with a given species coverage threshold
-#' 
+#'
 #' @description
 #' Selects sites (rows) for which the proportion of species present
-#' (distribution value higher than 0 and non-NA) is higher than the user-defined 
+#' (distribution value higher than 0 and non-NA) is higher than the user-defined
 #' threshold.
-#' 
+#'
 #' @param threshold_species_proportion a numeric of length 1 between 0 and 1.
 #'   The threshold of species coverage under which to exclude the sites.
-#' 
+#'
 #' @inheritParams fb_get_trait_coverage_by_site
 #'
 #' @return A subset of `site_species` with sites with at least
 #'   `threshold_species_proportion`% species present.
-#' 
+#'
 #' @export
 #'
 #' @examples
@@ -26,37 +26,35 @@
 #' new_site_species[1:3, 1:4]
 
 fb_filter_sites_by_species_coverage <- function(
-    site_species, threshold_species_proportion = 0
-) { 
-  
+  site_species,
+  threshold_species_proportion = 0
+) {
   ## Check inputs ----
-  
+
   check_site_species(site_species)
   check_threshold_proportion(threshold_species_proportion, "species")
-  
-  
+
   # Get species coverage for each site ----
-  
+
   sites_coverage <- fb_count_species_by_site(site_species)
-  
-  
+
   # Filter species by site coverage ----
-  
+
   selected_sites <- sites_coverage[
-    which(sites_coverage[["coverage"]] >= threshold_species_proportion), 
-    "site"]
-  
+    which(sites_coverage[["coverage"]] >= threshold_species_proportion),
+    "site"
+  ]
+
   if (length(selected_sites) == 0) {
-    
     message("All sites are empty (no species)")
     returned_sites <- site_species[NULL, ]
-    
   } else {
-    
     returned_sites <- site_species[
-      site_species[["site"]] %in% selected_sites, , drop = FALSE
+      site_species[["site"]] %in% selected_sites,
+      ,
+      drop = FALSE
     ]
   }
-  
+
   return(returned_sites)
 }

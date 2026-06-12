@@ -47,7 +47,9 @@ test_that("fb_map_raster() works", {
 
   x <- terra::rast(prec)
 
-  expect_silent(x <- fb_map_raster(x))
+  expect_silent({
+    x <- fb_map_raster(x)
+  })
 
   expect_s3_class(x, "ggplot")
 
@@ -58,7 +60,9 @@ test_that("fb_map_raster() works", {
 
   x <- terra::rast(prec)
 
-  expect_silent(y <- fb_map_raster(x, background = TRUE))
+  expect_silent({
+    y <- fb_map_raster(x, background = TRUE)
+  })
 
   expect_s3_class(y, "ggplot")
 

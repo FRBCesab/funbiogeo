@@ -1,5 +1,5 @@
 #' Plot Number of Sites by Species
-#' 
+#'
 #' Represent all species in each function of the number of sites they occupy.
 #' The species are ordered from the ones that occupy the least number of sites
 #' from the ones that occupy the most.
@@ -17,69 +17,70 @@
 #'
 #' @examples
 #' fb_plot_number_sites_by_species(woodiv_site_species)
-#' 
+#'
 #' # Add a vertical cutoff line (40% of sites)
 #' fb_plot_number_sites_by_species(woodiv_site_species, 0.4)
 fb_plot_number_sites_by_species <- function(
-  site_species, threshold_sites_proportion = NULL
+  site_species,
+  threshold_sites_proportion = NULL
 ) {
-  
   # Check ----------------------------------------------------------------------
   check_site_species(site_species)
-  
+
   if (!is.null(threshold_sites_proportion)) {
     check_threshold_proportion(threshold_sites_proportion, "site")
   }
-  
+
   # Get the numbers
   number_sites_by_species <- fb_count_sites_by_species(site_species)
   n_species <- nrow(site_species)
-  
+
   # Construct y-axis breaks
   # Under 25 observation, label everyone of them
   # Otherwise label 30 of them
-  
+
   if (nrow(number_sites_by_species) <= 30) {
-    
-    species_y_breaks  <- number_sites_by_species$species
+    species_y_breaks <- number_sites_by_species$species
     species_y_numbers <- seq(1, nrow(number_sites_by_species))
-    species_y_prop    <- species_y_numbers/nrow(number_sites_by_species) * 100
-    
+    species_y_prop <- species_y_numbers / nrow(number_sites_by_species) * 100
   } else {
-    
     message(
       "There are more than 30 species, the y-axis will label the position ",
       "of 30 evenly spaced species (along their prevalence)"
     )
-    
-    species_y_breaks  <- number_sites_by_species$species[
+
+    species_y_breaks <- number_sites_by_species$species[
       seq(1, nrow(number_sites_by_species), length.out = 30)
     ]
     species_y_numbers <- match(
-      species_y_breaks, rev(number_sites_by_species$species)
+      species_y_breaks,
+      rev(number_sites_by_species$species)
     )
-    species_y_prop    <- round(
-      species_y_numbers/nrow(number_sites_by_species) * 100, 1
+    species_y_prop <- round(
+      species_y_numbers / nrow(number_sites_by_species) * 100,
+      1
     )
   }
-  
+
   number_sites_by_species$species <- factor(
     number_sites_by_species$species,
     levels = rev(number_sites_by_species$species)
   )
-  
+
   # Clean environment
   # rm(site_species)
-  
+
   # Actual plot
   given_plot <- ggplot2::ggplot(
-    number_sites_by_species, ggplot2::aes(.data$n_sites, .data$species)
+    number_sites_by_species,
+    ggplot2::aes(.data$n_sites, .data$species)
   ) +
     ggplot2::geom_point() +
     ggplot2::scale_x_continuous(
       "Number of Occupied Sites",
       sec.axis = ggplot2::sec_axis(
-        transform = ~./n_species, "Proportion of Occupied Sites",
+        transform = ~ . / n_species,
+        "Proportion of Occupied Sites",
         labels = scales::label_percent()
       )
     ) +
@@ -89,30 +90,37 @@ fb_plot_number_sites_by_species <- function(
       labels = paste0(species_y_numbers, " (", species_y_breaks, ")")
     ) +
     ggplot2::theme_bw()
-  
+
   # Add threshold line underneath other layers
   if (!is.null(threshold_sites_proportion)) {
     given_plot$layers <- append(
       list(
         ggplot2::geom_vline(
           xintercept = threshold_sites_proportion * nrow(site_species),
-          linetype = 2, linewidth = 1.2, color = "darkred"
+          linetype = 2,
+          linewidth = 1.2,
+          color = "darkred"
         ),
         ggplot2::annotate(
-          "text", x = threshold_sites_proportion * nrow(site_species),
-          y = Inf, hjust = 1.1, vjust = 1.5,
+          "text",
+          x = threshold_sites_proportion * nrow(site_species),
+          y = Inf,
+          hjust = 1.1,
+          vjust = 1.5,
           color = "darkred",
           label = paste0(
-            "(n = ", round(threshold_sites_proportion * nrow(site_species)),
+            "(n = ",
+            round(threshold_sites_proportion * nrow(site_species)),
             ")\n(p = ",
-            round(threshold_sites_proportion * 100, 1), "%)"
+            round(threshold_sites_proportion * 100, 1),
+            "%)"
           )
         )
       ),
       given_plot$layers,
       after = 1
     )
-  }  
-  
+  }
+
   return(given_plot)
 }
