@@ -92,7 +92,7 @@ fb_aggregate_site_data <- function(
   }
   
   if (is.na(terra::crs(agg_geom, proj = TRUE)) || 
-      terra::crs(agg_geom, proj = TRUE) == "") {
+      !nzchar(terra::crs(agg_geom, proj = TRUE))) {
     stop("The 'agg_geom' raster must have a CRS (coordinate system)", 
          call. = FALSE)
   }

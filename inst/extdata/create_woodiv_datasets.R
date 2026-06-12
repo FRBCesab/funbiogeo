@@ -32,7 +32,7 @@ nomenclature <- nomenclature[
 ]
 
 nomenclature <- nomenclature[nomenclature$"family" %in% families, ]
-nomenclature <- nomenclature[nomenclature$"subspecies" == "", ]
+nomenclature <- nomenclature[!nzchar(nomenclature$"subspecies"), ]
 
 nomenclature$"binomial" <- paste(nomenclature$"genus", nomenclature$"species")
 
@@ -89,7 +89,7 @@ pos <- which(!duplicated(countries$"Idgrid"))
 countries <- countries[pos, ]
 countries <- countries[countries$"country" %in% selected_countries, ]
 
-occurrence <- occurrence[ c('Idgrid', "spcode")]
+occurrence <- occurrence[ c("Idgrid", "spcode")]
 
 occurrence$"spcode" <- substr(occurrence$"spcode", 1, 4)
 pos <- which(!duplicated(paste(occurrence$"Idgrid", occurrence$"spcode")))

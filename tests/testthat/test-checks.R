@@ -102,7 +102,7 @@ test_that("check_site_species() works", {
 
   expect_silent(check_site_species(dat))
 
-  expect_equal(check_site_species(dat), NULL)
+  expect_null(check_site_species(dat))
 
   # With missing data
   mat[1, 1] <- NA
@@ -217,7 +217,7 @@ test_that("check_species_traits() works", {
 
   expect_silent(check_species_traits(dat))
 
-  expect_equal(check_species_traits(dat), NULL)
+  expect_null(check_species_traits(dat))
 
   dat$"trait_3" <- LETTERS[seq_len(nrow(dat))]
 
@@ -289,7 +289,7 @@ test_that("check_site_locations() works", {
 
   expect_silent(check_site_locations(sites_sf))
 
-  expect_equal(check_site_locations(sites_sf), NULL)
+  expect_null(check_site_locations(sites_sf))
 })
 
 

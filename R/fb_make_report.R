@@ -79,7 +79,7 @@ fb_make_report <- function(path = ".", filename = NULL, title = NULL,
   
   answer <- ask_user()
 
-  if (answer == "") {
+  if (!nzchar(answer)) {
     answer <- "yes"
   }
 

@@ -451,7 +451,7 @@ test_that("fb_make_report() empty answer", {
 
       content <- readLines(file.path(temp_dir, filename))
 
-      expect_equal(length(grep("^title: ", content)), 1)
+      expect_length(grep("^title: ", content), 1L)
 
       invisible(file.remove(file.path(temp_dir, filename)))
     }
@@ -484,7 +484,7 @@ test_that("fb_make_report() overwrite option", {
 
       content <- readLines(file.path(temp_dir, filename))
 
-      expect_equal(length(grep("^title: ", content)), 1)
+      expect_length(grep("^title: ", content), 1L)
 
       invisible(file.remove(file.path(temp_dir, filename)))
     }
@@ -517,7 +517,7 @@ test_that("fb_make_report() filename and title", {
 
       content <- readLines(file.path(temp_dir, filename))
 
-      expect_equal(length(grep("funbiogeo Report", content)), 1)
+      expect_length(grep("funbiogeo Report", content, fixed = TRUE), 1L)
 
       invisible(file.remove(file.path(temp_dir, filename)))
 
@@ -541,7 +541,7 @@ test_that("fb_make_report() filename and title", {
       expect_true(file.exists(file.path(temp_dir, filename)))
 
       content <- readLines(file.path(temp_dir, filename))
-      expect_equal(length(grep("My Report", content)), 1)
+      expect_length(grep("My Report", content, fixed = TRUE), 1L)
 
       invisible(file.remove(file.path(temp_dir, filename)))
 
@@ -565,7 +565,7 @@ test_that("fb_make_report() filename and title", {
       expect_true(file.exists(file.path(temp_dir, paste0(filename, ".Rmd"))))
 
       content <- readLines(file.path(temp_dir, paste0(filename, ".Rmd")))
-      expect_equal(length(grep("My Report", content)), 1)
+      expect_length(grep("My Report", content, fixed = TRUE), 1L)
 
       invisible(file.remove(file.path(temp_dir, paste0(filename, ".Rmd"))))
 
@@ -589,7 +589,7 @@ test_that("fb_make_report() filename and title", {
       expect_true(file.exists(file.path(temp_dir, expected_filename)))
 
       content <- readLines(file.path(temp_dir, expected_filename))
-      expect_equal(length(grep(title, content)), 1)
+      expect_length(grep(title, content), 1L)
 
       invisible(file.remove(file.path(temp_dir, expected_filename)))
 
@@ -616,7 +616,7 @@ test_that("fb_make_report() filename and title", {
       expect_true(file.exists(file.path(temp_dir, expected_filename)))
 
       content <- readLines(file.path(temp_dir, expected_filename))
-      expect_equal(length(grep(title, content)), 1)
+      expect_length(grep(title, content), 1L)
 
       invisible(file.remove(file.path(temp_dir, expected_filename)))
 
@@ -642,7 +642,7 @@ test_that("fb_make_report() filename and title", {
       expect_true(file.exists(file.path(temp_dir, filename)))
 
       content <- readLines(file.path(temp_dir, filename))
-      expect_equal(length(grep(title, content)), 1)
+      expect_length(grep(title, content), 1L)
 
       invisible(file.remove(file.path(temp_dir, filename)))
     }
@@ -674,7 +674,7 @@ test_that("fb_make_report() authorship", {
       expect_true(file.exists(file.path(temp_dir, filename)))
 
       content <- readLines(file.path(temp_dir, filename))
-      expect_equal(length(grep("^author: ", content)), 0)
+      expect_length(grep("^title: ", content), 1L)
 
       # Single author provided ----
 
@@ -694,7 +694,7 @@ test_that("fb_make_report() authorship", {
       expect_true(file.exists(file.path(temp_dir, filename)))
 
       content <- readLines(file.path(temp_dir, filename))
-      expect_equal(length(grep("^author: \"Jane Doe\"$", content)), 1)
+      expect_length(grep("^author: \"Jane Doe\"$", content), 1L)
 
       # Multiple authors provided ----
 
@@ -713,7 +713,7 @@ test_that("fb_make_report() authorship", {
       expect_true(file.exists(file.path(temp_dir, filename)))
 
       content <- readLines(file.path(temp_dir, filename))
-      expect_equal(length(grep("^author: \"Doe J. and Doe J.\"$", content)), 1)
+      expect_length(grep("^author: \"Doe J. and Doe J.\"$", content), 1L)
 
       # Multiple authors provided ----
 
@@ -732,7 +732,7 @@ test_that("fb_make_report() authorship", {
       expect_true(file.exists(file.path(temp_dir, filename)))
 
       content <- readLines(file.path(temp_dir, filename))
-      expect_equal(length(grep("^author: \"Doe J., Doe J.\"$", content)), 1)
+      expect_length(grep("^author: \"Doe J., Doe J.\"$", content), 1L)
 
       # Test open file -----------------------------------------------------------
       expect_message(

@@ -57,7 +57,7 @@ test_that("split_species_categories() works", {
   })
 
   expect_true(inherits(res, "list"))
-  expect_equal(length(res), 1L)
+  expect_length(res, 1L)
   expect_equal(nrow(res[[1]]), 3L)
   expect_equal(ncol(res[[1]]), 2L)
 
@@ -67,7 +67,7 @@ test_that("split_species_categories() works", {
   })
 
   expect_true(inherits(res, "list"))
-  expect_equal(length(res), 2L)
+  expect_length(res, 2L)
   expect_true("AAA" %in% names(res))
   expect_true("CCC" %in% names(res))
   expect_equal(nrow(res[[1]]), 1L)
