@@ -158,7 +158,7 @@ test_that("fb_format_species_traits() works", {
     "species",
     c("plant_height", "seed_mass", "sla", "wood_density")
   )
-  
+
   expect_s3_class(species_traits, "data.frame")
   expect_equal(nrow(species_traits), 11L)
   expect_equal(ncol(species_traits), 5L)

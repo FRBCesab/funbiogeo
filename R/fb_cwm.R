@@ -1,28 +1,28 @@
 #' Compute community-weighted means (CWM) of trait values
-#' 
+#'
 #' This function returns the community-weighted mean of provided trait values.
 #' It only works with quantitative traits and will warn you otherwise.
 #' It will remove species that either have `NA` values in the `site_species`
 #' input or `NA` values as their trait in the provided trait object.
-#' 
+#'
 #' The community-weighted mean is a site-based trait mean weighted by the
 #' abundance of the species. It can be written with the following equation:
-#' 
+#'
 #' \deqn{
 #'   \text{CWM}_k = \sum_{i = 1}^S p_{ik} \times t_{ik}
 #' }
-#' 
+#'
 #' with \eqn{\text{CWM}_k} the CWM of site k, \eqn{p_{ik}} the relative
 #' abundance of species \eqn{i} in site \eqn{k}, and \eqn{t_{ik}} the trait of
 #' species \eqn{i} in site \eqn{k}.
-#' 
+#'
 #' @inheritParams fb_get_trait_coverage_by_site
 #'
 #' @return A `data.frame` with sites in rows and the following variables:
 #'   * `site`, the site label,
 #'   * `trait`, the trait label as provided in `species_traits`,
 #'   * and `cwm`, the community-weighted means of quantitative traits values.
-#' 
+#'
 #' @export
 #'
 #' @examples
@@ -30,23 +30,20 @@
 #' head(site_cwm)
 
 fb_cwm <- function(site_species, species_traits) {
-  
   # Check inputs
   check_site_species(site_species)
   check_species_traits(species_traits)
-  
-  
+
   # Get species in common between both matrices
   species <- list_common_species(
-    colnames(drop_column(site_species, "site")), species_traits[["species"]]
+    colnames(drop_column(site_species, "site")),
+    species_traits[["species"]]
   )
-  
-  
+
   # Select quantitative traits for CWM
-  quanti_traits  <- vapply(species_traits, is.numeric, TRUE)
+  quanti_traits <- vapply(species_traits, is.numeric, TRUE)
   quanti_traits[["species"]] <- TRUE
-  species_traits <- species_traits[ , quanti_traits, drop = FALSE]
-  
+  species_traits <- species_traits[, quanti_traits, drop = FALSE]
 
   if (sum(quanti_traits) <= 1) {
     stop(
@@ -54,50 +51,59 @@ fb_cwm <- function(site_species, species_traits) {
       call. = FALSE
     )
   }
-  
-  
+
   # Total sites abundances
-  if (anyNA(site_species[ , species, drop = FALSE])) {
+  if (anyNA(site_species[, species, drop = FALSE])) {
     message(
       "Some species had NA abundances, removing them from CWM computation"
     )
   }
-  
+
   site_species_long <- tidyr::pivot_longer(
-    site_species, -"site", names_to = "species", values_to = "ab_value"
+    site_species,
+    -"site",
+    names_to = "species",
+    values_to = "ab_value"
   )
-  
+
   # Extracting Trait Matrix
   trait_matrix <- species_traits[
-    species_traits[["species"]] %in% species, , drop = FALSE
+    species_traits[["species"]] %in% species,
+    ,
+    drop = FALSE
   ]
-  
+
   if (anyNA(trait_matrix)) {
     message(
       "Some species had NA trait values, removing them from CWM computation"
     )
   }
-  
+
   trait_matrix_long <- tidyr::pivot_longer(
-    trait_matrix, -"species", names_to = "trait_name", values_to = "trait_value"
+    trait_matrix,
+    -"species",
+    names_to = "trait_name",
+    values_to = "trait_value"
   )
-  
-  
+
   site_species_traits <- merge(
-    site_species_long, trait_matrix_long, by = "species"
+    site_species_long,
+    trait_matrix_long,
+    by = "species"
   )
-  
+
   # Compute CWM
   cwm <- by(
     site_species_traits,
     list(site_species_traits[["site"]], site_species_traits[["trait_name"]]),
-      function(x) {
+    function(x) {
       weighted_mean(x$trait_value, x$ab_value, na.rm = TRUE)
-    }, simplify = TRUE
+    },
+    simplify = TRUE
   )
-  
+
   cwm <- as.data.frame.table(cwm)
   colnames(cwm) <- c("site", "trait", "cwm")
-  
+
   return(cwm)
 }

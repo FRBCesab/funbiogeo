@@ -24,14 +24,14 @@ split_pols <- countries_sf |>
 
 # Remove French Guiana
 countries_sf |>
-  st_cast("POLYGON") |> 
+  st_cast("POLYGON") |>
   dplyr::mutate(id = rownames(split_pols)) |>
-  dplyr::filter(id != 44) |> 
+  dplyr::filter(id != 44) |>
   ggplot(aes(fill = id)) +
   geom_sf()
 
 countries_sf_no_gf <- countries_sf |>
-  st_cast("POLYGON") |> 
+  st_cast("POLYGON") |>
   dplyr::mutate(id = rownames(split_pols)) |>
   dplyr::filter(id != 44) |>
   dplyr::select(-id) |>
@@ -47,7 +47,7 @@ woodiv_points <- woodiv_locations |>
 
 woodiv_points |>
   ggplot() +
-  geom_sf(alpha = 1/5, size = 0.5)
+  geom_sf(alpha = 1 / 5, size = 0.5)
 
 
 # Create transects -------------------------------------------------------------
@@ -56,7 +56,7 @@ woodiv_transects <- woodiv_points |>
   slice_sample(n = 6) |>
   summarise(do_union = FALSE) |>
   st_cast("LINESTRING")
-  
+
 woodiv_transects |>
   ggplot() +
   geom_sf(aes(color = country))
@@ -71,4 +71,3 @@ list(
   purrr::iwalk(
     \(obj, name) saveRDS(obj, paste0("inst/extdata/", name, ".rds"))
   )
-

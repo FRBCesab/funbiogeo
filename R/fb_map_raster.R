@@ -1,5 +1,5 @@
 #' Map a Single Raster Layer
-#' 
+#'
 #' This is a helper function to plot a map of an environmental raster.
 #' The raster is plotted as is, with its given coordinate reference system.
 #' The function can provide a background map if the `background` argument is
@@ -67,12 +67,12 @@ fb_map_raster <- function(x, background = FALSE, ...) {
     )
   }
 
-  if (!is.logical(background) && !is.na(background)) {  
+  if (!is.logical(background) && !is.na(background)) {
     stop(
-      "The 'background' argument should either be TRUE or FALSE", 
+      "The 'background' argument should either be TRUE or FALSE",
       call. = FALSE
     )
-  } 
+  }
 
   # Fortify raster
   x <- terra::as.data.frame(x, xy = TRUE)
@@ -80,13 +80,12 @@ fb_map_raster <- function(x, background = FALSE, ...) {
   # Define map extent
   map_extent <- c(range(x$x), range(x$y))
 
-  basemap <- NULL  
+  basemap <- NULL
 
-  if (background) {  
-
+  if (background) {
     # Import World baseline (Natural Earth)
     basemap <- rnaturalearth::ne_countries()
-    basemap <-  ggplot2::geom_sf(data = basemap, fill = NA, color = "white")
+    basemap <- ggplot2::geom_sf(data = basemap, fill = NA, color = "white")
   }
 
   # Plot
@@ -94,12 +93,12 @@ fb_map_raster <- function(x, background = FALSE, ...) {
     ggplot2::geom_raster(
       ggplot2::aes(x = .data$x, y = .data$y, fill = .data[[colnames(x)[3]]])
     ) +
-    basemap + 
-    ggplot2::coord_sf(  
-      xlim = c(map_extent[1], map_extent[2]),  
-      ylim = c(map_extent[3], map_extent[4]),  
-      expand = TRUE  
-    ) +   
+    basemap +
+    ggplot2::coord_sf(
+      xlim = c(map_extent[1], map_extent[2]),
+      ylim = c(map_extent[3], map_extent[4]),
+      expand = TRUE
+    ) +
     ggplot2::labs(x = "Longitude", y = "Latitude") +
     ggplot2::theme_bw() +
     ggplot2::theme(...)
