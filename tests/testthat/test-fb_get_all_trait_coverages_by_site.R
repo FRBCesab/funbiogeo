@@ -53,7 +53,7 @@ test_that("fb_get_all_trait_coverages_by_site() errors with wrong arguments", {
 })
 
 
-test_that("fb_get_all_trait_coverages_by_site() works well with good arguments", {
+test_that("fb_get_all_trait_coverages_by_site() works well with good arg", {
   # With all traits
   expect_silent(
     {

@@ -76,7 +76,7 @@ test_that("fb_make_report() errors", {
         fixed = TRUE
       )
 
-      # File already exists and overwrite is FALSE ---------------------------------
+      # File already exists and overwrite is FALSE -----------------------------
 
       invisible(file.create(file.path(temp_dir, filename)))
 
@@ -98,7 +98,7 @@ test_that("fb_make_report() errors", {
       invisible(file.remove(file.path(temp_dir, filename)))
       invisible(unlink(file.path(temp_dir, "funbiogeo"), recursive = TRUE))
 
-      # Wrong sites x species ----------------------------------------------------
+      # Wrong sites x species --------------------------------------------------
 
       expect_error(
         fb_make_report(
@@ -191,7 +191,7 @@ test_that("fb_make_report() errors", {
         fixed = TRUE
       )
 
-      # Wrong sites x locations --------------------------------------------------
+      # Wrong sites x locations ------------------------------------------------
 
       expect_error(
         fb_make_report(
@@ -236,7 +236,7 @@ test_that("fb_make_report() errors", {
         fixed = TRUE
       )
 
-      # Wrong sites x locations --------------------------------------------------
+      # Wrong sites x locations ------------------------------------------------
 
       expect_error(
         fb_make_report(
@@ -269,7 +269,10 @@ test_that("fb_make_report() errors", {
           site_locations = st_loc,
           species_traits = sp_tr[NULL, ]
         ),
-        "The species x traits object should have at least one row and one column",
+        paste0(
+          "The species x traits object should have at least one",
+          " row and one column"
+        ),
         fixed = TRUE
       )
 
@@ -305,11 +308,11 @@ test_that("fb_make_report() errors", {
         fixed = TRUE
       )
 
-      # Wrong species x categories -----------------------------------------------
+      # Wrong species x categories ---------------------------------------------
 
       # ...
 
-      # Datasets already exists --------------------------------------------------
+      # Datasets already exists ------------------------------------------------
 
       dir.create(file.path(temp_dir, "funbiogeo", "data"), showWarnings = FALSE)
 

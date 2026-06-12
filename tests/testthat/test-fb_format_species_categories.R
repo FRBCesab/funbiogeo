@@ -134,7 +134,8 @@ test_that("fb_format_species_categories() works", {
     "species",
     "genus"
   )
-  expect_true(is.data.frame(species_categories))
+
+  expect_s3_class(species_categories, "data.frame")
   expect_equal(nrow(species_categories), 11L)
   expect_equal(ncol(species_categories), 2L)
   expect_true("species" %in% colnames(species_categories))

@@ -2,7 +2,7 @@
 #' 
 #' @description
 #' Selects sites (rows) for which the proportion of species present
-#' (distribution value higher than 0 and non-NA) is higher than the user-defined 
+#' (distribution value higher than 0 and non-NA) is higher than the user-defined
 #' threshold.
 #' 
 #' @param threshold_species_proportion a numeric of length 1 between 0 and 1.

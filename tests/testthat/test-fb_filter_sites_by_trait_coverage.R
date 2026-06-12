@@ -170,7 +170,7 @@ test_that("fb_filter_sites_by_trait_coverage() errors with wrong input", {
 
 # Occurrence matrix ----------------------------------------------------------
 
-test_that("fb_filter_sites_by_trait_coverage() works with occurrence matrices", {
+test_that("fb_filter_sites_by_trait_coverage() works with occurrence matrix", {
   ## Only numeric trait
   # Working
   expect_silent(

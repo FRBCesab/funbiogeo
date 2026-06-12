@@ -239,7 +239,8 @@ test_that("fb_format_site_locations() works with valid input", {
     "longitude",
     "latitude"
   )
-  expect_true(is(site_locations, "sf"))
+
+  expect_s3_class(site_locations, "sf")
   expect_equal(nrow(site_locations), 696L)
   expect_equal(ncol(site_locations), 2L)
   expect_true("site" %in% colnames(site_locations))
