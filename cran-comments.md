@@ -1,12 +1,12 @@
 ## Test environments
 
 * Local
-  * Fedora Linux 6.19.12-200.fc43.x86_64 (R 4.6.0)
+  * Fedora Linux 7.0.14-201.fc44.x86_64 (R 4.6.0)
   * Debian 13 Linux 6.12.74+deb13+1-amd64 (R 4.6.0)
   * Windows 11 26200 (R 4.4.2)
   
 * GitHub Actions
-  * macOS 15.7.4 24G517, R-release (R 4.6.0)
+  * macOS 15.7.7 24G720, R-release (R 4.6.0)
   * Windows Server 2025 10.0.26100, R-release (R 4.6.0)
   * Ubuntu 24.04.4 LTS, R-devel, R-release (R 4.6.0), R-oldrel
 
@@ -14,7 +14,7 @@
 ## R CMD check results
 
 ```
-0 errors | 0 warnings | 1 notes
+0 errors | 0 warnings | 1 note
 ```
 
 * NOTES

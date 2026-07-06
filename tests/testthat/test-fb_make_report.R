@@ -746,7 +746,7 @@ test_that("fb_make_report() authorship", {
       content <- readLines(file.path(temp_dir, filename))
       expect_length(grep("^author: \"Doe J., Doe J.\"$", content), 1L)
 
-      # Test open file -----------------------------------------------------------
+      # Test open file ---------------------------------------------------------
       expect_message(
         fb_make_report(
           path = temp_dir,

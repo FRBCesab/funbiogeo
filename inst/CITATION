@@ -1,0 +1,10 @@
+citHeader("To cite `funbiogeo` in publications use:")
+
+bibentry(
+  bibtype = "Manual",
+  title = "{funbiogeo}: {S}treamlining {F}unctional {B}iogeography {A}nalyses",
+  author = c(person("Casajus N."), person("Grenié M.")),
+  year = "2026",
+  note = "R package version 0.0.0.9000",
+  url = "https://github.com/frbcesab/funbiogeo"
+)
