@@ -5,7 +5,10 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/FRBCesab/funbiogeo/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/FRBCesab/funbiogeo/actions/workflows/R-CMD-check.yaml)
+[![R CMD
+check](https://github.com/FRBCesab/funbiogeo/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/FRBCesab/funbiogeo/actions/workflows/R-CMD-check.yaml)
+[![Website
+deployment](https://github.com/FRBCesab/funbiogeo/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/FRBCesab/funbiogeo/actions/workflows/pkgdown.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/FRBCesab/funbiogeo/graph/badge.svg?token=JPXXVNMAJ0)](https://app.codecov.io/gh/FRBCesab/funbiogeo)
 [![License: GPL
