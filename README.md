@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# funbiogeo <a href="https://frbcesab.github.io/funbiogeo"><img src="man/figures/logo.png" align="right" height="139" alt="funbiogeo website" /></a>
+# funbiogeo <a href="https://frbcesab.github.io/funbiogeo/"><img src="man/figures/logo.png" align="right" height="139" alt="funbiogeo website" /></a>
 
 <!-- badges: start -->
 
@@ -145,7 +145,7 @@ through:
 
 > Casajus N & Grenié M (2026) *funbiogeo: Streamlining Functional
 > Biogeography Analyses*. R package version 0.0.1,
-> <https://github.com/frbcesab/funbiogeo>.
+> <https://github.com/frbcesab/funbiogeo/>.
 
 You can also run:
 
@@ -186,4 +186,4 @@ Euro-Mediterranean trees. Sci Data 8, 89 (2021). DOI:
 Violle C, Reich, PB Pacala SW, *et al.* (2014) The emergence and promise
 of functional biogeography. *Proceedings of the National Academy of
 Sciences*, **111**, 13690-13696. DOI:
-[10.1073/pnas.1415442111](https://doi.org/10.1073/pnas.1415442111)
+[10.1073/pnas.1415442111](https://www.pnas.org/doi/full/10.1073/pnas.1415442111)

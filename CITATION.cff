@@ -9,7 +9,7 @@ type: software
 license: GPL-2.0-or-later
 title: 'funbiogeo: Streamlining Functional Biogeography Analyses'
 version: 0.0.1
-abstract: Helps users with analyses in functional biogeogeography by loading and combining
+abstract: Helps users with analyses in functional biogeography by loading and combining
   data, computing trait coverage, as well as computing functional diversity indices,
   drawing maps, correlating them with the environment, and upscaling assemblages.
 authors:

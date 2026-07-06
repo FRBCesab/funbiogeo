@@ -2,7 +2,7 @@
   "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "identifier": "funbiogeo",
-  "description": "Helps users with analyses in functional biogeogeography by loading and combining data, computing trait coverage, as well as computing functional diversity indices, drawing maps, correlating them with the environment, and upscaling assemblages.",
+  "description": "Helps users with analyses in functional biogeography by loading and combining data, computing trait coverage, as well as computing functional diversity indices, drawing maps, correlating them with the environment, and upscaling assemblages.",
   "name": "funbiogeo: Streamlining Functional Biogeography Analyses",
   "relatedLink": "https://frbcesab.github.io/funbiogeo/",
   "codeRepository": "https://github.com/frbcesab/funbiogeo",
@@ -346,7 +346,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "66313.855KB",
+  "fileSize": "66313.914KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",

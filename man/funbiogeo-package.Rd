@@ -4,11 +4,11 @@
 \name{funbiogeo-package}
 \alias{funbiogeo}
 \alias{funbiogeo-package}
-\title{funbiogeo: Functional Biogeography Analyses}
+\title{funbiogeo: Streamlining Functional Biogeography Analyses}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Helps users with analyses in functional biogeogeography by loading and combining data, computing trait coverage, as well as computing functional diversity indices, drawing maps, correlating them with the environment, and upscaling assemblages.
+Helps users with analyses in functional biogeography by loading and combining data, computing trait coverage, as well as computing functional diversity indices, drawing maps, correlating them with the environment, and upscaling assemblages.
 }
 \seealso{
 Useful links:
