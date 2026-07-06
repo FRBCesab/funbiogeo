@@ -1,6 +1,6 @@
 Package: funbiogeo
 Type: Package
-Title: Functional Biogeography Analyses
+Title: Streamlining Functional Biogeography Analyses
 Version: 0.0.0.9000
 Authors@R:
     c(person(given   = "Nicolas",
