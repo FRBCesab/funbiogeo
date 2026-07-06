@@ -117,7 +117,7 @@ See more features of `funbiogeo` in the [vignettes of the package](https://frbce
 At the moment, `funbiogeo` doesn't offer a companion paper nor is it on CRAN.
 But if you happen to use it in your paper you can cite the package through:
 
-> Casajus N & Grenié M (2026) _funbiogeo: Streamlining Functional Biogeography Analyses_. R package version 0.0.0.9000, <https://github.com/frbcesab/funbiogeo>.
+> Casajus N & Grenié M (2026) _funbiogeo: Streamlining Functional Biogeography Analyses_. R package version 0.0.1, <https://github.com/frbcesab/funbiogeo>.
 
 You can also run:
 

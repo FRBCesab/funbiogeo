@@ -3,18 +3,18 @@
   "@type": "SoftwareSourceCode",
   "identifier": "funbiogeo",
   "description": "Helps users with analyses in functional biogeogeography by loading and combining data, computing trait coverage, as well as computing functional diversity indices, drawing maps, correlating them with the environment, and upscaling assemblages.",
-  "name": "funbiogeo: Functional Biogeography Analyses",
+  "name": "funbiogeo: Streamlining Functional Biogeography Analyses",
   "relatedLink": "https://frbcesab.github.io/funbiogeo/",
   "codeRepository": "https://github.com/frbcesab/funbiogeo",
   "issueTracker": "https://github.com/frbcesab/funbiogeo/issues",
   "license": "https://spdx.org/licenses/GPL-2.0",
-  "version": "0.0.0.9000",
+  "version": "0.0.1",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.6.0 (2026-04-24)",
+  "runtimePlatform": "R version 4.6.1 (2026-06-24)",
   "author": [
     {
       "@type": "Person",
@@ -346,9 +346,28 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "67144.823KB",
+  "fileSize": "66313.855KB",
+  "citation": [
+    {
+      "@type": "SoftwareSourceCode",
+      "datePublished": "2026",
+      "author": [
+        {
+          "@type": "Organization",
+          "name": "Casajus N."
+        },
+        {
+          "@type": "Organization",
+          "name": "Grenié M."
+        }
+      ],
+      "name": "{funbiogeo}: {S}treamlining {F}unctional {B}iogeography {A}nalyses",
+      "url": "https://github.com/frbcesab/funbiogeo",
+      "description": "R package version 0.0.1"
+    }
+  ],
   "releaseNotes": "https://github.com/frbcesab/funbiogeo/blob/main/NEWS.md",
   "readme": "https://github.com/FRBCesab/funbiogeo/blob/main/README.md",
-  "contIntegration": ["https://github.com/FRBCesab/funbiogeo/actions/workflows/R-CMD-check.yaml", "https://app.codecov.io/gh/FRBCesab/funbiogeo"],
+  "contIntegration": ["https://github.com/FRBCesab/funbiogeo/actions/workflows/R-CMD-check.yaml", "https://github.com/FRBCesab/funbiogeo/actions/workflows/pkgdown.yaml", "https://app.codecov.io/gh/FRBCesab/funbiogeo"],
   "keywords": ["r", "package", "functional-biogeography", "functional-diversity", "functional-trait"]
 }
