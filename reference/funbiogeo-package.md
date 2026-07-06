@@ -1,6 +1,6 @@
-# funbiogeo: Functional Biogeography Analyses
+# funbiogeo: Streamlining Functional Biogeography Analyses
 
-Helps users with analyses in functional biogeogeography by loading and
+Helps users with analyses in functional biogeography by loading and
 combining data, computing trait coverage, as well as computing
 functional diversity indices, drawing maps, correlating them with the
 environment, and upscaling assemblages.
