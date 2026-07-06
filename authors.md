@@ -10,16 +10,16 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/frbcesab/funbiogeo/blob/main/DESCRIPTION)
+[`inst/CITATION`](https://github.com/frbcesab/funbiogeo/blob/main/inst/CITATION)
 
-Casajus N, Grenié M (2026). *funbiogeo: Functional Biogeography
-Analyses*. R package version 0.0.0.9000,
-<https://frbcesab.github.io/funbiogeo/>.
+Casajus N., Grenié M. (2026). *funbiogeo: Streamlining Functional
+Biogeography Analyses*. R package version 0.0.0.9000,
+<https://github.com/frbcesab/funbiogeo>.
 
     @Manual{,
-      title = {funbiogeo: Functional Biogeography Analyses},
-      author = {Nicolas Casajus and Matthias Grenié},
+      title = {{funbiogeo}: {S}treamlining {F}unctional {B}iogeography {A}nalyses},
+      author = {{Casajus N.} and {Grenié M.}},
       year = {2026},
       note = {R package version 0.0.0.9000},
-      url = {https://frbcesab.github.io/funbiogeo/},
+      url = {https://github.com/frbcesab/funbiogeo},
     }

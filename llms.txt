@@ -1,4 +1,4 @@
-# funbiogeo - Streamlining functional biogeography analyses
+# funbiogeo
 
 - [Overview](#overview)
 - [Features](#features)
@@ -58,7 +58,7 @@ development version from [R-universe](https://r-universe.dev) as follow:
 
 ``` r
 
-install.packages('funbiogeo', repos = c('https://frbcesab.r-universe.dev', 'https://cloud.r-project.org'))
+install.packages("funbiogeo", repos = c("https://frbcesab.r-universe.dev", "https://cloud.r-project.org"))
 ```
 
 ## First steps
@@ -127,8 +127,8 @@ At the moment, `funbiogeo` doesn’t offer a companion paper nor is it on
 CRAN. But if you happen to use it in your paper you can cite the package
 through:
 
-> Casajus N & Grenié M (2026). *funbiogeo: Functional Biogeography
-> Analyses*. R package version 0.0.0.9000,
+> Casajus N & Grenié M (2026) *funbiogeo: Streamlining Functional
+> Biogeography Analyses*. R package version 0.0.0.9000,
 > <https://github.com/frbcesab/funbiogeo>.
 
 You can also run:
