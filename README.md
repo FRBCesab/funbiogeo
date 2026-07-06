@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# funbiogeo - Streamlining functional biogeography analyses <img src="man/figures/logo.png" align="right" style="float:right; height:240px;"/>
+# funbiogeo - Streamlining functional biogeography analyses <a href="https://frbcesab.github.io/funbiogeo"><img src="man/figures/logo.png" align="right" height="139" alt="funbiogeo website" /></a>
 
 <!-- badges: start -->
 
@@ -74,7 +74,7 @@ For the moment `funbiogeo` is not on CRAN but you can install the
 development version from [R-universe](https://r-universe.dev) as follow:
 
 ``` r
-install.packages('funbiogeo', repos = c('https://frbcesab.r-universe.dev', 'https://cloud.r-project.org'))
+install.packages("funbiogeo", repos = c("https://frbcesab.r-universe.dev", "https://cloud.r-project.org"))
 ```
 
 ## First steps
