@@ -2,9 +2,11 @@
 #' Create an Hexagonal Sticker for the Package
 #'
 
+# Packages ---------------------------------------------------------------------
 library("magrittr")
 
-## Robinson projection ----
+
+# Robinson projection ----------------------------------------------------------
 
 prj <- paste0(
   "+proj=robin +lon_0=0 +x_0=0 +y_0=0 ",
@@ -13,47 +15,52 @@ prj <- paste0(
 )
 
 
-## Get World map layer ----
+# Get World map layer ----------------------------------------------------------
 
 world <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf")
 world <- subset(
   sf::st_transform(world, prj),
-  region_wb != "Antarctica",
+  region_wb != "Antarctica" & 
+  continent != "Seven seas (open ocean)" & 
   region_un != "Seven seas (open ocean)"
 )
 
+# Simplify map
+world_simp <- world |>
+  sf::st_cast("POLYGON")
 
-## Raster ----
+world_simp$area <- sf::st_area(world_simp)
+
+world_simp <- world_simp |>
+  dplyr::filter(as.numeric(area) > 1e10)
+
+world_simp <- world_simp |>
+  rmapshaper::ms_simplify(keep = 0.015)
+
+
+## Temperature Raster ----------------------------------------------------------
 
 ras <- geodata::worldclim_global("tavg", 10, here::here("inst", "sticker"))
 
 # Keep July Mean Temperature as target raster
 target_raster <- ras[[7]]
 
-sf_rast <- target_raster %>%
-  terra::as.polygons() %>%
-  sf::st_as_sf() %>%
-  sf::st_transform(prj) %>%
-  sf::st_filter(world)
+sf_rast <- target_raster |>
+  terra::project(prj) |>
+  terra::mask(world_simp) |>
+  terra::as.polygons() |>
+  sf::st_as_sf()
 
 
-## Silhouette ----
-
-sil <- rphylopic::image_data(
-  "f20144d1-d243-4cca-aba2-24bce6c81d42",
-  size = 512
-)[[1]]
-
-
-## Map ----
+# Map --------------------------------------------------------------------------
 
 p <- ggplot2::ggplot() +
 
   ggplot2::geom_sf(
-    data = world,
+    data = world_simp,
     fill = "#0D3E6F",
-    col = "#005094",
-    lwd = 0.05
+    col = "white",
+    linewidth = 0.5
   ) +
   ggplot2::geom_sf(
     data = sf_rast,
@@ -69,56 +76,54 @@ p <- ggplot2::ggplot() +
   ) +
 
   rphylopic::add_phylopic(
-    sil,
-    1,
-    0,
-    -6000000,
-    ysize = 750000,
-    color = "#266E8C"
+    uuid = "f20144d1-d243-4cca-aba2-24bce6c81d42",
+    x = -2000000,
+    y = -6000000,
+    height = 1000000,
+    fill = "#266E8C"
   ) +
   rphylopic::add_phylopic(
-    sil,
-    1,
-    4000000,
-    -6000000,
-    ysize = 1500000,
-    color = "#55C968"
+    uuid = "f20144d1-d243-4cca-aba2-24bce6c81d42",
+    x = 1000000,
+    y = -6000000,
+    height = 1750000,
+    fill = "#55C968"
   ) +
   rphylopic::add_phylopic(
-    sil,
-    1,
-    9000000,
-    -6000000,
-    ysize = 3000000,
-    color = "#FFE740"
+    uuid = "f20144d1-d243-4cca-aba2-24bce6c81d42",
+    x = 5000000,
+    y = -6000000,
+    height = 2500000,
+    fill = "#FFE740"
   ) +
 
   ggplot2::geom_segment(
-    ggplot2::aes(x = -500000, y = -7900000, xend = 10550000, yend = -7900000),
+    ggplot2::aes(x = -2500000, y = -4400000, xend = 7050000, yend = -4400000),
     arrow = ggplot2::arrow(
-      length = ggplot2::unit(0.05, "cm"),
+      length = ggplot2::unit(0.1, "cm"),
       ends = "last",
       type = "closed"
     ),
-    lwd = 0.1,
+    linewidth = 0.5,
     color = "white"
   ) +
-  ggplot2::scale_fill_viridis_c() +
+  ggplot2::scale_fill_viridis_b() +
 
   ggplot2::theme_void() +
   ggpubr::theme_transparent() +
   ggplot2::theme(legend.position = "none")
 
+p
 
 ## Export Sticker ----
 
-hexSticker::sticker(
+s <- hexSticker::sticker(
   subplot = p,
   package = "funbiogeo",
   filename = here::here("man", "figures", "logo.png"),
   dpi = 2400,
 
-  p_size = 140.0, # Title
+  p_size = 150.0, # Title
   u_size = 32.0, # URL
   p_family = "Aller_Rg",
 
