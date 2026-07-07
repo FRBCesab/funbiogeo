@@ -147,3 +147,151 @@ s <- hexSticker::sticker(
   l_width = 4,
   l_height = 4
 )
+
+# Try alternatives -------------------------------------------------------------
+
+# not black bg
+hexSticker::sticker(
+  subplot = p,
+  package = "funbiogeo",
+  filename = here::here("man", "figures", "logo_less_black.png"),
+  dpi = 2400,
+  
+  p_size = 150.0, # Title
+  u_size = 32.0, # URL
+  p_family = "Aller_Rg",
+  
+  p_color = "#ffffff", # Title
+  h_fill = "#222", # Background
+  h_color = "#226D88", # Border
+  u_color = "#ffffff", # URL
+  
+  p_x = 1.00, # Title
+  p_y = 1.50, # Title
+  s_x = 1.00, # Subplot
+  s_y = 0.90, # Subplot
+  
+  s_width = 1.8, # Subplot
+  s_height = 1.8, # Subplot
+  
+  url = "https://github.com/frbcesab/",
+  
+  spotlight = FALSE,
+  l_alpha = 0.10,
+  l_width = 4,
+  l_height = 4
+)
+
+# White background
+
+p_white_bg = p
+p_white_bg@layers$geom_sf$aes_params$colour = "#222"
+p_white_bg@layers$geom_segment$aes_params$colour = "#222"
+
+hexSticker::sticker(
+  subplot = p_white_bg,
+  package = "funbiogeo",
+  filename = here::here("man", "figures", "logo_white_bg.png"),
+  dpi = 2400,
+  
+  p_size = 150.0, # Title
+  u_size = 32.0, # URL
+  p_family = "Aller_Rg",
+  
+  p_color = "#222", # Title
+  h_fill = "#fff", # Background
+  h_color = "#226D88", # Border
+  u_color = "#222", # URL
+  
+  p_x = 1.00, # Title
+  p_y = 1.50, # Title
+  s_x = 1.00, # Subplot
+  s_y = 0.90, # Subplot
+  
+  s_width = 1.8, # Subplot
+  s_height = 1.8, # Subplot
+  
+  url = "https://github.com/frbcesab/",
+  
+  spotlight = FALSE,
+  l_alpha = 0.10,
+  l_width = 4,
+  l_height = 4
+)
+
+
+# Sand background (#EEE8DA)
+p_sand_bg = p
+p_sand_bg@layers$geom_sf$aes_params$colour = "#333"
+p_sand_bg@layers$geom_segment$aes_params$colour = "#333"
+
+hexSticker::sticker(
+  subplot = p_sand_bg,
+  package = "funbiogeo",
+  filename = here::here("man", "figures", "logo_sand_bg.png"),
+  dpi = 2400,
+  
+  p_size = 150.0, # Title
+  u_size = 32.0, # URL
+  p_family = "Aller_Rg",
+  
+  p_color = "#333", # Title
+  h_fill = "#EEE8DA", # Background
+  h_color = "#226D88", # Border
+  u_color = "#333", # URL
+  
+  p_x = 1.00, # Title
+  p_y = 1.50, # Title
+  s_x = 1.00, # Subplot
+  s_y = 0.90, # Subplot
+  
+  s_width = 1.8, # Subplot
+  s_height = 1.8, # Subplot
+  
+  url = "https://github.com/frbcesab/",
+  
+  spotlight = FALSE,
+  l_alpha = 0.10,
+  l_width = 4,
+  l_height = 4
+)
+
+
+# Other colour scale
+p_inferno = p_white_bg +
+  ggplot2::scale_fill_viridis_b(option = "inferno")
+
+p_inferno@layers$geom_phylopic$aes_params$fill = "#060418FF"
+p_inferno@layers$geom_phylopic...4$aes_params$fill = "#BB3754FF"
+p_inferno@layers$geom_phylopic...5$aes_params$fill = "#F1F17AFF"
+
+hexSticker::sticker(
+  subplot = p_inferno,
+  package = "funbiogeo",
+  filename = here::here("man", "figures", "logo_inferno.png"),
+  dpi = 2400,
+  
+  p_size = 150.0, # Title
+  u_size = 32.0, # URL
+  p_family = "Aller_Rg",
+  
+  p_color = "#222", # Title
+  h_fill = "#fff", # Background
+  h_color = "#BB3754FF", # Border
+  u_color = "#222", # URL
+  
+  p_x = 1.00, # Title
+  p_y = 1.50, # Title
+  s_x = 1.00, # Subplot
+  s_y = 0.90, # Subplot
+  
+  s_width = 1.8, # Subplot
+  s_height = 1.8, # Subplot
+  
+  url = "https://github.com/frbcesab/",
+  
+  spotlight = FALSE,
+  l_alpha = 0.10,
+  l_width = 4,
+  l_height = 4
+)
