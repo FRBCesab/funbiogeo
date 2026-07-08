@@ -100,15 +100,15 @@ package](https://frbcesab.github.io/funbiogeo/articles/)
 
 `funbiogeo` provides five vignettes to explain its functioning:
 
-- A [“Get started”
-  vignette](https://frbcesab.github.io/funbiogeo/articles/funbiogeo.html)
+- An [introduction to
+  `funbiogeo`](https://frbcesab.github.io/funbiogeo/articles/introduction.html)
   that describes its core features and guide you through a typical
   analysis.
 - A vignette on [all diagnostic
   plots](https://frbcesab.github.io/funbiogeo/articles/diagnostic-plots.html)
   provided in the package, which details how to use each plotting
   function and how to interpret their output.
-- A vignette on [the data
+- A vignette on the [data
   format](https://frbcesab.github.io/funbiogeo/articles/long-format.html)
   that `funbiogeo` needs, which shows you the use of specific functions
   to format your data to work well within `funbiogeo`.
@@ -117,7 +117,7 @@ package](https://frbcesab.github.io/funbiogeo/articles/)
   which explains how to leverage `funbiogeo` to aggregate automatically
   your data to coarser grain and use them in further analyses.
 - A vignette focusing on [special
-  cases](https://frbcesab.github.io/funbiogeo/articles/special_cases.html),
+  cases](https://frbcesab.github.io/funbiogeo/articles/special-cases.html),
   e.g. how to work with categorical traits, or how to consider
   intraspefic trait variations.
 
@@ -301,9 +301,11 @@ Aggregate your site data over a coarser spatial grid
   funbiogeo](https://frbcesab.github.io/funbiogeo/articles/diagnostic-plots.md):
 - [Get started with
   funbiogeo](https://frbcesab.github.io/funbiogeo/articles/funbiogeo.md):
+- [Introduction to
+  funbiogeo](https://frbcesab.github.io/funbiogeo/articles/introduction.md):
 - [Formatting your
   data](https://frbcesab.github.io/funbiogeo/articles/long-format.md):
 - [Special Cases in
-  funbiogeo](https://frbcesab.github.io/funbiogeo/articles/special_cases.md):
+  funbiogeo](https://frbcesab.github.io/funbiogeo/articles/special-cases.md):
 - [Upscaling your data: aggregating at coarser
   scales](https://frbcesab.github.io/funbiogeo/articles/upscaling.md):
