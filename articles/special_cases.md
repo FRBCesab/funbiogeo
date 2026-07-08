@@ -1,4 +1,4 @@
-# Special cases in funbiogeo
+# Special Cases in funbiogeo
 
 ``` r
 
@@ -366,7 +366,7 @@ perfect representation of the actual sites, but it shows the
 capabilities of funbiogeo.
 
 Similar to the [upscaling
-vignette](https://frbcesab.github.io/funbiogeo/articles/vignettes/upscaling.Rmd),
+vignette](https://frbcesab.github.io/funbiogeo/articles/upscaling.Rmd),
 the map functions can also accommodate larger polygons, for example by
 aggregating sites per country.
 
@@ -402,5 +402,5 @@ fb_map_site_traits_completeness(
 Now all of the sites are merged as a single big polygon.
 
 Have fun with `funbiogeo` and if you have a question, an issue, or a
-suggestion, make sure to fill a report [on
-GitHub](https://github.com/FRBCesab/funbiogeo/issues/new).
+suggestion, make sure to fill a report on
+[GitHub](https://github.com/FRBCesab/funbiogeo/issues/new).
