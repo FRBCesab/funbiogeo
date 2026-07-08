@@ -26,11 +26,19 @@
 There are currently no downstream dependencies for this package.
 
 
-## Message for the reviewer
+## Resubmission comments
 
-> Hello,
->
-> This is the first version of the `funbiogeo` that we are submitting to CRAN.
-> Thank you very much for taking the time to review our submission.
->
-> Nicolas Casajus & Matthias Grenié
+Hi,
+
+Thanks for reporting this error:
+
+```
+Found the following (possibly) invalid file URI:
+  URI: vignettes/upscaling.Rmd
+    From: inst/doc/special_cases.html
+```
+
+This new submission fixes this issue.
+
+Best,
+Nicolas
