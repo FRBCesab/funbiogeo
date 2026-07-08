@@ -17,8 +17,16 @@
 0 errors | 0 warnings | 1 note
 ```
 
-* NOTES
-  * New submission for Nicolas Casajus <nicolas.casajus@fondationbiodiversite.fr>
+* Note
+
+Maintainer: 'Nicolas Casajus <nicolas.casajus@fondationbiodiversite.fr>'
+
+New submission
+
+Possibly misspelled words in DESCRIPTION:
+  Biogeography (3:32)
+  biogeography (16:54)
+  upscaling (19:22)
 
 
 ## Downstream dependencies
@@ -30,7 +38,9 @@ There are currently no downstream dependencies for this package.
 
 Hi,
 
-Thanks for reporting this error:
+This resubmission fixes these two notes:
+
+- Invalid URI
 
 ```
 Found the following (possibly) invalid file URI:
@@ -38,7 +48,12 @@ Found the following (possibly) invalid file URI:
     From: inst/doc/special_cases.html
 ```
 
-This new submission fixes this issue.
+- Checktime > 10 min
+
+All vignettes have been removed from the build but are still available on the 
+package website. A new vignette is shipped with the package and provides links
+to the official documentation.
+
 
 Best,
 Nicolas
