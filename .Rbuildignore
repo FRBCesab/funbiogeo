@@ -1,6 +1,6 @@
 ^.DS_Store$
 ^LICENSE\.md$
-^funbiogeo.Rproj$
+^funbiogeo\.Rproj$
 ^README\.Rmd$
 ^README.html$
 ^.*\.Rproj$
@@ -11,7 +11,7 @@
 ^pkgdown$
 ^CODE_OF_CONDUCT\.md$
 ^inst/sticker*
-^inst/extdata/raw_mammals_data_full.csv$
+^inst/extdata/raw_mammals_data_full\.csv$
 ^inst/misc$
 ^CITATION\.cff$
 ^CONTRIBUTING\.md$
@@ -19,3 +19,8 @@
 ^funbiogeo$
 ^cran-comments\.md$
 ^CRAN-SUBMISSION$
+^vignettes/diagnostic-plots\.Rmd$
+^vignettes/long-format\.Rmd$
+^vignettes/special-cases\.Rmd$
+^vignettes/upscaling\.Rmd$
+^vignettes/introduction\.Rmd$
