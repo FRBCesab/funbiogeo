@@ -59,3 +59,22 @@ reference:
 - title: Pre-analysis R Markdown report
   contents:
     - fb_make_report
+
+navbar:
+  structure:
+    left:  [reference, articles, tutorials, news]
+    right: [search, github]
+  components:
+    articles:
+      text: Articles
+      menu:
+      - text: Introduction to funbiogeo
+        href: articles/introduction.html
+      - text: Diagnostic plots
+        href: articles/diagnostic-plots.html
+      - text: Formatting your data
+        href: articles/long-format.html
+      - text: Upscaling your data
+        href: articles/upscaling.html
+      - text: Special cases
+        href: articles/special-cases.html
