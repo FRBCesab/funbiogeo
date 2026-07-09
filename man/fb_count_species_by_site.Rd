@@ -28,3 +28,10 @@ provided. For example, a site could contain only 20\% of all species provided.
 species_coverage_by_site <- fb_count_species_by_site(woodiv_site_species)
 head(species_coverage_by_site)
 }
+\seealso{
+Other {count functions}:
+\code{\link[=fb_count_sites_by_species]{fb_count_sites_by_species()}},
+\code{\link[=fb_count_species_by_trait]{fb_count_species_by_trait()}},
+\code{\link[=fb_count_traits_by_species]{fb_count_traits_by_species()}}
+}
+\concept{{count functions}}
