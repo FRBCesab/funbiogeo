@@ -4,7 +4,7 @@
 - [Features](#features)
 - [Installation](#installation)
 - [First steps](#first-steps)
-- [Long-form documentation (=vignettes)](#long-documentation)
+- [Long-form documentation (=vignettes)](#long-form-documentation)
 - [Citation](#citation)
 - [Contributing](#contributing)
 - [Acknowledgments](#acknowledgments)
@@ -18,11 +18,11 @@ species’ traits, by loading and combining data, exploring the
 relationships between traits and their availability trait coverage,
 providing many diagnostic plots to understand how to filter them,
 producing maps, correlating them with the environment, and helping to
-aggregate data at different scales It is aimed at first-timers of
+aggregate data at different scales. It is aimed at first-timers of
 functional biogeography as well as more experienced users who want to
 obtain quick and easy exploratory plots.
 
-Below is a quick introduction to the main features of `funbiogeo`, if
+Below is a quick introduction to the main features of `funbiogeo`. If
 you want some more details about them, check [our
 vignettes](#long-form-documentation).
 
@@ -40,11 +40,11 @@ vignettes](#long-form-documentation).
 - Nice default plotting functions fully compatible with the outputs of
   functional diversity packages (`betapart`, `fundiversity`, `hillR`,
   `mFD`, etc.),
-- A publication-ready automated standardized report that provide
+- A publication ready, automated, standardized report that provides
   analyses and plots of your data,
 - Functions to easily “upscale” (=aggregate) your data to coarser
   spatial resolutions whatever the type of aggregation geometry you want
-  (regular grid, irregular polygons, and rasters).
+  (regular grids, irregular polygons, and rasters).
 
 ![Naming scheme of available functions in
 funbiogeo](inst/misc/functions_scheme.drawio.png)
@@ -54,7 +54,8 @@ Naming scheme of available functions in funbiogeo
 ## Installation
 
 For the moment `funbiogeo` is not on CRAN but you can install the
-development version from [R-universe](https://r-universe.dev) as follow:
+development version from [R-universe](https://r-universe.dev) as
+follows:
 
 ``` r
 
@@ -64,8 +65,8 @@ install.packages("funbiogeo", repos = c("https://frbcesab.r-universe.dev", "http
 ## First steps
 
 This section will show you some useful functions from `funbiogeo`. For a
-longer introduction please refer to the [“Get started”
-vignette](https://frbcesab.github.io/funbiogeo/articles/funbiogeo.html).
+longer introduction, please refer to the [“Introduction”
+vignette](https://frbcesab.github.io/funbiogeo/articles/introduction.html).
 
 The package contains default example data named `woodiv_traits`,
 `woodiv_site_species`, and `woodiv_locations` all from the WOODIV
@@ -93,8 +94,8 @@ fb_map_site_traits_completeness(woodiv_locations, woodiv_site_species, woodiv_tr
 
 ![](reference/figures/README-plot-site-tr-complete-1.png)
 
-See more features of `funbiogeo` in the [vignettes of the
-package](https://frbcesab.github.io/funbiogeo/articles/)
+All of the features of `funbiogeo` are presented through the [vignettes
+of the package](https://frbcesab.github.io/funbiogeo/articles/).
 
 ## Long-form documentation
 
@@ -102,7 +103,7 @@ package](https://frbcesab.github.io/funbiogeo/articles/)
 
 - An [introduction to
   `funbiogeo`](https://frbcesab.github.io/funbiogeo/articles/introduction.html)
-  that describes its core features and guide you through a typical
+  that describes its core features and guides you through a typical
   analysis.
 - A vignette on [all diagnostic
   plots](https://frbcesab.github.io/funbiogeo/articles/diagnostic-plots.html)
@@ -114,18 +115,19 @@ package](https://frbcesab.github.io/funbiogeo/articles/)
   to format your data to work well within `funbiogeo`.
 - A vignette on [data
   upscaling](https://frbcesab.github.io/funbiogeo/articles/upscaling.html)
-  which explains how to leverage `funbiogeo` to aggregate automatically
-  your data to coarser grain and use them in further analyses.
+  that illustrates how to leverage `funbiogeo` to automatically
+  aggregate your data to a coarser resolution and use it in subsequent
+  analyses.
 - A vignette focusing on [special
   cases](https://frbcesab.github.io/funbiogeo/articles/special-cases.html),
-  e.g. how to work with categorical traits, or how to consider
-  intraspefic trait variations.
+  e.g., how to work with categorical traits, or how to consider
+  intraspecific trait variations.
 
 ## Citation
 
 At the moment, `funbiogeo` doesn’t offer a companion paper nor is it on
-CRAN. But if you happen to use it in your paper you can cite the package
-through:
+CRAN. But if you happen to use it in your paper, you can cite the
+package through:
 
 > Casajus N & Grenié M (2026) *funbiogeo: Streamlining Functional
 > Biogeography Analyses*. R package version 0.0.1,
@@ -157,7 +159,7 @@ working group
 [FREE](https://www.fondationbiodiversite.fr/en/the-frb-in-action/programs-and-projects/le-cesab/free/)
 and its followup [FREE
 2](https://www.fondationbiodiversite.fr/en/the-frb-in-action/programs-and-projects/le-cesab/free-2/)
-that aims to advance the concept of functional rarity and examine the
+which aims to advance the concept of functional rarity and examine the
 causes and consequences of functional rarity from local to global
 scales.
 

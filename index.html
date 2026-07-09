@@ -75,7 +75,7 @@
 <li><a href="#features">Features</a></li>
 <li><a href="#installation">Installation</a></li>
 <li><a href="#first-steps">First steps</a></li>
-<li><a href="#long-documentation">Long-form documentation (=vignettes)</a></li>
+<li><a href="#long-form-documentation">Long-form documentation (=vignettes)</a></li>
 <li><a href="#citation">Citation</a></li>
 <li><a href="#contributing">Contributing</a></li>
 <li><a href="#acknowledgments">Acknowledgments</a></li>
@@ -84,8 +84,8 @@
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>The package <code>funbiogeo</code> aims to help users with analyses in functional biogeography (<a href="#references">Violle <em>et al.</em> 2014</a>), the biogeography of species’ traits, by loading and combining data, exploring the relationships between traits and their availability trait coverage, providing many diagnostic plots to understand how to filter them, producing maps, correlating them with the environment, and helping to aggregate data at different scales It is aimed at first-timers of functional biogeography as well as more experienced users who want to obtain quick and easy exploratory plots.</p>
-<p>Below is a quick introduction to the main features of <code>funbiogeo</code>, if you want some more details about them, check <a href="#long-form-documentation">our vignettes</a>.</p>
+<p>The package <code>funbiogeo</code> aims to help users with analyses in functional biogeography (<a href="#references">Violle <em>et al.</em> 2014</a>), the biogeography of species’ traits, by loading and combining data, exploring the relationships between traits and their availability trait coverage, providing many diagnostic plots to understand how to filter them, producing maps, correlating them with the environment, and helping to aggregate data at different scales. It is aimed at first-timers of functional biogeography as well as more experienced users who want to obtain quick and easy exploratory plots.</p>
+<p>Below is a quick introduction to the main features of <code>funbiogeo</code>. If you want some more details about them, check <a href="#long-form-documentation">our vignettes</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="features">Features<a class="anchor" aria-label="anchor" href="#features"></a>
@@ -96,8 +96,8 @@
 <li>Pleasing default diagnostic plots to visualize the structure of your data,</li>
 <li>Extensive documentation (multiple vignettes, well-documented functions, real-life example dataset) to guide you through functional biogeography analyses,</li>
 <li>Nice default plotting functions fully compatible with the outputs of functional diversity packages (<code>betapart</code>, <code>fundiversity</code>, <code>hillR</code>, <code>mFD</code>, etc.),</li>
-<li>A publication-ready automated standardized report that provide analyses and plots of your data,</li>
-<li>Functions to easily “upscale” (=aggregate) your data to coarser spatial resolutions whatever the type of aggregation geometry you want (regular grid, irregular polygons, and rasters).</li>
+<li>A publication ready, automated, standardized report that provides analyses and plots of your data,</li>
+<li>Functions to easily “upscale” (=aggregate) your data to coarser spatial resolutions whatever the type of aggregation geometry you want (regular grids, irregular polygons, and rasters).</li>
 </ul>
 <div class="figure">
 <img src="inst/misc/functions_scheme.drawio.png" alt="Naming scheme of available functions in funbiogeo" width="100%"><p class="caption">
@@ -108,14 +108,14 @@ Naming scheme of available functions in funbiogeo
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>For the moment <code>funbiogeo</code> is not on CRAN but you can install the development version from <a href="https://r-universe.dev" class="external-link">R-universe</a> as follow:</p>
+<p>For the moment <code>funbiogeo</code> is not on CRAN but you can install the development version from <a href="https://r-universe.dev" class="external-link">R-universe</a> as follows:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"funbiogeo"</span>, repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"https://frbcesab.r-universe.dev"</span>, <span class="st">"https://cloud.r-project.org"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="first-steps">First steps<a class="anchor" aria-label="anchor" href="#first-steps"></a>
 </h2>
-<p>This section will show you some useful functions from <code>funbiogeo</code>. For a longer introduction please refer to the <a href="https://frbcesab.github.io/funbiogeo/articles/funbiogeo.html">“Get started” vignette</a>.</p>
+<p>This section will show you some useful functions from <code>funbiogeo</code>. For a longer introduction, please refer to the <a href="https://frbcesab.github.io/funbiogeo/articles/introduction.html">“Introduction” vignette</a>.</p>
 <p>The package contains default example data named <code>woodiv_traits</code>, <code>woodiv_site_species</code>, and <code>woodiv_locations</code> all from the WOODIV database (<a href="#references">Monnet et al. 2021</a>). You can, for example, visualize the completeness of your trait dataset (which traits are known for which proportion of species) using the <code><a href="reference/fb_plot_species_traits_completeness.html">fb_plot_species_traits_completeness()</a></code> function:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/fb_plot_species_traits_completeness.html">fb_plot_species_traits_completeness</a></span><span class="op">(</span><span class="va">woodiv_traits</span><span class="op">)</span></span></code></pre></div>
@@ -124,24 +124,24 @@ Naming scheme of available functions in funbiogeo
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/fb_map_site_traits_completeness.html">fb_map_site_traits_completeness</a></span><span class="op">(</span><span class="va">woodiv_locations</span>, <span class="va">woodiv_site_species</span>, <span class="va">woodiv_traits</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-plot-site-tr-complete-1.png" alt="" width="100%"></p>
-<p>See more features of <code>funbiogeo</code> in the <a href="https://frbcesab.github.io/funbiogeo/articles/">vignettes of the package</a></p>
+<p>All of the features of <code>funbiogeo</code> are presented through the <a href="https://frbcesab.github.io/funbiogeo/articles/">vignettes of the package</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="long-form-documentation">Long-form documentation<a class="anchor" aria-label="anchor" href="#long-form-documentation"></a>
 </h2>
 <p><code>funbiogeo</code> provides five vignettes to explain its functioning:</p>
 <ul>
-<li>An <a href="https://frbcesab.github.io/funbiogeo/articles/introduction.html">introduction to <code>funbiogeo</code></a> that describes its core features and guide you through a typical analysis.</li>
+<li>An <a href="https://frbcesab.github.io/funbiogeo/articles/introduction.html">introduction to <code>funbiogeo</code></a> that describes its core features and guides you through a typical analysis.</li>
 <li>A vignette on <a href="https://frbcesab.github.io/funbiogeo/articles/diagnostic-plots.html">all diagnostic plots</a> provided in the package, which details how to use each plotting function and how to interpret their output.</li>
 <li>A vignette on the <a href="https://frbcesab.github.io/funbiogeo/articles/long-format.html">data format</a> that <code>funbiogeo</code> needs, which shows you the use of specific functions to format your data to work well within <code>funbiogeo</code>.</li>
-<li>A vignette on <a href="https://frbcesab.github.io/funbiogeo/articles/upscaling.html">data upscaling</a> which explains how to leverage <code>funbiogeo</code> to aggregate automatically your data to coarser grain and use them in further analyses.</li>
-<li>A vignette focusing on <a href="https://frbcesab.github.io/funbiogeo/articles/special-cases.html">special cases</a>, e.g. how to work with categorical traits, or how to consider intraspefic trait variations.</li>
+<li>A vignette on <a href="https://frbcesab.github.io/funbiogeo/articles/upscaling.html">data upscaling</a> that illustrates how to leverage <code>funbiogeo</code> to automatically aggregate your data to a coarser resolution and use it in subsequent analyses.</li>
+<li>A vignette focusing on <a href="https://frbcesab.github.io/funbiogeo/articles/special-cases.html">special cases</a>, e.g., how to work with categorical traits, or how to consider intraspecific trait variations.</li>
 </ul>
 </div>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
-<p>At the moment, <code>funbiogeo</code> doesn’t offer a companion paper nor is it on CRAN. But if you happen to use it in your paper you can cite the package through:</p>
+<p>At the moment, <code>funbiogeo</code> doesn’t offer a companion paper nor is it on CRAN. But if you happen to use it in your paper, you can cite the package through:</p>
 <blockquote>
 <p>Casajus N &amp; Grenié M (2026) <em>funbiogeo: Streamlining Functional Biogeography Analyses</em>. R package version 0.0.1, <a href="https://github.com/frbcesab/funbiogeo/" class="external-link uri">https://github.com/frbcesab/funbiogeo/</a>.</p>
 </blockquote>
@@ -158,7 +158,7 @@ Naming scheme of available functions in funbiogeo
 <div class="section level2">
 <h2 id="acknowledgments">Acknowledgments<a class="anchor" aria-label="anchor" href="#acknowledgments"></a>
 </h2>
-<p>This package has been developed for the <a href="https://www.fondationbiodiversite.fr/en/about-the-foundation/le-cesab/" class="external-link">FRB-CESAB</a> working group <a href="https://www.fondationbiodiversite.fr/en/the-frb-in-action/programs-and-projects/le-cesab/free/" class="external-link">FREE</a> and its followup <a href="https://www.fondationbiodiversite.fr/en/the-frb-in-action/programs-and-projects/le-cesab/free-2/" class="external-link">FREE 2</a> that aims to advance the concept of functional rarity and examine the causes and consequences of functional rarity from local to global scales.</p>
+<p>This package has been developed for the <a href="https://www.fondationbiodiversite.fr/en/about-the-foundation/le-cesab/" class="external-link">FRB-CESAB</a> working group <a href="https://www.fondationbiodiversite.fr/en/the-frb-in-action/programs-and-projects/le-cesab/free/" class="external-link">FREE</a> and its followup <a href="https://www.fondationbiodiversite.fr/en/the-frb-in-action/programs-and-projects/le-cesab/free-2/" class="external-link">FREE 2</a> which aims to advance the concept of functional rarity and examine the causes and consequences of functional rarity from local to global scales.</p>
 </div>
 <div class="section level2">
 <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
