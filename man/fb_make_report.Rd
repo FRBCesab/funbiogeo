@@ -80,7 +80,8 @@ Note that a copy of user data will be saved as \code{.rds} files in
 \verb{path/funbiogeo/data/} (where \code{path} is the directory defined by the user).
 }
 \examples{
-\dontrun{
+if (interactive()) {
+
 # Create temporary folder (optional) ----
 temp_path <- tempdir()
 

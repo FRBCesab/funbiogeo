@@ -46,7 +46,8 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' if (interactive()) {
+#' 
 #' # Create temporary folder (optional) ----
 #' temp_path <- tempdir()
 #'
