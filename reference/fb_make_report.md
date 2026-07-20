@@ -20,7 +20,7 @@ different formats:
 
 ``` r
 fb_make_report(
-  path = ".",
+  path,
   filename = NULL,
   title = NULL,
   author = NULL,
@@ -40,7 +40,6 @@ fb_make_report(
   a `character` of length 1. The directory in which the `.Rmd` and
   `.rds` files will be created. This directory must exist. Note that
   subdirectories `funbiogeo/` and `funbiogeo/data/` will be created.
-  Default is the current directory.
 
 - filename:
 
@@ -106,7 +105,8 @@ user).
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+if (interactive()) {
+
 # Create temporary folder (optional) ----
 temp_path <- tempdir()
 
@@ -128,5 +128,5 @@ rmarkdown::render(
   input         = file.path(temp_path, "funbiogeo", "funbiogeo_report.Rmd"),
   output_format = "all"
 )
-} # }
+}
 ```
