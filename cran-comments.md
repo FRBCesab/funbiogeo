@@ -1,7 +1,7 @@
 ## Test environments
 
 * Local
-  * Fedora Linux 7.0.14-201.fc44.x86_64 (R 4.6.0)
+  * Fedora Linux 7.1.3-201.fc44.x86_64 (R 4.6.0)
   * Debian 13 Linux 6.12.74+deb13+1-amd64 (R 4.6.0)
   * Windows 11 26200 (R 4.4.2)
   
@@ -38,21 +38,19 @@ There are currently no downstream dependencies for this package.
 
 Hi,
 
-This resubmission fixes these two notes:
+This resubmission fixes:
 
-- Invalid URI
+- The `\dontrun{}` wrapper
 
-```
-Found the following (possibly) invalid file URI:
-  URI: vignettes/upscaling.Rmd
-    From: inst/doc/special_cases.html
-```
+Only the `fb_make_report()` function used this wrapper in the example section. 
+It has been replaced by `if (interactive()) {}` as this function requires an 
+interaction with the user.
 
-- Checktime > 10 min
+- Write by default in the current directory
 
-All vignettes have been removed from the build but are still available on the 
-package website. A new vignette is shipped with the package and provides links
-to the official documentation.
+The default value of the argument `path` (current directory) of the 
+`fb_make_report()` function has been removed. Now the user must provide a path
+otherwise the function will throw an error.
 
 
 Best,

@@ -5,7 +5,7 @@
 \title{Create an Rmarkdown Report to Explore User Data}
 \usage{
 fb_make_report(
-  path = ".",
+  path,
   filename = NULL,
   title = NULL,
   author = NULL,
@@ -20,8 +20,7 @@ fb_make_report(
 \arguments{
 \item{path}{a \code{character} of length 1. The directory in which the \code{.Rmd} and
 \code{.rds} files will be created. This directory must exist. Note that
-subdirectories \verb{funbiogeo/} and \verb{funbiogeo/data/} will be created. Default
-is the current directory.}
+subdirectories \verb{funbiogeo/} and \verb{funbiogeo/data/} will be created.}
 
 \item{filename}{a \code{character} of length 1. The name of the \code{.Rmd} file to be
 created. If \code{NULL} (default) the \code{.Rmd} file will be named from the \code{title}
@@ -80,7 +79,8 @@ Note that a copy of user data will be saved as \code{.rds} files in
 \verb{path/funbiogeo/data/} (where \code{path} is the directory defined by the user).
 }
 \examples{
-\dontrun{
+if (interactive()) {
+
 # Create temporary folder (optional) ----
 temp_path <- tempdir()
 

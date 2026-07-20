@@ -65,6 +65,36 @@ test_that("fb_make_report() errors", {
     ask_user = function() "yes",
     {
       expect_error(
+        fb_make_report(),
+        "Argument 'path' is required",
+        fixed = TRUE
+      )
+
+      expect_error(
+        fb_make_report(NULL),
+        "Argument 'path' is required",
+        fixed = TRUE
+      )
+
+      expect_error(
+        fb_make_report(1L),
+        "Argument 'path' must be a character",
+        fixed = TRUE
+      )
+
+      expect_error(
+        fb_make_report(data.frame()),
+        "Argument 'path' must be a character",
+        fixed = TRUE
+      )
+
+      expect_error(
+        fb_make_report(letters[1:2]),
+        "Argument 'path' must be of length one",
+        fixed = TRUE
+      )
+
+      expect_error(
         fb_make_report(
           path = file.path(temp_dir, "reports")
         ),
