@@ -16,8 +16,7 @@
 #'
 #' @param path a `character` of length 1. The directory in which the `.Rmd` and
 #'   `.rds` files will be created. This directory must exist. Note that
-#'   subdirectories `funbiogeo/` and `funbiogeo/data/` will be created. Default
-#'   is the current directory.
+#'   subdirectories `funbiogeo/` and `funbiogeo/data/` will be created.
 #'
 #' @param filename a `character` of length 1. The name of the `.Rmd` file to be
 #'   created. If `NULL` (default) the `.Rmd` file will be named from the `title`
@@ -47,7 +46,7 @@
 #'
 #' @examples
 #' if (interactive()) {
-#' 
+#'
 #' # Create temporary folder (optional) ----
 #' temp_path <- tempdir()
 #'
@@ -72,7 +71,7 @@
 #' }
 
 fb_make_report <- function(
-  path = ".",
+  path,
   filename = NULL,
   title = NULL,
   author = NULL,
@@ -106,6 +105,22 @@ fb_make_report <- function(
   }
 
   # Check path -----------------------------------------------------------------
+
+  if (missing(path)) {
+    stop("Argument 'path' is required", call. = FALSE)
+  }
+
+  if (is.null(path)) {
+    stop("Argument 'path' is required", call. = FALSE)
+  }
+
+  if (!is.character(path)) {
+    stop("Argument 'path' must be a character", call. = FALSE)
+  }
+
+  if (length(path) != 1) {
+    stop("Argument 'path' must be of length one", call. = FALSE)
+  }
 
   if (!dir.exists(path)) {
     stop("The path '", path, "' does not exist", call. = FALSE)
