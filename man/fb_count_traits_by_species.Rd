@@ -29,3 +29,10 @@ without \code{NA} (missing trait values).
 trait_coverage_by_species <- fb_count_traits_by_species(woodiv_traits)
 head(trait_coverage_by_species)
 }
+\seealso{
+Other {count functions}:
+\code{\link[=fb_count_sites_by_species]{fb_count_sites_by_species()}},
+\code{\link[=fb_count_species_by_site]{fb_count_species_by_site()}},
+\code{\link[=fb_count_species_by_trait]{fb_count_species_by_trait()}}
+}
+\concept{{count functions}}

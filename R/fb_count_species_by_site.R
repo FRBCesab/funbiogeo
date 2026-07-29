@@ -11,7 +11,9 @@
 #' - `site`: the name of the site;
 #' - `n_species`: the number of present species;
 #' - `coverage`: the percentage of present species.
-#'
+#' 
+#' @family {count functions}
+#' 
 #' @export
 #'
 #' @examples

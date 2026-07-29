@@ -33,6 +33,10 @@
 #'   layers (if `SpatRaster`) or columns (if `sf`) as columns provided in the
 #'   input `site_data`.
 #'
+#' @seealso the dedicated vignette on [aggregating site data](
+#' https://frbcesab.github.io/funbiogeo/articles/upscaling.html)
+#' for more details and examples.
+#' 
 #' @import sf
 #' @export
 #'

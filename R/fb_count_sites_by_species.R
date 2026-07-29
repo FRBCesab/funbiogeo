@@ -11,6 +11,8 @@
 #' - `n_sites`: the number of sites where the species is present;
 #' - `coverage`: the percentage of sites where the species is present.
 #'
+#' @family {count functions}
+#' 
 #' @export
 #'
 #' @examples

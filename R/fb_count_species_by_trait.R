@@ -11,6 +11,8 @@
 #' - `n_species`: the number of species with non-missing value for the trait;
 #' - `coverage`: the percentage of species with non-missing value for the trait.
 #'
+#' @family {count functions}
+#' 
 #' @export
 #'
 #' @examples

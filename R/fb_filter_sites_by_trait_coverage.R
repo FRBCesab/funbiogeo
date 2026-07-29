@@ -14,7 +14,15 @@
 #'
 #' @return A subset of `site_species` with sites covered by X% of
 #' abundance/coverage considering all provided traits.
-#'
+#' 
+#' @seealso [fb_plot_distribution_site_trait_coverage()] to visualize trait
+#' coverage by site, [fb_filter_species_by_trait_coverage()] to filter species
+#' by trait coverage, [fb_get_trait_coverage_by_site()] to compute trait
+#' coverage by site, [fb_get_all_trait_coverages_by_site()] to compute trait
+#' coverage for all traits taken altogether, and
+#' [fb_filter_sites_by_species_coverage()] for filtering sites by species
+#' coverage.
+#' 
 #' @export
 #'
 #' @examples

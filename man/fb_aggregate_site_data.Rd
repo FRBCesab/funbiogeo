@@ -67,3 +67,7 @@ fb_aggregate_site_data(
     fun = sum
 )
 }
+\seealso{
+the dedicated vignette on \href{https://frbcesab.github.io/funbiogeo/articles/upscaling.html}{aggregating site data}
+for more details and examples.
+}

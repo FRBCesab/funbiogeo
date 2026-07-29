@@ -51,3 +51,12 @@ new_site_species_2 <- fb_filter_sites_by_trait_coverage(
 # There are now four sites
 nrow(new_site_species_2)
 }
+\seealso{
+\code{\link[=fb_plot_distribution_site_trait_coverage]{fb_plot_distribution_site_trait_coverage()}} to visualize trait
+coverage by site, \code{\link[=fb_filter_species_by_trait_coverage]{fb_filter_species_by_trait_coverage()}} to filter species
+by trait coverage, \code{\link[=fb_get_trait_coverage_by_site]{fb_get_trait_coverage_by_site()}} to compute trait
+coverage by site, \code{\link[=fb_get_all_trait_coverages_by_site]{fb_get_all_trait_coverages_by_site()}} to compute trait
+coverage for all traits taken altogether, and
+\code{\link[=fb_filter_sites_by_species_coverage]{fb_filter_sites_by_species_coverage()}} for filtering sites by species
+coverage.
+}

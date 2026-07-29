@@ -27,3 +27,10 @@ species (distribution value higher than 0 and non-NA).
 site_coverage_by_species <- fb_count_sites_by_species(woodiv_site_species)
 head(site_coverage_by_species)
 }
+\seealso{
+Other {count functions}:
+\code{\link[=fb_count_species_by_site]{fb_count_species_by_site()}},
+\code{\link[=fb_count_species_by_trait]{fb_count_species_by_trait()}},
+\code{\link[=fb_count_traits_by_species]{fb_count_traits_by_species()}}
+}
+\concept{{count functions}}
