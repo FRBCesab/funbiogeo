@@ -5,10 +5,10 @@ library("ggplot2")
 pkgload::load_all()
 
 # Data -------------------------------------------------------------------------
-species_traits = data.frame(
+species_traits <- data.frame(
   species = paste0("sp", 1:24),
   trait1 = c(NA, 1, NA, rep(1, 21)),
-  trait2 = c(rep(1, 3),  NA, rep(1, 4), NA, rep(1, 4), NA, rep(1, 10)),
+  trait2 = c(rep(1, 3), NA, rep(1, 4), NA, rep(1, 4), NA, rep(1, 10)),
   trait3 = c(rep(NA, 3), 1, NA, 1, NA, NA, 1, NA, rep(1, 5), NA, rep(1, 8)),
   trait4 = c(rep(NA, 6), 1, 1, NA, 1, 1, NA, rep(1, 12)),
   trait5 = c(rep(NA, 9), rep(1, 4), NA, NA, rep(1, 5), NA, rep(1, 3))
@@ -17,20 +17,21 @@ species_traits = data.frame(
 
 # Figure on trait completeness -------------------------------------------------
 
-plot_trait_completeness = fb_plot_species_traits_completeness(
-  species_traits, all_traits = FALSE
+plot_trait_completeness <- fb_plot_species_traits_completeness(
+  species_traits,
+  all_traits = FALSE
 )
 
-fig_completeness_derived = plot_trait_completeness +
+fig_completeness_derived <- plot_trait_completeness +
   labs(title = "Trait Diagnostics") +
   theme_bw(28) +
   theme(
-    axis.ticks      = element_blank(),
-    axis.text       = element_blank(),
-    axis.title.x    = element_blank(),
-    plot.title      = element_text(hjust = 0.5),
+    axis.ticks = element_blank(),
+    axis.text = element_blank(),
+    axis.title.x = element_blank(),
+    plot.title = element_text(hjust = 0.5),
     legend.position = "bottom"
-    )
+  )
 
 fig_completeness_derived
 
@@ -96,6 +97,9 @@ rownames(woodiv_fdis) <- NULL
 # Move 'site' column as first column
 woodiv_fdis <- woodiv_fdis[, c(5, 1:4)]
 
-fig_map_diversity = fb_map_site_data(
-  woodiv_locations, woodiv_fdis, "fdis", background = TRUE
+fig_map_diversity <- fb_map_site_data(
+  woodiv_locations,
+  woodiv_fdis,
+  "fdis",
+  background = TRUE
 )
