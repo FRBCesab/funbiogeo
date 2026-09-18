@@ -53,13 +53,31 @@ Naming scheme of available functions in funbiogeo
 
 ## Installation
 
-For the moment `funbiogeo` is not on CRAN but you can install the
-development version from [R-universe](https://r-universe.dev) as
-follows:
+You can install the stable version from
+[CRAN](https://cran.r-project.org/) with:
 
 ``` r
 
-install.packages("funbiogeo", repos = c("https://frbcesab.r-universe.dev", "https://cloud.r-project.org"))
+## Install the stable version from CRAN ----
+install.packages("funbiogeo")
+```
+
+or using [`pak`](https://pak.r-lib.org/):
+
+``` r
+
+## Install the stable version from CRAN with pak ----
+# install.packages("pak")
+pak::pak("funbiogeo")
+```
+
+Alternatively, you can install the development version from
+[GitHub](https://github.com/) with:
+
+``` r
+
+## Install the development version from GitHub ----
+pak::pak("frbcesab/funbiogeo")
 ```
 
 ## First steps
