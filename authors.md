@@ -10,7 +10,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/frbcesab/funbiogeo/blob/main/inst/CITATION)
+[`inst/CITATION`](https://github.com/frbcesab/funbiogeo/blob/v0.0.1/inst/CITATION)
 
 Casajus N., Grenié M. (2026). *funbiogeo: Streamlining Functional
 Biogeography Analyses*. R package version 0.0.1,
