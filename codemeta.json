@@ -8,7 +8,7 @@
   "codeRepository": "https://github.com/frbcesab/funbiogeo",
   "issueTracker": "https://github.com/frbcesab/funbiogeo/issues",
   "license": "https://spdx.org/licenses/GPL-2.0",
-  "version": "0.0.1",
+  "version": "0.0.1.9000",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -352,7 +352,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "66231.041KB",
+  "fileSize": "66231.081KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
