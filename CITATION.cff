@@ -9,6 +9,9 @@ type: software
 license: GPL-2.0-or-later
 title: 'funbiogeo: Streamlining Functional Biogeography Analyses'
 version: 0.0.1
+identifiers:
+- type: doi
+  value: 10.32614/CRAN.package.funbiogeo
 abstract: Helps users with analyses in functional biogeography by loading and combining
   data, computing trait coverage, as well as computing functional diversity indices,
   drawing maps, correlating them with the environment, and upscaling assemblages.
@@ -30,6 +33,7 @@ preferred-citation:
   year: '2026'
   notes: R package version 0.0.1
   url: https://github.com/frbcesab/funbiogeo
+repository: https://CRAN.R-project.org/package=funbiogeo
 repository-code: https://github.com/frbcesab/funbiogeo
 url: https://frbcesab.github.io/funbiogeo/
 contact:
@@ -202,8 +206,14 @@ references:
     given-names: Andrew
     orcid: https://orcid.org/0000-0002-4565-533X
   - family-names: Barbosa
-    given-names: Márcia
+    given-names: A. Márcia
     orcid: https://orcid.org/0000-0001-8972-7713
+  - family-names: Cordano
+    given-names: Emanuele
+    orcid: https://orcid.org/0000-0002-3508-5898
+  - family-names: Dyba
+    given-names: Krzysztof
+    orcid: https://orcid.org/0000-0002-8614-3816
   year: '2026'
   doi: 10.32614/CRAN.package.terra
 - type: software
