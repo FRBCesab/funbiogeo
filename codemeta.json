@@ -4,7 +4,7 @@
   "identifier": "funbiogeo",
   "description": "Helps users with analyses in functional biogeography by loading and combining data, computing trait coverage, as well as computing functional diversity indices, drawing maps, correlating them with the environment, and upscaling assemblages.",
   "name": "funbiogeo: Streamlining Functional Biogeography Analyses",
-  "relatedLink": "https://frbcesab.github.io/funbiogeo/",
+  "relatedLink": ["https://frbcesab.github.io/funbiogeo/", "https://CRAN.R-project.org/package=funbiogeo"],
   "codeRepository": "https://github.com/frbcesab/funbiogeo",
   "issueTracker": "https://github.com/frbcesab/funbiogeo/issues",
   "license": "https://spdx.org/licenses/GPL-2.0",
@@ -15,6 +15,12 @@
     "url": "https://r-project.org"
   },
   "runtimePlatform": "R version 4.6.1 (2026-06-24)",
+  "provider": {
+    "@id": "https://cran.r-project.org",
+    "@type": "Organization",
+    "name": "Comprehensive R Archive Network (CRAN)",
+    "url": "https://cran.r-project.org"
+  },
   "author": [
     {
       "@type": "Person",
@@ -346,7 +352,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "66187.23KB",
+  "fileSize": "66231.041KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
